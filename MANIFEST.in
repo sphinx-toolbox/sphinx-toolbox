@@ -1,0 +1,6 @@
+include __pkginfo__.py
+include LICENSE
+include requirements.txt
+prune **/__pycache__
+recursive-include sphinx_toolbox *.pyi
+include sphinx_toolbox/py.typed

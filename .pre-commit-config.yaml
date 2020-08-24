@@ -1,0 +1,66 @@
+# This file is managed by 'repo_helper'. Don't edit it directly.
+---
+
+repos:
+ - repo: https://github.com/pre-commit/pre-commit-hooks
+   rev: v2.4.0
+   hooks:
+    - id: check-added-large-files
+    - id: check-ast
+    - id: check-byte-order-marker
+    - id: check-case-conflict
+    - id: check-executables-have-shebangs
+    - id: check-json
+    - id: check-merge-conflict
+    - id: check-symlinks
+    - id: check-toml
+    - id: check-vcs-permalinks
+    - id: check-yaml
+    - id: detect-private-key
+    - id: end-of-file-fixer
+    - id: trailing-whitespace
+    - id: mixed-line-ending
+
+ - repo: https://github.com/domdfcoding/pre-commit-hooks
+   rev: v0.0.3
+   hooks:
+    - id: requirements-txt-sorter
+      args: [--allow-git]
+    - id: check-docstring-first
+
+ - repo: https://github.com/domdfcoding/flake8-dunder-all
+   rev: v0.0.4
+   hooks:
+    - id: ensure-dunder-all
+      files: ^sphinx_toolbox/.*\.py$
+
+ - repo: https://github.com/pre-commit/pygrep-hooks
+   rev: v1.5.1
+   hooks:
+    - id: python-no-eval
+    - id: python-use-type-annotations
+
+ - repo: https://github.com/asottile/pyupgrade
+   rev: v1.5.1
+   hooks:
+    - id: pyupgrade
+      args: [--py36-plus]
+
+ - repo: https://github.com/timothycrosley/isort
+   rev: 5.1.4
+   hooks:
+    - id: isort
+      exclude: ^(doc-source/conf|__pkginfo__|make_conda_recipe|setup)\.py$
+
+ - repo: https://github.com/pre-commit/mirrors-yapf
+   rev: v0.30.0
+   hooks:
+    - id: yapf
+      exclude: ^(doc-source/conf|__pkginfo__|make_conda_recipe|setup)\.py$
+      args: ["--in-place"]
+
+ - repo: https://github.com/Lucas-C/pre-commit-hooks
+   rev: v1.1.7
+   hooks:
+    - id: forbid-crlf
+    - id: remove-crlf

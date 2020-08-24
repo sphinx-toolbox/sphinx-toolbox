@@ -1,0 +1,12 @@
+:orphan:
+
+===============
+ 404
+===============
+
+We looked everywhere but we couldn't find that page!
+
+.. image:: not-found.png
+   :align: center
+
+Try using the links in the sidebar to find what you are looking for.

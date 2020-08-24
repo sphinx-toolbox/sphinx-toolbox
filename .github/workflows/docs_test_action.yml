@@ -1,0 +1,19 @@
+# This file is managed by 'repo_helper'. Don't edit it directly.
+---
+name: "Docs Check"
+on:
+  - pull_request
+  - push
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: "actions/checkout@v1"
+      - name: Install and Build 🔧
+        uses: ammaraskar/sphinx-action@master
+        with:
+          pre-build-command: apt-get update && apt-get install gcc python3-dev git -y && python -m pip install tox
+          docs-folder: "doc-source/"
+          build-command: "tox -e docs -- "

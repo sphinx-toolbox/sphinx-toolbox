@@ -1,0 +1,45 @@
+# This file is managed by 'repo_helper'. Don't edit it directly.
+---
+
+language: python
+dist: xenial
+cache: pip
+python:
+  - '3.6'
+  - '3.7'
+  - '3.8'
+  - '3.9-dev'
+
+install:
+
+  - pip install --upgrade pip
+  - pip install tox tox-travis
+  - pip install coveralls coverage_pyver_pragma
+
+script:
+  - tox
+after_success:
+  - coveralls
+
+
+stages:
+  - test
+  - deploy_pypi
+
+
+
+jobs:
+  include:
+    - stage: deploy_pypi
+      python: "3.6"
+      script: skip
+      deploy:
+        on:
+          tags: true
+          repo: domdfcoding/sphinx-toolbox
+        provider: pypi
+        user: "DomDF"
+        password:
+          secure:
+        distributions: "sdist bdist_wheel"
+        skip_existing: true
