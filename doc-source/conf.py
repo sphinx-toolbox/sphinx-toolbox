@@ -53,6 +53,7 @@ extensions = [
 	'seed_intersphinx_mapping',
 	'autodoc_augment_defaults',
 	'sphinx_autodoc_typehints',
+	"sphinx_toolbox",
 	]
 
 sphinxemoji_style = 'twemoji'
@@ -150,3 +151,7 @@ def setup(app):
 							),
 					]
 			)
+
+
+github_username = "domdfcoding"
+github_repository = "extras_require"

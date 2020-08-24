@@ -1,0 +1,7 @@
+apeye
+beautifulsoup4
+docutils
+domdf_python_tools>=0.4.10
+html5lib
+requests
+sphinx>=3.0.3
