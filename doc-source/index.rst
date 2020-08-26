@@ -119,6 +119,19 @@ Installation
 
 .. end installation
 
+Enable ``sphinx-toolbox`` by adding "sphinx.ext.viewcode" and "sphinx_toolbox" to the ``extensions`` variable in ``conf.py``:
+
+.. code-block:: python
+
+	extensions = [
+		...
+		"sphinx.ext.viewcode",
+		"sphinx_toolbox",
+		]
+
+For more information see https://www.sphinx-doc.org/en/master/usage/extensions/index.html#third-party-extensions .
+
+
 .. toctree::
 	:hidden:
 

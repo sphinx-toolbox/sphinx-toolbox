@@ -42,7 +42,7 @@ Roles
 
     .. code-block:: rest
 
-        :source:`sphinx_toolbox/config.py``
+        :source:`sphinx_toolbox/config.py`
 
     :source:`sphinx_toolbox/config.py`
 
