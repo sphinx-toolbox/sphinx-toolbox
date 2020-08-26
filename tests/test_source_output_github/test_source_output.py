@@ -1,6 +1,10 @@
 # 3rd party
 import pytest
 from bs4 import BeautifulSoup
+from pytest_regressions.file_regression import FileRegressionFixture
+
+# this package
+from tests.common import remove_html_footer
 
 
 def test_build_github(gh_src_app):
@@ -9,7 +13,7 @@ def test_build_github(gh_src_app):
 
 
 @pytest.mark.parametrize("github_source_page", ["index.html"], indirect=True)
-def test_output_github(github_source_page: BeautifulSoup):
+def test_output_github(github_source_page: BeautifulSoup, file_regression: FileRegressionFixture):
 	# Make sure the page title is what you expect
 	title = github_source_page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo" == title
@@ -30,3 +34,5 @@ def test_output_github(github_source_page: BeautifulSoup):
 		tag_count += 1
 
 	assert tag_count == 2
+
+	file_regression.check(contents=remove_html_footer(github_source_page).prettify(), extension=".html")

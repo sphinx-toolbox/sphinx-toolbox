@@ -6,6 +6,8 @@ from pytest_httpserver.pytest_plugin import Plugin, PluginHTTPServer, get_httpse
 # this package
 from tests.common import error_codes_list
 
+pytest_plugins = ("pytest_regressions", )
+
 
 @pytest.fixture(scope="session")
 def httpserver_listen_address():
