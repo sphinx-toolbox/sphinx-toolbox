@@ -57,9 +57,10 @@ Functions for testing Sphinx extensions.
 
 # stdlib
 import copy
-from typing import Any, Callable, Dict, List, Tuple, Type, Union
+from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, Type, Union
 
 # 3rd party
+import sphinx.application
 from docutils import nodes
 from docutils.nodes import Node  # NOQA
 from docutils.nodes import Element, TextElement
@@ -78,7 +79,7 @@ from sphinx.roles import XRefRole
 from sphinx.util import docutils
 from sphinx.util.typing import RoleFunction, TitleGetter
 
-__all__ = ["Sphinx", "do_test_setup"]
+__all__ = ["Sphinx", "run_setup", "RunSetupOutput"]
 
 
 class FakeBuilder(Builder):
@@ -86,26 +87,33 @@ class FakeBuilder(Builder):
 
 
 class Sphinx:
+	"""
+	A class that pretends to be :class:`sphinx.application.Sphinx` but that is stripped
+	back to allow the internals to be inspected. This can be used in tests to ensure the
+	nodes, roles etc. being registered in an extension's ``setup()`` function are actually
+	being registered.
+	"""  # noqa: D400
 
-	registry: SphinxComponentRegistry
-	config: Config
-	events: EventManager
-	html_themes: Dict[str, str]
-	builder: Builder
+	registry: SphinxComponentRegistry  #: Instance of :class:`sphinx.registry.SphinxComponentRegistry`
+	config: Config  #: Instance of :class:`sphinx.config.Config`
+	events: EventManager  #: Instance of :class:`sphinx.events.EventManager`
+	html_themes: Dict[str, str]  #: Mapping of HTML theme names to filesystem paths.
+
+	# builder: Builder  #: Instance of :class:`sphinx.builder.Builder`
 
 	def __init__(self):  # , buildername: str = "html"
 		self.registry = SphinxComponentRegistry()
 		self.config = Config({}, {})
-		self.events = EventManager(self)
+		self.events = EventManager(self)  # type: ignore
 		self.html_themes: Dict[str, str] = {}
 		# self.builder = self.registry.create_builder(self, buildername)
 
 	def add_builder(self, builder: Type[Builder], override: bool = False) -> None:
-		"""
+		r"""
 		Register a new builder.
 
 		The registered values are stored in the ``app.registry.builders`` dictionary
-		(:class:`typing.Dict`\\[:class:`str`\\, :class:`typing.Type`\\[:class:`sphinx.builders.Builder`\\]]).
+		(:class:`typing.Dict`\[:class:`str`\, :class:`typing.Type`\[:class:`sphinx.builders.Builder`\]]).
 		"""
 
 		self.registry.add_builder(builder, override=override)
@@ -117,24 +125,24 @@ class Sphinx:
 			rebuild: Union[bool, str],
 			types: Any = (),
 			) -> None:
-		"""
+		r"""
 		Register a configuration value.
 
 		The registered values are stored in the ``app.config.values`` dictionary
-		(:class:`typing.Dict`\\[:class:`str`\\, :class:`typing.Tuple`]).
+		(:class:`typing.Dict`\[:class:`str`\, :class:`typing.Tuple`]).
 		"""
 
 		if rebuild in {False, True}:
-			rebuild = 'env' if rebuild else ''
+			rebuild = "env" if rebuild else ''
 
 		self.config.add(name, default, rebuild, types)
 
 	def add_event(self, name: str) -> None:
-		"""
+		r"""
 		Register an event called ``name``.
 
 		The registered values are stored in the ``app.events.events`` dictionary
-		(:class:`typing.Dict`\\[:class:`str`\\, :class:`str`\\]).
+		(:class:`typing.Dict`\[:class:`str`\, :class:`str`\]).
 		"""
 
 		self.events.add(name)
@@ -145,11 +153,11 @@ class Sphinx:
 			translator_class: Type[nodes.NodeVisitor],
 			override: bool = False,
 			) -> None:
-		"""
+		r"""
 		Register or override a Docutils translator class.
 
 		The registered values are stored in the ``app.registry.translators`` dictionary.
-		(:class:`typing.Dict`\\[:class:`str`\\, :class:`typing.Type`\\[:class:`docutils.nodes.NodeVisitor`\\]]).
+		(:class:`typing.Dict`\[:class:`str`\, :class:`typing.Type`\[:class:`docutils.nodes.NodeVisitor`\]]).
 		"""
 
 		self.registry.add_translator(name, translator_class, override=override)
@@ -160,17 +168,17 @@ class Sphinx:
 			override: bool = False,
 			**kwargs: Tuple[Callable, Callable],
 			) -> None:
-		"""
+		r"""
 		Register a Docutils node class.
 
 		The registered values are stored in the ``additional_nodes`` set returned by
-		:func:`~sphinx_toolbox.testing.do_test_setup`
-		(:class:`typing.Set`\\[:class:`typing.Type`\\[:class:`docutils.nodes.Node`\\]]).
+		:func:`~sphinx_toolbox.testing.run_setup`
+		(:class:`typing.Set`\[:class:`typing.Type`\[:class:`docutils.nodes.Node`\]]).
 		"""
 
 		if not override and docutils.is_node_registered(node):
 			raise ValueError(
-					f'node class {node.__name__!r} is already registered, its visitors will be overridden'
+					f"node class {node.__name__!r} is already registered, its visitors will be overridden"
 					)
 
 		docutils.register_node(node)
@@ -197,21 +205,21 @@ class Sphinx:
 		"""
 
 		if not override and docutils.is_directive_registered(name):
-			raise ValueError(f'directive {name!r} is already registered, it will be overridden')
+			raise ValueError(f"directive {name!r} is already registered, it will be overridden")
 
 		docutils.register_directive(name, cls)
 
 	def add_role(self, name: str, role: Any, override: bool = False) -> None:
-		"""
+		r"""
 		Register a Docutils role.
 
 		The registered values are stored in the ``roles`` dictionary returned by
-		:func:`~sphinx_toolbox.testing.do_test_setup`
-		(:class:`typing.Dict`\\[:class:`str`\\, :class:`typing.Callable`\\]).
+		:func:`~sphinx_toolbox.testing.run_setup`.
+		(:class:`typing.Dict`\[:class:`str`\, :class:`typing.Callable`\]).
 		"""
 
 		if not override and docutils.is_role_registered(name):
-			raise ValueError(f'role {name!r} is already registered, it will be overridden')
+			raise ValueError(f"role {name!r} is already registered, it will be overridden")
 
 		docutils.register_role(name, role)
 
@@ -221,7 +229,7 @@ class Sphinx:
 		"""
 
 		if not override and docutils.is_role_registered(name):
-			raise ValueError(f'role {name!r} is already registered, it will be overridden')
+			raise ValueError(f"role {name!r} is already registered, it will be overridden")
 
 		role = roles.GenericRole(name, nodeclass)
 
@@ -367,7 +375,7 @@ class Sphinx:
 		Register a package to include in the LaTeX source code.
 		"""
 
-		self.registry.add_latex_package(packagename, options, after_hyperref)
+		self.registry.add_latex_package(packagename, options, after_hyperref)  # type: ignore
 
 	def add_lexer(self, alias: str, lexer: Type[Lexer]) -> None:
 		"""
@@ -375,7 +383,7 @@ class Sphinx:
 		"""
 
 		if isinstance(lexer, Lexer):
-			raise TypeError('app.add_lexer() API changed; Please give lexer class instead instance')
+			raise TypeError("app.add_lexer() API changed; Please give lexer class instead instance")
 		else:
 			lexer_classes[alias] = lexer
 
@@ -385,7 +393,7 @@ class Sphinx:
 		"""
 
 		self.registry.add_documenter(cls.objtype, cls)
-		self.add_directive('auto' + cls.objtype, AutodocDirective, override=override)
+		self.add_directive("auto" + cls.objtype, AutodocDirective, override=override)
 
 	def add_autodoc_attrgetter(
 			self,
@@ -429,14 +437,14 @@ class Sphinx:
 	def add_html_math_renderer(
 			self,
 			name: str,
-			inline_renderers: Tuple[Callable, Callable] = None,
-			block_renderers: Tuple[Callable, Callable] = None,
+			inline_renderers: Optional[Tuple[Callable, Callable]] = None,
+			block_renderers: Optional[Tuple[Callable, Callable]] = None,
 			) -> None:
 		"""
 		Register a math renderer for HTML.
 		"""
 
-		self.registry.add_html_math_renderer(name, inline_renderers, block_renderers)
+		self.registry.add_html_math_renderer(name, inline_renderers, block_renderers)  # type: ignore
 
 	# event interface
 	def connect(self, event: str, callback: Callable, priority: int = 500) -> int:
@@ -448,7 +456,28 @@ class Sphinx:
 		return listener_id
 
 
-def do_test_setup(setup_func: Callable[[Sphinx], Dict[str, Any]]):  # , buildername: str = "html"
+class RunSetupOutput(NamedTuple):
+	"""
+	:class:`~typing.NamedTuple` representing the output from :func:`~sphinx_toolbox.testing.run_setup`.
+	"""
+
+	setup_ret: Dict[str, Any]  #: The output from the ``setup()`` function.
+	directives: Dict[str, Callable]  #: Mapping of directive names to directive functions.
+	roles: Dict[str, Callable]  #: Mapping of role names to role functions.
+	additional_nodes: Set[Type[Any]]  #: Set of custom docutils nodes registered in ``setup()``.
+	app: Sphinx  #: Instance of :class:`sphinx-toolbox.testing.Sphinx`.
+
+
+def run_setup(
+		setup_func: Callable[[Union[sphinx.application.Sphinx, Sphinx]], Dict[str, Any]],
+		) -> RunSetupOutput:  # , buildername: str = "html"
+	"""
+	Function for running an extension's ``setup()`` function for testing.
+
+	:param setup_func: The ``setup()`` function under test.
+
+	:returns: 5-element namedtuple
+	"""
 	app = Sphinx()  # buildername
 
 	try:
@@ -457,10 +486,10 @@ def do_test_setup(setup_func: Callable[[Sphinx], Dict[str, Any]]):  # , buildern
 
 		with docutils.docutils_namespace():
 			setup_ret = setup_func(app)
-			directives = copy.copy(docutils.directives._directives)
-			roles = copy.copy(docutils.roles._roles)
+			directives = copy.copy(docutils.directives._directives)  # type: ignore
+			roles = copy.copy(docutils.roles._roles)  # type: ignore
 			additional_nodes = copy.copy(docutils.additional_nodes)
 	finally:
 		docutils.additional_nodes = _additional_nodes
 
-	return setup_ret, directives, roles, additional_nodes, app
+	return RunSetupOutput(setup_ret, directives, roles, additional_nodes, app)

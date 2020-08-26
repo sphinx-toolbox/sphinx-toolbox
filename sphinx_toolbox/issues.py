@@ -3,8 +3,6 @@
 #  issues.py
 """
 Add links to GitHub issues and Pull Requests.
-
-Examples:
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -57,10 +55,10 @@ __all__ = ["IssueNode", "issue_role", "pull_role", "visit_issue_node", "depart_i
 
 class IssueNode(nodes.reference):
 	"""
-	Docutils Node to represent a link to a GitHub *Issue* or *Pull Request*
+	Docutils Node to represent a link to a GitHub *Issue* or *Pull Request*.
 
-	:param issue_number:
-	:param refuri:
+	:param issue_number: The number of the issue or pull request.
+	:param refuri: The URL of the issue / pull request on GitHub.
 	"""
 
 	has_tooltip: bool
@@ -103,13 +101,13 @@ def issue_role(
 	:param content: A list of strings, the directive content for customization (from the ``role`` directive).
 		To be interpreted by the function.
 
-	:return:
+	:return: A list containing the created node, and a list containing any messages generated during the function.
 	"""
 
 	has_t, issue_number, repository = split_explicit_title(text)
 	issue_number = utils.unescape(issue_number)
 
-	messages = []
+	messages: List[system_message] = []
 
 	if has_t:
 		repository_parts = utils.unescape(repository).split("/")
@@ -151,13 +149,13 @@ def pull_role(
 	:param content: A list of strings, the directive content for customization (from the ``role`` directive).
 		To be interpreted by the function.
 
-	:return:
+	:return: A list containing the created node, and a list containing any messages generated during the function.
 	"""
 
 	has_t, issue_number, repository = split_explicit_title(text)
 	issue_number = utils.unescape(issue_number)
 
-	messages = []
+	messages: List[system_message] = []
 
 	if has_t:
 		repository_parts = utils.unescape(repository).split("/")
@@ -179,7 +177,7 @@ def pull_role(
 
 def visit_issue_node(translator: HTMLTranslator, node: IssueNode):
 	"""
-	Visit a :class:`~.IssueNode`.
+	Visit an :class:`~.IssueNode`.
 
 	If the node points to a valid issue / pull request,
 	add a tooltip giving the title of the issue / pull request and a hyperlink to the page on GitHub.
@@ -202,7 +200,7 @@ def visit_issue_node(translator: HTMLTranslator, node: IssueNode):
 
 def depart_issue_node(translator: HTMLTranslator, node: IssueNode):
 	"""
-	Depart a :class:`~.IssueNode`.
+	Depart an :class:`~.IssueNode`.
 
 	:param translator:
 	:param node: The node being visited.

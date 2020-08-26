@@ -15,7 +15,7 @@ def test_validate_config():
 			"github_repository": "sphinx-toolbox",
 			})
 
-	validate_config(None, config)
+	validate_config(None, config)  # type: ignore
 
 	assert config == {
 			"source_link_target": "sphinx",
@@ -34,7 +34,7 @@ def test_validate_config():
 			})
 
 	with pytest.raises(MissingOptionError, match="The 'github_username' option is required."):
-		validate_config(None, config)
+		validate_config(None, config)  # type: ignore
 
 	config = AttrDict({
 			"source_link_target": "Sphinx",
@@ -43,7 +43,7 @@ def test_validate_config():
 			})
 
 	with pytest.raises(MissingOptionError, match="The 'github_repository' option is required."):
-		validate_config(None, config)
+		validate_config(None, config)  # type: ignore
 
 	config = AttrDict({
 			"source_link_target": "bananas",
@@ -52,7 +52,7 @@ def test_validate_config():
 			})
 
 	with pytest.raises(InvalidOptionError, match="Invalid value for 'source_link_target'."):
-		validate_config(None, config)
+		validate_config(None, config)  # type: ignore
 
 
 @pytest.mark.parametrize(
@@ -72,6 +72,6 @@ def test_source_link_target(target: str, expects: str):
 			"github_repository": "sphinx-toolbox",
 			})
 
-	validate_config(None, config)
+	validate_config(None, config)  # type: ignore
 
 	assert config.source_link_target == expects

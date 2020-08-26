@@ -17,8 +17,16 @@ def test_output_github(github_source_page: BeautifulSoup):
 	tag_count = 0
 
 	for a_tag in github_source_page.select("a.reference.external"):
-		if a_tag["href"] == "https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/config.py":
+		if tag_count == 0:
 			if a_tag.contents[0] == "sphinx_toolbox/config.py":
-				tag_count += 1
+				assert a_tag[
+						"href"
+						] == "https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/config.py"
+		elif tag_count == 1:
+			if a_tag.contents[0] == "source code":
+				assert a_tag[
+						"href"
+						] == "https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/config.py"
+		tag_count += 1
 
-	assert tag_count == 1
+	assert tag_count == 2

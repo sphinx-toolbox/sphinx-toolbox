@@ -4,7 +4,7 @@
 """
 Add hyperlinks to source files, either on GitHub or in the documentation itself.
 
-If you're looking for a ``[SOURCE]`` button to go at the end of your class and
+If you're looking for a ``[source]`` button to go at the end of your class and
 function signatures, checkout
 `sphinx.ext.linkcode <https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html>`__
 and
@@ -39,7 +39,7 @@ and
 #
 
 # stdlib
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Sequence, Tuple, Union
 
 # 3rd party
 from docutils import nodes, utils
@@ -61,7 +61,7 @@ def source_role(
 		inliner: Inliner,
 		options: Dict = {},
 		content: List[str] = []
-		) -> Tuple[List[Union[nodes.reference, addnodes.pending_xref]], List[system_message]]:
+		) -> Tuple[Sequence[Union[nodes.reference, addnodes.only]], List[system_message]]:
 	"""
 	Adds a link to the given Python source file in the documentation or on GitHub.
 
@@ -77,7 +77,7 @@ def source_role(
 	:param content: A list of strings, the directive content for customization (from the ``role`` directive).
 		To be interpreted by the function.
 
-	:return:
+	:return: A list containing the created node, and a list containing any messages generated during the function.
 	"""
 
 	has_t, title, target = split_explicit_title(text)
@@ -87,17 +87,18 @@ def source_role(
 	env = inliner.document.settings.env
 	config = env.app.config
 
-	nodes_ = []
-	messages = []
+	nodes_: List[Union[nodes.reference, addnodes.only]] = []
+	messages: List[system_message] = []
+	refnode: Union[nodes.reference, addnodes.only]
 
 	if config.source_link_target == "sphinx":
-		pagename = '_modules/' + target.replace('.py', '')
-		refnode = addnodes.only(expr='html')
+		pagename = "_modules/" + target.replace(".py", '')
+		refnode = addnodes.only(expr="html")
 		refnode += addnodes.pending_xref(
 				title,
-				nodes.paragraph(title, title),
-				reftype='viewcode',
-				refdomain='std',
+				nodes.inline(title, title),
+				reftype="viewcode",
+				refdomain="std",
 				refexplicit=False,
 				reftarget=pagename,
 				refid=title,

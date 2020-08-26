@@ -13,7 +13,7 @@ from sphinx.highlighting import lexer_classes
 
 # this package
 from sphinx_toolbox import IssueNode, depart_issue_node, source_role, validate_config, visit_issue_node
-from sphinx_toolbox.testing import Sphinx, do_test_setup
+from sphinx_toolbox.testing import Sphinx, run_setup
 
 
 class FakeBuilder(Builder):
@@ -72,20 +72,20 @@ def __setup(app: Sphinx) -> Dict[str, Any]:
 	# TODO: add_enumerable_node
 	# TODO: add_directive
 
-	app.add_role('source', source_role)
+	app.add_role("source", source_role)
 
 	with pytest.raises(ValueError, match="role 'source' is already registered, it will be overridden"):
-		app.add_role('source', source_role)
+		app.add_role("source", source_role)
 
-	app.add_role('source', source_role, override=True)
+	app.add_role("source", source_role, override=True)
 
 	# TODO: add_generic_role
 
 	app.add_domain(FakeDomain)
 	app.add_domain(FakeDomain, override=True)
 
-	app.add_role_to_domain("FakeDomain", "source", source_role)
-	app.add_role_to_domain("FakeDomain", "source", source_role, override=True)
+	app.add_role_to_domain("FakeDomain", "source", source_role)  # type: ignore
+	app.add_role_to_domain("FakeDomain", "source", source_role, override=True)  # type: ignore
 
 	# TODO: add_directive_to_domain
 	# TODO: add_role_to_domain
@@ -101,9 +101,11 @@ def __setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_latex_package("chemformula", after_hyperref=True)
 
 	app.add_lexer("my-lexer", FakeLexer)
-	assert isinstance(FakeLexer(code="", language=''), Lexer)
-	with pytest.raises(TypeError, match='app.add_lexer\(\) API changed; Please give lexer class instead instance'):
-		app.add_lexer("my-lexer", FakeLexer(code="", language=''))
+	assert isinstance(FakeLexer(code='', language=''), Lexer)
+	with pytest.raises(
+			TypeError, match=r"app.add_lexer\(\) API changed; Please give lexer class instead instance"
+			):
+		app.add_lexer("my-lexer", FakeLexer(code='', language=''))
 
 	# TODO: add_autodocumenter
 
@@ -115,17 +117,17 @@ def __setup(app: Sphinx) -> Dict[str, Any]:
 	# TODO: add_source_parser
 	# TODO: add_env_collector
 
-	app.add_html_theme("domdf_sphinx_theme", ".")
+	app.add_html_theme("domdf_sphinx_theme", '.')
 
 	# TODO: add_html_math_renderer
 
-	app.connect('config-inited', validate_config, priority=850)
+	app.connect("config-inited", validate_config, priority=850)
 
-	return {'version': 12345, 'parallel_read_safe': True}
+	return {"version": 12345, "parallel_read_safe": True}
 
 
 def test_testing():
-	setup_ret, directives, roles, additional_nodes, app = do_test_setup(__setup)
+	setup_ret, directives, roles, additional_nodes, app = run_setup(__setup)  # type: ignore
 
 	assert app.registry.builders["FakeBuilder"] == FakeBuilder
 
@@ -140,7 +142,7 @@ def test_testing():
 	assert additional_nodes == {IssueNode}
 	assert app.registry.translation_handlers == {"html": {"IssueNode": (visit_issue_node, depart_issue_node)}}
 
-	assert roles == {'source': source_role}
+	assert roles == {"source": source_role}
 
 	assert app.registry.domains["FakeDomain"] == FakeDomain
 	assert app.registry.domain_roles.setdefault("FakeDomain", {})["source"] is source_role
@@ -157,6 +159,6 @@ def test_testing():
 	assert lexer_classes["my-lexer"] == FakeLexer
 	assert app.registry.autodoc_attrgettrs[FakeLexer] is get_fake_lexer
 	assert app.registry.source_suffix[".py"] == "python"
-	assert app.html_themes == {"domdf_sphinx_theme": "."}
+	assert app.html_themes == {"domdf_sphinx_theme": '.'}
 	assert app.events.listeners["config-inited"] == [EventListener(id=0, handler=validate_config, priority=850)]
-	assert setup_ret == {'version': 12345, 'parallel_read_safe': True}
+	assert setup_ret == {"version": 12345, "parallel_read_safe": True}

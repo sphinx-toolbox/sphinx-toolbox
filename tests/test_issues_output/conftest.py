@@ -1,5 +1,33 @@
+#  Based on Sphinx
+#  Copyright (c) 2007-2020 by the Sphinx team.
+#  |  All rights reserved.
+#  |
+#  |  Redistribution and use in source and binary forms, with or without
+#  |  modification, are permitted provided that the following conditions are
+#  |  met:
+#  |
+#  |  * Redistributions of source code must retain the above copyright
+#  |    notice, this list of conditions and the following disclaimer.
+#  |
+#  |  * Redistributions in binary form must reproduce the above copyright
+#  |    notice, this list of conditions and the following disclaimer in the
+#  |    documentation and/or other materials provided with the distribution.
+#  |
+#  |  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+#  |  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+#  |  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+#  |  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+#  |  HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  |  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+#  |  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+#  |  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+#  |  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+#  |  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+#  |  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+
 # stdlib
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Sequence, Tuple
 
 # 3rd party
 import pytest
@@ -15,20 +43,20 @@ from tests.common import AppParams
 fixtures = [make_app, shared_result, sphinx_test_tempdir, test_params, gh_src_app]
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def rootdir():
 	rdir = PathPlus(__file__).parent.absolute() / "github-issues-doc-test"
 	(rdir / "test-github-issues-root").maybe_make(parents=True)
 	return path(rdir)
 
 
-@pytest.fixture
+@pytest.fixture()
 def app_params(
 		request: Any,
 		test_params: Dict,
 		sphinx_test_tempdir: path,
 		rootdir: path,
-		) -> Tuple[Dict, Dict]:
+		) -> Tuple[Sequence, Dict]:
 	"""
 	parameters that is specified by 'pytest.mark.sphinx' for
 	sphinx.application.Sphinx initialization
@@ -36,10 +64,7 @@ def app_params(
 
 	# ##### process pytest.mark.sphinx
 
-	if hasattr(request.node, 'iter_markers'):  # pytest-3.6.0 or newer
-		markers = request.node.iter_markers("sphinx")
-	else:
-		markers = request.node.get_marker("sphinx")
+	markers = request.node.iter_markers("sphinx")
 	pargs = {}
 	kwargs: Dict[str, Any] = {}
 
@@ -54,12 +79,12 @@ def app_params(
 
 	# ##### prepare Application params
 
-	testroot = 'github-issues-root'
-	kwargs['srcdir'] = srcdir = sphinx_test_tempdir / kwargs.get('srcdir', testroot)
+	testroot = "github-issues-root"
+	kwargs["srcdir"] = srcdir = sphinx_test_tempdir / kwargs.get("srcdir", testroot)
 
 	# special support for sphinx/tests
 	if rootdir and not srcdir.exists():
-		testroot_path = rootdir / ('test-' + testroot)
+		testroot_path = rootdir / ("test-" + testroot)
 		testroot_path.copytree(srcdir)
 
 	return AppParams(args, kwargs)

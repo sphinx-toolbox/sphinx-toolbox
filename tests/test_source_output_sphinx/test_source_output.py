@@ -16,15 +16,13 @@ def test_output_sphinx(sphinx_source_page: BeautifulSoup):
 
 	tag_count = 0
 
-	print(sphinx_source_page)
-
 	for a_tag in sphinx_source_page.select("a.reference.internal"):
-		if tag_count in {0, 2}:
-			assert not a_tag.contents or a_tag.contents == ["\n"]
-			assert a_tag["href"] == "_modules/sphinx_toolbox/config.html#sphinx_toolbox/config.py"
-		elif tag_count == 1:
+		if tag_count == 0:
 			if a_tag.contents[0] == "sphinx_toolbox/config.py":
+				assert a_tag["href"] == "_modules/sphinx_toolbox/config.html#sphinx_toolbox/config.py"
+		elif tag_count == 1:
+			if a_tag.contents[0] == "source code":
 				assert a_tag["href"] == "_modules/sphinx_toolbox/config.html#sphinx_toolbox/config.py"
 		tag_count += 1
 
-	assert tag_count == 3
+	assert tag_count == 2

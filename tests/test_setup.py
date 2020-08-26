@@ -6,18 +6,18 @@ import sphinx_toolbox
 from sphinx_toolbox.config import validate_config
 from sphinx_toolbox.issues import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
 from sphinx_toolbox.source import source_role
-from sphinx_toolbox.testing import do_test_setup
+from sphinx_toolbox.testing import run_setup
 
 
 def test_setup():
-	setup_ret, directives, roles, additional_nodes, app = do_test_setup(sphinx_toolbox.setup)
+	setup_ret, directives, roles, additional_nodes, app = run_setup(sphinx_toolbox.setup)  # type: ignore
 
-	assert setup_ret == {'version': sphinx_toolbox.__version__, 'parallel_read_safe': True}
+	assert setup_ret == {"version": sphinx_toolbox.__version__, "parallel_read_safe": True}
 	assert roles == {
-			'source': source_role,
-			'issue': issue_role,
-			'pr': pull_role,
-			'pull': pull_role,
+			"source": source_role,
+			"issue": issue_role,
+			"pr": pull_role,
+			"pull": pull_role,
 			}
 
 	assert additional_nodes == {IssueNode}

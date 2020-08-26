@@ -56,7 +56,7 @@ class FakeIssueInliner:
 @count(100)
 def test_issue_role(count: int, url: str):
 	issue_number = count
-	nodes, messages = issue_role("", "", str(issue_number), 0, FakeIssueInliner(url))
+	nodes, messages = issue_role('', '', str(issue_number), 0, FakeIssueInliner(url))  # type: ignore
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages
@@ -93,7 +93,7 @@ pull_repositories = pytest.mark.parametrize(
 @count(100, 0, 10)
 def test_issue_role_with_repository(count: int, url: str, repository: str):
 	issue_number = count
-	nodes, messages = issue_role("", "", f"{issue_number} <{repository}>", 0, "Not a URL")
+	nodes, messages = issue_role('', '', f"{issue_number} <{repository}>", 0, "Not a URL")  # type: ignore
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages
@@ -116,7 +116,7 @@ def test_issue_role_with_repository(count: int, url: str, repository: str):
 @count(100)
 def test_pull_role(count: int, url: str):
 	issue_number = count
-	nodes, messages = pull_role("", "", str(issue_number), 0, FakePullInliner(url))
+	nodes, messages = pull_role('', '', str(issue_number), 0, FakePullInliner(url))  # type: ignore
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages
@@ -130,7 +130,7 @@ def test_pull_role(count: int, url: str):
 @count(100, 0, 10)
 def test_pull_role_with_repository(count: int, url: str, repository: str):
 	issue_number = count
-	nodes, messages = pull_role("", "", f"{issue_number} <{repository}>", 0, "Not a URL")
+	nodes, messages = pull_role('', '', f"{issue_number} <{repository}>", 0, "Not a URL")  # type: ignore
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages
@@ -143,7 +143,7 @@ def test_pull_role_with_repository(count: int, url: str, repository: str):
 def test_pull_role_invalid_repository(capsys):
 	url = "https://github.com/domdfcoding/sphinx-toolbox"
 
-	nodes, messages = pull_role("", "", f"7 <foo>", 0, FakePullInliner(url))
+	nodes, messages = pull_role('', '', f"7 <foo>", 0, FakePullInliner(url))  # type: ignore
 	assert capsys.readouterr().out == "WARNING: Invalid repository 'foo' for pull request #7.\n"
 
 	issue_number = 7
@@ -159,7 +159,7 @@ def test_pull_role_invalid_repository(capsys):
 def test_issue_role_invalid_repository(capsys):
 	url = "https://github.com/domdfcoding/sphinx-toolbox"
 
-	nodes, messages = issue_role("", "", f"7 <foo>", 0, FakeIssueInliner(url))
+	nodes, messages = issue_role('', '', f"7 <foo>", 0, FakeIssueInliner(url))  # type: ignore
 	assert capsys.readouterr().out == "WARNING: Invalid repository 'foo' for issue #7.\n"
 
 	issue_number = 7
@@ -190,7 +190,7 @@ def test_visit_issue_node():
 
 	assert not node.has_tooltip
 
-	visit_issue_node(translator, node)
+	visit_issue_node(translator, node)  # type: ignore
 
 	assert translator.body == ['<abbr title="Add --log-cli option">']
 	assert node.has_tooltip
@@ -204,7 +204,7 @@ def test_visit_issue_node_errors(error_code, error_server):
 	assert not node.has_tooltip
 
 	with pytest.warns(UserWarning) as w:
-		visit_issue_node(translator, node)
+		visit_issue_node(translator, node)  # type: ignore
 	assert w[0].message.args[0] == "Issue/Pull Request #7680 not found."
 
 	assert translator.body == []
@@ -216,7 +216,7 @@ def test_depart_issue_node():
 	translator = FakeTranslator()
 	assert not node.has_tooltip
 
-	depart_issue_node(translator, node)
+	depart_issue_node(translator, node)  # type: ignore
 
 	assert translator.body == []
 
@@ -224,7 +224,7 @@ def test_depart_issue_node():
 	translator = FakeTranslator()
 	node.has_tooltip = True
 
-	depart_issue_node(translator, node)
+	depart_issue_node(translator, node)  # type: ignore
 
 	assert translator.body == ["</abbr>"]
 

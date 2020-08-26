@@ -28,13 +28,14 @@ Internal configuration for ``sphinx-toolbox``.
 #
 
 # 3rd party
+from apeye.url import RequestsURL
 from sphinx.application import Sphinx
 from sphinx.config import Config
 
 # this package
 from sphinx_toolbox.utils import make_github_url
 
-__all__ = ["MissingOptionError", "InvalidOptionError", "validate_config"]
+__all__ = ["MissingOptionError", "InvalidOptionError", "validate_config", "ToolboxConfig"]
 
 
 class MissingOptionError(ValueError):
@@ -49,24 +50,44 @@ class InvalidOptionError(ValueError):
 	"""
 
 
-def validate_config(app: Sphinx, config: Config) -> None:
+class ToolboxConfig(Config):
 	"""
+	Subclass of :class:`sphinx.config.Config` with type annotations for the
+	configuration values added by ``sphinx-toolbox``.
+
+	Functionally compatible with :class:`sphinx.config.Config`.
+	"""  # noqa: D400
+
+	source_link_target: str
+	github_username: str
+	github_repository: str
+	github_url: RequestsURL
+	github_source_url: RequestsURL
+	github_issues_url: RequestsURL
+	github_pull_url: RequestsURL
+
+
+def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
+	r"""
 	Validate the provided configuration values.
 
 	The Sphinx configuration values are:
 
-	* source_link_target (:class:`str`\\) - The target of the source links, either ``'github'`` or ``'sphinx'``.
-		Always lowercase.
-	* github_username (:class:`str`\\) - The username of the GitHub account that owns the repository this
-		documentation corresponds to.
-	* github_repository (:class:`str`\\) - The GitHub repository this documentation corresponds to.
-	* github_url (:class:`apeye.RequestsURL`\\) - The URL of the GitHub repository.
-	* github_source_url (:class:`apeye.RequestsURL`\\) - The base URL for the source code on GitHub.
-	* github_issues_url (:class:`apeye.RequestsURL`\\) - The GitHub issues URL for this repository.
-	* github_pull_url (:class:`apeye.RequestsURL`\\) - The GitHub pull requests URL for this repository.
+	* source_link_target (:class:`str`\) - The target of the source links, either ``'github'`` or ``'sphinx'``.
+	  Always lowercase.
+
+	* github_username (:class:`str`\) - The username of the GitHub account that owns the repository this
+	  documentation corresponds to.
+
+	* github_repository (:class:`str`\) - The GitHub repository this documentation corresponds to.
+	* github_url (:class:`apeye.RequestsURL`\) - The URL of the GitHub repository.
+	* github_source_url (:class:`apeye.RequestsURL`\) - The base URL for the source code on GitHub.
+	* github_issues_url (:class:`apeye.RequestsURL`\) - The GitHub issues URL for this repository.
+	* github_pull_url (:class:`apeye.RequestsURL`\) - The GitHub pull requests URL for this repository.
 
 	:param app:
 	:param config:
+	:type config: :class:`~sphinx.config.Config`
 	"""
 
 	config.source_link_target = str(config.source_link_target).lower().strip()
