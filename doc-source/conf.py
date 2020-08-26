@@ -18,7 +18,10 @@ from __pkginfo__ import __version__
 # User-configurable lines
 # End of user-configurable lines
 
-github_url = "https://github.com/domdfcoding/sphinx-toolbox"
+github_username = "domdfcoding"
+github_repository = "sphinx-toolbox"
+github_url = f"https://github.com/{github_username}/{github_repository}"
+
 
 rst_prolog = f""".. |pkgname| replace:: sphinx-toolbox
 .. |pkgname2| replace:: ``sphinx-toolbox``
@@ -100,8 +103,6 @@ texinfo_documents = [('index', slug, project, author, slug, project, 'Miscellane
 
 toctree_plus_types = {"class", "function", "method", "data"}
 
-github_username = "domdfcoding"
-github_repository = "sphinx-toolbox"
 
 autodoc_default_options = {
 		'members': None,  # Include all members (methods).
