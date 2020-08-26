@@ -1,11 +1,14 @@
 # 3rd party
 import pytest
 from apeye.url import RequestsURL
+from bs4 import BeautifulSoup
+from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.testing import count
 
 # this package
-from sphinx_toolbox import IssueNode, issue_role, pull_role
-from tests.common import AttrDict
+from sphinx_toolbox import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
+from sphinx_toolbox.utils import make_github_url
+from tests.common import AttrDict, error, error_codes, info, severe, warning
 
 
 class FakePullInliner:
@@ -15,7 +18,13 @@ class FakePullInliner:
 		app = AttrDict({"config": config})
 		env = AttrDict({"app": app})
 		settings = AttrDict({"env": env})
-		self.document = AttrDict({"settings": settings})
+		reporter = AttrDict({
+				"info": info,
+				"warning": warning,
+				"error": error,
+				"severe": severe,
+				})
+		self.document = AttrDict({"settings": settings, "reporter": reporter})
 
 
 class FakeIssueInliner:
@@ -25,7 +34,13 @@ class FakeIssueInliner:
 		app = AttrDict({"config": config})
 		env = AttrDict({"app": app})
 		settings = AttrDict({"env": env})
-		self.document = AttrDict({"settings": settings})
+		reporter = AttrDict({
+				"info": info,
+				"warning": warning,
+				"error": error,
+				"severe": severe,
+				})
+		self.document = AttrDict({"settings": settings, "reporter": reporter})
 
 
 @pytest.mark.parametrize(
@@ -125,13 +140,11 @@ def test_pull_role_with_repository(count: int, url: str, repository: str):
 	assert not nodes[0].has_tooltip
 
 
-def test_pull_role_invalid_repository():
+def test_pull_role_invalid_repository(capsys):
 	url = "https://github.com/domdfcoding/sphinx-toolbox"
 
-	with pytest.warns(UserWarning) as w:
-		nodes, messages = pull_role("", "", f"7 <foo>", 0, FakePullInliner(url))
-	assert len(w) == 1
-	assert w[0].message.args[0] == "Invalid repository 'foo' for pull request #7."
+	nodes, messages = pull_role("", "", f"7 <foo>", 0, FakePullInliner(url))
+	assert capsys.readouterr().out == "WARNING: Invalid repository 'foo' for pull request #7.\n"
 
 	issue_number = 7
 	assert isinstance(nodes, list)
@@ -143,13 +156,11 @@ def test_pull_role_invalid_repository():
 	assert not nodes[0].has_tooltip
 
 
-def test_issue_role_invalid_repository():
+def test_issue_role_invalid_repository(capsys):
 	url = "https://github.com/domdfcoding/sphinx-toolbox"
 
-	with pytest.warns(UserWarning) as w:
-		nodes, messages = issue_role("", "", f"7 <foo>", 0, FakeIssueInliner(url))
-	assert len(w) == 1
-	assert w[0].message.args[0] == "Invalid repository 'foo' for issue #7."
+	nodes, messages = issue_role("", "", f"7 <foo>", 0, FakeIssueInliner(url))
+	assert capsys.readouterr().out == "WARNING: Invalid repository 'foo' for issue #7.\n"
 
 	issue_number = 7
 	assert isinstance(nodes, list)
@@ -161,4 +172,101 @@ def test_issue_role_invalid_repository():
 	assert not nodes[0].has_tooltip
 
 
-# def test_visit_issue_node
+class FakeTranslator:
+
+	def __init__(self):
+		self.body = []
+
+	def visit_reference(self, node):
+		pass
+
+	def depart_reference(self, node):
+		pass
+
+
+def test_visit_issue_node():
+	node = IssueNode(7680, make_github_url("pytest-dev", "pytest") / "issues/7680")
+	translator = FakeTranslator()
+
+	assert not node.has_tooltip
+
+	visit_issue_node(translator, node)
+
+	assert translator.body == ['<abbr title="Add --log-cli option">']
+	assert node.has_tooltip
+
+
+@error_codes
+def test_visit_issue_node_errors(error_code, error_server):
+	node = IssueNode(7680, error_server.url_for(f"/{error_code}"))
+	translator = FakeTranslator()
+
+	assert not node.has_tooltip
+
+	with pytest.warns(UserWarning) as w:
+		visit_issue_node(translator, node)
+	assert w[0].message.args[0] == "Issue/Pull Request #7680 not found."
+
+	assert translator.body == []
+	assert not node.has_tooltip
+
+
+def test_depart_issue_node():
+	node = IssueNode(7680, make_github_url("pytest-dev", "pytest") / "issues/7680")
+	translator = FakeTranslator()
+	assert not node.has_tooltip
+
+	depart_issue_node(translator, node)
+
+	assert translator.body == []
+
+	node = IssueNode(7680, make_github_url("pytest-dev", "pytest") / "issues/7680")
+	translator = FakeTranslator()
+	node.has_tooltip = True
+
+	depart_issue_node(translator, node)
+
+	assert translator.body == ["</abbr>"]
+
+
+#
+# @pytest.fixture()
+# def rootdir():
+# 	rdir = PathPlus(__file__).parent.absolute() / "github-doc-test"
+# 	(rdir / "sphinx-test-github-root").maybe_make(parents=True)
+# 	return rdir
+#
+#
+# @pytest.fixture()
+# def github_issues_app(app):
+# 	return app
+#
+#
+# @pytest.fixture()
+# def issues_content(github_issues_app):
+# 	github_issues_app.build(force_all=True)
+# 	yield github_issues_app
+#
+#
+# @pytest.fixture()
+# def issues_page(issues_content, request) -> BeautifulSoup:
+# 	pagename = request.param
+# 	c = (issues_content.outdir / pagename).read_text()
+#
+# 	yield BeautifulSoup(c, "html5lib")
+#
+#
+# @pytest.mark.parametrize("issues_page", ["index.html"], indirect=True)
+# def test_output_github(issues_page: BeautifulSoup):
+# 	# Make sure the page title is what you expect
+# 	title = issues_page.find("h1").contents[0].strip()
+# 	assert "sphinx-toolbox Demo" == title
+#
+# 	tag_count = 0
+#
+# 	for a_tag in issues_page.select("a.reference.external"):
+# 		if a_tag["href"] == "https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/config.py":
+# 			if a_tag.contents[0] == "sphinx_toolbox/config.py":
+# 				tag_count += 1
+#
+# 	assert tag_count == 1

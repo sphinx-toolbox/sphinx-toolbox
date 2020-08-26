@@ -22,7 +22,7 @@ def test_validate_config():
 			"github_username": "domdfcoding",
 			"github_repository": "sphinx-toolbox",
 			"github_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox"),
-			"github_source_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/tree/master"),
+			"github_source_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/blob/master"),
 			"github_issues_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/issues"),
 			"github_pull_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/pull"),
 			}
