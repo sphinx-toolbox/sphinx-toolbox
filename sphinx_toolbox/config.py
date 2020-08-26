@@ -85,6 +85,6 @@ def validate_config(app: Sphinx, config: Config) -> None:
 		config.github_repository = str(config.github_repository)
 
 	config.github_url = make_github_url(config.github_username, config.github_repository)
-	config.github_source_url = config.github_url / "tree" / "master"
+	config.github_source_url = config.github_url / "blob" / "master"
 	config.github_issues_url = config.github_url / "issues"
 	config.github_pull_url = config.github_url / "pull"

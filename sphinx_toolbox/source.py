@@ -35,39 +35,47 @@ and
 #  Copyright 2008-2014 by Georg Brandl.
 #  Licensed under the PSF License 2.0
 #
+#  Parts of the docstrings based on https://docutils.sourceforge.io/docs/howto/rst-roles.html
+#
 
 # stdlib
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Union
 
 # 3rd party
 from docutils import nodes, utils
-from docutils.nodes import Node, system_message
+from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
 from sphinx import addnodes
 from sphinx.util import split_explicit_title
 
 __all__ = ["source_role"]
 
+# TODO: rawstring: Return it as a problematic node linked to a system message if a problem is encountered.
+
 
 def source_role(
-		typ: str,
+		name: str,
 		rawtext: str,
 		text: str,
 		lineno: int,
 		inliner: Inliner,
 		options: Dict = {},
 		content: List[str] = []
-		) -> Tuple[List[Node], List[system_message]]:
+		) -> Tuple[List[Union[nodes.reference, addnodes.pending_xref]], List[system_message]]:
 	"""
 	Adds a link to the given Python source file in the documentation or on GitHub.
 
-	:param typ:
-	:param rawtext:
-	:param text:
-	:param lineno:
-	:param inliner:
-	:param options:
-	:param content:
+	:param name: The local name of the interpreted role, the role name actually used in the document.
+	:param rawtext: A string containing the entire interpreted text input, including the role and markup.
+	:param text: The interpreted text content.
+	:param lineno: The line number where the interpreted text begins.
+	:param inliner: The :class:`docutils.parsers.rst.states.Inliner` object that called :func:`~.source_role`.
+		It contains the several attributes useful for error reporting and document tree access.
+	:param options: A dictionary of directive options for customization (from the ``role`` directive),
+		to be interpreted by the function.
+		Used for additional attributes for the generated elements and other functionality.
+	:param content: A list of strings, the directive content for customization (from the ``role`` directive).
+		To be interpreted by the function.
 
 	:return:
 	"""
@@ -78,6 +86,10 @@ def source_role(
 
 	env = inliner.document.settings.env
 	config = env.app.config
+
+	nodes_ = []
+	messages = []
+
 	if config.source_link_target == "sphinx":
 		pagename = '_modules/' + target.replace('.py', '')
 		refnode = addnodes.only(expr='html')
@@ -91,13 +103,20 @@ def source_role(
 				refid=title,
 				refdoc=env.docname,
 				)
+
+		nodes_.append(refnode)
+
 	elif config.source_link_target == "github":
 		refnode = nodes.reference(
 				title,
 				title,
 				refuri=str(config.github_source_url / target),
 				)
-	else:
-		raise NotImplementedError(f"Unsupported source link target '{config.source_link_target}'.")
 
-	return [refnode], []
+		nodes_.append(refnode)
+
+	else:
+		message = inliner.document.reporter.error(f"Unsupported source link target '{config.source_link_target}'.")
+		messages.append(message)
+
+	return nodes_, messages

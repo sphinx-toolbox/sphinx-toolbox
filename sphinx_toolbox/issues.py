@@ -31,21 +31,8 @@ Examples:
 #  Copyright 2008-2014 by Georg Brandl.
 #  Licensed under the PSF License 2.0
 #
-
-# """
-# Examples:
+#  Parts of the docstrings based on https://docutils.sourceforge.io/docs/howto/rst-roles.html
 #
-# **Source code:** :source:`sphinxcontrib/extras_require/directive.py`
-#
-# --------------------------------------------------------------------------
-#
-# :issue:`3`
-#
-# :pr:`3`
-#
-# :pull:`3`
-#
-# """
 
 # stdlib
 import warnings
@@ -93,7 +80,7 @@ class IssueNode(nodes.reference):
 
 
 def issue_role(
-		typ: str,
+		name: str,
 		rawtext: str,
 		text: str,
 		lineno: int,
@@ -104,13 +91,17 @@ def issue_role(
 	"""
 	Adds a link to the given issue on GitHub.
 
-	:param typ:
-	:param rawtext:
-	:param text:
-	:param lineno:
-	:param inliner:
-	:param options:
-	:param content:
+	:param name: The local name of the interpreted role, the role name actually used in the document.
+	:param rawtext: A string containing the entire interpreted text input, including the role and markup.
+	:param text: The interpreted text content.
+	:param lineno: The line number where the interpreted text begins.
+	:param inliner: The :class:`docutils.parsers.rst.states.Inliner` object that called :func:`~.issue_role`.
+		It contains the several attributes useful for error reporting and document tree access.
+	:param options: A dictionary of directive options for customization (from the ``role`` directive),
+		to be interpreted by the function.
+		Used for additional attributes for the generated elements and other functionality.
+	:param content: A list of strings, the directive content for customization (from the ``role`` directive).
+		To be interpreted by the function.
 
 	:return:
 	"""
@@ -118,10 +109,12 @@ def issue_role(
 	has_t, issue_number, repository = split_explicit_title(text)
 	issue_number = utils.unescape(issue_number)
 
+	messages = []
+
 	if has_t:
 		repository_parts = utils.unescape(repository).split("/")
 		if len(repository_parts) != 2:
-			warnings.warn(f"Invalid repository '{repository}' for issue #{issue_number}.")
+			inliner.document.reporter.warning(f"Invalid repository '{repository}' for issue #{issue_number}.")
 			issues_url = inliner.document.settings.env.app.config.github_issues_url
 		else:
 			repository_url = make_github_url(*repository_parts)
@@ -131,11 +124,11 @@ def issue_role(
 
 	refnode = IssueNode(issue_number, refuri=issues_url / str(int(issue_number)))
 
-	return [refnode], []
+	return [refnode], messages
 
 
 def pull_role(
-		typ: str,
+		name: str,
 		rawtext: str,
 		text: str,
 		lineno: int,
@@ -146,13 +139,17 @@ def pull_role(
 	"""
 	Adds a link to the given pulll request on GitHub.
 
-	:param typ:
-	:param rawtext:
-	:param text:
-	:param lineno:
-	:param inliner:
-	:param options:
-	:param content:
+	:param name: The local name of the interpreted role, the role name actually used in the document.
+	:param rawtext: A string containing the entire interpreted text input, including the role and markup.
+	:param text: The interpreted text content.
+	:param lineno: The line number where the interpreted text begins.
+	:param inliner: The :class:`docutils.parsers.rst.states.Inliner` object that called :func:`~.pull_role`.
+		It contains the several attributes useful for error reporting and document tree access.
+	:param options: A dictionary of directive options for customization (from the ``role`` directive),
+		to be interpreted by the function.
+		Used for additional attributes for the generated elements and other functionality.
+	:param content: A list of strings, the directive content for customization (from the ``role`` directive).
+		To be interpreted by the function.
 
 	:return:
 	"""
@@ -160,10 +157,14 @@ def pull_role(
 	has_t, issue_number, repository = split_explicit_title(text)
 	issue_number = utils.unescape(issue_number)
 
+	messages = []
+
 	if has_t:
 		repository_parts = utils.unescape(repository).split("/")
 		if len(repository_parts) != 2:
-			warnings.warn(f"Invalid repository '{repository}' for pull request #{issue_number}.")
+			inliner.document.reporter.warning(
+					f"Invalid repository '{repository}' for pull request #{issue_number}."
+					)
 			pull_url = inliner.document.settings.env.app.config.github_pull_url
 		else:
 			repository_url = make_github_url(*repository_parts)
@@ -173,7 +174,7 @@ def pull_role(
 
 	refnode = IssueNode(issue_number, refuri=pull_url / str(int(issue_number)))
 
-	return [refnode], []
+	return [refnode], messages
 
 
 def visit_issue_node(translator: HTMLTranslator, node: IssueNode):

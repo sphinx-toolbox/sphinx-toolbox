@@ -1,10 +1,66 @@
+#!/usr/bin/env python3
+#
+#  testing.py
+"""
+Functions for testing Sphinx extensions.
+
+.. seealso:: Sphinx's own ``testing`` library: https://github.com/sphinx-doc/sphinx/tree/3.x/sphinx/testing
+"""
+#
+#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#
+#  Permission is hereby granted, free of charge, to any person obtaining a copy
+#  of this software and associated documentation files (the "Software"), to deal
+#  in the Software without restriction, including without limitation the rights
+#  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#  copies of the Software, and to permit persons to whom the Software is
+#  furnished to do so, subject to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+#  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+#  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+#  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+#  DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+#  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+#  OR OTHER DEALINGS IN THE SOFTWARE.
+#
+#  Based on Sphinx
+#  Copyright (c) 2007-2020 by the Sphinx team.
+#  |  All rights reserved.
+#  |
+#  |  Redistribution and use in source and binary forms, with or without
+#  |  modification, are permitted provided that the following conditions are
+#  |  met:
+#  |
+#  |  * Redistributions of source code must retain the above copyright
+#  |    notice, this list of conditions and the following disclaimer.
+#  |
+#  |  * Redistributions in binary form must reproduce the above copyright
+#  |    notice, this list of conditions and the following disclaimer in the
+#  |    documentation and/or other materials provided with the distribution.
+#  |
+#  |  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+#  |  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+#  |  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+#  |  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+#  |  HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  |  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+#  |  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+#  |  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+#  |  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+#  |  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+#  |  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+
 # stdlib
 import copy
 from typing import Any, Callable, Dict, List, Tuple, Type, Union
 
 # 3rd party
 from docutils import nodes
-# For type annotation
 from docutils.nodes import Node  # NOQA
 from docutils.nodes import Element, TextElement
 from docutils.parsers.rst import Directive, roles
@@ -13,8 +69,9 @@ from pygments.lexer import Lexer
 from sphinx.builders import Builder
 from sphinx.config import Config
 from sphinx.domains import Domain, Index
-from sphinx.environment.collectors import EnvironmentCollector
+# from sphinx.environment.collectors import EnvironmentCollector
 from sphinx.events import EventManager
+from sphinx.ext.autodoc.directive import AutodocDirective
 from sphinx.highlighting import lexer_classes
 from sphinx.registry import SphinxComponentRegistry
 from sphinx.roles import XRefRole
@@ -36,7 +93,7 @@ class Sphinx:
 	html_themes: Dict[str, str]
 	builder: Builder
 
-	def __init__(self, buildername: str = "html"):
+	def __init__(self):  # , buildername: str = "html"
 		self.registry = SphinxComponentRegistry()
 		self.config = Config({}, {})
 		self.events = EventManager(self)
@@ -46,6 +103,9 @@ class Sphinx:
 	def add_builder(self, builder: Type[Builder], override: bool = False) -> None:
 		"""
 		Register a new builder.
+
+		The registered values are stored in the ``app.registry.builders`` dictionary
+		(:class:`typing.Dict`\\[:class:`str`\\, :class:`typing.Type`\\[:class:`sphinx.builders.Builder`\\]]).
 		"""
 
 		self.registry.add_builder(builder, override=override)
@@ -59,6 +119,9 @@ class Sphinx:
 			) -> None:
 		"""
 		Register a configuration value.
+
+		The registered values are stored in the ``app.config.values`` dictionary
+		(:class:`typing.Dict`\\[:class:`str`\\, :class:`typing.Tuple`]).
 		"""
 
 		if rebuild in {False, True}:
@@ -68,7 +131,10 @@ class Sphinx:
 
 	def add_event(self, name: str) -> None:
 		"""
-		Register an event called *name*.
+		Register an event called ``name``.
+
+		The registered values are stored in the ``app.events.events`` dictionary
+		(:class:`typing.Dict`\\[:class:`str`\\, :class:`str`\\]).
 		"""
 
 		self.events.add(name)
@@ -81,6 +147,9 @@ class Sphinx:
 			) -> None:
 		"""
 		Register or override a Docutils translator class.
+
+		The registered values are stored in the ``app.registry.translators`` dictionary.
+		(:class:`typing.Dict`\\[:class:`str`\\, :class:`typing.Type`\\[:class:`docutils.nodes.NodeVisitor`\\]]).
 		"""
 
 		self.registry.add_translator(name, translator_class, override=override)
@@ -93,6 +162,10 @@ class Sphinx:
 			) -> None:
 		"""
 		Register a Docutils node class.
+
+		The registered values are stored in the ``additional_nodes`` set returned by
+		:func:`~sphinx_toolbox.testing.do_test_setup`
+		(:class:`typing.Set`\\[:class:`typing.Type`\\[:class:`docutils.nodes.Node`\\]]).
 		"""
 
 		if not override and docutils.is_node_registered(node):
@@ -131,6 +204,10 @@ class Sphinx:
 	def add_role(self, name: str, role: Any, override: bool = False) -> None:
 		"""
 		Register a Docutils role.
+
+		The registered values are stored in the ``roles`` dictionary returned by
+		:func:`~sphinx_toolbox.testing.do_test_setup`
+		(:class:`typing.Dict`\\[:class:`str`\\, :class:`typing.Callable`\\]).
 		"""
 
 		if not override and docutils.is_role_registered(name):
@@ -250,9 +327,6 @@ class Sphinx:
 	def add_transform(self, transform: Type[Transform]) -> None:
 		"""
 		Register a Docutils transform to be applied after parsing.
-
-		Add the standard docutils :class:`Transform` subclass *transform* to
-		the list of transforms that are applied after Sphinx parses a reST document.
 		"""
 
 		self.registry.add_transform(transform)
@@ -260,10 +334,6 @@ class Sphinx:
 	def add_post_transform(self, transform: Type[Transform]) -> None:
 		"""
 		Register a Docutils transform to be applied before writing.
-
-		Add the standard docutils :class:`Transform` subclass *transform* to
-		the list of transforms that are applied before Sphinx writes a
-		document.
 		"""
 
 		self.registry.add_post_transform(transform)
@@ -314,8 +384,6 @@ class Sphinx:
 		Register a new documenter class for the autodoc extension.
 		"""
 
-		# 3rd party
-		from sphinx.ext.autodoc.directive import AutodocDirective
 		self.registry.add_documenter(cls.objtype, cls)
 		self.add_directive('auto' + cls.objtype, AutodocDirective, override=override)
 
@@ -344,12 +412,12 @@ class Sphinx:
 
 		self.registry.add_source_parser(*args, **kwargs)
 
-	def add_env_collector(self, collector: Type[EnvironmentCollector]) -> None:
-		"""
-		Register an environment collector class.
-		"""
-
-		collector().enable(self)
+	# def add_env_collector(self, collector: Type[EnvironmentCollector]) -> None:
+	# 	"""
+	# 	Register an environment collector class.
+	# 	"""
+	#
+	# 	collector().enable(self)
 
 	def add_html_theme(self, name: str, theme_path: str) -> None:
 		"""
@@ -380,13 +448,19 @@ class Sphinx:
 		return listener_id
 
 
-def do_test_setup(setup_func: Callable[[Sphinx], Dict[str, Any]], buildername: str = "html"):
-	app = Sphinx(buildername)
+def do_test_setup(setup_func: Callable[[Sphinx], Dict[str, Any]]):  # , buildername: str = "html"
+	app = Sphinx()  # buildername
 
-	with docutils.docutils_namespace():
-		setup_ret = setup_func(app)
-		directives = copy.copy(docutils.directives._directives)
-		roles = copy.copy(docutils.roles._roles)
-		additional_nodes = copy.copy(docutils.additional_nodes)
+	try:
+		_additional_nodes = copy.copy(docutils.additional_nodes)
+		docutils.additional_nodes = set()
+
+		with docutils.docutils_namespace():
+			setup_ret = setup_func(app)
+			directives = copy.copy(docutils.directives._directives)
+			roles = copy.copy(docutils.roles._roles)
+			additional_nodes = copy.copy(docutils.additional_nodes)
+	finally:
+		docutils.additional_nodes = _additional_nodes
 
 	return setup_ret, directives, roles, additional_nodes, app
