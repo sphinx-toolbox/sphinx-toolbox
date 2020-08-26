@@ -100,6 +100,9 @@ texinfo_documents = [('index', slug, project, author, slug, project, 'Miscellane
 
 toctree_plus_types = {"class", "function", "method", "data"}
 
+github_username = "domdfcoding"
+github_repository = "sphinx-toolbox"
+
 autodoc_default_options = {
 		'members': None,  # Include all members (methods).
 		'special-members': None,
@@ -151,7 +154,3 @@ def setup(app):
 							),
 					]
 			)
-
-
-github_username = "domdfcoding"
-github_repository = "extras_require"

@@ -142,7 +142,7 @@ For more information see https://www.sphinx-doc.org/en/master/usage/extensions/i
 	:maxdepth: 3
 	:caption: Documentation
 
-    usage
+	usage
 	contributing
 	Source
 
@@ -151,7 +151,9 @@ For more information see https://www.sphinx-doc.org/en/master/usage/extensions/i
 	:caption: API Reference
 	:glob:
 
+	api/sphinx-toolbox
 	api/*
+
 
 
 .. start links
