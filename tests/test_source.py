@@ -1,10 +1,6 @@
 # 3rd party
-import pytest
 from apeye.url import RequestsURL
-from bs4 import BeautifulSoup
-from docutils.nodes import paragraph, reference, system_message
-from docutils.parsers.rst.directives import path
-from domdf_python_tools.paths import PathPlus
+from docutils.nodes import inline, reference, system_message
 from sphinx import addnodes
 
 # this package
@@ -51,7 +47,7 @@ def test_source_role_sphinx():
 	assert isinstance(nodes[0], addnodes.only)
 	assert nodes[0].attributes["expr"] == "html"
 	assert isinstance(nodes[0].children[0], addnodes.pending_xref)
-	assert isinstance(nodes[0].children[0].children[0], paragraph)
+	assert isinstance(nodes[0].children[0].children[0], inline)
 	assert nodes[0].children[0].attributes["reftype"] == "viewcode"
 	assert nodes[0].children[0].attributes["refdomain"] == "std"
 	assert nodes[0].children[0].attributes["reftarget"] == "_modules/Lib/typing"
