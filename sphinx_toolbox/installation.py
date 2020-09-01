@@ -323,10 +323,10 @@ class ExtensionsDirective(SphinxDirective):
 	has_content: bool = True  # Other required extensions, one per line
 	optional_arguments: int = 1  # The name of the project
 	option_spec: OptionSpec = {  # type: ignore
-			"import-name": directives.unchanged_required,  # If different to project name
-			"no-preamble": flag,
-			"no-postamble": flag,
-			}
+		"import-name": directives.unchanged_required,  # If different to project name
+		"no-preamble": flag,
+		"no-postamble": flag,
+		}
 
 	def run(self) -> List[nodes.Node]:
 		"""

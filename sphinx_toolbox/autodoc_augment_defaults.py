@@ -69,6 +69,7 @@ from sphinx.application import Sphinx
 from sphinx.config import Config
 from sphinx.ext.autodoc import Documenter, Options
 
+# this package
 import sphinx_toolbox
 
 __all__ = ["process_documenter_options", "setup"]
@@ -120,4 +121,3 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	sphinx.ext.autodoc.directive.process_documenter_options = process_documenter_options
 
 	return {"version": sphinx_toolbox.__version__, "parallel_read_safe": True}
-

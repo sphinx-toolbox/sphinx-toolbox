@@ -43,12 +43,13 @@ from sphinx.domains.std import GenericObject, StandardDomain
 from sphinx.errors import ExtensionError
 from sphinx.roles import XRefRole
 
+# this package
+from sphinx_toolbox.utils import OptionSpec
+
 # from sphinx.domains.python import PyField
 # from sphinx.util.docfields import Field
 
 __all__ = ["register_confval", "ConfigurationValue"]
-
-from sphinx_toolbox.utils import OptionSpec
 
 
 class ConfigurationValue(GenericObject):
@@ -57,10 +58,10 @@ class ConfigurationValue(GenericObject):
 	"""
 
 	option_spec: OptionSpec = {  # type: ignore
-			'type': directives.unchanged_required,
-			'required': directives.unchanged_required,
-			'default': directives.unchanged_required,
-			}
+		'type': directives.unchanged_required,
+		'required': directives.unchanged_required,
+		'default': directives.unchanged_required,
+		}
 
 	def run(self) -> List[Node]:
 		"""

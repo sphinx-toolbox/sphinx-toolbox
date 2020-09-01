@@ -41,7 +41,7 @@ from docutils.parsers.rst.roles import set_classes
 from sphinx.util.docutils import SphinxDirective
 
 # this package
-from sphinx_toolbox.utils import flag, make_github_url, OptionSpec
+from sphinx_toolbox.utils import OptionSpec, flag, make_github_url
 
 __all__ = [
 		"Shield",
@@ -83,9 +83,9 @@ class Shield(SphinxDirective):
 	optional_arguments = 0
 	final_argument_whitespace = True
 	option_spec: OptionSpec = {  # type: ignore
-			'target': directives.unchanged_required,
-			**shield_default_option_spec,
-			}
+		'target': directives.unchanged_required,
+		**shield_default_option_spec,
+		}
 
 	def run(self) -> List[nodes.Node]:
 		"""

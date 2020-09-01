@@ -63,7 +63,7 @@ from docutils.statemachine import StringList
 from sphinx.directives.code import CodeBlock as __BaseCodeBlock
 
 # this package
-from sphinx_toolbox.utils import convert_indents, OptionSpec
+from sphinx_toolbox.utils import OptionSpec, convert_indents
 
 __all__ = ["CodeBlock"]
 
@@ -77,16 +77,16 @@ class CodeBlock(__BaseCodeBlock):
 	"""
 
 	option_spec: OptionSpec = {  # type: ignore
-			'force': directives.flag,
-			'linenos': directives.flag,
-			'tab-width': int,
-			'dedent': int,
-			'lineno-start': int,
-			'emphasize-lines': directives.unchanged_required,
-			'caption': directives.unchanged_required,
-			'class': directives.class_option,
-			'name': directives.unchanged,
-			}
+		'force': directives.flag,
+		'linenos': directives.flag,
+		'tab-width': int,
+		'dedent': int,
+		'lineno-start': int,
+		'emphasize-lines': directives.unchanged_required,
+		'caption': directives.unchanged_required,
+		'class': directives.class_option,
+		'name': directives.unchanged,
+		}
 
 	def run(self) -> List[Node]:
 		"""

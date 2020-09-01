@@ -51,11 +51,11 @@ class reSTExampleDirective(SphinxDirective):
 
 	# Options to pass through to .. code-block::
 	option_spec: OptionSpec = {  # type: ignore
-			'force': directives.flag,
-			"emphasize-lines": directives.unchanged,
-			"tab-width": int,
-			'dedent': int,
-			}
+		'force': directives.flag,
+		"emphasize-lines": directives.unchanged,
+		"tab-width": int,
+		'dedent': int,
+		}
 
 	def run(self) -> List[nodes.Node]:
 		"""

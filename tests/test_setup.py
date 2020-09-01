@@ -62,6 +62,6 @@ def test_setup():
 			"'restx': <class 'sphinx_toolbox.setup.<locals>.CustomRSTParser'>, "
 			"'rtxt': <class 'sphinx_toolbox.setup.<locals>.CustomRSTParser'>, "
 			"'rstx': <class 'sphinx_toolbox.setup.<locals>.CustomRSTParser'>}"
-	)
+			)
 
 	assert str(app.registry.source_parsers) == expected
