@@ -85,3 +85,4 @@ profile_default/
 ipython_config.py
 Pipfile.lock
 .pyre/
+wip-shields-block.py

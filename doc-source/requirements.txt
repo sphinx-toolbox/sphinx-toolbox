@@ -3,7 +3,6 @@ default_values>=0.0.8
 domdf_sphinx_theme>=0.0.11
 extras_require
 seed_intersphinx_mapping>=0.1.1
-sphinx>=3.0.3
 sphinx-copybutton>=0.2.12
 sphinx-notfound-page
 sphinxcontrib-httpdomain>=1.7.0

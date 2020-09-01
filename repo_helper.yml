@@ -19,3 +19,6 @@ python_versions:
 
 extra_sphinx_extensions:
   - sphinx_toolbox
+
+additional_ignore:
+  - wip-shields-block.py
