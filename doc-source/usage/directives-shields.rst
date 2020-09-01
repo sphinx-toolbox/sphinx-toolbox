@@ -282,7 +282,7 @@ All shields have the following options:
 			:last-commit:
 
 		.. github-shield::
-			:commits-since: v0.0.0
+			:commits-since: v0.1.0
 
 
 .. rst:directive:: maintained-shield:

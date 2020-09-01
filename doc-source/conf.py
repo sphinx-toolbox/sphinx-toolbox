@@ -34,27 +34,27 @@ language = 'en'
 package_root = "sphinx_toolbox"
 
 extensions = [
-	'sphinx.ext.intersphinx',
-	'sphinx.ext.autodoc',
-	'sphinx.ext.mathjax',
-	'sphinx.ext.viewcode',
-	'sphinxcontrib.httpdomain',
-	'sphinxcontrib.extras_require',
-	'sphinx.ext.todo',
-	'sphinxemoji.sphinxemoji',
-	'notfound.extension',
-	'sphinx_tabs.tabs',
-	'sphinx-prompt',
-	'sphinx.ext.autosummary',
 	'autodocsumm',
-	'sphinx_copybutton',
-	'sphinxcontrib.default_values',
-	'sphinxcontrib.toctree_plus',
+	'notfound.extension',
 	'seed_intersphinx_mapping',
-	'autodoc_augment_defaults',
+	'sphinx-prompt',
+	'sphinx.ext.autodoc',
 	'sphinx.ext.autosectionlabel',
+	'sphinx.ext.autosummary',
+	'sphinx.ext.intersphinx',
+	'sphinx.ext.mathjax',
+	'sphinx.ext.todo',
+	'sphinx.ext.viewcode',
 	'sphinx_autodoc_typehints',
+	'sphinx_copybutton',
+	'sphinx_tabs.tabs',
 	'sphinx_toolbox',
+	'sphinx_toolbox.autodoc_augment_defaults',
+	'sphinxcontrib.default_values',
+	'sphinxcontrib.extras_require',
+	'sphinxcontrib.httpdomain',
+	'sphinxcontrib.toctree_plus',
+	'sphinxemoji.sphinxemoji',
 	]
 
 sphinxemoji_style = 'twemoji'
@@ -99,7 +99,7 @@ latex_documents = [('index', f'{slug}.tex', project, author, 'manual')]
 man_pages = [('index', slug, project, [author], 1)]
 texinfo_documents = [('index', slug, project, author, slug, project, 'Miscellaneous')]
 
-toctree_plus_types = {"class", "function", "method", "data", "role", "directive", "confval"}
+toctree_plus_types = {"class", "function", "method", "data"}
 
 
 autodoc_default_options = {
@@ -125,3 +125,6 @@ autodoc_default_options = {
 				"__hash__",
 				]),
 		}
+
+
+toctree_plus_types = {"class", "function", "method", "data", "role", "directive", "confval"}
