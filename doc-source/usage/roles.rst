@@ -1,38 +1,6 @@
 ========
-Usage
-========
-
-.. TODO:: Configure toctree plus to show confval and role
-
-
-Configuration
---------------
-
-.. confval:: source_link_target
-
-	| **Type:** :class:`str`
-	| **Required:** ``False``
-	| **Default:** ``'Sphinx'``
-
-	The target of the source link, either ``'GitHub'`` or ``'Sphinx'``.
-	Case insensitive.
-
-.. confval:: github_username
-
-	| **Type:** :class:`str`
-	| **Required:** ``True``
-
-	The username of the GitHub account that owns the repository this documentation corresponds to.
-
-.. confval:: github_repository
-
-	| **Type:** :class:`str`
-	| **Required:** ``True``
-
-	The GitHub repository this documentation corresponds to.
-
 Roles
------------------
+========
 
 .. rst:role:: source
 
@@ -43,15 +11,11 @@ Roles
 
 	**Example**
 
-	.. code-block:: rest
+	.. rest-example::
 
 		:source:`sphinx_toolbox/config.py`
 
 		Here is the :source:`source code <sphinx_toolbox/config.py>`
-
-	:source:`sphinx_toolbox/config.py`
-
-	Here is the :source:`source code <sphinx_toolbox/config.py>`
 
 
 .. rst:role:: issue
@@ -65,15 +29,11 @@ Roles
 
 	**Example**
 
-	.. code-block:: rest
+	.. rest-example::
 
 		:issue:`1`
 
 		pytest issue :issue:`7680 <pytest-dev/pytest>`
-
-	:issue:`1`
-
-	pytest issue :issue:`7680 <pytest-dev/pytest>`
 
 
 .. rst:role:: pull
@@ -87,19 +47,19 @@ Roles
 
 	**Example**
 
-	.. code-block:: rest
+	.. rest-example::
 
 		:pull:`2`
 
 		pytest pull request :issue:`7671 <pytest-dev/pytest>`
 
 
-	:pull:`2`
-
-	pytest pull request :issue:`7671 <pytest-dev/pytest>`
-
-
 The only difference between the :rst:role:`issue` and :rst:role:`pull` roles
-is in the URL. GitHub using the same numbering scheme for issues and
+is in the URL. GitHub uses the same numbering scheme for issues and
 pull requests, and automatically redirects to the pull request if
 the user tries to navigate to an issue with that same number.
+
+
+.. rst:role:: confval
+
+	Shows a link cross-reference to a :rst:dir:`confval`.

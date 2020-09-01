@@ -8,7 +8,6 @@ sphinx-toolbox
 
 .. end short_desc
 
-.. start shields
 
 .. list-table::
 	:stub-columns: 1
@@ -25,111 +24,71 @@ sphinx-toolbox
 	* - Other
 	  - |license| |language| |requires| |pre_commit|
 
-.. |docs| image:: https://img.shields.io/readthedocs/sphinx-toolbox/latest?logo=read-the-docs
-	:target: https://sphinx-toolbox.readthedocs.io/en/latest/?badge=latest
-	:alt: Documentation Status
+.. |docs| rtfd-shield::
+	:project: sphinx-toolbox
+	:alt: Documentation Build Status
 
-.. |docs_check| image:: https://github.com/domdfcoding/sphinx-toolbox/workflows/Docs%20Check/badge.svg
-	:target: https://github.com/domdfcoding/sphinx-toolbox/actions?query=workflow%3A%22Docs+Check%22
+.. |docs_check| actions-shield::
+	:workflow: Docs Check
 	:alt: Docs Check Status
 
-.. |travis| image:: https://img.shields.io/travis/com/domdfcoding/sphinx-toolbox/master?logo=travis
-	:target: https://travis-ci.com/domdfcoding/sphinx-toolbox
+.. |travis| travis-shield::
 	:alt: Travis Build Status
 
-.. |actions_windows| image:: https://github.com/domdfcoding/sphinx-toolbox/workflows/Windows%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/sphinx-toolbox/actions?query=workflow%3A%22Windows+Tests%22
+.. |actions_windows| actions-shield::
+	:workflow: Windows Tests
 	:alt: Windows Tests Status
 
-.. |actions_macos| image:: https://github.com/domdfcoding/sphinx-toolbox/workflows/macOS%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/sphinx-toolbox/actions?query=workflow%3A%22macOS+Tests%22
+.. |actions_macos| actions-shield::
+	:workflow: macOS Tests
 	:alt: macOS Tests Status
 
-.. |requires| image:: https://requires.io/github/domdfcoding/sphinx-toolbox/requirements.svg?branch=master
-	:target: https://requires.io/github/domdfcoding/sphinx-toolbox/requirements/?branch=master
+.. |requires| requires-io-shield::
 	:alt: Requirements Status
 
-.. |coveralls| image:: https://img.shields.io/coveralls/github/domdfcoding/sphinx-toolbox/master?logo=coveralls
-	:target: https://coveralls.io/github/domdfcoding/sphinx-toolbox?branch=master
+.. |coveralls| coveralls-shield::
 	:alt: Coverage
 
-.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/sphinx-toolbox?logo=codefactor
-	:target: https://www.codefactor.io/repository/github/domdfcoding/sphinx-toolbox
+.. |codefactor| codefactor-shield::
 	:alt: CodeFactor Grade
 
-.. |pypi-version| image:: https://img.shields.io/pypi/v/sphinx-toolbox
-	:target: https://pypi.org/project/sphinx-toolbox/
+.. |pypi-version| pypi-shield::
+	:version:
 	:alt: PyPI - Package Version
 
-.. |supported-versions| image:: https://img.shields.io/pypi/pyversions/sphinx-toolbox?logo=python&logoColor=white
-	:target: https://pypi.org/project/sphinx-toolbox/
+.. |supported-versions| pypi-shield::
+	:py-versions:
 	:alt: PyPI - Supported Python Versions
 
-.. |supported-implementations| image:: https://img.shields.io/pypi/implementation/sphinx-toolbox
-	:target: https://pypi.org/project/sphinx-toolbox/
+.. |supported-implementations| pypi-shield::
+	:implementations:
 	:alt: PyPI - Supported Implementations
 
-.. |wheel| image:: https://img.shields.io/pypi/wheel/sphinx-toolbox
-	:target: https://pypi.org/project/sphinx-toolbox/
+.. |wheel| pypi-shield::
+	:wheel:
 	:alt: PyPI - Wheel
 
-.. |license| image:: https://img.shields.io/github/license/domdfcoding/sphinx-toolbox
-	:target: https://github.com/domdfcoding/sphinx-toolbox/blob/master/LICENSE
+.. |license| github-shield::
+	:license:
 	:alt: License
 
-.. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/sphinx-toolbox
+.. |language| github-shield::
+	:top-language:
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/sphinx-toolbox/v0.0.0
-	:target: https://github.com/domdfcoding/sphinx-toolbox/pulse
+.. |commits-since| github-shield::
+	:commits-since: v0.0.0
 	:alt: GitHub commits since tagged version
 
-.. |commits-latest| image:: https://img.shields.io/github/last-commit/domdfcoding/sphinx-toolbox
-	:target: https://github.com/domdfcoding/sphinx-toolbox/commit/master
+.. |commits-latest| github-shield::
+	:last-commit:
 	:alt: GitHub last commit
 
-.. |maintained| image:: https://img.shields.io/maintenance/yes/2020
+.. |maintained| maintained-shield:: 2020
 	:alt: Maintenance
 
-.. |pre_commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
-	:target: https://github.com/pre-commit/pre-commit
+.. |pre_commit| pre-commit-shield::
 	:alt: pre-commit
-
-.. end shields
-
-Installation
----------------
-
-.. start installation
-
-.. tabs::
-
-	.. tab:: from PyPI
-
-		.. prompt:: bash
-
-			python3 -m pip install sphinx-toolbox --user
-
-
-	.. tab:: from GitHub
-
-		.. prompt:: bash
-
-			python3 -m pip install git+https://github.com/domdfcoding/sphinx-toolbox@master --user
-
-.. end installation
-
-Enable ``sphinx-toolbox`` by adding "sphinx.ext.viewcode" and "sphinx_toolbox" to the ``extensions`` variable in ``conf.py``:
-
-.. code-block:: python
-
-	extensions = [
-		...
-		"sphinx.ext.viewcode",
-		"sphinx_toolbox",
-		]
-
-For more information see https://www.sphinx-doc.org/en/master/usage/extensions/index.html#third-party-extensions .
 
 
 .. toctree::
@@ -140,11 +99,13 @@ For more information see https://www.sphinx-doc.org/en/master/usage/extensions/i
 
 .. toctree::
 	:maxdepth: 3
-	:caption: Documentation
+	:caption: Usage
+	:glob:
 
-	usage
-	contributing
-	Source
+	usage/installation
+	usage/configuration
+	usage/*
+
 
 .. toctree::
 	:maxdepth: 3
@@ -153,6 +114,13 @@ For more information see https://www.sphinx-doc.org/en/master/usage/extensions/i
 
 	api/sphinx-toolbox
 	api/*
+
+.. toctree::
+	:maxdepth: 3
+	:caption: Documentation
+
+	contributing
+	Source
 
 
 

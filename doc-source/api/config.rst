@@ -3,3 +3,4 @@
 ==============================
 
 .. automodule:: sphinx_toolbox.config
+	:autosummary-no-nesting:

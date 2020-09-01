@@ -28,14 +28,21 @@ General utility functions.
 
 # stdlib
 import functools
+from typing import Any, Callable, Iterable, Mapping
 
 # 3rd party
 from apeye.url import RequestsURL
+from docutils.nodes import Node
+from sphinx.application import Sphinx
+from sphinx.environment import BuildEnvironment
 
-__all__ = ["make_github_url", "GITHUB_COM"]
+__all__ = ["make_github_url", "GITHUB_COM", "flag", "word_join", "convert_indents", "Purger", "OptionSpec"]
 
 #: Instance of :class:`apeye.url.RequestsURL` that points to the GitHub website.
 GITHUB_COM = RequestsURL("https://github.com")
+
+# Type hint for the ``option_spec`` variable of Docutils directives.
+OptionSpec = Mapping[str, Callable[[str], Any]]
 
 
 @functools.lru_cache()
@@ -48,3 +55,114 @@ def make_github_url(username: str, repository: str) -> RequestsURL:
 	"""
 
 	return GITHUB_COM / username / repository
+
+
+def flag(argument: Any) -> bool:
+	"""
+	Check for a valid flag option (no argument) and return :py:obj:`True`.
+
+	Used in the ``option_spec`` of directives.
+
+	:raises: :exc:`ValueError` if an argument is given.
+
+	.. seealso:: :class:`docutils.parsers.rst.directives.flag`, which returns :py:obj:`None` instead of `True`.
+	"""
+
+	if argument and argument.strip():
+		raise ValueError(f"No argument is allowed; {argument!r} supplied")
+	else:
+		return True
+
+
+def word_join(iterable: Iterable[str], use_repr: bool = False, oxford: bool = False) -> str:
+	"""
+	Join the given list of strings in a natural manner, with 'and' to join the last two elements.
+
+	:param iterable:
+	:param use_repr: Whether to join the ``repr`` of each object.
+	:param oxford: Whether to use an oxford comma when joining the last two elements.
+		Always :py:obj:`False` if there are less than three elements.
+	"""
+
+	if use_repr:
+		words = [repr(w) for w in iterable]
+	else:
+		words = list(iterable)
+
+	if len(words) == 0:
+		return ''
+	elif len(words) == 1:
+		return words[0]
+	elif len(words) == 2:
+		return " and ".join(words)
+	else:
+		if oxford:
+			return ", ".join(words[:-1]) + f", and {words[-1]}"
+		else:
+			return ", ".join(words[:-1]) + f" and {words[-1]}"
+
+
+def convert_indents(text: str, tab_width: int = 4, from_: str = "\t") -> str:
+	"""
+	Convert indentation at the start of lines in ``text`` from tabs to spaces.
+
+	:param text: The text to convert indents in.
+	:param tab_width: The number of spaces per tab.
+	:param from_: The indent to convert from.
+	"""
+
+	output = []
+	tab = " " * tab_width
+	from_size = len(from_)
+
+	for line in text.splitlines():
+		indent_count = 0
+		while line.startswith(from_):
+			indent_count += 1
+			line = line[from_size:]
+		output.append(f"{tab * indent_count}{line}")
+
+	return "\n".join(output)
+
+
+class Purger:
+	"""
+	Class to purge redundant nodes.
+
+	:param attr_name: The name of the build environment's attribute that stores the list of nodes,
+		e.g. ``all_installation_nodes``.
+	"""
+
+	def __init__(self, attr_name: str):
+		self.attr_name = str(attr_name)
+
+	def purge_nodes(self, app: Sphinx, env: BuildEnvironment, docname: str) -> None:
+		"""
+		Remove all redundant :class:`sphinx_toolbox.installation.InstallationDirective` nodes.
+
+		:param app:
+		:param env:
+		:param docname: The name of the document to remove nodes for.
+		"""
+
+		if not hasattr(env, self.attr_name):
+			return
+
+		all_nodes = [
+				todo for todo in getattr(env, self.attr_name) if todo["docname"] != docname
+				]  # pragma: no cover
+		setattr(env, self.attr_name, all_nodes)  # pragma: no cover
+
+	def add_node(self, env: BuildEnvironment, node: Node, targetnode: Node, lineno: int):
+
+		if not hasattr(env, self.attr_name):
+			setattr(env, self.attr_name, [])
+
+		all_nodes = getattr(env, self.attr_name)
+
+		all_nodes.append({
+				"docname": env.docname,
+				"lineno": lineno,
+				"installation_node": node.deepcopy(),
+				"target": targetnode,
+				})

@@ -55,8 +55,9 @@ extensions = [
 	'sphinxcontrib.toctree_plus',
 	'seed_intersphinx_mapping',
 	'autodoc_augment_defaults',
+	'sphinx.ext.autosectionlabel',
 	'sphinx_autodoc_typehints',
-	"sphinx_toolbox",
+	'sphinx_toolbox',
 	]
 
 sphinxemoji_style = 'twemoji'
@@ -101,7 +102,7 @@ latex_documents = [('index', f'{slug}.tex', project, author, 'manual')]
 man_pages = [('index', slug, project, [author], 1)]
 texinfo_documents = [('index', slug, project, author, slug, project, 'Miscellaneous')]
 
-toctree_plus_types = {"class", "function", "method", "data"}
+toctree_plus_types = {"class", "function", "method", "data", "role", "directive", "confval"}
 
 
 autodoc_default_options = {
@@ -127,31 +128,3 @@ autodoc_default_options = {
 				"__hash__",
 				]),
 		}
-
-
-# Extensions to theme docs
-def setup(app):
-	from sphinx.domains.python import PyField
-	from sphinx.util.docfields import Field
-
-	app.add_object_type(
-			'confval',
-			'confval',
-			objname='configuration value',
-			indextemplate='pair: %s; configuration value',
-			doc_field_types=[
-					PyField(
-							'type',
-							label=_('Type'),
-							has_arg=False,
-							names=('type', ),
-							bodyrolename='class',
-							),
-					Field(
-							'default',
-							label=_('Default'),
-							has_arg=False,
-							names=('default', ),
-							),
-					]
-			)

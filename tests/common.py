@@ -6,6 +6,7 @@ from typing import Any, Dict, NamedTuple, Sequence
 import pytest
 from bs4 import BeautifulSoup
 from docutils.nodes import system_message
+from pytest_regressions.file_regression import FileRegressionFixture
 
 
 class AttrDict(dict):
@@ -51,3 +52,7 @@ def remove_html_footer(page: BeautifulSoup) -> BeautifulSoup:
 		div.extract()
 
 	return page
+
+
+def check_html_regression(page: BeautifulSoup, file_regression: FileRegressionFixture):
+	file_regression.check(contents=remove_html_footer(page).prettify(), extension=".html", encoding="UTF-8")

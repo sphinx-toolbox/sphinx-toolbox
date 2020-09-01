@@ -12,7 +12,9 @@ from sphinx.events import EventListener
 from sphinx.highlighting import lexer_classes
 
 # this package
-from sphinx_toolbox import IssueNode, depart_issue_node, source_role, validate_config, visit_issue_node
+from sphinx_toolbox.config import validate_config
+from sphinx_toolbox.issues import IssueNode, depart_issue_node, visit_issue_node
+from sphinx_toolbox.source import source_role
 from sphinx_toolbox.testing import Sphinx, run_setup
 
 

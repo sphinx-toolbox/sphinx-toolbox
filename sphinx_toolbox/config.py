@@ -4,7 +4,6 @@
 """
 Internal configuration for ``sphinx-toolbox``.
 """
-# 3rd party
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -59,12 +58,34 @@ class ToolboxConfig(Config):
 	"""  # noqa: D400
 
 	source_link_target: str
+	"""
+	The target of the source link, either ``'github'`` or ``'sphinx'``.
+	Will be lowercase after :func:`~.validate_config` has run.
+	"""
+
+	#: The username of the GitHub account that owns the repository this documentation corresponds to.
 	github_username: str
+
+	#: The GitHub repository this documentation corresponds to.
 	github_repository: str
+
+	#: The complete URL of the repository on GitHub.
 	github_url: RequestsURL
+
+	#: The base URL for the source code on GitHub.
 	github_source_url: RequestsURL
+
+	#: The base URL for the issues on GitHub.
 	github_issues_url: RequestsURL
+
+	#: The base URL for the pull requests on GitHub.
 	github_pull_url: RequestsURL
+
+	docutils_tab_width: int
+	"""
+	The tab size used by docutils.
+	This is usually 8 spaces, but can be configured in the ``docutils.conf`` file.
+	"""
 
 
 def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
@@ -84,6 +105,9 @@ def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
 	* github_source_url (:class:`apeye.RequestsURL`\) - The base URL for the source code on GitHub.
 	* github_issues_url (:class:`apeye.RequestsURL`\) - The GitHub issues URL for this repository.
 	* github_pull_url (:class:`apeye.RequestsURL`\) - The GitHub pull requests URL for this repository.
+	* conda_channels (:class:`~typing.List`\\[:class:`str:`\\]) -
+	  The conda channels required to install the library from Anaconda.
+	* docutils_tab_width (:class:`int`\\) - The number of spaces docutils converts a tab into.
 
 	:param app:
 	:param config:

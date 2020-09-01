@@ -3,8 +3,7 @@ import pytest
 from apeye.url import RequestsURL
 
 # this package
-from sphinx_toolbox import validate_config
-from sphinx_toolbox.config import InvalidOptionError, MissingOptionError
+from sphinx_toolbox.config import InvalidOptionError, MissingOptionError, validate_config
 from tests.common import AttrDict
 
 

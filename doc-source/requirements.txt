@@ -1,14 +1,12 @@
 autodocsumm>=0.2.0
-default_values>=0.0.7
+default_values>=0.0.8
 domdf_sphinx_theme>=0.0.11
 extras_require
-seed_intersphinx_mapping>=0.1.0
+seed_intersphinx_mapping>=0.1.1
 sphinx>=3.0.3
 sphinx-copybutton>=0.2.12
 sphinx-notfound-page
-sphinx-prompt>=1.2.0
-sphinx-tabs>=1.1.13
 sphinxcontrib-httpdomain>=1.7.0
 sphinxemoji>=0.1.6
-toctree_plus>=0.0.2
+toctree_plus>=0.0.3
 git+git://github.com/domdfcoding/sphinx-autodoc-typehints.git@typevar-as-pydata

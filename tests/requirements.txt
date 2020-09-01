@@ -1,7 +1,6 @@
 beautifulsoup4
 coverage>=5.1
 coverage_pyver_pragma>=0.0.5
-docutils-stubs
 html5lib
 pytest>=6.0.0
 pytest-cov>=2.8.1

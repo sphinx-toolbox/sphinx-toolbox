@@ -69,12 +69,25 @@ class IssueNode(nodes.reference):
 			self,
 			issue_number: Union[str, int],
 			refuri: Union[str, URL],
+			**kwargs,
 			):
 		self.has_tooltip = False
 		self.issue_number = int(issue_number)
 		self.issue_url = str(refuri)
 
 		super().__init__(f"#{issue_number}", f"#{issue_number}", refuri=str(refuri))
+
+	def copy(self) -> "IssueNode":  # pragma: no cover
+		"""
+		Return a copy of the :class:`sphinx_toolbox.issues.IssueNode`.
+		"""
+
+		# This was required to stop some breakage, but it doesn't seem to run during the tests.
+		obj = self.__class__(issue_number=self.issue_number, refuri=self.issue_url)
+		obj.document = self.document
+		obj.source = self.source
+		obj.line = self.line
+		return obj
 
 
 def issue_role(

@@ -1,12 +1,10 @@
 # 3rd party
 import pytest
 from apeye.url import RequestsURL
-from bs4 import BeautifulSoup
-from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.testing import count
 
 # this package
-from sphinx_toolbox import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
+from sphinx_toolbox.issues import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
 from sphinx_toolbox.utils import make_github_url
 from tests.common import AttrDict, error, error_codes, info, severe, warning
 

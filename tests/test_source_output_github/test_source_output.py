@@ -4,11 +4,12 @@ from bs4 import BeautifulSoup
 from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
-from tests.common import remove_html_footer
+from tests.common import check_html_regression
 
 
 def test_build_github(gh_src_app):
 	# app is a Sphinx application object for default sphinx project (`tests/doc-test/sphinx-test-github-root`).
+	gh_src_app.build()
 	gh_src_app.build()
 
 
@@ -35,4 +36,4 @@ def test_output_github(github_source_page: BeautifulSoup, file_regression: FileR
 
 	assert tag_count == 2
 
-	file_regression.check(contents=remove_html_footer(github_source_page).prettify(), extension=".html")
+	check_html_regression(github_source_page, file_regression)
