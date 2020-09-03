@@ -33,10 +33,13 @@ from typing import Any, Dict, Union
 from docutils.nodes import document
 from docutils.statemachine import StringList
 from sphinx.application import Sphinx
+from sphinx.environment import BuildEnvironment
 from sphinx.parsers import RSTParser
 
 # this package
 from sphinx_toolbox import code, config, confval, installation, issues, rest_example, shields, source
+from sphinx_toolbox.cache import cache
+from sphinx_toolbox.issues import get_issue_title
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"
@@ -45,7 +48,18 @@ __license__: str = "MIT License"
 __version__: str = "0.1.0"
 __email__: str = "dominic@davis-foster.co.uk"
 
-__all__ = ["setup"]
+__all__ = ["setup", "sphinx_purge_cache"]
+
+
+def sphinx_purge_cache(app: Sphinx, env: BuildEnvironment, docname):
+	"""
+	Clear any cached URLs.
+
+	:param app: The sphinx application.
+	:param env: The sphinx build environment.
+	"""
+
+	cache.clear()
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
@@ -119,5 +133,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 			super().parse(inputstring, document)
 
 	app.add_source_parser(CustomRSTParser, override=True)
+
+	app.connect("env-purge-doc", sphinx_purge_cache)
 
 	return {"version": __version__, "parallel_read_safe": True}

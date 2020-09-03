@@ -34,6 +34,7 @@ def test_setup():
 					EventListener(id=1, handler=installation.installation_node_purger.purge_nodes, priority=500),
 					EventListener(id=2, handler=rest_example_purger.purge_nodes, priority=500),
 					EventListener(id=3, handler=installation.extensions_node_purger.purge_nodes, priority=500),
+					EventListener(id=4, handler=sphinx_toolbox.sphinx_purge_cache, priority=500),
 					],
 			}
 

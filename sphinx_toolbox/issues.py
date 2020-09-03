@@ -34,23 +34,22 @@ Add links to GitHub issues and Pull Requests.
 
 # stdlib
 import warnings
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 # 3rd party
-import requests
 from apeye.url import URL
 from bs4 import BeautifulSoup
 from docutils import nodes, utils
-from docutils.nodes import Node, system_message
+from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
-from domdf_python_tools.typing import PathLike
 from sphinx.util.nodes import split_explicit_title
 from sphinx.writers.html import HTMLTranslator
 
 # this package
+from sphinx_toolbox.cache import cache
 from sphinx_toolbox.utils import make_github_url
 
-__all__ = ["IssueNode", "issue_role", "pull_role", "visit_issue_node", "depart_issue_node"]
+__all__ = ["IssueNode", "issue_role", "pull_role", "visit_issue_node", "depart_issue_node", "get_issue_title"]
 
 
 class IssueNode(nodes.reference):
@@ -199,12 +198,10 @@ def visit_issue_node(translator: HTMLTranslator, node: IssueNode):
 	:param node: The node being visited.
 	"""
 
-	r = requests.get(node.issue_url)
+	issue_title = get_issue_title(node.issue_url)
 
-	if r.status_code == 200:
-		soup = BeautifulSoup(r.content, "html5lib")
+	if issue_title:
 		node.has_tooltip = True
-		issue_title = soup.find_all("span", attrs={"class": "js-issue-title"})[0].contents[0].strip().strip()
 		translator.body.append(f'<abbr title="{issue_title}">')
 		translator.visit_reference(node)
 	else:
@@ -222,3 +219,20 @@ def depart_issue_node(translator: HTMLTranslator, node: IssueNode):
 	if node.has_tooltip:
 		translator.depart_reference(node)
 		translator.body.append("</abbr>")
+
+
+def get_issue_title(issue_url: str) -> Optional[str]:
+	"""
+	Returns the title of the issue with the given url,
+	or :py:obj:`None` if the issue isn't found.
+
+	:param issue_url:
+	"""
+
+	r = cache.session.get(issue_url)
+
+	if r.status_code == 200:
+		soup = BeautifulSoup(r.content, "html5lib")
+		return soup.find_all("span", attrs={"class": "js-issue-title"})[0].contents[0].strip().strip()
+
+	return None

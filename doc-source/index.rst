@@ -8,6 +8,7 @@ sphinx-toolbox
 
 .. end short_desc
 
+.. start shields
 
 .. list-table::
 	:stub-columns: 1
@@ -33,6 +34,7 @@ sphinx-toolbox
 	:alt: Docs Check Status
 
 .. |travis| travis-shield::
+	:travis-site: com
 	:alt: Travis Build Status
 
 .. |actions_windows| actions-shield::
@@ -53,18 +55,22 @@ sphinx-toolbox
 	:alt: CodeFactor Grade
 
 .. |pypi-version| pypi-shield::
+	:project: sphinx-toolbox
 	:version:
 	:alt: PyPI - Package Version
 
 .. |supported-versions| pypi-shield::
+	:project: sphinx-toolbox
 	:py-versions:
 	:alt: PyPI - Supported Python Versions
 
 .. |supported-implementations| pypi-shield::
+	:project: sphinx-toolbox
 	:implementations:
 	:alt: PyPI - Supported Implementations
 
 .. |wheel| pypi-shield::
+	:project: sphinx-toolbox
 	:wheel:
 	:alt: PyPI - Wheel
 
@@ -89,6 +95,8 @@ sphinx-toolbox
 
 .. |pre_commit| pre-commit-shield::
 	:alt: pre-commit
+
+.. end shields
 
 
 .. toctree::
