@@ -22,11 +22,12 @@ repos:
     - id: mixed-line-ending
 
  - repo: https://github.com/domdfcoding/pre-commit-hooks
-   rev: v0.0.3
+   rev: v0.0.4
    hooks:
     - id: requirements-txt-sorter
       args: [--allow-git]
     - id: check-docstring-first
+    - id: bind-requirements
 
  - repo: https://github.com/domdfcoding/flake8-dunder-all
    rev: v0.0.4
