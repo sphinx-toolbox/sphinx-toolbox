@@ -239,10 +239,10 @@ class InstallationDirective(SphinxDirective):
 	optional_arguments: int = 1  # The name of the project; can be overridden for each source
 
 	# Registered sources
-	option_spec: OptionSpec = {
-			source[0].lower(): source[3]
-			for source in sources  # type: ignore  # pylint: disable=not-an-iterable
-			}
+	option_spec: OptionSpec = {  # type: ignore
+		source[0].lower(): source[3]
+		for source in sources  # pylint: disable=not-an-iterable
+		}
 
 	# Extra options for registered sources
 	for source in sources:  # pylint: disable=not-an-iterable
