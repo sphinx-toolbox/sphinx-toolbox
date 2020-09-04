@@ -38,7 +38,7 @@ from typing import Dict, List, Optional, Tuple, Union
 
 # 3rd party
 from apeye.url import URL
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup  # type: ignore
 from docutils import nodes, utils
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner

@@ -1,4 +1,4 @@
-apeye>=0.0.3
+apeye>=0.0.4
 beautifulsoup4>=4.9.1
 docutils>=0.16
 domdf_python_tools>=0.4.10

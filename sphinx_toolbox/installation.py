@@ -127,7 +127,7 @@ class Sources(List[Tuple[str, str, Callable, Callable, Optional[Dict[str, Callab
 
 
 #: Instance of :class:`~.Sources`.
-sources = Sources()
+sources: Sources = Sources()
 
 
 # pypi_name: The name of the project on PyPI.
@@ -239,10 +239,13 @@ class InstallationDirective(SphinxDirective):
 	optional_arguments: int = 1  # The name of the project; can be overridden for each source
 
 	# Registered sources
-	option_spec: OptionSpec = {source[0].lower(): source[3] for source in sources}  # type: ignore
+	option_spec: OptionSpec = {
+			source[0].lower(): source[3]
+			for source in sources  # type: ignore  # pylint: disable=not-an-iterable
+			}
 
 	# Extra options for registered sources
-	for source in sources:
+	for source in sources:  # pylint: disable=not-an-iterable
 		if source[4] is not None:
 			option_spec.update(source[4])  # type: ignore
 

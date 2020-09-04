@@ -1,7 +1,7 @@
 # 3rd party
 import pytest
-from pytest_httpserver import HTTPServer
-from pytest_httpserver.pytest_plugin import Plugin, PluginHTTPServer, get_httpserver_listen_address
+from pytest_httpserver import HTTPServer  # type: ignore
+from pytest_httpserver.pytest_plugin import Plugin, PluginHTTPServer, get_httpserver_listen_address  # type: ignore
 
 # this package
 from tests.common import error_codes_list

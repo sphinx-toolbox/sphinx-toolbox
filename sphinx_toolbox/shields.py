@@ -240,7 +240,7 @@ class GitHubActionsShield(GitHubBackedShield):
 		username, repository = self.get_repo_details()
 		workflow = quote(self.options["workflow"])
 
-		self.arguments = [make_github_url(username, repository) / "workflows" / workflow / "badge.svg"]
+		self.arguments = [str(make_github_url(username, repository) / "workflows" / workflow / "badge.svg")]
 		self.options["target"] = str(
 				make_github_url(username, repository) / f"actions?query=workflow%3A%22{workflow}%22"
 				)
@@ -370,7 +370,7 @@ class PyPIShield(Shield):
 				break
 
 		if info["py-versions"]:
-			self.arguments = [base_url / "pyversions" / f"{project}?logo=python&logoColor=white"]
+			self.arguments = [str(base_url / "pyversions" / f"{project}?logo=python&logoColor=white")]
 
 		elif info["downloads"]:
 			if info["downloads"] in {"week", "dw"}:

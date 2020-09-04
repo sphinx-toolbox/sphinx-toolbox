@@ -66,7 +66,7 @@ from docutils.nodes import Node  # NOQA
 from docutils.nodes import Element, TextElement
 from docutils.parsers.rst import Directive, roles
 from docutils.transforms import Transform
-from pygments.lexer import Lexer
+from pygments.lexer import Lexer  # type: ignore
 from sphinx.builders import Builder
 from sphinx.config import Config
 from sphinx.domains import Domain, Index

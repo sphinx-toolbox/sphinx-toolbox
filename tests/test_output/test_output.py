@@ -1,7 +1,7 @@
 # 3rd party
 import pytest
-from bs4 import BeautifulSoup
-from pytest_regressions.file_regression import FileRegressionFixture
+from bs4 import BeautifulSoup  # type: ignore
+from pytest_regressions.file_regression import FileRegressionFixture  # type: ignore
 
 # this package
 from tests.common import check_html_regression
