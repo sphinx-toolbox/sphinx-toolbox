@@ -27,7 +27,7 @@ Internal configuration for ``sphinx-toolbox``.
 #
 
 # 3rd party
-from apeye.url import RequestsURL
+from apeye.url import URL, RequestsURL
 from sphinx.application import Sphinx
 from sphinx.config import Config
 
@@ -87,6 +87,9 @@ class ToolboxConfig(Config):
 	This is usually 8 spaces, but can be configured in the ``docutils.conf`` file.
 	"""
 
+	#: The Wikipedia language to use for :rst:role:`wikipedia` roles.
+	wikipedia_lang: str
+
 
 def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
 	r"""
@@ -108,6 +111,7 @@ def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
 	* conda_channels (:class:`~typing.List`\\[:class:`str:`\\]) -
 	  The conda channels required to install the library from Anaconda.
 	* docutils_tab_width (:class:`int`\\) - The number of spaces docutils converts a tab into.
+	* wikipedia_lang (:class:`str`\\) - The Wikipedia language to use for :rst:role:`wikipedia` roles.
 
 	:param app:
 	:param config:

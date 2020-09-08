@@ -3,7 +3,7 @@ from sphinx.events import EventListener
 
 # this package
 import sphinx_toolbox
-from sphinx_toolbox import code, config, installation, shields, source
+from sphinx_toolbox import code, config, installation, shields, source, wikipedia
 from sphinx_toolbox.issues import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
 from sphinx_toolbox.rest_example import rest_example_purger, reSTExampleDirective
 from sphinx_toolbox.testing import run_setup
@@ -18,6 +18,7 @@ def test_setup():
 			"issue": issue_role,
 			"pr": pull_role,
 			"pull": pull_role,
+			"wikipedia": wikipedia.make_wikipedia_link,
 			}
 
 	assert additional_nodes == {IssueNode}

@@ -100,3 +100,33 @@ def test_augment_defaults_html_output(page: BeautifulSoup, file_regression: File
 
 	# Testing the actual content with check_html_regression
 	check_html_regression(page, file_regression)
+
+
+@pytest.mark.parametrize("page", ["autoprotocol.html"], indirect=True)
+def test_autoprotocol_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+	# Make sure the page title is what you expect
+	title = page.find("h1").contents[0].strip()
+	assert "sphinx-toolbox Demo - Autoprotocol" == title
+
+	# Testing the actual content with check_html_regression
+	check_html_regression(page, file_regression)
+
+
+@pytest.mark.parametrize("page", ["wikipedia.html"], indirect=True)
+def test_wikipedia_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+	# Make sure the page title is what you expect
+	title = page.find("h1").contents[0].strip()
+	assert "sphinx-toolbox Demo - Wikipedia" == title
+
+	# Testing the actual content with check_html_regression
+	check_html_regression(page, file_regression)
+
+
+@pytest.mark.parametrize("page", ["formatting.html"], indirect=True)
+def test_formatting_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+	# Make sure the page title is what you expect
+	title = page.find("h1").contents[0].strip()
+	assert "sphinx-toolbox Demo - Formatting" == title
+
+	# Testing the actual content with check_html_regression
+	check_html_regression(page, file_regression)

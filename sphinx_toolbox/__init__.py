@@ -36,7 +36,7 @@ from sphinx.application import Sphinx
 from sphinx.parsers import RSTParser
 
 # this package
-from sphinx_toolbox import code, config, confval, installation, issues, rest_example, shields, source
+from sphinx_toolbox import code, config, confval, installation, issues, rest_example, shields, source, wikipedia
 from sphinx_toolbox.cache import cache
 from sphinx_toolbox.issues import get_issue_title
 
@@ -84,6 +84,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_config_value("github_username", None, "env", types=[str])
 	app.add_config_value("github_repository", None, "env", types=[str])
 	app.add_config_value("conda_channels", [], "env", types=[list])
+	app.add_config_value('wikipedia_lang', 'en', 'env')
 	app.connect("config-inited", config.validate_config, priority=850)
 
 	# Instructions for installing a python package
@@ -116,6 +117,13 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 
 	# Confval role and directive
 	confval.register_confval(app)
+
+	# Wikipedia xref role
+	app.add_role('wikipedia', wikipedia.make_wikipedia_link)
+
+	# Setup standalone extensions
+	app.setup_extension("sphinx_toolbox.formatting")
+	app.setup_extension("sphinx_toolbox.autoprotocol")
 
 	# Hack to get the docutils tab size, as there doesn't appear to be any other way
 	class CustomRSTParser(RSTParser):

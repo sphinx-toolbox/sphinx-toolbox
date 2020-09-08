@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   sphinx-toolbox Demo - Autoprotocol — Python  documentation
+  </title>
+  <link href="_static/alabaster.css" rel="stylesheet" type="text/css"/>
+  <link href="_static/pygments.css" rel="stylesheet" type="text/css"/>
+  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
+  </script>
+  <script src="_static/jquery.js">
+  </script>
+  <script src="_static/underscore.js">
+  </script>
+  <script src="_static/doctools.js">
+  </script>
+  <script src="_static/language_data.js">
+  </script>
+  <link href="genindex.html" rel="index" title="Index"/>
+  <link href="search.html" rel="search" title="Search"/>
+  <link href="_static/custom.css" rel="stylesheet" type="text/css"/>
+  <meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
+ </head>
+ <body>
+  <div class="document">
+   <div class="documentwrapper">
+    <div class="bodywrapper">
+     <div class="body" role="main">
+      <div class="section" id="module-autoprotocol_demo">
+       <span id="sphinx-toolbox-demo-autoprotocol">
+       </span>
+       <h1>
+        sphinx-toolbox Demo - Autoprotocol
+        <a class="headerlink" href="#module-autoprotocol_demo" title="Permalink to this headline">
+         ¶
+        </a>
+       </h1>
+       <dl class="py protocol">
+        <dt id="autoprotocol_demo.Frobnicater">
+         <em class="property">
+          protocol
+         </em>
+         <code class="sig-prename descclassname">
+          autoprotocol_demo.
+         </code>
+         <code class="sig-name descname">
+          Frobnicater
+         </code>
+         <a class="reference internal" href="_modules/autoprotocol_demo.html#Frobnicater">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#autoprotocol_demo.Frobnicater" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            typing.Protocol
+           </span>
+          </code>
+          .
+         </p>
+         <p>
+          Classes that implement this protocol must have the following methods:
+         </p>
+         <dl class="py method">
+          <dt id="autoprotocol_demo.Frobnicater.frobnicate">
+           <code class="sig-name descname">
+            frobnicate
+           </code>
+           <span class="sig-paren">
+            (
+           </span>
+           <em class="sig-param">
+            <span class="n">
+             something
+            </span>
+           </em>
+           <span class="sig-paren">
+            )
+           </span>
+           → Any
+           <a class="reference internal" href="_modules/autoprotocol_demo.html#Frobnicater.frobnicate">
+            <span class="viewcode-link">
+             [source]
+            </span>
+           </a>
+           <a class="headerlink" href="#autoprotocol_demo.Frobnicater.frobnicate" title="Permalink to this definition">
+            ¶
+           </a>
+          </dt>
+          <dd>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
+       <dl class="py protocol">
+        <dt id="autoprotocol_demo.HasLessThan">
+         <em class="property">
+          protocol
+         </em>
+         <code class="sig-prename descclassname">
+          autoprotocol_demo.
+         </code>
+         <code class="sig-name descname">
+          HasLessThan
+         </code>
+         <a class="reference internal" href="_modules/autoprotocol_demo.html#HasLessThan">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#autoprotocol_demo.HasLessThan" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            typing.Protocol
+           </span>
+          </code>
+          for classes that support the
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            &lt;
+           </span>
+          </code>
+          operator.
+         </p>
+         <p>
+          Classes that implement this protocol must have the following methods:
+         </p>
+         <dl class="py method">
+          <dt id="autoprotocol_demo.HasLessThan.__lt__">
+           <code class="sig-name descname">
+            __lt__
+           </code>
+           <span class="sig-paren">
+            (
+           </span>
+           <em class="sig-param">
+            <span class="n">
+             other
+            </span>
+           </em>
+           <span class="sig-paren">
+            )
+           </span>
+           → bool
+           <a class="reference internal" href="_modules/autoprotocol_demo.html#HasLessThan.__lt__">
+            <span class="viewcode-link">
+             [source]
+            </span>
+           </a>
+           <a class="headerlink" href="#autoprotocol_demo.HasLessThan.__lt__" title="Permalink to this definition">
+            ¶
+           </a>
+          </dt>
+          <dd>
+           <p>
+            Return self&lt;value.
+           </p>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
+       <dl class="py protocol">
+        <dt id="autoprotocol_demo.HasGreaterThan">
+         <em class="property">
+          protocol
+         </em>
+         <code class="sig-prename descclassname">
+          autoprotocol_demo.
+         </code>
+         <code class="sig-name descname">
+          HasGreaterThan
+         </code>
+         <a class="reference internal" href="_modules/autoprotocol_demo.html#HasGreaterThan">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#autoprotocol_demo.HasGreaterThan" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            typing.Protocol
+           </span>
+          </code>
+          .
+         </p>
+         <p>
+          Classes that implement this protocol must have the following methods:
+         </p>
+         <dl class="py method">
+          <dt id="autoprotocol_demo.HasGreaterThan.__gt__">
+           <code class="sig-name descname">
+            __gt__
+           </code>
+           <span class="sig-paren">
+            (
+           </span>
+           <em class="sig-param">
+            <span class="n">
+             other
+            </span>
+           </em>
+           <span class="sig-paren">
+            )
+           </span>
+           → bool
+           <a class="reference internal" href="_modules/autoprotocol_demo.html#HasGreaterThan.__gt__">
+            <span class="viewcode-link">
+             [source]
+            </span>
+           </a>
+           <a class="headerlink" href="#autoprotocol_demo.HasGreaterThan.__gt__" title="Permalink to this definition">
+            ¶
+           </a>
+          </dt>
+          <dd>
+           <p>
+            Return self&gt;value.
+           </p>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div aria-label="main navigation" class="sphinxsidebar" role="navigation">
+    <div class="sphinxsidebarwrapper">
+     <h1 class="logo">
+      <a href="index.html">
+       Python
+      </a>
+     </h1>
+     <h3>
+      Navigation
+     </h3>
+     <div class="relations">
+      <h3>
+       Related Topics
+      </h3>
+      <ul>
+       <li>
+        <a href="index.html">
+         Documentation overview
+        </a>
+        <ul>
+        </ul>
+       </li>
+      </ul>
+     </div>
+     <div id="searchbox" role="search" style="display: none">
+      <h3 id="searchlabel">
+       Quick search
+      </h3>
+      <div class="searchformwrapper">
+       <form action="search.html" class="search" method="get">
+        <input aria-labelledby="searchlabel" name="q" type="text"/>
+        <input type="submit" value="Go"/>
+       </form>
+      </div>
+     </div>
+     <script>
+      $('#searchbox').show(0);
+     </script>
+    </div>
+   </div>
+   <div class="clearer">
+   </div>
+  </div>
+ </body>
+</html>

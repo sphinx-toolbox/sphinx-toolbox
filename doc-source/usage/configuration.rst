@@ -29,3 +29,12 @@ Configuration
 
 	The conda channels required to install the library from Anaconda.
 	An alternative to setting it within the :rst:dir:`installation` directive.
+
+.. confval:: wikipedia_lang
+	:type: :class:`str`
+	:required: False
+	:default: ``'en'``
+
+	The Wikipedia language to use for :rst:role:`wikipedia` roles.
+
+	.. versionadded:: 0.2.0

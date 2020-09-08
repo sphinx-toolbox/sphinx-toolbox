@@ -174,3 +174,13 @@ Directives
 			:source:`sphinx_toolbox/config.py`
 
 			Here is the :source:`source code <sphinx_toolbox/config.py>`
+
+
+.. rst:directive:: autoprotocol
+
+	Directive to automatically document a :class:`typing.Protocol`.
+
+	See https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
+	for further information.
+
+	.. TODO:: Clarify the permitted options

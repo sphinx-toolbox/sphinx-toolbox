@@ -63,3 +63,41 @@ the user tries to navigate to an issue with that same number.
 .. rst:role:: confval
 
 	Shows a link cross-reference to a :rst:dir:`confval`.
+
+
+.. rst:role:: wikipedia
+
+	Shows a link to the given article on Wikipedia.
+
+	The title and language can be customised.
+
+	.. versionadded:: 0.2.0
+
+	**Example**
+
+	.. rest-example::
+
+		:wikipedia:`Sphinx`
+
+		:wikipedia:`mythical creature <Sphinx>`
+
+		:wikipedia:`:zh:斯芬克斯`
+
+		:wikipedia:`Answer to the Ultimate Question of Life, the Universe, and Everything <:de:42 (Antwort)>`
+
+
+.. rst:role:: iabbr
+
+	An abbreviation. If the role content contains a parenthesized  explanation,
+	it will be treated specially: it will be shown in a tool-tip in HTML,
+	and output only once in LaTeX.
+
+	Unlike Sphinx's :rst:role:`abbr` role, this one shows the abbreviation in italics.
+
+	.. versionadded:: 0.2.0
+
+	**Example**
+
+	.. rest-example::
+
+		:iabbr:`LIFO (last-in, first-out)`
