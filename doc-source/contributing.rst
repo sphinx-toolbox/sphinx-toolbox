@@ -1,8 +1,7 @@
-.. This file based on https://github.com/PyGithub/PyGithub/blob/master/CONTRIBUTING.md
+Overview
+---------
 
-==============
-Contributing
-==============
+.. This file based on https://github.com/PyGithub/PyGithub/blob/master/CONTRIBUTING.md
 
 ``sphinx-toolbox`` uses `tox <https://tox.readthedocs.io>`_ to automate testing and packaging, and `pre-commit <https://pre-commit.com>`_ to maintain code quality.
 
