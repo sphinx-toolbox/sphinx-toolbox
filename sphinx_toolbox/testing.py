@@ -446,6 +446,22 @@ class Sphinx:
 
 		self.registry.add_html_math_renderer(name, inline_renderers, block_renderers)  # type: ignore
 
+	def setup_extension(self, extname: str) -> None:
+		"""
+		Import and setup a Sphinx extension module.
+
+		.. TODO::
+		"""
+
+		#self.registry.load_extension(self, extname)
+
+	def require_sphinx(self, version: str) -> None:
+		"""
+		Check the Sphinx version if requested.
+
+		No-op when testing
+		"""
+
 	# event interface
 	def connect(self, event: str, callback: Callable, priority: int = 500) -> int:
 		"""
