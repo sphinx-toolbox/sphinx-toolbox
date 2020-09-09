@@ -20,6 +20,8 @@ sphinx-toolbox
 	  - |travis| |actions_windows| |actions_macos| |coveralls| |codefactor|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
+	* - Anaconda
+	  - |conda-version| |conda-platform|
 	* - Activity
 	  - |commits-latest| |commits-since| |maintained|
 	* - Other
@@ -73,6 +75,14 @@ sphinx-toolbox
 	:project: sphinx-toolbox
 	:wheel:
 	:alt: PyPI - Wheel
+
+.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/sphinx-toolbox?logo=anaconda
+	:target: https://anaconda.org/domdfcoding/sphinx-toolbox
+	:alt: Conda - Package Version
+
+.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/sphinx-toolbox?label=conda%7Cplatform
+	:target: https://anaconda.org/domdfcoding/sphinx-toolbox
+	:alt: Conda - Platform
 
 .. |license| github-shield::
 	:license:

@@ -21,6 +21,8 @@ sphinx-toolbox
 	  - |travis| |actions_windows| |actions_macos| |coveralls| |codefactor|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
+	* - Anaconda
+	  - |conda-version| |conda-platform|
 	* - Activity
 	  - |commits-latest| |commits-since| |maintained|
 	* - Other
@@ -74,6 +76,14 @@ sphinx-toolbox
 	:target: https://pypi.org/project/sphinx-toolbox/
 	:alt: PyPI - Wheel
 
+.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/sphinx-toolbox?logo=anaconda
+	:target: https://anaconda.org/domdfcoding/sphinx-toolbox
+	:alt: Conda - Package Version
+
+.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/sphinx-toolbox?label=conda%7Cplatform
+	:target: https://anaconda.org/domdfcoding/sphinx-toolbox
+	:alt: Conda - Platform
+
 .. |license| image:: https://img.shields.io/github/license/domdfcoding/sphinx-toolbox
 	:target: https://github.com/domdfcoding/sphinx-toolbox/blob/master/LICENSE
 	:alt: License
@@ -105,12 +115,27 @@ Installation
 
 .. start installation
 
-``sphinx-toolbox`` can be installed from PyPI.
+``sphinx-toolbox`` can be installed from PyPI or Anaconda.
 
 To install with ``pip``:
 
 .. code-block:: bash
 
 	$ python -m pip install sphinx-toolbox
+
+To install with ``conda``:
+
+	* First add the required channels
+
+	.. code-block:: bash
+
+		$ conda config --add channels http://conda.anaconda.org/domdfcoding
+		$ conda config --add channels http://conda.anaconda.org/conda-forge
+
+	* Then install
+
+	.. code-block:: bash
+
+		$ conda install sphinx-toolbox
 
 .. end installation

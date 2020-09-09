@@ -55,6 +55,13 @@ extras_require = {'all': []}
 
 
 
+conda_description = """Box of handy tools for Sphinx.
+
+
+Before installing please ensure you have added the following channels: domdfcoding, conda-forge"""
+__all__.append("conda_description")
+
+
 project_urls = {
 		"Documentation": "https://sphinx-toolbox.readthedocs.io",
 		"Issue Tracker": f"{github_url}/issues",

@@ -127,4 +127,4 @@ autodoc_default_options = {
 		}
 
 
-toctree_plus_types = {"class", "function", "method", "data", "role", "directive", "confval"}
+toctree_plus_types = {"class", "function", "method", "data", "role", "directive", "confval", "protocol"}

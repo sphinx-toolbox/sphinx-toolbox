@@ -25,7 +25,7 @@ after_success:
 stages:
   - test
   - deploy_pypi
-
+  - deploy_conda
 
 
 jobs:
@@ -43,3 +43,19 @@ jobs:
           secure: ALMXY6cTUI66wIwxJr1BBS7FER1EhtLoZn4dCjeQxh2WZXqDwzDUt5sZDJdygkgC/G1xXnTjyA79vtehwDlGLle/DT2JZ6uaWoC2Ws0nhMGurYAB+Rnig4ZP478rdIuiesvn8ZSq2rNAHqr9g22h6NQfZyGVuLmMzCCAyEMSr2Y1DITeMP0hYgLlAf60qT1BFZ3ANUIThdZbrVv+7h2Y73VUgUHSwy7wvTzjfmS1wB8AMSXEaD9Al5aEg1qRKAGotcCv7h6C1a9sSGuO3ch9VgsHdica/IZBtJnjsUTUs6eacqFQm0E+4mWIWaoe8HDW4lHgKR9ulyoX3mHuwa5R1KYJRDkYJOgOYBN3yGpJ4NJvkXsD/Gh1WcDjJSjl7irOLW3Ianb6KATOeUZEHqtRp3ZfRhoTS04u2q9sQF47PyNPX9fZrtWxWHdkq5rZz/pwalqY4/n5gRo50LjyiP4AhJMt4F88BeFM4taEMus2jFTANvbEgkfWdVSbRlxCaDij3D08eKqLL3cK/YDYIwMJFSuqkxkoVdczLHXkOk3X5xarVODIdez/mOfXRpsLFpzcd27APTH8AAG5galkLyZxEnN/BHJAjyQ9MSQLgqWYZr0tEnXeB1ykIGLl+dxFqyjdKagOrw9CXlYl5DDk3yW6owjxEKOBcPWiTJRwqohTU8w=
         distributions: "sdist bdist_wheel"
         skip_existing: true
+    - stage: deploy_conda
+      python: "3.6"
+      addons:
+        apt:
+          update: true
+      install:
+        - pip install rst2txt yolk3k
+        - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+        - bash miniconda.sh -b -p $HOME/miniconda
+        - chmod +x .ci/travis_deploy_conda.sh
+      script: skip
+      deploy:
+        on:
+          repo: domdfcoding/sphinx-toolbox
+        provider: script
+        script: .ci/travis_deploy_conda.sh || return 1;
