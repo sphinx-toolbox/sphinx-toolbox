@@ -87,7 +87,14 @@ from sphinx.roles import XRefRole
 from sphinx.util import docutils
 from sphinx.util.typing import RoleFunction, TitleGetter
 
-__all__ = ["Sphinx", "run_setup", "RunSetupOutput", "remove_html_footer", "check_html_regression"]
+__all__ = [
+		"Sphinx",
+		"run_setup",
+		"RunSetupOutput",
+		"remove_html_footer",
+		"check_html_regression",
+		"remove_html_link_tags",
+		]
 
 
 class FakeBuilder(Builder):
