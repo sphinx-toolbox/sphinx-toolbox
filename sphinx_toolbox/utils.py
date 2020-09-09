@@ -63,9 +63,11 @@ def flag(argument: Any) -> bool:
 
 	Used in the ``option_spec`` of directives.
 
-	:raises: :exc:`ValueError` if an argument is given.
+	.. seealso::
 
-	.. seealso:: :class:`docutils.parsers.rst.directives.flag`, which returns :py:obj:`None` instead of `True`.
+		:class:`docutils.parsers.rst.directives.flag`, which returns :py:obj:`None` instead of :py:obj:`True`.
+
+	:raises: :exc:`ValueError` if an argument is given.
 	"""
 
 	if argument and argument.strip():
@@ -103,12 +105,12 @@ def word_join(iterable: Iterable[str], use_repr: bool = False, oxford: bool = Fa
 
 
 def convert_indents(text: str, tab_width: int = 4, from_: str = "\t") -> str:
-	"""
+	r"""
 	Convert indentation at the start of lines in ``text`` from tabs to spaces.
 
 	:param text: The text to convert indents in.
 	:param tab_width: The number of spaces per tab.
-	:param from_: The indent to convert from.
+	:param from\_: The indent to convert from.
 	"""
 
 	output = []
@@ -154,6 +156,14 @@ class Purger:
 		setattr(env, self.attr_name, all_nodes)  # pragma: no cover
 
 	def add_node(self, env: BuildEnvironment, node: Node, targetnode: Node, lineno: int):
+		"""
+		Add a node.
+
+		:param env:
+		:param node:
+		:param targetnode:
+		:param lineno:
+		"""
 
 		if not hasattr(env, self.attr_name):
 			setattr(env, self.attr_name, [])

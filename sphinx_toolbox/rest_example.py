@@ -51,10 +51,10 @@ class reSTExampleDirective(SphinxDirective):
 
 	# Options to pass through to .. code-block::
 	option_spec: OptionSpec = {  # type: ignore
-		'force': directives.flag,
+		"force": directives.flag,
 		"emphasize-lines": directives.unchanged,
 		"tab-width": int,
-		'dedent': int,
+		"dedent": int,
 		}
 
 	def run(self) -> List[nodes.Node]:
@@ -82,8 +82,11 @@ class reSTExampleDirective(SphinxDirective):
 		return [targetnode, example_node]
 
 
-def make_rest_example(options: Dict[str, Any], env: sphinx.environment.BuildEnvironment,
-						content: Sequence[str]) -> List[str]:
+def make_rest_example(
+		options: Dict[str, Any],
+		env: sphinx.environment.BuildEnvironment,
+		content: Sequence[str],
+		) -> List[str]:
 	"""
 	Make the content of a reST Example node.
 

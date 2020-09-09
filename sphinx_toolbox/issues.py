@@ -227,7 +227,7 @@ def get_issue_title(issue_url: str) -> Optional[str]:
 	or :py:obj:`None` if the issue isn't found.
 
 	:param issue_url:
-	"""
+	"""  # noqa D400
 
 	r = cache.session.get(issue_url)
 

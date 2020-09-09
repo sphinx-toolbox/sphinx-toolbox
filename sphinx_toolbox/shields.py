@@ -65,12 +65,12 @@ SHIELDS_IO = URL("https://img.shields.io")
 
 #: Options common to all shields.
 shield_default_option_spec: OptionSpec = {
-		'alt': directives.unchanged,
-		'height': directives.length_or_unitless,
-		'width': directives.length_or_percentage_or_unitless,
-		'scale': directives.percentage,
-		'name': directives.unchanged,
-		'class': directives.class_option,
+		"alt": directives.unchanged,
+		"height": directives.length_or_unitless,
+		"width": directives.length_or_percentage_or_unitless,
+		"scale": directives.percentage,
+		"name": directives.unchanged,
+		"class": directives.class_option,
 		}
 
 
@@ -83,7 +83,7 @@ class Shield(SphinxDirective):
 	optional_arguments = 0
 	final_argument_whitespace = True
 	option_spec: OptionSpec = {  # type: ignore
-		'target': directives.unchanged_required,
+		"target": directives.unchanged_required,
 		**shield_default_option_spec,
 		}
 

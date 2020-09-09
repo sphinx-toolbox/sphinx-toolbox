@@ -77,5 +77,5 @@ def test_flag():
 	with pytest.raises(AttributeError):
 		flag(True)
 
-	with pytest.raises(ValueError):
+	with pytest.raises(ValueError, match="No argument is allowed; 'hello' supplied"):
 		flag("hello")

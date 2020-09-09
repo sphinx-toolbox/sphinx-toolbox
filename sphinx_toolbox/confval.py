@@ -58,9 +58,9 @@ class ConfigurationValue(GenericObject):
 	"""
 
 	option_spec: OptionSpec = {  # type: ignore
-		'type': directives.unchanged_required,
-		'required': directives.unchanged_required,
-		'default': directives.unchanged_required,
+		"type": directives.unchanged_required,
+		"required": directives.unchanged_required,
+		"default": directives.unchanged_required,
 		}
 
 	def run(self) -> List[Node]:
@@ -118,10 +118,10 @@ def register_confval(app: Sphinx, override: bool = False) -> None:
 
 	name = "confval"
 
-	app.registry.add_directive_to_domain('std', name, ConfigurationValue)
-	app.registry.add_role_to_domain('std', name, XRefRole())
+	app.registry.add_directive_to_domain("std", name, ConfigurationValue)
+	app.registry.add_role_to_domain("std", name, XRefRole())
 
-	object_types = app.registry.domain_object_types.setdefault('std', {})
+	object_types = app.registry.domain_object_types.setdefault("std", {})
 
 	if name in object_types and not override:  # pragma: no cover
 		raise ExtensionError(f"The {name!r} object_type is already registered")

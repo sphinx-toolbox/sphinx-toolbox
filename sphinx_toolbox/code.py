@@ -77,15 +77,15 @@ class CodeBlock(__BaseCodeBlock):
 	"""
 
 	option_spec: OptionSpec = {  # type: ignore
-		'force': directives.flag,
-		'linenos': directives.flag,
-		'tab-width': int,
-		'dedent': int,
-		'lineno-start': int,
-		'emphasize-lines': directives.unchanged_required,
-		'caption': directives.unchanged_required,
-		'class': directives.class_option,
-		'name': directives.unchanged,
+		"force": directives.flag,
+		"linenos": directives.flag,
+		"tab-width": int,
+		"dedent": int,
+		"lineno-start": int,
+		"emphasize-lines": directives.unchanged_required,
+		"caption": directives.unchanged_required,
+		"class": directives.class_option,
+		"name": directives.unchanged,
 		}
 
 	def run(self) -> List[Node]:
@@ -100,7 +100,7 @@ class CodeBlock(__BaseCodeBlock):
 		else:
 			tab_width = 4
 
-		code = convert_indents(code, tab_width=tab_width, from_=" " * self.config.docutils_tab_width)
+		code = convert_indents(code, tab_width=tab_width, from_=' ' * self.config.docutils_tab_width)
 
 		self.content = StringList(code.split("\n"))  # type: ignore
 

@@ -99,19 +99,19 @@ globally_excluded_methods = {
 		"__getnewargs__",
 		"__abstractmethods__",
 		"__doc__",
-		'__abstractmethods__',
-		'__args__',
-		'__class__',
-		'__delattr__',
-		'__dir__',
-		'__extra__',
-		'__module__',
-		'__next_in_mro__',
-		'__orig_bases__',
-		'__origin__',
-		'__parameters__',
-		'__subclasshook__',
-		'__tree_hash__',
+		"__abstractmethods__",
+		"__args__",
+		"__class__",
+		"__delattr__",
+		"__dir__",
+		"__extra__",
+		"__module__",
+		"__next_in_mro__",
+		"__orig_bases__",
+		"__origin__",
+		"__parameters__",
+		"__subclasshook__",
+		"__tree_hash__",
 		}
 
 
@@ -214,7 +214,7 @@ class ProtocolDocumenter(ClassDocumenter):
 		for (membername, member) in members:
 			# if isattr is True, the member is documented as an attribute
 
-			if safe_getattr(member, '__sphinx_mock__', False):
+			if safe_getattr(member, "__sphinx_mock__", False):
 				# mocked module or object
 				keep = False
 
@@ -222,7 +222,7 @@ class ProtocolDocumenter(ClassDocumenter):
 				# remove members given by exclude-members
 				keep = False
 
-			elif membername.startswith("_") and not (membername.startswith("__") and membername.endswith("__")):
+			elif membername.startswith('_') and not (membername.startswith("__") and membername.endswith("__")):
 				keep = False
 
 			elif membername not in globally_excluded_methods:
@@ -241,7 +241,7 @@ class ProtocolDocumenter(ClassDocumenter):
 				# let extensions preprocess docstrings
 				try:
 					skip_user = self.env.app.emit_firstresult(
-							'autodoc-skip-member',
+							"autodoc-skip-member",
 							self.objtype,
 							membername,
 							member,

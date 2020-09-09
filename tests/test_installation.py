@@ -167,8 +167,3 @@ def test_make_installation_instructions():
 					]
 
 	# TODO: GitHub
-
-
-# 3rd party
-from docutils.parsers.rst.directives.images import Image
-from docutils.parsers.rst.directives.misc import Unicode

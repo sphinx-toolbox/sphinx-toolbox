@@ -84,7 +84,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_config_value("github_username", None, "env", types=[str])
 	app.add_config_value("github_repository", None, "env", types=[str])
 	app.add_config_value("conda_channels", [], "env", types=[list])
-	app.add_config_value('wikipedia_lang', 'en', 'env')
+	app.add_config_value("wikipedia_lang", "en", "env")
 	app.connect("config-inited", config.validate_config, priority=850)
 
 	# Instructions for installing a python package
@@ -100,26 +100,26 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.connect("env-purge-doc", installation.extensions_node_purger.purge_nodes)
 
 	# Code block with customisable indent size.
-	app.add_directive('code-block', code.CodeBlock, override=True)
-	app.add_directive('sourcecode', code.CodeBlock, override=True)
+	app.add_directive("code-block", code.CodeBlock, override=True)
+	app.add_directive("sourcecode", code.CodeBlock, override=True)
 
 	# Shields/badges
-	app.add_directive('rtfd-shield', shields.RTFDShield)
-	app.add_directive('travis-shield', shields.TravisShield)
-	app.add_directive('actions-shield', shields.GitHubActionsShield)
-	app.add_directive('requires-io-shield', shields.RequiresIOShield)
-	app.add_directive('coveralls-shield', shields.CoverallsShield)
-	app.add_directive('codefactor-shield', shields.CodefactorShield)
-	app.add_directive('pypi-shield', shields.PyPIShield)
-	app.add_directive('github-shield', shields.GitHubShield)
-	app.add_directive('maintained-shield', shields.MaintainedShield)
-	app.add_directive('pre-commit-shield', shields.PreCommitShield)
+	app.add_directive("rtfd-shield", shields.RTFDShield)
+	app.add_directive("travis-shield", shields.TravisShield)
+	app.add_directive("actions-shield", shields.GitHubActionsShield)
+	app.add_directive("requires-io-shield", shields.RequiresIOShield)
+	app.add_directive("coveralls-shield", shields.CoverallsShield)
+	app.add_directive("codefactor-shield", shields.CodefactorShield)
+	app.add_directive("pypi-shield", shields.PyPIShield)
+	app.add_directive("github-shield", shields.GitHubShield)
+	app.add_directive("maintained-shield", shields.MaintainedShield)
+	app.add_directive("pre-commit-shield", shields.PreCommitShield)
 
 	# Confval role and directive
 	confval.register_confval(app)
 
 	# Wikipedia xref role
-	app.add_role('wikipedia', wikipedia.make_wikipedia_link)
+	app.add_role("wikipedia", wikipedia.make_wikipedia_link)
 
 	# Setup standalone extensions
 	app.setup_extension("sphinx_toolbox.formatting")

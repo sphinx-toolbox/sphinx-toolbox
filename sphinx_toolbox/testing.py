@@ -459,7 +459,7 @@ class Sphinx:
 		.. TODO::
 		"""
 
-		#self.registry.load_extension(self, extname)
+		# self.registry.load_extension(self, extname)
 
 	def require_sphinx(self, version: str) -> None:
 		"""
@@ -569,7 +569,7 @@ def check_html_regression(page: BeautifulSoup, file_regression: FileRegressionFi
 		@pytest.mark.parametrize("page", ["index.html"], indirect=True)
 		def test_page(page: BeautifulSoup, file_regression: FileRegressionFixture):
 			check_html_regression(page, file_regression)
-	"""
+	"""  # noqa D400
 
 	page = remove_html_footer(page)
 	page = remove_html_link_tags(page)

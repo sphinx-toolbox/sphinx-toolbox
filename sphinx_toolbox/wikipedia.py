@@ -62,7 +62,7 @@ from sphinx.util.nodes import split_explicit_title
 
 __all__ = ["make_wikipedia_link"]
 
-base_url = 'https://%s.wikipedia.org/wiki'
+base_url = "https://%s.wikipedia.org/wiki"
 
 
 def make_wikipedia_link(
@@ -100,7 +100,7 @@ def make_wikipedia_link(
 	text = utils.unescape(text)
 	has_explicit, title, target = split_explicit_title(text)
 
-	m = re.match(r':(.*?):(.*)', target)
+	m = re.match(r":(.*?):(.*)", target)
 	if m:
 		lang, target = m.groups()
 		if not has_explicit:

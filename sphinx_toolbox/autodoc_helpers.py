@@ -132,11 +132,11 @@ def unknown_module_warning(documenter: Documenter) -> None:
 
 	logger.warning(
 			__(
-					'don\'t know which module to import for autodocumenting '
+					"don't know which module to import for autodocumenting "
 					'%r (try placing a "module" or "currentmodule" directive '
-					'in the document, or giving an explicit module name)'
+					"in the document, or giving an explicit module name)"
 					) % documenter.name,
-			type='autodoc'
+			type="autodoc"
 			)
 
 
@@ -151,9 +151,8 @@ def filter_members_warning(member, exception: Exception) -> None:
 	"""
 
 	logger.warning(
-			__('autodoc: failed to determine %r to be documented, '
-				'the following exception was raised:\n%s'),
+			__("autodoc: failed to determine %r to be documented, the following exception was raised:\n%s"),
 			member,
 			exception,
-			type='autodoc'
+			type="autodoc"
 			)

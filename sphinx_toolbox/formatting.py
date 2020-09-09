@@ -58,7 +58,7 @@ __all__ = [
 
 class ItalicAbbreviationNode(nodes.abbreviation):
 	"""
-	Docutils Node to show an abbreviation in italics
+	Docutils Node to show an abbreviation in italics.
 
 	.. versionadded:: 0.2.0
 	"""
@@ -66,7 +66,7 @@ class ItalicAbbreviationNode(nodes.abbreviation):
 
 class ItalicAbbreviation(Abbreviation):
 	"""
-	Docutils role to show an abbreviation in italics
+	Docutils role to show an abbreviation in italics.
 
 	.. versionadded:: 0.2.0
 	"""
@@ -83,7 +83,7 @@ class ItalicAbbreviation(Abbreviation):
 
 		if matched:
 			text = self.text[:matched.start()].strip()  # type: ignore
-			options['explanation'] = matched.group(1)
+			options["explanation"] = matched.group(1)
 		else:
 			text = self.text
 
@@ -100,13 +100,13 @@ def visit_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode):
 	.. versionadded:: 0.2.0
 	"""
 
-	translator.body.append(f'<i class="abbreviation">')
+	translator.body.append('<i class="abbreviation">')
 	attrs = {}
 
-	if node.hasattr('explanation'):
-		attrs['title'] = node['explanation']
+	if node.hasattr("explanation"):
+		attrs["title"] = node["explanation"]
 
-	translator.body.append(translator.starttag(node, 'abbr', '', **attrs))
+	translator.body.append(translator.starttag(node, "abbr", '', **attrs))
 
 
 def depart_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode):
@@ -176,7 +176,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 			)
 
 	return {
-			'version': __version__,
-			'parallel_read_safe': True,
-			'parallel_write_safe': True,
+			"version": __version__,
+			"parallel_read_safe": True,
+			"parallel_write_safe": True,
 			}

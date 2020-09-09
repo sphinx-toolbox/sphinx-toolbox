@@ -9,7 +9,7 @@ However, it does not appear to be possible to augment the defaults,
 such as to globally exclude certain members and then exclude additional members of a single class.
 
 This module monkeypatches in that behaviour.
-"""
+"""  # noqa D400
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -94,7 +94,7 @@ def process_documenter_options(
 		if name not in documenter.option_spec:  # pragma: no cover
 			continue
 		else:
-			negated = options.pop('no-' + name, True) is None
+			negated = options.pop("no-" + name, True) is None
 
 			if name in config.autodoc_default_options and not negated:
 				default_value = config.autodoc_default_options[name]
@@ -102,7 +102,7 @@ def process_documenter_options(
 				values: List[str] = list(filter(None, [default_value, existing_value]))
 
 				if values:
-					options[name] = ",".join(values)
+					options[name] = ','.join(values)
 				else:
 					options[name] = None  # pragma: no cover
 

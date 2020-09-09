@@ -28,8 +28,8 @@ def test_shields_html_output(page: BeautifulSoup, file_regression: FileRegressio
 	title = page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - Shields" == title
 
-	assert list(filter(lambda a: a != "\n",
-						page.select("div.body div#sphinx-toolbox-demo-shields")[0].contents))[1:]
+	selector_string = "div.body div#sphinx-toolbox-demo-shields"
+	assert list(filter(lambda a: a != "\n", page.select(selector_string)[0].contents))[1:]
 
 	# Testing the actual content with check_html_regression
 	check_html_regression(page, file_regression)
@@ -53,9 +53,8 @@ def test_example_html_output(page: BeautifulSoup, file_regression: FileRegressio
 	title = page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - reST Example" == title
 
-	body = list(
-			filter(lambda a: a != "\n", page.select("div.body div#sphinx-toolbox-demo-rest-example")[0].contents)
-			)[1:]
+	selector_string = "div.body div#sphinx-toolbox-demo-rest-example"
+	body = list(filter(lambda a: a != "\n", page.select(selector_string)[0].contents))[1:]
 
 	assert len(body) == 4
 
@@ -84,9 +83,8 @@ def test_installation_html_output(page: BeautifulSoup, file_regression: FileRegr
 	title = page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - Installation" == title
 
-	assert list(
-			filter(lambda a: a != "\n", page.select("div.body div#sphinx-toolbox-demo-installation")[0].contents)
-			)[1:]
+	selector_string = "div.body div#sphinx-toolbox-demo-installation"
+	assert list(filter(lambda a: a != "\n", page.select(selector_string)[0].contents))[1:]
 
 	# Testing the actual content with check_html_regression
 	check_html_regression(page, file_regression)
