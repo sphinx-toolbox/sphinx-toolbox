@@ -77,6 +77,7 @@ from sphinx.builders import Builder
 from sphinx.config import Config
 from sphinx.domains import Domain, Index
 # from sphinx.environment.collectors import EnvironmentCollector
+from sphinx.environment.collectors import EnvironmentCollector
 from sphinx.events import EventManager
 from sphinx.ext.autodoc.directive import AutodocDirective
 from sphinx.highlighting import lexer_classes
@@ -352,6 +353,13 @@ class Sphinx:
 
 		self.registry.add_post_transform(transform)
 
+	def add_js_file(self, filename: str, **kwargs: str) -> None:
+		"""
+		No-op for now
+
+		.. TODO:: Make this do something
+		"""
+
 	#
 	# def add_js_file(self, filename: str, **kwargs: str) -> None:
 	# 	"""
@@ -362,6 +370,14 @@ class Sphinx:
 	# 	if hasattr(self.builder, 'add_js_file'):
 	# 		self.builder.add_js_file(filename, **kwargs)  # type: ignore
 	#
+
+	def add_css_file(self, filename: str, **kwargs: str) -> None:
+		"""
+		No-op for now
+
+		.. TODO:: Make this do something
+		"""
+
 	# def add_css_file(self, filename: str, **kwargs: str) -> None:
 	# 	"""
 	# 	Register a stylesheet to include in the HTML output.
@@ -425,6 +441,13 @@ class Sphinx:
 		"""
 
 		self.registry.add_source_parser(*args, **kwargs)
+
+	def add_env_collector(self, collector: Type[EnvironmentCollector]) -> None:
+		"""
+		No-op for now
+
+		.. TODO:: Make this do something
+		"""
 
 	# def add_env_collector(self, collector: Type[EnvironmentCollector]) -> None:
 	# 	"""
