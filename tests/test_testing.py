@@ -129,7 +129,7 @@ def __setup(app: Sphinx) -> Dict[str, Any]:
 
 
 def test_testing():
-	setup_ret, directives, roles, additional_nodes, app = run_setup(__setup)  # type: ignore
+	setup_ret, directives, roles, additional_nodes, app = run_setup(__setup)
 
 	assert app.registry.builders["FakeBuilder"] == FakeBuilder
 

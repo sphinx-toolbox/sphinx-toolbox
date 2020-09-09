@@ -490,9 +490,10 @@ class RunSetupOutput(NamedTuple):
 	app: Sphinx  #: Instance of :class:`sphinx-toolbox.testing.Sphinx`.
 
 
-def run_setup(
-		setup_func: Callable[[Union[sphinx.application.Sphinx, Sphinx]], Dict[str, Any]],
-		) -> RunSetupOutput:  # , buildername: str = "html"
+_setup_func_type = Union[Callable[[sphinx.application.Sphinx], Dict[str, Any]], Callable[[Sphinx], Dict[str, Any]]]
+
+
+def run_setup(setup_func: _setup_func_type, ) -> RunSetupOutput:  # , buildername: str = "html"
 	"""
 	Function for running an extension's ``setup()`` function for testing.
 
@@ -507,7 +508,7 @@ def run_setup(
 		docutils.additional_nodes = set()
 
 		with docutils.docutils_namespace():
-			setup_ret = setup_func(app)
+			setup_ret = setup_func(app)  # type: ignore
 			directives = copy.copy(docutils.directives._directives)  # type: ignore
 			roles = copy.copy(docutils.roles._roles)  # type: ignore
 			additional_nodes = copy.copy(docutils.additional_nodes)

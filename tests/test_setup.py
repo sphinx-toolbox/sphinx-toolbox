@@ -10,7 +10,7 @@ from sphinx_toolbox.testing import run_setup
 
 
 def test_setup():
-	setup_ret, directives, roles, additional_nodes, app = run_setup(sphinx_toolbox.setup)  # type: ignore
+	setup_ret, directives, roles, additional_nodes, app = run_setup(sphinx_toolbox.setup)
 
 	assert setup_ret == {"version": sphinx_toolbox.__version__, "parallel_read_safe": True}
 	assert roles == {
