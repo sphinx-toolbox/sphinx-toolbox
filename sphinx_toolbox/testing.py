@@ -78,7 +78,8 @@ from sphinx.config import Config
 from sphinx.domains import Domain, Index
 # from sphinx.environment.collectors import EnvironmentCollector
 from sphinx.environment.collectors import EnvironmentCollector
-from sphinx.events import EventManager
+from sphinx.events import EventListener
+from sphinx.events import EventManager as BaseEventManager
 from sphinx.ext.autodoc.directive import AutodocDirective
 from sphinx.highlighting import lexer_classes
 from sphinx.registry import SphinxComponentRegistry
@@ -91,6 +92,17 @@ __all__ = ["Sphinx", "run_setup", "RunSetupOutput", "remove_html_footer", "check
 
 class FakeBuilder(Builder):
 	pass
+
+
+class EventManager(BaseEventManager):
+
+	def connect(self, name: str, callback: Callable, priority: int) -> int:
+		"""Connect a handler to specific event."""
+
+		listener_id = self.next_listener_id
+		self.next_listener_id += 1
+		self.listeners[name].append(EventListener(listener_id, callback, priority))
+		return listener_id
 
 
 class Sphinx:
