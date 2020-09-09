@@ -55,7 +55,5 @@ jobs:
         - chmod +x .ci/travis_deploy_conda.sh
       script: skip
       deploy:
-        on:
-          repo: domdfcoding/sphinx-toolbox
         provider: script
         script: .ci/travis_deploy_conda.sh || return 1;
