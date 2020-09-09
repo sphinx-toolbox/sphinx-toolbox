@@ -4,9 +4,7 @@ from typing import Any, Dict, NamedTuple, Sequence
 
 # 3rd party
 import pytest
-from bs4 import BeautifulSoup  # type: ignore
 from docutils.nodes import system_message
-from pytest_regressions.file_regression import FileRegressionFixture  # type: ignore
 
 
 class AttrDict(dict):
@@ -45,14 +43,3 @@ def severe(message):
 class AppParams(NamedTuple):
 	args: Sequence[Any]
 	kwargs: Dict[str, Any]
-
-
-def remove_html_footer(page: BeautifulSoup) -> BeautifulSoup:
-	for div in page.select("div.footer"):
-		div.extract()
-
-	return page
-
-
-def check_html_regression(page: BeautifulSoup, file_regression: FileRegressionFixture):
-	file_regression.check(contents=remove_html_footer(page).prettify(), extension=".html", encoding="UTF-8")

@@ -51,7 +51,7 @@ github_username = "domdfcoding"
 web = github_url = "https://github.com/domdfcoding/sphinx-toolbox"
 repo_root = pathlib.Path(__file__).parent
 install_requires = (repo_root / "requirements.txt").read_text(encoding="utf-8").split('\n')
-extras_require = {'all': []}
+extras_require = {'testing': ['pygments', 'pytest>=6.0.0', 'pytest-regressions>=2.0.1'], 'all': ['pygments', 'pytest-regressions>=2.0.1', 'pytest>=6.0.0']}
 
 
 

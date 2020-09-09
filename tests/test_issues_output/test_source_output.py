@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup  # type: ignore
 from pytest_regressions.file_regression import FileRegressionFixture  # type: ignore
 
 # this package
-from tests.common import check_html_regression
+from sphinx_toolbox.testing import check_html_regression
 
 
 def test_build_github(gh_src_app):

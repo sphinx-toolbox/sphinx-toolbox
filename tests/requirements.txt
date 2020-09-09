@@ -1,10 +1,7 @@
-beautifulsoup4>=4.9.1
 coverage>=5.1
 coverage_pyver_pragma>=0.0.5
-html5lib>=1.1
 pytest>=6.0.0
 pytest-cov>=2.8.1
 pytest-httpserver>=0.3.5
 pytest-randomly>=3.3.1
-pytest-regressions>=2.0.1
 pytest-rerunfailures>=9.0
