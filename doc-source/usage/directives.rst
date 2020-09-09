@@ -39,17 +39,17 @@ Directives
 
 	Used to document a configuration value.
 
-	.. rst:directive:option:: type:
+	.. rst:directive:option:: type
 		:type: string
 
 		Indicates the configuration value's type.
 
-	.. rst:directive:option:: required:
+	.. rst:directive:option:: required
 		:type: boolean
 
 		Indicates the whether the configuration value is required.
 
-	.. rst:directive:option:: default:
+	.. rst:directive:option:: default
 		:type: string
 
 		Indicates the default value.
@@ -60,17 +60,17 @@ Directives
 
 	Takes a single argument -- the name of the extension.
 
-	.. rst:directive:option:: import-name:
+	.. rst:directive:option:: import-name
 		:type: string
 
 		The name used to import the extension, if different from the name of the extension.
 
-	.. rst:directive:option:: no-preamble:
+	.. rst:directive:option:: no-preamble
 		:type: boolean
 
 		Disables the preamble text.
 
-	.. rst:directive:option:: no-postamble:
+	.. rst:directive:option:: no-postamble
 		:type: boolean
 
 		Disables the postamble text.
