@@ -329,6 +329,7 @@ class ExtensionsDirective(SphinxDirective):
 		"import-name": directives.unchanged_required,  # If different to project name
 		"no-preamble": flag,
 		"no-postamble": flag,
+		"first": flag,
 		}
 
 	def run(self) -> List[nodes.Node]:
@@ -339,9 +340,14 @@ class ExtensionsDirective(SphinxDirective):
 		"""
 
 		extensions = list(self.content)
+		first = self.options.get("first", False)
 
-		if "import-name" in self.options:
+		if "import-name" in self.options and first:
+			extensions.insert(0, self.options["import-name"])
+		elif "import-name" in self.options:
 			extensions.append(self.options["import-name"])
+		elif first:
+			extensions.insert(0, self.arguments[0])
 		else:
 			extensions.append(self.arguments[0])
 

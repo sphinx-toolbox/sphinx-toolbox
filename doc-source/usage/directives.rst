@@ -45,7 +45,7 @@ Directives
 		Indicates the configuration value's type.
 
 	.. rst:directive:option:: required
-		:type: boolean
+		:type: flag
 
 		Indicates the whether the configuration value is required.
 
@@ -66,14 +66,20 @@ Directives
 		The name used to import the extension, if different from the name of the extension.
 
 	.. rst:directive:option:: no-preamble
-		:type: boolean
+		:type: flag
 
 		Disables the preamble text.
 
 	.. rst:directive:option:: no-postamble
-		:type: boolean
+		:type: flag
 
 		Disables the postamble text.
+
+	.. rst:directive:option:: first
+		:type: flag
+
+		Puts the entry for extension before its dependencies.
+		By default is is placed at the end.
 
 
 	**Example**
