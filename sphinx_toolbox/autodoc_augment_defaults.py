@@ -67,6 +67,7 @@ import sphinx.ext.autodoc.directive
 from docutils.utils import assemble_option_dict
 from sphinx.application import Sphinx
 from sphinx.config import Config
+from sphinx.errors import ExtensionError
 from sphinx.ext.autodoc import Documenter, Options
 
 # this package
@@ -118,6 +119,13 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	:return:
 	"""
 
+	if "sphinx.ext.autodoc" in app.extensions:
+		raise ExtensionError(
+				"'sphinx_toolbox.autodoc_augment_defaults' must be loaded before 'sphinx.ext.autodoc."
+				)
+
 	sphinx.ext.autodoc.directive.process_documenter_options = process_documenter_options
+
+	app.setup_extension("sphinx.ext.autodoc")
 
 	return {"version": sphinx_toolbox.__version__, "parallel_read_safe": True}
