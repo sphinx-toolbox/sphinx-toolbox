@@ -348,7 +348,8 @@ def process_docstring(
 				argname = "{}\\_".format(argname[:-1])
 
 			formatted_annotation = format_annotation(
-					annotation, fully_qualified=app.config.typehints_fully_qualified
+					annotation,
+					fully_qualified=app.config.typehints_fully_qualified,  # type: ignore
 					)
 
 			searchfor = [f":{field} {argname}:" for field in ("param", "parameter", "arg", "argument")]
@@ -359,7 +360,7 @@ def process_docstring(
 					insert_index = i
 					break
 
-			if insert_index is None and app.config.always_document_param_types:
+			if insert_index is None and app.config.always_document_param_types:  # type: ignore
 				lines.append(f":param {argname}:")
 				insert_index = len(lines)
 
@@ -372,7 +373,8 @@ def process_docstring(
 				return
 
 			formatted_annotation = format_annotation(
-					type_hints["return"], fully_qualified=app.config.typehints_fully_qualified
+					type_hints["return"],
+					fully_qualified=app.config.typehints_fully_qualified,  # type: ignore
 					)
 
 			insert_index = len(lines)
@@ -383,7 +385,7 @@ def process_docstring(
 				elif line.startswith(":return:") or line.startswith(":returns:"):
 					insert_index = i
 
-			if insert_index is not None and app.config.typehints_document_rtype:
+			if insert_index is not None and app.config.typehints_document_rtype:  # type: ignore
 				if insert_index == len(lines):
 					# Ensure that :rtype: doesn't get joined with a paragraph of text, which
 					# prevents it being interpreted.
