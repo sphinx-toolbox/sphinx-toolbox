@@ -498,7 +498,7 @@ class Sphinx:
 		"""
 		Import and setup a Sphinx extension module.
 
-		.. TODO::
+		.. TODO:: implement this
 		"""
 
 		# self.registry.load_extension(self, extname)

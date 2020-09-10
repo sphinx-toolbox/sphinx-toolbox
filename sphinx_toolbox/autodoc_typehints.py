@@ -61,6 +61,8 @@ from sphinx.application import Sphinx
 from sphinx.errors import ExtensionError
 from sphinx.util.inspect import signature as Signature
 from sphinx.util.inspect import stringify_signature
+
+# this package
 from sphinx_toolbox import __version__
 
 __all__ = [
@@ -77,7 +79,6 @@ __all__ = [
 		"process_docstring",
 		"builder_ready",
 		]
-
 
 get_annotation_module = sphinx_autodoc_typehints.get_annotation_module
 get_annotation_class_name = sphinx_autodoc_typehints.get_annotation_class_name
@@ -181,9 +182,10 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 
 
 def process_signature(
-		app, what:
-		str, name:
-		str, obj,
+		app,
+		what: str,
+		name: str,
+		obj,
 		options,
 		signature,
 		return_annotation: Any,
