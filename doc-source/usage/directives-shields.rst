@@ -283,6 +283,8 @@ All shields have the following options:
 		.. github-shield::
 			:last-commit:
 
+		\
+
 		.. github-shield::
 			:commits-since: v0.1.0
 
