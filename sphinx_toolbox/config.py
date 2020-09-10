@@ -104,14 +104,14 @@ def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
 	  documentation corresponds to.
 
 	* github_repository (:class:`str`\) - The GitHub repository this documentation corresponds to.
-	* github_url (:class:`apeye.RequestsURL`\) - The URL of the GitHub repository.
-	* github_source_url (:class:`apeye.RequestsURL`\) - The base URL for the source code on GitHub.
-	* github_issues_url (:class:`apeye.RequestsURL`\) - The GitHub issues URL for this repository.
-	* github_pull_url (:class:`apeye.RequestsURL`\) - The GitHub pull requests URL for this repository.
-	* conda_channels (:class:`~typing.List`\\[:class:`str:`\\]) -
+	* github_url (:class:`apeye.url.RequestsURL`\) - The URL of the GitHub repository.
+	* github_source_url (:class:`apeye.url.RequestsURL`\) - The base URL for the source code on GitHub.
+	* github_issues_url (:class:`apeye.url.RequestsURL`\) - The GitHub issues URL for this repository.
+	* github_pull_url (:class:`apeye.url.RequestsURL`\) - The GitHub pull requests URL for this repository.
+	* conda_channels (:class:`~typing.List`\[:class:`str:`\]) -
 	  The conda channels required to install the library from Anaconda.
-	* docutils_tab_width (:class:`int`\\) - The number of spaces docutils converts a tab into.
-	* wikipedia_lang (:class:`str`\\) - The Wikipedia language to use for :rst:role:`wikipedia` roles.
+	* docutils_tab_width (:class:`int`\) - The number of spaces docutils converts a tab into.
+	* wikipedia_lang (:class:`str`\) - The Wikipedia language to use for :rst:role:`wikipedia` roles.
 
 	:param app:
 	:param config:

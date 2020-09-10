@@ -25,6 +25,25 @@ The changes are:
 		:noindex:
 
   Previously this would have shown the full path to the source file. Now it displays ``<module 'json'>``.
+
+* The ability to hook into the :func:`~.process_docstring` function to edit the object's properties before the
+  annotations are added to the docstring. This is used by `attr-utils <https://attr-utils.readthedocs.io>`_
+  to add annotations based on converter functions in `attrs <https://www.attrs.org>`_ classes.
+
+  To use this, in your extension's ``setup`` function:
+
+  .. code-block:: python
+
+      def setup(app: Sphinx) -> Dict[str, Any]:
+          from sphinx_toolbox.autodoc_typehints import docstring_hooks
+          docstring_hooks.append((my_hook, 75))
+          return {}
+
+  ``my_hook`` is a function that takes the object being documented as its only argument
+  and returns that object after modification.
+
+  The ``75`` is the priority of the hook. ``< 20`` runs before ``fget`` functions are extracted from properties,
+  and ``< 100`` runs before ``__init__`` functions are extracted from classes.
 """
 #
 #  Copyright (c) Alex Grönholm
@@ -52,8 +71,9 @@ The changes are:
 # stdlib
 import inspect
 import json
+import operator
 from types import ModuleType
-from typing import Any, AnyStr, Dict, Optional, Tuple, TypeVar
+from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, TypeVar
 
 # 3rd party
 import sphinx_autodoc_typehints  # type: ignore
@@ -78,6 +98,7 @@ __all__ = [
 		"split_type_comment_args",
 		"process_docstring",
 		"builder_ready",
+		"docstring_hooks",
 		]
 
 get_annotation_module = sphinx_autodoc_typehints.get_annotation_module
@@ -87,7 +108,6 @@ get_all_type_hints = sphinx_autodoc_typehints.get_all_type_hints
 backfill_type_hints = sphinx_autodoc_typehints.backfill_type_hints
 load_args = sphinx_autodoc_typehints.load_args
 split_type_comment_args = sphinx_autodoc_typehints.split_type_comment_args
-process_docstring = sphinx_autodoc_typehints.process_docstring
 builder_ready = sphinx_autodoc_typehints.builder_ready
 
 
@@ -128,61 +148,59 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 
 	:param annotation:
 	:param fully_qualified:
-
-	:return:
 	"""
 
 	# Special cases
 	if annotation is None or annotation is type(None):  # noqa: E721
-		return ':py:obj:`None`'
+		return ":py:obj:`None`"
 	elif annotation is Ellipsis:
-		return '...'
+		return "..."
 
 	# Type variables are also handled specially
 	try:
 		if isinstance(annotation, TypeVar) and annotation is not AnyStr:  # type: ignore
-			return f'\\:py:data:`{annotation!r}`'
+			return f"\\:py:data:`{annotation!r}`"
 	except TypeError:
 		pass
 
 	try:
-		module = sphinx_autodoc_typehints.get_annotation_module(annotation)
-		class_name = sphinx_autodoc_typehints.get_annotation_class_name(annotation, module)
-		args = sphinx_autodoc_typehints.get_annotation_args(annotation, module, class_name)
+		module = get_annotation_module(annotation)
+		class_name = get_annotation_class_name(annotation, module)
+		args = get_annotation_args(annotation, module, class_name)
 	except ValueError:
 		return str(annotation)
 
 	# Redirect all typing_extensions types to the stdlib typing module
-	if module == 'typing_extensions':
-		module = 'typing'
+	if module == "typing_extensions":
+		module = "typing"
 
-	full_name = (module + '.' + class_name) if module != 'builtins' else class_name
+	full_name = (module + '.' + class_name) if module != "builtins" else class_name
 	prefix = '' if fully_qualified or full_name == class_name else '~'
-	role = 'data' if class_name in sphinx_autodoc_typehints.pydata_annotations else 'class'
-	args_format = '\\[{}]'
+	role = "data" if class_name in sphinx_autodoc_typehints.pydata_annotations else "class"
+	args_format = "\\[{}]"
 	formatted_args = ''
 
 	# Some types require special handling
-	if full_name == 'typing.NewType':
-		args_format = f'\\(:py:data:`~{annotation.__name__}`, {{}})'
-		role = 'func'
-	elif full_name == 'typing.Union' and len(args) == 2 and type(None) in args:
-		full_name = 'typing.Optional'
+	if full_name == "typing.NewType":
+		args_format = f"\\(:py:data:`~{annotation.__name__}`, {{}})"
+		role = "func"
+	elif full_name == "typing.Union" and len(args) == 2 and type(None) in args:
+		full_name = "typing.Optional"
 		args = tuple(x for x in args if x is not type(None))  # noqa: E721
-	elif full_name == 'typing.Callable' and args and args[0] is not ...:
-		formatted_args = '\\[\\[' + ', '.join(format_annotation(arg) for arg in args[:-1]) + ']'
-		formatted_args += ', ' + format_annotation(args[-1]) + ']'
-	elif full_name == 'typing.Literal':
-		formatted_args = '\\[' + ', '.join(repr(arg) for arg in args) + ']'
+	elif full_name == "typing.Callable" and args and args[0] is not ...:
+		formatted_args = "\\[\\[" + ", ".join(format_annotation(arg) for arg in args[:-1]) + ']'
+		formatted_args += ", " + format_annotation(args[-1]) + ']'
+	elif full_name == "typing.Literal":
+		formatted_args = "\\[" + ", ".join(repr(arg) for arg in args) + ']'
 
 	if args and not formatted_args:
-		formatted_args = args_format.format(', '.join(format_annotation(arg, fully_qualified) for arg in args))
+		formatted_args = args_format.format(", ".join(format_annotation(arg, fully_qualified) for arg in args))
 
-	return f':py:{role}:`{prefix}{full_name}`{formatted_args}'
+	return f":py:{role}:`{prefix}{full_name}`{formatted_args}"
 
 
 def process_signature(
-		app,
+		app: Sphinx,
 		what: str,
 		name: str,
 		obj,
@@ -193,15 +211,13 @@ def process_signature(
 	"""
 	Process the signature for a function/method.
 
-	:param app:
+	:param app: The Sphinx app
 	:param what:
-	:param name:
+	:param name: The name of the object being documented
 	:param obj:
 	:param options:
 	:param signature:
 	:param return_annotation:
-
-	:return:
 	"""
 
 	if not callable(obj):
@@ -209,9 +225,9 @@ def process_signature(
 
 	original_obj = obj
 	if inspect.isclass(obj):
-		obj = getattr(obj, '__init__', getattr(obj, '__new__', None))
+		obj = getattr(obj, "__init__", getattr(obj, "__new__", None))
 
-	if not getattr(obj, '__annotations__', None):
+	if not getattr(obj, "__annotations__", None):
 		return None
 
 	obj = inspect.unwrap(obj)
@@ -233,16 +249,16 @@ def process_signature(
 		parameters.append(param.replace(annotation=inspect.Parameter.empty, default=default))
 
 	# The generated dataclass __init__() is weird and needs the second condition
-	if '<locals>' in obj.__qualname__ and not (what == 'method' and name.endswith('.__init__')):
+	if "<locals>" in obj.__qualname__ and not (what == "method" and name.endswith(".__init__")):
 		sphinx_autodoc_typehints.logger.warning(
-				'Cannot treat a function defined as a local function: "%s"  (use @functools.wraps)', name
+				"Cannot treat a function defined as a local function: '%s'  (use @functools.wraps)", name
 				)
 		return None
 
 	if parameters:
-		if inspect.isclass(original_obj) or (what == 'method' and name.endswith('.__init__')):
+		if inspect.isclass(original_obj) or (what == "method" and name.endswith(".__init__")):
 			del parameters[0]
-		elif what == 'method':
+		elif what == "method":
 			outer = inspect.getmodule(obj)
 			for clsname in obj.__qualname__.split('.')[:-1]:
 				outer = getattr(outer, clsname)
@@ -264,13 +280,124 @@ def process_signature(
 	return stringify_signature(signature), None  # .replace('\\', '\\\\')
 
 
+def _docstring_property_hook(obj: Any) -> Callable:
+	if isinstance(obj, property):
+		obj = obj.fget
+
+	return obj
+
+
+def _docstring_class_hook(obj: Any) -> Callable:
+	if callable(obj):
+		if inspect.isclass(obj):
+			obj = getattr(obj, "__init__")
+
+	return obj
+
+
+docstring_hooks: List[Tuple[Callable[[Any], Callable], int]] = [
+		(_docstring_property_hook, 20),
+		(_docstring_class_hook, 100),
+		]
+"""
+List of additional hooks to run in :func:`~sphinx_toolbox.autodoc_typehints.process_docstring`.
+
+Each entry in the list consists of:
+
+* a function that takes the object being documented as its only argument
+  and returns that object after modification.
+
+* a number giving the priority of the hook, in ascending order.
+  ``< 20`` runs before ``fget`` functions are extracted from properties,
+  and ``< 100`` runs before ``__init__`` functions are extracted from classes.
+"""
+
+
+def process_docstring(
+		app: Sphinx,
+		what,
+		name: str,
+		obj,
+		options,
+		lines: List[str],
+		):
+	"""
+	Process the docstring of a function/method.
+
+	:param app: The Sphinx app
+	:param what:
+	:param name: The name of the object being documented
+	:param obj:
+	:param options:
+	:param lines:
+	"""
+
+	original_obj = obj
+
+	for hook, priority in sorted(docstring_hooks, key=operator.itemgetter(1)):
+		obj = hook(obj)
+
+	if callable(obj):
+		obj = inspect.unwrap(obj)
+		type_hints = get_all_type_hints(obj, name)
+
+		for argname, annotation in type_hints.items():
+			if argname == "return":
+				continue  # this is handled separately later
+			if argname.endswith('_'):
+				argname = "{}\\_".format(argname[:-1])
+
+			formatted_annotation = format_annotation(
+					annotation, fully_qualified=app.config.typehints_fully_qualified
+					)
+
+			searchfor = [f":{field} {argname}:" for field in ("param", "parameter", "arg", "argument")]
+			insert_index = None
+
+			for i, line in enumerate(lines):
+				if any(line.startswith(search_string) for search_string in searchfor):
+					insert_index = i
+					break
+
+			if insert_index is None and app.config.always_document_param_types:
+				lines.append(f":param {argname}:")
+				insert_index = len(lines)
+
+			if insert_index is not None:
+				lines.insert(insert_index, f":type {argname}: {formatted_annotation}")
+
+		if "return" in type_hints and not inspect.isclass(original_obj):
+			# This avoids adding a return type for data class __init__ methods
+			if what == "method" and name.endswith(".__init__"):
+				return
+
+			formatted_annotation = format_annotation(
+					type_hints["return"], fully_qualified=app.config.typehints_fully_qualified
+					)
+
+			insert_index = len(lines)
+			for i, line in enumerate(lines):
+				if line.startswith(":rtype:"):
+					insert_index = None
+					break
+				elif line.startswith(":return:") or line.startswith(":returns:"):
+					insert_index = i
+
+			if insert_index is not None and app.config.typehints_document_rtype:
+				if insert_index == len(lines):
+					# Ensure that :rtype: doesn't get joined with a paragraph of text, which
+					# prevents it being interpreted.
+					lines.append('')
+					insert_index += 1
+
+				lines.insert(insert_index, f":rtype: {formatted_annotation}")
+
+
 def setup(app: Sphinx) -> Dict[str, Any]:
 	"""
 	Setup Sphinx Extension.
 
-	:param app:
-
-	:return:
+	:param app: The Sphinx app
 	"""
 
 	if "sphinx_autodoc_typehints" in app.extensions:
@@ -278,6 +405,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 
 	sphinx_autodoc_typehints.format_annotation = format_annotation
 	sphinx_autodoc_typehints.process_signature = process_signature
+	sphinx_autodoc_typehints.process_docstring = process_docstring
 
 	app.setup_extension("sphinx_autodoc_typehints")
 
