@@ -5,6 +5,8 @@
 | Enhanced version of `sphinx-autodoc-typehints <https://pypi.org/project/sphinx-autodoc-typehints/>`_.
 | Copyright (c) Alex Grönholm
 
+.. versionadded:: 0.4.0
+
 The changes are:
 
 * *None* is formatted as :py:obj:`None` and not ``None``.

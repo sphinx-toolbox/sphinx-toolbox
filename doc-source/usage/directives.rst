@@ -81,6 +81,8 @@ Directives
 		Puts the entry for extension before its dependencies.
 		By default is is placed at the end.
 
+		.. versionadded:: 0.4.0
+
 
 	**Example**
 
