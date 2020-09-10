@@ -59,6 +59,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	:return:
 	"""
 
+	# Ensure dependencies are set up
 	app.setup_extension("sphinx.ext.viewcode")
 	app.setup_extension("sphinx_tabs.tabs")
 	app.setup_extension("sphinx-prompt")
@@ -134,4 +135,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 
 	app.add_source_parser(CustomRSTParser, override=True)
 
-	return {"version": __version__, "parallel_read_safe": True}
+	return {
+			"version": __version__,
+			"parallel_read_safe": True,
+			}

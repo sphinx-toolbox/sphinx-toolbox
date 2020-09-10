@@ -34,6 +34,9 @@ language = 'en'
 package_root = "sphinx_toolbox"
 
 extensions = [
+	'sphinx_toolbox',
+	'sphinx_toolbox.autodoc_augment_defaults',
+	'sphinx_toolbox.autodoc_typehints',
 	'sphinx.ext.intersphinx',
 	'sphinx.ext.autodoc',
 	'sphinx.ext.mathjax',
@@ -52,9 +55,6 @@ extensions = [
 	'sphinxcontrib.toctree_plus',
 	'seed_intersphinx_mapping',
 	'sphinx.ext.autosectionlabel',
-	'sphinx_toolbox',
-	'sphinx_toolbox.autodoc_augment_defaults',
-	'sphinx_autodoc_typehints',
 	]
 
 sphinxemoji_style = 'twemoji'

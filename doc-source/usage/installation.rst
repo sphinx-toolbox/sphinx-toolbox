@@ -15,10 +15,27 @@ Installation
 	sphinx_tabs.tabs
 	sphinx-prompt
 
-There is also the ``sphinx_toolbox.autodoc_augment_defaults`` extension that has additional requirements
-and must be enabled separately:
+Some features of this extension must be enabled separately:
 
-.. extensions:: sphinx_toolbox.autodoc_augment_defaults
-	:no-preamble:
+* ``sphinx_toolbox.autodoc_augment_defaults`` allows for default options to be specified in
+  `autodoc_default_options <https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_default_options>`_
+  and then extend those option in each autodoc directive.
 
-	sphinx.ext.autodoc
+  .. extensions:: sphinx_toolbox.autodoc_augment_defaults
+      :no-preamble:
+      :no-postamble:
+      :first:
+
+      sphinx.ext.autodoc
+
+* ``sphinx_toolbox.autodoc_typehints``. An enhanced version of
+  `sphinx-autodoc-typehints <https://pypi.org/project/sphinx-autodoc-typehints/>`_.
+
+  .. extensions:: sphinx_toolbox.autodoc_typehints
+      :no-preamble:
+      :no-postamble:
+      :first:
+
+      sphinx_autodoc_typehints
+
+For more information see https://www.sphinx-doc.org/en/master/usage/extensions/index.html#third-party-extensions .
