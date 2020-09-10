@@ -182,7 +182,12 @@ class GitHubBackedShield(Shield):
 		"""
 
 		username = self.options.pop("username", self.env.config.github_username)
+		if username is None:
+			raise ValueError("'github_username' has not been set in 'conf.py'!")
+
 		repository = self.options.pop("repository", self.env.config.github_repository)
+		if repository is None:
+			raise ValueError("'github_repository' has not been set in 'conf.py'!")
 
 		return username, repository
 

@@ -221,7 +221,12 @@ def github_installation(
 	"""
 
 	username = env.config.github_username  # type: ignore
+	if username is None:
+		raise ValueError("'github_username' has not been set in 'conf.py'!")
+
 	repository = env.config.github_repository  # type: ignore
+	if repository is None:
+		raise ValueError("'github_repository' has not been set in 'conf.py'!")
 
 	return [
 			".. prompt:: bash",
