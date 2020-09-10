@@ -128,3 +128,12 @@ def test_formatting_html_output(page: BeautifulSoup, file_regression: FileRegres
 
 	# Testing the actual content with check_html_regression
 	check_html_regression(page, file_regression)
+
+
+@pytest.mark.parametrize("page", ["assets.html"], indirect=True)
+def test_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+	"""
+	Parametrize new files here rather than as their own function.
+	"""
+
+	check_html_regression(page, file_regression)

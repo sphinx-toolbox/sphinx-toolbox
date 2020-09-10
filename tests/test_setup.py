@@ -3,7 +3,7 @@ from sphinx.events import EventListener
 
 # this package
 import sphinx_toolbox
-from sphinx_toolbox import code, config, installation, shields, source, wikipedia
+from sphinx_toolbox import assets, code, config, installation, shields, source, wikipedia
 from sphinx_toolbox.issues import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
 from sphinx_toolbox.rest_example import rest_example_purger, reSTExampleDirective
 from sphinx_toolbox.testing import run_setup
@@ -19,15 +19,23 @@ def test_setup():
 			"pr": pull_role,
 			"pull": pull_role,
 			"wikipedia": wikipedia.make_wikipedia_link,
+			"asset": assets.asset_role,
 			}
 
-	assert additional_nodes == {IssueNode}
+	assert additional_nodes == {IssueNode, assets.AssetNode}
 
-	assert app.registry.translation_handlers == {"html": {"IssueNode": (visit_issue_node, depart_issue_node)}}
+	assert app.registry.translation_handlers == {
+			"html": {
+					"IssueNode": (visit_issue_node, depart_issue_node),
+					"AssetNode": (assets.visit_asset_node, assets.depart_asset_node),
+					}}
 
 	assert app.config.values["source_link_target"] == ("Sphinx", "env", [str])
 	assert app.config.values["github_username"] == (None, "env", [str])
 	assert app.config.values["github_repository"] == (None, "env", [str])
+	assert app.config.values["conda_channels"] == ([], "env", [list])
+	assert app.config.values["wikipedia_lang"] == ("en", "env", [str])
+	assert app.config.values["assets_dir"] == ("./assets", "env", [str])
 
 	assert app.events.listeners == {
 			"config-inited": [EventListener(id=0, handler=config.validate_config, priority=850)],

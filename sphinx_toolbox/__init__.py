@@ -36,7 +36,9 @@ from sphinx.application import Sphinx
 from sphinx.parsers import RSTParser
 
 # this package
-from sphinx_toolbox import code, config, confval, installation, issues, rest_example, shields, source, wikipedia
+from sphinx_toolbox import (
+		assets, code, config, confval, installation, issues, rest_example, shields, source, wikipedia
+		)
 from sphinx_toolbox.cache import cache
 from sphinx_toolbox.issues import get_issue_title
 
@@ -77,16 +79,14 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	# Custom node for issues and PRs
 	app.add_node(issues.IssueNode, html=(issues.visit_issue_node, issues.depart_issue_node))
 
-	# Configuration values.
+	app.connect("config-inited", config.validate_config, priority=850)
+
 	# The target for the source link. One of GitHub or Sphinx (GitLab coming soon)
 	app.add_config_value("source_link_target", "Sphinx", "env", types=[str])
 
-	# Configuration values.
 	app.add_config_value("github_username", None, "env", types=[str])
 	app.add_config_value("github_repository", None, "env", types=[str])
 	app.add_config_value("conda_channels", [], "env", types=[list])
-	app.add_config_value("wikipedia_lang", "en", "env")
-	app.connect("config-inited", config.validate_config, priority=850)
 
 	# Instructions for installing a python package
 	app.add_directive("installation", installation.InstallationDirective)
@@ -121,6 +121,12 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 
 	# Wikipedia xref role
 	app.add_role("wikipedia", wikipedia.make_wikipedia_link)
+	app.add_config_value("wikipedia_lang", "en", "env", [str])
+
+	# Asset role
+	app.add_role('asset', assets.asset_role)
+	app.add_config_value('assets_dir', "./assets", 'env', [str])
+	app.add_node(assets.AssetNode, html=(assets.visit_asset_node, assets.depart_asset_node))
 
 	# Setup standalone extensions
 	app.setup_extension("sphinx_toolbox.formatting")

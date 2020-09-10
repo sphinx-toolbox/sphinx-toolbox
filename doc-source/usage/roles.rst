@@ -101,3 +101,32 @@ the user tries to navigate to an issue with that same number.
 	.. rest-example::
 
 		:iabbr:`LIFO (last-in, first-out)`
+
+.. rst:role:: asset
+
+	Adds a link to a local file that can be viewed within the web browser. The file will be copied from the directory set in :confval:`assets_dir` to ``/_assets`` in the HTML output.
+
+	This is similar to the :rst:role:`download` role, but that role will download the file to the user's computer instead. This may be useful for PDFs, which most web browsers can display.
+
+	If the file can't be found an error will be shown in the build output:
+
+	.. code-block:: text
+
+		<page where the error occurred>: Asset file '<missing asset file name>' not found.
+
+
+	.. versionadded:: 0.5.0
+
+	**Asset**
+
+	.. rest-example::
+
+		:asset:`hello_world.txt`
+
+		:asset:`hello_world <hello_world.txt>`
+
+	**Download**
+
+	.. rest-example::
+
+		:download:`hello_world.txt <../assets/hello_world.txt>`

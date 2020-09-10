@@ -112,6 +112,7 @@ def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
 	  The conda channels required to install the library from Anaconda.
 	* docutils_tab_width (:class:`int`\) - The number of spaces docutils converts a tab into.
 	* wikipedia_lang (:class:`str`\) - The Wikipedia language to use for :rst:role:`wikipedia` roles.
+	* assets_dir (:class:`str`\) - The directory in which the files linked to by the :rst:role:`asset` roles cam be found..
 
 	:param app:
 	:param config:

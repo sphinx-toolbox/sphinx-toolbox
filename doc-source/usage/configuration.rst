@@ -38,3 +38,12 @@ Configuration
 	The Wikipedia language to use for :rst:role:`wikipedia` roles.
 
 	.. versionadded:: 0.2.0
+
+.. confval:: assets_dir
+	:type: :class:`str`
+	:required: False
+	:default: ``'./assets'``
+
+	The directory in which to find assets for the :rst:role:`asset` role.
+
+	.. versionadded:: 0.5.0
