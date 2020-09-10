@@ -41,8 +41,8 @@ from docutils import nodes, utils
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
 from domdf_python_tools.paths import PathPlus
-from domdf_python_tools.utils import stderr_writer
 from domdf_python_tools.terminal_colours import Fore
+from domdf_python_tools.utils import stderr_writer
 from sphinx.util import split_explicit_title
 from sphinx.writers.html import HTMLTranslator
 

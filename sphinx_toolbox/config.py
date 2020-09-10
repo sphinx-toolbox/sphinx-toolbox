@@ -27,7 +27,8 @@ Internal configuration for ``sphinx-toolbox``.
 #
 
 # 3rd party
-from apeye.url import URL, RequestsURL
+from apeye.url import RequestsURL
+from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.config import Config
 

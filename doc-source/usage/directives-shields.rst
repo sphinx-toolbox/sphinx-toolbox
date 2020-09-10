@@ -223,6 +223,8 @@ All shields have the following options:
 		.. pypi-shield::
 			:version:
 
+		\
+
 		.. pypi-shield::
 			:project: sphinx
 			:downloads: month

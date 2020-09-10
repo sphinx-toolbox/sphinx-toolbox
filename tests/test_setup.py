@@ -28,7 +28,8 @@ def test_setup():
 			"html": {
 					"IssueNode": (visit_issue_node, depart_issue_node),
 					"AssetNode": (assets.visit_asset_node, assets.depart_asset_node),
-					}}
+					}
+			}
 
 	assert app.config.values["source_link_target"] == ("Sphinx", "env", [str])
 	assert app.config.values["github_username"] == (None, "env", [str])
