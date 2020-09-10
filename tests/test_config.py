@@ -12,6 +12,7 @@ def test_validate_config():
 			"source_link_target": "Sphinx",
 			"github_username": "domdfcoding",
 			"github_repository": "sphinx-toolbox",
+			"rst_prolog": "",
 			})
 
 	validate_config(None, config)  # type: ignore
@@ -24,6 +25,7 @@ def test_validate_config():
 			"github_source_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/blob/master"),
 			"github_issues_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/issues"),
 			"github_pull_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/pull"),
+			"rst_prolog": "\n.. |nbsp| unicode:: 0xA0\n   :trim:",
 			}
 
 	config = AttrDict({
@@ -69,6 +71,7 @@ def test_source_link_target(target: str, expects: str):
 			"source_link_target": target,
 			"github_username": "domdfcoding",
 			"github_repository": "sphinx-toolbox",
+			"rst_prolog": '',
 			})
 
 	validate_config(None, config)  # type: ignore

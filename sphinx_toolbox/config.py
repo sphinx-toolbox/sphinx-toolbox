@@ -90,6 +90,9 @@ class ToolboxConfig(Config):
 	#: The Wikipedia language to use for :rst:role:`wikipedia` roles.
 	wikipedia_lang: str
 
+	#: A string of reStructuredText that will be included at the beginning of every source file that is read.
+	rst_prolog: str
+
 
 def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
 	r"""
@@ -138,3 +141,7 @@ def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
 	config.github_source_url = config.github_url / "blob" / "master"
 	config.github_issues_url = config.github_url / "issues"
 	config.github_pull_url = config.github_url / "pull"
+
+	rst_prolog = StringList(config.rst_prolog or '')
+	rst_prolog.append(".. |nbsp| unicode:: 0xA0\n   :trim:")
+	config.rst_prolog = str(rst_prolog)
