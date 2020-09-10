@@ -36,7 +36,7 @@ from docutils.nodes import Node
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 
-__all__ = ["make_github_url", "GITHUB_COM", "flag", "word_join", "convert_indents", "Purger", "OptionSpec"]
+__all__ = ["make_github_url", "GITHUB_COM", "flag", "word_join", "Purger", "OptionSpec"]
 
 #: Instance of :class:`apeye.url.RequestsURL` that points to the GitHub website.
 GITHUB_COM = RequestsURL("https://github.com")
@@ -102,29 +102,6 @@ def word_join(iterable: Iterable[str], use_repr: bool = False, oxford: bool = Fa
 			return ", ".join(words[:-1]) + f", and {words[-1]}"
 		else:
 			return ", ".join(words[:-1]) + f" and {words[-1]}"
-
-
-def convert_indents(text: str, tab_width: int = 4, from_: str = "\t") -> str:
-	r"""
-	Convert indentation at the start of lines in ``text`` from tabs to spaces.
-
-	:param text: The text to convert indents in.
-	:param tab_width: The number of spaces per tab.
-	:param from\_: The indent to convert from.
-	"""
-
-	output = []
-	tab = " " * tab_width
-	from_size = len(from_)
-
-	for line in text.splitlines():
-		indent_count = 0
-		while line.startswith(from_):
-			indent_count += 1
-			line = line[from_size:]
-		output.append(f"{tab * indent_count}{line}")
-
-	return "\n".join(output)
 
 
 class Purger:

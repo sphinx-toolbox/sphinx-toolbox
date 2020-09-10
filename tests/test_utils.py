@@ -3,7 +3,7 @@ import pytest
 from apeye.url import RequestsURL
 
 # this package
-from sphinx_toolbox.utils import convert_indents, flag, make_github_url, word_join
+from sphinx_toolbox.utils import flag, make_github_url, word_join
 
 
 def test_make_github_url():
@@ -41,27 +41,6 @@ def test_word_join():
 	assert word_join(("bob", ), use_repr=True, oxford=True) == "'bob'"
 	assert word_join(("bob", "alice"), use_repr=True, oxford=True) == "'bob' and 'alice'"
 	assert word_join(("bob", "alice", "fred"), use_repr=True, oxford=True) == "'bob', 'alice', and 'fred'"
-
-
-def test_convert_indents():
-	assert convert_indents("hello world") == "hello world"
-	assert convert_indents("	hello world") == "    hello world"
-	assert convert_indents("		hello world") == "        hello world"
-	assert convert_indents("	    hello world") == "        hello world"
-
-	assert convert_indents("hello world", tab_width=2) == "hello world"
-	assert convert_indents("	hello world", tab_width=2) == "  hello world"
-	assert convert_indents("		hello world", tab_width=2) == "    hello world"
-	assert convert_indents("	    hello world", tab_width=2) == "      hello world"
-
-	assert convert_indents("hello world", from_="    ") == "hello world"
-	assert convert_indents("    hello world", from_="    ") == "    hello world"
-	assert convert_indents("        hello world", from_="    ") == "        hello world"
-	assert convert_indents("        hello world", from_="    ") == "        hello world"
-
-	assert convert_indents("hello world", tab_width=2, from_="    ") == "hello world"
-	assert convert_indents("    hello world", tab_width=2, from_="    ") == "  hello world"
-	assert convert_indents("        hello world", tab_width=2, from_="    ") == "    hello world"
 
 
 def test_flag():

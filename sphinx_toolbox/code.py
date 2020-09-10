@@ -60,10 +60,11 @@ from typing import List
 from docutils.nodes import Node
 from docutils.parsers.rst import directives
 from docutils.statemachine import StringList
+from domdf_python_tools.utils import convert_indents
 from sphinx.directives.code import CodeBlock as __BaseCodeBlock
 
 # this package
-from sphinx_toolbox.utils import OptionSpec, convert_indents
+from sphinx_toolbox.utils import OptionSpec
 
 __all__ = ["CodeBlock"]
 
