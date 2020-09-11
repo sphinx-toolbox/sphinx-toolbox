@@ -71,7 +71,7 @@ from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyClasslike, PyXRefRole
-from sphinx.ext.autodoc import bool_option, Documenter, INSTANCEATTR, ClassDocumenter
+from sphinx.ext.autodoc import INSTANCEATTR, ClassDocumenter, Documenter, bool_option
 from sphinx.pycode import ModuleAnalyzer
 from sphinx.util.inspect import getdoc, safe_getattr
 
@@ -80,7 +80,6 @@ from sphinx_toolbox import __version__
 from sphinx_toolbox.autodoc_helpers import begin_generate, filter_members_warning
 from sphinx_toolbox.autodoc_typehints import format_annotation
 from sphinx_toolbox.utils import flag
-
 
 __all__ = ["TypedDictDocumenter", "setup"]
 
@@ -200,7 +199,10 @@ class TypedDictDocumenter(ClassDocumenter):
 		documenters = super().sort_members(documenters, order)
 
 		# Mapping of key names to docstrings (as list of strings)
-		docstrings = {k[1]: v for k, v in ModuleAnalyzer.for_module(self.object.__module__).find_attr_docs().items()}
+		docstrings = {
+				k[1]: v
+				for k, v in ModuleAnalyzer.for_module(self.object.__module__).find_attr_docs().items()
+				}
 
 		required_keys = []
 		optional_keys = []
