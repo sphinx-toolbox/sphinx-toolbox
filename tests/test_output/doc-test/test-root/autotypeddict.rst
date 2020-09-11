@@ -1,9 +1,9 @@
 =====================================
-sphinx-toolbox Demo - Autoprotocol
+sphinx-toolbox Demo - AutoTypedDict
 =====================================
 
 .. automodule:: autotypeddict_demo
-	:no-autosummary:
+	:members:
 	:exclude-members: Movie
 
 .. autotypeddict:: autotypeddict_demo.Movie

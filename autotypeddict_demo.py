@@ -5,6 +5,8 @@
 # 3rd party
 from typing_extensions import TypedDict
 
+__all__ = ["Movie", "Animal", "Cat", "Bird"]
+
 
 class Movie(TypedDict):
 	"""

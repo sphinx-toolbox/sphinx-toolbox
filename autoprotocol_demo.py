@@ -4,6 +4,8 @@ from typing import Any
 # 3rd party
 from typing_extensions import Protocol, runtime_checkable
 
+__all__ = ["HasLessThan", "HasGreaterThan", "Frobnicater"]
+
 
 class HasLessThan(Protocol):
 	"""

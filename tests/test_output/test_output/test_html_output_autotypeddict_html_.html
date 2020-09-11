@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
-   sphinx-toolbox Demo - Autoprotocol — Python  documentation
+   sphinx-toolbox Demo - AutoTypedDict — Python  documentation
   </title>
   <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
   </script>
@@ -23,13 +23,253 @@
    <div class="documentwrapper">
     <div class="bodywrapper">
      <div class="body" role="main">
-      <div class="section" id="sphinx-toolbox-demo-autoprotocol">
+      <div class="section" id="module-autotypeddict_demo">
+       <span id="sphinx-toolbox-demo-autotypeddict">
+       </span>
        <h1>
-        sphinx-toolbox Demo - Autoprotocol
-        <a class="headerlink" href="#sphinx-toolbox-demo-autoprotocol" title="Permalink to this headline">
+        sphinx-toolbox Demo - AutoTypedDict
+        <a class="headerlink" href="#module-autotypeddict_demo" title="Permalink to this headline">
          ¶
         </a>
        </h1>
+       <dl class="py typeddict">
+        <dt id="autotypeddict_demo.Animal">
+         <em class="property">
+          typeddict
+         </em>
+         <code class="sig-prename descclassname">
+          autotypeddict_demo.
+         </code>
+         <code class="sig-name descname">
+          Animal
+         </code>
+         <a class="reference internal" href="_modules/autotypeddict_demo.html#Animal">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#autotypeddict_demo.Animal" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          Optional keys common to all animals.
+         </p>
+         <dl class="field-list simple">
+          <dt class="field-odd">
+           Required Keys
+          </dt>
+          <dd class="field-odd">
+           <ul class="simple">
+            <li>
+             <p>
+              <strong>
+               name
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – The name of the animal
+             </p>
+            </li>
+           </ul>
+          </dd>
+          <dt class="field-even">
+           Optional Keys
+          </dt>
+          <dd class="field-even">
+           <ul class="simple">
+            <li>
+             <p>
+              <strong>
+               voice
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – The animal’s voice.
+             </p>
+            </li>
+           </ul>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
+       <dl class="py typeddict">
+        <dt id="autotypeddict_demo.Cat">
+         <em class="property">
+          typeddict
+         </em>
+         <code class="sig-prename descclassname">
+          autotypeddict_demo.
+         </code>
+         <code class="sig-name descname">
+          Cat
+         </code>
+         <a class="reference internal" href="_modules/autotypeddict_demo.html#Cat">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#autotypeddict_demo.Cat" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          A cat.
+         </p>
+         <dl class="field-list simple">
+          <dt class="field-odd">
+           Required Keys
+          </dt>
+          <dd class="field-odd">
+           <ul class="simple">
+            <li>
+             <p>
+              <strong>
+               fur_color
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – The colour of the cat’s fur.
+             </p>
+            </li>
+            <li>
+             <p>
+              <strong>
+               name
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – The name of the animal
+             </p>
+            </li>
+           </ul>
+          </dd>
+          <dt class="field-even">
+           Optional Keys
+          </dt>
+          <dd class="field-even">
+           <ul class="simple">
+            <li>
+             <p>
+              <strong>
+               voice
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – The animal’s voice.
+             </p>
+            </li>
+           </ul>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
+       <dl class="py typeddict">
+        <dt id="autotypeddict_demo.Bird">
+         <em class="property">
+          typeddict
+         </em>
+         <code class="sig-prename descclassname">
+          autotypeddict_demo.
+         </code>
+         <code class="sig-name descname">
+          Bird
+         </code>
+         <a class="reference internal" href="_modules/autotypeddict_demo.html#Bird">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#autotypeddict_demo.Bird" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          A bird.
+         </p>
+         <dl class="field-list simple">
+          <dt class="field-odd">
+           Required Keys
+          </dt>
+          <dd class="field-odd">
+           <ul class="simple">
+            <li>
+             <p>
+              <strong>
+               egg_size
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                float
+               </span>
+              </code>
+              ) – The size of the bird’s egg, in mm.
+             </p>
+            </li>
+            <li>
+             <p>
+              <strong>
+               name
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – The name of the animal
+             </p>
+            </li>
+           </ul>
+          </dd>
+          <dt class="field-even">
+           Optional Keys
+          </dt>
+          <dd class="field-even">
+           <ul class="simple">
+            <li>
+             <p>
+              <strong>
+               voice
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – The animal’s voice.
+             </p>
+            </li>
+           </ul>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
        <dl class="py typeddict">
         <dt id="autotypeddict_demo.Movie">
          <em class="property">
