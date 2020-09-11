@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 #
 #  autotypeddict.py
-"""
+r"""
 A Sphinx directive for documenting :class:`TypedDicts <typing.TypedDict>` in Python.
 
 Provides the :rst:dir:`autotypeddict` directive to document a :class:`typing.TypedDict`.
 It behaves much like :rst:dir:`autoclass` and :rst:dir:`autofunction`.
 
-Only supports :mod:`typing_extensions`\\'s TypedDict until :pull:`700 <python/typing>` is implemented in CPython.
+Only supports :mod:`typing_extensions`\'s TypedDict until :pull:`700 <python/typing>` is implemented in CPython.
 
 .. versionadded:: 0.5.0
 
