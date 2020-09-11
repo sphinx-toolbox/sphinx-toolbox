@@ -100,7 +100,7 @@ def process_documenter_options(
 			if name in config.autodoc_default_options and not negated:
 				default_value = config.autodoc_default_options[name]
 				existing_value = options.get(name, None)
-				values: List[str] = list(filter(None, [default_value, existing_value]))
+				values: List[str] = [v for v in [default_value, existing_value] if v not in {None, True, False}]
 
 				if values:
 					options[name] = ','.join(values)
