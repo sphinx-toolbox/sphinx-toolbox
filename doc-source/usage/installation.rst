@@ -36,6 +36,7 @@ Some features of this extension must be enabled separately:
       :no-postamble:
       :first:
 
+      sphinx.ext.autodoc
       sphinx_autodoc_typehints
 
 For more information see https://www.sphinx-doc.org/en/master/usage/extensions/index.html#third-party-extensions .
