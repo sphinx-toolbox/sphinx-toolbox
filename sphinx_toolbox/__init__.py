@@ -131,6 +131,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	# Setup standalone extensions
 	app.setup_extension("sphinx_toolbox.formatting")
 	app.setup_extension("sphinx_toolbox.autoprotocol")
+	app.setup_extension("sphinx_toolbox.autotypeddict")
 
 	# Hack to get the docutils tab size, as there doesn't appear to be any other way
 	class CustomRSTParser(RSTParser):
