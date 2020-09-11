@@ -5,6 +5,8 @@ Installation
 .. installation:: sphinx-toolbox
 	:pypi:
 	:github:
+	:anaconda:
+	:conda-channels: domdfcoding,conda-forge
 
 
 .. extensions:: sphinx-toolbox
@@ -28,7 +30,7 @@ Some features of this extension must be enabled separately:
 
       sphinx.ext.autodoc
 
-* ``sphinx_toolbox.autodoc_typehints``. An enhanced version of
+* ``sphinx_toolbox.autodoc_typehints``: An enhanced version of
   `sphinx-autodoc-typehints <https://pypi.org/project/sphinx-autodoc-typehints/>`_.
 
   .. extensions:: sphinx_toolbox.autodoc_typehints
@@ -38,5 +40,19 @@ Some features of this extension must be enabled separately:
 
       sphinx.ext.autodoc
       sphinx_autodoc_typehints
+
+* ``sphinx_toolbox.patched_autosummary``: A patched version of :class:`sphinx.ext.autosummary.Autosummary`
+  to fix an issue where the module name is sometimes duplicated.
+
+  I.e. ``foo.bar.baz()`` became ``foo.bar.foo.bar.baz()``, which of course doesn't exist
+  and so resulted in a broken link.
+
+  .. extensions:: sphinx_toolbox.patched_autosummary
+      :no-preamble:
+      :no-postamble:
+
+      sphinx.ext.autosummary
+
+|
 
 For more information see https://www.sphinx-doc.org/en/master/usage/extensions/index.html#third-party-extensions .
