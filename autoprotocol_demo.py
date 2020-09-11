@@ -2,7 +2,7 @@
 from typing import Any
 
 # 3rd party
-from typing_extensions import Protocol
+from typing_extensions import Protocol, runtime_checkable
 
 
 class HasLessThan(Protocol):
@@ -20,6 +20,7 @@ class HasGreaterThan(Protocol):
 		...
 
 
+@runtime_checkable
 class Frobnicater(Protocol):
 
 	def frobnicate(self, something) -> Any:

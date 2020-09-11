@@ -69,9 +69,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from sphinx.application import Sphinx
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyClasslike, PyXRefRole
-from sphinx.ext.autodoc import (
-	bool_option, INSTANCEATTR, ClassDocumenter, member_order_option,
-	)
+from sphinx.ext.autodoc import INSTANCEATTR, ClassDocumenter, bool_option, member_order_option
 from sphinx.locale import _
 from sphinx.util.inspect import getdoc, safe_getattr
 
@@ -196,6 +194,13 @@ class ProtocolDocumenter(ClassDocumenter):
 
 		if not getdoc(self.object):
 			self.add_line(":class:`typing.Protocol`.", sourcename)
+			self.add_line('', sourcename)
+
+		if hasattr(self.object, "_is_runtime_protocol") and self.object._is_runtime_protocol:
+			self.add_line(
+					"This protocol is `runtime checkable <https://www.python.org/dev/peps/pep-0544/#runtime-checkable-decorator-and-narrowing-types-by-isinstance>`_.",
+					sourcename
+					)
 			self.add_line('', sourcename)
 
 		self.add_line("Classes that implement this protocol must have the following methods:", sourcename)
