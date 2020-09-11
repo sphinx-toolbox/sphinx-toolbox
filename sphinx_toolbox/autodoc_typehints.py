@@ -79,6 +79,7 @@ from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, TypeVar
 
 # 3rd party
 import sphinx_autodoc_typehints  # type: ignore
+from domdf_python_tools.utils import etc
 from sphinx.application import Sphinx
 from sphinx.errors import ExtensionError
 from sphinx.util.inspect import signature as Signature
@@ -247,6 +248,8 @@ def process_signature(
 		if default is not inspect.Parameter.empty:
 			if isinstance(default, ModuleType):
 				default = Module(default.__name__)
+			elif default is Ellipsis:
+				default = etc
 
 		parameters.append(param.replace(annotation=inspect.Parameter.empty, default=default))
 
