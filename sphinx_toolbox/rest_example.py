@@ -34,6 +34,7 @@ import sphinx.environment
 from docutils import nodes
 from docutils.parsers.rst import directives
 from docutils.statemachine import ViewList
+from domdf_python_tools.stringlist import StringList
 from sphinx.util.docutils import SphinxDirective
 
 # this package
@@ -44,7 +45,7 @@ __all__ = ["reSTExampleDirective", "make_rest_example", "rest_example_purger"]
 
 class reSTExampleDirective(SphinxDirective):
 	"""
-	Directive to show some restructured text source, and the rendered output.
+	Directive to show some reStructuredText source, and the rendered output.
 	"""
 
 	has_content: bool = True
@@ -96,30 +97,29 @@ def make_rest_example(
 	:return:
 	"""
 
-	output = [".. code-block:: rest"]
-	tab = ' ' * env.config.docutils_tab_width
+	output = StringList(".. code-block:: rest")
+	output.set_indent(' ' * env.config.docutils_tab_width, 1)
 
 	for option, value in options.items():
 		if value is None:
-			output.append(f"{tab}:{option}:")
+			output.append(f":{option}:")
 		else:
-			output.append(f"{tab}:{option}: {value}")
+			output.append(f":{option}: {value}")
 
-	output.append('')
+	output.blankline()
 
 	for line in content:
-		output.append(f"{tab}{line}")
+		output.append(f"{line}")
 
-	if output[-1]:
-		output.append('')
+	output.set_indent_size(0)
+	output.blankline(ensure_single=True)
 
 	for line in content:
 		output.append(line)
 
-	if output[-1]:
-		output.append('')
+	output.blankline(ensure_single=True)
 
-	return output
+	return list(output)
 
 
 rest_example_purger = Purger("all_rest_example_nodes")
