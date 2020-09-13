@@ -39,13 +39,14 @@ and
 #
 
 # stdlib
-from typing import Dict, List, Sequence, Tuple, Union
+from typing import Any, Dict, List, Sequence, Tuple, Union
 
 # 3rd party
 from docutils import nodes, utils
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
 from sphinx import addnodes
+from sphinx.application import Sphinx
 from sphinx.util import split_explicit_title
 
 __all__ = ["source_role"]
@@ -121,3 +122,25 @@ def source_role(
 		messages.append(message)
 
 	return nodes_, messages
+
+
+def setup(app: Sphinx) -> Dict[str, Any]:
+	"""
+	Setup :mod:`sphinx_toolbox.more_autodoc.sourcelink`.
+
+	:param app: The Sphinx app.
+	"""
+
+	# this package
+	from sphinx_toolbox import __version__
+
+	# Link to source code
+	app.add_role("source", source_role)
+
+	# The target for the source link. One of GitHub or Sphinx (GitLab coming soon)
+	app.add_config_value("source_link_target", "Sphinx", "env", types=[str])
+
+	return {
+			"version": __version__,
+			"parallel_read_safe": True,
+			}

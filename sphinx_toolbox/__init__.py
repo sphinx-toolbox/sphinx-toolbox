@@ -40,7 +40,6 @@ from sphinx_toolbox import (
 		assets, code, config, confval, installation, issues, rest_example, shields, source, wikipedia
 		)
 from sphinx_toolbox.cache import cache
-from sphinx_toolbox.issues import get_issue_title
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"
@@ -56,18 +55,13 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	"""
 	Setup Sphinx Extension.
 
-	:param app:
-
-	:return:
+	:param app: The Sphinx app.
 	"""
 
 	# Ensure dependencies are set up
 	app.setup_extension("sphinx.ext.viewcode")
 	app.setup_extension("sphinx_tabs.tabs")
 	app.setup_extension("sphinx-prompt")
-
-	# Link to source code
-	app.add_role("source", source.source_role)
 
 	# Link to GH issue
 	app.add_role("issue", issues.issue_role)
@@ -80,9 +74,6 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_node(issues.IssueNode, html=(issues.visit_issue_node, issues.depart_issue_node))
 
 	app.connect("config-inited", config.validate_config, priority=850)
-
-	# The target for the source link. One of GitHub or Sphinx (GitLab coming soon)
-	app.add_config_value("source_link_target", "Sphinx", "env", types=[str])
 
 	app.add_config_value("github_username", None, "env", types=[str])
 	app.add_config_value("github_repository", None, "env", types=[str])
@@ -130,8 +121,9 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 
 	# Setup standalone extensions
 	app.setup_extension("sphinx_toolbox.formatting")
-	app.setup_extension("sphinx_toolbox.autoprotocol")
-	app.setup_extension("sphinx_toolbox.autotypeddict")
+	app.setup_extension("sphinx_toolbox.more_autodoc.autoprotocol")
+	app.setup_extension("sphinx_toolbox.more_autodoc.autotypeddict")
+	app.setup_extension("sphinx_toolbox.source")
 
 	# Hack to get the docutils tab size, as there doesn't appear to be any other way
 	class CustomRSTParser(RSTParser):

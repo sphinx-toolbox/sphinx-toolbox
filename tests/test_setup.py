@@ -14,7 +14,7 @@ def test_setup():
 
 	assert setup_ret == {"version": sphinx_toolbox.__version__, "parallel_read_safe": True}
 	assert roles == {
-			"source": source.source_role,
+			# "source": source.source_role,  # Moved to own setup function
 			"issue": issue_role,
 			"pr": pull_role,
 			"pull": pull_role,
@@ -31,7 +31,8 @@ def test_setup():
 					}
 			}
 
-	assert app.config.values["source_link_target"] == ("Sphinx", "env", [str])
+	# Moved to own setup function
+	# assert app.config.values["source_link_target"] == ("Sphinx", "env", [str])
 	assert app.config.values["github_username"] == (None, "env", [str])
 	assert app.config.values["github_repository"] == (None, "env", [str])
 	assert app.config.values["conda_channels"] == ([], "env", [list])
