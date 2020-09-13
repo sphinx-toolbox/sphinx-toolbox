@@ -73,7 +73,7 @@ from sphinx_toolbox.more_autodoc.typehints import format_annotation
 __all__ = ["PrettyGenericAliasDocumenter", "setup"]
 
 
-class PrettyGenericAliasDocumenter(GenericAliasDocumenter):
+class PrettyGenericAliasDocumenter(GenericAliasDocumenter):  # pragma: no cover (<Py37)
 	"""
 	Specialized Documenter subclass for GenericAliases,
 	with prettier output than Sphinx's one.

@@ -2,8 +2,6 @@
 import re
 
 # 3rd party
-import sys
-
 import pytest
 
 

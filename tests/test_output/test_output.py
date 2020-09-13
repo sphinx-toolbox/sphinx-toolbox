@@ -1,4 +1,6 @@
 # 3rd party
+import sys
+
 import pytest
 from bs4 import BeautifulSoup  # type: ignore
 from pytest_regressions.file_regression import FileRegressionFixture  # type: ignore
@@ -130,10 +132,21 @@ def test_formatting_html_output(page: BeautifulSoup, file_regression: FileRegres
 	check_html_regression(page, file_regression)
 
 
-@pytest.mark.parametrize("page", ["assets.html", "autotypeddict.html", "autodoc-ellipsis.html"], indirect=True)
+@pytest.mark.parametrize("page", [
+		"assets.html",
+		"autotypeddict.html",
+		"autodoc-ellipsis.html",
+		"variables.html",
+		], indirect=True)
 def test_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
 	"""
 	Parametrize new files here rather than as their own function.
 	"""
 
+	check_html_regression(page, file_regression)
+
+
+@pytest.mark.skipif(condition=sys.version_info < (3, 7), reason="Output differs for Py36")
+@pytest.mark.parametrize("page", ["genericalias.html"], indirect=True)
+def test_genericalias_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
 	check_html_regression(page, file_regression)

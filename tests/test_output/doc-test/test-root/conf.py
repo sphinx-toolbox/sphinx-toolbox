@@ -3,6 +3,8 @@ extensions = [
 		"sphinx_toolbox",
 		"sphinx_toolbox.more_autodoc.augment_defaults",
 		"sphinx_toolbox.more_autodoc.typehints",
+		"sphinx_toolbox.more_autodoc.genericalias",
+		"sphinx_toolbox.more_autodoc.variables",
 		"sphinx_tabs.tabs",
 		"sphinx-prompt",
 		"sphinx.ext.autodoc",
