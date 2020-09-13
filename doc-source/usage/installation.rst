@@ -51,6 +51,8 @@ Some features of this extension must be enabled separately:
 
       sphinx.ext.autodoc
 
+  .. note:: ``sphinx_toolbox.more_autodoc.genericalias`` is only supported on Python 3.7 and above.
+
 * ``sphinx_toolbox.patched_autosummary``: A patched version of :class:`sphinx.ext.autosummary.Autosummary`
   to fix an issue where the module name is sometimes duplicated.
 
