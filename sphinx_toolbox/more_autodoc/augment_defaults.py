@@ -10,11 +10,9 @@ such as to globally exclude certain members and then exclude additional members 
 
 This module monkeypatches in that behaviour.
 
-.. deprecated:: 0.6.0
+.. versionchanged:: 0.6.0
 
-	Use :mod:`sphinx_toolbox.more_autodoc.augment_defaults` instead.
-
-.. versionremoved:: 1.0.0
+	Moved from :mod:`sphinx_toolbox.autodoc_augment_defaults`.
 """  # noqa D400
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -66,15 +64,72 @@ This module monkeypatches in that behaviour.
 #
 
 # stdlib
-import warnings
+from typing import Any, Dict, List, Type
+
+# 3rd party
+import sphinx.ext.autodoc.directive
+from docutils.utils import assemble_option_dict
+from sphinx.application import Sphinx
+from sphinx.config import Config
+from sphinx.errors import ExtensionError
+from sphinx.ext.autodoc import Documenter, Options
 
 # this package
-from sphinx_toolbox.more_autodoc.augment_defaults import process_documenter_options, setup
+import sphinx_toolbox
 
 __all__ = ["process_documenter_options", "setup"]
 
-warnings.warn(
-		"Importing from 'sphinx_toolbox.autodoc_augment_defaults' is deprecated since 0.6.0 and "
-		"the module will be removed in 1.0.0.\nImport from 'sphinx_toolbox.more_autodoc.augment_defaults' instead.",
-		DeprecationWarning,
-		)
+
+def process_documenter_options(
+		documenter: Type[Documenter],
+		config: Config,
+		options: Dict,
+		) -> Options:
+	"""
+	Recognize options of Documenter from user input.
+
+	:param documenter:
+	:param config:
+	:param options:
+
+	:return:
+	"""
+
+	for name in sphinx.ext.autodoc.directive.AUTODOC_DEFAULT_OPTIONS:
+		if name not in documenter.option_spec:  # pragma: no cover
+			continue
+		else:
+			negated = options.pop("no-" + name, True) is None
+
+			if name in config.autodoc_default_options and not negated:
+				default_value = config.autodoc_default_options[name]
+				existing_value = options.get(name, None)
+				values: List[str] = [v for v in [default_value, existing_value] if v not in {None, True, False}]
+
+				if values:
+					options[name] = ','.join(values)
+				else:
+					options[name] = None  # pragma: no cover
+
+	return Options(assemble_option_dict(options.items(), documenter.option_spec))
+
+
+def setup(app: Sphinx) -> Dict[str, Any]:
+	"""
+	Setup :mod:`sphinx_toolbox.more_autodoc.augment_defaults`.
+
+	:param app:
+
+	:return:
+	"""
+
+	if "sphinx.ext.autodoc" in app.extensions:
+		raise ExtensionError(
+				"'sphinx_toolbox.more_autodoc.augment_defaults' must be loaded before 'sphinx.ext.autodoc."
+				)
+
+	sphinx.ext.autodoc.directive.process_documenter_options = process_documenter_options
+
+	app.setup_extension("sphinx.ext.autodoc")
+
+	return {"version": sphinx_toolbox.__version__, "parallel_read_safe": True}

@@ -1,21 +1,12 @@
 #!/usr/bin/env python3
 #
-#  autodoc_augment_defaults.py
+#  genericalias.py
 """
-Sphinx's autodoc module allows for default options to be set,
-and allows for those defaults to be disabled for an auto* directive and different values given instead.
+Documenter for alias, which usually manifest as
+`type aliases <https://docs.python.org/3/library/typing.html#type-aliases>`_.
 
-However, it does not appear to be possible to augment the defaults,
-such as to globally exclude certain members and then exclude additional members of a single class.
-
-This module monkeypatches in that behaviour.
-
-.. deprecated:: 0.6.0
-
-	Use :mod:`sphinx_toolbox.more_autodoc.augment_defaults` instead.
-
-.. versionremoved:: 1.0.0
-"""  # noqa D400
+.. versionadded:: 0.6.0
+"""
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -37,8 +28,9 @@ This module monkeypatches in that behaviour.
 #  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
-#  Based on Sphinx
-#  Copyright (c) 2007-2020 by the Sphinx team.
+#  Parts based on https://github.com/sphinx-doc/sphinx
+#  |  Copyright (c) 2007-2020 by the Sphinx team (see AUTHORS file).
+#  |  BSD Licensed
 #  |  All rights reserved.
 #  |
 #  |  Redistribution and use in source and binary forms, with or without
@@ -46,11 +38,11 @@ This module monkeypatches in that behaviour.
 #  |  met:
 #  |
 #  |  * Redistributions of source code must retain the above copyright
-#  |    notice, this list of conditions and the following disclaimer.
+#  |   notice, this list of conditions and the following disclaimer.
 #  |
 #  |  * Redistributions in binary form must reproduce the above copyright
-#  |    notice, this list of conditions and the following disclaimer in the
-#  |    documentation and/or other materials provided with the distribution.
+#  |   notice, this list of conditions and the following disclaimer in the
+#  |   documentation and/or other materials provided with the distribution.
 #  |
 #  |  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 #  |  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -66,15 +58,46 @@ This module monkeypatches in that behaviour.
 #
 
 # stdlib
-import warnings
+from typing import Any, Dict
+
+# 3rd party
+from docutils.statemachine import StringList
+from sphinx.application import Sphinx
+from sphinx.ext.autodoc import DataDocumenter, GenericAliasDocumenter
+from sphinx.locale import _
 
 # this package
-from sphinx_toolbox.more_autodoc.augment_defaults import process_documenter_options, setup
+from sphinx_toolbox import __version__
+from sphinx_toolbox.more_autodoc.typehints import format_annotation
 
-__all__ = ["process_documenter_options", "setup"]
+__all__ = ["PrettyGenericAliasDocumenter", "setup"]
 
-warnings.warn(
-		"Importing from 'sphinx_toolbox.autodoc_augment_defaults' is deprecated since 0.6.0 and "
-		"the module will be removed in 1.0.0.\nImport from 'sphinx_toolbox.more_autodoc.augment_defaults' instead.",
-		DeprecationWarning,
-		)
+
+class PrettyGenericAliasDocumenter(GenericAliasDocumenter):
+	"""
+	Specialized Documenter subclass for GenericAliases,
+	with prettier output than Sphinx's one.
+	"""
+
+	priority = GenericAliasDocumenter.priority + 1
+
+	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
+		name = format_annotation(self.object)
+		content = StringList([_('Alias of %s') % name], source='')
+		DataDocumenter.add_content(self, content)
+
+
+def setup(app: Sphinx) -> Dict[str, Any]:
+	"""
+	Setup :mod:`sphinx_toolbox.more_autodoc.genericalias`.
+
+	:param app: The Sphinx app.
+	"""
+
+	app.setup_extension("sphinx.ext.autodoc")
+	app.add_autodocumenter(PrettyGenericAliasDocumenter, override=True)
+
+	return {
+			"version": __version__,
+			"parallel_read_safe": True,
+			}

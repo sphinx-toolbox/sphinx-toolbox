@@ -131,6 +131,7 @@ sphinx-toolbox
 	:glob:
 
 	api/sphinx-toolbox
+	api/more_autodoc/index
 	api/*
 
 .. toctree::

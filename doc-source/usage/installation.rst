@@ -19,27 +19,37 @@ Installation
 
 Some features of this extension must be enabled separately:
 
-* ``sphinx_toolbox.autodoc_augment_defaults`` allows for default options to be specified in
+* ``sphinx_toolbox.more_autodoc.augment_defaults`` allows for default options to be specified in
   `autodoc_default_options <https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_default_options>`_
   and then extend those option in each autodoc directive.
 
-  .. extensions:: sphinx_toolbox.autodoc_augment_defaults
+  .. extensions:: sphinx_toolbox.more_autodoc.augment_defaults
       :no-preamble:
       :no-postamble:
       :first:
 
       sphinx.ext.autodoc
 
-* ``sphinx_toolbox.autodoc_typehints``: An enhanced version of
+* ``sphinx_toolbox.more_autodoc.typehints``: An enhanced version of
   `sphinx-autodoc-typehints <https://pypi.org/project/sphinx-autodoc-typehints/>`_.
 
-  .. extensions:: sphinx_toolbox.autodoc_typehints
+  .. extensions:: sphinx_toolbox.more_autodoc.typehints
       :no-preamble:
       :no-postamble:
       :first:
 
       sphinx.ext.autodoc
       sphinx_autodoc_typehints
+
+* ``sphinx_toolbox.more_autodoc.genericalias``: An enhanced version of autodoc's generic alias with
+  links to the aliased objects.
+
+  .. extensions:: sphinx_toolbox.more_autodoc.genericalias
+      :no-preamble:
+      :no-postamble:
+      :first:
+
+      sphinx.ext.autodoc
 
 * ``sphinx_toolbox.patched_autosummary``: A patched version of :class:`sphinx.ext.autosummary.Autosummary`
   to fix an issue where the module name is sometimes duplicated.
@@ -56,3 +66,5 @@ Some features of this extension must be enabled separately:
 |
 
 For more information see https://www.sphinx-doc.org/en/master/usage/extensions/index.html#third-party-extensions .
+
+.. TODO:: sourcelink and variables

@@ -1,8 +1,8 @@
 extensions = [
 		"sphinx.ext.viewcode",
 		"sphinx_toolbox",
-		"sphinx_toolbox.autodoc_augment_defaults",
-		"sphinx_toolbox.autodoc_typehints",
+		"sphinx_toolbox.more_autodoc.augment_defaults",
+		"sphinx_toolbox.more_autodoc.typehints",
 		"sphinx_tabs.tabs",
 		"sphinx-prompt",
 		"sphinx.ext.autodoc",

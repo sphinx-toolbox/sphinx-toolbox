@@ -35,10 +35,8 @@ package_root = "sphinx_toolbox"
 
 extensions = [
 	'sphinx_toolbox',
-	'sphinx_toolbox.autodoc_augment_defaults',
-	'sphinx_toolbox.autodoc_typehints',
+	'sphinx_toolbox.more_autodoc',
 	'sphinx.ext.intersphinx',
-	'sphinx.ext.autodoc',
 	'sphinx.ext.mathjax',
 	'sphinx.ext.viewcode',
 	'sphinxcontrib.httpdomain',
@@ -55,6 +53,7 @@ extensions = [
 	'sphinxcontrib.toctree_plus',
 	'seed_intersphinx_mapping',
 	'sphinx.ext.autosectionlabel',
+	'sphinx_removed_in',
 	]
 
 sphinxemoji_style = 'twemoji'
@@ -139,3 +138,5 @@ autodoc_default_options = {
 				"__hash__",
 				]),
 		}
+
+autodoc_show_sourcelink = True

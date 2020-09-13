@@ -48,7 +48,7 @@ import pytest
 import typing_extensions
 
 # this package
-from sphinx_toolbox.autodoc_typehints import format_annotation, process_docstring
+from sphinx_toolbox.more_autodoc.typehints import format_annotation, process_docstring
 
 T = TypeVar('T')
 U = TypeVar('U', covariant=True)
