@@ -37,7 +37,16 @@ from sphinx.parsers import RSTParser
 
 # this package
 from sphinx_toolbox import (
-		assets, code, config, confval, installation, issues, rest_example, shields, source, wikipedia
+		assets,
+		code,
+		config,
+		confval,
+		installation,
+		issues,
+		rest_example,
+		shields,
+		source,
+		wikipedia
 		)
 from sphinx_toolbox.cache import cache
 
