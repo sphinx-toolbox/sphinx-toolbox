@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 #
 #  variables.py
-"""
+r"""
 Documenter for module level variables, similar to :rst:dir:`autodata` but
 with a different appearance and more customisation options.
 
 .. versionadded:: 0.6.0
+
+.. versionchanged:: 0.7.0
+
+	Added ``*AttributeDocumenter``\s
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -58,21 +62,37 @@ with a different appearance and more customisation options.
 #
 
 # stdlib
+import importlib
 from typing import Any, Dict, get_type_hints
 
 # 3rd party
+import sphinx.ext.autodoc
 from sphinx.application import Sphinx
-from sphinx.ext.autodoc import UNINITIALIZED_ATTR, DataDocumenter, Documenter, ModuleLevelDocumenter
+from sphinx.ext.autodoc import (
+		INSTANCEATTR,
+		UNINITIALIZED_ATTR,
+		AttributeDocumenter,
+		ClassLevelDocumenter,
+		DataDocumenter,
+		Documenter,
+		ModuleDocumenter,
+		ModuleLevelDocumenter
+		)
 from sphinx.util.inspect import object_description, safe_getattr
 
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
-
-__all__ = ["get_variable_type", "VariableDocumenter", "setup"]
-
-# this package
 from sphinx_toolbox.utils import flag
+
+__all__ = [
+		"VariableDocumenter",
+		"TypedAttributeDocumenter",
+		"InstanceAttributeDocumenter",
+		"type_template",
+		"get_variable_type",
+		"setup",
+		]
 
 
 def get_variable_type(documenter: Documenter) -> str:
@@ -84,7 +104,6 @@ def get_variable_type(documenter: Documenter) -> str:
 	:return:
 	"""
 
-	# obtain annotation for this data
 	try:
 		annotations = get_type_hints(documenter.parent)
 	except NameError:
@@ -110,6 +129,18 @@ def get_variable_type(documenter: Documenter) -> str:
 			return ''
 
 
+type_template = "   **Type:** |nbsp| |nbsp| |nbsp| |nbsp| %s"
+"""
+Template for rendering type annotations in :class:`~.VariableDocumenter`,
+:class:`~.TypedAttributeDocumenter` and :class:`~.InstanceAttributeDocumenter`.
+
+Renders like:
+
+	**Type:** |nbsp| |nbsp| |nbsp| |nbsp| :class:`str`
+
+"""
+
+
 class VariableDocumenter(DataDocumenter):
 	"""
 	Specialized Documenter subclass for data items.
@@ -126,7 +157,13 @@ class VariableDocumenter(DataDocumenter):
 			**DataDocumenter.option_spec,
 			}
 
-	def add_directive_header(self, sig: str) -> None:
+	def add_directive_header(self, sig: str):
+		"""
+		Add the directive's header.
+
+		:param sig:
+		"""
+
 		sourcename = self.get_sourcename()
 
 		no_value = self.options.get("no-value", False)
@@ -137,38 +174,161 @@ class VariableDocumenter(DataDocumenter):
 
 			if not no_value:
 				if "value" in self.options:
-					self.add_line('   :value: ' + self.options["value"], sourcename)
+					self.add_line(f"   :value: {self.options['value']}", sourcename)
 				else:
 					try:
 						if self.object is not UNINITIALIZED_ATTR:
 							objrepr = object_description(self.object)
-							self.add_line('   :value: ' + objrepr, sourcename)
+							self.add_line(f"   :value: {objrepr}", sourcename)
 					except ValueError:
 						pass
 
-				self.add_line('', sourcename)
+			self.add_line('', sourcename)
 
 			if not no_type:
 				if "type" in self.options:
-					self.add_line('   :Type: ' + self.options["type"], sourcename)
+					self.add_line(type_template % self.options["type"], sourcename)
 				else:
-					line = '   :Type: ' + get_variable_type(self)
-					if line != '   :Type: ':
+					# obtain type annotation for this data
+					line = type_template % get_variable_type(self)
+					if line != type_template[:-2]:
 						self.add_line(line, sourcename)
 
 		else:
 			super().add_directive_header(sig)
 
 
+class TypedAttributeDocumenter(AttributeDocumenter):
+	"""
+	Alternative version of :class:`sphinx.ext.autodoc.AttributeDocumenter`
+	with better type hint rendering.
+
+	Specialized Documenter subclass for attributes.
+
+	.. versionadded:: 0.7.0
+	"""
+
+	def add_directive_header(self, sig: str):
+		"""
+		Add the directive's header.
+
+		:param sig:
+		"""
+
+		sourcename = self.get_sourcename()
+
+		no_value = self.options.get("no-value", False)
+		no_type = self.options.get("no-type", False)
+
+		if not self.options.annotation:
+			ClassLevelDocumenter.add_directive_header(self, sig)
+
+			# data descriptors do not have useful values
+			if not no_value and not self._datadescriptor:
+				if "value" in self.options:
+					self.add_line('   :value: ' + self.options["value"], sourcename)
+				else:
+					try:
+						if self.object is not INSTANCEATTR:
+							objrepr = object_description(self.object)
+							self.add_line('   :value: ' + objrepr, sourcename)
+					except ValueError:
+						pass
+
+			self.add_line('', sourcename)
+
+			if not no_type:
+				if "type" in self.options:
+					self.add_line(type_template % self.options["type"], sourcename)
+				else:
+					# obtain type annotation for this attribute
+					line = type_template % get_variable_type(self)
+					if line != type_template[:-2]:
+						self.add_line(line, sourcename)
+
+		else:
+			super().add_directive_header(sig)
+
+
+class InstanceAttributeDocumenter(TypedAttributeDocumenter):
+	"""
+	Alternative version of :class:`sphinx.ext.autodoc.InstanceAttributeDocumenter`
+	with better type hint rendering.
+
+	Specialized Documenter subclass for attributes that cannot be imported
+	because they are instance attributes (e.g. assigned in ``__init__``).
+
+	.. versionadded:: 0.7.0
+	"""
+
+	objtype = sphinx.ext.autodoc.InstanceAttributeDocumenter.objtype
+	directivetype = sphinx.ext.autodoc.InstanceAttributeDocumenter.directivetype
+	member_order = 60
+
+	# must be higher than TypedAttributeDocumenter
+	priority = 11
+
+	@classmethod
+	def can_document_member(cls, member: Any, membername: str, isattr: bool, parent: Any) -> bool:
+		"""
+		Called to see if a member can be documented by this documenter.
+
+		This documenter only documents INSTANCEATTR members.
+
+		:param member:
+		:param membername:
+		:param isattr:
+		:param parent:
+		"""
+
+		return not isinstance(parent, ModuleDocumenter) and isattr and member is INSTANCEATTR
+
+	def import_parent(self) -> Any:
+		"""
+		Import and return the attribute's parent.
+		"""
+
+		try:
+			parent = importlib.import_module(self.modname)
+			for name in self.objpath[:-1]:
+				parent = self.get_attr(parent, name)
+
+			return parent
+		except (ImportError, AttributeError):
+			return None
+
+	def import_object(self, raiseerror: bool = False) -> bool:
+		"""
+		Never import anything.
+		"""
+
+		# disguise as an attribute
+		self.objtype = 'attribute'
+		self.object = INSTANCEATTR
+		self.parent = self.import_parent()
+		self._datadescriptor = False
+
+		return True
+
+	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
+		"""
+		Never try to get a docstring from the object.
+		"""
+
+		super().add_content(more_content, no_docstring=True)
+
+
 def setup(app: Sphinx) -> Dict[str, Any]:
 	"""
-	Setup :mod:`sphinx_toolbox.more_autodoc.genericalias`.
+	Setup :mod:`sphinx_toolbox.more_autodoc.variables`.
 
 	:param app: The Sphinx app.
 	"""
 
 	app.setup_extension("sphinx.ext.autodoc")
-	app.add_autodocumenter(VariableDocumenter, override=True)
+	app.add_autodocumenter(VariableDocumenter)
+	app.add_autodocumenter(TypedAttributeDocumenter, override=True)
+	app.add_autodocumenter(InstanceAttributeDocumenter, override=True)
 
 	return {
 			"version": __version__,
