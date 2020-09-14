@@ -421,6 +421,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	sphinx_autodoc_typehints.process_signature = process_signature
 	sphinx_autodoc_typehints.process_docstring = process_docstring
 
+	app.setup_extension("sphinx.ext.autodoc")
 	app.setup_extension("sphinx_autodoc_typehints")
 
 	return {

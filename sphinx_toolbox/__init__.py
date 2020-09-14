@@ -88,17 +88,10 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_config_value("github_repository", None, "env", types=[str])
 	app.add_config_value("conda_channels", [], "env", types=[list])
 
-	# Instructions for installing a python package
-	app.add_directive("installation", installation.InstallationDirective)
-	app.connect("env-purge-doc", installation.installation_node_purger.purge_nodes)
-
 	# Code block of reST code, and output
-	app.add_directive("rest-example", rest_example.reSTExampleDirective)
-	app.connect("env-purge-doc", rest_example.rest_example_purger.purge_nodes)
+	app.setup_extension("sphinx_toolbox.rest_example")
 
-	# Instructions for enabling a sphinx extension
-	app.add_directive("extensions", installation.ExtensionsDirective)
-	app.connect("env-purge-doc", installation.extensions_node_purger.purge_nodes)
+	app.setup_extension("sphinx_toolbox.installation")
 
 	# Code block with customisable indent size.
 	app.add_directive("code-block", code.CodeBlock, override=True)
@@ -116,9 +109,6 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_directive("maintained-shield", shields.MaintainedShield)
 	app.add_directive("pre-commit-shield", shields.PreCommitShield)
 
-	# Confval role and directive
-	confval.register_confval(app)
-
 	# Wikipedia xref role
 	app.add_role("wikipedia", wikipedia.make_wikipedia_link)
 	app.add_config_value("wikipedia_lang", "en", "env", [str])
@@ -129,6 +119,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_node(assets.AssetNode, html=(assets.visit_asset_node, assets.depart_asset_node))
 
 	# Setup standalone extensions
+	app.setup_extension("sphinx_toolbox.confval")
 	app.setup_extension("sphinx_toolbox.formatting")
 	app.setup_extension("sphinx_toolbox.more_autodoc.autoprotocol")
 	app.setup_extension("sphinx_toolbox.more_autodoc.autotypeddict")

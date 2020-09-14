@@ -41,16 +41,16 @@ def test_setup():
 
 	assert app.events.listeners == {
 			"config-inited": [EventListener(id=0, handler=config.validate_config, priority=850)],
-			"env-purge-doc": [
-					EventListener(id=1, handler=installation.installation_node_purger.purge_nodes, priority=500),
-					EventListener(id=2, handler=rest_example_purger.purge_nodes, priority=500),
-					EventListener(id=3, handler=installation.extensions_node_purger.purge_nodes, priority=500),
-					],
+			# "env-purge-doc": [
+			# 		EventListener(id=1, handler=installation.installation_node_purger.purge_nodes, priority=500),
+			# 		EventListener(id=2, handler=rest_example_purger.purge_nodes, priority=500),
+			# 		EventListener(id=3, handler=installation.extensions_node_purger.purge_nodes, priority=500),
+			# 		],
 			}
 
 	assert directives == {
-			"installation": installation.InstallationDirective,
-			"rest-example": reSTExampleDirective,
+			# "installation": installation.InstallationDirective,
+			# "rest-example": reSTExampleDirective,
 			"code-block": code.CodeBlock,
 			"sourcecode": code.CodeBlock,
 			"rtfd-shield": shields.RTFDShield,
@@ -63,7 +63,7 @@ def test_setup():
 			"github-shield": shields.GitHubShield,
 			"maintained-shield": shields.MaintainedShield,
 			"pre-commit-shield": shields.PreCommitShield,
-			"extensions": installation.ExtensionsDirective,
+			# "extensions": installation.ExtensionsDirective,
 			}
 
 	expected = (
