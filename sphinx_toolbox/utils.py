@@ -28,7 +28,7 @@ General utility functions.
 
 # stdlib
 import functools
-from typing import Any, Callable, Iterable, Mapping
+from typing import Any, Callable, Iterable, Mapping, TypeVar
 
 # 3rd party
 from apeye.url import RequestsURL
@@ -36,12 +36,20 @@ from docutils.nodes import Node
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 
-__all__ = ["make_github_url", "GITHUB_COM", "flag", "word_join", "Purger", "OptionSpec"]
+__all__ = [
+		"make_github_url",
+		"GITHUB_COM",
+		"flag",
+		"word_join",
+		"Purger",
+		"OptionSpec",
+		"get_first_matching",
+		]
 
 #: Instance of :class:`apeye.url.RequestsURL` that points to the GitHub website.
-GITHUB_COM = RequestsURL("https://github.com")
+GITHUB_COM: RequestsURL = RequestsURL("https://github.com")
 
-# Type hint for the ``option_spec`` variable of Docutils directives.
+#: Type hint for the ``option_spec`` variable of Docutils directives.
 OptionSpec = Mapping[str, Callable[[str], Any]]
 
 
@@ -153,3 +161,43 @@ class Purger:
 				"installation_node": node.deepcopy(),
 				"target": targetnode,
 				})
+
+
+_T = TypeVar("_T")
+no_default = object()
+
+
+class NoMatchError(ValueError):
+	"""
+	Raised when no matching values were found in :func:`~.get_first_matching`.
+
+	.. versionadded:: 0.7.0
+	"""
+
+
+def get_first_matching(
+		condition: Callable[[_T], bool],
+		iterable: Iterable[_T],
+		default: _T = no_default,  # type: ignore
+		) -> _T:
+	"""
+	Returns the first value in ``iterable`` that meets ``condition``, or ``default`` if none match.
+
+	:param condition: The condition to evaluate.
+	:param iterable:
+	:param default: The default value to return if no values in ``iterable`` match.
+
+	.. versionadded:: 0.7.0
+	"""
+
+	if default is not no_default:
+		if not condition(default):
+			raise ValueError("The condition must evaluate to True for the default value.")
+
+		iterable = [*iterable, default]
+
+	for match in iterable:
+		if condition(match):
+			return match
+
+	raise NoMatchError(f"No matches values for '{condition}' in {iterable}")

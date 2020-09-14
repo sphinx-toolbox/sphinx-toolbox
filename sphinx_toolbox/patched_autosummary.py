@@ -9,6 +9,12 @@ I.e. ``foo.bar.baz()`` became ``foo.bar.foo.bar.baz()``, which of course doesn't
 and so resulted in a broken link.
 
 .. versionadded:: 0.5.1
+
+.. deprecated:: 0.7.0
+
+	Use :mod:`sphinx_toolbox.more_autosummary` instead.
+
+.. versionremoved:: 1.0.0
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -61,47 +67,15 @@ and so resulted in a broken link.
 #
 
 # stdlib
-import re
-from typing import Any, Dict, List, Tuple
+import warnings
 
-# 3rd party
-import sphinx
-from sphinx.application import Sphinx
-from sphinx.ext.autosummary import Autosummary
+# this package
+from sphinx_toolbox.more_autosummary import PatchedAutosummary, setup
 
-__all__ = ["PatchedAutosummary", "setup"]
+__all__ = ["setup", "PatchedAutosummary"]
 
-
-class PatchedAutosummary(Autosummary):
-	"""
-	Pretty table containing short signatures and summaries of functions etc.
-
-	Patched version of :class:`sphinx.ext.autosummary.Autosummary` to fix an issue where
-	the module name is sometimes duplicated.
-
-	I.e. ``foo.bar.baz()`` became ``foo.bar.foo.bar.baz()``, which of course doesn't exist
-	and so resulted in a broken link.
-	"""
-
-	def import_by_name(self, name: str, prefixes: List[str]) -> Tuple[str, Any, Any, str]:
-		real_name, obj, parent, modname = super().import_by_name(name=name, prefixes=prefixes)
-		real_name = re.sub(rf"((?:{modname}\.)+)", f"{modname}.", real_name)
-		return real_name, obj, parent, modname
-
-
-def setup(app: Sphinx) -> Dict[str, Any]:
-	"""
-	Setup :mod:`sphinx_toolbox.patched_autosummary`.
-
-	:param app:
-
-	.. versionadded:: 0.2.0
-	"""
-
-	app.setup_extension('sphinx.ext.autosummary')
-	app.add_directive('autosummary', PatchedAutosummary, override=True)
-
-	return {
-			'version': f"{sphinx.__display_version__}-patched-autosummary-0",
-			'parallel_read_safe': True,
-			}
+warnings.warn(
+		"Importing from 'sphinx_toolbox.patched_autosummary' is deprecated since 0.7.0 and "
+		"the module will be removed in 1.0.0.\nImport from 'sphinx_toolbox.more_autosummary' instead.",
+		DeprecationWarning,
+		)
