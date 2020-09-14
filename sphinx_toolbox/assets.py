@@ -31,8 +31,8 @@ For example, :asset:`hello_world.txt`.
 #
 
 # stdlib
-import os
 import pathlib
+import posixpath
 import shutil
 from typing import Dict, List, Sequence, Tuple
 
@@ -131,7 +131,7 @@ def visit_asset_node(translator: HTMLTranslator, node: AssetNode) -> None:
 
 	# Create the HTML
 	current_uri = (pathlib.PurePosixPath("/") / translator.builder.current_docname).parent
-	refuri = os.path.relpath(f"/_assets/{node['refuri']}", str(current_uri))
+	refuri = posixpath.relpath(f"/_assets/{node['refuri']}", str(current_uri))
 	translator.body.append(f'<a class="reference external" href="{refuri}")/">')
 	translator.context.append("</a>")
 

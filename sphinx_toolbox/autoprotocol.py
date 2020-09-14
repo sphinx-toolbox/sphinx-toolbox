@@ -66,8 +66,6 @@ It behaves much like :rst:dir:`autoclass` and :rst:dir:`autofunction`.
 #
 
 # stdlib
-
-# stdlib
 import warnings
 
 # this package
