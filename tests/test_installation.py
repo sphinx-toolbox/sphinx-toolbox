@@ -72,6 +72,7 @@ def test_make_installation_instructions():
 					"        .. prompt:: bash",
 					'',
 					"            conda install my_project",
+					'',
 					]
 
 	assert make_installation_instructions(
@@ -85,6 +86,7 @@ def test_make_installation_instructions():
 					"        .. prompt:: bash",
 					'',
 					"            conda install my-project",
+					'',
 					]
 
 	assert make_installation_instructions(
@@ -98,6 +100,7 @@ def test_make_installation_instructions():
 					"        .. prompt:: bash",
 					'',
 					"            conda install pypi-project",
+					'',
 					]
 
 	assert make_installation_instructions(
@@ -137,6 +140,7 @@ def test_make_installation_instructions():
 					"        .. prompt:: bash",
 					'',
 					"            conda install my_project",
+					'',
 					]
 
 	# Testd whitespace
@@ -164,6 +168,5 @@ def test_make_installation_instructions():
 					"        .. prompt:: bash",
 					'',
 					"            conda install my_project",
+					'',
 					]
-
-	# TODO: GitHub

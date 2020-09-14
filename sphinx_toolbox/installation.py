@@ -3,6 +3,13 @@
 #  installation.py
 """
 The :rst:dir:`installation` directive.
+
+This can be used as a standalone Sphinx extension. Enable it by adding the following
+to the ``extensions`` variable in your ``conf.py``:
+
+.. extensions:: sphinx_toolbox.installation
+	:no-preamble:
+	:no-postamble:
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -29,30 +36,33 @@ The :rst:dir:`installation` directive.
 # stdlib
 import inspect
 import warnings
-from typing import Any, Callable, Dict, List, Mapping, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 # 3rd party
 import sphinx.environment
 from docutils import nodes
 from docutils.parsers.rst import directives
 from docutils.statemachine import ViewList
+from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 from sphinx.util.docutils import SphinxDirective
+from domdf_python_tools.stringlist import StringList
 
 # this package
 from sphinx_toolbox.utils import OptionSpec, Purger, flag, word_join
 
 __all__ = [
+		"InstallationDirective",
+		"ExtensionsDirective",
+		"make_installation_instructions",
 		"Sources",
 		"sources",
 		"pypi_installation",
 		"conda_installation",
 		"github_installation",
-		"InstallationDirective",
-		"make_installation_instructions",
-		"ExtensionsDirective",
 		"installation_node_purger",
 		"extensions_node_purger",
+		"setup",
 		]
 
 
@@ -180,7 +190,8 @@ def conda_installation(
 	else:
 		raise ValueError("No username supplied for the Anaconda installation instructions.")
 
-	lines = []
+	lines: StringList[str] = StringList()
+	lines.indent_type = "    "
 
 	if "conda-channels" in options:
 		channels = str(options["conda-channels"]).split(",")
@@ -188,22 +199,23 @@ def conda_installation(
 		channels = env.config.conda_channels
 
 	if channels:
-		lines.extend([
-				"First add the required channels",
-				'',
-				".. prompt:: bash",
-				'',
-				])
+		lines.append("First add the required channels\n\n.. prompt:: bash\n")
 
-		for channel in channels:
-			lines.append(f"    conda config --add channels https://conda.anaconda.org/{channel.strip()}")
+		with lines.with_indent_size(lines.indent_size + 1):
+			for channel in channels:
+				lines.append(f"conda config --add channels https://conda.anaconda.org/{channel.strip()}")
 
-		lines.extend(['', "Then install"])
+		lines.append("\nThen install")
 
 	if lines:
-		lines.append('')
+		lines.blankline(ensure_single=True)
 
-	lines.extend([".. prompt:: bash", '', f"    conda install {conda_name}"])
+	lines.append(f".. prompt:: bash")
+	lines.blankline(ensure_single=True)
+
+	with lines.with_indent_size(lines.indent_size + 1):
+		lines.append(f"conda install {conda_name}")
+		lines.blankline(ensure_single=True)
 
 	return lines
 
@@ -399,3 +411,30 @@ class ExtensionsDirective(SphinxDirective):
 
 installation_node_purger = Purger("all_installation_node_nodes")
 extensions_node_purger = Purger("all_extensions_node_nodes")
+
+
+def setup(app: Sphinx) -> Dict[str, Any]:
+	"""
+	Setup :mod:`sphinx-toolbox.installation`.
+
+	:param app:
+
+	:return:
+
+	.. versionadded:: 0.7.0
+	"""
+
+	from sphinx_toolbox import __version__
+
+	# Instructions for installing a python package
+	app.add_directive("installation", InstallationDirective)
+	app.connect("env-purge-doc", installation_node_purger.purge_nodes)
+
+	# Instructions for enabling a sphinx extension
+	app.add_directive("extensions", ExtensionsDirective)
+	app.connect("env-purge-doc", extensions_node_purger.purge_nodes)
+
+	return {
+			"version": __version__,
+			"parallel_read_safe": True,
+			}
