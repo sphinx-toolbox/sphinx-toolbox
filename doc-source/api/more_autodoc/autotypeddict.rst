@@ -1,5 +1,5 @@
 =================================================
-:mod:`sphinx_toolbox.more_autodoc.autotypeddict`
+:mod:`~sphinx_toolbox.more_autodoc.autotypeddict`
 =================================================
 
 .. automodule:: sphinx_toolbox.more_autodoc.autotypeddict

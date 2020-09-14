@@ -4,6 +4,13 @@
 """
 Directives, roles and nodes for text formatting.
 
+This can be used as a standalone Sphinx extension. Enable it by adding the following
+to the ``extensions`` variable in your ``conf.py``:
+
+.. extensions:: sphinx_toolbox.formatting
+	:no-preamble:
+	:no-postamble:
+
 .. versionadded:: 0.2.0
 """
 #
@@ -159,7 +166,7 @@ def latex_depart_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviatio
 
 def setup(app: Sphinx) -> Dict[str, Any]:
 	"""
-	Setup ``sphinx-toolbox.formatting``.
+	Setup :mod:`sphinx-toolbox.formatting`.
 
 	:param app:
 

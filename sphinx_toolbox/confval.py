@@ -3,6 +3,13 @@
 #  confval.py
 """
 The confval directive and role for configuration values.
+
+This can be used as a standalone Sphinx extension. Enable it by adding the following
+to the ``extensions`` variable in your ``conf.py``:
+
+.. extensions:: sphinx_toolbox.confval
+	:no-preamble:
+	:no-postamble:
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -30,12 +37,12 @@ The confval directive and role for configuration values.
 #
 
 # stdlib
-from typing import Any, Callable, List, Mapping
+from typing import Any, Dict, List
 
 # 3rd party
 from docutils.nodes import Node
 from docutils.parsers.rst import directives
-from docutils.statemachine import StringList, ViewList
+from docutils.statemachine import StringList
 from domdf_python_tools.utils import strtobool
 from sphinx.application import Sphinx
 from sphinx.domains import ObjType
@@ -46,10 +53,8 @@ from sphinx.roles import XRefRole
 # this package
 from sphinx_toolbox.utils import OptionSpec
 
-# from sphinx.domains.python import PyField
-# from sphinx.util.docfields import Field
 
-__all__ = ["register_confval", "ConfigurationValue"]
+__all__ = ["ConfigurationValue", "register_confval", "setup"]
 
 
 class ConfigurationValue(GenericObject):
@@ -91,30 +96,7 @@ def register_confval(app: Sphinx, override: bool = False) -> None:
 	"""
 
 	if "std" not in app.registry.domains:
-		app.add_domain(StandardDomain)
-	#
-	# type_field = PyField(
-	# 		'type',
-	# 		label=_('Type'),
-	# 		has_arg=False,
-	# 		names=('type', ),
-	# 		bodyrolename='class',
-	# 		)
-	#
-	# default_field = Field(
-	# 		'default',
-	# 		label=_('Default'),
-	# 		has_arg=False,
-	# 		names=('default', ),
-	# 		)
-	#
-	# app.add_object_type(
-	# 		'confval',
-	# 		'confval',
-	# 		objname='configuration value',
-	# 		indextemplate='pair: %s; configuration value',
-	# 		doc_field_types=[type_field, default_field],
-	# 		)
+		app.add_domain(StandardDomain)  # pragma: no cover
 
 	name = "confval"
 
@@ -127,3 +109,24 @@ def register_confval(app: Sphinx, override: bool = False) -> None:
 		raise ExtensionError(f"The {name!r} object_type is already registered")
 
 	object_types[name] = ObjType(name, name)
+
+
+def setup(app: Sphinx) -> Dict[str, Any]:
+	"""
+	Setup :mod:`sphinx-toolbox.confval`.
+
+	:param app:
+
+	:return:
+
+	.. versionadded:: 0.7.0
+	"""
+
+	from sphinx_toolbox import __version__
+
+	register_confval(app)
+
+	return {
+			"version": __version__,
+			"parallel_read_safe": True,
+			}

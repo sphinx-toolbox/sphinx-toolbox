@@ -3,6 +3,13 @@
 #  rest_example.py
 """
 The :rst:dir:`rest-example` directive.
+
+This can be used as a standalone Sphinx extension. Enable it by adding the following
+to the ``extensions`` variable in your ``conf.py``:
+
+.. extensions:: sphinx_toolbox.rest_example
+	:no-preamble:
+	:no-postamble:
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -35,12 +42,13 @@ from docutils import nodes
 from docutils.parsers.rst import directives
 from docutils.statemachine import ViewList
 from domdf_python_tools.stringlist import StringList
+from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
 # this package
 from sphinx_toolbox.utils import OptionSpec, Purger
 
-__all__ = ["reSTExampleDirective", "make_rest_example", "rest_example_purger"]
+__all__ = ["reSTExampleDirective", "make_rest_example", "rest_example_purger", "setup"]
 
 
 class reSTExampleDirective(SphinxDirective):
@@ -123,3 +131,25 @@ def make_rest_example(
 
 
 rest_example_purger = Purger("all_rest_example_nodes")
+
+
+def setup(app: Sphinx) -> Dict[str, Any]:
+	"""
+	Setup :mod:`sphinx-toolbox.rest_example`.
+
+	:param app:
+
+	:return:
+
+	.. versionadded:: 0.7.0
+	"""
+
+	from sphinx_toolbox import __version__
+
+	app.add_directive("rest-example", reSTExampleDirective)
+	app.connect("env-purge-doc", rest_example_purger.purge_nodes)
+
+	return {
+			"version": __version__,
+			"parallel_read_safe": True,
+			}

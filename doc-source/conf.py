@@ -37,6 +37,7 @@ extensions = [
 	'sphinx_toolbox',
 	'sphinx_toolbox.more_autodoc',
 	'sphinx.ext.intersphinx',
+	'sphinx.ext.autodoc',
 	'sphinx.ext.mathjax',
 	'sphinx.ext.viewcode',
 	'sphinxcontrib.httpdomain',
@@ -54,6 +55,7 @@ extensions = [
 	'seed_intersphinx_mapping',
 	'sphinx.ext.autosectionlabel',
 	'sphinx_removed_in',
+	'sphinx_toolbox.more_autosummary',
 	]
 
 sphinxemoji_style = 'twemoji'
@@ -138,5 +140,3 @@ autodoc_default_options = {
 				"__hash__",
 				]),
 		}
-
-autodoc_show_sourcelink = True

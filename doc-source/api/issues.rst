@@ -3,3 +3,4 @@
 ==============================
 
 .. automodule:: sphinx_toolbox.issues
+	:member-order: bysource

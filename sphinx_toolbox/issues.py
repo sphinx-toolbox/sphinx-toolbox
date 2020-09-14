@@ -49,7 +49,14 @@ from sphinx.writers.html import HTMLTranslator
 from sphinx_toolbox.cache import cache
 from sphinx_toolbox.utils import make_github_url
 
-__all__ = ["IssueNode", "issue_role", "pull_role", "visit_issue_node", "depart_issue_node", "get_issue_title"]
+__all__ = [
+		"IssueNode",
+		"issue_role",
+		"pull_role",
+		"visit_issue_node",
+		"depart_issue_node",
+		"get_issue_title",
+		]
 
 
 class IssueNode(nodes.reference):

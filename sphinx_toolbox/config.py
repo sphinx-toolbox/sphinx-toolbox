@@ -95,7 +95,7 @@ class ToolboxConfig(Config):
 	rst_prolog: str
 
 
-def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
+def validate_config(app: Sphinx, config: ToolboxConfig):
 	r"""
 	Validate the provided configuration values.
 

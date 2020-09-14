@@ -6,6 +6,10 @@ Documenter for alias, which usually manifest as
 `type aliases <https://docs.python.org/3/library/typing.html#type-aliases>`_.
 
 .. versionadded:: 0.6.0
+
+.. note::
+
+	:mod:`sphinx_toolbox.more_autodoc.genericalias` is only supported on Python 3.7 and above.
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
