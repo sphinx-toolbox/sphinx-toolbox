@@ -32,11 +32,9 @@ def test_deprecations(module: str):
 			)
 
 
-@pytest.mark.parametrize(
-		"module", [
-				"patched_autosummary",
-				]
-		)
+@pytest.mark.parametrize("module", [
+		"patched_autosummary",
+		])
 def test_deprecations_more_autosummary(module: str):
 
 	with pytest.warns(DeprecationWarning) as record:

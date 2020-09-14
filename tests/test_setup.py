@@ -62,8 +62,7 @@ def test_setup():
 			"pypi-shield": shields.PyPIShield,
 			"github-shield": shields.GitHubShield,
 			"maintained-shield": shields.MaintainedShield,
-			"pre-commit-shield": shields.PreCommitShield,
-			# "extensions": installation.ExtensionsDirective,
+			"pre-commit-shield": shields.PreCommitShield,  # "extensions": installation.ExtensionsDirective,
 			}
 
 	expected = (

@@ -43,10 +43,10 @@ import sphinx.environment
 from docutils import nodes
 from docutils.parsers.rst import directives
 from docutils.statemachine import ViewList
+from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 from sphinx.util.docutils import SphinxDirective
-from domdf_python_tools.stringlist import StringList
 
 # this package
 from sphinx_toolbox.utils import OptionSpec, Purger, flag, word_join
@@ -424,6 +424,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	.. versionadded:: 0.7.0
 	"""
 
+	# this package
 	from sphinx_toolbox import __version__
 
 	# Instructions for installing a python package

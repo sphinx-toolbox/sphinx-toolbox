@@ -144,6 +144,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	.. versionadded:: 0.7.0
 	"""
 
+	# this package
 	from sphinx_toolbox import __version__
 
 	app.add_directive("rest-example", reSTExampleDirective)

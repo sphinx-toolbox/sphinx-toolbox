@@ -53,7 +53,6 @@ from sphinx.roles import XRefRole
 # this package
 from sphinx_toolbox.utils import OptionSpec
 
-
 __all__ = ["ConfigurationValue", "register_confval", "setup"]
 
 
@@ -122,6 +121,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	.. versionadded:: 0.7.0
 	"""
 
+	# this package
 	from sphinx_toolbox import __version__
 
 	register_confval(app)
