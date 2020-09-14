@@ -190,7 +190,7 @@ def conda_installation(
 	else:
 		raise ValueError("No username supplied for the Anaconda installation instructions.")
 
-	lines: StringList[str] = StringList()
+	lines: StringList = StringList()
 	lines.indent_type = "    "
 
 	if "conda-channels" in options:
