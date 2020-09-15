@@ -120,9 +120,8 @@ class Metaclass(type):
 					Union[str, Any],
 					":py:data:`~typing.Union`\\[:py:class:`str`, "
 					":py:data:`~typing.Any`]",
-					marks=pytest.mark.skipif(
-							(3, 5, 0) <= sys.version_info[:3] <= (3, 5, 2),
-							reason="Union erases the str on 3.5.0 -> 3.5.2"),
+					marks=pytest.mark.skipif((3, 5, 0) <= sys.version_info[:3] <= (3, 5, 2),
+												reason="Union erases the str on 3.5.0 -> 3.5.2"),
 					), (Optional[str], ":py:data:`~typing.Optional`\\[:py:class:`str`]"),
 			(Callable, ":py:data:`~typing.Callable`"),
 			(Callable[..., int], ":py:data:`~typing.Callable`\\[..., :py:class:`int`]"),
