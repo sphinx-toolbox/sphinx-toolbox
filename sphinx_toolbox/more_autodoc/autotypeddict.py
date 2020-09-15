@@ -94,14 +94,14 @@ class TypedDictDocumenter(ClassDocumenter):
 	for documenting :class:`typing.TypedDict`\s.
 
 	.. versionadded:: 0.5.0
-	"""
+	"""  # noqa D400
 
 	objtype = "typeddict"
 	directivetype = "typeddict"
 	priority = 20
 	option_spec: Dict[str, Callable] = {
-			'noindex': bool_option,
-			'alphabetical': flag,
+			"noindex": bool_option,
+			"alphabetical": flag,
 			}
 
 	def __init__(self, *args: Any) -> None:

@@ -5,7 +5,7 @@ from typing import Callable, List, Tuple, Union
 
 #: Some variable
 variable: Union[List[str], Tuple[str, int, float], int, bytes,
-				Callable[[str], int]] = ["a", "b", "c", "d", "e", "f", "g"]
+				Callable[[str], int]] = ['a', 'b', 'c', 'd', 'e', 'f', 'g']  # noqa: E128
 
 CONSTANT: int = 42
 """

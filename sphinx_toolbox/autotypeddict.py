@@ -15,7 +15,8 @@ Only supports :mod:`typing_extensions`\'s TypedDict until :pull:`700 <python/typ
 
 	Use :mod:`sphinx_toolbox.more_autodoc.autotypeddict` instead.
 
-.. versionremoved:: 1.0.0"""
+.. versionremoved:: 1.0.0
+"""
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #

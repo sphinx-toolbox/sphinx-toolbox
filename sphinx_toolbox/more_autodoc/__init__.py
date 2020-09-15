@@ -82,7 +82,7 @@ def automodule_add_nodocstring(app) -> None:
 	sphinx.ext.autodoc.ModuleDocumenter.option_spec["no-docstring"] = flag
 
 	app.setup_extension("sphinx.ext.autodoc")
-	app.connect('autodoc-process-docstring', no_docstring_process_docstring, priority=1000)
+	app.connect("autodoc-process-docstring", no_docstring_process_docstring, priority=1000)
 
 
 def no_docstring_process_docstring(

@@ -4,14 +4,11 @@
 """
 Extensions to :mod:`sphinx.ext.autosummary`.
 
-
 Provides an enhanced version of https://autodocsumm.readthedocs.io/
 which respects the autodoc ``member-order`` option.
 This can be given for an individual directive, in the
 `autodoc_member_order <https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_member_order>`_
 configuration value, or via :confval:`autodocsumm_member_order`.
-
-
 
 Also patches :class:`sphinx.ext.autosummary.Autosummary` to fix an issue where
 the module name is sometimes duplicated.
@@ -112,17 +109,17 @@ def add_autosummary(self):
 		return
 
 	content = StringList()
-	content.indent_type = "    "
+	content.indent_type = " " * 4
 	sourcename = self.get_sourcename()
 	grouped_documenters = self.get_grouped_documenters()
 
 	for section, documenters in grouped_documenters.items():
 		if not self.options.autosummary_no_titles:
-			content.append(f'**{section}:**')
+			content.append(f"**{section}:**")
 
 		content.blankline(ensure_single=True)
 
-		content.append('.. autosummary::')
+		content.append(".. autosummary::")
 		content.blankline(ensure_single=True)
 
 		member_order = get_first_matching(
@@ -163,6 +160,15 @@ class PatchedAutosummary(Autosummary):
 	"""
 
 	def import_by_name(self, name: str, prefixes: List[str]) -> Tuple[str, Any, Any, str]:
+		"""
+		Import the object with the give name.
+
+		:param name:
+		:param prefixes:
+
+		:return: The real name of the object, the object, the parent of the object, and the name of the moudle.
+		"""
+
 		real_name, obj, parent, modname = super().import_by_name(name=name, prefixes=prefixes)
 		real_name = re.sub(rf"((?:{modname}\.)+)", f"{modname}.", real_name)
 		return real_name, obj, parent, modname
@@ -175,7 +181,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	:param app: The Sphinx app.
 	"""
 
-	app.setup_extension('sphinx.ext.autosummary')
+	app.setup_extension("sphinx.ext.autosummary")
 	app.setup_extension("autodocsumm")
 
 	# app.add_directive('autosummary', PatchedAutosummary, override=True)
@@ -183,10 +189,10 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	autodocsumm.AutosummaryDocumenter.add_autosummary = add_autosummary
 
 	app.add_config_value(
-			'autodocsumm_member_order',
-			'alphabetical',
+			"autodocsumm_member_order",
+			"alphabetical",
 			True,
-			ENUM('alphabetic', 'alphabetical', 'bysource'),
+			ENUM("alphabetic", "alphabetical", "bysource"),
 			)
 
 	return {

@@ -15,7 +15,7 @@ and so resulted in a broken link.
 	Use :mod:`sphinx_toolbox.more_autosummary` instead.
 
 .. versionremoved:: 1.0.0
-"""
+"""  # noqa D400
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #

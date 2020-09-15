@@ -80,7 +80,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.setup_extension("sphinx_toolbox.source")
 	app.setup_extension("sphinx.ext.autodoc")
 
-	app.connect('autodoc-process-docstring', sourcelinks_process_docstring)
+	app.connect("autodoc-process-docstring", sourcelinks_process_docstring)
 	app.add_config_value("autodoc_show_sourcelink", False, "env", [bool])
 
 	return {

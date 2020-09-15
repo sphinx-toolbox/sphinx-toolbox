@@ -128,14 +128,14 @@ class ProtocolDocumenter(ClassDocumenter):
 	for documenting :class:`typing.Protocol`\s.
 
 	.. versionadded:: 0.2.0
-	"""
+	"""  # noqa D400
 
 	objtype = "protocol"
 	directivetype = "protocol"
 	priority = 20
 	option_spec: Dict[str, Callable] = {
-			'noindex': bool_option,
-			'member-order': member_order_option,
+			"noindex": bool_option,
+			"member-order": member_order_option,
 			}
 
 	@classmethod

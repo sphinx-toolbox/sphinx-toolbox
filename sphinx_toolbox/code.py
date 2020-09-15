@@ -94,7 +94,7 @@ class CodeBlock(__BaseCodeBlock):
 		Process the content of the code block.
 		"""
 
-		code = '\n'.join(self.content)
+		code = "\n".join(self.content)
 
 		if "tab-width" in self.options:
 			tab_width = self.options["tab-width"]

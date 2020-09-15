@@ -10,7 +10,7 @@ with a different appearance and more customisation options.
 .. versionchanged:: 0.7.0
 
 	Added ``*AttributeDocumenter``\s
-"""
+"""  # noqa D400
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -108,7 +108,7 @@ def get_variable_type(documenter: Documenter) -> str:
 		annotations = get_type_hints(documenter.parent)
 	except NameError:
 		# Failed to evaluate ForwardRef (maybe TYPE_CHECKING)
-		annotations = safe_getattr(documenter.parent, '__annotations__', {})
+		annotations = safe_getattr(documenter.parent, "__annotations__", {})
 	except TypeError:
 		annotations = {}
 	except KeyError:
@@ -147,7 +147,7 @@ class VariableDocumenter(DataDocumenter):
 	"""
 
 	directivetype = "data"
-	objtype = 'variable'
+	objtype = "variable"
 	priority = DataDocumenter.priority + 1
 	option_spec = {
 			"no-value": flag,
@@ -206,7 +206,7 @@ class TypedAttributeDocumenter(AttributeDocumenter):
 	Specialized Documenter subclass for attributes.
 
 	.. versionadded:: 0.7.0
-	"""
+	"""  # noqa D400
 
 	def add_directive_header(self, sig: str):
 		"""
@@ -226,12 +226,12 @@ class TypedAttributeDocumenter(AttributeDocumenter):
 			# data descriptors do not have useful values
 			if not no_value and not self._datadescriptor:
 				if "value" in self.options:
-					self.add_line('   :value: ' + self.options["value"], sourcename)
+					self.add_line("   :value: " + self.options["value"], sourcename)
 				else:
 					try:
 						if self.object is not INSTANCEATTR:
 							objrepr = object_description(self.object)
-							self.add_line('   :value: ' + objrepr, sourcename)
+							self.add_line("   :value: " + objrepr, sourcename)
 					except ValueError:
 						pass
 
@@ -259,7 +259,7 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 	because they are instance attributes (e.g. assigned in ``__init__``).
 
 	.. versionadded:: 0.7.0
-	"""
+	"""  # noqa D400
 
 	objtype = sphinx.ext.autodoc.InstanceAttributeDocumenter.objtype
 	directivetype = sphinx.ext.autodoc.InstanceAttributeDocumenter.directivetype
@@ -303,7 +303,7 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 		"""
 
 		# disguise as an attribute
-		self.objtype = 'attribute'
+		self.objtype = "attribute"
 		self.object = INSTANCEATTR
 		self.parent = self.import_parent()
 		self._datadescriptor = False

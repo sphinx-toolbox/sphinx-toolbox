@@ -126,7 +126,7 @@ def visit_asset_node(translator: HTMLTranslator, node: AssetNode) -> None:
 		shutil.copy2(source_file, assets_out_dir)
 	elif not source_file.is_file():
 		stderr_writer(Fore.RED(f"{translator.builder.current_docname}: Asset file '{source_file}' not found."))
-		translator.context.append("")
+		translator.context.append('')
 		return
 
 	# Create the HTML

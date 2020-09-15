@@ -374,7 +374,7 @@ class Sphinx:
 
 	def add_js_file(self, filename: str, **kwargs: str) -> None:
 		"""
-		No-op for now
+		No-op for now.
 
 		.. TODO:: Make this do something
 		"""
@@ -392,7 +392,7 @@ class Sphinx:
 
 	def add_css_file(self, filename: str, **kwargs: str) -> None:
 		"""
-		No-op for now
+		No-op for now.
 
 		.. TODO:: Make this do something
 		"""
@@ -463,7 +463,7 @@ class Sphinx:
 
 	def add_env_collector(self, collector: Type[EnvironmentCollector]) -> None:
 		"""
-		No-op for now
+		No-op for now.
 
 		.. TODO:: Make this do something
 		"""

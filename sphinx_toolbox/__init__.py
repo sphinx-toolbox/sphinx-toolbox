@@ -114,8 +114,8 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_config_value("wikipedia_lang", "en", "env", [str])
 
 	# Asset role
-	app.add_role('asset', assets.asset_role)
-	app.add_config_value('assets_dir', "./assets", 'env', [str])
+	app.add_role("asset", assets.asset_role)
+	app.add_config_value("assets_dir", "./assets", "env", [str])
 	app.add_node(assets.AssetNode, html=(assets.visit_asset_node, assets.depart_asset_node))
 
 	# Setup standalone extensions

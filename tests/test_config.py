@@ -12,7 +12,7 @@ def test_validate_config():
 			"source_link_target": "Sphinx",
 			"github_username": "domdfcoding",
 			"github_repository": "sphinx-toolbox",
-			"rst_prolog": "",
+			"rst_prolog": '',
 			})
 
 	validate_config(None, config)  # type: ignore

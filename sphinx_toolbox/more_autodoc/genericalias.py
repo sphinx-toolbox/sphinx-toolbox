@@ -10,7 +10,7 @@ Documenter for alias, which usually manifest as
 .. note::
 
 	:mod:`sphinx_toolbox.more_autodoc.genericalias` is only supported on Python 3.7 and above.
-"""
+"""  # noqa D400
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -81,13 +81,20 @@ class PrettyGenericAliasDocumenter(GenericAliasDocumenter):  # pragma: no cover 
 	"""
 	Specialized Documenter subclass for GenericAliases,
 	with prettier output than Sphinx's one.
-	"""
+	"""  # noqa D400
 
 	priority = GenericAliasDocumenter.priority + 1
 
 	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
+		"""
+		Add the autodocumenter content.
+
+		:param more_content:
+		:param no_docstring:
+		:return:
+		"""
 		name = format_annotation(self.object)
-		content = StringList([_('Alias of %s') % name], source='')
+		content = StringList([_("Alias of %s") % name], source='')
 		DataDocumenter.add_content(self, content)
 
 

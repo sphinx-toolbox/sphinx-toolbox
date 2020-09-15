@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  autodoc_typehints.py
-"""
+r"""
 | Enhanced version of `sphinx-autodoc-typehints <https://pypi.org/project/sphinx-autodoc-typehints/>`_.
 | Copyright (c) Alex Grönholm
 
@@ -16,7 +16,7 @@ The changes are:
 * If the signature of the object cannot be read, the signature provided by Sphinx will be used
   rather than raising an error. This usually occurs for methods of builtin types.
 
-* :class:`typing.TypeVar`\\s are linked to if they have been included in the documentation.
+* :class:`typing.TypeVar`\s are linked to if they have been included in the documentation.
 
 * If a function/method argument has a :class:`module <types.ModuleType>` object as its default
   value a better representation will be shown in the signature.
@@ -50,7 +50,7 @@ The changes are:
 .. versionchanged:: 0.6.0
 
 	Moved from :mod:`sphinx_toolbox.autodoc_typehints`.
-"""
+"""  # noqa SXL001
 #
 #  Copyright (c) Alex Grönholm
 #  Changes copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
