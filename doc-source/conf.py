@@ -116,6 +116,7 @@ autodoc_default_options = {
 		'members': None,  # Include all members (methods).
 		'special-members': None,
 		"autosummary": None,
+		"show-inheritance": None,
 		'exclude-members': ','.join([   # Exclude "standard" methods.
 				"__dict__",
 				"__class__",
