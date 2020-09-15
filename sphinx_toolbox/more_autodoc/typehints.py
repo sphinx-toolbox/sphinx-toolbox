@@ -91,7 +91,6 @@ from sphinx.util.inspect import stringify_signature
 
 # this package
 from sphinx_toolbox import __version__
-
 from sphinx_toolbox.utils import escape_trailing__
 
 try:
