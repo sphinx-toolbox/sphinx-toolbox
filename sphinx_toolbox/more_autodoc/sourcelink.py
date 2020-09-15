@@ -52,9 +52,9 @@ def sourcelinks_process_docstring(
 	:param app: The Sphinx app
 	:param what:
 	:param name: The name of the object being documented
-	:param obj:
-	:param options:
-	:param lines:
+	:param obj: The object being documented.
+	:param options: Mapping of autodoc options to values.
+	:param lines: List of strings representing the current contents of the docstring.
 	"""
 
 	if (
