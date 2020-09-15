@@ -92,6 +92,16 @@ from sphinx.util.inspect import stringify_signature
 # this package
 from sphinx_toolbox import __version__
 
+from sphinx_toolbox.utils import escape_trailing__
+
+try:
+	# 3rd party
+	import attr
+except ImportError:  # pragma: no cover
+	# attrs is used in a way that it is only required in situations
+	# where it is available to import, so its fine to do this.
+	pass
+
 __all__ = [
 		"Module",
 		"get_annotation_module",
@@ -207,6 +217,80 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	return f":py:{role}:`{prefix}{full_name}`{formatted_args}"
 
 
+def preprocess_function_defaults(obj: Callable) -> Tuple[Optional[inspect.Signature], List[inspect.Parameter]]:
+	"""
+	Pre-processes the default values for the arguments of a function.
+
+	:param obj: The function.
+
+	:return: The function signature and a list of arguments/parameters.
+
+	.. versionadded:: 0.8.0
+	"""
+
+	try:
+		signature = Signature(inspect.unwrap(obj))
+	except ValueError:  # pragma: no cover
+		return None, []
+
+	parameters = []
+
+	for param in signature.parameters.values():
+		default = param.default
+
+		if default is not inspect.Parameter.empty:
+			if isinstance(default, ModuleType):
+				default = Module(default.__name__)
+			elif default is Ellipsis:
+				default = etc
+
+		parameters.append(param.replace(annotation=inspect.Parameter.empty, default=default))
+
+	return signature, parameters
+
+
+def preprocess_class_defaults(
+		obj: Callable
+		) -> Tuple[Optional[Callable], Optional[inspect.Signature], List[inspect.Parameter]]:
+	"""
+	Pre-processes the default values for the arguments of a class.
+
+	:param obj: The class.
+
+	:return: The class signature and a list of arguments/parameters
+
+	.. versionadded:: 0.8.0
+	"""
+
+	init = getattr(obj, "__init__", getattr(obj, "__new__", None))
+
+	try:
+		signature = Signature(inspect.unwrap(init))
+	except ValueError:  # pragma: no cover
+		return init, None, []
+
+	parameters = []
+
+	for argname, param in signature.parameters.items():
+		default = param.default
+
+		if default is not inspect.Parameter.empty:
+			if isinstance(default, ModuleType):
+				default = Module(default.__name__)
+			elif default is Ellipsis:
+				default = etc
+			elif hasattr(obj, "__attrs_attrs__"):
+				# Special casing for attrs classes
+				if default is attr.NOTHING:
+					for value in obj.__attrs_attrs__:  # type: ignore
+						if value.name == argname and isinstance(value.default, attr.Factory):  # type: ignore
+							default = value.default.factory()
+
+		parameters.append(param.replace(annotation=inspect.Parameter.empty, default=default))
+
+	return init, signature, parameters
+
+
 def process_signature(
 		app: Sphinx,
 		what: str,
@@ -221,42 +305,31 @@ def process_signature(
 
 	:param app: The Sphinx app
 	:param what:
-	:param name: The name of the object being documented
-	:param obj:
-	:param options:
+	:param name: The name of the object being documented.
+	:param obj: The object being documented.
+	:param options: Mapping of autodoc options to values.
 	:param signature:
 	:param return_annotation:
+
+	.. versionchanged:: 0.8.0
+
+		Added support for factory function default values in attrs classes.
 	"""
 
 	if not callable(obj):
 		return None
 
 	original_obj = obj
-	if inspect.isclass(obj):
-		obj = getattr(obj, "__init__", getattr(obj, "__new__", None))
 
-	if not getattr(obj, "__annotations__", None):
-		return None
+	if inspect.isclass(obj):
+		obj, signature, parameters = preprocess_class_defaults(obj)
+	else:
+		signature, parameters = preprocess_function_defaults(obj)
 
 	obj = inspect.unwrap(obj)
 
-	try:
-		signature = Signature(obj)
-	except ValueError:
+	if not getattr(obj, "__annotations__", None):
 		return None
-
-	parameters = []
-
-	for param in signature.parameters.values():
-		default = param.default
-
-		if default is not inspect.Parameter.empty:
-			if isinstance(default, ModuleType):
-				default = Module(default.__name__)
-			elif default is Ellipsis:
-				default = etc
-
-		parameters.append(param.replace(annotation=inspect.Parameter.empty, default=default))
 
 	# The generated dataclass __init__() is weird and needs the second condition
 	if "<locals>" in obj.__qualname__ and not (what == "method" and name.endswith(".__init__")):
@@ -325,21 +398,21 @@ Each entry in the list consists of:
 
 def process_docstring(
 		app: Sphinx,
-		what,
+		what: str,
 		name: str,
-		obj,
-		options,
+		obj: Any,
+		options: Dict[str, Any],
 		lines: List[str],
-		):
+		) -> None:
 	"""
 	Process the docstring of a class, function, method etc.
 
 	:param app: The Sphinx app
 	:param what:
 	:param name: The name of the object being documented
-	:param obj:
-	:param options:
-	:param lines:
+	:param obj: The object being documented.
+	:param options: Mapping of autodoc options to values.
+	:param lines: List of strings representing the current contents of the docstring.
 	"""
 
 	original_obj = obj
@@ -354,8 +427,8 @@ def process_docstring(
 		for argname, annotation in type_hints.items():
 			if argname == "return":
 				continue  # this is handled separately later
-			if argname.endswith('_'):
-				argname = "{}\\_".format(argname[:-1])
+
+			argname = escape_trailing__(argname)
 
 			formatted_annotation = format_annotation(
 					annotation,

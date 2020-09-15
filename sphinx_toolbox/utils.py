@@ -44,6 +44,7 @@ __all__ = [
 		"Purger",
 		"OptionSpec",
 		"get_first_matching",
+		"escape_trailing__",
 		]
 
 #: Instance of :class:`apeye.url.RequestsURL` that points to the GitHub website.
@@ -201,3 +202,17 @@ def get_first_matching(
 			return match
 
 	raise NoMatchError(f"No matches values for '{condition}' in {iterable}")
+
+
+def escape_trailing__(string: str) -> str:
+	"""
+	Returns the given string with trailing underscores escaped to prevent Sphinx treating them as references.
+
+	:param string:
+
+	.. versionadded:: 0.8.0
+	"""
+
+	if string.endswith('_'):
+		return f"{string[:-1]}\\_"
+	return string
