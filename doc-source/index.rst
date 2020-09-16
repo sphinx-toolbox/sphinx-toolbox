@@ -122,6 +122,10 @@ sphinx-toolbox
 
 	usage/installation
 	usage/configuration
+	usage/caching
+	usage/confval
+	usage/auto*
+	usage/directives-shields
 	usage/*
 
 

@@ -104,9 +104,11 @@ toctree_plus_types = {
 		"flag",
 		"confval",
 		"directive",
+		"role",
 		"confval",
 		"protocol",
 		"typeddict",
+		"namedtuple",
 		}
 
 add_module_names = False

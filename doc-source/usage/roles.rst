@@ -1,6 +1,6 @@
-========
-Roles
-========
+============
+Other Roles
+============
 
 .. rst:role:: source
 
@@ -58,11 +58,6 @@ The only difference between the :rst:role:`issue` and :rst:role:`pull` roles
 is in the URL. GitHub uses the same numbering scheme for issues and
 pull requests, and automatically redirects to the pull request if
 the user tries to navigate to an issue with that same number.
-
-
-.. rst:role:: confval
-
-	Shows a link cross-reference to a :rst:dir:`confval`.
 
 
 .. rst:role:: wikipedia

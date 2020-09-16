@@ -1,6 +1,6 @@
-=============
-Directives
-=============
+=================
+Other Directives
+=================
 
 .. rst:directive:: code-block
 
@@ -33,26 +33,6 @@ Directives
 			def print(text):
 				sys.stdout.write(text)
 
-
-
-.. rst:directive:: confval
-
-	Used to document a configuration value.
-
-	.. rst:directive:option:: type
-		:type: string
-
-		Indicates the configuration value's type.
-
-	.. rst:directive:option:: required
-		:type: flag
-
-		Indicates the whether the configuration value is required.
-
-	.. rst:directive:option:: default
-		:type: string
-
-		Indicates the default value.
 
 .. rst:directive:: extensions
 
@@ -182,76 +162,3 @@ Directives
 			:source:`sphinx_toolbox/config.py`
 
 			Here is the :source:`source code <sphinx_toolbox/config.py>`
-
-
-.. rst:directive:: autoprotocol
-
-	Directive to automatically document a :class:`typing.Protocol`.
-
-	The output is based on the :rst:dir:`autoclass` directive, but with a few differences:
-
-	* Private members are always excluded.
-	* Special members (dunder methods) are always included.
-	* Undocumented members are always included.
-
-	The following options from :rst:dir:`autoclass` are available:
-
-	.. rst:directive:option:: noindex
-		:type: flag
-
-		Do not generate index entries for the documented object (and all autodocumented members).
-
-	.. rst:directive:option:: member-order
-		:type: string
-
-		Override the global value of ``autodoc_member_order`` for one directive.
-
-	See https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
-	for further information.
-
-	**Examples:**
-
-	.. rest-example::
-
-		.. automodule:: autoprotocol_demo
-			:members:
-			:no-autosummary:
-			:exclude-members: HasGreaterThan
-
-		.. autoprotocol:: autoprotocol_demo.HasGreaterThan
-
-
-.. rst:directive:: autotypeddict
-
-	Directive to automatically document a :class:`typing.TypedDict`.
-
-	The output is based on the :rst:dir:`autoclass` directive, but with a few differences:
-
-	* Private and Special members are always excluded.
-	* Undocumented members are always included.
-	* The default sort order is ``bysource``.
-
-	The following options are available:
-
-	.. rst:directive:option:: noindex
-		:type: flag
-
-		Do not generate index entries for the documented object (and all autodocumented members).
-
-	.. rst:directive:option:: alphabetical
-		:type: flag
-
-		Sort the keys alphabetically. By default the keys are listed in the order they were defined.
-
-	See https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
-	for further information.
-
-	**Examples:**
-
-	.. rest-example::
-
-		.. automodule:: autotypeddict_demo
-			:no-autosummary:
-			:exclude-members: Movie
-
-		.. autotypeddict:: autotypeddict_demo.Movie

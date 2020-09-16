@@ -1,6 +1,6 @@
-=====================
-Directives - Shields
-=====================
+===================
+Shield Directives
+===================
 
 Several shield/badge directives are available, like this one: |demo|
 
