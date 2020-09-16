@@ -159,9 +159,6 @@ class TypedDictDocumenter(ClassDocumenter):
 			return
 		sourcename = ret
 
-		# Set sourcename as instance variable to avoid passing it around; it will get deleted later
-		self.sourcename = sourcename
-
 		# make sure that the result starts with an empty line.  This is
 		# necessary for some situations where another directive preprocesses
 		# reST and no starting newline is present
@@ -183,7 +180,6 @@ class TypedDictDocumenter(ClassDocumenter):
 
 		# document members, if possible
 		self.document_members(True)
-		del self.sourcename
 
 	def sort_members(
 			self,
@@ -220,17 +216,19 @@ class TypedDictDocumenter(ClassDocumenter):
 				optional_keys.append(name)
 			# else: warn user. This shouldn't ever happen, though.
 
+		sourcename = self.get_sourcename()
+
 		if required_keys:
-			self.add_line('', self.sourcename)
-			self.add_line(":Required Keys:", self.sourcename)
+			self.add_line('', sourcename)
+			self.add_line(":Required Keys:", sourcename)
 			self.document_keys(required_keys, types, docstrings)
-			self.add_line('', self.sourcename)
+			self.add_line('', sourcename)
 
 		if optional_keys:
-			self.add_line('', self.sourcename)
-			self.add_line(":Optional Keys:", self.sourcename)
+			self.add_line('', sourcename)
+			self.add_line(":Optional Keys:", sourcename)
 			self.document_keys(optional_keys, types, docstrings)
-			self.add_line('', self.sourcename)
+			self.add_line('', sourcename)
 
 		return []
 
@@ -254,7 +252,7 @@ class TypedDictDocumenter(ClassDocumenter):
 			content.append(f"    * **{key}** {key_type}-- {' '.join(docstrings.get(key, ''))}")
 
 		for line in content:
-			self.add_line(line, self.sourcename)
+			self.add_line(line, self.get_sourcename())
 
 	def filter_members(
 			self,
