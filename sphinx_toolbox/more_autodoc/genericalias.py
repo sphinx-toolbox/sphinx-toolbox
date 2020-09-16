@@ -85,14 +85,14 @@ class PrettyGenericAliasDocumenter(GenericAliasDocumenter):  # pragma: no cover 
 
 	priority = GenericAliasDocumenter.priority + 1
 
-	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
+	def add_content(self, more_content: Any, no_docstring: bool = False):
 		"""
 		Add the autodocumenter content.
 
 		:param more_content:
 		:param no_docstring:
-		:return:
 		"""
+
 		name = format_annotation(self.object)
 		content = StringList([_("Alias of %s") % name], source='')
 		DataDocumenter.add_content(self, content)

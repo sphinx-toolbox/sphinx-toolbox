@@ -112,8 +112,6 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 		:param more_content:
 		:param no_docstring:
-
-		:return:
 		"""
 
 		Documenter.add_content(self, more_content, True)

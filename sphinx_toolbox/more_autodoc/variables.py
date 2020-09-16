@@ -310,7 +310,7 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 
 		return True
 
-	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
+	def add_content(self, more_content: Any, no_docstring: bool = False):
 		"""
 		Never try to get a docstring from the object.
 		"""
