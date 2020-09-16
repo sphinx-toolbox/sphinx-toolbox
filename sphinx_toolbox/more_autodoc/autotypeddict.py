@@ -68,7 +68,7 @@ See also https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html .
 #
 
 # stdlib
-from typing import Any, Callable, Dict, List, Optional, Tuple, Type
+from typing import Any, Callable, Dict, List, Tuple, Type
 
 # 3rd party
 from domdf_python_tools.stringlist import StringList
@@ -82,7 +82,7 @@ from sphinx.util.inspect import getdoc, safe_getattr
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
-from sphinx_toolbox.more_autodoc.utils import begin_generate, filter_members_warning
+from sphinx_toolbox.more_autodoc.utils import filter_members_warning
 from sphinx_toolbox.utils import flag
 
 __all__ = ["TypedDictDocumenter", "setup"]
@@ -113,6 +113,10 @@ class TypedDictDocumenter(ClassDocumenter):
 		else:
 			self.options["member-order"] = "bysource"
 
+		for key in {"inherited-members", "special-members"}:  # pragma: no cover
+			if key in self.options:
+				del self.options[key]
+
 	@classmethod
 	def can_document_member(cls, member: Any, membername: str, isattr: bool, parent: Any) -> bool:
 		"""
@@ -135,51 +139,31 @@ class TypedDictDocumenter(ClassDocumenter):
 		Typed Dicts do not have a signature.
 		"""
 
-		return ''  # pragma: no cover
+		return ''
 
-	def generate(
-			self,
-			more_content: Optional[Any] = None,
-			real_modname: Optional[str] = None,
-			check_module: bool = False,
-			all_members: bool = False,
-			) -> None:
+	def add_content(self, more_content: Any, no_docstring: bool = False):
 		"""
-		Generate reST for the object given by ``self.name``, and possibly for its members.
+		Add the autodocumenter content.
 
-		:param more_content: Additional content to include in the reST output.
-		:param real_modname: Module name to use to find attribute documentation.
-		:param check_module: If :py:obj:`True`, only generate if the object is defined
-			in the module name it is imported from.
-		:param all_members: If :py:obj:`True`, document all members.
+		:param more_content:
+		:param no_docstring:
 		"""
 
-		ret = begin_generate(self, real_modname, check_module)
-		if ret is None:
-			return
-		sourcename = ret
-
-		# make sure that the result starts with an empty line.  This is
-		# necessary for some situations where another directive preprocesses
-		# reST and no starting newline is present
-		self.add_line('', sourcename)
-
-		# generate the directive header and options, if applicable
-		self.add_directive_header('')
-		self.add_line('', sourcename)
-
-		# e.g. the module directive doesn't have content
-		self.indent += self.content_indent
-
-		# add all content (from docstrings, attribute docs etc.)
-		self.add_content(more_content)
+		super().add_content(more_content=more_content, no_docstring=no_docstring)
 
 		if not getdoc(self.object):
+			sourcename = self.get_sourcename()
 			self.add_line(":class:`typing.TypedDict`.", sourcename)
 			self.add_line('', sourcename)
 
-		# document members, if possible
-		self.document_members(True)
+	def document_members(self, all_members: bool = False) -> None:
+		"""
+		Generate reST for member documentation.
+
+		All members are always documented.
+		"""
+
+		super().document_members(True)
 
 	def sort_members(
 			self,
