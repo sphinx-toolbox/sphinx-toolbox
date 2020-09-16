@@ -62,7 +62,7 @@ Helpers for writing extensions to autodoc.
 
 # stdlib
 import re
-from typing import Any, Dict, List, Optional, Pattern, Tuple
+from typing import Any, Dict, List, Optional, Pattern, Tuple, cast
 
 # 3rd party
 from sphinx.errors import PycodeError
@@ -271,14 +271,14 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 
 		if typed_m:
 			last_arg = typed_m.group(3).strip()
-			add_empty(last_arg)
-			params[last_arg]["doc"] = [typed_m.group(4)]
-			params[last_arg]["type"] = typed_m.group(2).strip()
+			add_empty(cast(str, last_arg))
+			params[last_arg]["doc"] = [typed_m.group(4)]  # type: ignore
+			params[last_arg]["type"] = typed_m.group(2).strip()  # type: ignore
 
 		elif untyped_m:
 			last_arg = untyped_m.group(2).strip()
-			add_empty(last_arg)
-			params[last_arg]["doc"] = [untyped_m.group(3)]
+			add_empty(cast(str, last_arg))
+			params[last_arg]["doc"] = [untyped_m.group(3)]  # type: ignore
 
 		elif type_only_m:
 			add_empty(type_only_m.group(2))

@@ -121,7 +121,6 @@ globally_excluded_methods = {
 		"__tree_hash__",
 		}
 
-
 runtime_message = (
 		"This protocol is `runtime checkable "
 		"<https://www.python.org/dev/peps/pep-0544/#runtime-checkable-decorator-and-narrowing-types-by-isinstance>`_."
