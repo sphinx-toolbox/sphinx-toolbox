@@ -1,5 +1,5 @@
 ===================================================
-:mod:`~sphinx_toolbox.more_autodoc`
+:mod:`sphinx_toolbox.more_autodoc`
 ===================================================
 
 .. automodule:: sphinx_toolbox.more_autodoc.__init__

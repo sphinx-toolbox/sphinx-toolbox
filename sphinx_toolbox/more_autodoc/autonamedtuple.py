@@ -70,13 +70,13 @@ from sphinx.application import Sphinx
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyClasslike, PyXRefRole
 from sphinx.ext.autodoc import ClassDocumenter, Documenter
+from sphinx.locale import _
 from sphinx.pycode import ModuleAnalyzer
 
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.more_autodoc.utils import is_namedtuple, parse_parameters
-from sphinx.locale import _
 
 __all__ = ["NamedTupleDocumenter", "setup"]
 

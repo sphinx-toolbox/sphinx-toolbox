@@ -62,7 +62,7 @@ Helpers for writing extensions to autodoc.
 
 # stdlib
 import re
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Pattern, Tuple
 
 # 3rd party
 from sphinx.errors import PycodeError
@@ -80,13 +80,13 @@ def begin_generate(
 		check_module: bool = False,
 		) -> Optional[str]:
 	"""
-	Boilerplate for the top of ``generate`` in :class:`EnumDocumenter` and :class:`EnumMemberDocumenter`.
+	Boilerplate for the top of ``generate`` in :class:`sphinx.ext.autodoc.Documenter` subclasses.
 
 	:param documenter:
 	:param real_modname:
 	:param check_module:
 
-	:return: The ``sourcename``, or None if certain conditions are met,
+	:return: The ``sourcename``, or :py:obj:`None` if certain conditions are met,
 		to indicate that the Documenter class should exit early.
 
 	.. versionadded:: 0.2.0

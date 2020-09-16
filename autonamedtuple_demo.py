@@ -3,7 +3,7 @@
 # https://www.python.org/dev/peps/pep-0589/#totality
 # https://github.com/python/typing/pull/700
 
-# 3rd party
+# stdlib
 from typing import NamedTuple
 
 __all__ = ["Animal", "Employee", "Movie"]

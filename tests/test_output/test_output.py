@@ -140,7 +140,8 @@ def test_formatting_html_output(page: BeautifulSoup, file_regression: FileRegres
 				"autonamedtuple.html",
 				"autodoc-ellipsis.html",
 				"variables.html",
-				], indirect=True
+				],
+		indirect=True
 		)
 def test_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
 	"""

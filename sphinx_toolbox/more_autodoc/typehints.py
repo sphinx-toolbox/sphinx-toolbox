@@ -50,7 +50,7 @@ The changes are:
 .. versionchanged:: 0.6.0
 
 	Moved from :mod:`sphinx_toolbox.autodoc_typehints`.
-	
+
 .. versionchanged:: 0.8.0
 
 	Added support for namedtuples.
