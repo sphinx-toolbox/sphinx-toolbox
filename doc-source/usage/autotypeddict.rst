@@ -27,6 +27,8 @@
 	See https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
 	for further information.
 
+	.. versionadded:: 0.5.0
+
 	**Examples:**
 
 	.. literalinclude:: ../../autotypeddict_demo.py

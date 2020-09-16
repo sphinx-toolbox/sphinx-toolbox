@@ -14,6 +14,8 @@
 	Otherwise the directive behaves the same as :rst:dir:`autoclass`, and takes all of its arguments.
 	See https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html for further information.
 
+	.. versionadded:: 0.8.0
+
 	**Examples:**
 
 	.. literalinclude:: ../../autonamedtuple_demo.py
