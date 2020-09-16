@@ -91,6 +91,7 @@ from sphinx.util.inspect import stringify_signature
 
 # this package
 from sphinx_toolbox import __version__
+from sphinx_toolbox.more_autodoc.utils import is_namedtuple
 from sphinx_toolbox.utils import escape_trailing__
 
 try:
@@ -263,6 +264,9 @@ def preprocess_class_defaults(
 
 	init = getattr(obj, "__init__", getattr(obj, "__new__", None))
 
+	if is_namedtuple(obj):
+		init = getattr(obj, "__new__")
+
 	try:
 		signature = Signature(inspect.unwrap(init))
 	except ValueError:  # pragma: no cover
@@ -377,8 +381,16 @@ def _docstring_class_hook(obj: Any) -> Callable:
 	return obj
 
 
+def _docstring_namedtuple_hook(obj: Any) -> Callable:
+	if is_namedtuple(obj):
+		obj = getattr(obj, "__new__")
+
+	return obj
+
+
 docstring_hooks: List[Tuple[Callable[[Any], Callable], int]] = [
 		(_docstring_property_hook, 20),
+		(_docstring_namedtuple_hook, 90),
 		(_docstring_class_hook, 100),
 		]
 """

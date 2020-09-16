@@ -137,6 +137,7 @@ def test_formatting_html_output(page: BeautifulSoup, file_regression: FileRegres
 		"page", [
 				"assets.html",
 				"autotypeddict.html",
+				"autonamedtuple.html",
 				"autodoc-ellipsis.html",
 				"variables.html",
 				], indirect=True

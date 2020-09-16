@@ -121,6 +121,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.setup_extension("sphinx_toolbox.more_autodoc.augment_defaults")
 	app.setup_extension("sphinx_toolbox.more_autodoc.autoprotocol")
 	app.setup_extension("sphinx_toolbox.more_autodoc.autotypeddict")
+	app.setup_extension("sphinx_toolbox.more_autodoc.autonamedtuple")
 	app.setup_extension("sphinx_toolbox.more_autodoc.genericalias")
 	app.setup_extension("sphinx_toolbox.more_autodoc.typehints")
 	app.setup_extension("sphinx_toolbox.more_autodoc.variables")

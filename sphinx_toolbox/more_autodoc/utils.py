@@ -61,15 +61,17 @@ Helpers for writing extensions to autodoc.
 #
 
 # stdlib
-from typing import Optional, get_type_hints
+import re
+from typing import Any, Dict, List, Optional, Tuple
 
 # 3rd party
 from sphinx.errors import PycodeError
 from sphinx.ext.autodoc import Documenter, logger
 from sphinx.locale import __
 from sphinx.pycode import ModuleAnalyzer
+from typing_extensions import TypedDict
 
-__all__ = ["begin_generate", "unknown_module_warning", "filter_members_warning"]
+__all__ = ["begin_generate", "unknown_module_warning", "filter_members_warning", "is_namedtuple", "parse_parameters"]
 
 
 def begin_generate(
@@ -188,3 +190,71 @@ def filter_members_warning(member, exception: Exception) -> None:
 			exception,
 			type="autodoc"
 			)
+
+
+class Param(TypedDict):
+	doc: List[str]
+	type: str
+
+
+def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Param], List[str], List[str]]:
+	"""
+
+	:param lines: The lines of the docstring
+	:param tab_size:
+
+	:return: A dictionary mapping parameter names to their docstrings and types, a list of docstring lines that
+		appeared before the parameters, and the list of docstring lines that appear after the parameters.
+	"""
+
+	a_tab = " " * tab_size
+
+	params: Dict[str, Param] = {}
+	last_arg: Optional[str] = None
+
+	pre_output: List[str] = []
+	post_output: List[str] = []
+
+	def add_empty(param_name: str):
+		if param_name not in params:
+			params[param_name] = {"doc": [], "type": ''}
+
+	for line in lines:
+		typed_m = re.match(r"^:(param|parameter|arg|argument)\s*([A-Za-z_]+\s+)([A-Za-z_]+\s*):\s*(.*)", line)
+		untyped_m = re.match(r"^:(param|parameter|arg|argument)\s*([A-Za-z_]+\s*):\s*(.*)", line)
+		type_only_m = re.match(r"^:(paramtype|type)\s*([A-Za-z_]+\s*):\s*(.*)", line)
+		if typed_m:
+			last_arg = typed_m.group(3).strip()
+			add_empty(last_arg)
+			params[last_arg]["doc"] = [typed_m.group(4)]
+			params[last_arg]["type"] = typed_m.group(2).strip()
+
+		elif untyped_m:
+			last_arg = untyped_m.group(2).strip()
+			add_empty(last_arg)
+			params[last_arg]["doc"] = [untyped_m.group(3)]
+
+		elif type_only_m:
+			add_empty(type_only_m.group(2))
+			params[type_only_m.group(2)]["type"] = type_only_m.group(3)
+
+		elif line.startswith(a_tab) and last_arg is not None:
+			params[last_arg]["doc"].append(line)
+
+		elif last_arg is None:
+			pre_output.append(line)
+
+		else:
+			post_output.append(line)
+
+	return params, pre_output, post_output
+
+
+def is_namedtuple(obj: Any) -> bool:
+	"""
+	Returns whether the given class is a :class:`collections.namedtuple`.
+
+	:param obj:
+	"""
+
+	return isinstance(obj, type) and issubclass(obj, tuple) and hasattr(obj, "_fields")

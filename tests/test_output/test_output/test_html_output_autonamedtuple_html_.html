@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   sphinx-toolbox Demo - AutoNamedTuple — Python  documentation
+  </title>
+  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
+  </script>
+  <script src="_static/jquery.js">
+  </script>
+  <script src="_static/underscore.js">
+  </script>
+  <script src="_static/doctools.js">
+  </script>
+  <script src="_static/language_data.js">
+  </script>
+  <meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
+ </head>
+ <body>
+  <div class="document">
+   <div class="documentwrapper">
+    <div class="bodywrapper">
+     <div class="body" role="main">
+      <div class="section" id="module-autonamedtuple_demo">
+       <span id="sphinx-toolbox-demo-autonamedtuple">
+       </span>
+       <h1>
+        sphinx-toolbox Demo - AutoNamedTuple
+        <a class="headerlink" href="#module-autonamedtuple_demo" title="Permalink to this headline">
+         ¶
+        </a>
+       </h1>
+       <dl class="py namedtuple">
+        <dt id="autonamedtuple_demo.Animal">
+         <em class="property">
+          namedtuple
+         </em>
+         <code class="sig-prename descclassname">
+          autonamedtuple_demo.
+         </code>
+         <code class="sig-name descname">
+          Animal
+         </code>
+         <span class="sig-paren">
+          (
+         </span>
+         <em class="sig-param">
+          <span class="n">
+           name
+          </span>
+         </em>
+         ,
+         <em class="sig-param">
+          <span class="n">
+           voice
+          </span>
+         </em>
+         <span class="sig-paren">
+          )
+         </span>
+         <a class="reference internal" href="_modules/autonamedtuple_demo.html#Animal">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#autonamedtuple_demo.Animal" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          An animal.
+         </p>
+         <dl class="field-list simple">
+          <dt class="field-odd">
+           Fields
+          </dt>
+          <dd class="field-odd">
+           <ol class="arabic simple" start="0">
+            <li>
+             <p>
+              <strong>
+               name
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – The name of the animal.
+             </p>
+            </li>
+            <li>
+             <p>
+              <strong>
+               voice
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – The animal’s voice.
+             </p>
+            </li>
+           </ol>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
+       <dl class="py namedtuple">
+        <dt id="autonamedtuple_demo.Employee">
+         <em class="property">
+          namedtuple
+         </em>
+         <code class="sig-prename descclassname">
+          autonamedtuple_demo.
+         </code>
+         <code class="sig-name descname">
+          Employee
+         </code>
+         <span class="sig-paren">
+          (
+         </span>
+         <em class="sig-param">
+          <span class="n">
+           name
+          </span>
+         </em>
+         ,
+         <em class="sig-param">
+          <span class="n">
+           id
+          </span>
+          <span class="o">
+           =
+          </span>
+          <span class="default_value">
+           3
+          </span>
+         </em>
+         <span class="sig-paren">
+          )
+         </span>
+         <a class="reference internal" href="_modules/autonamedtuple_demo.html#Employee">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#autonamedtuple_demo.Employee" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          Represents an employee.
+         </p>
+         <dl class="field-list simple">
+          <dt class="field-odd">
+           Fields
+          </dt>
+          <dd class="field-odd">
+           <ol class="arabic simple" start="0">
+            <li>
+             <p>
+              <strong>
+               name
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – The name of the movie.
+             </p>
+            </li>
+            <li>
+             <p>
+              <strong>
+               id
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                int
+               </span>
+              </code>
+              ) – The employee’s ID number
+             </p>
+            </li>
+           </ol>
+          </dd>
+         </dl>
+         <dl class="py method">
+          <dt id="autonamedtuple_demo.Employee.is_executive">
+           <code class="sig-name descname">
+            is_executive
+           </code>
+           <span class="sig-paren">
+            (
+           </span>
+           <span class="sig-paren">
+            )
+           </span>
+           <a class="reference internal" href="_modules/autonamedtuple_demo.html#Employee.is_executive">
+            <span class="viewcode-link">
+             [source]
+            </span>
+           </a>
+           <a class="headerlink" href="#autonamedtuple_demo.Employee.is_executive" title="Permalink to this definition">
+            ¶
+           </a>
+          </dt>
+          <dd>
+           <p>
+            Returns whether the employee is an executive.
+           </p>
+           <p>
+            Executives have ID numbers &lt; 10.
+           </p>
+           <dl class="field-list simple">
+            <dt class="field-odd">
+             Return type
+            </dt>
+            <dd class="field-odd">
+             <p>
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                bool
+               </span>
+              </code>
+             </p>
+            </dd>
+           </dl>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
+       <dl class="py namedtuple">
+        <dt id="autonamedtuple_demo.Movie">
+         <em class="property">
+          namedtuple
+         </em>
+         <code class="sig-prename descclassname">
+          autonamedtuple_demo.
+         </code>
+         <code class="sig-name descname">
+          Movie
+         </code>
+         <span class="sig-paren">
+          (
+         </span>
+         <em class="sig-param">
+          <span class="n">
+           name
+          </span>
+         </em>
+         ,
+         <em class="sig-param">
+          <span class="n">
+           year
+          </span>
+         </em>
+         ,
+         <em class="sig-param">
+          <span class="n">
+           based_on
+          </span>
+         </em>
+         <span class="sig-paren">
+          )
+         </span>
+         <a class="reference internal" href="_modules/autonamedtuple_demo.html#Movie">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#autonamedtuple_demo.Movie" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          Represents a movie.
+         </p>
+         <dl class="field-list simple">
+          <dt class="field-odd">
+           Fields
+          </dt>
+          <dd class="field-odd">
+           <ol class="arabic simple" start="0">
+            <li>
+             <p>
+              <strong>
+               name
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – The name of the movie.
+             </p>
+            </li>
+            <li>
+             <p>
+              <strong>
+               year
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                int
+               </span>
+              </code>
+              ) – The movie’s release year.
+             </p>
+            </li>
+            <li>
+             <p>
+              <strong>
+               based_on
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – Alias for field number 2
+             </p>
+            </li>
+           </ol>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
+       <dl class="py namedtuple">
+        <dt id="autonamedtuple_demo.Foo">
+         <em class="property">
+          namedtuple
+         </em>
+         <code class="sig-prename descclassname">
+          autonamedtuple_demo.
+         </code>
+         <code class="sig-name descname">
+          Foo
+         </code>
+         <span class="sig-paren">
+          (
+         </span>
+         <em class="sig-param">
+          <span class="n">
+           a
+          </span>
+         </em>
+         ,
+         <em class="sig-param">
+          <span class="n">
+           b
+          </span>
+         </em>
+         ,
+         <em class="sig-param">
+          <span class="n">
+           c
+          </span>
+         </em>
+         <span class="sig-paren">
+          )
+         </span>
+         <a class="reference internal" href="_modules/autonamedtuple_demo.html#Foo">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#autonamedtuple_demo.Foo" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          A Namedtuple
+         </p>
+         <dl class="field-list simple">
+          <dt class="field-odd">
+           Fields
+          </dt>
+          <dd class="field-odd">
+           <ol class="arabic simple" start="0">
+            <li>
+             <p>
+              <strong>
+               a
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                int
+               </span>
+              </code>
+              ) – An integer
+             </p>
+            </li>
+            <li>
+             <p>
+              <strong>
+               b
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – A string
+             </p>
+            </li>
+            <li>
+             <p>
+              <strong>
+               c
+              </strong>
+              (
+              <code class="xref py py-class docutils literal notranslate">
+               <span class="pre">
+                str
+               </span>
+              </code>
+              ) – C’s doc
+             </p>
+            </li>
+           </ol>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div aria-label="main navigation" class="sphinxsidebar" role="navigation">
+    <div class="sphinxsidebarwrapper">
+     <h1 class="logo">
+      <a href="index.html">
+       Python
+      </a>
+     </h1>
+     <h3>
+      Navigation
+     </h3>
+     <div class="relations">
+      <h3>
+       Related Topics
+      </h3>
+      <ul>
+       <li>
+        <a href="index.html">
+         Documentation overview
+        </a>
+        <ul>
+        </ul>
+       </li>
+      </ul>
+     </div>
+     <div id="searchbox" role="search" style="display: none">
+      <h3 id="searchlabel">
+       Quick search
+      </h3>
+      <div class="searchformwrapper">
+       <form action="search.html" class="search" method="get">
+        <input aria-labelledby="searchlabel" name="q" type="text"/>
+        <input type="submit" value="Go"/>
+       </form>
+      </div>
+     </div>
+     <script>
+      $('#searchbox').show(0);
+     </script>
+    </div>
+   </div>
+   <div class="clearer">
+   </div>
+  </div>
+ </body>
+</html>
