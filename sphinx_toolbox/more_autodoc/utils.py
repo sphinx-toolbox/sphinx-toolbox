@@ -71,7 +71,17 @@ from sphinx.locale import __
 from sphinx.pycode import ModuleAnalyzer
 from typing_extensions import TypedDict
 
-__all__ = ["begin_generate", "unknown_module_warning", "filter_members_warning", "is_namedtuple", "parse_parameters"]
+__all__ = [
+		"begin_generate",
+		"unknown_module_warning",
+		"filter_members_warning",
+		"is_namedtuple",
+		"parse_parameters",
+		"Param",
+		"typed_param_regex",
+		"untyped_param_regex",
+		"typed_flag_regex",
+		]
 
 
 def begin_generate(
@@ -193,8 +203,41 @@ def filter_members_warning(member, exception: Exception) -> None:
 
 
 class Param(TypedDict):
+	"""
+	:class:`~typing.TypedDict` to represent a parameter parsed from a class or function's docstring.
+
+	.. versionadded:: 0.8.0
+	"""
+
+	#: The docstring of the parameter.
 	doc: List[str]
+
+	#: The type of the parameter.
 	type: str
+
+
+typed_param_regex: Pattern = re.compile(
+		r"^:(param|parameter|arg|argument)\s*([A-Za-z_]+\s+)([A-Za-z_]+\s*):\s*(.*)"
+		)
+"""
+Regex to match ``:param <type> <name>: <docstring>`` flags.
+
+.. versionadded:: 0.8.0
+"""
+
+untyped_param_regex: Pattern = re.compile(r"^:(param|parameter|arg|argument)\s*([A-Za-z_]+\s*):\s*(.*)")
+"""
+Regex to match ``:param <name>: <docstring>`` flags.
+
+.. versionadded:: 0.8.0
+"""
+
+typed_flag_regex: Pattern = re.compile(r"^:(paramtype|type)\s*([A-Za-z_]+\s*):\s*(.*)")
+"""
+Regex to match ``:type <name>: <type>`` flags.
+
+.. versionadded:: 0.8.0
+"""
 
 
 def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Param], List[str], List[str]]:
@@ -222,9 +265,10 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 			params[param_name] = {"doc": [], "type": ''}
 
 	for line in lines:
-		typed_m = re.match(r"^:(param|parameter|arg|argument)\s*([A-Za-z_]+\s+)([A-Za-z_]+\s*):\s*(.*)", line)
-		untyped_m = re.match(r"^:(param|parameter|arg|argument)\s*([A-Za-z_]+\s*):\s*(.*)", line)
-		type_only_m = re.match(r"^:(paramtype|type)\s*([A-Za-z_]+\s*):\s*(.*)", line)
+		typed_m = typed_param_regex.match(line)
+		untyped_m = untyped_param_regex.match(line)
+		type_only_m = typed_flag_regex.match(line)
+
 		if typed_m:
 			last_arg = typed_m.group(3).strip()
 			add_empty(last_arg)
