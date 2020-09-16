@@ -9,4 +9,3 @@ sphinx-toolbox Demo - AutoNamedTuple
 .. autonamedtuple:: autonamedtuple_demo.Movie
 
 .. autonamedtuple:: autonamedtuple_demo.Foo
-

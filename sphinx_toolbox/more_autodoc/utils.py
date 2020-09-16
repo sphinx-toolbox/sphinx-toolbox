@@ -205,6 +205,8 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 
 	:return: A dictionary mapping parameter names to their docstrings and types, a list of docstring lines that
 		appeared before the parameters, and the list of docstring lines that appear after the parameters.
+
+	.. versionadded:: 0.8.0
 	"""
 
 	a_tab = " " * tab_size
@@ -255,6 +257,8 @@ def is_namedtuple(obj: Any) -> bool:
 	Returns whether the given class is a :class:`collections.namedtuple`.
 
 	:param obj:
+
+	.. versionadded:: 0.8.0
 	"""
 
 	return isinstance(obj, type) and issubclass(obj, tuple) and hasattr(obj, "_fields")
