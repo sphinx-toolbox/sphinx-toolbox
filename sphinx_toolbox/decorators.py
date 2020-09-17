@@ -3,6 +3,8 @@
 #  decorators.py
 """
 reStructuredText XRef role for decorators.
+
+.. versionadded:: 0.9.0
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
