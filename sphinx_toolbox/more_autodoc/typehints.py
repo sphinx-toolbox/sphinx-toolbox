@@ -98,7 +98,7 @@ from sphinx.util.inspect import stringify_signature
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.utils import is_namedtuple
-from sphinx_toolbox.utils import escape_trailing__
+from sphinx_toolbox.utils import code_repr, escape_trailing__
 
 try:
 	# 3rd party
@@ -261,7 +261,8 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		formatted_args = "\\[\\[" + ", ".join(format_annotation(arg) for arg in args[:-1]) + ']'
 		formatted_args += ", " + format_annotation(args[-1]) + ']'
 	elif full_name == "typing.Literal":
-		formatted_args = "\\[" + ", ".join(repr(arg) for arg in args) + ']'
+		# TODO: Bool?
+		formatted_args = "\\[" + ", ".join(code_repr(arg) for arg in args) + ']'
 
 	if args and not formatted_args:
 		formatted_args = args_format.format(", ".join(format_annotation(arg, fully_qualified) for arg in args))

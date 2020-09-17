@@ -242,7 +242,7 @@ def test_format_annotation_typevar(inv, annotation, expected_result):
 		"annotation, params, expected_result",
 		[("ClassVar", int, ":py:data:`~typing.ClassVar`\\[:py:class:`int`]"),
 			("NoReturn", None, ":py:data:`~typing.NoReturn`"),
-			("Literal", ("a", 1), ":py:data:`~typing.Literal`\\['a', 1]"),
+			("Literal", ("a", 1), ":py:data:`~typing.Literal`\\[``'a'``, ``1``]"),
 			("Type", None, ":py:class:`~typing.Type`"),
 			("Type", (A, ), ":py:class:`~typing.Type`\\[:py:class:`~%s.A`]" % __name__)]
 		)

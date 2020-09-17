@@ -50,6 +50,7 @@ __all__ = [
 		"OptionSpec",
 		"get_first_matching",
 		"escape_trailing__",
+		"code_repr",
 		]
 
 #: Instance of :class:`apeye.url.RequestsURL` that points to the GitHub website.
@@ -251,3 +252,15 @@ def escape_trailing__(string: str) -> str:
 	if string.endswith('_'):
 		return f"{string[:-1]}\\_"
 	return string
+
+
+def code_repr(obj: Any) -> str:
+	"""
+	Returns the repr of the given object as reStructuredText inline code.
+
+	:param obj:
+
+	.. versionadded:: 0.9.0
+	"""
+
+	return f"``{obj!r}``"
