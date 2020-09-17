@@ -11,4 +11,3 @@
 .. automodule:: sphinx_toolbox.tweaks.param_dash
 	:no-members:
 	:no-autosummary:
-

@@ -14,12 +14,12 @@ name from its description if a description was given.
 .. rest-example::
 
 	.. class:: MyClass(foo, bar)
-	
+
 		This is my class.
-		
+
 		:param foo: An argument
 		:param bar:
-		
+
 
 """  # noqa D400
 #
