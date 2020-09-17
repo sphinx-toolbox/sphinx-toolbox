@@ -25,6 +25,11 @@ General utility functions.
 #  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
+#  singleton function based on attrs
+#  https://github.com/python-attrs/attrs
+#  Copyright (c) 2015 Hynek Schlawack
+#  MIT Licensed
+#
 
 # stdlib
 import functools
@@ -165,7 +170,37 @@ class Purger:
 
 
 _T = TypeVar("_T")
-no_default = object()
+
+
+def singleton(name: str) -> object:
+	"""
+	Factory function to return a string singleton.
+
+	:param name: The name of the singleton.
+	"""
+
+	name = str(name)
+
+	class Singleton(object):
+		_singleton = None
+
+		def __new__(cls):
+			if Singleton._singleton is None:
+				Singleton._singleton = super(Singleton, cls).__new__(cls)
+			return Singleton._singleton
+
+		def __repr__(self) -> str:
+			return name
+
+		def __str__(self) -> str:
+			return name
+
+	Singleton.__name__ = name
+	Singleton.__doc__ = f"Singleton {name}"
+	return Singleton()
+
+
+no_default = singleton("no_default")
 
 
 class NoMatchError(ValueError):
