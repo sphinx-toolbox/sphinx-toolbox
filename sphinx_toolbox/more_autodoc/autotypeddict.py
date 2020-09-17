@@ -75,14 +75,14 @@ from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyClasslike, PyXRefRole
-from sphinx.ext.autodoc import INSTANCEATTR, ClassDocumenter, Documenter, bool_option
+from sphinx.ext.autodoc import INSTANCEATTR, ClassDocumenter, Documenter
 from sphinx.pycode import ModuleAnalyzer
 from sphinx.util.inspect import getdoc, safe_getattr
 
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
-from sphinx_toolbox.more_autodoc.utils import filter_members_warning
+from sphinx_toolbox.more_autodoc.utils import allow_subclass_add, filter_members_warning
 from sphinx_toolbox.utils import flag
 
 __all__ = ["TypedDictDocumenter", "setup"]
@@ -100,7 +100,7 @@ class TypedDictDocumenter(ClassDocumenter):
 	directivetype = "typeddict"
 	priority = 20
 	option_spec: Dict[str, Callable] = {
-			"noindex": bool_option,
+			"noindex": flag,
 			"alphabetical": flag,
 			'show-inheritance': flag,
 			}
@@ -305,7 +305,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_directive_to_domain("py", "typeddict", PyClasslike)
 	app.add_role_to_domain("py", "typeddict", PyXRefRole())
 
-	app.add_autodocumenter(TypedDictDocumenter)
+	allow_subclass_add(app, TypedDictDocumenter)
 
 	return {
 			"version": __version__,

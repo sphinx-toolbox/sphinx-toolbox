@@ -73,13 +73,14 @@ from typing import Any, Callable, Dict, List, Tuple
 from sphinx.application import Sphinx
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyClasslike, PyXRefRole
-from sphinx.ext.autodoc import INSTANCEATTR, ClassDocumenter, bool_option, member_order_option
+from sphinx.ext.autodoc import INSTANCEATTR, ClassDocumenter, member_order_option
 from sphinx.locale import _
 from sphinx.util.inspect import getdoc, safe_getattr
 
 # this package
 from sphinx_toolbox import __version__
-from sphinx_toolbox.more_autodoc.utils import filter_members_warning
+from sphinx_toolbox.more_autodoc.utils import allow_subclass_add, filter_members_warning
+from sphinx_toolbox.utils import flag
 
 if sys.version_info < (3, 8):  # pragma: no cover (>=py38)
 	# 3rd party
@@ -139,7 +140,7 @@ class ProtocolDocumenter(ClassDocumenter):
 	directivetype = "protocol"
 	priority = 20
 	option_spec: Dict[str, Callable] = {
-			"noindex": bool_option,
+			"noindex": flag,
 			"member-order": member_order_option,
 			'show-inheritance': flag,
 			}
@@ -276,7 +277,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_directive_to_domain("py", "protocol", PyClasslike)
 	app.add_role_to_domain("py", "protocol", PyXRefRole())
 
-	app.add_autodocumenter(ProtocolDocumenter)
+	allow_subclass_add(app, ProtocolDocumenter)
 
 	return {
 			"version": __version__,
