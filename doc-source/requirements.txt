@@ -1,5 +1,5 @@
 autodocsumm>=0.2.0
-default_values>=0.1.0
+default_values>=0.2.0
 domdf_sphinx_theme>=0.1.0
 extras_require>=0.2.0
 seed_intersphinx_mapping>=0.1.1

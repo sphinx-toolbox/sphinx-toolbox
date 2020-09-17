@@ -2,7 +2,7 @@
 ---
 
 language: python
-dist: xenial
+dist: focal
 cache: pip
 python:
   - '3.6'
@@ -10,6 +10,7 @@ python:
   - '3.8'
   - '3.9-dev'
 
+arch: amd64
 install:
 
   - pip install --upgrade pip
@@ -30,6 +31,14 @@ stages:
 
 jobs:
   include:
+    - stage: test
+      dist: bionic
+      python: 3.9-dev
+
+    - stage: test
+      arch: arm64
+      python: 3.9-dev
+
     - stage: deploy_pypi
       python: "3.6"
       script: skip
