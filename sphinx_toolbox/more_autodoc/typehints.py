@@ -83,6 +83,7 @@ The changes are:
 import inspect
 import json
 import operator
+import sys
 from types import ModuleType
 from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, TypeVar
 
@@ -179,13 +180,6 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	elif annotation is Ellipsis:
 		return "..."
 
-	# Type variables are also handled specially
-	try:
-		if isinstance(annotation, TypeVar) and annotation is not AnyStr:  # type: ignore
-			return f"\\:py:data:`{annotation!r}`"
-	except TypeError:
-		pass
-
 	try:
 		module = get_annotation_module(annotation)
 		class_name = get_annotation_class_name(annotation, module)
@@ -202,6 +196,17 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	role = "data" if class_name in sphinx_autodoc_typehints.pydata_annotations else "class"
 	args_format = "\\[{}]"
 	formatted_args = ''
+
+	# Type variables are also handled specially
+	try:
+		if isinstance(annotation, TypeVar) and annotation is not AnyStr:  # type: ignore
+			if sys.version_info < (3, 7):
+				typevar_name = annotation.__name__
+			else:
+				typevar_name = (annotation.__module__ + '.' + annotation.__name__)
+			return f":py:data:`{repr(annotation)} <{typevar_name}>`"
+	except TypeError:
+		pass
 
 	# Some types require special handling
 	if full_name == "typing.NewType":
