@@ -95,9 +95,10 @@ from sphinx.ext.autosummary import Autosummary
 
 # this package
 from sphinx_toolbox import __version__
+from sphinx_toolbox.more_autodoc.utils import allow_subclass_add
 from sphinx_toolbox.utils import get_first_matching
 
-__all__ = ["setup", "PatchedAutosummary"]
+__all__ = ["setup", "PatchedAutosummary", "PatchedAutoSummClassDocumenter"]
 
 
 def add_autosummary(self):
@@ -166,12 +167,25 @@ class PatchedAutosummary(Autosummary):
 		:param name:
 		:param prefixes:
 
-		:return: The real name of the object, the object, the parent of the object, and the name of the moudle.
+		:return: The real name of the object, the object, the parent of the object, and the name of the module.
 		"""
 
 		real_name, obj, parent, modname = super().import_by_name(name=name, prefixes=prefixes)
 		real_name = re.sub(rf"((?:{modname}\.)+)", f"{modname}.", real_name)
 		return real_name, obj, parent, modname
+
+
+class PatchedAutoSummClassDocumenter(autodocsumm.AutoSummClassDocumenter):
+	"""
+	Patched version of :class:`autodocsumm.AutoSummClassDocumenter`
+	which doesn't show summary tables for aliased objects.
+	"""
+
+	def add_content(self, *args, **kwargs):
+		super().add_content(*args, **kwargs)
+
+		if not self.doc_as_attr:
+			self.add_autosummary()
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
@@ -187,6 +201,8 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	# app.add_directive('autosummary', PatchedAutosummary, override=True)
 
 	autodocsumm.AutosummaryDocumenter.add_autosummary = add_autosummary
+
+	allow_subclass_add(app, PatchedAutoSummClassDocumenter)
 
 	app.add_config_value(
 			"autodocsumm_member_order",
