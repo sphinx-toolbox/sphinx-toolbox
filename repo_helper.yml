@@ -37,4 +37,4 @@ tox_testenv_extras: all
 
 extra_sphinx_extensions:
   - sphinx_removed_in
-  - sphinx_toolbox.more_autosummary
+  - sphinx_toolbox.tweaks.param_dash

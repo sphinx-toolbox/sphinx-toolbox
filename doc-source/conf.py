@@ -50,7 +50,7 @@ extensions = [
 	'seed_intersphinx_mapping',
 	'sphinx.ext.autosectionlabel',
 	'sphinx_removed_in',
-	'sphinx_toolbox.more_autosummary',
+	'sphinx_toolbox.tweaks.param_dash',
 	]
 
 sphinxemoji_style = 'twemoji'
