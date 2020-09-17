@@ -102,6 +102,7 @@ class TypedDictDocumenter(ClassDocumenter):
 	option_spec: Dict[str, Callable] = {
 			"noindex": bool_option,
 			"alphabetical": flag,
+			'show-inheritance': flag,
 			}
 
 	def __init__(self, *args: Any) -> None:
