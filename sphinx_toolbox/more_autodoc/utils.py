@@ -62,9 +62,10 @@ Helpers for writing extensions to autodoc.
 
 # stdlib
 import re
-from typing import Any, Dict, List, Optional, Pattern, Tuple, cast
+from typing import Any, Dict, List, Optional, Pattern, Tuple, Type, cast
 
 # 3rd party
+from sphinx.application import Sphinx
 from sphinx.errors import PycodeError
 from sphinx.ext.autodoc import Documenter, logger
 from sphinx.locale import __
@@ -81,6 +82,7 @@ __all__ = [
 		"typed_param_regex",
 		"untyped_param_regex",
 		"typed_flag_regex",
+		"allow_subclass_add",
 		]
 
 
@@ -306,3 +308,23 @@ def is_namedtuple(obj: Any) -> bool:
 	"""
 
 	return isinstance(obj, type) and issubclass(obj, tuple) and hasattr(obj, "_fields")
+
+
+def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]):
+	"""
+	Add the given autodocumenters, but only if a subclass of it is not
+	already registered.
+
+	This allows other libraries to extend the autodocumenters.
+
+	:param app:
+	:param documenters:
+
+	.. versionadded:: 0.8.0
+	"""
+
+	for cls in documenters:
+		existing_documenter = app.registry.documenters.get(cls.objtype)
+		print(existing_documenter)
+		if existing_documenter is None or not issubclass(existing_documenter, cls):
+			app.add_autodocumenter(cls, override=True)

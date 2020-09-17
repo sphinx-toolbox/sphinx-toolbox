@@ -84,7 +84,7 @@ import inspect
 import json
 import operator
 import sys
-from types import ModuleType
+from types import FunctionType, ModuleType
 from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, TypeVar
 
 # 3rd party
@@ -123,6 +123,10 @@ __all__ = [
 		"builder_ready",
 		"docstring_hooks",
 		"setup",
+		"ObjectAlias",
+		"Module",
+		"Function",
+		"Class",
 		]
 
 get_annotation_module = sphinx_autodoc_typehints.get_annotation_module
@@ -148,22 +152,60 @@ def serialise(obj: Any, library=json) -> str:
 	"""
 
 
-class Module:
+class ObjectAlias:
 	"""
-	Used to represent a module in a Sphinx function/class signature.
+	Used to represent a module, class, function etc in a Sphinx function/class signature.
 
-	:param name: The name of the module.
+	:param name: The name of the object being aliased.
+
+	.. versionadded:: 0.9.0
 	"""
+
+	_alias_type: str
 
 	def __init__(self, name: str):
 		self.name: str = name
 
 	def __repr__(self) -> str:
 		"""
-		Returns a string representation of the :class:`~.Module`.
+		Returns a string representation of the :class:`~.ObjectAlias`.
 		"""
 
-		return f"<module {self.name!r}>"
+		return f"<{self._alias_type} {self.name!r}>"
+
+
+class Module(ObjectAlias):
+	"""
+	Used to represent a module in a Sphinx function/class signature.
+
+	:param name: The name of the module.
+	"""
+
+	_alias_type = "module"
+
+
+class Function(ObjectAlias):
+	"""
+	Used to represent a function in a Sphinx function/class signature.
+
+	:param name: The name of the function.
+
+	.. versionadded:: 0.9.0
+	"""
+
+	_alias_type = "function"
+
+
+class Class(ObjectAlias):
+	"""
+	Used to represent a class in a Sphinx function/class signature.
+
+	:param name: The name of the class.
+
+	.. versionadded:: 0.9.0
+	"""
+
+	_alias_type = "class"
 
 
 def format_annotation(annotation, fully_qualified: bool = False) -> str:
@@ -251,6 +293,10 @@ def preprocess_function_defaults(obj: Callable) -> Tuple[Optional[inspect.Signat
 		if default is not inspect.Parameter.empty:
 			if isinstance(default, ModuleType):
 				default = Module(default.__name__)
+			elif isinstance(default, FunctionType):
+				default = Function(default.__name__)
+			elif inspect.isclass(default):
+				default = Class(default.__name__)
 			elif default is Ellipsis:
 				default = etc
 
@@ -290,6 +336,10 @@ def preprocess_class_defaults(
 		if default is not inspect.Parameter.empty:
 			if isinstance(default, ModuleType):
 				default = Module(default.__name__)
+			elif isinstance(default, FunctionType):
+				default = Function(default.__name__)
+			elif inspect.isclass(default):
+				default = Class(default.__name__)
 			elif default is Ellipsis:
 				default = etc
 			elif hasattr(obj, "__attrs_attrs__"):
