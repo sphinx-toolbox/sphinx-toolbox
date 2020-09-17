@@ -179,6 +179,8 @@ class PatchedAutoSummClassDocumenter(autodocsumm.AutoSummClassDocumenter):
 	"""
 	Patched version of :class:`autodocsumm.AutoSummClassDocumenter`
 	which doesn't show summary tables for aliased objects.
+
+	.. versionadded:: 0.9.0
 	"""
 
 	def add_content(self, *args, **kwargs):
