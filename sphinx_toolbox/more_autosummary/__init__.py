@@ -91,6 +91,7 @@ import autodocsumm  # type: ignore
 from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.config import ENUM
+from sphinx.ext.autodoc import ClassDocumenter
 from sphinx.ext.autosummary import Autosummary
 
 # this package
@@ -184,7 +185,7 @@ class PatchedAutoSummClassDocumenter(autodocsumm.AutoSummClassDocumenter):
 	"""
 
 	def add_content(self, *args, **kwargs):
-		super().add_content(*args, **kwargs)
+		ClassDocumenter.add_content(self, *args, **kwargs)
 
 		if not self.doc_as_attr:
 			self.add_autosummary()
