@@ -72,7 +72,7 @@ __all__ = ["PyDecoXRefRole", "setup"]
 
 class PyDecoXRefRole(PyXRefRole):
 	"""
-	XRefRole for Enum/Flag members.
+	XRef Role for decorators members.
 	"""
 
 	def process_link(
@@ -84,6 +84,8 @@ class PyDecoXRefRole(PyXRefRole):
 			target: str,
 			) -> Tuple[str, str]:
 
+		target = target.lstrip('@')
+
 		title, target = super().process_link(
 			env=env,
 			refnode=refnode,
@@ -92,7 +94,7 @@ class PyDecoXRefRole(PyXRefRole):
 			target=target,
 			)
 
-		if not title.startswith("@"):
+		if not has_explicit_title and not title.startswith("@"):
 			title = f"@{title}"
 
 		return title, target
@@ -100,9 +102,9 @@ class PyDecoXRefRole(PyXRefRole):
 
 def setup(app: Sphinx) -> Dict[str, Any]:
 	"""
-	Setup Sphinx Extension.
+	Setup :mod:`sphinx_toolbox.decorators`.
 
-	:param app:
+	:param app: The Sphinx app.
 	"""
 
 	app.add_role_to_domain("py", "deco", PyDecoXRefRole())
