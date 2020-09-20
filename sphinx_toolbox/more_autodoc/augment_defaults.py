@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-#  autodoc_augment_defaults.py
+#  augment_defaults.py
 """
 Sphinx's autodoc module allows for default options to be set,
 and allows for those defaults to be disabled for an auto* directive and different values given instead.
@@ -9,6 +9,8 @@ However, it does not appear to be possible to augment the defaults,
 such as to globally exclude certain members and then exclude additional members of a single class.
 
 This module monkeypatches in that behaviour.
+
+.. extensions:: sphinx_toolbox.more_autodoc.augment_defaults
 
 .. versionchanged:: 0.6.0
 
@@ -76,6 +78,7 @@ from sphinx.ext.autodoc import Documenter, Options
 
 # this package
 import sphinx_toolbox
+from sphinx_toolbox.utils import SphinxExtMetadata
 
 __all__ = ["process_documenter_options", "setup"]
 
@@ -91,8 +94,6 @@ def process_documenter_options(
 	:param documenter:
 	:param config:
 	:param options:
-
-	:return:
 	"""
 
 	for name in sphinx.ext.autodoc.directive.AUTODOC_DEFAULT_OPTIONS:
@@ -114,13 +115,11 @@ def process_documenter_options(
 	return Options(assemble_option_dict(options.items(), documenter.option_spec))
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.augment_defaults`.
 
-	:param app:
-
-	:return:
+	:param app: The Sphinx app.
 	"""
 
 	if "sphinx.ext.autodoc" in app.extensions:

@@ -46,9 +46,7 @@ def __setup(app: Sphinx) -> Dict[str, Any]:
 	"""
 	Setup Sphinx Extension.
 
-	:param app:
-
-	:return:
+	:param app: The Sphinx app.
 	"""
 
 	app.add_builder(FakeBuilder, override=True)

@@ -4,9 +4,61 @@
 """
 Role to provide a link to open a file within the web browser, rather than downloading it.
 
-For example, :asset:`hello_world.txt`.
+.. extensions:: sphinx_toolbox.assets
 
 .. versionadded:: 0.5.0
+
+Usage
+------
+
+.. rst:role:: asset
+
+	Adds a link to a local file that can be viewed within the web browser.
+	The file will be copied from the directory set in :confval:`assets_dir` to ``/_assets`` in the HTML output.
+
+	This is similar to the :rst:role:`download` role, but that role will download the file to the user's computer instead.
+	This role may be useful for PDFs, which most web browsers can display.
+
+	If the file can't be found an error will be shown in the build output:
+
+	.. code-block:: text
+
+		<page where the error occurred>: Asset file '<missing asset file name>' not found.
+
+
+	.. versionadded:: 0.5.0
+
+	**Asset**
+
+	.. rest-example::
+
+		:asset:`hello_world.txt`
+
+		:asset:`hello_world <hello_world.txt>`
+
+	**Download**
+
+	.. rest-example::
+
+		:download:`hello_world.txt <../assets/hello_world.txt>`
+
+
+Configuration
+---------------
+
+.. confval:: assets_dir
+	:type: :class:`str`
+	:required: False
+	:default: ``'./assets'``
+
+	The directory in which to find assets for the :rst:role:`asset` role.
+
+	.. versionadded:: 0.5.0
+
+
+API Reference
+---------------
+
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -43,6 +95,7 @@ from docutils.parsers.rst.states import Inliner
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.terminal_colours import Fore
 from domdf_python_tools.utils import stderr_writer
+from sphinx.application import Sphinx
 from sphinx.util import split_explicit_title
 from sphinx.writers.html import HTMLTranslator
 
@@ -51,7 +104,11 @@ __all__ = [
 		"asset_role",
 		"visit_asset_node",
 		"depart_asset_node",
+		"setup",
 		]
+
+# this package
+from sphinx_toolbox.utils import SphinxExtMetadata
 
 
 class AssetNode(nodes.reference):
@@ -103,7 +160,7 @@ def asset_role(
 	return [node], []
 
 
-def visit_asset_node(translator: HTMLTranslator, node: AssetNode) -> None:
+def visit_asset_node(translator: HTMLTranslator, node: AssetNode):
 	"""
 	Visit an :class:`~.AssetNode`.
 
@@ -136,7 +193,7 @@ def visit_asset_node(translator: HTMLTranslator, node: AssetNode) -> None:
 	translator.context.append("</a>")
 
 
-def depart_asset_node(translator: HTMLTranslator, node: AssetNode) -> None:
+def depart_asset_node(translator: HTMLTranslator, node: AssetNode):
 	"""
 	Depart an :class:`~.AssetNode`.
 
@@ -145,3 +202,25 @@ def depart_asset_node(translator: HTMLTranslator, node: AssetNode) -> None:
 	"""
 
 	translator.body.append(translator.context.pop())
+
+
+def setup(app: Sphinx) -> SphinxExtMetadata:
+	"""
+	Setup :mod:`sphinx_toolbox.assets`.
+
+	:param app: The Sphinx app.
+
+	.. versionadded:: 1.0.0
+	"""
+
+	# this package
+	from sphinx_toolbox import __version__
+
+	app.add_role("asset", asset_role)
+	app.add_config_value("assets_dir", "./assets", "env", [str])
+	app.add_node(AssetNode, html=(visit_asset_node, depart_asset_node))
+
+	return {
+			"version": __version__,
+			"parallel_read_safe": True,
+			}

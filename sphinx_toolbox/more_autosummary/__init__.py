@@ -96,8 +96,7 @@ from sphinx.ext.autosummary import Autosummary
 
 # this package
 from sphinx_toolbox import __version__
-from sphinx_toolbox.more_autodoc.utils import allow_subclass_add
-from sphinx_toolbox.utils import get_first_matching
+from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add, get_first_matching
 
 __all__ = ["setup", "PatchedAutosummary", "PatchedAutoSummClassDocumenter"]
 
@@ -191,7 +190,7 @@ class PatchedAutoSummClassDocumenter(autodocsumm.AutoSummClassDocumenter):
 			self.add_autosummary()
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autosummary`.
 

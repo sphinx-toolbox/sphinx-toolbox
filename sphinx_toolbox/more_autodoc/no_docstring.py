@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 #
-#  sourcelink.py
+#  no_docstring.py
 """
-Show a link to the corresponding source code at the top of :rst:dir:`automodule` output.
+Adds the ``:no-docstring:`` option to automodule directives to exclude the docstring from the output.
 
-.. extensions:: sphinx_toolbox.more_autodoc.sourcelink
-
-.. versionadded:: 0.6.0
+.. versionadded:: 1.0.0
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -35,15 +33,33 @@ from types import ModuleType
 from typing import List
 
 # 3rd party
+import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 
+__all__ = ["automodule_add_nodocstring", "no_docstring_process_docstring", "setup"]
+
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata
-
-__all__ = ["sourcelinks_process_docstring", "setup"]
+from sphinx_toolbox.utils import SphinxExtMetadata, flag
 
 
-def sourcelinks_process_docstring(
+def automodule_add_nodocstring(app) -> None:
+	"""
+	Add the ``:no-docstring:`` option to automodule directives to exclude the docstring from the output.
+
+	:param app: The Sphinx app.
+
+	.. versionchanged:: 1.0.0
+
+		Moved from ``sphinx_toolbox.more_autodoc.__init__.py``
+	"""
+
+	sphinx.ext.autodoc.ModuleDocumenter.option_spec["no-docstring"] = flag
+
+	app.setup_extension("sphinx.ext.autodoc")
+	app.connect("autodoc-process-docstring", no_docstring_process_docstring, priority=1000)
+
+
+def no_docstring_process_docstring(
 		app: Sphinx,
 		what,
 		name: str,
@@ -52,7 +68,7 @@ def sourcelinks_process_docstring(
 		lines: List[str],
 		):
 	"""
-	Process the docstring of a module and add a link to the source code if given in the configuration.
+	Process the docstring of a module, and remove its docstring of the ``:no-docstring:`` flag was set..
 
 	:param app: The Sphinx app
 	:param what:
@@ -60,21 +76,21 @@ def sourcelinks_process_docstring(
 	:param obj: The object being documented.
 	:param options: Mapping of autodoc options to values.
 	:param lines: List of strings representing the current contents of the docstring.
+
+	.. versionchanged:: 1.0.0
+
+		Moved from ``sphinx_toolbox.more_autodoc.__init__.py``
 	"""
 
-	if (
-			isinstance(obj, ModuleType) and what == "module" and app.config.autodoc_show_sourcelink  # type: ignore
-			and obj.__file__.endswith(".py")
-			):
-		lines.insert(0, f"**Source code:** :source:`{name.replace('.', '/')}.py`")
-		lines.insert(1, '')
-		lines.insert(2, "--------------------")
-		lines.insert(3, '')
+	if isinstance(obj, ModuleType):
+		no_docstring = options.get("no-docstring", False)
+		if no_docstring:
+			lines.clear()
 
 
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
-	Setup :mod:`sphinx_toolbox.more_autodoc.sourcelink`.
+	Setup :mod:`sphinx_toolbox.more_autodoc.no_docstring`.
 
 	:param app: The Sphinx app.
 	"""
@@ -82,11 +98,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	# this package
 	from sphinx_toolbox import __version__
 
-	app.setup_extension("sphinx_toolbox.source")
-	app.setup_extension("sphinx.ext.autodoc")
-
-	app.connect("autodoc-process-docstring", sourcelinks_process_docstring)
-	app.add_config_value("autodoc_show_sourcelink", False, "env", [bool])
+	automodule_add_nodocstring(app)
 
 	return {
 			"version": __version__,

@@ -120,18 +120,26 @@ sphinx-toolbox
 	:caption: Usage
 	:glob:
 
-	usage/installation
-	usage/configuration
-	usage/caching
-	usage/confval
-	usage/auto*
-	usage/directives-shields
-	usage/*
+	usage
+
+
+.. toctree::
+	:maxdepth: 1
+	:caption: Extensions
+	:glob:
+
+	extensions/*
+
+.. toctree::
+	:maxdepth: 2
+	:glob:
+
+	extensions/**/index
 
 
 .. toctree::
 	:maxdepth: 3
-	:caption: API Reference
+	:caption: Developer API
 	:glob:
 
 	api/sphinx-toolbox
@@ -154,3 +162,6 @@ View the :ref:`Function Index <genindex>` or browse the `Source Code <_modules/i
 `Browse the GitHub Repository <https://github.com/domdfcoding/sphinx-toolbox>`__
 
 .. end links
+
+
+:py:data:`types.GetSetDescriptorType`

@@ -26,6 +26,9 @@ Internal configuration for ``sphinx-toolbox``.
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# stdlib
+from typing import List
+
 # 3rd party
 from apeye.url import RequestsURL
 from domdf_python_tools.stringlist import StringList
@@ -55,6 +58,8 @@ class ToolboxConfig(Config):
 	Subclass of :class:`sphinx.config.Config` with type annotations for the
 	configuration values added by ``sphinx-toolbox``.
 
+	Depending on the extensions enabled not all of these configuration values will be present.
+
 	Functionally compatible with :class:`sphinx.config.Config`.
 	"""  # noqa: D400
 
@@ -82,6 +87,12 @@ class ToolboxConfig(Config):
 	#: The base URL for the pull requests on GitHub.
 	github_pull_url: RequestsURL
 
+	#: List of required Conda channels.
+	conda_channels: List[str]
+
+	#: The directory in which to find assets for the :rst:role:`asset` role.
+	assets_dir: str
+
 	docutils_tab_width: int
 	"""
 	The tab size used by docutils.
@@ -99,26 +110,10 @@ def validate_config(app: Sphinx, config: ToolboxConfig):
 	r"""
 	Validate the provided configuration values.
 
-	The Sphinx configuration values are:
 
-	* source_link_target (:class:`str`\) - The target of the source links, either ``'github'`` or ``'sphinx'``.
-	  Always lowercase.
+	See :class:`~sphinx_toolbox.config.ToolboxConfig` for a list of the configuration values.
 
-	* github_username (:class:`str`\) - The username of the GitHub account that owns the repository this
-	  documentation corresponds to.
-
-	* github_repository (:class:`str`\) - The GitHub repository this documentation corresponds to.
-	* github_url (:class:`apeye.url.RequestsURL`\) - The URL of the GitHub repository.
-	* github_source_url (:class:`apeye.url.RequestsURL`\) - The base URL for the source code on GitHub.
-	* github_issues_url (:class:`apeye.url.RequestsURL`\) - The GitHub issues URL for this repository.
-	* github_pull_url (:class:`apeye.url.RequestsURL`\) - The GitHub pull requests URL for this repository.
-	* conda_channels (:class:`~typing.List`\[:class:`str:`\]) -
-	  The conda channels required to install the library from Anaconda.
-	* docutils_tab_width (:class:`int`\) - The number of spaces docutils converts a tab into.
-	* wikipedia_lang (:class:`str`\) - The Wikipedia language to use for :rst:role:`wikipedia` roles.
-	* assets_dir (:class:`str`\) - The directory in which the files linked to by the :rst:role:`asset` roles cam be found..
-
-	:param app:
+	:param app: The Sphinx app.
 	:param config:
 	:type config: :class:`~sphinx.config.Config`
 	"""

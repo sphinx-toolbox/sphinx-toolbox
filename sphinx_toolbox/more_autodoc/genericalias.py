@@ -5,11 +5,14 @@
 Documenter for alias, which usually manifest as
 `type aliases <https://docs.python.org/3/library/typing.html#type-aliases>`_.
 
-.. versionadded:: 0.6.0
+.. extensions:: sphinx_toolbox.more_autodoc.genericalias
 
 .. note::
 
 	:mod:`sphinx_toolbox.more_autodoc.genericalias` is only supported on Python 3.7 and above.
+
+.. versionadded:: 0.6.0
+
 """  # noqa D400
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -73,6 +76,7 @@ from sphinx.locale import _
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
+from sphinx_toolbox.utils import SphinxExtMetadata
 
 __all__ = ["PrettyGenericAliasDocumenter", "setup"]
 
@@ -98,7 +102,7 @@ class PrettyGenericAliasDocumenter(GenericAliasDocumenter):  # pragma: no cover 
 		DataDocumenter.add_content(self, content)
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.genericalias`.
 

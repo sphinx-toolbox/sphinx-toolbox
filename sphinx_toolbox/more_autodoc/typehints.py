@@ -5,8 +5,6 @@ r"""
 | Enhanced version of `sphinx-autodoc-typehints <https://pypi.org/project/sphinx-autodoc-typehints/>`_.
 | Copyright (c) Alex Grönholm
 
-.. versionadded:: 0.4.0
-
 The changes are:
 
 * *None* is formatted as :py:obj:`None` and not ``None``.
@@ -47,6 +45,10 @@ The changes are:
   The ``75`` is the priority of the hook. ``< 20`` runs before ``fget`` functions are extracted from properties,
   and ``< 100`` runs before ``__init__`` functions are extracted from classes.
 
+.. extensions:: sphinx_toolbox.more_autodoc.typehints
+
+.. versionadded:: 0.4.0
+
 .. versionchanged:: 0.6.0
 
 	Moved from :mod:`sphinx_toolbox.autodoc_typehints`.
@@ -84,11 +86,18 @@ import inspect
 import json
 import operator
 import sys
+import types
 from types import FunctionType, ModuleType
 from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, TypeVar
 
 # 3rd party
 import sphinx_autodoc_typehints  # type: ignore
+from domdf_python_tools.typing import (
+		ClassMethodDescriptorType,
+		MethodDescriptorType,
+		MethodWrapperType,
+		WrapperDescriptorType
+		)
 from domdf_python_tools.utils import etc
 from sphinx.application import Sphinx
 from sphinx.errors import ExtensionError
@@ -97,8 +106,7 @@ from sphinx.util.inspect import stringify_signature
 
 # this package
 from sphinx_toolbox import __version__
-from sphinx_toolbox.more_autodoc.utils import is_namedtuple
-from sphinx_toolbox.utils import code_repr, escape_trailing__
+from sphinx_toolbox.utils import SphinxExtMetadata, code_repr, escape_trailing__, is_namedtuple
 
 try:
 	# 3rd party
@@ -221,6 +229,26 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		return ":py:obj:`None`"
 	elif annotation is Ellipsis:
 		return "..."
+	elif annotation is types.GetSetDescriptorType:
+		return ":py:data:`types.GetSetDescriptorType:`"
+	elif annotation is types.MemberDescriptorType:
+		return ":py:data:`types.MemberDescriptorType:`"
+	elif annotation is types.MappingProxyType:
+		return ":py:data:`types.MappingProxyType:`"
+	elif annotation is types.ModuleType:
+		return ":py:data:`types.ModuleType:`"
+	elif annotation is ClassMethodDescriptorType:
+		return ":py:data:`types.ClassMethodDescriptorType:`"
+	elif annotation is MethodDescriptorType:
+		return ":py:data:`types.MethodDescriptorType:`"
+	elif annotation is MethodWrapperType:
+		return ":py:data:`types.MethodWrapperType:`"
+	elif annotation is WrapperDescriptorType:
+		return ":py:data:`types.WrapperDescriptorType:`"
+	elif annotation is types.BuiltinFunctionType:
+		return ":py:data:`types.BuiltinFunctionType:`"
+	elif annotation is types.MethodType:
+		return ":py:data:`types.MethodType:`"
 
 	try:
 		module = get_annotation_module(annotation)
@@ -261,7 +289,7 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		formatted_args = "\\[\\[" + ", ".join(format_annotation(arg) for arg in args[:-1]) + ']'
 		formatted_args += ", " + format_annotation(args[-1]) + ']'
 	elif full_name == "typing.Literal":
-		# TODO: Bool?
+		# TODO: Bool, Enums?
 		formatted_args = "\\[" + ", ".join(code_repr(arg) for arg in args) + ']'
 
 	if args and not formatted_args:
@@ -550,7 +578,7 @@ def process_docstring(
 				lines.insert(insert_index, f":rtype: {formatted_annotation}")
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.typehints`.
 

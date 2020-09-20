@@ -4,11 +4,45 @@
 """
 Add hyperlinks to source files, either on GitHub or in the documentation itself.
 
+.. extensions:: sphinx_toolbox.source
+
 If you're looking for a ``[source]`` button to go at the end of your class and
 function signatures, checkout
 `sphinx.ext.linkcode <https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html>`__
 and
 `sphinx.ext.viewcode <https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html>`__
+
+
+Usage
+-------
+
+.. confval:: source_link_target
+	:type: :class:`str`
+	:required: False
+	:default: ``'Sphinx'``
+
+	The target of the source link, either ``'GitHub'`` or ``'Sphinx'``.
+	Case insensitive.
+
+
+.. rst:role:: source
+
+	Shows a link to the given source file, either on GitHub or within the Sphinx documentation.
+
+	By default, the link points to the code within the documentation,
+	but can be configured to point to GitHub by setting :confval:`source_link_target` to ``'GitHub'``.
+
+	**Example**
+
+	.. rest-example::
+
+		:source:`sphinx_toolbox/config.py`
+
+		Here is the :source:`source code <sphinx_toolbox/config.py>`
+
+
+API Reference
+--------------
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -48,6 +82,9 @@ from docutils.parsers.rst.states import Inliner
 from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.util import split_explicit_title
+
+# this package
+from sphinx_toolbox.utils import SphinxExtMetadata
 
 __all__ = ["source_role"]
 
@@ -124,9 +161,9 @@ def source_role(
 	return nodes_, messages
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
-	Setup :mod:`sphinx_toolbox.more_autodoc.sourcelink`.
+	Setup :mod:`sphinx_toolbox.source`.
 
 	:param app: The Sphinx app.
 	"""
@@ -139,6 +176,8 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 
 	# The target for the source link. One of GitHub or Sphinx (GitLab coming soon)
 	app.add_config_value("source_link_target", "Sphinx", "env", types=[str])
+
+	app.setup_extension("sphinx_toolbox.github")
 
 	return {
 			"version": __version__,

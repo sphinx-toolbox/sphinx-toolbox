@@ -56,61 +56,18 @@ Extensions to :mod:`sphinx.ext.autodoc`.
 #  |  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-# stdlib
-import warnings
-from types import ModuleType
-from typing import Any, Dict, List
-
 # 3rd party
-import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 
 # this package
 from sphinx_toolbox import __version__
-from sphinx_toolbox.utils import flag
+from sphinx_toolbox.more_autodoc.no_docstring import automodule_add_nodocstring, no_docstring_process_docstring
+from sphinx_toolbox.utils import SphinxExtMetadata
 
 __all__ = ["setup"]
 
 
-def automodule_add_nodocstring(app) -> None:
-	"""
-	Add the ``:no-docstring:`` option to automodule directives to exclude the docstring from the output.
-
-	:param app: The Sphinx app.
-	"""
-
-	sphinx.ext.autodoc.ModuleDocumenter.option_spec["no-docstring"] = flag
-
-	app.setup_extension("sphinx.ext.autodoc")
-	app.connect("autodoc-process-docstring", no_docstring_process_docstring, priority=1000)
-
-
-def no_docstring_process_docstring(
-		app: Sphinx,
-		what,
-		name: str,
-		obj,
-		options,
-		lines: List[str],
-		):
-	"""
-	Process the docstring of a module, and remove its docstring of the ``no-docstring`` flag was set..
-
-	:param app: The Sphinx app
-	:param what:
-	:param name: The name of the object being documented
-	:param obj: The object being documented.
-	:param options: Mapping of autodoc options to values.
-	:param lines: List of strings representing the current contents of the docstring.
-	"""
-
-	if isinstance(obj, ModuleType):
-		no_docstring = options.get("no-docstring", False)
-		if no_docstring:
-			lines.clear()
-
-
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc`.
 
@@ -126,8 +83,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.setup_extension("sphinx_toolbox.more_autodoc.typehints")
 	app.setup_extension("sphinx_toolbox.more_autodoc.variables")
 	app.setup_extension("sphinx_toolbox.more_autodoc.sourcelink")
-
-	automodule_add_nodocstring(app)
+	app.setup_extension("sphinx_toolbox.more_autodoc.no_docstring")
 
 	return {
 			"version": __version__,

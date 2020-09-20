@@ -5,6 +5,8 @@ r"""
 Documenter for module level variables, similar to :rst:dir:`autodata` but
 with a different appearance and more customisation options.
 
+.. extensions:: sphinx_toolbox.more_autodoc.variables
+
 .. versionadded:: 0.6.0
 
 .. versionchanged:: 0.7.0
@@ -83,7 +85,7 @@ from sphinx.util.inspect import object_description, safe_getattr
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
-from sphinx_toolbox.utils import flag
+from sphinx_toolbox.utils import SphinxExtMetadata, flag
 
 __all__ = [
 		"VariableDocumenter",
@@ -100,8 +102,6 @@ def get_variable_type(documenter: Documenter) -> str:
 	Returns the type annotation for a variable.
 
 	:param documenter:
-
-	:return:
 	"""
 
 	try:
@@ -190,9 +190,15 @@ class VariableDocumenter(DataDocumenter):
 					self.add_line(type_template % self.options["type"], sourcename)
 				else:
 					# obtain type annotation for this data
-					line = type_template % get_variable_type(self)
-					if line != type_template[:-2]:
-						self.add_line(line, sourcename)
+					the_type = get_variable_type(self)
+					if not the_type.strip():
+						try:
+							the_type = format_annotation(type(self.object))
+						except Exception:
+							return
+
+					line = type_template % the_type
+					self.add_line(line, sourcename)
 
 		else:
 			super().add_directive_header(sig)
@@ -206,6 +212,10 @@ class TypedAttributeDocumenter(AttributeDocumenter):
 	Specialized Documenter subclass for attributes.
 
 	.. versionadded:: 0.7.0
+
+	.. versionchanged:: 1.0.0
+
+		Now uses the type of the variable if it is not explicitly annotated.
 	"""  # noqa D400
 
 	def add_directive_header(self, sig: str):
@@ -242,9 +252,15 @@ class TypedAttributeDocumenter(AttributeDocumenter):
 					self.add_line(type_template % self.options["type"], sourcename)
 				else:
 					# obtain type annotation for this attribute
-					line = type_template % get_variable_type(self)
-					if line != type_template[:-2]:
-						self.add_line(line, sourcename)
+					the_type = get_variable_type(self)
+					if not the_type.strip():
+						try:
+							the_type = format_annotation(type(self.object))
+						except Exception:
+							return
+
+					line = type_template % the_type
+					self.add_line(line, sourcename)
 
 		else:
 			super().add_directive_header(sig)
@@ -259,6 +275,10 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 	because they are instance attributes (e.g. assigned in ``__init__``).
 
 	.. versionadded:: 0.7.0
+
+	.. versionchanged:: 1.0.0
+
+		Now uses the type of the variable if it is not explicitly annotated.
 	"""  # noqa D400
 
 	objtype = sphinx.ext.autodoc.InstanceAttributeDocumenter.objtype
@@ -318,7 +338,7 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 		super().add_content(more_content, no_docstring=True)
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.variables`.
 

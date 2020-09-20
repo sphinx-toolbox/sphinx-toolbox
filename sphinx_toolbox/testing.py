@@ -60,6 +60,7 @@ Functions for testing Sphinx extensions.
 
 # stdlib
 import copy
+import typing
 from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, Type, Union
 
 # 3rd party
@@ -86,6 +87,10 @@ from sphinx.registry import SphinxComponentRegistry
 from sphinx.roles import XRefRole
 from sphinx.util import docutils
 from sphinx.util.typing import RoleFunction, TitleGetter
+
+if typing.TYPE_CHECKING:
+	# this package
+	from sphinx_toolbox import SphinxExtMetadata
 
 __all__ = [
 		"Sphinx",
@@ -525,14 +530,18 @@ class RunSetupOutput(NamedTuple):
 	:class:`~typing.NamedTuple` representing the output from :func:`~sphinx_toolbox.testing.run_setup`.
 	"""
 
-	setup_ret: Dict[str, Any]  #: The output from the ``setup()`` function.
+	setup_ret: Union[Dict[str, Any], "SphinxExtMetadata"]  #: The output from the ``setup()`` function.
 	directives: Dict[str, Callable]  #: Mapping of directive names to directive functions.
 	roles: Dict[str, Callable]  #: Mapping of role names to role functions.
 	additional_nodes: Set[Type[Any]]  #: Set of custom docutils nodes registered in ``setup()``.
 	app: Sphinx  #: Instance of :class:`sphinx-toolbox.testing.Sphinx`.
 
 
-_setup_func_type = Union[Callable[[sphinx.application.Sphinx], Dict[str, Any]], Callable[[Sphinx], Dict[str, Any]]]
+_sphinx_dict_setup = Callable[[sphinx.application.Sphinx], Dict[str, Any]]
+_sphinx_metadata_setup = Callable[[sphinx.application.Sphinx], "SphinxExtMetadata"]
+_fake_dict_setup = Callable[[Sphinx], Dict[str, Any]]
+_fake_metadata_setup = Callable[[Sphinx], "SphinxExtMetadata"]
+_setup_func_type = Union[_sphinx_dict_setup, _sphinx_metadata_setup, _fake_dict_setup, _fake_metadata_setup]
 
 
 def run_setup(setup_func: _setup_func_type, ) -> RunSetupOutput:  # , buildername: str = "html"

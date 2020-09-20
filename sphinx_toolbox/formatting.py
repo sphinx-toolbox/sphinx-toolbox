@@ -4,14 +4,33 @@
 """
 Directives, roles and nodes for text formatting.
 
-This can be used as a standalone Sphinx extension. Enable it by adding the following
-to the ``extensions`` variable in your ``conf.py``:
-
 .. extensions:: sphinx_toolbox.formatting
-	:no-preamble:
-	:no-postamble:
 
 .. versionadded:: 0.2.0
+
+
+Usage
+-------
+
+.. rst:role:: iabbr
+
+	An abbreviation. If the role content contains a parenthesized  explanation,
+	it will be treated specially: it will be shown in a tool-tip in HTML,
+	and output only once in LaTeX.
+
+	Unlike Sphinx's :rst:role:`abbr` role, this one shows the abbreviation in italics.
+
+	.. versionadded:: 0.2.0
+
+	**Example**
+
+	.. rest-example::
+
+		:iabbr:`LIFO (last-in, first-out)`
+
+
+API Reference
+---------------
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -38,7 +57,7 @@ to the ``extensions`` variable in your ``conf.py``:
 #
 
 # stdlib
-from typing import Any, Dict, List, Tuple
+from typing import List, Tuple
 
 # 3rd party
 from docutils import nodes
@@ -51,6 +70,7 @@ from sphinx.writers.latex import LaTeXTranslator
 
 # this package
 from sphinx_toolbox import __version__
+from sphinx_toolbox.utils import SphinxExtMetadata
 
 __all__ = [
 		"ItalicAbbreviationNode",
@@ -164,13 +184,11 @@ def latex_depart_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviatio
 	translator.body.append("}")
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
-	Setup :mod:`sphinx-toolbox.formatting`.
+	Setup :mod:`sphinx_toolbox.formatting`.
 
-	:param app:
-
-	:return:
+	:param app: The Sphinx app.
 
 	.. versionadded:: 0.2.0
 	"""

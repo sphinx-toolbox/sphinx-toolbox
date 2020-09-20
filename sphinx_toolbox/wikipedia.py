@@ -4,21 +4,47 @@
 """
 Sphinx extension to create links to Wikipedia articles.
 
+.. extensions:: sphinx_toolbox.wikipedia
+
 .. versionadded:: 0.2.0
 
 
-**Example**
+Usage
+------
 
-.. rest-example::
+.. confval:: wikipedia_lang
+	:type: :class:`str`
+	:required: False
+	:default: ``'en'``
 
-	:wikipedia:`Sphinx`
+	The Wikipedia language to use for :rst:role:`wikipedia` roles.
 
-	:wikipedia:`mythical creature <Sphinx>`
+	.. versionadded:: 0.2.0
 
-	:wikipedia:`:zh:斯芬克斯`
 
-	:wikipedia:`Answer to the Ultimate Question of Life, the Universe, and Everything <:de:42 (Antwort)>`
+.. rst:role:: wikipedia
 
+	Shows a link to the given article on Wikipedia.
+
+	The title and language can be customised.
+
+
+	**Example**
+
+	.. rest-example::
+
+		:wikipedia:`Sphinx`
+
+		:wikipedia:`mythical creature <Sphinx>`
+
+		:wikipedia:`:zh:斯芬克斯`
+
+		:wikipedia:`Answer to the Ultimate Question of Life, the Universe, and Everything <:de:42 (Antwort)>`
+
+
+
+API Reference
+----------------
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -49,7 +75,7 @@ Sphinx extension to create links to Wikipedia articles.
 
 # stdlib
 import re
-from typing import Dict, List, Sequence, Tuple, Union
+from typing import Any, Dict, List, Tuple
 from urllib.parse import quote
 
 # 3rd party
@@ -57,8 +83,11 @@ from apeye.url import URL
 from docutils import nodes, utils
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
-from sphinx import addnodes
+from sphinx.application import Sphinx
 from sphinx.util.nodes import split_explicit_title
+
+# this package
+from sphinx_toolbox.utils import SphinxExtMetadata
 
 __all__ = ["make_wikipedia_link"]
 
@@ -73,7 +102,7 @@ def make_wikipedia_link(
 		inliner: Inliner,
 		options: Dict = {},
 		content: List[str] = []
-		) -> Tuple[Sequence[Union[nodes.reference, addnodes.only]], List[system_message]]:
+		) -> Tuple[List[nodes.reference], List[system_message]]:
 	"""
 	Adds a link to the given article on :wikipedia:`Wikipedia`.
 
@@ -90,8 +119,6 @@ def make_wikipedia_link(
 		To be interpreted by the function.
 
 	:return: A list containing the created node, and a list containing any messages generated during the function.
-
-	.. versionadded:: 0.2.0
 	"""
 
 	env = inliner.document.settings.env
@@ -112,3 +139,24 @@ def make_wikipedia_link(
 
 	node = nodes.reference(rawtext, title, refuri=str(ref), **options)
 	return [node], []
+
+
+def setup(app: Sphinx) -> SphinxExtMetadata:
+	"""
+	Setup :mod:`sphinx_toolbox.wikipedia`.
+
+	:param app: The Sphinx app.
+
+	.. versionadded:: 1.0.0
+	"""
+
+	# this package
+	from sphinx_toolbox import __version__
+
+	app.add_role("wikipedia", make_wikipedia_link)
+	app.add_config_value("wikipedia_lang", "en", "env", [str])
+
+	return {
+			"version": __version__,
+			"parallel_read_safe": True,
+			}

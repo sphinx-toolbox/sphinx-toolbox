@@ -4,7 +4,10 @@ from apeye.url import RequestsURL
 from domdf_python_tools.testing import count
 
 # this package
+import sphinx_toolbox
+from sphinx_toolbox import issues
 from sphinx_toolbox.issues import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
+from sphinx_toolbox.testing import run_setup
 from sphinx_toolbox.utils import make_github_url
 from tests.common import AttrDict, error, error_codes, info, severe, warning
 
@@ -268,3 +271,18 @@ def test_depart_issue_node():
 # 				tag_count += 1
 #
 # 	assert tag_count == 1
+
+
+def test_setup():
+	setup_ret, directives, roles, additional_nodes, app = run_setup(issues.setup)
+
+	assert setup_ret == {"version": sphinx_toolbox.__version__, "parallel_read_safe": True}
+	assert roles == {
+			"issue": issue_role,
+			"pr": pull_role,
+			"pull": pull_role,
+			}
+
+	assert additional_nodes == {IssueNode}
+
+	assert app.registry.translation_handlers == {"html": {"IssueNode": (visit_issue_node, depart_issue_node), }}

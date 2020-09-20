@@ -33,27 +33,46 @@ General utility functions.
 
 # stdlib
 import functools
-from typing import Any, Callable, Iterable, Mapping, TypeVar
+import re
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Pattern, Tuple, Type, TypeVar, cast
 
 # 3rd party
 from apeye.url import RequestsURL
 from docutils.nodes import Node
+from domdf_python_tools.doctools import prettify_docstrings
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
+from sphinx.errors import PycodeError
+from sphinx.ext.autodoc import Documenter, logger
+from sphinx.locale import __
+from sphinx.pycode import ModuleAnalyzer
 
 __all__ = [
 		"make_github_url",
 		"GITHUB_COM",
 		"flag",
-		"word_join",
 		"Purger",
 		"OptionSpec",
 		"get_first_matching",
 		"escape_trailing__",
 		"code_repr",
+		"SphinxExtMetadata",
+		"begin_generate",
+		"unknown_module_warning",
+		"filter_members_warning",
+		"is_namedtuple",
+		"parse_parameters",
+		"Param",
+		"typed_param_regex",
+		"untyped_param_regex",
+		"typed_flag_regex",
+		"allow_subclass_add",
 		]
 
+# 3rd party
 #: Instance of :class:`apeye.url.RequestsURL` that points to the GitHub website.
+from typing_extensions import TypedDict
+
 GITHUB_COM: RequestsURL = RequestsURL("https://github.com")
 
 #: Type hint for the ``option_spec`` variable of Docutils directives.
@@ -91,34 +110,7 @@ def flag(argument: Any) -> bool:
 		return True
 
 
-def word_join(iterable: Iterable[str], use_repr: bool = False, oxford: bool = False) -> str:
-	"""
-	Join the given list of strings in a natural manner, with 'and' to join the last two elements.
-
-	:param iterable:
-	:param use_repr: Whether to join the ``repr`` of each object.
-	:param oxford: Whether to use an oxford comma when joining the last two elements.
-		Always :py:obj:`False` if there are less than three elements.
-	"""
-
-	if use_repr:
-		words = [repr(w) for w in iterable]
-	else:
-		words = list(iterable)
-
-	if len(words) == 0:
-		return ''
-	elif len(words) == 1:
-		return words[0]
-	elif len(words) == 2:
-		return " and ".join(words)
-	else:
-		if oxford:
-			return ", ".join(words[:-1]) + f", and {words[-1]}"
-		else:
-			return ", ".join(words[:-1]) + f" and {words[-1]}"
-
-
+@prettify_docstrings
 class Purger:
 	"""
 	Class to purge redundant nodes.
@@ -130,11 +122,14 @@ class Purger:
 	def __init__(self, attr_name: str):
 		self.attr_name = str(attr_name)
 
+	def __repr__(self) -> str:
+		return f"{self.__class__.__name__}({self.attr_name!r})"
+
 	def purge_nodes(self, app: Sphinx, env: BuildEnvironment, docname: str) -> None:
 		"""
 		Remove all redundant :class:`sphinx_toolbox.installation.InstallationDirective` nodes.
 
-		:param app:
+		:param app: The Sphinx app.
 		:param env:
 		:param docname: The name of the document to remove nodes for.
 		"""
@@ -264,3 +259,289 @@ def code_repr(obj: Any) -> str:
 	"""
 
 	return f"``{obj!r}``"
+
+
+class SphinxExtMetadata(TypedDict, total=False):
+	"""
+	:class:`typing.TypedDict` representing the metadata dictionary returned by Sphinx extensions' ``setup`` functions.
+
+	This is treated by Sphinx as metadata of the extension.
+	"""
+
+	version: str
+	"""
+	A string that identifies the extension version.
+
+	It is used for extension version requirement checking and informational purposes.
+
+	If not given, ``'unknown version'`` is substituted.
+	"""
+
+	env_version: int
+	"""
+	An integer that identifies the version of env data structure if the extension stores any data to environment.
+
+	It is used to detect the data structure has been changed from last build.
+	Extensions have to increment the version when data structure has changed.
+
+	If not given, Sphinx considers the extension does not stores any data to environment.
+	"""
+
+	parallel_read_safe: bool
+	"""
+	A boolean that specifies if parallel reading of source files can be used when the extension is loaded.
+
+	It defaults to :py:obj:`False`, i.e. you have to explicitly specify your extension
+	to be parallel-read-safe after checking that it is.
+	"""
+
+	parallel_write_safe: bool
+	"""
+	A boolean that specifies if parallel writing of output files can be used when the extension is loaded.
+
+	Since extensions usually don’t negatively influence the process, this defaults to :py:obj:`True`.
+	"""
+
+
+def begin_generate(
+		documenter: Documenter,
+		real_modname: Optional[str] = None,
+		check_module: bool = False,
+		) -> Optional[str]:
+	"""
+	Boilerplate for the top of ``generate`` in :class:`sphinx.ext.autodoc.Documenter` subclasses.
+
+	:param documenter:
+	:param real_modname:
+	:param check_module:
+
+	:return: The ``sourcename``, or :py:obj:`None` if certain conditions are met,
+		to indicate that the Documenter class should exit early.
+
+	.. versionadded:: 0.2.0
+	"""
+
+	# Do not pass real_modname and use the name from the __module__
+	# attribute of the class.
+	# If a class gets imported into the module real_modname
+	# the analyzer won't find the source of the class, if
+	# it looks in real_modname.
+
+	if not documenter.parse_name():
+		# need a module to import
+		unknown_module_warning(documenter)
+		return None
+
+	# now, import the module and get object to document
+	if not documenter.import_object():
+		return None
+
+	# If there is no real module defined, figure out which to use.
+	# The real module is used in the module analyzer to look up the module
+	# where the attribute documentation would actually be found in.
+	# This is used for situations where you have a module that collects the
+	# functions and classes of internal submodules.
+	guess_modname = documenter.get_real_modname()
+	documenter.real_modname = real_modname or guess_modname
+
+	# try to also get a source code analyzer for attribute docs
+	try:
+		documenter.analyzer = ModuleAnalyzer.for_module(documenter.real_modname)  # type: ignore
+		# parse right now, to get PycodeErrors on parsing (results will
+		# be cached anyway)
+		documenter.analyzer.find_attr_docs()
+
+	except PycodeError as err:
+		logger.debug("[autodoc] module analyzer failed: %s", err)
+		# no source file -- e.g. for builtin and C modules
+		documenter.analyzer = None  # type: ignore
+		# at least add the module.__file__ as a dependency
+		if hasattr(documenter.module, "__file__") and documenter.module.__file__:
+			documenter.directive.filename_set.add(documenter.module.__file__)
+	else:
+		documenter.directive.filename_set.add(documenter.analyzer.srcname)
+
+	if documenter.real_modname != guess_modname:
+		# Add module to dependency list if target object is defined in other module.
+		try:
+			analyzer = ModuleAnalyzer.for_module(guess_modname)
+			documenter.directive.filename_set.add(analyzer.srcname)
+		except PycodeError:
+			pass
+
+	# check __module__ of object (for members not given explicitly)
+	if check_module:
+		if not documenter.check_module():
+			return None
+
+	sourcename = documenter.get_sourcename()
+
+	# make sure that the result starts with an empty line.  This is
+	# necessary for some situations where another directive preprocesses
+	# reST and no starting newline is present
+	documenter.add_line('', sourcename)
+
+	return sourcename
+
+
+def unknown_module_warning(documenter: Documenter) -> None:
+	"""
+	Log a warning that the module to import the object from is unknown.
+
+	:param documenter:
+
+	.. versionadded:: 0.2.0
+	"""
+
+	logger.warning(
+			__(
+					"don't know which module to import for autodocumenting "
+					'%r (try placing a "module" or "currentmodule" directive '
+					"in the document, or giving an explicit module name)"
+					) % documenter.name,
+			type="autodoc"
+			)
+
+
+def filter_members_warning(member, exception: Exception) -> None:
+	"""
+	Log a warning when filtering members.
+
+	:param member:
+	:param exception:
+
+	.. versionadded:: 0.2.0
+	"""
+
+	logger.warning(
+			__("autodoc: failed to determine %r to be documented, the following exception was raised:\n%s"),
+			member,
+			exception,
+			type="autodoc"
+			)
+
+
+class Param(TypedDict):
+	"""
+	:class:`~typing.TypedDict` to represent a parameter parsed from a class or function's docstring.
+
+	.. versionadded:: 0.8.0
+	"""
+
+	#: The docstring of the parameter.
+	doc: List[str]
+
+	#: The type of the parameter.
+	type: str
+
+
+typed_param_regex: Pattern = re.compile(
+		r"^:(param|parameter|arg|argument)\s*([A-Za-z_]+\s+)([A-Za-z_]+\s*):\s*(.*)"
+		)
+"""
+Regex to match ``:param <type> <name>: <docstring>`` flags.
+
+.. versionadded:: 0.8.0
+"""
+
+untyped_param_regex: Pattern = re.compile(r"^:(param|parameter|arg|argument)\s*([A-Za-z_]+\s*):\s*(.*)")
+"""
+Regex to match ``:param <name>: <docstring>`` flags.
+
+.. versionadded:: 0.8.0
+"""
+
+typed_flag_regex: Pattern = re.compile(r"^:(paramtype|type)\s*([A-Za-z_]+\s*):\s*(.*)")
+"""
+Regex to match ``:type <name>: <type>`` flags.
+
+.. versionadded:: 0.8.0
+"""
+
+
+def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Param], List[str], List[str]]:
+	"""
+	Parse parameters from the docstring of a class/function.
+
+	:param lines: The lines of the docstring
+	:param tab_size:
+
+	:return: A dictionary mapping parameter names to their docstrings and types, a list of docstring lines that
+		appeared before the parameters, and the list of docstring lines that appear after the parameters.
+
+	.. versionadded:: 0.8.0
+	"""
+
+	a_tab = " " * tab_size
+
+	params: Dict[str, Param] = {}
+	last_arg: Optional[str] = None
+
+	pre_output: List[str] = []
+	post_output: List[str] = []
+
+	def add_empty(param_name: str):
+		if param_name not in params:
+			params[param_name] = {"doc": [], "type": ''}
+
+	for line in lines:
+		typed_m = typed_param_regex.match(line)
+		untyped_m = untyped_param_regex.match(line)
+		type_only_m = typed_flag_regex.match(line)
+
+		if typed_m:
+			last_arg = typed_m.group(3).strip()
+			add_empty(cast(str, last_arg))
+			params[last_arg]["doc"] = [typed_m.group(4)]  # type: ignore
+			params[last_arg]["type"] = typed_m.group(2).strip()  # type: ignore
+
+		elif untyped_m:
+			last_arg = untyped_m.group(2).strip()
+			add_empty(cast(str, last_arg))
+			params[last_arg]["doc"] = [untyped_m.group(3)]  # type: ignore
+
+		elif type_only_m:
+			add_empty(type_only_m.group(2))
+			params[type_only_m.group(2)]["type"] = type_only_m.group(3)
+
+		elif line.startswith(a_tab) and last_arg is not None:
+			params[last_arg]["doc"].append(line)
+
+		elif last_arg is None:
+			pre_output.append(line)
+
+		else:
+			post_output.append(line)
+
+	return params, pre_output, post_output
+
+
+def is_namedtuple(obj: Any) -> bool:
+	"""
+	Returns whether the given class is a :class:`collections.namedtuple`.
+
+	:param obj:
+
+	.. versionadded:: 0.8.0
+	"""
+
+	return isinstance(obj, type) and issubclass(obj, tuple) and hasattr(obj, "_fields")
+
+
+def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]):
+	"""
+	Add the given autodocumenters, but only if a subclass of it is not
+	already registered.
+
+	This allows other libraries to extend the autodocumenters.
+
+	:param app: The Sphinx app.
+	:param documenters:
+
+	.. versionadded:: 0.8.0
+	"""
+
+	for cls in documenters:
+		existing_documenter = app.registry.documenters.get(cls.objtype)
+		if existing_documenter is None or not issubclass(existing_documenter, cls):
+			app.add_autodocumenter(cls, override=True)
