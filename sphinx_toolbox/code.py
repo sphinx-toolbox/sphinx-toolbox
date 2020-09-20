@@ -3,6 +3,51 @@
 #  code.py
 """
 Customised ``.. code-block::`` directive with an adjustable indent size.
+
+.. extensions:: sphinx_toolbox.code
+
+
+Usage
+------
+
+.. rst:directive:: .. code-block:: [language]
+                   .. sourcecode:: [language]
+
+	Customised ``.. code-block::`` directive with an adjustable indent size.
+
+	.. rst:directive:option:: tab-width: number
+		:type: number
+
+		Sets the size of the indentation in spaces.
+
+
+	All other options from :rst:dir:`sphinx:code-block` are available,
+	see the `Sphinx documentation`_ for details.
+
+	.. _Sphinx documentation: https://www.sphinx-doc.org/en/3.x/usage/restructuredtext/directives.html#directive-code-block
+
+	**Examples**
+
+	.. rest-example::
+
+		.. code-block:: python
+
+			def print(text):
+				sys.stdout.write(text)
+
+
+	.. rest-example::
+
+		.. code-block:: python
+			:tab-width: 8
+
+			def print(text):
+				sys.stdout.write(text)
+
+
+API Reference
+----------------
+
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -61,12 +106,13 @@ from docutils.nodes import Node
 from docutils.parsers.rst import directives
 from docutils.statemachine import StringList
 from domdf_python_tools.utils import convert_indents
+from sphinx.application import Sphinx
 from sphinx.directives.code import CodeBlock as __BaseCodeBlock
 
 # this package
-from sphinx_toolbox.utils import OptionSpec
+from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata
 
-__all__ = ["CodeBlock"]
+__all__ = ["CodeBlock", "setup"]
 
 
 class CodeBlock(__BaseCodeBlock):
@@ -106,3 +152,28 @@ class CodeBlock(__BaseCodeBlock):
 		self.content = StringList(code.split("\n"))  # type: ignore
 
 		return super().run()
+
+
+def setup(app: Sphinx) -> SphinxExtMetadata:
+	"""
+	Setup :mod:`sphinx_toolbox.code`.
+
+	:param app: The Sphinx app.
+
+	.. versionadded:: 1.0.0
+	"""
+
+	# this package
+	from sphinx_toolbox import __version__
+
+	# Code block with customisable indent size.
+	app.add_directive("code-block", CodeBlock, override=True)
+	app.add_directive("sourcecode", CodeBlock, override=True)
+
+	# Hack to get the docutils tab size, as there doesn't appear to be any other way
+	app.setup_extension("sphinx_toolbox.tweaks.tabsize")
+
+	return {
+			"version": __version__,
+			"parallel_read_safe": True,
+			}

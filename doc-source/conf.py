@@ -48,7 +48,6 @@ extensions = [
 	'sphinxcontrib.default_values',
 	'sphinxcontrib.toctree_plus',
 	'seed_intersphinx_mapping',
-	'sphinx.ext.autosectionlabel',
 	'sphinx_removed_in',
 	'sphinx_toolbox.tweaks.param_dash',
 	]
@@ -138,3 +137,5 @@ autodoc_default_options = {
 				"__hash__",
 				]),
 		}
+
+set_type_checking_flag = True

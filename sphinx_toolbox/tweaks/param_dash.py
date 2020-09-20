@@ -84,6 +84,9 @@ from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 
+# this package
+from sphinx_toolbox.utils import SphinxExtMetadata
+
 __all__ = ["make_field", "setup"]
 
 
@@ -143,9 +146,9 @@ def make_field(
 	return nodes.field('', fieldname, fieldbody)
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
-	Setup :mod:`sphinx-toolbox.param_dash`.
+	Setup :mod:`sphinx_toolbox.param_dash`.
 
 	:param app:
 	"""

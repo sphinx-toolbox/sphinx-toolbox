@@ -4,12 +4,57 @@
 """
 The confval directive and role for configuration values.
 
-This can be used as a standalone Sphinx extension. Enable it by adding the following
-to the ``extensions`` variable in your ``conf.py``:
-
 .. extensions:: sphinx_toolbox.confval
-	:no-preamble:
-	:no-postamble:
+
+Usage
+-------
+
+.. rst:directive:: .. confval:: [name]
+
+	Used to document a configuration value.
+
+	.. rst:directive:option:: type
+		:type: string
+
+		Indicates the configuration value's type.
+
+	.. rst:directive:option:: required
+		:type: flag
+
+		Indicates the whether the configuration value is required.
+
+	.. rst:directive:option:: default
+		:type: string
+
+		Indicates the default value.
+
+
+	**Example:**
+
+	.. rest-example::
+
+		.. confval:: demo
+			:type: string
+			:default: ``"Hello World"``
+			:required: False
+
+
+
+.. rst:role:: confval
+
+	Role that provides a cross-reference to a :rst:dir:`confval` directive.
+
+	**Example:**
+
+	.. rest-example::
+
+		:confval:`demo`
+
+
+
+API Reference
+--------------
+
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -51,7 +96,7 @@ from sphinx.errors import ExtensionError
 from sphinx.roles import XRefRole
 
 # this package
-from sphinx_toolbox.utils import OptionSpec
+from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata
 
 __all__ = ["ConfigurationValue", "register_confval", "setup"]
 
@@ -90,7 +135,7 @@ def register_confval(app: Sphinx, override: bool = False) -> None:
 	"""
 	Create and register the ``confval`` role and directive.
 
-	:param app:
+	:param app: The Sphinx app.
 	:param override:
 	"""
 
@@ -110,13 +155,11 @@ def register_confval(app: Sphinx, override: bool = False) -> None:
 	object_types[name] = ObjType(name, name)
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
-	Setup :mod:`sphinx-toolbox.confval`.
+	Setup :mod:`sphinx_toolbox.confval`.
 
-	:param app:
-
-	:return:
+	:param app: The Sphinx app.
 
 	.. versionadded:: 0.7.0
 	"""

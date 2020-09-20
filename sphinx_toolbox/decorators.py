@@ -4,7 +4,34 @@
 """
 reStructuredText XRef role for decorators.
 
+.. extensions:: sphinx_toolbox.decorators
+
 .. versionadded:: 0.9.0
+
+
+Usage
+------
+
+.. rst:role:: deco
+
+	Adds a cross reference to a decorator, prefixed with an ``@``.
+
+	.. rest-example::
+
+		.. decorator:: my_decorator
+
+			A decorator.
+
+		:deco:`my_decorator`
+
+		:deco:`@my_decorator`
+
+		:deco:`Title <my_decorator>`
+
+
+API Reference
+----------------
+
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -66,6 +93,7 @@ from sphinx.environment import BuildEnvironment
 
 # this package
 from sphinx_toolbox import __version__
+from sphinx_toolbox.utils import SphinxExtMetadata
 
 __all__ = ["PyDecoXRefRole", "setup"]
 
@@ -100,7 +128,7 @@ class PyDecoXRefRole(PyXRefRole):
 		return title, target
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.decorators`.
 

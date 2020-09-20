@@ -33,11 +33,11 @@ jobs:
   include:
     - stage: test
       dist: bionic
-      python: 3.9-dev
+      python: 3.8
 
     - stage: test
       arch: arm64
-      python: 3.9-dev
+      python: 3.8
 
     - stage: deploy_pypi
       python: "3.6"

@@ -1,0 +1,6 @@
+{'rest': <class 'sphinx_toolbox.tweaks.tabsize.setup.<locals>.CustomRSTParser'>,
+ 'restructuredtext': <class 'sphinx_toolbox.tweaks.tabsize.setup.<locals>.CustomRSTParser'>,
+ 'restx': <class 'sphinx_toolbox.tweaks.tabsize.setup.<locals>.CustomRSTParser'>,
+ 'rst': <class 'sphinx_toolbox.tweaks.tabsize.setup.<locals>.CustomRSTParser'>,
+ 'rstx': <class 'sphinx_toolbox.tweaks.tabsize.setup.<locals>.CustomRSTParser'>,
+ 'rtxt': <class 'sphinx_toolbox.tweaks.tabsize.setup.<locals>.CustomRSTParser'>}

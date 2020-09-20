@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
 #
-#  autodoc_helpers.py
+#  tabsize.py
 """
-Helpers for writing extensions to autodoc.
+Hack to get the docutils tab size, as there doesn't appear to be any other way.
 
-.. versionadded:: 0.2.0
-
-.. deprecated:: 0.6.0
-
-	Use :mod:`sphinx_toolbox.more_autodoc.utils` instead.
-
-.. versionremoved:: 1.0.0
+.. versionadded:: 1.0.0
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -35,15 +29,41 @@ Helpers for writing extensions to autodoc.
 #
 
 # stdlib
-import warnings
+from typing import Union
+
+# 3rd party
+from docutils.nodes import document
+from docutils.statemachine import StringList
+from sphinx.application import Sphinx
+from sphinx.parsers import RSTParser
+
+__all__ = ["setup"]
 
 # this package
-from sphinx_toolbox.more_autodoc.utils import begin_generate, filter_members_warning, unknown_module_warning
+from sphinx_toolbox.utils import SphinxExtMetadata
 
-__all__ = ["begin_generate", "unknown_module_warning", "filter_members_warning"]
 
-warnings.warn(
-		"Importing from 'sphinx_toolbox.autodoc_helpers' is deprecated since 0.6.0 and "
-		"the module will be removed in 1.0.0.\nImport from 'sphinx_toolbox.more_autodoc.utils' instead.",
-		DeprecationWarning,
-		)
+def setup(app: Sphinx) -> SphinxExtMetadata:
+	"""
+	Setup :mod:`sphinx_toolbox.tweaks.tabsize`.
+
+	:param app: The Sphinx app.
+
+	.. versionadded:: 1.0.0
+	"""
+
+	# this package
+	from sphinx_toolbox import __version__
+
+	class CustomRSTParser(RSTParser):
+
+		def parse(self, inputstring: Union[str, StringList], document: document) -> None:
+			app.config.docutils_tab_width = document.settings.tab_width  # type: ignore
+			super().parse(inputstring, document)
+
+	app.add_source_parser(CustomRSTParser, override=True)
+
+	return {
+			"version": __version__,
+			"parallel_read_safe": True,
+			}

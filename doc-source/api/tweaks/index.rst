@@ -1,13 +1,11 @@
-==========================================
+=============================
 :mod:`sphinx_toolbox.tweaks`
-==========================================
+=============================
 
 .. automodule:: sphinx_toolbox.tweaks
 
 
-:mod:`sphinx_toolbox.tweaks.param_dash`
+:mod:`sphinx_toolbox.tweaks.tabsize`
 -----------------------------------------
 
-.. automodule:: sphinx_toolbox.tweaks.param_dash
-	:no-members:
-	:no-autosummary:
+.. automodule:: sphinx_toolbox.tweaks.tabsize

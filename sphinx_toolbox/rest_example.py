@@ -2,14 +2,54 @@
 #
 #  rest_example.py
 """
-The :rst:dir:`rest-example` directive.
-
-This can be used as a standalone Sphinx extension. Enable it by adding the following
-to the ``extensions`` variable in your ``conf.py``:
+Directive to show example reStructuredText and the rendered output.
 
 .. extensions:: sphinx_toolbox.rest_example
-	:no-preamble:
-	:no-postamble:
+
+
+Usage
+---------
+
+
+.. rst:directive:: rest-example
+
+	Directive to show example reStructuredText and the rendered output.
+
+	.. rst:directive:option:: force
+		:type: flag
+
+		If given, minor errors on highlighting are ignored.
+
+	.. rst:directive:option:: emphasize-lines: line numbers
+		:type: comma separated numbers
+
+		Emphasize particular lines of the code block:
+
+	.. rst:directive:option:: tab-width: number
+		:type: number
+
+		Sets the size of the indentation in spaces.
+
+	.. rst:directive:option:: dedent: number
+		:type: number
+
+		Strip indentation characters from the code block,
+
+
+	**Example**
+
+	.. rest-example::
+
+		.. rest-example::
+
+			:source:`sphinx_toolbox/config.py`
+
+			Here is the :source:`source code <sphinx_toolbox/config.py>`
+
+
+API Reference
+---------------
+
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -46,7 +86,7 @@ from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
 # this package
-from sphinx_toolbox.utils import OptionSpec, Purger
+from sphinx_toolbox.utils import OptionSpec, Purger, SphinxExtMetadata
 
 __all__ = ["reSTExampleDirective", "make_rest_example", "rest_example_purger", "setup"]
 
@@ -69,8 +109,6 @@ class reSTExampleDirective(SphinxDirective):
 	def run(self) -> List[nodes.Node]:
 		"""
 		Create the rest_example node.
-
-		:return:
 		"""
 
 		targetid = f'example-{self.env.new_serialno("sphinx-toolbox rest_example"):d}'
@@ -130,16 +168,15 @@ def make_rest_example(
 	return list(output)
 
 
+#: Purger to track rest-example nodes, and remove redundant ones.
 rest_example_purger = Purger("all_rest_example_nodes")
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
-	Setup :mod:`sphinx-toolbox.rest_example`.
+	Setup :mod:`sphinx_toolbox.rest_example`.
 
-	:param app:
-
-	:return:
+	:param app: The Sphinx app.
 
 	.. versionadded:: 0.7.0
 	"""

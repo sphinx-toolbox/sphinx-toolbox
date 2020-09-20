@@ -4,7 +4,9 @@ from docutils.nodes import inline, reference, system_message
 from sphinx import addnodes
 
 # this package
+from sphinx_toolbox import source
 from sphinx_toolbox.source import source_role
+from sphinx_toolbox.testing import run_setup
 from tests.common import AttrDict, error, info, severe, warning
 
 
@@ -62,3 +64,11 @@ def test_source_role_unknown_target(capsys):
 	assert isinstance(messages, list)
 	assert not nodes
 	assert isinstance(messages[0], system_message)
+
+
+def test_setup():
+	setup_ret, directives, roles, additional_nodes, app = run_setup(source.setup)
+
+	assert roles == {"source": source.source_role}
+	assert app.config.values["source_link_target"] == ("Sphinx", "env", [str])
+	assert app.registry.source_parsers == {}

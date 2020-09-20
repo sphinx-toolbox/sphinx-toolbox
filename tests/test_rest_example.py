@@ -1,5 +1,10 @@
+# 3rd party
+from sphinx.events import EventListener
+
 # this package
-from sphinx_toolbox.rest_example import make_rest_example
+from sphinx_toolbox import rest_example
+from sphinx_toolbox.rest_example import make_rest_example, rest_example_purger, reSTExampleDirective
+from sphinx_toolbox.testing import run_setup
 from tests.common import AttrDict
 
 
@@ -82,3 +87,16 @@ def test_make_rest_example():
 					"this is some content",
 					'',
 					]
+
+
+def test_setup():
+	setup_ret, directives, roles, additional_nodes, app = run_setup(rest_example.setup)
+
+	assert app.events.listeners == {
+			"env-purge-doc": [EventListener(id=0, handler=rest_example_purger.purge_nodes, priority=500), ],
+			}
+
+	assert directives == {
+			"rest-example": reSTExampleDirective,
+			}
+	assert app.registry.source_parsers == {}

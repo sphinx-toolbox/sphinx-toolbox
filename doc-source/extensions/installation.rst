@@ -7,9 +7,13 @@
 	:autosummary-members:
 	:no-members:
 
+API Reference
+--------------
+
 .. automodule:: sphinx_toolbox.installation
+	:no-docstring:
 	:autosummary-sections: Methods ;; Attributes
 	:exclude-members: sources
 
-.. autodata:: sphinx_toolbox.installation.sources
-	:annotation:
+.. autovariable:: sphinx_toolbox.installation.sources
+	:no-value:

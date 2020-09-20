@@ -1,8 +1,11 @@
 # 3rd party
 import pytest
+from sphinx.events import EventListener
 
 # this package
+from sphinx_toolbox import installation
 from sphinx_toolbox.installation import make_installation_instructions
+from sphinx_toolbox.testing import run_setup
 from tests.common import AttrDict
 
 
@@ -170,3 +173,22 @@ def test_make_installation_instructions():
 					"            conda install my_project",
 					'',
 					]
+
+
+def test_setup():
+	setup_ret, directives, roles, additional_nodes, app = run_setup(installation.setup)
+
+	assert app.events.listeners == {
+			"env-purge-doc": [
+					EventListener(id=0, handler=installation.installation_node_purger.purge_nodes, priority=500),
+					EventListener(id=1, handler=installation.extensions_node_purger.purge_nodes, priority=500),
+					],
+			}
+
+	assert app.config.values["conda_channels"] == ([], "env", [list])
+
+	assert directives == {
+			"installation": installation.InstallationDirective,
+			"extensions": installation.ExtensionsDirective,
+			}
+	assert app.registry.source_parsers == {}

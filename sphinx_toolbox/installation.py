@@ -2,14 +2,128 @@
 #
 #  installation.py
 """
-The :rst:dir:`installation` directive.
-
-This can be used as a standalone Sphinx extension. Enable it by adding the following
-to the ``extensions`` variable in your ``conf.py``:
-
 .. extensions:: sphinx_toolbox.installation
-	:no-preamble:
-	:no-postamble:
+
+
+Usage
+-------
+
+.. confval:: conda_channels
+	:type: :class:`~typing.List`\\[:class:`str`\\]
+	:required: False
+	:default: ``[]``
+
+	The conda channels required to install the library from Anaconda.
+	An alternative to setting it within the :rst:dir:`installation` directive.
+
+
+.. rst:directive:: extensions
+
+	Shows instructions on how to enable a Sphinx extension.
+
+	Takes a single argument -- the name of the extension.
+
+	.. rst:directive:option:: import-name
+		:type: string
+
+		The name used to import the extension, if different from the name of the extension.
+
+	.. rst:directive:option:: no-preamble
+		:type: flag
+
+		Disables the preamble text.
+
+	.. rst:directive:option:: no-postamble
+		:type: flag
+
+		Disables the postamble text.
+
+	.. rst:directive:option:: first
+		:type: flag
+
+		Puts the entry for extension before its dependencies.
+		By default is is placed at the end.
+
+		.. versionadded:: 0.4.0
+
+
+	**Example**
+
+	.. rest-example::
+
+		.. extensions:: sphinx-toolbox
+			:import-name: sphinx_toolbox
+
+			sphinx.ext.viewcode
+			sphinx_tabs.tabs
+			sphinx-prompt
+
+
+.. rst:directive:: installation
+
+	Adds a series of tabs providing installation instructions for the project from a number of sources.
+
+	The directive has a single required argument -- the name of the project.
+	If the project uses a different name on PyPI and/or Anaconda, the ``pypi-name`` and ``conda-name`` options can be used to set the name for those repositories.
+
+	.. rst:directive:option:: pypi
+		:type: flag
+
+		Flag to indicate the project can be installed from PyPI.
+
+	.. rst:directive:option:: pypi-name: name
+		:type: string
+
+		The name of the project on PyPI.
+
+	.. rst:directive:option:: conda
+		:type: flag
+
+		Flag to indicate the project can be installed with Conda.
+
+	.. rst:directive:option:: conda-name: name
+		:type: string
+
+		The name of the project on Conda.
+
+	.. rst:directive:option:: conda-channels: channels
+		:type: comma separated strings
+
+		Comma-separated list of required Conda channels.
+
+		This can also be set via the :confval:`conda_channels` option.
+
+	.. rst:directive:option:: github
+		:type: flag
+
+		Flag to indicate the project can be installed from GitHub.
+
+		To use this option add the following to your ``conf.py``:
+
+		.. code-block:: python
+
+			extensions = [
+					...
+					'sphinx_toolbox.github',
+					]
+
+			github_username = '<your username>'
+			github_repository = '<your repository>'
+
+
+		See :mod:`sphinx_toolbox.github` for more information.
+
+
+	**Example**
+
+	.. rest-example::
+
+		.. installation:: sphinx-toolbox
+			:pypi:
+			:anaconda:
+			:conda-channels: domdfcoding,conda-forge
+			:github:
+
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -44,12 +158,13 @@ from docutils import nodes
 from docutils.parsers.rst import directives
 from docutils.statemachine import ViewList
 from domdf_python_tools.stringlist import StringList
+from domdf_python_tools.words import word_join
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 from sphinx.util.docutils import SphinxDirective
 
 # this package
-from sphinx_toolbox.utils import OptionSpec, Purger, flag, word_join
+from sphinx_toolbox.utils import OptionSpec, Purger, SphinxExtMetadata, flag
 
 __all__ = [
 		"InstallationDirective",
@@ -285,8 +400,6 @@ class InstallationDirective(SphinxDirective):
 	def run(self) -> List[nodes.Node]:
 		"""
 		Create the installation node.
-
-		:return:
 		"""
 
 		if self.arguments:
@@ -352,8 +465,6 @@ class ExtensionsDirective(SphinxDirective):
 	def run(self) -> List[nodes.Node]:
 		"""
 		Create the extensions node.
-
-		:return:
 		"""
 
 		extensions = list(self.content)
@@ -413,19 +524,22 @@ installation_node_purger = Purger("all_installation_node_nodes")
 extensions_node_purger = Purger("all_extensions_node_nodes")
 
 
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
-	Setup :mod:`sphinx-toolbox.installation`.
+	Setup :mod:`sphinx_toolbox.installation`.
 
-	:param app:
-
-	:return:
+	:param app: The Sphinx app.
 
 	.. versionadded:: 0.7.0
 	"""
 
 	# this package
 	from sphinx_toolbox import __version__
+
+	app.setup_extension("sphinx_tabs.tabs")
+	app.setup_extension("sphinx-prompt")
+
+	app.add_config_value("conda_channels", [], "env", types=[list])
 
 	# Instructions for installing a python package
 	app.add_directive("installation", InstallationDirective)

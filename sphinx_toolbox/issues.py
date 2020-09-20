@@ -3,6 +3,58 @@
 #  issues.py
 """
 Add links to GitHub issues and Pull Requests.
+
+.. extensions:: sphinx_toolbox.issues
+
+
+Usage
+------
+
+.. rst:role:: issue
+
+	Shows a link to the given issue on GitHub.
+
+	If the issue exists, the link has a tooltip that shows the title of the issue.
+
+	You can also reference an issue in a different repository by adding the repository name inside ``<>``.
+	You'll probably want to add some text to tell the user that this issue is from a different project.
+
+	**Example**
+
+	.. rest-example::
+
+		:issue:`1`
+
+		pytest issue :issue:`7680 <pytest-dev/pytest>`
+
+
+.. rst:role:: pull
+
+	Shows a link to the given pull request on GitHub.
+
+	If the pull requests exists, the link has a tooltip that shows the title of the pull requests.
+
+	You can also reference a pull request in a different repository by adding the repository name inside ``<>``.
+	You'll probably want to add some text to tell the user that this pull request is from a different project.
+
+	**Example**
+
+	.. rest-example::
+
+		:pull:`2`
+
+		pytest pull request :issue:`7671 <pytest-dev/pytest>`
+
+
+The only difference between the :rst:role:`issue` and :rst:role:`pull` roles
+is in the URL. GitHub uses the same numbering scheme for issues and
+pull requests, and automatically redirects to the pull request if
+the user tries to navigate to an issue with that same number.
+
+
+
+API Reference
+---------------
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -42,12 +94,13 @@ from bs4 import BeautifulSoup  # type: ignore
 from docutils import nodes, utils
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
+from sphinx.application import Sphinx
 from sphinx.util.nodes import split_explicit_title
 from sphinx.writers.html import HTMLTranslator
 
 # this package
 from sphinx_toolbox.cache import cache
-from sphinx_toolbox.utils import make_github_url
+from sphinx_toolbox.utils import SphinxExtMetadata, make_github_url
 
 __all__ = [
 		"IssueNode",
@@ -56,6 +109,7 @@ __all__ = [
 		"visit_issue_node",
 		"depart_issue_node",
 		"get_issue_title",
+		"setup",
 		]
 
 
@@ -243,3 +297,33 @@ def get_issue_title(issue_url: str) -> Optional[str]:
 		return soup.find_all("span", attrs={"class": "js-issue-title"})[0].contents[0].strip().strip()
 
 	return None
+
+
+def setup(app: Sphinx) -> SphinxExtMetadata:
+	"""
+	Setup :mod:`sphinx_toolbox.issues`.
+
+	:param app: The Sphinx app.
+
+	.. versionadded:: 1.0.0
+	"""
+
+	# this package
+	from sphinx_toolbox import __version__
+
+	app.setup_extension("sphinx_toolbox.github")
+
+	# Link to GH issue
+	app.add_role("issue", issue_role)
+
+	# Link to GH pull request
+	app.add_role("pr", pull_role)
+	app.add_role("pull", pull_role)
+
+	# Custom node for issues and PRs
+	app.add_node(IssueNode, html=(visit_issue_node, depart_issue_node))
+
+	return {
+			"version": __version__,
+			"parallel_read_safe": True,
+			}
