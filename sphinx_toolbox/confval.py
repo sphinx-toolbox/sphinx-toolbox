@@ -104,6 +104,11 @@ __all__ = ["ConfigurationValue", "register_confval", "setup"]
 class ConfigurationValue(GenericObject):
 	"""
 	The confval directive.
+
+	.. versionchanged:: 1.1.0
+
+		The formatting of the type, required and default options can be customised
+		using the ``self.format_*`` methods.
 	"""
 
 	option_spec: OptionSpec = {  # type: ignore
@@ -120,15 +125,54 @@ class ConfigurationValue(GenericObject):
 		content = []
 
 		if "type" in self.options:
-			content.append(f"| **Type:** {self.options['type']}")
+			content.append(f"| **Type:** {self.format_type(self.options['type'])}")
 		if "required" in self.options:
-			content.append(f"| **Required:** ``{strtobool(self.options['required'])}``")
+			content.append(f"| **Required:** ``{self.format_required(self.options['required'])}``")
 		if "default" in self.options:
-			content.append(f"| **Default:** {self.options['default']}")
+			content.append(f"| **Default:** {self.format_default(self.options['default'])}")
 
 		self.content = StringList(['', *content, '', *self.content])
 
 		return super().run()
+
+	def format_type(self, the_type: str) -> str:
+		"""
+		Formats the ``:type:`` option.
+
+		:param the_type:
+
+		:rtype:
+
+		.. versionadded:: 1.1.0
+		"""
+
+		return the_type
+
+	def format_required(self, required: str) -> bool:
+		"""
+		Formats the ``:required:`` option.
+
+		:param required:
+
+		:rtype:
+
+		.. versionadded:: 1.1.0
+		"""
+
+		return strtobool(required)
+
+	def format_default(self, default: str) -> str:
+		"""
+		Formats the ``:default:`` option.
+
+		:param default:
+
+		:rtype:
+
+		.. versionadded:: 1.1.0
+		"""
+
+		return default
 
 
 def register_confval(app: Sphinx, override: bool = False) -> None:
