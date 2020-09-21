@@ -143,8 +143,8 @@ sphinx-toolbox
 	:glob:
 
 	api/sphinx-toolbox
-	api/**/index
 	api/*
+
 
 .. toctree::
 	:maxdepth: 3

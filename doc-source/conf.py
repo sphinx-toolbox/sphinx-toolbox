@@ -37,6 +37,7 @@ extensions = [
 	'sphinx_toolbox',
 	'sphinx_toolbox.more_autodoc',
 	'sphinx_toolbox.more_autosummary',
+	'sphinx_toolbox.tweaks.param_dash',
 	'sphinx.ext.intersphinx',
 	'sphinx.ext.mathjax',
 	'sphinxcontrib.httpdomain',
@@ -137,6 +138,3 @@ autodoc_default_options = {
 				"__hash__",
 				]),
 		}
-
-set_type_checking_flag = True
-hide_none_rtype = True

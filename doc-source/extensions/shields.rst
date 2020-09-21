@@ -3,6 +3,7 @@
 ===================================
 
 .. automodule:: sphinx_toolbox.shields
+	:noindex:
 	:no-members:
 	:autosummary-members:
 	:member-order: bysource
