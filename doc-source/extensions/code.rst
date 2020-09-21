@@ -3,4 +3,3 @@
 ===========================
 
 .. automodule:: sphinx_toolbox.code
-	:inherited-members:
