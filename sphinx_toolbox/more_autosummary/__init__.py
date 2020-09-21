@@ -28,6 +28,9 @@ and so resulted in a broken link.
 
 	Note that for ``'bysource'`` the module must be a Python module with the source code available.
 
+The member order can also be set on a per-directive basis using the ``:member-order: [order]`` option.
+This applies not only to :rst:dir:`automodule` etc. directives,
+but also to :rst:dir:`automodulesumm` etc. directives.
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>

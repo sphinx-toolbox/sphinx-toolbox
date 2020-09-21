@@ -100,7 +100,6 @@ In addition the following configuration value is added by this extension:
 import inspect
 import json
 import operator
-import re
 import sys
 import types
 from types import FunctionType, ModuleType
@@ -133,24 +132,23 @@ except ImportError:  # pragma: no cover
 	pass
 
 __all__ = [
-		"Module",
-		"get_annotation_module",
-		"get_annotation_class_name",
-		"get_annotation_args",
-		"format_annotation",
-		"process_signature",
-		"get_all_type_hints",
-		"backfill_type_hints",
-		"load_args",
-		"split_type_comment_args",
-		"process_docstring",
-		"builder_ready",
-		"docstring_hooks",
-		"setup",
 		"ObjectAlias",
 		"Module",
 		"Function",
 		"Class",
+		"process_signature",
+		"process_docstring",
+		"format_annotation",
+		"docstring_hooks",
+		"setup",
+		"get_annotation_module",
+		"get_annotation_class_name",
+		"get_annotation_args",
+		"get_all_type_hints",
+		"backfill_type_hints",
+		"load_args",
+		"split_type_comment_args",
+		"builder_ready",
 		]
 
 get_annotation_module = sphinx_autodoc_typehints.get_annotation_module
