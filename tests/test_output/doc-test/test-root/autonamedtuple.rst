@@ -9,3 +9,7 @@ sphinx-toolbox Demo - AutoNamedTuple
 .. autonamedtuple:: autonamedtuple_demo.Movie
 
 .. autonamedtuple:: autonamedtuple_demo.Foo
+	:show-inheritance:
+
+.. autonamedtuple:: autonamedtuple_demo.Traditional
+	:show-inheritance:

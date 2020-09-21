@@ -1,10 +1,13 @@
 # 3rd party
+import pytest
 from sphinx.events import EventListener
 
 # this package
 import sphinx_toolbox
 from sphinx_toolbox import github
+from sphinx_toolbox.config import MissingOptionError
 from sphinx_toolbox.testing import run_setup
+from tests.common import AttrDict
 
 
 def test_setup():
@@ -24,3 +27,22 @@ def test_setup():
 			}
 
 	assert directives == {}
+
+
+def test_missing_options():
+
+	config = AttrDict({
+			"github_username": "octocat",
+			"github_repository": None,
+			})
+
+	with pytest.raises(MissingOptionError, match="The 'github_repository' option is required."):
+		github.validate_config('', config)  # type: ignore
+
+	config = AttrDict({
+			"github_username": None,
+			"github_repository": "hello_world",
+			})
+
+	with pytest.raises(MissingOptionError, match="The 'github_username' option is required."):
+		github.validate_config('', config)  # type: ignore

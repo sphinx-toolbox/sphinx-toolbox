@@ -4,6 +4,7 @@
 # https://github.com/python/typing/pull/700
 
 # stdlib
+import collections
 from typing import NamedTuple
 
 __all__ = ["Animal", "Employee", "Movie"]
@@ -74,3 +75,7 @@ class Foo(NamedTuple):
 
 	#: C's doc
 	c: str
+
+
+Traditional = collections.namedtuple("Traditional", "a, b, c")
+Traditional.__doc__ = "A traditional Namedtuple"
