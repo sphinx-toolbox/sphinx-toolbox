@@ -38,3 +38,6 @@ tox_testenv_extras: all
 extra_sphinx_extensions:
   - sphinx_removed_in
   - sphinx_toolbox.tweaks.param_dash
+
+sphinx_conf_epilogue:
+  - hide_none_rtype = True

@@ -138,3 +138,6 @@ autodoc_default_options = {
 				"__hash__",
 				]),
 		}
+
+
+hide_none_rtype = True
