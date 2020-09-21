@@ -64,14 +64,14 @@ with a different appearance and more customisation options.
 #
 
 # stdlib
-import importlib
-from typing import Any, Dict, get_type_hints
+from typing import Any, List, get_type_hints
 
 # 3rd party
 import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 from sphinx.ext.autodoc import (
 		INSTANCEATTR,
+		SLOTSATTR,
 		UNINITIALIZED_ATTR,
 		AttributeDocumenter,
 		ClassLevelDocumenter,
@@ -308,27 +308,16 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 		Import and return the attribute's parent.
 		"""
 
-		try:
-			parent = importlib.import_module(self.modname)
-			for name in self.objpath[:-1]:
-				parent = self.get_attr(parent, name)
-
-			return parent
-		except (ImportError, AttributeError):
-			return None
+		return sphinx.ext.autodoc.InstanceAttributeDocumenter.import_parent(self)
 
 	def import_object(self, raiseerror: bool = False) -> bool:
 		"""
 		Never import anything.
+
+		:param raiseerror:
 		"""
 
-		# disguise as an attribute
-		self.objtype = "attribute"
-		self.object = INSTANCEATTR
-		self.parent = self.import_parent()
-		self._datadescriptor = False
-
-		return True
+		return sphinx.ext.autodoc.InstanceAttributeDocumenter.import_object(self, raiseerror=raiseerror)
 
 	def add_content(self, more_content: Any, no_docstring: bool = False):
 		"""
@@ -336,6 +325,65 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 		"""
 
 		super().add_content(more_content, no_docstring=True)
+
+
+class SlotsAttributeDocumenter(TypedAttributeDocumenter):
+	"""
+	Alternative version of :class:`sphinx.ext.autodoc.InstanceAttributeDocumenter`
+	with better type hint rendering.
+
+	Specialized Documenter subclass for attributes that cannot be imported
+	because they are attributes in __slots__.
+
+	.. versionadded:: 1.1.0
+	"""
+
+	objtype = sphinx.ext.autodoc.SlotsAttributeDocumenter.objtype
+	directivetype = sphinx.ext.autodoc.SlotsAttributeDocumenter.directivetype
+	member_order = 60
+
+	# must be higher than AttributeDocumenter
+	priority = 11
+
+	@classmethod
+	def can_document_member(
+			cls,
+			member: Any,
+			membername: str,
+			isattr: bool,
+			parent: Any,
+			) -> bool:
+		"""
+		Called to see if a member can be documented by this documenter.
+
+		This documenter only documents SLOTSATTR members.
+
+		:param member:
+		:param membername:
+		:param isattr:
+		:param parent:
+		"""
+
+		return member is SLOTSATTR
+
+	def import_object(self, raiseerror: bool = False) -> bool:
+		"""
+		Never import anything.
+
+		:param raiseerror:
+		"""
+
+		return sphinx.ext.autodoc.SlotsAttributeDocumenter.import_object(self, raiseerror=raiseerror)
+
+	def get_doc(self, encoding: str = None, ignore: int = None) -> List[List[str]]:
+		"""
+		Decode and return lines of the docstring(s) for the object.
+
+		:param encoding:
+		:param ignore:
+		"""
+
+		return sphinx.ext.autodoc.SlotsAttributeDocumenter.get_doc(self, encoding=encoding, ignore=ignore)
 
 
 def setup(app: Sphinx) -> SphinxExtMetadata:
@@ -349,6 +397,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_autodocumenter(VariableDocumenter)
 	app.add_autodocumenter(TypedAttributeDocumenter, override=True)
 	app.add_autodocumenter(InstanceAttributeDocumenter, override=True)
+	app.add_autodocumenter(SlotsAttributeDocumenter, override=True)
 
 	return {
 			"version": __version__,
