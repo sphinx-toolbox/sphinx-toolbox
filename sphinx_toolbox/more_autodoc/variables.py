@@ -171,7 +171,7 @@ class VariableDocumenter(DataDocumenter):
 		no_value = self.options.get("no-value", False)
 		no_type = self.options.get("no-type", False)
 
-		if not self.options.annotation:
+		if not self.options.get("annotation", ''):
 			ModuleLevelDocumenter.add_directive_header(self, sig)
 
 			if not no_value:
@@ -232,7 +232,7 @@ class TypedAttributeDocumenter(AttributeDocumenter):
 		no_value = self.options.get("no-value", False)
 		no_type = self.options.get("no-type", False)
 
-		if not self.options.annotation:
+		if not self.options.get("annotation", ''):
 			ClassLevelDocumenter.add_directive_header(self, sig)
 
 			# data descriptors do not have useful values
