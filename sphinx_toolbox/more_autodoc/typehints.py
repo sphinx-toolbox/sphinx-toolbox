@@ -252,7 +252,7 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		return ":py:data:`types.GetSetDescriptorType:`"
 	elif annotation is types.MemberDescriptorType:  # noqa E721
 		return ":py:data:`types.MemberDescriptorType:`"
-	elif annotation is types.MappingProxyType:
+	elif annotation is types.MappingProxyType:  # noqa E721
 		return ":py:data:`types.MappingProxyType:`"
 	elif annotation is types.ModuleType:  # noqa E721
 		return ":py:data:`types.ModuleType:`"
@@ -639,3 +639,89 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 			"version": __version__,
 			"parallel_read_safe": True,
 			}
+
+
+def _class_get_type_hints(obj, globalns=None, localns=None):
+	"""
+	Return type hints for an object.
+
+	For classes, unlike :func:`typing.get_type_hints` this will attempt to
+	use the global namespace of the modules where the class and its parents
+	were defined until it can resolve all forward references.
+	"""
+
+	if not inspect.isclass(obj):
+		return get_type_hints(obj, localns=localns, globalns=globalns)
+
+	mro_stack = list(obj.__mro__)
+	if localns is None:
+		localns = {}
+
+	while True:
+
+		try:
+			return get_type_hints(obj.__init__, localns=localns, globalns=globalns)
+		except NameError:
+			if not mro_stack:
+				raise
+			klasse = mro_stack.pop(0)
+			if klasse is object or klasse.__module__ is "builtins":
+				raise
+			localns = {**sys.modules[klasse.__module__].__dict__, **localns}
+
+
+def get_all_type_hints(obj, name, original_obj):
+	"""
+	Returns the resolved type hints for the given objects.
+
+	:param obj:
+	:param name:
+	:param original_obj: The original object, before the class if ``obj`` is its ``__init__`` method.
+
+	:return:
+	"""
+
+	def log(exc):
+		sphinx_autodoc_typehints.logger.warning(
+				'Cannot resolve forward reference in type annotations of "%s": %s',
+				name,
+				exc,
+				)
+
+	rv = {}
+
+	try:
+		if inspect.isclass(original_obj):
+			rv = _class_get_type_hints(original_obj)
+		else:
+			rv = get_type_hints(obj)
+	except (AttributeError, TypeError, RecursionError):
+		# Introspecting a slot wrapper will raise TypeError, and some recursive type
+		# definitions will cause a RecursionError (https://github.com/python/typing/issues/574).
+		pass
+	except NameError as exc:
+		log(exc)
+		rv = obj.__annotations__
+
+	if rv:
+		return rv
+
+	rv = backfill_type_hints(obj, name)
+
+	try:
+		obj.__annotations__ = rv
+	except (AttributeError, TypeError):
+		return rv
+
+	try:
+		if inspect.isclass(original_obj):
+			rv = _class_get_type_hints(original_obj)
+		else:
+			rv = get_type_hints(obj)
+	except (AttributeError, TypeError):
+		pass
+	except NameError as exc:
+		log(exc)
+		rv = obj.__annotations__
+
+	return rv
