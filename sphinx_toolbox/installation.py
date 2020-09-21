@@ -423,7 +423,7 @@ def make_installation_instructions(options: Dict[str, Any], env: BuildEnvironmen
 	Make the content of an installation node.
 
 	:param options:
-	:param env:
+	:param env: The Sphinx build environment.
 
 	:return:
 	"""

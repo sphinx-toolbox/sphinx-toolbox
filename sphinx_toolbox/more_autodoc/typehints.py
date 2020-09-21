@@ -58,7 +58,7 @@ In addition the following configuration value is added by this extension:
 .. confval:: hide_none_rtype
 	:type: :class:`bool`
 	:default: :py:obj:`False`
-	
+
 	Hides return types of :py:obj:`None`.
 
 

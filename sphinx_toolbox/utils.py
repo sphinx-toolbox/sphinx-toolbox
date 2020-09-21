@@ -126,10 +126,10 @@ class Purger:
 
 	def purge_nodes(self, app: Sphinx, env: BuildEnvironment, docname: str) -> None:
 		"""
-		Remove all redundant :class:`sphinx_toolbox.installation.InstallationDirective` nodes.
+		Remove all redundant nodes.
 
 		:param app: The Sphinx app.
-		:param env:
+		:param env: The Sphinx build environment.
 		:param docname: The name of the document to remove nodes for.
 		"""
 
@@ -145,7 +145,7 @@ class Purger:
 		"""
 		Add a node.
 
-		:param env:
+		:param env: The Sphinx build environment.
 		:param node:
 		:param targetnode:
 		:param lineno:
@@ -218,6 +218,8 @@ def get_first_matching(
 	:param iterable:
 	:param default: The default value to return if no values in ``iterable`` match.
 
+	:rtype:
+
 	.. versionadded:: 0.7.0
 	"""
 
@@ -240,6 +242,8 @@ def escape_trailing__(string: str) -> str:
 
 	:param string:
 
+	:rtype:
+
 	.. versionadded:: 0.8.0
 	"""
 
@@ -253,6 +257,8 @@ def code_repr(obj: Any) -> str:
 	Returns the repr of the given object as reStructuredText inline code.
 
 	:param obj:
+
+	:rtype:
 
 	.. versionadded:: 0.9.0
 	"""
@@ -389,6 +395,8 @@ def unknown_module_warning(documenter: Documenter) -> None:
 
 	:param documenter:
 
+	:rtype:
+
 	.. versionadded:: 0.2.0
 	"""
 
@@ -517,9 +525,11 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 
 def is_namedtuple(obj: Any) -> bool:
 	"""
-	Returns whether the given class is a :class:`collections.namedtuple`.
+	Returns whether the given class is a :func:`collections.namedtuple`.
 
 	:param obj:
+
+	:rtype:
 
 	.. versionadded:: 0.8.0
 	"""
@@ -536,6 +546,8 @@ def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]):
 
 	:param app: The Sphinx app.
 	:param documenters:
+
+	:rtype:
 
 	.. versionadded:: 0.8.0
 	"""

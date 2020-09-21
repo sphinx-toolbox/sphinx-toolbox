@@ -162,6 +162,3 @@ View the :ref:`Function Index <genindex>` or browse the `Source Code <_modules/i
 `Browse the GitHub Repository <https://github.com/domdfcoding/sphinx-toolbox>`__
 
 .. end links
-
-
-:py:data:`types.GetSetDescriptorType`
