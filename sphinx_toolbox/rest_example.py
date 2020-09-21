@@ -184,6 +184,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	# this package
 	from sphinx_toolbox import __version__
 
+	# Hack to get the docutils tab size, as there doesn't appear to be any other way
+	app.setup_extension("sphinx_toolbox.tweaks.tabsize")
+
 	app.add_directive("rest-example", reSTExampleDirective)
 	app.connect("env-purge-doc", rest_example_purger.purge_nodes)
 

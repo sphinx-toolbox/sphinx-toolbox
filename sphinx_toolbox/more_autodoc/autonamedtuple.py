@@ -187,7 +187,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		:param order:
 		"""
 
-		# The documenters for the fields and method, in the desired order
+		# The documenters for the fields and methods, in the desired order
 		# The fields will be in bysource order regardless of the order option
 		documenters = super().sort_members(documenters, order)
 
@@ -273,6 +273,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	.. versionadded:: 0.8.0
 	"""
+
+	# Hack to get the docutils tab size, as there doesn't appear to be any other way
+	app.setup_extension("sphinx_toolbox.tweaks.tabsize")
 
 	app.registry.domains["py"].object_types["namedtuple"] = ObjType(_("namedtuple"), "namedtuple", "class", "obj")
 	app.add_directive_to_domain("py", "namedtuple", PyClasslike)
