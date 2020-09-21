@@ -90,7 +90,7 @@ from sphinx.util.typing import RoleFunction, TitleGetter
 
 if typing.TYPE_CHECKING:
 	# this package
-	from sphinx_toolbox import SphinxExtMetadata
+	from sphinx_toolbox.utils import SphinxExtMetadata
 
 __all__ = [
 		"Sphinx",

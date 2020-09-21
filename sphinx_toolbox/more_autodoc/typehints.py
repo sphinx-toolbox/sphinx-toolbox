@@ -107,7 +107,7 @@ from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, TypeVar, 
 
 if sys.version_info[:2] == (3, 6):
 	# stdlib
-	from typing import _ForwardRef as ForwardRef
+	from typing import _ForwardRef as ForwardRef  # type: ignore
 else:
 	from typing import ForwardRef
 
