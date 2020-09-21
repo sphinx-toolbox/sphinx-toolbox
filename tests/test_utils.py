@@ -45,16 +45,16 @@ def test_flag():
 
 def test_get_first_matching():
 
-	assert get_first_matching(strtobool, [True, 'True', 0, 'False', False])
-	assert get_first_matching(strtobool, (True, 'True', 0, 'False', False))
+	assert get_first_matching(strtobool, [True, "True", 0, "False", False])
+	assert get_first_matching(strtobool, (True, "True", 0, "False", False))
 
 	with pytest.raises(
 			NoMatchError,
 			match=r"No matching values for '<function strtobool at .*>' in \[0, 'False', False\]",
 			):
-		get_first_matching(strtobool, [0, 'False', False])
+		get_first_matching(strtobool, [0, "False", False])
 
-	assert get_first_matching(strtobool, [0, 'False', False], default=True)
+	assert get_first_matching(strtobool, [0, "False", False], default=True)
 
 	assert get_first_matching(lambda x: x.isupper(), string.ascii_letters) == "A"
 

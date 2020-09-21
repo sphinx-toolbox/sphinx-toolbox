@@ -71,13 +71,13 @@ from typing import Any, Dict
 from docutils.statemachine import StringList
 from sphinx.application import Sphinx
 from sphinx.ext.autodoc import DataDocumenter, GenericAliasDocumenter
+from sphinx.ext.autodoc.directive import DocumenterBridge
 from sphinx.locale import _
 
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import SphinxExtMetadata
-from sphinx.ext.autodoc.directive import DocumenterBridge
 
 __all__ = ["PrettyGenericAliasDocumenter", "setup"]
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  shields.py
-"""
+r"""
 Directives for shield/badge images.
 
 .. extensions:: sphinx_toolbox.shields
@@ -321,7 +321,7 @@ All shields have the following options:
 
 		.. pre-commit-shield::
 
-"""
+"""  # noqa RST299,RST305
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #

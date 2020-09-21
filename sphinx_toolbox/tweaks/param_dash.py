@@ -90,7 +90,7 @@ from sphinx_toolbox.utils import SphinxExtMetadata
 __all__ = ["make_field", "setup"]
 
 
-def make_field(
+def make_field(  # noqa D102
 		self,
 		types: Dict[str, List[Node]],
 		domain: str,
@@ -103,7 +103,7 @@ def make_field(
 		par.extend(self.make_xrefs(self.rolename, domain, fieldarg, addnodes.literal_strong, env=env))
 
 		if fieldarg in types:
-			par += nodes.Text(' (')
+			par += nodes.Text(" (")
 			# NOTE: using .pop() here to prevent a single type node to be
 			# inserted twice into the doctree, which leads to
 			# inconsistencies later when references are resolved
@@ -125,7 +125,7 @@ def make_field(
 				):
 			return par
 
-		par += nodes.Text(' -- ')
+		par += nodes.Text(" -- ")
 		par += content
 
 		return par

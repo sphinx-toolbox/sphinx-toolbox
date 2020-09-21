@@ -248,25 +248,25 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		return ":py:obj:`None`"
 	elif annotation is Ellipsis:
 		return "..."
-	elif annotation is types.GetSetDescriptorType:
+	elif annotation is types.GetSetDescriptorType:  # noqa E721
 		return ":py:data:`types.GetSetDescriptorType:`"
-	elif annotation is types.MemberDescriptorType:
+	elif annotation is types.MemberDescriptorType:  # noqa E721
 		return ":py:data:`types.MemberDescriptorType:`"
 	elif annotation is types.MappingProxyType:
 		return ":py:data:`types.MappingProxyType:`"
-	elif annotation is types.ModuleType:
+	elif annotation is types.ModuleType:  # noqa E721
 		return ":py:data:`types.ModuleType:`"
-	elif annotation is ClassMethodDescriptorType:
+	elif annotation is ClassMethodDescriptorType:  # noqa E721
 		return ":py:data:`types.ClassMethodDescriptorType:`"
-	elif annotation is MethodDescriptorType:
+	elif annotation is MethodDescriptorType:  # noqa E721
 		return ":py:data:`types.MethodDescriptorType:`"
-	elif annotation is MethodWrapperType:
+	elif annotation is MethodWrapperType:  # noqa E721
 		return ":py:data:`types.MethodWrapperType:`"
-	elif annotation is WrapperDescriptorType:
+	elif annotation is WrapperDescriptorType:  # noqa E721
 		return ":py:data:`types.WrapperDescriptorType:`"
-	elif annotation is types.BuiltinFunctionType:
+	elif annotation is types.BuiltinFunctionType:  # noqa E721
 		return ":py:data:`types.BuiltinFunctionType:`"
-	elif annotation is types.MethodType:
+	elif annotation is types.MethodType:  # noqa E721
 		return ":py:data:`types.MethodType:`"
 	elif isinstance(annotation, ForwardRef):
 		# Unresolved forward ref
@@ -633,7 +633,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("sphinx.ext.autodoc")
 	app.setup_extension("sphinx_autodoc_typehints")
 
-	app.add_config_value('hide_none_rtype', False, 'env', [bool])
+	app.add_config_value("hide_none_rtype", False, "env", [bool])
 
 	return {
 			"version": __version__,

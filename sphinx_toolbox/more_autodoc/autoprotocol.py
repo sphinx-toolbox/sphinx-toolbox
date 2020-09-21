@@ -203,7 +203,7 @@ class ProtocolDocumenter(ClassDocumenter):
 	option_spec: Dict[str, Callable] = {
 			"noindex": flag,
 			"member-order": member_order_option,
-			'show-inheritance': flag,
+			"show-inheritance": flag,
 			}
 
 	@classmethod

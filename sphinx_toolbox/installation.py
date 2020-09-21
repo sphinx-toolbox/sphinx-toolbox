@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  installation.py
-"""
+r"""
 .. extensions:: sphinx_toolbox.installation
 
 
@@ -9,7 +9,7 @@ Usage
 -------
 
 .. confval:: conda_channels
-	:type: :class:`~typing.List`\\[:class:`str`\\]
+	:type: :class:`~typing.List`\[:class:`str`\]
 	:required: False
 	:default: ``[]``
 

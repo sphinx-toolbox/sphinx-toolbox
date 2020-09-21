@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  tabsize.py
-"""
+r"""
 Hack to get the docutils tab size, as there doesn't appear to be any other way.
 
 .. versionadded:: 1.0.0

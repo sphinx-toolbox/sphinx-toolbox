@@ -83,7 +83,7 @@ API Reference
 #
 
 # stdlib
-from typing import Any, Dict, Tuple
+from typing import Tuple, Type
 
 # 3rd party
 from docutils.nodes import Element
@@ -94,7 +94,6 @@ from sphinx.environment import BuildEnvironment
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.utils import SphinxExtMetadata
-from typing import Type
 
 __all__ = ["PyDecoXRefRole", "setup"]
 
@@ -104,14 +103,14 @@ class PyDecoXRefRole(PyXRefRole):
 	XRef Role for decorators members.
 	"""
 
-	def process_link(
-			self,
-			env: BuildEnvironment,
-			refnode: Element,
-			has_explicit_title: bool,
-			title: str,
-			target: str,
-			) -> Tuple[str, str]:
+	def process_link(  # noqa D102
+		self,
+		env: BuildEnvironment,
+		refnode: Element,
+		has_explicit_title: bool,
+		title: str,
+		target: str,
+		) -> Tuple[str, str]:
 
 		target = target.lstrip('@')
 

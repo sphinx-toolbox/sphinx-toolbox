@@ -439,7 +439,7 @@ class Param(TypedDict):
 	doc: List[str]
 
 	#: The type of the parameter.
-	type: str
+	type: str  # noqa A003
 
 
 typed_param_regex: Pattern = re.compile(
@@ -550,7 +550,7 @@ def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]):
 	:rtype:
 
 	.. versionadded:: 0.8.0
-	"""
+	"""  # noqa D400
 
 	for cls in documenters:
 		existing_documenter = app.registry.documenters.get(cls.objtype)

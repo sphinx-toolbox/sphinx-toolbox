@@ -80,14 +80,13 @@ from sphinx.ext.autodoc import (
 		ModuleDocumenter,
 		ModuleLevelDocumenter
 		)
+from sphinx.ext.autodoc.directive import DocumenterBridge
 from sphinx.util.inspect import object_description, safe_getattr
 
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import SphinxExtMetadata, flag
-from sphinx.ext.autodoc.directive import DocumenterBridge
-
 
 __all__ = [
 		"VariableDocumenter",
@@ -342,7 +341,7 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 	because they are attributes in __slots__.
 
 	.. versionadded:: 1.1.0
-	"""
+	"""  # noqa D400
 
 	objtype = sphinx.ext.autodoc.SlotsAttributeDocumenter.objtype
 	directivetype = sphinx.ext.autodoc.SlotsAttributeDocumenter.directivetype

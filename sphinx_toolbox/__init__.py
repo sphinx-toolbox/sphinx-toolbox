@@ -43,8 +43,8 @@ from sphinx_toolbox import (
 		rest_example,
 		shields,
 		source,
-		wikipedia,
 		utils,
+		wikipedia
 		)
 from sphinx_toolbox.cache import cache
 
