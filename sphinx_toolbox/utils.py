@@ -46,6 +46,7 @@ from sphinx.errors import PycodeError
 from sphinx.ext.autodoc import Documenter, logger
 from sphinx.locale import __
 from sphinx.pycode import ModuleAnalyzer
+from typing_extensions import TypedDict
 
 __all__ = [
 		"make_github_url",
@@ -67,12 +68,10 @@ __all__ = [
 		"untyped_param_regex",
 		"typed_flag_regex",
 		"allow_subclass_add",
+		"NoMatchError",
 		]
 
-# 3rd party
 #: Instance of :class:`apeye.url.RequestsURL` that points to the GitHub website.
-from typing_extensions import TypedDict
-
 GITHUB_COM: RequestsURL = RequestsURL("https://github.com")
 
 #: Type hint for the ``option_spec`` variable of Docutils directives.
@@ -165,9 +164,6 @@ class Purger:
 				})
 
 
-_T = TypeVar("_T")
-
-
 def singleton(name: str) -> object:
 	"""
 	Factory function to return a string singleton.
@@ -207,8 +203,11 @@ class NoMatchError(ValueError):
 	"""
 
 
+_T = TypeVar("_T")
+
+
 def get_first_matching(
-		condition: Callable[[_T], bool],
+		condition: Callable[[Any], bool],
 		iterable: Iterable[_T],
 		default: _T = no_default,  # type: ignore
 		) -> _T:
@@ -232,7 +231,7 @@ def get_first_matching(
 		if condition(match):
 			return match
 
-	raise NoMatchError(f"No matches values for '{condition}' in {iterable}")
+	raise NoMatchError(f"No matching values for '{condition}' in {iterable}")
 
 
 def escape_trailing__(string: str) -> str:

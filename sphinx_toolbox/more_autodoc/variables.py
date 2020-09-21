@@ -91,6 +91,7 @@ __all__ = [
 		"VariableDocumenter",
 		"TypedAttributeDocumenter",
 		"InstanceAttributeDocumenter",
+		"SlotsAttributeDocumenter",
 		"type_template",
 		"get_variable_type",
 		"setup",
@@ -308,7 +309,7 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 		Import and return the attribute's parent.
 		"""
 
-		return sphinx.ext.autodoc.InstanceAttributeDocumenter.import_parent(self)
+		return sphinx.ext.autodoc.InstanceAttributeDocumenter.import_parent(self)  # type: ignore
 
 	def import_object(self, raiseerror: bool = False) -> bool:
 		"""
@@ -317,7 +318,10 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 		:param raiseerror:
 		"""
 
-		return sphinx.ext.autodoc.InstanceAttributeDocumenter.import_object(self, raiseerror=raiseerror)
+		return sphinx.ext.autodoc.InstanceAttributeDocumenter.import_object(
+				self,  # type: ignore
+				raiseerror=raiseerror,
+				)
 
 	def add_content(self, more_content: Any, no_docstring: bool = False):
 		"""
@@ -373,7 +377,10 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 		:param raiseerror:
 		"""
 
-		return sphinx.ext.autodoc.SlotsAttributeDocumenter.import_object(self, raiseerror=raiseerror)
+		return sphinx.ext.autodoc.SlotsAttributeDocumenter.import_object(
+				self,  # type: ignore
+				raiseerror=raiseerror,
+				)
 
 	def get_doc(self, encoding: str = None, ignore: int = None) -> List[List[str]]:
 		"""
@@ -383,7 +390,11 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 		:param ignore:
 		"""
 
-		return sphinx.ext.autodoc.SlotsAttributeDocumenter.get_doc(self, encoding=encoding, ignore=ignore)
+		return sphinx.ext.autodoc.SlotsAttributeDocumenter.get_doc(
+				self,  # type: ignore
+				encoding=encoding,
+				ignore=ignore,
+				)
 
 
 def setup(app: Sphinx) -> SphinxExtMetadata:
