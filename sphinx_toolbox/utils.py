@@ -442,8 +442,11 @@ class Param(TypedDict):
 	type: str  # noqa A003
 
 
+_identifier_pattern = r"[A-Za-z_]\w*"
+
 typed_param_regex: Pattern = re.compile(
-		r"^:(param|parameter|arg|argument)\s*([A-Za-z_]+\s+)([A-Za-z_]+\s*):\s*(.*)"
+		fr"^:(param|parameter|arg|argument)\s*({_identifier_pattern}\s+)({_identifier_pattern}\s*):\s*(.*)",
+		flags=re.ASCII,
 		)
 """
 Regex to match ``:param <type> <name>: <docstring>`` flags.
@@ -451,14 +454,20 @@ Regex to match ``:param <type> <name>: <docstring>`` flags.
 .. versionadded:: 0.8.0
 """
 
-untyped_param_regex: Pattern = re.compile(r"^:(param|parameter|arg|argument)\s*([A-Za-z_]+\s*):\s*(.*)")
+untyped_param_regex: Pattern = re.compile(
+		fr"^:(param|parameter|arg|argument)\s*({_identifier_pattern}\s*):\s*(.*)",
+		flags=re.ASCII,
+		)
 """
 Regex to match ``:param <name>: <docstring>`` flags.
 
 .. versionadded:: 0.8.0
 """
 
-typed_flag_regex: Pattern = re.compile(r"^:(paramtype|type)\s*([A-Za-z_]+\s*):\s*(.*)")
+typed_flag_regex: Pattern = re.compile(
+		fr"^:(paramtype|type)\s*({_identifier_pattern}\s*):\s*(.*)",
+		flags=re.ASCII,
+		)
 """
 Regex to match ``:type <name>: <type>`` flags.
 
