@@ -665,7 +665,7 @@ def _class_get_type_hints(obj, globalns=None, localns=None):
 			if not mro_stack:
 				raise
 			klasse = mro_stack.pop(0)
-			if klasse is object or klasse.__module__ is "builtins":
+			if klasse is object or klasse.__module__ == "builtins":
 				raise
 			localns = {**sys.modules[klasse.__module__].__dict__, **localns}
 
