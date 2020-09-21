@@ -106,6 +106,7 @@ API Reference
 #
 
 # stdlib
+import inspect
 from textwrap import dedent
 from typing import Any, Dict, List, Tuple
 
@@ -131,6 +132,10 @@ class NamedTupleDocumenter(ClassDocumenter):
 	for documenting :class:`typing.NamedTuple`\s.
 
 	.. versionadded:: 0.8.0
+
+	.. versionchanged:: 0.1.0
+
+		Will no longer attempt to find attribute docstrings from other namedtuple classes.
 	"""  # noqa D400
 
 	objtype = "namedtuple"
@@ -195,10 +200,21 @@ class NamedTupleDocumenter(ClassDocumenter):
 		a_tab = " " * self.env.app.config.docutils_tab_width  # type: ignore
 
 		# Mapping of member names to docstrings (as list of strings)
-		member_docstrings = {
-				k[1]: v
-				for k, v in ModuleAnalyzer.for_module(self.object.__module__).find_attr_docs().items()
-				}
+		member_docstrings: Dict[str, List[str]]
+
+		try:
+			namedtuple_source = inspect.getsource(self.object)
+
+			# Mapping of member names to docstrings (as list of strings)
+			member_docstrings = {
+					k[1]: v
+					for k,
+					v in ModuleAnalyzer.for_string(namedtuple_source, self.object.__module__
+													).find_attr_docs().items()
+					}
+
+		except (TypeError, OSError):
+			member_docstrings = {}
 
 		# set sourcename and add content from attribute documentation
 		sourcename = self.get_sourcename()
@@ -208,7 +224,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 		if self.object.__doc__:
 			docstring = dedent(self.object.__doc__).expandtabs(tab_size).split("\n")
-		else:
+		elif "show-inheritance" not in self.options:
 			docstring = [":class:`typing.NamedTuple`."]
 
 		docstring = list(self.process_doc([docstring]))
