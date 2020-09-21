@@ -7,6 +7,26 @@ Show a link to the corresponding source code at the top of :rst:dir:`automodule`
 .. extensions:: sphinx_toolbox.more_autodoc.sourcelink
 
 .. versionadded:: 0.6.0
+
+.. versionchanged:: 1.1.0
+
+	Can also be enabled via the ``:sourcelink`` flag to :rst:dir:`automodule`, but is is not supported via :any:`autodoc_default_options`.
+
+
+Usage
+--------
+
+.. confval:: autodoc_show_sourcelink
+	:type: bool
+	:default: False
+
+	Shows a link to the corresponding source code at the top of each :rst:dir:`automodule` directive.
+
+
+API Reference
+--------------
+
+
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -35,10 +55,11 @@ from types import ModuleType
 from typing import List
 
 # 3rd party
+import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, flag
 
 __all__ = ["sourcelinks_process_docstring", "setup"]
 
@@ -62,10 +83,9 @@ def sourcelinks_process_docstring(
 	:param lines: List of strings representing the current contents of the docstring.
 	"""
 
-	if (
-			isinstance(obj, ModuleType) and what == "module" and app.config.autodoc_show_sourcelink  # type: ignore
-			and obj.__file__.endswith(".py")
-			):
+	show_sourcelink = options.get("sourcelink", app.config.autodoc_show_sourcelink)  # type: ignore
+
+	if isinstance(obj, ModuleType) and what == "module" and obj.__file__.endswith(".py") and show_sourcelink:
 		lines.insert(0, f"**Source code:** :source:`{name.replace('.', '/')}.py`")
 		lines.insert(1, '')
 		lines.insert(2, "--------------------")
@@ -81,6 +101,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	# this package
 	from sphinx_toolbox import __version__
+
+	sphinx.ext.autodoc.ModuleDocumenter.option_spec["sourcelink"] = flag
 
 	app.setup_extension("sphinx_toolbox.source")
 	app.setup_extension("sphinx.ext.autodoc")
