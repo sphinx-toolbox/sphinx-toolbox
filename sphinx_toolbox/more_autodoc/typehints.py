@@ -103,7 +103,13 @@ import operator
 import sys
 import types
 from types import FunctionType, ModuleType
-from typing import Any, AnyStr, Callable, Dict, get_type_hints, List, Optional, Tuple, TypeVar
+from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, TypeVar, get_type_hints
+
+if sys.version_info[:2] == (3, 6):
+	# stdlib
+	from typing import _ForwardRef as ForwardRef
+else:
+	from typing import ForwardRef
 
 # 3rd party
 import sphinx_autodoc_typehints  # type: ignore
@@ -262,13 +268,16 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		return ":py:data:`types.BuiltinFunctionType:`"
 	elif annotation is types.MethodType:
 		return ":py:data:`types.MethodType:`"
+	elif isinstance(annotation, ForwardRef):
+		# Unresolved forward ref
+		return f":py:obj:`~.{annotation.__forward_arg__}`"
 
 	try:
 		module = get_annotation_module(annotation)
 		class_name = get_annotation_class_name(annotation, module)
 		args = get_annotation_args(annotation, module, class_name)
 	except ValueError:
-		return str(annotation)
+		return f":py:obj:`~.{annotation}`"
 
 	# Redirect all typing_extensions types to the stdlib typing module
 	if module == "typing_extensions":
@@ -601,7 +610,7 @@ def process_docstring(
 					lines.append('')
 					insert_index += 1
 
-				if not (formatted_annotation == ":py:obj:`None`" and app.config.hide_none_rtype):
+				if not (formatted_annotation == ":py:obj:`None`" and app.config.hide_none_rtype):  # type: ignore
 					lines.insert(insert_index, f":rtype: {formatted_annotation}")
 
 
