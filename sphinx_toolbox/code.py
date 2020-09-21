@@ -15,8 +15,8 @@ Usage
 
 	Customised ``.. code-block::`` directive with an adjustable indent size.
 
-	.. rst:directive:option:: tab-width: number
-		:type: number
+	.. rst:directive:option:: tab-width:
+		:type: integer
 
 		Sets the size of the indentation in spaces.
 
@@ -119,7 +119,6 @@ class CodeBlock(__BaseCodeBlock):
 	"""
 	Directive for a code block with special highlighting or line numbering settings.
 
-	Subclass of :class:`sphinx.directives.code.CodeBlock` with adjustable indent size.
 	The indent_size can be adjusted with the ``:tab-width: <int>`` option.
 	"""
 

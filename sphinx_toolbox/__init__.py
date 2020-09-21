@@ -43,13 +43,10 @@ from sphinx_toolbox import (
 		rest_example,
 		shields,
 		source,
-		wikipedia
+		wikipedia,
+		utils,
 		)
 from sphinx_toolbox.cache import cache
-
-if typing.TYPE_CHECKING:
-	# this package
-	from sphinx_toolbox.utils import SphinxExtMetadata
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"
@@ -61,7 +58,7 @@ __email__: str = "dominic@davis-foster.co.uk"
 __all__ = ["setup"]
 
 
-def setup(app: Sphinx) -> "SphinxExtMetadata":
+def setup(app: Sphinx) -> "utils.SphinxExtMetadata":
 	"""
 	Setup :mod:`sphinx_toolbox`.
 
