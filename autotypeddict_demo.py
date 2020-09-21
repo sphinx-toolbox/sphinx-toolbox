@@ -2,7 +2,7 @@
 # https://www.python.org/dev/peps/pep-0589/#totality
 # https://github.com/python/typing/pull/700
 """
-Demo of .. autotypeddict::
+Demo of ``.. autotypeddict::``
 """
 
 # 3rd party
