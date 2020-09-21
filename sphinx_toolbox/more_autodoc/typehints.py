@@ -45,7 +45,22 @@ The changes are:
   The ``75`` is the priority of the hook. ``< 20`` runs before ``fget`` functions are extracted from properties,
   and ``< 100`` runs before ``__init__`` functions are extracted from classes.
 
+
+-----
+
 .. extensions:: sphinx_toolbox.more_autodoc.typehints
+
+
+For configuration information see https://github.com/agronholm/sphinx-autodoc-typehints
+
+In addition the following configuration value is added by this extension:
+
+.. confval:: hide_none_rtype
+	:type: :class:`bool`
+	:default: :py:obj:`False`
+	
+	Hides return types of :py:obj:`None`.
+
 
 .. versionadded:: 0.4.0
 
@@ -85,6 +100,7 @@ The changes are:
 import inspect
 import json
 import operator
+import re
 import sys
 import types
 from types import FunctionType, ModuleType
@@ -513,6 +529,10 @@ def process_docstring(
 	:param obj: The object being documented.
 	:param options: Mapping of autodoc options to values.
 	:param lines: List of strings representing the current contents of the docstring.
+
+	.. versionchanged:: 1.1.0
+
+		An empty ``:rtype:`` flag can be used to control the position of the return type annotation in the docstring.
 	"""
 
 	original_obj = obj
@@ -563,19 +583,27 @@ def process_docstring(
 			insert_index = len(lines)
 			for i, line in enumerate(lines):
 				if line.startswith(":rtype:"):
-					insert_index = None
+					if line[7:].strip():
+						insert_index = None
+					else:
+						insert_index = i
+						lines.pop(i)
+
 					break
+
 				elif line.startswith(":return:") or line.startswith(":returns:"):
 					insert_index = i
 
 			if insert_index is not None and app.config.typehints_document_rtype:  # type: ignore
+
 				if insert_index == len(lines):
 					# Ensure that :rtype: doesn't get joined with a paragraph of text, which
 					# prevents it being interpreted.
 					lines.append('')
 					insert_index += 1
 
-				lines.insert(insert_index, f":rtype: {formatted_annotation}")
+				if not (formatted_annotation == ":py:obj:`None`" and app.config.hide_none_rtype):
+					lines.insert(insert_index, f":rtype: {formatted_annotation}")
 
 
 def setup(app: Sphinx) -> SphinxExtMetadata:
@@ -596,6 +624,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.setup_extension("sphinx.ext.autodoc")
 	app.setup_extension("sphinx_autodoc_typehints")
+
+	app.add_config_value('hide_none_rtype', False, 'env', [bool])
 
 	return {
 			"version": __version__,

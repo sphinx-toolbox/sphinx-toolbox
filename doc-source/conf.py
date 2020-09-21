@@ -139,3 +139,4 @@ autodoc_default_options = {
 		}
 
 set_type_checking_flag = True
+hide_none_rtype = True
