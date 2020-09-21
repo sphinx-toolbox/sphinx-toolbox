@@ -4,6 +4,9 @@
 r"""
 Extension to provide GitHub related configuration values to other extensions.
 
+.. versionadded:: 1.0.0
+
+
 Configuration
 --------------
 
@@ -32,7 +35,8 @@ extension of your own you can enable it like so:
 		app.setup_extension('sphinx_toolbox.github')
 		return {}
 
-This will guarantee that the following values will be available via ``app.config``:
+This will guarantee that the following values will be available via
+:attr:`app.config <sphinx.config.Config>`:
 
 * **github_username** (:class:`str`\) -- The username of the GitHub account that owns the repository this documentation corresponds to.
 * **github_repository** (:class:`str`\) -- The GitHub repository this documentation corresponds to.
@@ -43,8 +47,6 @@ This will guarantee that the following values will be available via ``app.config
 
 If the user has not provided either ``github_username`` or ``github_repository``
 a :exc:`~.MissingOptionError` will be raised.
-
-.. versionadded:: 1.0.0
 """
 # 3rd party
 #

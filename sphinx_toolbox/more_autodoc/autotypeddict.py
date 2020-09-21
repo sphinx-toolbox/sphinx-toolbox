@@ -17,7 +17,6 @@ Only supports :mod:`typing_extensions`\'s TypedDict until :pull:`700 <python/typ
 Usage
 ---------
 
-
 .. rst:directive:: autotypeddict
 
 	Directive to automatically document a :class:`typing.TypedDict`.

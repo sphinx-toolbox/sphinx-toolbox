@@ -5,6 +5,25 @@
 Hack to get the docutils tab size, as there doesn't appear to be any other way.
 
 .. versionadded:: 1.0.0
+
+
+API Reference
+---------------
+
+You probably don't need to use this extension directly, but if you're developing an
+extension of your own you can enable it like so:
+
+.. code-block::
+
+	def setup(app: Sphinx) -> Dict[str, Any]:
+		app.setup_extension('sphinx_toolbox.github')
+		return {}
+
+This will guarantee that the following value will be available via
+:attr:`app.config <sphinx.config.Config>`:
+
+* **docutils_tab_width** (:class:`int`\) -- The number of spaces that correspond to a tab when Docutils parses source files.
+
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -37,10 +56,10 @@ from docutils.statemachine import StringList
 from sphinx.application import Sphinx
 from sphinx.parsers import RSTParser
 
-__all__ = ["setup"]
-
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata
+
+__all__ = ["setup"]
 
 
 def setup(app: Sphinx) -> SphinxExtMetadata:

@@ -75,7 +75,7 @@ API Reference
 
 # stdlib
 import re
-from typing import Any, Dict, List, Tuple
+from typing import Dict, List, Tuple
 from urllib.parse import quote
 
 # 3rd party
@@ -89,7 +89,7 @@ from sphinx.util.nodes import split_explicit_title
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata
 
-__all__ = ["make_wikipedia_link"]
+__all__ = ["make_wikipedia_link", "setup"]
 
 base_url = "https://%s.wikipedia.org/wiki"
 

@@ -77,6 +77,7 @@ from sphinx.locale import _
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx.ext.autodoc.directive import DocumenterBridge
 
 __all__ = ["PrettyGenericAliasDocumenter", "setup"]
 

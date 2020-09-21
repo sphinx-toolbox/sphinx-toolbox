@@ -86,6 +86,8 @@ from sphinx.util.inspect import object_description, safe_getattr
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import SphinxExtMetadata, flag
+from sphinx.ext.autodoc.directive import DocumenterBridge
+
 
 __all__ = [
 		"VariableDocumenter",

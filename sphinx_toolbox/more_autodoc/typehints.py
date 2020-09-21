@@ -103,7 +103,7 @@ import operator
 import sys
 import types
 from types import FunctionType, ModuleType
-from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, TypeVar
+from typing import Any, AnyStr, Callable, Dict, get_type_hints, List, Optional, Tuple, TypeVar
 
 # 3rd party
 import sphinx_autodoc_typehints  # type: ignore
@@ -154,7 +154,6 @@ __all__ = [
 get_annotation_module = sphinx_autodoc_typehints.get_annotation_module
 get_annotation_class_name = sphinx_autodoc_typehints.get_annotation_class_name
 get_annotation_args = sphinx_autodoc_typehints.get_annotation_args
-get_all_type_hints = sphinx_autodoc_typehints.get_all_type_hints
 backfill_type_hints = sphinx_autodoc_typehints.backfill_type_hints
 load_args = sphinx_autodoc_typehints.load_args
 split_type_comment_args = sphinx_autodoc_typehints.split_type_comment_args
@@ -417,6 +416,8 @@ def process_signature(
 	:param signature:
 	:param return_annotation:
 
+	:rtype:
+
 	.. versionchanged:: 0.8.0
 
 		Added support for factory function default values in attrs classes.
@@ -540,7 +541,7 @@ def process_docstring(
 
 	if callable(obj):
 		obj = inspect.unwrap(obj)
-		type_hints = get_all_type_hints(obj, name)
+		type_hints = get_all_type_hints(obj, name, original_obj)
 
 		for argname, annotation in type_hints.items():
 			if argname == "return":

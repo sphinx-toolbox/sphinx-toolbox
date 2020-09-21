@@ -63,7 +63,7 @@ __all__ = ["setup"]
 
 def setup(app: Sphinx) -> "SphinxExtMetadata":
 	"""
-	Setup Sphinx Extension.
+	Setup :mod:`sphinx_toolbox`.
 
 	:param app: The Sphinx app.
 	"""

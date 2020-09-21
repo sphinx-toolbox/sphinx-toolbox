@@ -94,6 +94,7 @@ from sphinx.environment import BuildEnvironment
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.utils import SphinxExtMetadata
+from typing import Type
 
 __all__ = ["PyDecoXRefRole", "setup"]
 
