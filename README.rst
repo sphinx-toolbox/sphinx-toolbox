@@ -91,7 +91,7 @@ sphinx-toolbox
 .. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/sphinx-toolbox
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/sphinx-toolbox/v1.0.0
+.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/sphinx-toolbox/v1.1.0
 	:target: https://github.com/domdfcoding/sphinx-toolbox/pulse
 	:alt: GitHub commits since tagged version
 
