@@ -226,7 +226,7 @@ class VariableDocumenter(DataDocumenter):
 
 			if not no_type:
 				if "type" in self.options:
-					self.add_line(type_template % self.options["type"], sourcename)
+					the_type = self.options["type"]
 				else:
 					# obtain type annotation for this data
 					the_type = get_variable_type(self)
@@ -236,8 +236,8 @@ class VariableDocumenter(DataDocumenter):
 						except Exception:
 							return
 
-					line = type_template % the_type
-					self.add_line(line, sourcename)
+				line = type_template % the_type
+				self.add_line(line, sourcename)
 
 		else:
 			super().add_directive_header(sig)
