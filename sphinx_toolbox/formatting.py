@@ -69,7 +69,6 @@ from sphinx.writers.html import HTMLTranslator
 from sphinx.writers.latex import LaTeXTranslator
 
 # this package
-from sphinx_toolbox import __version__
 from sphinx_toolbox.utils import SphinxExtMetadata
 
 __all__ = [
@@ -192,6 +191,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	.. versionadded:: 0.2.0
 	"""
+
+	# this package
+	from sphinx_toolbox import __version__
 
 	roles.register_local_role("iabbr", ItalicAbbreviation())
 	app.add_node(

@@ -9,15 +9,20 @@ The changes are:
 
 * *None* is formatted as :py:obj:`None` and not ``None``.
   If `intersphinx <https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html>`_
-  is used this will be a link to the Python documentation.
+  is used this will now be a link to the Python documentation.
+  
+  Since :pull:`154 <agronholm/sphinx-autodoc-typehints>` this feature is now available upstream.
 
 * If the signature of the object cannot be read, the signature provided by Sphinx will be used
-  rather than raising an error. This usually occurs for methods of builtin types.
+  rather than raising an error. 
+  
+  This usually occurs for methods of builtin types.
 
 * :class:`typing.TypeVar`\s are linked to if they have been included in the documentation.
 
-* If a function/method argument has a :class:`module <types.ModuleType>` object as its default
-  value a better representation will be shown in the signature.
+* If a function/method argument has a :class:`module <types.ModuleType>`, :class:`class <typing.Type>` 
+  or :class:`function <types.FunctionType>` object as its default value a better 
+  representation will be shown in the signature.
 
   For example:
 
@@ -27,7 +32,9 @@ The changes are:
   Previously this would have shown the full path to the source file. Now it displays ``<module 'json'>``.
 
 * The ability to hook into the :func:`~.process_docstring` function to edit the object's properties before the
-  annotations are added to the docstring. This is used by `attr-utils <https://attr-utils.readthedocs.io>`_
+  annotations are added to the docstring. 
+  
+  This is used by `attr-utils <https://attr-utils.readthedocs.io>`_
   to add annotations based on converter functions in `attrs <https://www.attrs.org>`_ classes.
 
   To use this, in your extension's ``setup`` function:
@@ -40,11 +47,15 @@ The changes are:
           return {}
 
   ``my_hook`` is a function that takes the object being documented as its only argument
-  and returns that object after modification.
+  and returns that object after modification. The ``75`` is the priority of the hook:
+   
+   * ``< 20`` runs before ``fget`` functions are extracted from properties
+   * ``< 90`` runs before ``__new__`` functions are extracted from :class:`NamedTuples <typing.NamedTuple>`.
+   * ``< 100`` runs before ``__init__`` functions are extracted from classes.
 
-  The ``75`` is the priority of the hook. ``< 20`` runs before ``fget`` functions are extracted from properties,
-  and ``< 100`` runs before ``__init__`` functions are extracted from classes.
+* Unresolved forward references are handled better.
 
+* Many of the built in types from the :mod:`types` module are now formatted and linked to correctly.
 
 -----
 
@@ -145,12 +156,12 @@ __all__ = [
 		"process_signature",
 		"process_docstring",
 		"format_annotation",
+		"get_all_type_hints",
 		"docstring_hooks",
 		"setup",
 		"get_annotation_module",
 		"get_annotation_class_name",
 		"get_annotation_args",
-		"get_all_type_hints",
 		"backfill_type_hints",
 		"load_args",
 		"split_type_comment_args",
@@ -515,8 +526,10 @@ Each entry in the list consists of:
   and returns that object after modification.
 
 * a number giving the priority of the hook, in ascending order.
-  ``< 20`` runs before ``fget`` functions are extracted from properties,
-  and ``< 100`` runs before ``__init__`` functions are extracted from classes.
+
+   * ``< 20`` runs before ``fget`` functions are extracted from properties
+   * ``< 90`` runs before ``__new__`` functions are extracted from :class:`NamedTuples <typing.NamedTuple>`.
+   * ``< 100`` runs before ``__init__`` functions are extracted from classes.
 """
 
 
@@ -677,8 +690,6 @@ def get_all_type_hints(obj, name, original_obj):
 	:param obj:
 	:param name:
 	:param original_obj: The original object, before the class if ``obj`` is its ``__init__`` method.
-
-	:return:
 	"""
 
 	def log(exc):

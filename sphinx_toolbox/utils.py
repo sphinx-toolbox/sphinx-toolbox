@@ -454,7 +454,7 @@ Regex to match ``:param <type> <name>: <docstring>`` flags.
 .. versionadded:: 0.8.0
 """
 
-untyped_param_regex: Pattern = re.compile(
+untyped_param_regex: Pattern[str] = re.compile(
 		fr"^:(param|parameter|arg|argument)\s*({_identifier_pattern}\s*):\s*(.*)",
 		flags=re.ASCII,
 		)
@@ -464,7 +464,7 @@ Regex to match ``:param <name>: <docstring>`` flags.
 .. versionadded:: 0.8.0
 """
 
-typed_flag_regex: Pattern = re.compile(
+typed_flag_regex: Pattern[str] = re.compile(
 		fr"^:(paramtype|type)\s*({_identifier_pattern}\s*):\s*(.*)",
 		flags=re.ASCII,
 		)

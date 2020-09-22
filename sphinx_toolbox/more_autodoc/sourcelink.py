@@ -10,7 +10,7 @@ Show a link to the corresponding source code at the top of :rst:dir:`automodule`
 
 .. versionchanged:: 1.1.0
 
-	Can also be enabled via the ``:sourcelink`` flag to :rst:dir:`automodule`, but is is not supported via :any:`autodoc_default_options`.
+	Can also be enabled via the ``:sourcelink:`` flag to :rst:dir:`automodule`, but it is not supported via :any:`autodoc_default_options`.
 
 
 Usage

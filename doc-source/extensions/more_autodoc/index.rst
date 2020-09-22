@@ -17,9 +17,7 @@ Alternatively, the following features can be enabled individually:
 
 	*
 
-
-API Reference
---------------
+|
 
 .. automodulesumm:: sphinx_toolbox.more_autodoc
 

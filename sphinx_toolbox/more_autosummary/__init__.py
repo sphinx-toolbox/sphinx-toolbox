@@ -19,6 +19,9 @@ and so resulted in a broken link.
 .. versionadded:: 0.7.0
 
 
+Usage
+-------
+
 .. confval:: autodocsumm_member_order
 	:type: str
 	:default: ``'alphabetical'``
@@ -31,6 +34,10 @@ and so resulted in a broken link.
 The member order can also be set on a per-directive basis using the ``:member-order: [order]`` option.
 This applies not only to :rst:dir:`automodule` etc. directives,
 but also to :rst:dir:`automodulesumm` etc. directives.
+
+
+API Reference
+----------------
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>

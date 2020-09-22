@@ -12,6 +12,43 @@ with a different appearance and more customisation options.
 .. versionchanged:: 0.7.0
 
 	Added ``*AttributeDocumenter``\s
+
+.. versionchanged:: 1.1.0
+
+	Added :class:`~.SlotsAttributeDocumenter`
+
+Usage
+----------
+
+.. rst:directive:: autovariable
+
+	Directive to automatically document a variable.
+
+	The output is based on the :rst:dir:`autodata` directive, and takes all of its options, 
+	plus these additional ones:
+
+	.. rst:directive:option:: no-value
+
+		Don't show the value of the variable.
+
+	.. rst:directive:option:: value: value
+		:type: string
+
+		Show this instead of the value taken from the Python source code.
+
+	.. rst:directive:option:: no-type
+
+		Don't show the type of the variable.
+
+	.. rst:directive:option:: type: type
+		:type: string
+
+		Show this instead of the type taken from the Python source code.
+
+
+
+API Reference
+----------------
 """  # noqa D400
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>

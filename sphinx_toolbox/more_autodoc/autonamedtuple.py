@@ -16,7 +16,7 @@ Usage
 
 	Directive to automatically document a :class:`typing.NamedTuple` or :func:`collections.namedtuple`.
 
-	The output is based on the :rst:dir:`autoclass` directive
+	The output is based on the :rst:dir:`autoclass` directive.
 	The list of parameters and the attributes are replaced by a list of Fields,
 	combining the types and docstrings from the class docstring individual attributes.
 	These will always be shown regardless of the state of the ``:members:`` option.
