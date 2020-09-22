@@ -459,7 +459,11 @@ def process_signature(
 		return None
 
 	# The generated dataclass __init__() is weird and needs the second condition
-	if "<locals>" in obj.__qualname__ and not (what == "method" and name.endswith(".__init__")):
+	if (
+			hasattr(obj, "__qualname__")
+			and "<locals>" in obj.__qualname__
+			and not (what == "method" and name.endswith(".__init__"))
+		):
 		sphinx_autodoc_typehints.logger.warning(
 				"Cannot treat a function defined as a local function: '%s'  (use @functools.wraps)", name
 				)
