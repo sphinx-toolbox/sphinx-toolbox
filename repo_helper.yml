@@ -41,3 +41,6 @@ extra_sphinx_extensions:
 
 sphinx_conf_epilogue:
   - hide_none_rtype = True
+
+manifest_additional:
+  - include sphinx_toolbox/more_autodoc/regex.css

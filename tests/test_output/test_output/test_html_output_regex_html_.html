@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   sphinx-toolbox Demo - Regex — Python  documentation
+  </title>
+  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
+  </script>
+  <script src="_static/jquery.js">
+  </script>
+  <script src="_static/underscore.js">
+  </script>
+  <script src="_static/doctools.js">
+  </script>
+  <script src="_static/language_data.js">
+  </script>
+  <meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
+ </head>
+ <body>
+  <div class="document">
+   <div class="documentwrapper">
+    <div class="bodywrapper">
+     <div class="body" role="main">
+      <div class="section" id="module-sphinx_toolbox.utils">
+       <span id="sphinx-toolbox-demo-regex">
+       </span>
+       <h1>
+        sphinx-toolbox Demo - Regex
+        <a class="headerlink" href="#module-sphinx_toolbox.utils" title="Permalink to this headline">
+         ¶
+        </a>
+       </h1>
+       <p>
+        General utility functions.
+       </p>
+       <dl class="py data">
+        <dt id="sphinx_toolbox.utils.untyped_param_regex">
+         <code class="sig-prename descclassname">
+          sphinx_toolbox.utils.
+         </code>
+         <code class="sig-name descname">
+          untyped_param_regex
+         </code>
+         <a class="headerlink" href="#sphinx_toolbox.utils.untyped_param_regex" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          <strong>
+           Type:
+          </strong>
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            Pattern
+           </span>
+          </code>
+          [
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            str
+           </span>
+          </code>
+          ]
+         </p>
+         <p>
+          Regex to match
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            :param
+           </span>
+           <span class="pre">
+            &lt;name&gt;:
+           </span>
+           <span class="pre">
+            &lt;docstring&gt;
+           </span>
+          </code>
+          flags.
+         </p>
+         <div class="versionadded">
+          <p>
+           <span class="versionmodified added">
+            New in version 0.8.0.
+           </span>
+          </p>
+         </div>
+         <table class="colwidths-auto docutils align-default">
+          <tbody>
+           <tr class="row-odd">
+            <th class="stub">
+             <p>
+              <strong>
+               Pattern
+              </strong>
+             </p>
+            </th>
+            <td>
+             <p>
+              <code class="docutils literal notranslate regex">
+               <span class="regex regex_at">
+                ^
+               </span>
+               <span class="regex regex_literal">
+                :
+               </span>
+               <span class="regex regex_subpattern">
+                (
+               </span>
+               <span class="regex regex_literal">
+                p
+               </span>
+               <span class="regex regex_literal">
+                a
+               </span>
+               <span class="regex regex_literal">
+                r
+               </span>
+               <span class="regex regex_literal">
+                a
+               </span>
+               <span class="regex regex_literal">
+                m
+               </span>
+               <span class="regex regex_branch">
+                |
+               </span>
+               <span class="regex regex_literal">
+                p
+               </span>
+               <span class="regex regex_literal">
+                a
+               </span>
+               <span class="regex regex_literal">
+                r
+               </span>
+               <span class="regex regex_literal">
+                a
+               </span>
+               <span class="regex regex_literal">
+                m
+               </span>
+               <span class="regex regex_literal">
+                e
+               </span>
+               <span class="regex regex_literal">
+                t
+               </span>
+               <span class="regex regex_literal">
+                e
+               </span>
+               <span class="regex regex_literal">
+                r
+               </span>
+               <span class="regex regex_branch">
+                |
+               </span>
+               <span class="regex regex_literal">
+                a
+               </span>
+               <span class="regex regex_literal">
+                r
+               </span>
+               <span class="regex regex_literal">
+                g
+               </span>
+               <span class="regex regex_branch">
+                |
+               </span>
+               <span class="regex regex_literal">
+                a
+               </span>
+               <span class="regex regex_literal">
+                r
+               </span>
+               <span class="regex regex_literal">
+                g
+               </span>
+               <span class="regex regex_literal">
+                u
+               </span>
+               <span class="regex regex_literal">
+                m
+               </span>
+               <span class="regex regex_literal">
+                e
+               </span>
+               <span class="regex regex_literal">
+                n
+               </span>
+               <span class="regex regex_literal">
+                t
+               </span>
+               <span class="regex regex_subpattern">
+                )
+               </span>
+               <span class="regex regex_category">
+                \s
+               </span>
+               <span class="regex regex_repeat">
+                *
+               </span>
+               <span class="regex regex_subpattern">
+                (
+               </span>
+               <span class="regex regex_in">
+                [
+               </span>
+               <span class="regex regex_literal">
+                A
+               </span>
+               <span class="regex regex_at">
+                -
+               </span>
+               <span class="regex regex_literal">
+                Z
+               </span>
+               <span class="regex regex_literal">
+                a
+               </span>
+               <span class="regex regex_at">
+                -
+               </span>
+               <span class="regex regex_literal">
+                z
+               </span>
+               <span class="regex regex_literal">
+                _
+               </span>
+               <span class="regex regex_in">
+                ]
+               </span>
+               <span class="regex regex_category">
+                \w
+               </span>
+               <span class="regex regex_repeat">
+                *
+               </span>
+               <span class="regex regex_category">
+                \s
+               </span>
+               <span class="regex regex_repeat">
+                *
+               </span>
+               <span class="regex regex_subpattern">
+                )
+               </span>
+               <span class="regex regex_literal">
+                :
+               </span>
+               <span class="regex regex_category">
+                \s
+               </span>
+               <span class="regex regex_repeat">
+                *
+               </span>
+               <span class="regex regex_subpattern">
+                (
+               </span>
+               <span class="regex regex_any">
+                .
+               </span>
+               <span class="regex regex_repeat">
+                *
+               </span>
+               <span class="regex regex_subpattern">
+                )
+               </span>
+              </code>
+             </p>
+            </td>
+           </tr>
+           <tr class="row-even">
+            <th class="stub">
+             <p>
+              <strong>
+               Flags
+              </strong>
+             </p>
+            </th>
+            <td>
+             <p>
+              <code class="xref py py-data docutils literal notranslate">
+               <span class="pre">
+                re.ASCII
+               </span>
+              </code>
+             </p>
+            </td>
+           </tr>
+          </tbody>
+         </table>
+        </dd>
+       </dl>
+       <dl class="py data">
+        <dt id="sphinx_toolbox.utils.typed_flag_regex">
+         <code class="sig-prename descclassname">
+          sphinx_toolbox.utils.
+         </code>
+         <code class="sig-name descname">
+          typed_flag_regex
+         </code>
+         <a class="headerlink" href="#sphinx_toolbox.utils.typed_flag_regex" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          <strong>
+           Type:
+          </strong>
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            Pattern
+           </span>
+          </code>
+          [
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            str
+           </span>
+          </code>
+          ]
+         </p>
+         <p>
+          Regex to match
+          <code class="docutils literal notranslate">
+           <span class="pre">
+            :type
+           </span>
+           <span class="pre">
+            &lt;name&gt;:
+           </span>
+           <span class="pre">
+            &lt;type&gt;
+           </span>
+          </code>
+          flags.
+         </p>
+         <div class="versionadded">
+          <p>
+           <span class="versionmodified added">
+            New in version 0.8.0.
+           </span>
+          </p>
+         </div>
+         <table class="colwidths-auto docutils align-default">
+          <tbody>
+           <tr class="row-odd">
+            <th class="stub">
+             <p>
+              <strong>
+               Pattern
+              </strong>
+             </p>
+            </th>
+            <td>
+             <p>
+              <code class="docutils literal notranslate regex">
+               <span class="regex regex_at">
+                ^
+               </span>
+               <span class="regex regex_literal">
+                :
+               </span>
+               <span class="regex regex_subpattern">
+                (
+               </span>
+               <span class="regex regex_literal">
+                p
+               </span>
+               <span class="regex regex_literal">
+                a
+               </span>
+               <span class="regex regex_literal">
+                r
+               </span>
+               <span class="regex regex_literal">
+                a
+               </span>
+               <span class="regex regex_literal">
+                m
+               </span>
+               <span class="regex regex_literal">
+                t
+               </span>
+               <span class="regex regex_literal">
+                y
+               </span>
+               <span class="regex regex_literal">
+                p
+               </span>
+               <span class="regex regex_literal">
+                e
+               </span>
+               <span class="regex regex_branch">
+                |
+               </span>
+               <span class="regex regex_literal">
+                t
+               </span>
+               <span class="regex regex_literal">
+                y
+               </span>
+               <span class="regex regex_literal">
+                p
+               </span>
+               <span class="regex regex_literal">
+                e
+               </span>
+               <span class="regex regex_subpattern">
+                )
+               </span>
+               <span class="regex regex_category">
+                \s
+               </span>
+               <span class="regex regex_repeat">
+                *
+               </span>
+               <span class="regex regex_subpattern">
+                (
+               </span>
+               <span class="regex regex_in">
+                [
+               </span>
+               <span class="regex regex_literal">
+                A
+               </span>
+               <span class="regex regex_at">
+                -
+               </span>
+               <span class="regex regex_literal">
+                Z
+               </span>
+               <span class="regex regex_literal">
+                a
+               </span>
+               <span class="regex regex_at">
+                -
+               </span>
+               <span class="regex regex_literal">
+                z
+               </span>
+               <span class="regex regex_literal">
+                _
+               </span>
+               <span class="regex regex_in">
+                ]
+               </span>
+               <span class="regex regex_category">
+                \w
+               </span>
+               <span class="regex regex_repeat">
+                *
+               </span>
+               <span class="regex regex_category">
+                \s
+               </span>
+               <span class="regex regex_repeat">
+                *
+               </span>
+               <span class="regex regex_subpattern">
+                )
+               </span>
+               <span class="regex regex_literal">
+                :
+               </span>
+               <span class="regex regex_category">
+                \s
+               </span>
+               <span class="regex regex_repeat">
+                *
+               </span>
+               <span class="regex regex_subpattern">
+                (
+               </span>
+               <span class="regex regex_any">
+                .
+               </span>
+               <span class="regex regex_repeat">
+                *
+               </span>
+               <span class="regex regex_subpattern">
+                )
+               </span>
+              </code>
+             </p>
+            </td>
+           </tr>
+           <tr class="row-even">
+            <th class="stub">
+             <p>
+              <strong>
+               Flags
+              </strong>
+             </p>
+            </th>
+            <td>
+             <p>
+              <code class="xref py py-data docutils literal notranslate">
+               <span class="pre">
+                re.ASCII
+               </span>
+              </code>
+             </p>
+            </td>
+           </tr>
+          </tbody>
+         </table>
+        </dd>
+       </dl>
+       <p>
+        <code class="docutils literal notranslate regex">
+         <span class="regex regex_at">
+          ^
+         </span>
+         <span class="regex regex_literal">
+          H
+         </span>
+         <span class="regex regex_literal">
+          e
+         </span>
+         <span class="regex regex_literal">
+          l
+         </span>
+         <span class="regex regex_literal">
+          l
+         </span>
+         <span class="regex regex_literal">
+          o
+         </span>
+         <span class="regex regex_category">
+          \s
+         </span>
+         <span class="regex regex_repeat">
+          +
+         </span>
+         <span class="regex regex_in">
+          [
+         </span>
+         <span class="regex regex_literal">
+          W
+         </span>
+         <span class="regex regex_literal">
+          w
+         </span>
+         <span class="regex regex_in">
+          ]
+         </span>
+         <span class="regex regex_literal">
+          o
+         </span>
+         <span class="regex regex_literal">
+          r
+         </span>
+         <span class="regex regex_literal">
+          l
+         </span>
+         <span class="regex regex_literal">
+          d
+         </span>
+         <span class="regex regex_in">
+          [
+         </span>
+         <span class="regex regex_literal">
+          .
+         </span>
+         <span class="regex regex_literal">
+          ,
+         </span>
+         <span class="regex regex_in">
+          ]
+         </span>
+         <span class="regex regex_subpattern">
+          (
+         </span>
+         <span class="regex regex_literal">
+          L
+         </span>
+         <span class="regex regex_literal">
+          o
+         </span>
+         <span class="regex regex_literal">
+          v
+         </span>
+         <span class="regex regex_literal">
+          e
+         </span>
+         <span class="regex regex_literal">
+          l
+         </span>
+         <span class="regex regex_literal">
+          y
+         </span>
+         <span class="regex regex_branch">
+          |
+         </span>
+         <span class="regex regex_literal">
+          H
+         </span>
+         <span class="regex regex_literal">
+          o
+         </span>
+         <span class="regex regex_literal">
+          r
+         </span>
+         <span class="regex regex_literal">
+          r
+         </span>
+         <span class="regex regex_literal">
+          i
+         </span>
+         <span class="regex regex_literal">
+          b
+         </span>
+         <span class="regex regex_literal">
+          l
+         </span>
+         <span class="regex regex_literal">
+          e
+         </span>
+         <span class="regex regex_subpattern">
+          )
+         </span>
+         <span class="regex regex_literal">
+         </span>
+         <span class="regex regex_literal">
+          w
+         </span>
+         <span class="regex regex_literal">
+          e
+         </span>
+         <span class="regex regex_literal">
+          a
+         </span>
+         <span class="regex regex_literal">
+          t
+         </span>
+         <span class="regex regex_literal">
+          h
+         </span>
+         <span class="regex regex_literal">
+          e
+         </span>
+         <span class="regex regex_literal">
+          r
+         </span>
+         <span class="regex regex_literal">
+          ,
+         </span>
+         <span class="regex regex_literal">
+         </span>
+         <span class="regex regex_literal">
+          i
+         </span>
+         <span class="regex regex_literal">
+          s
+         </span>
+         <span class="regex regex_literal">
+          n
+         </span>
+         <span class="regex regex_literal">
+          '
+         </span>
+         <span class="regex regex_literal">
+          t
+         </span>
+         <span class="regex regex_literal">
+         </span>
+         <span class="regex regex_literal">
+          i
+         </span>
+         <span class="regex regex_literal">
+          t
+         </span>
+         <span class="regex regex_literal">
+         </span>
+         <span class="regex regex_subpattern">
+          (
+         </span>
+         <span class="regex regex_any">
+          .
+         </span>
+         <span class="regex regex_repeat">
+          *
+         </span>
+         <span class="regex regex_subpattern">
+          )
+         </span>
+         <span class="regex regex_repeat">
+          ?
+         </span>
+        </code>
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div aria-label="main navigation" class="sphinxsidebar" role="navigation">
+    <div class="sphinxsidebarwrapper">
+     <h1 class="logo">
+      <a href="index.html">
+       Python
+      </a>
+     </h1>
+     <h3>
+      Navigation
+     </h3>
+     <div class="relations">
+      <h3>
+       Related Topics
+      </h3>
+      <ul>
+       <li>
+        <a href="index.html">
+         Documentation overview
+        </a>
+        <ul>
+        </ul>
+       </li>
+      </ul>
+     </div>
+     <div id="searchbox" role="search" style="display: none">
+      <h3 id="searchlabel">
+       Quick search
+      </h3>
+      <div class="searchformwrapper">
+       <form action="search.html" class="search" method="get">
+        <input aria-labelledby="searchlabel" name="q" type="text"/>
+        <input type="submit" value="Go"/>
+       </form>
+      </div>
+     </div>
+     <script>
+      $('#searchbox').show(0);
+     </script>
+    </div>
+   </div>
+   <div class="clearer">
+   </div>
+  </div>
+ </body>
+</html>

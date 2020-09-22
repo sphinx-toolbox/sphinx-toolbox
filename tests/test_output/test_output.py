@@ -144,6 +144,7 @@ def test_formatting_html_output(page: BeautifulSoup, file_regression: FileRegres
 				"decorators.html",
 				"no_docstring.html",
 				"sourcelink.html",
+				"regex.html",
 				],
 		indirect=True
 		)

@@ -7,6 +7,7 @@ extensions = [
 		"sphinx_toolbox.more_autodoc.variables",
 		"sphinx_toolbox.more_autodoc.no_docstring",
 		"sphinx_toolbox.more_autodoc.sourcelink",
+		"sphinx_toolbox.more_autodoc.regex",
 		"sphinx_tabs.tabs",
 		"sphinx-prompt",
 		"sphinx.ext.autodoc",

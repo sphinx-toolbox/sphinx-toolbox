@@ -10,18 +10,18 @@ The changes are:
 * *None* is formatted as :py:obj:`None` and not ``None``.
   If `intersphinx <https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html>`_
   is used this will now be a link to the Python documentation.
-  
+
   Since :pull:`154 <agronholm/sphinx-autodoc-typehints>` this feature is now available upstream.
 
 * If the signature of the object cannot be read, the signature provided by Sphinx will be used
-  rather than raising an error. 
-  
+  rather than raising an error.
+
   This usually occurs for methods of builtin types.
 
 * :class:`typing.TypeVar`\s are linked to if they have been included in the documentation.
 
-* If a function/method argument has a :class:`module <types.ModuleType>`, :class:`class <typing.Type>` 
-  or :class:`function <types.FunctionType>` object as its default value a better 
+* If a function/method argument has a :class:`module <types.ModuleType>`, :class:`class <typing.Type>`
+  or :class:`function <types.FunctionType>` object as its default value a better
   representation will be shown in the signature.
 
   For example:
@@ -32,8 +32,8 @@ The changes are:
   Previously this would have shown the full path to the source file. Now it displays ``<module 'json'>``.
 
 * The ability to hook into the :func:`~.process_docstring` function to edit the object's properties before the
-  annotations are added to the docstring. 
-  
+  annotations are added to the docstring.
+
   This is used by `attr-utils <https://attr-utils.readthedocs.io>`_
   to add annotations based on converter functions in `attrs <https://www.attrs.org>`_ classes.
 
@@ -48,7 +48,7 @@ The changes are:
 
   ``my_hook`` is a function that takes the object being documented as its only argument
   and returns that object after modification. The ``75`` is the priority of the hook:
-   
+
    * ``< 20`` runs before ``fget`` functions are extracted from properties
    * ``< 90`` runs before ``__new__`` functions are extracted from :class:`NamedTuples <typing.NamedTuple>`.
    * ``< 100`` runs before ``__init__`` functions are extracted from classes.
@@ -460,10 +460,9 @@ def process_signature(
 
 	# The generated dataclass __init__() is weird and needs the second condition
 	if (
-			hasattr(obj, "__qualname__")
-			and "<locals>" in obj.__qualname__
+			hasattr(obj, "__qualname__") and "<locals>" in obj.__qualname__
 			and not (what == "method" and name.endswith(".__init__"))
-		):
+			):
 		sphinx_autodoc_typehints.logger.warning(
 				"Cannot treat a function defined as a local function: '%s'  (use @functools.wraps)", name
 				)

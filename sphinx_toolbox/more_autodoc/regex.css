@@ -1,0 +1,51 @@
+span.regex_literal {
+	color: dimgrey;
+}
+
+span.regex_at {
+	/*color: rgb(204, 120, 50)*/
+	color: orangered;
+}
+
+span.regex_repeat_brace {
+	/*color: rgb(204, 120, 50)*/
+	color: orangered;
+}
+
+span.regex_branch {
+	/*color: rgb(204, 120, 50)*/
+	color: orangered;
+}
+
+span.regex_subpattern {
+	/*color: indianred !* rgb(255, 150, 50) *!*/
+	color: dodgerblue /* rgb(255, 150, 50) */
+}
+
+span.regex_in {
+	/*color: rgb(255, 150, 50)*/
+	color: darkorange
+}
+
+span.regex_category {
+	/*color: rgb(255, 150, 50)*/
+	color: darkseagreen;
+}
+
+span.regex_repeat {
+	/*color: rgb(51, 204, 255)*/
+	color: orangered;
+}
+
+span.regex_any {
+	/*color: rgb(204, 120, 50)*/
+	color: orangered;
+}
+
+code.regex {
+	font-size: 80%;
+}
+
+span.regex {
+	font-weight: bold;
+}

@@ -24,7 +24,7 @@ Usage
 
 	Directive to automatically document a variable.
 
-	The output is based on the :rst:dir:`autodata` directive, and takes all of its options, 
+	The output is based on the :rst:dir:`autodata` directive, and takes all of its options,
 	plus these additional ones:
 
 	.. rst:directive:option:: no-value

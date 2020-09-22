@@ -4,6 +4,7 @@ beautifulsoup4>=4.9.1
 docutils>=0.16
 domdf_python_tools>=0.8.0
 html5lib>=1.1
+importlib_resources>=3.0.0
 requests>=2.24.0
 sphinx>=3.0.3
 sphinx-autodoc-typehints==1.11.0
