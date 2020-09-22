@@ -125,7 +125,7 @@ def add_autosummary(self):
 	grouped_documenters = self.get_grouped_documenters()
 
 	for section, documenters in grouped_documenters.items():
-		if not self.options.get("autosummary_no_titles", False):
+		if not self.options.get("autosummary-no-titles", False):
 			content.append(f"**{section}:**")
 
 		content.blankline(ensure_single=True)
@@ -136,7 +136,7 @@ def add_autosummary(self):
 		member_order = get_first_matching(
 				lambda x: x != "groupwise",
 				[
-						self.options.get("member_order", ''),
+						self.options.get("member-order", ''),
 						self.env.config.autodocsumm_member_order,
 						self.env.config.autodoc_member_order,
 						],
