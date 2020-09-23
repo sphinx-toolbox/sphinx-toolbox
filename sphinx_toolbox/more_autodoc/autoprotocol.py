@@ -135,7 +135,7 @@ from typing import Any, Callable, Dict, List, Tuple
 from sphinx.application import Sphinx
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyClasslike, PyXRefRole
-from sphinx.ext.autodoc import INSTANCEATTR, ClassDocumenter, member_order_option
+from sphinx.ext.autodoc import INSTANCEATTR, ClassDocumenter, exclude_members_option, member_order_option
 from sphinx.locale import _
 from sphinx.util.inspect import getdoc, safe_getattr
 
@@ -193,6 +193,7 @@ class ProtocolDocumenter(ClassDocumenter):
 			"noindex": flag,
 			"member-order": member_order_option,
 			"show-inheritance": flag,
+			"exclude-protocol-members": exclude_members_option,
 			}
 
 	@classmethod
@@ -236,7 +237,9 @@ class ProtocolDocumenter(ClassDocumenter):
 			self.add_line(runtime_message, sourcename)
 			self.add_line('', sourcename)
 
-		self.add_line("Classes that implement this protocol must have the following methods:", sourcename)
+		self.add_line(
+				"Classes that implement this protocol must have the following methods / attributes:", sourcename
+				)
 		self.add_line('', sourcename)
 
 	def document_members(self, all_members: bool = False) -> None:
@@ -270,8 +273,9 @@ class ProtocolDocumenter(ClassDocumenter):
 				# mocked module or object
 				keep = False
 
-			elif self.options.get("exclude-members", []) and membername in self.options["exclude-members"]:
-				# remove members given by exclude-members
+			elif self.options.get("exclude-protocol-members",
+									[]) and membername in self.options["exclude-protocol-members"]:
+				# remove members given by exclude-protocol-members
 				keep = False
 
 			elif membername.startswith('_') and not (membername.startswith("__") and membername.endswith("__")):
