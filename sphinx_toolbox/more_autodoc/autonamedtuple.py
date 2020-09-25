@@ -226,6 +226,8 @@ class NamedTupleDocumenter(ClassDocumenter):
 			docstring = dedent(self.object.__doc__).expandtabs(tab_size).split("\n")
 		elif "show-inheritance" not in self.options:
 			docstring = [":class:`typing.NamedTuple`."]
+		else:
+			docstring = ['']
 
 		docstring = list(self.process_doc([docstring]))
 
