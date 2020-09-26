@@ -115,7 +115,8 @@ from sphinx.ext.autodoc import (
 		DataDocumenter,
 		Documenter,
 		ModuleDocumenter,
-		ModuleLevelDocumenter
+		ModuleLevelDocumenter,
+		Options
 		)
 from sphinx.ext.autodoc.directive import DocumenterBridge
 from sphinx.util.inspect import object_description, safe_getattr
@@ -196,6 +197,10 @@ class VariableDocumenter(DataDocumenter):
 			**DataDocumenter.option_spec,
 			}
 
+	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
+		super().__init__(directive=directive, name=name, indent=indent)
+		self.options = Options(self.options.copy())
+
 	def add_directive_header(self, sig: str):
 		"""
 		Add the directive's header.
@@ -256,6 +261,10 @@ class TypedAttributeDocumenter(AttributeDocumenter):
 
 		Now uses the type of the variable if it is not explicitly annotated.
 	"""  # noqa D400
+
+	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
+		super().__init__(directive=directive, name=name, indent=indent)
+		self.options = Options(self.options.copy())
 
 	def add_directive_header(self, sig: str):
 		"""

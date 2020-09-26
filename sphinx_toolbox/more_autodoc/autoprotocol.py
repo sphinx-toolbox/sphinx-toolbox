@@ -135,7 +135,8 @@ from typing import Any, Callable, Dict, List, Tuple
 from sphinx.application import Sphinx
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyClasslike, PyXRefRole
-from sphinx.ext.autodoc import INSTANCEATTR, ClassDocumenter, exclude_members_option, member_order_option
+from sphinx.ext.autodoc import INSTANCEATTR, ClassDocumenter, Options, exclude_members_option, member_order_option
+from sphinx.ext.autodoc.directive import DocumenterBridge
 from sphinx.locale import _
 from sphinx.util.inspect import getdoc, safe_getattr
 
@@ -195,6 +196,10 @@ class ProtocolDocumenter(ClassDocumenter):
 			"show-inheritance": flag,
 			"exclude-protocol-members": exclude_members_option,
 			}
+
+	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
+		super().__init__(directive, name, indent)
+		self.options = Options(self.options.copy())
 
 	@classmethod
 	def can_document_member(cls, member: Any, membername: str, isattr: bool, parent: Any) -> bool:

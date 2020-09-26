@@ -114,7 +114,8 @@ from typing import Any, Dict, List, Tuple, get_type_hints
 from sphinx.application import Sphinx
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyClasslike, PyXRefRole
-from sphinx.ext.autodoc import ClassDocumenter, Documenter
+from sphinx.ext.autodoc import ClassDocumenter, Documenter, Options
+from sphinx.ext.autodoc.directive import DocumenterBridge
 from sphinx.locale import _
 from sphinx.pycode import ModuleAnalyzer
 
@@ -141,6 +142,10 @@ class NamedTupleDocumenter(ClassDocumenter):
 	objtype = "namedtuple"
 	directivetype = "namedtuple"
 	priority = 20
+
+	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
+		super().__init__(directive, name, indent)
+		self.options = Options(self.options.copy())
 
 	@classmethod
 	def can_document_member(cls, member: Any, membername: str, isattr: bool, parent: Any) -> bool:
