@@ -183,10 +183,10 @@ class TypedDictDocumenter(ClassDocumenter):
 		"""
 		Called to see if a member can be documented by this documenter.
 
-		:param member:
-		:param membername:
+		:param member: The member being checked.
+		:param membername: The name of the member.
 		:param isattr:
-		:param parent:
+		:param parent: The parent of the member.
 		"""
 
 		for attr in {"__optional_keys__", "__required_keys__", "__total__"}:

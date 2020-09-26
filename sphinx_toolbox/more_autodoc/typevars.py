@@ -2,8 +2,8 @@
 #
 #  typevars.py
 r"""
-Documenter for module level :class:`typing.TypeVar`\'s, similar to :rst:dir:`autotypevar` but
-with a different appearance.
+Documenter for module level :class:`typing.TypeVar`\'s, similar to Sphinx's
+:rst:dir:`sphinx:autotypevar` but with a different appearance.
 
 .. extensions:: sphinx_toolbox.more_autodoc.typevars
 
@@ -150,12 +150,10 @@ class TypeVarDocumenter(VariableDocumenter):
 		"""
 		Called to see if a member can be documented by this documenter.
 
-		This documenter only documents INSTANCEATTR members.
-
-		:param member:
-		:param membername:
+		:param member: The member being checked.
+		:param membername: The name of the member.
 		:param isattr:
-		:param parent:
+		:param parent: The parent of the member.
 		"""
 
 		return isinstance(member, TypeVar)  # type: ignore

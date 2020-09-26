@@ -60,7 +60,6 @@ Functions for testing Sphinx extensions.
 
 # stdlib
 import copy
-import typing
 from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, Type, Union
 
 # 3rd party
@@ -88,9 +87,8 @@ from sphinx.roles import XRefRole
 from sphinx.util import docutils
 from sphinx.util.typing import RoleFunction, TitleGetter
 
-if typing.TYPE_CHECKING:
-	# this package
-	from sphinx_toolbox.utils import SphinxExtMetadata
+# this package
+from sphinx_toolbox.utils import SphinxExtMetadata
 
 __all__ = [
 		"Sphinx",

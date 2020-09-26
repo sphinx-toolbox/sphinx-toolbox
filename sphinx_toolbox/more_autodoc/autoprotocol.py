@@ -201,10 +201,10 @@ class ProtocolDocumenter(ClassDocumenter):
 		"""
 		Called to see if a member can be documented by this documenter.
 
-		:param member:
-		:param membername:
+		:param member: The member being checked.
+		:param membername: The name of the member.
 		:param isattr:
-		:param parent:
+		:param parent: The parent of the member.
 		"""
 
 		# _is_protocol = True

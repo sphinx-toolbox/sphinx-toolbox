@@ -334,10 +334,10 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 
 		This documenter only documents INSTANCEATTR members.
 
-		:param member:
-		:param membername:
+		:param member: The member being checked.
+		:param membername: The name of the member.
 		:param isattr:
-		:param parent:
+		:param parent: The parent of the member.
 		"""
 
 		return not isinstance(parent, ModuleDocumenter) and isattr and member is INSTANCEATTR
@@ -400,10 +400,10 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 
 		This documenter only documents SLOTSATTR members.
 
-		:param member:
-		:param membername:
+		:param member: The member being checked.
+		:param membername: The name of the member.
 		:param isattr:
-		:param parent:
+		:param parent: The parent of the member.
 		"""
 
 		return member is SLOTSATTR
