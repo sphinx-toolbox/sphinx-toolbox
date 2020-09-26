@@ -105,6 +105,16 @@ class ToolboxConfig(Config):
 	#: A string of reStructuredText that will be included at the beginning of every source file that is read.
 	rst_prolog: str
 
+	#: Document all :class:`typing.TypeVar`\s, even if they have no docstring.
+	all_typevars: bool
+
+	no_unbound_typevars: bool
+	r"""
+	Only document :class:`typing.TypeVar`\s that have a constraint of are bound.
+	
+	This option has no effect if :confval:`all_typevars` is False.
+	"""
+
 
 def validate_config(app: Sphinx, config: ToolboxConfig):
 	r"""

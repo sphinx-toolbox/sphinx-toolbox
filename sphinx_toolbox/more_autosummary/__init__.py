@@ -18,6 +18,11 @@ and so resulted in a broken link.
 
 .. versionadded:: 0.7.0
 
+.. versionchanged:: 1.3.0
+
+	Autosummary now selects the appropriate documenter for attributes rather than
+	falling back to :class:`~sphinx.ext.autodoc.DataDocumenter`.
+
 
 Usage
 -------
@@ -93,22 +98,23 @@ API Reference
 #
 
 # stdlib
+import inspect
 import re
-from typing import Any, Dict, List, Tuple
+from typing import Any, List, Tuple, Type
 
 # 3rd party
 import autodocsumm  # type: ignore
 from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.config import ENUM
-from sphinx.ext.autodoc import ClassDocumenter
-from sphinx.ext.autosummary import Autosummary
+from sphinx.ext.autodoc import ClassDocumenter, Documenter
+from sphinx.ext.autosummary import Autosummary, FakeDirective
 
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add, get_first_matching
 
-__all__ = ["setup", "PatchedAutosummary", "PatchedAutoSummClassDocumenter"]
+__all__ = ["setup", "PatchedAutosummary", "PatchedAutoSummClassDocumenter", "get_documenter"]
 
 
 def add_autosummary(self):
@@ -183,6 +189,81 @@ class PatchedAutosummary(Autosummary):
 		real_name, obj, parent, modname = super().import_by_name(name=name, prefixes=prefixes)
 		real_name = re.sub(rf"((?:{modname}\.)+)", f"{modname}.", real_name)
 		return real_name, obj, parent, modname
+
+	def create_documenter(
+			self,
+			app: Sphinx,
+			obj: Any,
+			parent: Any,
+			full_name: str,
+			) -> Documenter:
+		"""
+		Get an :class:`autodoc.Documenter` class suitable for documenting the given object.
+
+		:param app: The Sphinx app.
+		:param obj: The object being documented.
+		:param parent: The parent of the object (e.g. a module or a class).
+		:param full_name: The full name of the object.
+
+		.. versionchanged:: 1.3.0
+
+			Now selects the appropriate documenter for attributes rather than
+			falling back to :class:`~sphinx.ext.autodoc.DataDocumenter`.
+		"""
+
+		doccls = get_documenter(app, obj, parent)
+		return doccls(self.bridge, full_name)
+
+
+def get_documenter(app: Sphinx, obj: Any, parent: Any) -> Type[Documenter]:
+	"""
+	Get an autodoc.Documenter class suitable for documenting the given object.
+
+	:param app: The Sphinx app.
+	:param obj: The object being documented.
+	:param parent: The parent of the object (e.g. a module or a class).
+
+	.. versionadded:: 1.3.0
+	"""
+
+	from sphinx.ext.autodoc import DataDocumenter, ModuleDocumenter
+
+	if inspect.ismodule(obj):
+		# ModuleDocumenter.can_document_member always returns False
+		return ModuleDocumenter
+
+	# Construct a fake documenter for *parent*
+	if parent is not None:
+		parent_doc_cls = get_documenter(app, parent, None)
+	else:
+		parent_doc_cls = ModuleDocumenter
+
+	if hasattr(parent, '__name__'):
+		parent_doc = parent_doc_cls(FakeDirective(), parent.__name__)
+	else:
+		parent_doc = parent_doc_cls(FakeDirective(), "")
+
+	# Get the correct documenter class for *obj*
+	classes = [
+			cls
+			for cls in app.registry.documenters.values()
+			if cls.can_document_member(obj, '', False, parent_doc)
+			]
+
+	data_doc_classes = [
+			cls
+			for cls in app.registry.documenters.values()
+			if cls.can_document_member(obj, '', True, parent_doc)
+			]
+
+	if classes:
+		classes.sort(key=lambda cls: cls.priority)
+		return classes[-1]
+	elif data_doc_classes:
+		data_doc_classes.sort(key=lambda cls: cls.priority)
+		return data_doc_classes[-1]
+	else:
+		return DataDocumenter
 
 
 class PatchedAutoSummClassDocumenter(autodocsumm.AutoSummClassDocumenter):
