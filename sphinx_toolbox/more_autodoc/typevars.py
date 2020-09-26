@@ -103,6 +103,7 @@ API Reference
 
 # stdlib
 import sys
+from types import ModuleType
 from typing import Any, Dict, List, Optional, Tuple, Type, TypeVar, Union
 
 # 3rd party
@@ -168,7 +169,14 @@ class TypeVarDocumenter(VariableDocumenter):
 		if forward_ref.__forward_evaluated__:
 			return forward_ref.__forward_value__
 		else:
-			globanls = sys.modules[self.object.__module__].__dict__
+			if sys.version_info[:2] == (3, 6) and self.object.__module__ == "typing" and isinstance(
+					self.parent, ModuleType
+					):
+				# __module__ is 'typing' for 3.6
+				globanls = self.parent.__dict__
+			else:
+				globanls = sys.modules[self.object.__module__].__dict__
+
 			eval_ = eval
 			return eval_(forward_ref.__forward_code__, globanls, globanls)
 
@@ -347,8 +355,13 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 
 class _TypeVar(Protocol):
-	__constraints__: Tuple[Union[Type, ForwardRef], ...]
-	__bound__: Union[Type, ForwardRef, None]
+	if sys.version_info < (3, 7):
+		__constraints__: Tuple[Any, ...]
+		__bound__: Union[Type, Any, None]
+	else:
+		__constraints__: Tuple[Union[Type, ForwardRef], ...]
+		__bound__: Union[Type, ForwardRef, None]
+
 	__covariant__: bool
 	__contravariant__: bool
 	__name__: str
