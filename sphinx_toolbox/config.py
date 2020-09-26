@@ -111,7 +111,7 @@ class ToolboxConfig(Config):
 	no_unbound_typevars: bool
 	r"""
 	Only document :class:`typing.TypeVar`\s that have a constraint of are bound.
-	
+
 	This option has no effect if :confval:`all_typevars` is False.
 	"""
 

@@ -187,7 +187,7 @@ class VariableDocumenter(DataDocumenter):
 
 	directivetype = "data"
 	objtype = "variable"
-	priority = DataDocumenter.priority + 1
+	priority: float = DataDocumenter.priority + 0.5  # type: ignore  # keeps it below TypeVarDocumenter
 	option_spec = {
 			"no-value": flag,
 			"no-type": flag,

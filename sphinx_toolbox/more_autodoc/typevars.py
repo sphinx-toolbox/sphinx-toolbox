@@ -36,16 +36,16 @@ Usage
 .. confval:: all_typevars
 	:type: :class:`bool`
 	:default: False
-	
+
 	Document all :class:`typing.TypeVar`\s, even if they have no docstring.
-	
+
 
 .. confval:: no_unbound_typevars
 	:type: :class:`bool`
 	:default: True
-	
+
 	Only document :class:`typing.TypeVar`\s that have a constraint of are bound.
-	
+
 	This option has no effect if :confval:`all_typevars` is False.
 
 API Reference
@@ -108,17 +108,13 @@ from typing import Any, Dict, List, Optional, Tuple, Type, TypeVar, Union
 # 3rd party
 from domdf_python_tools.words import word_join
 from sphinx.application import Sphinx
-from sphinx.ext.autodoc import (
-		DataDocumenter,
-		)
-
-# this package
+from sphinx.ext.autodoc import DataDocumenter
 from typing_extensions import Protocol
 
-from sphinx_toolbox.config import ToolboxConfig
-from sphinx_toolbox.more_autodoc.typehints import ForwardRef
+# this package
 from sphinx_toolbox import __version__
-from sphinx_toolbox.more_autodoc.typehints import format_annotation
+from sphinx_toolbox.config import ToolboxConfig
+from sphinx_toolbox.more_autodoc.typehints import ForwardRef, format_annotation
 from sphinx_toolbox.more_autodoc.variables import VariableDocumenter
 from sphinx_toolbox.utils import SphinxExtMetadata
 
@@ -175,7 +171,8 @@ class TypeVarDocumenter(VariableDocumenter):
 			return forward_ref.__forward_value__
 		else:
 			globanls = sys.modules[self.object.__module__].__dict__
-			return eval(forward_ref.__forward_code__, globanls, globanls)
+			eval_ = eval
+			return eval_(forward_ref.__forward_code__, globanls, globanls)
 
 	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
 		"""
@@ -290,10 +287,17 @@ def validate_config(app: Sphinx, config: ToolboxConfig):
 		app.connect("autodoc-skip-member", unskip_typevars)
 
 
-def unskip_typevars(app: Sphinx, what: str, name: str, obj: Any, skip: bool, options: Dict[str, Any],) -> Optional[bool]:
+def unskip_typevars(
+		app: Sphinx,
+		what: str,
+		name: str,
+		obj: Any,
+		skip: bool,
+		options: Dict[str, Any],
+		) -> Optional[bool]:
 	r"""
 	Unskip undocumented :class:`typing.TypeVar`\s if :confval:`all_typevars` is :py:obj:`True`.
-	
+
 	:param app: The Sphinx application object.
 	:param what: The type of the object which the docstring belongs to (one of
 		``'module'``, ``'class'``, ``'exception'``, ``'function'``, ``'method'``,

@@ -107,7 +107,7 @@ import autodocsumm  # type: ignore
 from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.config import ENUM
-from sphinx.ext.autodoc import ClassDocumenter, Documenter
+from sphinx.ext.autodoc import ClassDocumenter, DataDocumenter, Documenter, ModuleDocumenter
 from sphinx.ext.autosummary import Autosummary, FakeDirective
 
 # this package
@@ -226,8 +226,6 @@ def get_documenter(app: Sphinx, obj: Any, parent: Any) -> Type[Documenter]:
 	.. versionadded:: 1.3.0
 	"""
 
-	from sphinx.ext.autodoc import DataDocumenter, ModuleDocumenter
-
 	if inspect.ismodule(obj):
 		# ModuleDocumenter.can_document_member always returns False
 		return ModuleDocumenter
@@ -245,15 +243,12 @@ def get_documenter(app: Sphinx, obj: Any, parent: Any) -> Type[Documenter]:
 
 	# Get the correct documenter class for *obj*
 	classes = [
-			cls
-			for cls in app.registry.documenters.values()
+			cls for cls in app.registry.documenters.values()
 			if cls.can_document_member(obj, '', False, parent_doc)
 			]
 
 	data_doc_classes = [
-			cls
-			for cls in app.registry.documenters.values()
-			if cls.can_document_member(obj, '', True, parent_doc)
+			cls for cls in app.registry.documenters.values() if cls.can_document_member(obj, '', True, parent_doc)
 			]
 
 	if classes:

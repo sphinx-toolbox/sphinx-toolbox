@@ -127,7 +127,7 @@ API Reference
 #
 
 # stdlib
-from typing import Any, Callable, Dict, get_type_hints, List, Tuple, Type
+from typing import Any, Callable, Dict, List, Tuple, Type, get_type_hints
 
 # 3rd party
 from domdf_python_tools.stringlist import StringList

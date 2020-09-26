@@ -108,7 +108,7 @@ API Reference
 # stdlib
 import inspect
 from textwrap import dedent
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, get_type_hints
 
 # 3rd party
 from sphinx.application import Sphinx
@@ -122,7 +122,6 @@ from sphinx.pycode import ModuleAnalyzer
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import Param, SphinxExtMetadata, is_namedtuple, parse_parameters
-from typing import get_type_hints
 
 __all__ = ["NamedTupleDocumenter", "setup"]
 
