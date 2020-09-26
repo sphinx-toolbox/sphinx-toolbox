@@ -121,7 +121,8 @@ from sphinx.pycode import ModuleAnalyzer
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
-from sphinx_toolbox.utils import SphinxExtMetadata, is_namedtuple, parse_parameters
+from sphinx_toolbox.utils import Param, SphinxExtMetadata, is_namedtuple, parse_parameters
+from typing import get_type_hints
 
 __all__ = ["NamedTupleDocumenter", "setup"]
 
@@ -164,6 +165,33 @@ class NamedTupleDocumenter(ClassDocumenter):
 		"""
 
 		Documenter.add_content(self, more_content, True)
+
+		# set sourcename and add content from attribute documentation
+		sourcename = self.get_sourcename()
+
+		params, pre_output, post_output = self._get_docstring()
+
+		for line in pre_output:
+			self.add_line(line, sourcename)
+
+	def _get_docstring(self) -> Tuple[Dict[str, Param], List[str], List[str]]:
+		"""
+		Returns params, pre_output, post_output
+		"""
+
+		# Size varies depending on docutils config
+		tab_size = self.env.app.config.docutils_tab_width  # type: ignore
+
+		if self.object.__doc__:
+			docstring = dedent(self.object.__doc__).expandtabs(tab_size).split("\n")
+		elif "show-inheritance" not in self.options:
+			docstring = [":class:`typing.NamedTuple`."]
+		else:
+			docstring = ['']
+
+		docstring = list(self.process_doc([docstring]))
+
+		return parse_parameters(docstring, tab_size=tab_size)
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
@@ -219,22 +247,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		# set sourcename and add content from attribute documentation
 		sourcename = self.get_sourcename()
 
-		# Size varies depending on docutils config
-		tab_size = self.env.app.config.docutils_tab_width  # type: ignore
-
-		if self.object.__doc__:
-			docstring = dedent(self.object.__doc__).expandtabs(tab_size).split("\n")
-		elif "show-inheritance" not in self.options:
-			docstring = [":class:`typing.NamedTuple`."]
-		else:
-			docstring = ['']
-
-		docstring = list(self.process_doc([docstring]))
-
-		params, pre_output, post_output = parse_parameters(docstring, tab_size=tab_size)
-
-		for line in pre_output:
-			self.add_line(line, sourcename)
+		params, pre_output, post_output = self._get_docstring()
 
 		self.add_line('', sourcename)
 
@@ -260,9 +273,10 @@ class NamedTupleDocumenter(ClassDocumenter):
 				doc = [getattr(self.object, field).__doc__]
 
 			# Prefer annotations over docstring types
-			if hasattr(self.object, "__annotations__"):
-				if field in self.object.__annotations__:
-					arg_type = format_annotation(self.object.__annotations__[field])
+			type_hints = get_type_hints(self.object)
+			if type_hints:
+				if field in type_hints:
+					arg_type = format_annotation(type_hints[field])
 
 			field_entry = [f"{a_tab}{pos})", "|nbsp|", f"**{field}**"]
 			if arg_type:

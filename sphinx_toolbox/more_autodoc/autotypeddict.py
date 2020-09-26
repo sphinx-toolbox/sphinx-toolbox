@@ -127,7 +127,7 @@ API Reference
 #
 
 # stdlib
-from typing import Any, Callable, Dict, List, Tuple, Type
+from typing import Any, Callable, Dict, get_type_hints, List, Tuple, Type
 
 # 3rd party
 from domdf_python_tools.stringlist import StringList
@@ -249,7 +249,7 @@ class TypedDictDocumenter(ClassDocumenter):
 
 		required_keys = []
 		optional_keys = []
-		types = self.object.__annotations__
+		types = get_type_hints(self.object)
 
 		for d in documenters:
 			name = d[0].name.split(".")[-1]
