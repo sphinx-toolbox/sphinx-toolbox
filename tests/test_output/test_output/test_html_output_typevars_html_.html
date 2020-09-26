@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   sphinx-toolbox Demo - TypeVars — Python  documentation
+  </title>
+  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
+  </script>
+  <script src="_static/jquery.js">
+  </script>
+  <script src="_static/underscore.js">
+  </script>
+  <script src="_static/doctools.js">
+  </script>
+  <script src="_static/language_data.js">
+  </script>
+  <meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
+ </head>
+ <body>
+  <div class="document">
+   <div class="documentwrapper">
+    <div class="bodywrapper">
+     <div class="body" role="main">
+      <div class="section" id="module-tests.typevars_demo">
+       <span id="sphinx-toolbox-demo-typevars">
+       </span>
+       <h1>
+        sphinx-toolbox Demo - TypeVars
+        <a class="headerlink" href="#module-tests.typevars_demo" title="Permalink to this headline">
+         ¶
+        </a>
+       </h1>
+       <dl class="py data">
+        <dt id="tests.typevars_demo.DS">
+         <code class="sig-prename descclassname">
+          tests.typevars_demo.
+         </code>
+         <code class="sig-name descname">
+          DS
+         </code>
+         <em class="property">
+          = TypeVar(DS, SlotsDemo, Demo)
+         </em>
+         <a class="headerlink" href="#tests.typevars_demo.DS" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          <strong>
+           Type:
+          </strong>
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            TypeVar
+           </span>
+          </code>
+         </p>
+         <p>
+          Invariant
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            TypeVar
+           </span>
+          </code>
+          constrained to
+          <a class="reference internal" href="#tests.typevars_demo.SlotsDemo" title="tests.typevars_demo.SlotsDemo">
+           <code class="xref py py-class docutils literal notranslate">
+            <span class="pre">
+             tests.typevars_demo.SlotsDemo
+            </span>
+           </code>
+          </a>
+          and
+          <a class="reference internal" href="#tests.typevars_demo.Demo" title="tests.typevars_demo.Demo">
+           <code class="xref py py-class docutils literal notranslate">
+            <span class="pre">
+             tests.typevars_demo.Demo
+            </span>
+           </code>
+          </a>
+          .
+         </p>
+        </dd>
+       </dl>
+       <dl class="py class">
+        <dt id="tests.typevars_demo.Demo">
+         <em class="property">
+          class
+         </em>
+         <code class="sig-prename descclassname">
+          tests.typevars_demo.
+         </code>
+         <code class="sig-name descname">
+          Demo
+         </code>
+         <span class="sig-paren">
+          (
+         </span>
+         <em class="sig-param">
+          <span class="n">
+           arg1
+          </span>
+         </em>
+         ,
+         <em class="sig-param">
+          <span class="n">
+           arg2
+          </span>
+         </em>
+         <span class="sig-paren">
+          )
+         </span>
+         <a class="reference internal" href="_modules/tests/typevars_demo.html#Demo">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#tests.typevars_demo.Demo" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          An attrs class
+         </p>
+         <dl class="py attribute">
+          <dt id="tests.typevars_demo.Demo.arg1">
+           <code class="sig-name descname">
+            arg1
+           </code>
+           <a class="headerlink" href="#tests.typevars_demo.Demo.arg1" title="Permalink to this definition">
+            ¶
+           </a>
+          </dt>
+          <dd>
+           <p>
+            <strong>
+             Type:
+            </strong>
+            <code class="xref py py-class docutils literal notranslate">
+             <span class="pre">
+              str
+             </span>
+            </code>
+           </p>
+           <p>
+            An argument
+           </p>
+          </dd>
+         </dl>
+         <dl class="py attribute">
+          <dt id="tests.typevars_demo.Demo.arg2">
+           <code class="sig-name descname">
+            arg2
+           </code>
+           <a class="headerlink" href="#tests.typevars_demo.Demo.arg2" title="Permalink to this definition">
+            ¶
+           </a>
+          </dt>
+          <dd>
+           <p>
+            <strong>
+             Type:
+            </strong>
+            <code class="xref py py-class docutils literal notranslate">
+             <span class="pre">
+              int
+             </span>
+            </code>
+           </p>
+           <p>
+            Another argument
+           </p>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
+       <dl class="py data">
+        <dt id="tests.typevars_demo.FR">
+         <code class="sig-prename descclassname">
+          tests.typevars_demo.
+         </code>
+         <code class="sig-name descname">
+          FR
+         </code>
+         <em class="property">
+          = TypeVar(FR, bound=SlotsDemo)
+         </em>
+         <a class="headerlink" href="#tests.typevars_demo.FR" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          <strong>
+           Type:
+          </strong>
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            TypeVar
+           </span>
+          </code>
+         </p>
+         <p>
+          Invariant
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            TypeVar
+           </span>
+          </code>
+          bound to
+          <a class="reference internal" href="#tests.typevars_demo.SlotsDemo" title="tests.typevars_demo.SlotsDemo">
+           <code class="xref py py-class docutils literal notranslate">
+            <span class="pre">
+             tests.typevars_demo.SlotsDemo
+            </span>
+           </code>
+          </a>
+          .
+         </p>
+        </dd>
+       </dl>
+       <dl class="py data">
+        <dt id="tests.typevars_demo.S">
+         <code class="sig-prename descclassname">
+          tests.typevars_demo.
+         </code>
+         <code class="sig-name descname">
+          S
+         </code>
+         <em class="property">
+          = TypeVar(S, bound=SlotsDemo)
+         </em>
+         <a class="headerlink" href="#tests.typevars_demo.S" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          <strong>
+           Type:
+          </strong>
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            TypeVar
+           </span>
+          </code>
+         </p>
+         <p>
+          Invariant
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            TypeVar
+           </span>
+          </code>
+          bound to
+          <a class="reference internal" href="#tests.typevars_demo.SlotsDemo" title="tests.typevars_demo.SlotsDemo">
+           <code class="xref py py-class docutils literal notranslate">
+            <span class="pre">
+             tests.typevars_demo.SlotsDemo
+            </span>
+           </code>
+          </a>
+          .
+         </p>
+        </dd>
+       </dl>
+       <dl class="py class">
+        <dt id="tests.typevars_demo.SlotsDemo">
+         <em class="property">
+          class
+         </em>
+         <code class="sig-prename descclassname">
+          tests.typevars_demo.
+         </code>
+         <code class="sig-name descname">
+          SlotsDemo
+         </code>
+         <span class="sig-paren">
+          (
+         </span>
+         <em class="sig-param">
+          <span class="n">
+           arg1
+          </span>
+         </em>
+         ,
+         <em class="sig-param">
+          <span class="n">
+           arg2
+          </span>
+         </em>
+         <span class="sig-paren">
+          )
+         </span>
+         <a class="reference internal" href="_modules/tests/typevars_demo.html#SlotsDemo">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#tests.typevars_demo.SlotsDemo" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          An attrs class with slots=True
+         </p>
+         <dl class="py attribute">
+          <dt id="tests.typevars_demo.SlotsDemo.arg1">
+           <code class="sig-name descname">
+            arg1
+           </code>
+           <a class="headerlink" href="#tests.typevars_demo.SlotsDemo.arg1" title="Permalink to this definition">
+            ¶
+           </a>
+          </dt>
+          <dd>
+           <p>
+            <strong>
+             Type:
+            </strong>
+            <code class="xref py py-class docutils literal notranslate">
+             <span class="pre">
+              str
+             </span>
+            </code>
+           </p>
+           <p>
+            An argument
+           </p>
+          </dd>
+         </dl>
+         <dl class="py attribute">
+          <dt id="tests.typevars_demo.SlotsDemo.arg2">
+           <code class="sig-name descname">
+            arg2
+           </code>
+           <a class="headerlink" href="#tests.typevars_demo.SlotsDemo.arg2" title="Permalink to this definition">
+            ¶
+           </a>
+          </dt>
+          <dd>
+           <p>
+            <strong>
+             Type:
+            </strong>
+            <code class="xref py py-class docutils literal notranslate">
+             <span class="pre">
+              int
+             </span>
+            </code>
+           </p>
+           <p>
+            Another argument
+           </p>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
+       <dl class="py data">
+        <dt id="tests.typevars_demo.T">
+         <code class="sig-prename descclassname">
+          tests.typevars_demo.
+         </code>
+         <code class="sig-name descname">
+          T
+         </code>
+         <em class="property">
+          = TypeVar(T)
+         </em>
+         <a class="headerlink" href="#tests.typevars_demo.T" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          <strong>
+           Type:
+          </strong>
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            TypeVar
+           </span>
+          </code>
+         </p>
+         <p>
+          Invariant
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            TypeVar
+           </span>
+          </code>
+          .
+         </p>
+        </dd>
+       </dl>
+       <dl class="py data">
+        <dt id="tests.typevars_demo.T_co">
+         <code class="sig-prename descclassname">
+          tests.typevars_demo.
+         </code>
+         <code class="sig-name descname">
+          T_co
+         </code>
+         <em class="property">
+          = TypeVar(T_co, covariant=True)
+         </em>
+         <a class="headerlink" href="#tests.typevars_demo.T_co" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          <strong>
+           Type:
+          </strong>
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            TypeVar
+           </span>
+          </code>
+         </p>
+         <p>
+          Covariant
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            TypeVar
+           </span>
+          </code>
+          .
+         </p>
+        </dd>
+       </dl>
+       <dl class="py data">
+        <dt id="tests.typevars_demo.T_contra">
+         <code class="sig-prename descclassname">
+          tests.typevars_demo.
+         </code>
+         <code class="sig-name descname">
+          T_contra
+         </code>
+         <em class="property">
+          = TypeVar(T_contra, contravariant=True)
+         </em>
+         <a class="headerlink" href="#tests.typevars_demo.T_contra" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          <strong>
+           Type:
+          </strong>
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            TypeVar
+           </span>
+          </code>
+         </p>
+         <p>
+          Contravariant
+          <code class="xref py py-class docutils literal notranslate">
+           <span class="pre">
+            TypeVar
+           </span>
+          </code>
+          .
+         </p>
+        </dd>
+       </dl>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div aria-label="main navigation" class="sphinxsidebar" role="navigation">
+    <div class="sphinxsidebarwrapper">
+     <h1 class="logo">
+      <a href="index.html">
+       Python
+      </a>
+     </h1>
+     <h3>
+      Navigation
+     </h3>
+     <div class="relations">
+      <h3>
+       Related Topics
+      </h3>
+      <ul>
+       <li>
+        <a href="index.html">
+         Documentation overview
+        </a>
+        <ul>
+        </ul>
+       </li>
+      </ul>
+     </div>
+     <div id="searchbox" role="search" style="display: none">
+      <h3 id="searchlabel">
+       Quick search
+      </h3>
+      <div class="searchformwrapper">
+       <form action="search.html" class="search" method="get">
+        <input aria-labelledby="searchlabel" name="q" type="text"/>
+        <input type="submit" value="Go"/>
+       </form>
+      </div>
+     </div>
+     <script>
+      $('#searchbox').show(0);
+     </script>
+    </div>
+   </div>
+   <div class="clearer">
+   </div>
+  </div>
+ </body>
+</html>

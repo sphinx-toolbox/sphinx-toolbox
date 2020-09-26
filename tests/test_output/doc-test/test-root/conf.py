@@ -8,6 +8,7 @@ extensions = [
 		"sphinx_toolbox.more_autodoc.no_docstring",
 		"sphinx_toolbox.more_autodoc.sourcelink",
 		"sphinx_toolbox.more_autodoc.regex",
+		"sphinx_toolbox.more_autodoc.typevars",
 		"sphinx_tabs.tabs",
 		"sphinx-prompt",
 		"sphinx.ext.autodoc",
@@ -20,3 +21,6 @@ source_link_target = "GitHub"
 autodoc_default_options = {
 		"exclude-members": "__repr__",
 		}
+
+all_typevars = True
+no_unbound_typevars = False
