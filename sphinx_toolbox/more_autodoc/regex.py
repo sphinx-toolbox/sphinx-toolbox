@@ -195,9 +195,41 @@ class RegexDocumenter(VariableDocumenter):
 		:param no_docstring:
 		"""
 
-		DataDocumenter.add_content(self, more_content, no_docstring)
-
+		# set sourcename and add content from attribute documentation
 		sourcename = self.get_sourcename()
+
+		if self.analyzer:
+			attr_docs = self.analyzer.find_attr_docs()
+			if self.objpath:
+				key = ('.'.join(self.objpath[:-1]), self.objpath[-1])
+				if key in attr_docs:
+					no_docstring = True
+					# make a copy of docstring for attributes to avoid cache
+					# the change of autodoc-process-docstring event.
+					docstrings = [list(attr_docs[key])]
+
+					for i, line in enumerate(self.process_doc(docstrings)):
+						self.add_line(line, sourcename, i)
+
+		# add content from docstrings
+		if not no_docstring:
+			docstrings = self.get_doc()
+			if not docstrings:
+				# append at least a dummy docstring, so that the event
+				# autodoc-process-docstring is fired and can add some
+				# content if desired
+				docstrings.append([])
+
+			if docstrings == [["Compiled regular expression objects", '']]:
+				docstrings = [["Compiled regular expression object.", '']]
+
+			for i, line in enumerate(self.process_doc(docstrings)):
+				self.add_line(line, sourcename, i)
+
+		# add additional content (e.g. from document), if present
+		if more_content:
+			for line, src in zip(more_content.data, more_content.items):
+				self.add_line(line, src[0], src[1])
 
 		no_value = self.options.get("no-value", False)
 		no_flag = self.options.get("no-flag", False)

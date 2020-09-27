@@ -444,7 +444,7 @@ class Param(TypedDict):
 
 _identifier_pattern = r"[A-Za-z_]\w*"
 
-typed_param_regex: Pattern = re.compile(
+typed_param_regex: Pattern[str] = re.compile(
 		fr"^:(param|parameter|arg|argument)\s*({_identifier_pattern}\s+)({_identifier_pattern}\s*):\s*(.*)",
 		flags=re.ASCII,
 		)

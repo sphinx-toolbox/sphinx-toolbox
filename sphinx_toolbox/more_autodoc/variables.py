@@ -139,7 +139,7 @@ __all__ = [
 
 def get_variable_type(documenter: Documenter) -> str:
 	"""
-	Returns the type annotation for a variable.
+	Returns the formatted type annotation for a variable.
 
 	:param documenter:
 	"""

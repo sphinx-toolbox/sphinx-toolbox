@@ -111,6 +111,7 @@ In addition the following configuration value is added by this extension:
 import inspect
 import json
 import operator
+import re
 import sys
 import types
 from types import FunctionType, ModuleType
@@ -254,34 +255,38 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	:param fully_qualified:
 	"""
 
+	prefix = '' if fully_qualified else '~'
+
 	# Special cases
 	if annotation is None or annotation is type(None):  # noqa: E721
 		return ":py:obj:`None`"
 	elif annotation is Ellipsis:
 		return "..."
 	elif annotation is types.GetSetDescriptorType:  # noqa E721
-		return ":py:data:`types.GetSetDescriptorType:`"
+		return f":py:data:`{prefix}types.GetSetDescriptorType`"
 	elif annotation is types.MemberDescriptorType:  # noqa E721
-		return ":py:data:`types.MemberDescriptorType:`"
+		return f":py:data:`{prefix}types.MemberDescriptorType`"
 	elif annotation is types.MappingProxyType:  # noqa E721
-		return ":py:data:`types.MappingProxyType:`"
+		return f":py:data:`{prefix}types.MappingProxyType`"
 	elif annotation is types.ModuleType:  # noqa E721
-		return ":py:data:`types.ModuleType:`"
+		return f":py:data:`{prefix}types.ModuleType`"
 	elif annotation is ClassMethodDescriptorType:  # noqa E721
-		return ":py:data:`types.ClassMethodDescriptorType:`"
+		return f":py:data:`{prefix}types.ClassMethodDescriptorType`"
 	elif annotation is MethodDescriptorType:  # noqa E721
-		return ":py:data:`types.MethodDescriptorType:`"
+		return f":py:data:`{prefix}types.MethodDescriptorType`"
 	elif annotation is MethodWrapperType:  # noqa E721
-		return ":py:data:`types.MethodWrapperType:`"
+		return f":py:data:`{prefix}types.MethodWrapperType`"
 	elif annotation is WrapperDescriptorType:  # noqa E721
-		return ":py:data:`types.WrapperDescriptorType:`"
+		return f":py:data:`{prefix}types.WrapperDescriptorType`"
 	elif annotation is types.BuiltinFunctionType:  # noqa E721
-		return ":py:data:`types.BuiltinFunctionType:`"
+		return f":py:data:`{prefix}types.BuiltinFunctionType`"
 	elif annotation is types.MethodType:  # noqa E721
-		return ":py:data:`types.MethodType:`"
+		return f":py:data:`{prefix}types.MethodType`"
 	elif isinstance(annotation, ForwardRef):
 		# Unresolved forward ref
-		return f":py:obj:`~.{annotation.__forward_arg__}`"
+		return f":py:obj:`{prefix}.{annotation.__forward_arg__}`"
+	elif annotation is type(re.compile('')):  # noqa E721
+		return f":py:class:`{prefix}typing.Pattern`"
 
 	try:
 		module = get_annotation_module(annotation)
