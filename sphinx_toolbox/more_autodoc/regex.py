@@ -219,7 +219,7 @@ class RegexDocumenter(VariableDocumenter):
 				else:
 					the_pattern = self.object.pattern
 
-				self.add_line(f"     **Pattern**, :regex:`{the_pattern}`", sourcename)
+				self.add_line(f'     **Pattern**, ":regex:`{the_pattern}`"', sourcename)
 
 			if not no_flag:
 				if "flag" in self.options:
@@ -227,7 +227,8 @@ class RegexDocumenter(VariableDocumenter):
 				else:
 					the_flag = parse_regex_flags(self.object.flags)
 
-				self.add_line(f"     **Flags**, {the_flag}", sourcename)
+				if the_flag:
+					self.add_line(f"     **Flags**, {the_flag}", sourcename)
 
 			self.add_line('', sourcename)
 
@@ -365,6 +366,7 @@ class RegexParser:
 					continue
 
 				if what is LITERAL:
+					# TODO: escape characters that have meaning to avoid ambiguity
 					buf.append(type(self).LITERAL_COLOUR(chr(content)))
 					continue
 
