@@ -242,7 +242,7 @@ class OverloadMixin(_OverloadMixinBase):
 
 class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):
 	"""
-	Custom :class:`sphinx.ext.autodoc.FunctionDocumenter which
+	Custom :class:`sphinx.ext.autodoc.FunctionDocumenter` which
 	renders overloads differently.
 
 	.. versionadded:: 1.4.0
@@ -317,7 +317,7 @@ class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):
 
 class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):
 	"""
-	Custom :class:`sphinx.ext.autodoc.MethodDocumenter which
+	Custom :class:`sphinx.ext.autodoc.MethodDocumenter` which
 	renders overloads differently.
 
 	.. versionadded:: 1.4.0
