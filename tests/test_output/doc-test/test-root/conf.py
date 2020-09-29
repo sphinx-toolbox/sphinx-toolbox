@@ -9,6 +9,7 @@ extensions = [
 		"sphinx_toolbox.more_autodoc.sourcelink",
 		"sphinx_toolbox.more_autodoc.regex",
 		"sphinx_toolbox.more_autodoc.typevars",
+		"sphinx_toolbox.more_autodoc.overloads",
 		"sphinx_tabs.tabs",
 		"sphinx-prompt",
 		"sphinx.ext.autodoc",
@@ -24,3 +25,5 @@ autodoc_default_options = {
 
 all_typevars = True
 no_unbound_typevars = False
+
+overloads_location = "bottom"

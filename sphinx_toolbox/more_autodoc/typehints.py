@@ -115,7 +115,7 @@ import re
 import sys
 import types
 from types import FunctionType, ModuleType
-from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, TypeVar, get_type_hints
+from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, Type, TypeVar, get_type_hints
 
 if sys.version_info[:2] == (3, 6):
 	# stdlib
@@ -167,6 +167,8 @@ __all__ = [
 		"load_args",
 		"split_type_comment_args",
 		"builder_ready",
+		"default_preprocessors",
+		"Preprocessor",
 		]
 
 get_annotation_module = sphinx_autodoc_typehints.get_annotation_module
@@ -336,6 +338,22 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	return f":py:{role}:`{prefix}{full_name}`{formatted_args}"
 
 
+#: Type hint for default preprocessor functions.
+Preprocessor = Callable[[Type], Any]
+
+default_preprocessors: List[Tuple[Callable[[Type], bool], Preprocessor]] = [
+		(lambda d: isinstance(d, ModuleType), lambda d: Module(d.__name__)),
+		(lambda d: isinstance(d, FunctionType), lambda d: Function(d.__name__)),
+		(lambda d: inspect.isclass(d), lambda d: Class(d.__name__)),
+		(lambda d: d is Ellipsis, lambda d: etc),
+		(lambda d: d == "...", lambda d: etc),
+		]
+"""
+A list of 2-element tuples, comprising a function to check the default value against and a preprocessor to
+pass the function to if True.
+"""
+
+
 def preprocess_function_defaults(obj: Callable) -> Tuple[Optional[inspect.Signature], List[inspect.Parameter]]:
 	"""
 	Pre-processes the default values for the arguments of a function.
@@ -358,14 +376,10 @@ def preprocess_function_defaults(obj: Callable) -> Tuple[Optional[inspect.Signat
 		default = param.default
 
 		if default is not inspect.Parameter.empty:
-			if isinstance(default, ModuleType):
-				default = Module(default.__name__)
-			elif isinstance(default, FunctionType):
-				default = Function(default.__name__)
-			elif inspect.isclass(default):
-				default = Class(default.__name__)
-			elif default is Ellipsis:
-				default = etc
+			for check, preprocessor in default_preprocessors:
+				if check(default):
+					default = preprocessor(default)
+					break
 
 		parameters.append(param.replace(annotation=inspect.Parameter.empty, default=default))
 
@@ -401,17 +415,14 @@ def preprocess_class_defaults(
 		default = param.default
 
 		if default is not inspect.Parameter.empty:
-			if isinstance(default, ModuleType):
-				default = Module(default.__name__)
-			elif isinstance(default, FunctionType):
-				default = Function(default.__name__)
-			elif inspect.isclass(default):
-				default = Class(default.__name__)
-			elif default is Ellipsis:
-				default = etc
-			elif hasattr(obj, "__attrs_attrs__"):
-				# Special casing for attrs classes
-				if default is attr.NOTHING:
+			for check, preprocessor in default_preprocessors:
+				if check(default):
+					default = preprocessor(default)
+					break
+
+			else:
+				if hasattr(obj, "__attrs_attrs__") and default is attr.NOTHING:
+					# Special casing for attrs classes
 					for value in obj.__attrs_attrs__:  # type: ignore
 						if value.name == argname and isinstance(value.default, attr.Factory):  # type: ignore
 							default = value.default.factory()

@@ -86,6 +86,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("sphinx_toolbox.more_autodoc.no_docstring")
 	app.setup_extension("sphinx_toolbox.more_autodoc.regex")
 	app.setup_extension("sphinx_toolbox.more_autodoc.typevars")
+	app.setup_extension("sphinx_toolbox.more_autodoc.overloads")
 
 	return {
 			"version": __version__,
