@@ -175,7 +175,10 @@ def get_variable_type(documenter: Documenter) -> str:
 				if annotation.isidentifier() and annotation in module_dict:
 					return format_annotation(module_dict[annotation])
 				else:
-					return format_annotation(ForwardRef(annotation)._evaluate(module_dict, module_dict))
+					if sys.version_info < (3, 9):
+						return format_annotation(ForwardRef(annotation)._evaluate(module_dict, module_dict))
+					else:
+						return format_annotation(ForwardRef(annotation)._evaluate(module_dict, module_dict, set()))
 
 			except (NameError, TypeError, ValueError, AttributeError):
 				return annotation

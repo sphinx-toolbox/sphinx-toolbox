@@ -138,7 +138,13 @@ def test_formatting_html_output(page: BeautifulSoup, file_regression: FileRegres
 				"autoprotocol.html",
 				"typevars.html",
 				"overloads.html",
-				"instancevar.html",
+				pytest.param(
+						"instancevar.html",
+						marks=pytest.mark.skipif(
+								condition=sys.version_info < (3, 7),
+								reason="Output differs on Python 3.6",
+								),
+						),
 				],
 		indirect=True
 		)
