@@ -138,6 +138,7 @@ def test_formatting_html_output(page: BeautifulSoup, file_regression: FileRegres
 				"autoprotocol.html",
 				"typevars.html",
 				"overloads.html",
+				"instancevar.html",
 				],
 		indirect=True
 		)

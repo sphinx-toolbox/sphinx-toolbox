@@ -101,6 +101,7 @@ API Reference
 #
 
 # stdlib
+import sys
 from typing import Any, List, get_type_hints
 
 # 3rd party
@@ -119,7 +120,7 @@ from sphinx.ext.autodoc import (
 		Options
 		)
 from sphinx.ext.autodoc.directive import DocumenterBridge
-from sphinx.util.inspect import object_description, safe_getattr
+from sphinx.util.inspect import ForwardRef, object_description, safe_getattr
 
 # this package
 from sphinx_toolbox import __version__
@@ -161,10 +162,23 @@ def get_variable_type(documenter: Documenter) -> str:
 	if documenter.objpath[-1] in annotations:
 		return format_annotation(annotations.get(documenter.objpath[-1]))
 	else:
+		# Instance attribute
 		key = ('.'.join(documenter.objpath[:-1]), documenter.objpath[-1])
-		if documenter.analyzer and key in documenter.analyzer.annotations:
-			return documenter.analyzer.annotations[key]
 
+		if documenter.analyzer and key in documenter.analyzer.annotations:
+			# Forward references will have quotes
+			annotation: str = documenter.analyzer.annotations[key].strip("'\"")
+
+			try:
+				module_dict = sys.modules[documenter.parent.__module__].__dict__
+
+				if annotation.isidentifier() and annotation in module_dict:
+					return format_annotation(module_dict[annotation])
+				else:
+					return format_annotation(ForwardRef(annotation)._evaluate(module_dict, module_dict))
+
+			except (NameError, TypeError, ValueError):
+				return annotation
 		else:
 			return ''
 
