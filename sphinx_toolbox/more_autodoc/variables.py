@@ -177,7 +177,7 @@ def get_variable_type(documenter: Documenter) -> str:
 				else:
 					return format_annotation(ForwardRef(annotation)._evaluate(module_dict, module_dict))
 
-			except (NameError, TypeError, ValueError):
+			except (NameError, TypeError, ValueError, AttributeError):
 				return annotation
 		else:
 			return ''
