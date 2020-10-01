@@ -2,7 +2,7 @@
 #
 #  generic_bases.py
 r"""
-Modifies :class:`sphinx.ext.autodoc.ClassDocumenter`\'s ``:show-inheritence: option
+Modifies :class:`sphinx.ext.autodoc.ClassDocumenter`\'s ``:show-inheritence:`` option
 to show generic base classes.
 
 This requires a relatively new version of the :mod:`typing` module that implements ``__orig_bases__``.

@@ -66,10 +66,9 @@ from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, 
 import sphinx.application
 from bs4 import BeautifulSoup  # type: ignore
 from docutils import nodes
-from docutils.nodes import Node  # NOQA
-from docutils.nodes import Element, TextElement
 from docutils.parsers.rst import Directive, roles
 from docutils.transforms import Transform
+from domdf_python_tools.doctools import prettify_docstrings
 from domdf_python_tools.stringlist import StringList
 from pygments.lexer import Lexer  # type: ignore
 from pytest_regressions.file_regression import FileRegressionFixture  # type: ignore
@@ -193,7 +192,7 @@ class Sphinx:
 
 	def add_node(
 			self,
-			node: Type[Element],
+			node: Type[nodes.Element],
 			override: bool = False,
 			**kwargs: Tuple[Callable, Callable],
 			) -> None:
@@ -215,7 +214,7 @@ class Sphinx:
 
 	def add_enumerable_node(
 			self,
-			node: Type[Element],
+			node: Type[nodes.Element],
 			figtype: str,
 			title_getter: TitleGetter = None,
 			override: bool = False,
@@ -319,7 +318,7 @@ class Sphinx:
 			rolename: str,
 			indextemplate: str = '',
 			parse_node: Callable = None,
-			ref_nodeclass: Type[TextElement] = None,
+			ref_nodeclass: Type[nodes.TextElement] = None,
 			objname: str = '',
 			doc_field_types: List = [],
 			override: bool = False,
@@ -344,7 +343,7 @@ class Sphinx:
 			directivename: str,
 			rolename: str,
 			indextemplate: str = '',
-			ref_nodeclass: Type[TextElement] = None,
+			ref_nodeclass: Type[nodes.TextElement] = None,
 			objname: str = '',
 			override: bool = False,
 			) -> None:
@@ -523,6 +522,7 @@ class Sphinx:
 		return listener_id
 
 
+@prettify_docstrings
 class RunSetupOutput(NamedTuple):
 	"""
 	:class:`~typing.NamedTuple` representing the output from :func:`~sphinx_toolbox.testing.run_setup`.
