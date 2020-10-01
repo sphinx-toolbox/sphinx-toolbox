@@ -248,10 +248,11 @@ class TypeVarDocumenter(VariableDocumenter):
 		else:
 			bound_to = obj.__bound__
 
-		try:
-			sig_elements.append(f"bound={bound_to.__name__}")
-		except AttributeError:
-			sig_elements.append(f"bound={repr(bound_to)}")
+		if bound_to is not None:
+			try:
+				sig_elements.append(f"bound={bound_to.__name__}")
+			except AttributeError:
+				sig_elements.append(f"bound={repr(bound_to)}")
 
 		if obj.__covariant__:  # type: ignore
 			sig_elements.append(f"covariant=True")
