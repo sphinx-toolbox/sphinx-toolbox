@@ -43,9 +43,10 @@ API Reference
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-# 3rd party
+# stdlib
 from typing import List, Tuple
 
+# 3rd party
 from sphinx.application import Sphinx
 from sphinx.ext.autodoc import Documenter
 from sphinx.locale import _
@@ -53,7 +54,7 @@ from sphinx.locale import _
 # this package
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.more_autosummary import PatchedAutoSummClassDocumenter
-from sphinx_toolbox.utils import allow_subclass_add, SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add
 
 __all__ = ["GenericBasesClassDocumenter", "setup"]
 

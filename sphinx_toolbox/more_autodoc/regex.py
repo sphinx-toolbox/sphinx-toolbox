@@ -137,7 +137,7 @@ from docutils.nodes import Node, system_message
 from docutils.parsers.rst import roles
 from domdf_python_tools.terminal_colours import Fore
 from sphinx.application import Sphinx
-from sphinx.ext.autodoc import UNINITIALIZED_ATTR, DataDocumenter, ModuleDocumenter
+from sphinx.ext.autodoc import UNINITIALIZED_ATTR, ModuleDocumenter
 from sphinx.util.docutils import SphinxRole
 from sphinx.util.fileutil import copy_asset
 from sphinx.writers.html import HTMLTranslator
@@ -413,22 +413,22 @@ class RegexParser:
 					continue
 
 				if what is MAX_REPEAT:
-					min, max, item = content
+					min_, max_, item = content
 					_parse_pattern(item)
 
-					if min == 0 and max is MAXREPEAT:
+					if min_ == 0 and max_ is MAXREPEAT:
 						buf.append(type(self).REPEAT_COLOUR("*"))
-					elif min == 1 and max is MAXREPEAT:
+					elif min_ == 1 and max_ is MAXREPEAT:
 						buf.append(type(self).REPEAT_COLOUR("+"))
-					elif min == 0 and max == 1:
+					elif min_ == 0 and max_ == 1:
 						buf.append(type(self).REPEAT_COLOUR("?"))
-					elif min == max:
+					elif min_ == max_:
 						buf.append(type(self).REPEAT_BRACE_COLOUR("{"))
-						buf.append(type(self).REPEAT_COLOUR(str(min)))
+						buf.append(type(self).REPEAT_COLOUR(str(min_)))
 						buf.append(type(self).REPEAT_BRACE_COLOUR("}"))
 					else:
 						buf.append(type(self).REPEAT_BRACE_COLOUR("{"))
-						buf.append(type(self).REPEAT_COLOUR(str(min)))
+						buf.append(type(self).REPEAT_COLOUR(str(min_)))
 						buf.append(type(self).LITERAL_COLOUR(","))
 						buf.append(type(self).REPEAT_COLOUR(str(max)))
 						buf.append(type(self).REPEAT_BRACE_COLOUR("}"))

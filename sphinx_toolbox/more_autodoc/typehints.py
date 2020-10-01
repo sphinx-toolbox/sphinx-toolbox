@@ -344,7 +344,7 @@ Preprocessor = Callable[[Type], Any]
 default_preprocessors: List[Tuple[Callable[[Type], bool], Preprocessor]] = [
 		(lambda d: isinstance(d, ModuleType), lambda d: Module(d.__name__)),
 		(lambda d: isinstance(d, FunctionType), lambda d: Function(d.__name__)),
-		(lambda d: inspect.isclass(d), lambda d: Class(d.__name__)),
+		(inspect.isclass, lambda d: Class(d.__name__)),
 		(lambda d: d is Ellipsis, lambda d: etc),
 		(lambda d: d == "...", lambda d: etc),
 		]

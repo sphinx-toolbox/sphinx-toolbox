@@ -21,6 +21,8 @@ name from its description if a description was given.
 		:param bar:
 
 
+.. extensions:: sphinx_toolbox.tweaks.param_dash
+
 """  # noqa D400
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -73,13 +75,11 @@ name from its description if a description was given.
 #
 
 # stdlib
-from typing import Any, Dict, List, Tuple
+from typing import Dict, List, Tuple
 
 # 3rd party
-import docutils.nodes
 import sphinx.util.docfields
 from docutils import nodes
-from docutils.nodes import Element, Node
 from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
@@ -92,13 +92,13 @@ __all__ = ["make_field", "setup"]
 
 def make_field(  # noqa D102
 		self,
-		types: Dict[str, List[Node]],
+		types: Dict[str, List[nodes.Node]],
 		domain: str,
 		items: Tuple,
 		env: BuildEnvironment = None,
 		) -> nodes.field:
 
-	def handle_item(fieldarg: str, content: List[Element]) -> nodes.paragraph:
+	def handle_item(fieldarg: str, content: List[nodes.Element]) -> nodes.paragraph:
 		par = nodes.paragraph()
 		par.extend(self.make_xrefs(self.rolename, domain, fieldarg, addnodes.literal_strong, env=env))
 
@@ -119,10 +119,7 @@ def make_field(  # noqa D102
 
 			par += nodes.Text(')')
 
-		if (
-				content and len(content) == 1 and isinstance(content[0], docutils.nodes.inline)
-				and not content[0].children
-				):
+		if (content and len(content) == 1 and isinstance(content[0], nodes.inline) and not content[0].children):
 			return par
 
 		par += nodes.Text(" -- ")

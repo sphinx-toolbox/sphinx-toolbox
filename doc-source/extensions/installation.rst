@@ -7,9 +7,6 @@
 	:autosummary-members:
 	:no-members:
 
-API Reference
---------------
-
 .. automodule:: sphinx_toolbox.installation
 	:no-docstring:
 	:autosummary-sections: Methods ;; Attributes

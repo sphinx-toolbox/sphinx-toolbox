@@ -124,6 +124,9 @@ Usage
 			:conda-channels: domdfcoding,conda-forge
 			:github:
 
+
+API Reference
+--------------
 """
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
