@@ -8,6 +8,11 @@ A Sphinx directive for documenting :class:`NamedTuples <typing.NamedTuple>` in P
 
 .. versionadded:: 0.8.0
 
+.. versionchanged:: 1.5.0
+
+	``__new__`` methods are documented regardless of other exclusion settings
+	if the annotations differ from the namedtuple itself.
+
 
 Usage
 ---------
