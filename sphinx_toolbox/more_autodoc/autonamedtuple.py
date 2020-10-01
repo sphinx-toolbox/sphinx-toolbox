@@ -232,13 +232,11 @@ class NamedTupleDocumenter(ClassDocumenter):
 		:param want_all:
 		"""
 
-		if hasattr(self.object, "_field_types"):
-			class_hints = self.object._field_types
-		else:
-			all_hints = get_type_hints(self.object)
-			class_hints = {k: all_hints[k] for k in self.object._fields if k in all_hints}
+		all_hints = get_type_hints(self.object)
+		class_hints = {k: all_hints[k] for k in self.object._fields if k in all_hints}
+		new_hints = get_type_hints(self.object.__new__)
 
-		if class_hints != get_type_hints(self.object.__new__):
+		if class_hints and new_hints and class_hints != new_hints:
 			#: __new__ has a different signature or different annotations
 
 			def unskip_new(app, what, name, obj, skip, options):
