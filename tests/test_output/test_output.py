@@ -160,3 +160,21 @@ def test_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture
 @pytest.mark.parametrize("page", ["genericalias.html"], indirect=True)
 def test_genericalias_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
 	check_html_regression(page, file_regression)
+
+
+@pytest.mark.skipif(condition=sys.version_info[:2] != (3, 6), reason="Output differs for Py36")
+@pytest.mark.parametrize("page", ["generic_bases.html"], indirect=True)
+def test_generic_bases_html_output_36(page: BeautifulSoup, file_regression: FileRegressionFixture):
+	check_html_regression(page, file_regression)
+
+
+@pytest.mark.skipif(condition=sys.version_info[:2] != (3, 7), reason="Output differs for Py37")
+@pytest.mark.parametrize("page", ["generic_bases.html"], indirect=True)
+def test_generic_bases_html_output_37(page: BeautifulSoup, file_regression: FileRegressionFixture):
+	check_html_regression(page, file_regression)
+
+
+@pytest.mark.skipif(condition=sys.version_info <= (3, 8), reason="Output differs for Py38")
+@pytest.mark.parametrize("page", ["generic_bases.html"], indirect=True)
+def test_generic_bases_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+	check_html_regression(page, file_regression)

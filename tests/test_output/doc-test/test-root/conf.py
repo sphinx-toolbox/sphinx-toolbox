@@ -10,6 +10,7 @@ extensions = [
 		"sphinx_toolbox.more_autodoc.regex",
 		"sphinx_toolbox.more_autodoc.typevars",
 		"sphinx_toolbox.more_autodoc.overloads",
+		"sphinx_toolbox.more_autodoc.generic_bases",
 		"sphinx_tabs.tabs",
 		"sphinx-prompt",
 		"sphinx.ext.autodoc",
