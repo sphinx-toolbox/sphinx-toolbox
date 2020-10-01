@@ -739,7 +739,8 @@ def get_all_type_hints(obj, name, original_obj):
 	rv = backfill_type_hints(obj, name)
 
 	try:
-		obj.__annotations__ = rv
+		if rv != {}:
+			obj.__annotations__ = rv
 	except (AttributeError, TypeError):
 		return rv
 
