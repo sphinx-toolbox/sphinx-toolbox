@@ -107,8 +107,9 @@ API Reference
 
 # stdlib
 import inspect
+import re
 from textwrap import dedent
-from typing import Any, Dict, List, Tuple, get_type_hints
+from typing import Any, Dict, List, Tuple, Type, get_type_hints
 
 # 3rd party
 from sphinx.application import Sphinx
@@ -122,7 +123,7 @@ from sphinx.pycode import ModuleAnalyzer
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
-from sphinx_toolbox.utils import Param, SphinxExtMetadata, is_namedtuple, parse_parameters
+from sphinx_toolbox.utils import Param, SphinxExtMetadata, baseclass_is_private, is_namedtuple, parse_parameters
 
 __all__ = ["NamedTupleDocumenter", "setup"]
 
@@ -142,6 +143,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 	objtype = "namedtuple"
 	directivetype = "namedtuple"
 	priority = 20
+	object: Type
 
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
 		super().__init__(directive, name, indent)
@@ -206,11 +208,46 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 		super().add_directive_header(sig)
 
-		if "show-inheritance" in self.options and self.directive.result[-1] == "   Bases: :class:`tuple`":
-			if hasattr(self.object, "__annotations__"):
-				self.directive.result[-1] = "   Bases: :class:`~typing.NamedTuple`"
-			else:
-				self.directive.result[-1] = "   Bases: :func:`~collections.namedtuple`"
+		if "show-inheritance" in self.options:
+			if self.directive.result[-1] == "   Bases: :class:`tuple`" or baseclass_is_private(self.object):
+				if hasattr(self.object, "__annotations__"):
+					self.directive.result[-1] = "   Bases: :class:`~typing.NamedTuple`"
+				else:
+					self.directive.result[-1] = "   Bases: :func:`~collections.namedtuple`"
+
+	def filter_members(
+			self,
+			members: List[Tuple[str, Any]],
+			want_all: bool,
+			) -> List[Tuple[str, Any, bool]]:
+		"""
+		Filter the list of members to always include __new__ if it has a different signature to the tuple.
+
+		:param members:
+		:param want_all:
+		"""
+
+		if hasattr(self.object, "_field_types"):
+			class_hints = self.object._field_types
+		else:
+			all_hints = get_type_hints(self.object)
+			class_hints = {k: all_hints[k] for k in self.object._fields if k in all_hints}
+
+		if class_hints != get_type_hints(self.object.__new__):
+			#: __new__ has a different signature or different annotations
+
+			def unskip_new(app, what, name, obj, skip, options):
+				if name == "__new__":
+					return False
+				return None
+
+			listener_id = self.env.app.connect("autodoc-skip-member", unskip_new)
+			members_ = super().filter_members(members, want_all)
+			self.env.app.disconnect(listener_id)
+			return members_
+
+		else:
+			return super().filter_members(members, want_all)
 
 	def sort_members(
 			self,
@@ -287,6 +324,9 @@ class NamedTupleDocumenter(ClassDocumenter):
 				field_entry.append(f"({arg_type}\\)")
 			field_entry.append("--")
 			field_entry.extend(doc)
+
+			if re.match("Alias for field number [0-9]+", getattr(self.object, field).__doc__):
+				getattr(self.object, field).__doc__ = " ".join(doc)
 
 			self.add_line(" ".join(field_entry), sourcename)
 

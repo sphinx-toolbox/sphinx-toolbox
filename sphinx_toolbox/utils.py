@@ -69,6 +69,7 @@ __all__ = [
 		"typed_flag_regex",
 		"allow_subclass_add",
 		"NoMatchError",
+		"baseclass_is_private",
 		]
 
 #: Instance of :class:`apeye.url.RequestsURL` that points to the GitHub website.
@@ -565,3 +566,15 @@ def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]):
 		existing_documenter = app.registry.documenters.get(cls.objtype)
 		if existing_documenter is None or not issubclass(existing_documenter, cls):
 			app.add_autodocumenter(cls, override=True)
+
+
+def baseclass_is_private(obj: Type) -> bool:
+	"""
+	Returns :py:obj:`True` if the first and only base class starts with a double underscore.
+
+	:param obj:
+	"""
+
+	if hasattr(obj, '__bases__') and len(obj.__bases__) == 1:
+		return obj.__bases__[0].__name__.startswith("__")
+	return False
