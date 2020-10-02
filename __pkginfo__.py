@@ -39,7 +39,7 @@ __copyright__ = """
 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 """
 
-__version__ = "1.4.1"
+__version__ = "1.5.0"
 modname = "sphinx-toolbox"
 pypi_name = "sphinx-toolbox"
 import_name = "sphinx_toolbox"
