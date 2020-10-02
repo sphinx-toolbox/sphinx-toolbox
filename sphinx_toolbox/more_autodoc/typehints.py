@@ -494,22 +494,24 @@ def process_signature(
 				if outer is not None:
 					for clsname in obj.__qualname__.split('.')[:-1]:
 						outer = getattr(outer, clsname)
+			except AttributeError:
+				outer = None
 
-				method_name = obj.__name__
-				if method_name.startswith("__") and not method_name.endswith("__"):
-					# If the method starts with double underscore (dunder)
-					# Python applies mangling so we need to prepend the class name.
-					# This doesn't happen if it always ends with double underscore.
-					class_name = obj.__qualname__.split('.')[-2]
-					method_name = f"_{class_name}{method_name}"
+			method_name = obj.__name__
+			if method_name.startswith("__") and not method_name.endswith("__"):
+				# If the method starts with double underscore (dunder)
+				# Python applies mangling so we need to prepend the class name.
+				# This doesn't happen if it always ends with double underscore.
+				class_name = obj.__qualname__.split('.')[-2]
+				method_name = f"_{class_name}{method_name}"
 
+			if outer is not None:
 				method_object = outer.__dict__[method_name] if outer else obj
 				if not isinstance(method_object, (classmethod, staticmethod)):
 					del parameters[0]
 
-			except AttributeError:
-				# Usually for inherited methods
-				if not inspect.ismethod(obj) and parameters[0].name not in {"self", "cls", "_cls"}:
+			else:
+				if not inspect.ismethod(obj) and parameters[0].name in {"self", "cls", "_cls"}:
 					del parameters[0]
 
 	signature = signature.replace(parameters=parameters, return_annotation=inspect.Signature.empty)
