@@ -19,7 +19,7 @@ python_versions:
   - 3.6
   - 3.7
   - 3.8
-  - 3.9-dev
+  - 3.9
 
 additional_ignore:
   - wip-shields-block.py
