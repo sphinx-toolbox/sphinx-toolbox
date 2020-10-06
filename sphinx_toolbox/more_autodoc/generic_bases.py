@@ -58,8 +58,10 @@ from sphinx_toolbox.more_autosummary import PatchedAutoSummClassDocumenter
 from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add
 
 if sys.version_info >= (3, 8):
+	# stdlib
 	from typing import get_origin
 else:
+	# 3rd party
 	from typing_inspect import get_origin  # type: ignore
 
 __all__ = ["GenericBasesClassDocumenter", "setup"]
@@ -92,10 +94,9 @@ class GenericBasesClassDocumenter(PatchedAutoSummClassDocumenter):
 			bases = []
 
 			if (
-					hasattr(self.object, '__orig_bases__')
-					and len(self.object.__orig_bases__)
+					hasattr(self.object, '__orig_bases__') and len(self.object.__orig_bases__)
 					and get_origin(self.object.__orig_bases__[0]) is self.object.__bases__[0]
-				):
+					):
 				# Last condition guards against classes that don't directly subclass a Generic.
 				bases = [format_annotation(b) for b in self.object.__orig_bases__]
 

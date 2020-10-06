@@ -11,4 +11,4 @@ sphinx-autodoc-typehints==1.11.0
 sphinx-prompt>=1.1.0
 sphinx-tabs>=1.2.1
 typing_extensions>=3.7.4.3
-typing_inspect
+typing_inspect>=0.6.0
