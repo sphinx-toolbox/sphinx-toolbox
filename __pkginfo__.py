@@ -1,5 +1,5 @@
 #  This file is managed by 'repo_helper'. Don't edit it directly.
-#  Copyright (C) 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  This file is distributed under the same license terms as the program it came with.
 #  There will probably be a file called LICEN[S/C]E in the same directory as this file.
