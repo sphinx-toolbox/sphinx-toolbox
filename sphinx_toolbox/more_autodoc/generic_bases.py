@@ -44,6 +44,7 @@ API Reference
 #
 
 # stdlib
+import sys
 from typing import List, Tuple
 
 # 3rd party
@@ -55,6 +56,11 @@ from sphinx.locale import _
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.more_autosummary import PatchedAutoSummClassDocumenter
 from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add
+
+if sys.version_info >= (3, 8):
+	from typing import get_origin
+else:
+	from typing_inspect import get_origin  # type: ignore
 
 __all__ = ["GenericBasesClassDocumenter", "setup"]
 
@@ -85,7 +91,12 @@ class GenericBasesClassDocumenter(PatchedAutoSummClassDocumenter):
 			self.add_line('', sourcename)
 			bases = []
 
-			if hasattr(self.object, '__orig_bases__') and len(self.object.__orig_bases__):
+			if (
+					hasattr(self.object, '__orig_bases__')
+					and len(self.object.__orig_bases__)
+					and get_origin(self.object.__orig_bases__[0]) is self.object.__bases__[0]
+				):
+				# Last condition guards against classes that don't directly subclass a Generic.
 				bases = [format_annotation(b) for b in self.object.__orig_bases__]
 
 			elif hasattr(self.object, '__bases__') and len(self.object.__bases__):
@@ -118,4 +129,12 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 class Example(List[Tuple[str, float, List[str]]]):
 	"""
 	An example of :mod:`sphinx_toolbox.tweaks.generic_bases`.
+	"""
+
+
+class Example2(Example):
+	"""
+	An example of :mod:`sphinx_toolbox.tweaks.generic_bases`.
+
+	This one does not directly subclass a Generic.
 	"""
