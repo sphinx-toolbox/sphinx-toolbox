@@ -104,29 +104,30 @@ import pathlib
 import re
 import sre_parse
 from sre_constants import (
-	ANY,
-	AT,
-	AT_BEGINNING,
-	AT_BEGINNING_STRING,
-	AT_BOUNDARY,
-	AT_END,
-	AT_END_STRING,
-	AT_NON_BOUNDARY,
-	BRANCH,
-	CATEGORY,
-	CATEGORY_DIGIT,
-	CATEGORY_NOT_DIGIT,
-	CATEGORY_NOT_SPACE,
-	CATEGORY_NOT_WORD,
-	CATEGORY_SPACE,
-	CATEGORY_WORD,
-	IN,
-	LITERAL,
-	MAX_REPEAT,
-	MAXREPEAT,
-	MIN_REPEAT, RANGE,
-	SUBPATTERN,
-	)
+		ANY,
+		AT,
+		AT_BEGINNING,
+		AT_BEGINNING_STRING,
+		AT_BOUNDARY,
+		AT_END,
+		AT_END_STRING,
+		AT_NON_BOUNDARY,
+		BRANCH,
+		CATEGORY,
+		CATEGORY_DIGIT,
+		CATEGORY_NOT_DIGIT,
+		CATEGORY_NOT_SPACE,
+		CATEGORY_NOT_WORD,
+		CATEGORY_SPACE,
+		CATEGORY_WORD,
+		IN,
+		LITERAL,
+		MAX_REPEAT,
+		MAXREPEAT,
+		MIN_REPEAT,
+		RANGE,
+		SUBPATTERN
+		)
 from textwrap import dedent
 from typing import Any, Callable, List, Pattern, Tuple
 
@@ -442,7 +443,6 @@ class RegexParser:
 				# 	_parse_pattern(item)
 				# 	print(min_, max_, item)
 				# 	input(">>>")
-
 
 				if what is CATEGORY:
 					if content is CATEGORY_DIGIT:
