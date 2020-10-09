@@ -236,21 +236,19 @@ class NamedTupleDocumenter(ClassDocumenter):
 		class_hints = {k: all_hints[k] for k in self.object._fields if k in all_hints}
 		new_hints = get_type_hints(self.object.__new__)
 
-		if class_hints and new_hints and class_hints != new_hints:
-			#: __new__ has a different signature or different annotations
-
-			def unskip_new(app, what, name, obj, skip, options):
-				if name == "__new__":
+		def unskip_autotuple_members(app, what, name, obj, skip, options):
+			if class_hints and new_hints and class_hints != new_hints and name == "__new__":
+				#: __new__ has a different signature or different annotations
+				return False
+			elif self.options.get("inherited_members", False):
+				if name in {"_make", "_replace", "_asdict"}:
 					return False
-				return None
+			return None
 
-			listener_id = self.env.app.connect("autodoc-skip-member", unskip_new)
-			members_ = super().filter_members(members, want_all)
-			self.env.app.disconnect(listener_id)
-			return members_
-
-		else:
-			return super().filter_members(members, want_all)
+		listener_id = self.env.app.connect("autodoc-skip-member", unskip_autotuple_members)
+		members_ = super().filter_members(members, want_all)
+		self.env.app.disconnect(listener_id)
+		return members_
 
 	def sort_members(
 			self,
@@ -366,3 +364,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 			"version": __version__,
 			"parallel_read_safe": True,
 			}
+
+
+# stdlib
+from collections import namedtuple
