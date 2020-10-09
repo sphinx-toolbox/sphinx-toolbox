@@ -1,5 +1,5 @@
 # 3rd party
-from pytest_regressions.file_regression import FileRegressionFixture  # type: ignore
+from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
 from sphinx_toolbox import code

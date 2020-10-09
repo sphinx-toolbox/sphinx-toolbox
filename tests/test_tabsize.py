@@ -1,6 +1,6 @@
 # 3rd party
 from pprint36 import pformat
-from pytest_regressions.file_regression import FileRegressionFixture  # type: ignore
+from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
 from sphinx_toolbox.testing import run_setup
