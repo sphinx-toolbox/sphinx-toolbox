@@ -104,29 +104,29 @@ import pathlib
 import re
 import sre_parse
 from sre_constants import (
-		ANY,
-		AT,
-		AT_BEGINNING,
-		AT_BEGINNING_STRING,
-		AT_BOUNDARY,
-		AT_END,
-		AT_END_STRING,
-		AT_NON_BOUNDARY,
-		BRANCH,
-		CATEGORY,
-		CATEGORY_DIGIT,
-		CATEGORY_NOT_DIGIT,
-		CATEGORY_NOT_SPACE,
-		CATEGORY_NOT_WORD,
-		CATEGORY_SPACE,
-		CATEGORY_WORD,
-		IN,
-		LITERAL,
-		MAX_REPEAT,
-		MAXREPEAT,
-		RANGE,
-		SUBPATTERN
-		)
+	ANY,
+	AT,
+	AT_BEGINNING,
+	AT_BEGINNING_STRING,
+	AT_BOUNDARY,
+	AT_END,
+	AT_END_STRING,
+	AT_NON_BOUNDARY,
+	BRANCH,
+	CATEGORY,
+	CATEGORY_DIGIT,
+	CATEGORY_NOT_DIGIT,
+	CATEGORY_NOT_SPACE,
+	CATEGORY_NOT_WORD,
+	CATEGORY_SPACE,
+	CATEGORY_WORD,
+	IN,
+	LITERAL,
+	MAX_REPEAT,
+	MAXREPEAT,
+	MIN_REPEAT, RANGE,
+	SUBPATTERN,
+	)
 from textwrap import dedent
 from typing import Any, Callable, List, Pattern, Tuple
 
@@ -412,7 +412,7 @@ class RegexParser:
 						buf.append(type(self).IN_COLOUR("]"))
 					continue
 
-				if what is MAX_REPEAT:
+				if what is MAX_REPEAT or what is MIN_REPEAT:
 					min_, max_, item = content
 					_parse_pattern(item)
 
@@ -432,8 +432,17 @@ class RegexParser:
 						buf.append(type(self).LITERAL_COLOUR(","))
 						buf.append(type(self).REPEAT_COLOUR(str(max)))
 						buf.append(type(self).REPEAT_BRACE_COLOUR("}"))
+					if what is MIN_REPEAT:
+						buf.append(type(self).REPEAT_COLOUR("?"))
 
 					continue
+				#
+				# if what is MIN_REPEAT:
+				# 	min_, max_, item = content
+				# 	_parse_pattern(item)
+				# 	print(min_, max_, item)
+				# 	input(">>>")
+
 
 				if what is CATEGORY:
 					if content is CATEGORY_DIGIT:
