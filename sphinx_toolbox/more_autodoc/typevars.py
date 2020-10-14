@@ -292,7 +292,6 @@ def validate_config(app: Sphinx, config: ToolboxConfig):
 	"""
 
 	if config.all_typevars:
-		print("All Typevars")
 		app.connect("autodoc-skip-member", unskip_typevars)
 
 
