@@ -1,6 +1,7 @@
 coverage>=5.1
-coverage_pyver_pragma>=0.0.5
+coverage_pyver_pragma>=0.0.6
 hypothesis>=5.35.4
+iniconfig!=1.1.0,>=1.0.1
 pprint36>=3.9.0.2
 pytest>=6.0.0
 pytest-cov>=2.8.1

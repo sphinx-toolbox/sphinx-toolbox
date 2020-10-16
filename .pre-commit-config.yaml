@@ -50,12 +50,12 @@ repos:
  - repo: https://github.com/Lucas-C/pre-commit-hooks
    rev: v1.1.7
    hooks:
-    - id: forbid-crlf
     - id: remove-crlf
+    - id: forbid-crlf
 
 
  - repo: https://github.com/domdfcoding/yapf-isort
-   rev: v0.3.0
+   rev: v0.3.2
    hooks:
     - id: yapf-isort
       exclude: ^(doc-source/conf|__pkginfo__|make_conda_recipe|setup)\.py$
