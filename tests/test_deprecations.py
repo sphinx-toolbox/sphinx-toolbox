@@ -14,13 +14,13 @@ def test_deprecations_autodoc_utils():
 
 	# check that only one warning was raised
 	assert len(record) == 1
-	print(record[0].message.args[0])
+
 	# check that the message matches
 	assert re.match(
 			fr"Importing from 'sphinx_toolbox\.{module}' is deprecated since 1\.0\.0 and "
 			r"the module will be removed in 2\.0\.0\.\nImport from 'sphinx_toolbox"
 			r"\.utils' instead\.",
-			record[0].message.args[0],
+			record[0].message.args[0],  # type: ignore
 			)
 
 

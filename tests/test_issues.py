@@ -206,7 +206,7 @@ def test_visit_issue_node_errors(error_code, error_server):
 
 	with pytest.warns(UserWarning) as w:
 		visit_issue_node(translator, node)  # type: ignore
-	assert w[0].message.args[0] == "Issue/Pull Request #7680 not found."
+	assert w[0].message.args[0] == "Issue/Pull Request #7680 not found."  # type: ignore
 
 	assert translator.body == []
 	assert not node.has_tooltip
