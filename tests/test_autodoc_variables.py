@@ -25,8 +25,8 @@ class Bar:
 	f: "Set"  # type: ignore
 
 	def __init__(self):
-		self.g: Secret = Secret("")
-		self.h: "Secret" = Secret("")
+		self.g: Secret = Secret('')
+		self.h: "Secret" = Secret('')
 
 
 class Analyzer(NamedTuple):
@@ -72,4 +72,4 @@ def test_get_variable_type():
 			Documenter(Bar, ["Bar", "h"], Analyzer({("Bar", "h"): '"Union[str, float, int]"'}))
 			) == ":py:data:`~typing.Union`\\[:py:class:`str`, :py:class:`float`, :py:class:`int`]"
 
-	assert get_variable_type(Documenter('Bar', ["Bar", "f"], Analyzer({}))) == ''
+	assert get_variable_type(Documenter("Bar", ["Bar", "f"], Analyzer({}))) == ''

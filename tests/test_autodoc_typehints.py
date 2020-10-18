@@ -102,44 +102,30 @@ class Metaclass(type):
 				(Any, ":py:data:`~typing.Any`"),
 				(AnyStr, ":py:data:`~typing.AnyStr`"),
 				(Mapping, ":py:class:`~typing.Mapping`"),
-				(Mapping[str, bool], ":py:class:`~typing.Mapping`\\[:py:class:`str`, "
-					":py:class:`bool`]"),
+				(Mapping[str, bool], ":py:class:`~typing.Mapping`\\[:py:class:`str`, :py:class:`bool`]"),
 				(Dict, ":py:class:`~typing.Dict`"),
-				(Dict[str, bool], ":py:class:`~typing.Dict`\\[:py:class:`str`, "
-					":py:class:`bool`]"),
+				(Dict[str, bool], ":py:class:`~typing.Dict`\\[:py:class:`str`, :py:class:`bool`]"),
 				(Tuple, ":py:data:`~typing.Tuple`"),
-				(Tuple[str, bool], ":py:data:`~typing.Tuple`\\[:py:class:`str`, "
-					":py:class:`bool`]"),
+				(Tuple[str, bool], ":py:data:`~typing.Tuple`\\[:py:class:`str`, :py:class:`bool`]"),
 				(
 						Tuple[int, int, int],
-						":py:data:`~typing.Tuple`\\[:py:class:`int`, "
-						":py:class:`int`, :py:class:`int`]"
+						":py:data:`~typing.Tuple`\\[:py:class:`int`, :py:class:`int`, :py:class:`int`]"
 						),
 				(Tuple[str, ...], ":py:data:`~typing.Tuple`\\[:py:class:`str`, ...]"),
 				(Union, ":py:data:`~typing.Union`"),
-				(Union[str, bool], ":py:data:`~typing.Union`\\[:py:class:`str`, "
-					":py:class:`bool`]"),
-				pytest.param(
-						Union[str, Any],
-						":py:data:`~typing.Union`\\[:py:class:`str`, "
-						":py:data:`~typing.Any`]",
-						marks=pytest.mark.skipif((3, 5, 0) <= sys.version_info[:3] <= (3, 5, 2),
-													reason="Union erases the str on 3.5.0 -> 3.5.2"),
-						),
+				(Union[str, bool], ":py:data:`~typing.Union`\\[:py:class:`str`, :py:class:`bool`]"),
+				(Union[str, Any], ":py:data:`~typing.Union`\\[:py:class:`str`, :py:data:`~typing.Any`]"),
 				(Optional[str], ":py:data:`~typing.Optional`\\[:py:class:`str`]"),
 				(Callable, ":py:data:`~typing.Callable`"),
 				(Callable[..., int], ":py:data:`~typing.Callable`\\[..., :py:class:`int`]"),
-				(Callable[[int], int], ":py:data:`~typing.Callable`\\[\\[:py:class:`int`], "
-					":py:class:`int`]"),
+				(Callable[[int], int], ":py:data:`~typing.Callable`\\[\\[:py:class:`int`], :py:class:`int`]"),
 				(
 						Callable[[int, str], bool],
-						":py:data:`~typing.Callable`\\[\\[:py:class:`int`, "
-						":py:class:`str`], :py:class:`bool`]"
+						":py:data:`~typing.Callable`\\[\\[:py:class:`int`, :py:class:`str`], :py:class:`bool`]"
 						),
 				(
 						Callable[[int, str], None],
-						":py:data:`~typing.Callable`\\[\\[:py:class:`int`, "
-						":py:class:`str`], :py:obj:`None`]"
+						":py:data:`~typing.Callable`\\[\\[:py:class:`int`, :py:class:`str`], :py:obj:`None`]"
 						),
 				(Pattern, ":py:class:`~typing.Pattern`"),
 				(Pattern[str], ":py:class:`~typing.Pattern`\\[:py:class:`str`]"),

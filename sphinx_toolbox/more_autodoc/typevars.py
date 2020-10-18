@@ -134,10 +134,10 @@ class TypeVarDocumenter(VariableDocumenter):
 	Specialized Documenter subclass for :class:`typing.TypeVars`.
 
 	.. versionadded:: 1.3.0
-	"""
+	"""  # noqa: D400
 
-	objtype = 'typevar'
-	directivetype = 'data'
+	objtype = "typevar"
+	directivetype = "data"
 	priority = DataDocumenter.priority + 1
 
 	@classmethod

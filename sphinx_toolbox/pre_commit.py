@@ -89,12 +89,11 @@ API Reference
 # stdlib
 import re
 import warnings
-from collections import OrderedDict
 from textwrap import indent
-from typing import List, Sequence
+from typing import List, MutableMapping, Sequence, Union
 
 # 3rd party
-import ruamel.yaml as yaml
+import ruamel.yaml as yaml  # type: ignore
 from docutils import nodes
 from docutils.statemachine import StringList
 from domdf_python_tools.paths import PathPlus
@@ -118,6 +117,12 @@ pre_commit_f8_node_purger = Purger("all_pre_commit_f8_nodes")
 
 
 def parse_hooks(hooks: str) -> List[str]:
+	"""
+	Parses the comma, semicolon and/or space delimited list of hook IDs.
+
+	:param hooks:
+	"""
+
 	return list(filter(None, re.split("[,; ]", hooks)))
 
 
@@ -151,7 +156,7 @@ class PreCommitDirective(SphinxDirective):
 				return []
 
 		repo = make_github_url(self.env.config.github_username, self.env.config.github_repository)
-		config = {"repo": str(repo)}
+		config: MutableMapping[str, Union[str, List[MutableMapping[str, str]]]] = {"repo": str(repo)}
 
 		if "rev" in self.options:
 			config["rev"] = self.options["rev"]
@@ -161,9 +166,11 @@ class PreCommitDirective(SphinxDirective):
 		targetid = f'pre-commit-{self.env.new_serialno("pre-commit"):d}'
 		targetnode = nodes.section(ids=[targetid])
 
-		yaml_output = indent(yaml.round_trip_dump([config], default_flow_style=False), '    ')
-		content = f".. code-block:: yaml\n\n{yaml_output}\n\n"
+		yaml_output = yaml.round_trip_dump([config], default_flow_style=False)
+		if not yaml_output:
+			return []
 
+		content = f".. code-block:: yaml\n\n{indent(yaml_output, '    ')}\n\n"
 		view = StringList(content.split("\n"))
 		pre_commit_node = nodes.paragraph(rawsource=content)
 		self.state.nested_parse(view, self.content_offset, pre_commit_node)
@@ -202,9 +209,11 @@ class Flake8PreCommitDirective(SphinxDirective):
 		targetid = f'pre-commit-{self.env.new_serialno("pre-commit"):d}'
 		targetnode = nodes.section(ids=[targetid])
 
-		yaml_output = indent(yaml.round_trip_dump([config], default_flow_style=False), '    ')
-		content = f".. code-block:: yaml\n\n{yaml_output}\n\n"
+		yaml_output = yaml.round_trip_dump([config], default_flow_style=False)
+		if not yaml_output:
+			return []
 
+		content = f".. code-block:: yaml\n\n{indent(yaml_output, '    ')}\n\n"
 		view = StringList(content.split("\n"))
 		pre_commit_node = nodes.paragraph(rawsource=content)
 		self.state.nested_parse(view, self.content_offset, pre_commit_node)

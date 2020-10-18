@@ -236,10 +236,10 @@ def get_documenter(app: Sphinx, obj: Any, parent: Any) -> Type[Documenter]:
 	else:
 		parent_doc_cls = ModuleDocumenter
 
-	if hasattr(parent, '__name__'):
+	if hasattr(parent, "__name__"):
 		parent_doc = parent_doc_cls(FakeDirective(), parent.__name__)
 	else:
-		parent_doc = parent_doc_cls(FakeDirective(), "")
+		parent_doc = parent_doc_cls(FakeDirective(), '')
 
 	# Get the correct documenter class for *obj*
 	classes = [
@@ -290,7 +290,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("sphinx.ext.autosummary")
 	app.setup_extension("autodocsumm")
 
-	app.add_directive('autosummary', PatchedAutosummary, override=True)
+	app.add_directive("autosummary", PatchedAutosummary, override=True)
 	autodocsumm.AutosummaryDocumenter.add_autosummary = add_autosummary
 	allow_subclass_add(app, PatchedAutoSummClassDocumenter)
 

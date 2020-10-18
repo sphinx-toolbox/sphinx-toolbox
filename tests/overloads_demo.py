@@ -14,9 +14,11 @@ def serde(cls: None = None, from_key: str = ..., to_key: str = ...) -> Callable[
 	...  # pragma: no cover
 
 
-def serde(cls: Optional[Type[object]] = None,
-			from_key: str = "from",
-			to_key: str = "to") -> Union[Type[object], Callable[[Type[object]], Type[object]]]:
+def serde(
+		cls: Optional[Type[object]] = None,
+		from_key: str = "from",
+		to_key: str = "to",
+		) -> Union[Type[object], Callable[[Type[object]], Type[object]]]:
 	r"""
 	Decorator to add serialisation and deserialisation capabilities to attrs classes.
 

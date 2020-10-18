@@ -278,8 +278,10 @@ class ProtocolDocumenter(ClassDocumenter):
 				# mocked module or object
 				keep = False
 
-			elif self.options.get("exclude-protocol-members",
-									[]) and membername in self.options["exclude-protocol-members"]:
+			elif (
+					self.options.get("exclude-protocol-members", [])
+					and membername in self.options["exclude-protocol-members"]
+					):
 				# remove members given by exclude-protocol-members
 				keep = False
 

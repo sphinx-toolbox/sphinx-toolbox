@@ -131,7 +131,7 @@ class OverloadMixin(_OverloadMixinBase):
 			for overload in self.analyzer.overloads.get('.'.join(self.objpath)):  # type: ignore
 				overload = self.process_overload_signature(overload)
 
-				buf = [format_annotation(self.object), r'\(']
+				buf = [format_annotation(self.object), r"\("]
 
 				for name, param in overload.parameters.items():
 					buf.append(f"**{name}**")
@@ -152,7 +152,7 @@ class OverloadMixin(_OverloadMixinBase):
 					buf.append(" -> ")
 					buf.append(format_annotation(overload.return_annotation))
 
-				formatted_overloads.append("".join(buf))
+				formatted_overloads.append(''.join(buf))
 
 			if len(formatted_overloads) == 1:
 				output.append(formatted_overloads[0])
@@ -229,7 +229,7 @@ class OverloadMixin(_OverloadMixinBase):
 						elif line.startswith(":return:") or line.startswith(":returns:"):
 							insert_index = i - len(lines)
 
-			listener_id = self.env.app.connect('autodoc-process-docstring', process_docstring, priority=300)
+			listener_id = self.env.app.connect("autodoc-process-docstring", process_docstring, priority=300)
 			super().add_content(more_content, no_docstring)
 			self.env.app.disconnect(listener_id)
 
@@ -246,7 +246,7 @@ class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):
 	renders overloads differently.
 
 	.. versionadded:: 1.4.0
-	"""
+	"""  # noqa: D400
 
 	def format_signature(self, **kwargs: Any) -> str:
 		"""
@@ -310,7 +310,7 @@ class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):
 		:param overload:
 		"""
 
-		__globals__ = safe_getattr(self.object, '__globals__', {})
+		__globals__ = safe_getattr(self.object, "__globals__", {})
 		overload = evaluate_signature(overload, __globals__)
 		return super().process_overload_signature(overload)
 
@@ -321,7 +321,7 @@ class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):
 	renders overloads differently.
 
 	.. versionadded:: 1.4.0
-	"""
+	"""  # noqa: D400
 
 	def format_signature(self, **kwargs: Any) -> str:
 		"""
@@ -387,7 +387,7 @@ class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):
 		:param overload:
 		"""
 
-		__globals__ = safe_getattr(self.object, '__globals__', {})
+		__globals__ = safe_getattr(self.object, "__globals__", {})
 		overload = evaluate_signature(overload, __globals__)
 
 		if not inspect.isstaticmethod(self.object, cls=self.parent, name=self.object_name):

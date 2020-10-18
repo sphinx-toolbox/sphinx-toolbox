@@ -45,7 +45,7 @@ class SlotsDemo:
 
 
 T = TypeVar("T")
-T_co = TypeVar('T_co', covariant=True)
-T_contra = TypeVar('T_contra', contravariant=True)
-S = TypeVar('S', bound=SlotsDemo)
+T_co = TypeVar("T_co", covariant=True)
+T_contra = TypeVar("T_contra", contravariant=True)
+S = TypeVar("S", bound=SlotsDemo)
 DS = TypeVar("DS", SlotsDemo, Demo)

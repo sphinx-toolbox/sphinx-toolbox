@@ -575,6 +575,6 @@ def baseclass_is_private(obj: Type) -> bool:
 	:param obj:
 	"""
 
-	if hasattr(obj, '__bases__') and len(obj.__bases__) == 1:
+	if hasattr(obj, "__bases__") and len(obj.__bases__) == 1:
 		return obj.__bases__[0].__name__.startswith("__")
 	return False

@@ -187,7 +187,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 	def _get_docstring(self) -> Tuple[Dict[str, Param], List[str], List[str]]:
 		"""
-		Returns params, pre_output, post_output
+		Returns params, pre_output, post_output.
 		"""
 
 		# Size varies depending on docutils config

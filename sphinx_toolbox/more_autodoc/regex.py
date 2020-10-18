@@ -653,7 +653,7 @@ def copy_asset_files(app: Sphinx, exc):
 
 	if exc is None:  # build succeeded
 		with importlib_resources.path(sphinx_toolbox.more_autodoc, "regex.css") as cssfile:
-			copy_asset(str(pathlib.Path(cssfile)), str(pathlib.Path(app.outdir) / '_static'))
+			copy_asset(str(pathlib.Path(cssfile)), str(pathlib.Path(app.outdir) / "_static"))
 
 
 regex_parser = HTMLRegexParser()
@@ -680,7 +680,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 			)
 
 	app.add_css_file("regex.css")
-	app.connect('build-finished', copy_asset_files)
+	app.connect("build-finished", copy_asset_files)
 
 	return {
 			"version": __version__,

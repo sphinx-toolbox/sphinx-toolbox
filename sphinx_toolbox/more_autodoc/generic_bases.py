@@ -20,7 +20,7 @@ Example
 
 API Reference
 -----------------
-"""
+"""  # noqa: D400
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -74,7 +74,7 @@ class GenericBasesClassDocumenter(PatchedAutoSummClassDocumenter):
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive header
+		Add the directive header.
 
 		:param sig:
 		"""
@@ -82,11 +82,11 @@ class GenericBasesClassDocumenter(PatchedAutoSummClassDocumenter):
 		sourcename = self.get_sourcename()
 
 		if self.doc_as_attr:
-			self.directivetype = 'attribute'
+			self.directivetype = "attribute"
 		Documenter.add_directive_header(self, sig)
 
 		if self.analyzer and '.'.join(self.objpath) in self.analyzer.finals:
-			self.add_line('   :final:', sourcename)
+			self.add_line("   :final:", sourcename)
 
 		# add inheritance info, if wanted
 		if not self.doc_as_attr and self.options.show_inheritance:
@@ -94,17 +94,17 @@ class GenericBasesClassDocumenter(PatchedAutoSummClassDocumenter):
 			bases = []
 
 			if (
-					hasattr(self.object, '__orig_bases__') and len(self.object.__orig_bases__)
+					hasattr(self.object, "__orig_bases__") and len(self.object.__orig_bases__)
 					and get_origin(self.object.__orig_bases__[0]) is self.object.__bases__[0]
 					):
 				# Last condition guards against classes that don't directly subclass a Generic.
 				bases = [format_annotation(b) for b in self.object.__orig_bases__]
 
-			elif hasattr(self.object, '__bases__') and len(self.object.__bases__):
+			elif hasattr(self.object, "__bases__") and len(self.object.__bases__):
 				bases = [format_annotation(b) for b in self.object.__bases__]
 
 			if bases:
-				self.add_line('   ' + _("Bases: %s") % ', '.join(bases), sourcename)
+				self.add_line("   " + _("Bases: %s") % ", ".join(bases), sourcename)
 
 
 def setup(app: Sphinx) -> SphinxExtMetadata:

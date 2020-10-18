@@ -15,7 +15,7 @@ parser = RegexParser()
 		"regex, expected",
 		[
 				(
-						re.compile(r'(?s)(\.\. start installation)(.*?)(\.\. end installation)'),
+						re.compile(r"(?s)(\.\. start installation)(.*?)(\.\. end installation)"),
 						"(.. start installation)(.*?)(.. end installation)",
 						),
 				(
