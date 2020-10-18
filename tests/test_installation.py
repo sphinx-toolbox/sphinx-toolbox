@@ -1,6 +1,7 @@
-# 3rd party
+# stdlib
 from typing import List
 
+# 3rd party
 import pytest
 from sphinx.events import EventListener
 

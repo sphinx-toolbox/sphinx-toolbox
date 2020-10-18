@@ -38,6 +38,8 @@ tox_testenv_extras: all
 extra_sphinx_extensions:
   - sphinx_removed_in
   - sphinx_toolbox.tweaks.param_dash
+  - sphinx_toolbox.pre_commit
+  - sphinx_toolbox.flake8
 
 sphinx_conf_epilogue:
   - hide_none_rtype = True

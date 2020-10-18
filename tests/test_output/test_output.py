@@ -138,6 +138,8 @@ def test_formatting_html_output(page: BeautifulSoup, file_regression: FileRegres
 				"autoprotocol.html",
 				"typevars.html",
 				"overloads.html",
+				"pre-commit.html",
+				"flake8.html",
 				pytest.param(
 						"instancevar.html",
 						marks=pytest.mark.skipif(
