@@ -252,6 +252,7 @@ class RegexDocumenter(VariableDocumenter):
 				else:
 					the_pattern = self.object.pattern
 
+				the_pattern = the_pattern.replace("`", "\`")
 				self.add_line(f'     **Pattern**, ":regex:`{the_pattern}`"', sourcename)
 
 			if not no_flag:

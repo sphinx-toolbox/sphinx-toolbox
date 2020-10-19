@@ -15,3 +15,4 @@ sphinx-toolbox Demo - Regex
 .. autoregex:: tests.regex_demo.no_flags
 .. autoregex:: tests.regex_demo.one_flag
 .. autoregex:: tests.regex_demo.two_flags
+.. autoregex:: tests.regex_demo.backticks
