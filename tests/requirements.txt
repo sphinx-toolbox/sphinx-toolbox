@@ -1,6 +1,6 @@
 coverage>=5.1
-coverage_pyver_pragma>=0.0.6
-flake8_dunder_all>=0.0.4
+coverage-pyver-pragma>=0.0.6
+flake8-dunder-all>=0.0.4
 hypothesis>=5.35.4
 iniconfig!=1.1.0,>=1.0.1
 pprint36>=3.9.0.2

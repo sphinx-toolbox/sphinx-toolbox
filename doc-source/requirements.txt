@@ -1,11 +1,11 @@
-default_values>=0.2.0
-domdf_sphinx_theme>=0.1.0
-extras_require>=0.2.0
-flake8_dunder_all>=0.0.4
-seed_intersphinx_mapping>=0.1.1
+default-values>=0.2.0
+domdf-sphinx-theme>=0.1.0
+extras-require>=0.2.0
+flake8-dunder-all>=0.0.4
+seed-intersphinx-mapping>=0.1.1
 sphinx-copybutton>=0.2.12
 sphinx-notfound-page>=0.5
 sphinx-removed-in==0.2.1
 sphinxcontrib-httpdomain>=1.7.0
 sphinxemoji>=0.1.6
-toctree_plus>=0.0.4
+toctree-plus>=0.0.4

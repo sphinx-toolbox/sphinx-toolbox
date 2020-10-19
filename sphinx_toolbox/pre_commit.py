@@ -97,10 +97,10 @@ import ruamel.yaml as yaml  # type: ignore
 from docutils import nodes
 from docutils.statemachine import StringList
 from domdf_python_tools.paths import PathPlus
+from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
 # this package
-from sphinx_toolbox.testing import Sphinx
 from sphinx_toolbox.utils import Purger, SphinxExtMetadata, make_github_url
 
 __all__ = [
