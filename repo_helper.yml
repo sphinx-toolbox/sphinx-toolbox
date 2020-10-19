@@ -5,7 +5,7 @@ copyright_years: 2020
 author: 'Dominic Davis-Foster'
 email: 'dominic@davis-foster.co.uk'
 username: 'domdfcoding'
-version: '1.6.1'
+version: '1.6.2'
 license: 'MIT'
 short_desc: 'Box of handy tools for Sphinx.'
 
