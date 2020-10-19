@@ -62,11 +62,11 @@ from typing import List, Sequence, Tuple
 import tabulate
 from docutils import nodes
 from docutils.statemachine import StringList
+from sphinx.application import Sphinx
 from sphinx.ext.autodoc.importer import import_module
 from sphinx.util.docutils import SphinxDirective
 
 # this package
-from sphinx_toolbox.testing import Sphinx
 from sphinx_toolbox.utils import Purger, SphinxExtMetadata
 
 __all__ = ["Flake8CodesDirective", "setup"]
