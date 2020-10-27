@@ -148,7 +148,7 @@ class CodeBlock(__BaseCodeBlock):
 
 		code = convert_indents(code, tab_width=tab_width, from_=' ' * self.config.docutils_tab_width)
 
-		self.content = StringList(code.split("\n"))  # type: ignore
+		self.content = StringList(code.split("\n"))
 
 		return super().run()
 

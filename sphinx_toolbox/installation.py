@@ -350,11 +350,11 @@ def github_installation(
 	:param env: The Sphinx build environment.
 	"""
 
-	username = env.config.github_username  # type: ignore
+	username = env.config.github_username
 	if username is None:
 		raise ValueError("'github_username' has not been set in 'conf.py'!")
 
-	repository = env.config.github_repository  # type: ignore
+	repository = env.config.github_repository
 	if repository is None:
 		raise ValueError("'github_repository' has not been set in 'conf.py'!")
 

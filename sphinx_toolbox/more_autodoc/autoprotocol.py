@@ -149,7 +149,7 @@ if sys.version_info < (3, 8):  # pragma: no cover (>=py38)
 	from typing_extensions import _ProtocolMeta  # type: ignore
 else:  # pragma: no cover (<py38)
 	# stdlib
-	from typing import _ProtocolMeta  # type: ignore
+	from typing import _ProtocolMeta
 
 __all__ = ["ProtocolDocumenter", "setup"]
 

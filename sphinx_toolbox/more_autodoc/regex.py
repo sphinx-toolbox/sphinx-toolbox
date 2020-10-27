@@ -625,7 +625,7 @@ class Regex(SphinxRole):
 
 		options = self.options.copy()  # type: ignore
 
-		return [RegexNode(self.rawtext, self.text, **options)], []  # type: ignore
+		return [RegexNode(self.rawtext, self.text, **options)], []
 
 
 def visit_regex_node(translator: HTMLTranslator, node: RegexNode):

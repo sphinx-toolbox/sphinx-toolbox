@@ -157,7 +157,7 @@ class TypeVarDocumenter(VariableDocumenter):
 		:param parent: The parent of the member.
 		"""
 
-		return isinstance(member, TypeVar)  # type: ignore
+		return isinstance(member, TypeVar)
 
 	def resolve_type(self, forward_ref: ForwardRef) -> Type:
 		"""
@@ -254,9 +254,9 @@ class TypeVarDocumenter(VariableDocumenter):
 			except AttributeError:
 				sig_elements.append(f"bound={repr(bound_to)}")
 
-		if obj.__covariant__:  # type: ignore
+		if obj.__covariant__:
 			sig_elements.append(f"covariant=True")
-		elif obj.__contravariant__:  # type: ignore
+		elif obj.__contravariant__:
 			sig_elements.append(f"contravariant=True")
 
 		self.options["value"] = f"TypeVar({', '.join(sig_elements)})"
@@ -322,7 +322,7 @@ def unskip_typevars(
 	.. versionadded:: 1.3.0
 	"""
 
-	if isinstance(obj, TypeVar):  # type: ignore
+	if isinstance(obj, TypeVar):
 		if app.env.config.no_unbound_typevars:
 			if obj.__bound__ or obj.__constraints__:
 				return False

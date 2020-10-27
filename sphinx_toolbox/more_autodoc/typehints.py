@@ -309,7 +309,7 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 
 	# Type variables are also handled specially
 	try:
-		if isinstance(annotation, TypeVar) and annotation is not AnyStr:  # type: ignore
+		if isinstance(annotation, TypeVar) and annotation is not AnyStr:
 			if sys.version_info < (3, 7):
 				typevar_name = annotation.__name__
 			else:

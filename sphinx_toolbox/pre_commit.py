@@ -93,7 +93,7 @@ from textwrap import indent
 from typing import List, MutableMapping, Sequence, Union
 
 # 3rd party
-import ruamel.yaml as yaml  # type: ignore
+import ruamel.yaml as yaml
 from docutils import nodes
 from docutils.statemachine import StringList
 from domdf_python_tools.paths import PathPlus

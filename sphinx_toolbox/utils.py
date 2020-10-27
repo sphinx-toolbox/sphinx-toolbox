@@ -352,7 +352,7 @@ def begin_generate(
 
 	# try to also get a source code analyzer for attribute docs
 	try:
-		documenter.analyzer = ModuleAnalyzer.for_module(documenter.real_modname)  # type: ignore
+		documenter.analyzer = ModuleAnalyzer.for_module(documenter.real_modname)
 		# parse right now, to get PycodeErrors on parsing (results will
 		# be cached anyway)
 		documenter.analyzer.find_attr_docs()
@@ -509,13 +509,13 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 		if typed_m:
 			last_arg = typed_m.group(3).strip()
 			add_empty(cast(str, last_arg))
-			params[last_arg]["doc"] = [typed_m.group(4)]  # type: ignore
-			params[last_arg]["type"] = typed_m.group(2).strip()  # type: ignore
+			params[last_arg]["doc"] = [typed_m.group(4)]
+			params[last_arg]["type"] = typed_m.group(2).strip()
 
 		elif untyped_m:
 			last_arg = untyped_m.group(2).strip()
 			add_empty(cast(str, last_arg))
-			params[last_arg]["doc"] = [untyped_m.group(3)]  # type: ignore
+			params[last_arg]["doc"] = [untyped_m.group(3)]
 
 		elif type_only_m:
 			add_empty(type_only_m.group(2))
