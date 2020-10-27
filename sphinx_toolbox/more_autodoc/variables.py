@@ -354,7 +354,13 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 	priority = 11
 
 	@classmethod
-	def can_document_member(cls, member: Any, membername: str, isattr: bool, parent: Any) -> bool:
+	def can_document_member(
+			cls,
+			member: Any,
+			membername: str,
+			isattr: bool,
+			parent: Any,
+			) -> bool:
 		"""
 		Called to see if a member can be documented by this documenter.
 

@@ -186,6 +186,15 @@ class RegexDocumenter(VariableDocumenter):
 			isattr: bool,
 			parent: Any,
 			) -> bool:
+		"""
+		Called to see if a member can be documented by this documenter.
+
+		:param member: The member being checked.
+		:param membername: The name of the member.
+		:param isattr:
+		:param parent: The parent of the member.
+		"""
+
 		return isinstance(parent, ModuleDocumenter) and isattr and isinstance(member, Pattern)
 
 	def add_content(self, more_content: Any, no_docstring: bool = False):
@@ -252,7 +261,7 @@ class RegexDocumenter(VariableDocumenter):
 				else:
 					the_pattern = self.object.pattern
 
-				the_pattern = the_pattern.replace("`", "\`")
+				the_pattern = the_pattern.replace("`", r"\`")
 				self.add_line(f'     **Pattern**, ":regex:`{the_pattern}`"', sourcename)
 
 			if not no_flag:
@@ -542,6 +551,12 @@ class HTMLRegexParser(RegexParser):
 	ANY_COLOUR = span("regex regex_any")
 
 	def parse_pattern(self, regex: Pattern) -> str:
+		"""
+		Parse the given regular expression and return the formatted pattern.
+
+		:param regex:
+		"""
+
 		return dedent(
 				f"""
 		<code class="docutils literal notranslate regex">

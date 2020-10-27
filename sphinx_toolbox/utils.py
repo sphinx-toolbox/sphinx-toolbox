@@ -174,12 +174,12 @@ def singleton(name: str) -> object:
 
 	name = str(name)
 
-	class Singleton(object):
+	class Singleton:
 		_singleton = None
 
 		def __new__(cls):
 			if Singleton._singleton is None:
-				Singleton._singleton = super(Singleton, cls).__new__(cls)
+				Singleton._singleton = super().__new__(cls)
 			return Singleton._singleton
 
 		def __repr__(self) -> str:

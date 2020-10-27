@@ -148,14 +148,20 @@ class NamedTupleDocumenter(ClassDocumenter):
 	objtype = "namedtuple"
 	directivetype = "namedtuple"
 	priority = 20
-	object: Type
+	object: Type  # noqa: A003
 
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
 		super().__init__(directive, name, indent)
 		self.options = Options(self.options.copy())
 
 	@classmethod
-	def can_document_member(cls, member: Any, membername: str, isattr: bool, parent: Any) -> bool:
+	def can_document_member(
+			cls,
+			member: Any,
+			membername: str,
+			isattr: bool,
+			parent: Any,
+			) -> bool:
 		"""
 		Called to see if a member can be documented by this documenter.
 
