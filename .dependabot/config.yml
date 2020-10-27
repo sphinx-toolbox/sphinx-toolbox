@@ -1,9 +1,9 @@
 # This file is managed by 'repo_helper'. Don't edit it directly.
 ---
-update_configs:
-- default_reviewers:
-  - domdfcoding
-  directory: /
-  package_manager: python
-  update_schedule: weekly
 version: 1
+update_configs:
+- package_manager: python
+  directory: /
+  update_schedule: weekly
+  default_reviewers:
+  - domdfcoding

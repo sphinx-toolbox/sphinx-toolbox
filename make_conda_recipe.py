@@ -1,43 +1,48 @@
 #!/usr/bin/python3
 
-# This file is managed by `repo_helper`. Don't edit it directly.
+# This file is managed by 'repo_helper'. Don't edit it directly.
+
+# stdlib
+import pathlib
 
 # this package
-from __pkginfo__ import *  # pylint: disable=wildcard-import
+from __pkginfo__ import __version__
 
+description_block = """Box of handy tools for Sphinx.
+
+
+
+Before installing please ensure you have added the following channels: domdfcoding, conda-forge
+""".replace('"', '\\"')
+
+
+repo_root = pathlib.Path(__file__).parent
 recipe_dir = repo_root / "conda"
 
 if not recipe_dir.exists():
 	recipe_dir.mkdir()
 
+all_requirements = (repo_root / "requirements.txt").read_text(encoding="utf-8").split('\n')
+
 # TODO: entry_points, manifest
 
-all_requirements = install_requires[:]
-
-if isinstance(extras_require, dict):
-	for requires in extras_require.values():
-		all_requirements += requires
+for requires in {'testing': ['pygments', 'pytest>=6.0.0', 'pytest-regressions>=2.0.1'], 'all': ['pygments', 'pytest-regressions>=2.0.1', 'pytest>=6.0.0']}.values():
+	all_requirements += requires
 
 all_requirements = {x.replace(" ", '') for x in set(all_requirements)}
 requirements_block = "\n".join(f"    - {req}" for req in all_requirements if req)
-
-description_block = conda_description.replace('"', '\\"')
 
 (recipe_dir / "meta.yaml").write_text(
 		encoding="UTF-8",
 		data=f"""\
 package:
-  name: "{pypi_name.lower()}"
+  name: "sphinx-toolbox"
   version: "{__version__}"
 
 source:
-  url: "https://pypi.io/packages/source/{pypi_name[0]}/{pypi_name}/{pypi_name}-{__version__}.tar.gz"
+  url: "https://pypi.io/packages/source/s/sphinx-toolbox/sphinx-toolbox-{__version__}.tar.gz"
 
 build:
-#  entry_points:
-#    - {import_name} = {import_name}:main
-#  skip_compile_pyc:
-#    - "*/templates/*.py"          # These should not (and cannot) be compiled
   noarch: python
   script: "{{{{ PYTHON }}}} -m pip install . -vv"
 
@@ -56,22 +61,22 @@ requirements:
 
 test:
   imports:
-    - {import_name}
+    - sphinx_toolbox
 
 about:
-  home: "{web}"
-  license: "{__license__}"
+  home: "https://github.com/domdfcoding/sphinx-toolbox"
+  license: "MIT License"
   # license_family: LGPL
   # license_file: LICENSE
-  summary: "{short_desc}"
+  summary: "Box of handy tools for Sphinx."
   description: "{description_block}"
-  doc_url: {project_urls["Documentation"]}
-  dev_url: {project_urls["Source Code"]}
+  doc_url: https://sphinx-toolbox.readthedocs.io
+  dev_url: https://github.com/domdfcoding/sphinx-toolbox
 
 extra:
   maintainers:
-    - {author}
-    - github.com/{github_username}
+    - Dominic Davis-Foster
+    - github.com/domdfcoding
 
 """)
 

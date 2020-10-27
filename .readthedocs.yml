@@ -1,19 +1,13 @@
 # This file is managed by 'repo_helper'. Don't edit it directly.
 # Read the Docs configuration file
 ---
-
-# Required
 version: 2
-
 sphinx:
   builder: html
   configuration: doc-source/conf.py
-
-# Optionally build your docs in additional formats such as PDF and ePub
 formats: all
-
 python:
   version: 3.8
   install:
-    - requirements: requirements.txt
-    - requirements: doc-source/requirements.txt
+   - requirements: requirements.txt
+   - requirements: doc-source/requirements.txt
