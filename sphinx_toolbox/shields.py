@@ -290,7 +290,7 @@ All shields have the following options:
 		.. github-shield::
 			:last-commit:
 
-		\\
+		\
 
 		.. github-shield::
 			:commits-since: v0.1.0
@@ -322,7 +322,7 @@ All shields have the following options:
 		.. pre-commit-shield::
 
 
-.. rst:directive:: travis-shield
+.. rst:directive:: pre-commit-ci-shield
 
 	.. versionadded:: 1.7.0
 
@@ -404,6 +404,7 @@ __all__ = [
 		"GitHubShield",
 		"MaintainedShield",
 		"PreCommitShield",
+		"PreCommitCIShield",
 		]
 
 #: Base URL for shields.io
