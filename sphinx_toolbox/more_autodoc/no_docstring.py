@@ -37,10 +37,10 @@ import autodocsumm  # type: ignore
 import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 
-__all__ = ["automodule_add_nodocstring", "no_docstring_process_docstring", "setup"]
-
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, flag
+
+__all__ = ["automodule_add_nodocstring", "no_docstring_process_docstring", "setup"]
 
 
 def automodule_add_nodocstring(app) -> None:
