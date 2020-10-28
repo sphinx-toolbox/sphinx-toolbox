@@ -33,6 +33,7 @@ from types import ModuleType
 from typing import List
 
 # 3rd party
+import autodocsumm
 import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 
@@ -54,6 +55,7 @@ def automodule_add_nodocstring(app) -> None:
 	"""
 
 	sphinx.ext.autodoc.ModuleDocumenter.option_spec["no-docstring"] = flag
+	autodocsumm.AutoSummModuleDocumenter.option_spec["no-docstring"] = flag
 
 	app.setup_extension("sphinx.ext.autodoc")
 	app.connect("autodoc-process-docstring", no_docstring_process_docstring, priority=1000)
