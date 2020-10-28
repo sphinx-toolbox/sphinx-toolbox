@@ -24,4 +24,5 @@ def test_setup():
 			"github-shield": shields.GitHubShield,
 			"maintained-shield": shields.MaintainedShield,
 			"pre-commit-shield": shields.PreCommitShield,
+			"pre-commit-ci-shield": shields.PreCommitCIShield,
 			}

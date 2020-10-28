@@ -809,6 +809,37 @@ class PreCommitShield(Shield):
 		return super().run()
 
 
+RESULTS_PRE_COMMIT_CI = URL("https://results.pre-commit.ci")
+
+
+class PreCommitCIShield(GitHubBackedShield):
+	"""
+	Shield to show the `pre-commit.ci <https://pre-commit.ci/>`_ status.
+
+	.. versionadded:: 1.7.0
+	"""
+
+	option_spec: OptionSpec = {
+			"username": str,  # Defaults to "github_username" if undefined
+			"repository": str,  # Defaults to "github_repository" if undefined
+			"branch": str,
+			**shield_default_option_spec,
+			}
+
+	def run(self) -> List[nodes.Node]:
+		"""
+		Process the content of the shield directive.
+		"""
+
+		username, repository = self.get_repo_details()
+		branch = self.options.pop("branch", "master")
+
+		self.arguments = [RESULTS_PRE_COMMIT_CI / "badge" / "github" / username / repository / f"{branch}.svg"]
+		self.options["target"] = str(RESULTS_PRE_COMMIT_CI / "latest" / "github" / username / repository / branch)
+
+		return super().run()
+
+
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.shields`.
@@ -832,6 +863,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_directive("github-shield", GitHubShield)
 	app.add_directive("maintained-shield", MaintainedShield)
 	app.add_directive("pre-commit-shield", PreCommitShield)
+	app.add_directive("pre-commit-ci-shield", PreCommitCIShield)
 
 	return {
 			"version": __version__,
