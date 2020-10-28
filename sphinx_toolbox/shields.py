@@ -321,6 +321,33 @@ All shields have the following options:
 
 		.. pre-commit-shield::
 
+
+.. rst:directive:: travis-shield
+
+	.. versionadded:: 1.7.0
+
+	Shield to show the `pre-commit.ci <https://pre-commit.ci/>`_ status.
+
+	.. rst:directive:option:: username
+
+		The GitHub username. Defaults to :confval:`github_username`.
+
+	.. rst:directive:option:: repository
+
+		The GitHub repository. Defaults to :confval:`github_repository`.
+
+	.. rst:directive:option:: branch
+
+		The branch to show the status for. Default ``master``.
+
+
+	**Example**
+
+	.. rest-example::
+
+		.. pre-commit-ci-shield::
+
+
 """  # noqa RST299,RST305
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
