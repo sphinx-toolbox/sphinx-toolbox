@@ -8,7 +8,7 @@ import pathlib
 # this package
 from __pkginfo__ import __version__
 
-description_block = """Box of handy tools for Sphinx.
+description_block = """Box of handy tools for Sphinx 🧰 📔
 
 
 
@@ -68,7 +68,7 @@ about:
   license: "MIT License"
   # license_family: LGPL
   # license_file: LICENSE
-  summary: "Box of handy tools for Sphinx."
+  summary: "Box of handy tools for Sphinx 🧰 📔"
   description: "{description_block}"
   doc_url: https://sphinx-toolbox.readthedocs.io
   dev_url: https://github.com/domdfcoding/sphinx-toolbox

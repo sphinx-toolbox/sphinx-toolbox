@@ -7,7 +7,7 @@ email: 'dominic@davis-foster.co.uk'
 username: 'domdfcoding'
 version: '1.7.0'
 license: 'MIT'
-short_desc: 'Box of handy tools for Sphinx.'
+short_desc: 'Box of handy tools for Sphinx 🧰 📔'
 
 enable_conda: True
 
