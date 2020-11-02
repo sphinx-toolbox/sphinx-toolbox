@@ -133,6 +133,9 @@ from sphinx_toolbox.utils import Param, SphinxExtMetadata, baseclass_is_private,
 __all__ = ["NamedTupleDocumenter", "setup"]
 
 
+field_alias_re = re.compile("Alias for field number [0-9]+")
+
+
 class NamedTupleDocumenter(ClassDocumenter):
 	r"""
 	Sphinx autodoc :class:`~sphinx.ext.autodoc.Documenter`
@@ -334,7 +337,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 			field_entry.append("--")
 			field_entry.extend(doc)
 
-			if re.match("Alias for field number [0-9]+", getattr(self.object, field).__doc__):
+			if field_alias_re.match(getattr(self.object, field).__doc__ or ''):
 				getattr(self.object, field).__doc__ = " ".join(doc)
 
 			self.add_line(" ".join(field_entry), sourcename)
