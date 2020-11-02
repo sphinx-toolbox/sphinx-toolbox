@@ -132,7 +132,6 @@ from sphinx_toolbox.utils import Param, SphinxExtMetadata, baseclass_is_private,
 
 __all__ = ["NamedTupleDocumenter", "setup"]
 
-
 field_alias_re = re.compile("Alias for field number [0-9]+")
 
 

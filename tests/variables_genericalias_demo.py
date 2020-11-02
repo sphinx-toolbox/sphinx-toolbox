@@ -7,8 +7,7 @@ from typing import Callable, List, Tuple, Union
 import attr
 
 #: Some variable
-variable: Union[List[str], Tuple[str, int, float], int, bytes,
-				Callable[[str], int]] = ['a', 'b', 'c', 'd', 'e', 'f', 'g']  # noqa: E128
+variable: Union[List[str], Tuple[str, int, float], int, bytes, Callable[[str], int]] = ['a', 'b', 'c', 'd', 'e', 'f', 'g']  # noqa: E128
 
 CONSTANT: int = 42
 """
