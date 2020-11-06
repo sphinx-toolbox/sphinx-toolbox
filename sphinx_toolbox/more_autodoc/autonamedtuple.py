@@ -222,7 +222,11 @@ class NamedTupleDocumenter(ClassDocumenter):
 		super().add_directive_header(sig)
 
 		if "show-inheritance" in self.options:
-			if self.directive.result[-1] == "   Bases: :class:`tuple`" or baseclass_is_private(self.object):
+			if (
+					self.directive.result[-1] == "   Bases: :class:`tuple`"
+					or self.directive.result[-1] == "   Bases: :class:`tuple`, :class:`typing.Generic`"
+					or baseclass_is_private(self.object),
+					):
 				if hasattr(self.object, "__annotations__"):
 					self.directive.result[-1] = "   Bases: :class:`~typing.NamedTuple`"
 				else:
