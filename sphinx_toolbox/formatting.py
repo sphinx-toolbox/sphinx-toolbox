@@ -166,7 +166,7 @@ def latex_visit_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviation
 		translator.context.append(f'}} ({translator.encode(node["explanation"])})')
 		translator.handled_abbrs.add(abbr)
 	else:
-		translator.context.append("}")
+		translator.context.append('}')
 
 
 def latex_depart_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviationNode):
@@ -180,7 +180,7 @@ def latex_depart_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviatio
 	"""
 
 	translator.body.append(translator.context.pop())
-	translator.body.append("}")
+	translator.body.append('}')
 
 
 def setup(app: Sphinx) -> SphinxExtMetadata:

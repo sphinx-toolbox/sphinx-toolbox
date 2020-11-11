@@ -479,10 +479,10 @@ def process_signature(
 	# of a dataclass, not an instantiated dataclass object. As such,
 	# it cannot be replaced by a call to `dataclasses.is_dataclass()`.
 	def _is_dataclass(name: str, what: str, qualname: str) -> bool:
-		if what == 'method' and name.endswith('.__init__'):
+		if what == "method" and name.endswith(".__init__"):
 			# generated __init__()
 			return True
-		if what == 'class' and qualname.endswith('.__init__'):
+		if what == "class" and qualname.endswith(".__init__"):
 			# generated class
 			return True
 		return False

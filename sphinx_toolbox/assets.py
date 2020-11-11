@@ -149,7 +149,7 @@ def asset_role(
 	target = utils.unescape(target)
 
 	if not has_t:
-		if target.startswith("~"):
+		if target.startswith('~'):
 			target = target[1:]
 			title = pathlib.PurePosixPath(text[1:]).name
 
@@ -187,7 +187,7 @@ def visit_asset_node(translator: HTMLTranslator, node: AssetNode):
 		return
 
 	# Create the HTML
-	current_uri = (pathlib.PurePosixPath("/") / translator.builder.current_docname).parent
+	current_uri = (pathlib.PurePosixPath('/') / translator.builder.current_docname).parent
 	refuri = posixpath.relpath(f"/_assets/{node['refuri']}", str(current_uri))
 	translator.body.append(f'<a class="reference external" href="{refuri}")/">')
 	translator.context.append("</a>")

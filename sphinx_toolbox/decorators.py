@@ -122,7 +122,7 @@ class PyDecoXRefRole(PyXRefRole):
 			target=target,
 			)
 
-		if not has_explicit_title and not title.startswith("@"):
+		if not has_explicit_title and not title.startswith('@'):
 			title = f"@{title}"
 
 		return title, target

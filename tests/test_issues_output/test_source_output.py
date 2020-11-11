@@ -19,7 +19,7 @@ def test_output_github(github_source_page: BeautifulSoup, file_regression: FileR
 	title = github_source_page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - GitHub Issues" == title
 
-	links = github_source_page.select("p")
+	links = github_source_page.select('p')
 	assert len(links) == 5
 
 	assert links[1] == links[2]

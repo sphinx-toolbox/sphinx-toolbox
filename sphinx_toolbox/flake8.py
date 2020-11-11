@@ -112,9 +112,9 @@ class Flake8CodesDirective(SphinxDirective):
 		targetnode = nodes.section(ids=[targetid])
 
 		table = tabulate.tabulate(codes, headers=["Code", "Description"], tablefmt="rst")
-		content = "\n" + table.replace("\t", "    ") + "\n"
+		content = '\n' + table.replace('\t', "    ") + '\n'
 
-		view = StringList(content.split("\n"))
+		view = StringList(content.split('\n'))
 		table_node = nodes.paragraph(rawsource=content)
 		self.state.nested_parse(view, self.content_offset, table_node)
 

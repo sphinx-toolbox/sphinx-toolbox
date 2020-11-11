@@ -126,7 +126,7 @@ def add_autosummary(self):
 		return
 
 	content = StringList()
-	content.indent_type = " " * 4
+	content.indent_type = ' ' * 4
 	sourcename = self.get_sourcename()
 	grouped_documenters = self.get_grouped_documenters()
 

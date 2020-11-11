@@ -701,11 +701,11 @@ class PyPIShield(Shield):
 		self.options["target"] = f"https://pypi.org/project/{project}"
 
 		info = {
-				"v": self.options.pop("version", False),
+				'v': self.options.pop("version", False),
 				"py-versions": self.options.pop("py-versions", False),
 				"implementation": self.options.pop("implementations", False),
 				"wheel": self.options.pop("wheel", False),
-				"l": self.options.pop("license", False),
+				'l': self.options.pop("license", False),
 				"downloads": self.options.pop("downloads", False),
 				}
 
@@ -716,7 +716,7 @@ class PyPIShield(Shield):
 		elif n_info_options == 0:
 			raise ValueError("An information option is required for the 'pypi-badge' directive.")
 
-		for option in {"v", "implementation", "wheel", "l"}:
+		for option in {'v', "implementation", "wheel", 'l'}:
 			if info[option]:
 				self.arguments = [base_url / option / project]
 				break

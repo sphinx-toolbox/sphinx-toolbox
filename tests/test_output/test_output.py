@@ -32,7 +32,7 @@ def test_shields_html_output(page: BeautifulSoup, file_regression: FileRegressio
 	assert "sphinx-toolbox Demo - Shields" == title
 
 	selector_string = "div.body div#sphinx-toolbox-demo-shields"
-	assert list(filter(lambda a: a != "\n", page.select(selector_string)[0].contents))[1:]
+	assert list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
 
 	# Testing the actual content with check_html_regression
 	check_html_regression(page, file_regression)
@@ -44,7 +44,7 @@ def test_code_html_output(page: BeautifulSoup, file_regression: FileRegressionFi
 	title = page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - Code" == title
 
-	assert list(filter(lambda a: a != "\n", page.select("div.body div#sphinx-toolbox-demo-code")[0].contents))[1:]
+	assert list(filter(lambda a: a != '\n', page.select("div.body div#sphinx-toolbox-demo-code")[0].contents))[1:]
 
 	# Testing the actual content with check_html_regression
 	check_html_regression(page, file_regression)
@@ -57,11 +57,11 @@ def test_example_html_output(page: BeautifulSoup, file_regression: FileRegressio
 	assert "sphinx-toolbox Demo - reST Example" == title
 
 	selector_string = "div.body div#sphinx-toolbox-demo-rest-example"
-	body = list(filter(lambda a: a != "\n", page.select(selector_string)[0].contents))[1:]
+	body = list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
 
 	assert len(body) == 4
 
-	assert body[0].name == "p"
+	assert body[0].name == 'p'
 	assert body[0]["id"] == "example-0"
 	assert body[0].contents == []
 
@@ -73,7 +73,7 @@ def test_example_html_output(page: BeautifulSoup, file_regression: FileRegressio
 	assert body[2].name == "div"
 	assert body[2]["class"] == ["highlight-python", "notranslate"]
 
-	assert body[3].name == "p"
+	assert body[3].name == 'p'
 	assert body[3].contents == []
 
 	# Testing the actual content with check_html_regression
@@ -87,7 +87,7 @@ def test_installation_html_output(page: BeautifulSoup, file_regression: FileRegr
 	assert "sphinx-toolbox Demo - Installation" == title
 
 	selector_string = "div.body div#sphinx-toolbox-demo-installation"
-	assert list(filter(lambda a: a != "\n", page.select(selector_string)[0].contents))[1:]
+	assert list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
 
 	# Testing the actual content with check_html_regression
 	check_html_regression(page, file_regression)

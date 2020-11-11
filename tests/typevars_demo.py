@@ -7,10 +7,10 @@ import attr
 __all__ = [
 		"Demo",
 		"SlotsDemo",
-		"T",
+		'T',
 		"T_co",
 		"T_contra",
-		"S",
+		'S',
 		"DS",
 		"FR",
 		]
@@ -44,8 +44,8 @@ class SlotsDemo:
 	arg2: int = attr.ib()
 
 
-T = TypeVar("T")
+T = TypeVar('T')
 T_co = TypeVar("T_co", covariant=True)
 T_contra = TypeVar("T_contra", contravariant=True)
-S = TypeVar("S", bound=SlotsDemo)
+S = TypeVar('S', bound=SlotsDemo)
 DS = TypeVar("DS", SlotsDemo, Demo)

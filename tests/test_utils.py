@@ -28,11 +28,11 @@ def test_make_github_url():
 
 def test_flag():
 	assert flag('')
-	assert flag(" ")
+	assert flag(' ')
 	assert flag("  ")
 	assert flag("   ")
 	assert flag("    ")
-	assert flag("\t")
+	assert flag('\t')
 
 	assert flag(False)
 
@@ -56,21 +56,21 @@ def test_get_first_matching():
 
 	assert get_first_matching(strtobool, [0, "False", False], default=True)
 
-	assert get_first_matching(lambda x: x.isupper(), string.ascii_letters) == "A"
+	assert get_first_matching(lambda x: x.isupper(), string.ascii_letters) == 'A'
 
 	with pytest.raises(
 			ValueError,
 			match="The condition must evaluate to True for the default value.",
 			):
-		get_first_matching(lambda x: x.isdigit(), string.ascii_letters, default="A")
+		get_first_matching(lambda x: x.isdigit(), string.ascii_letters, default='A')
 
 
 def test_singleton():
 
-	s = singleton("s")
+	s = singleton('s')
 
-	assert str(s) == "s"
-	assert repr(s) == "s"
+	assert str(s) == 's'
+	assert repr(s) == 's'
 
 	assert s is s
 	assert s is s.__class__()

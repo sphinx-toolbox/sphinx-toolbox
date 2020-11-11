@@ -489,7 +489,7 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 	.. versionadded:: 0.8.0
 	"""
 
-	a_tab = " " * tab_size
+	a_tab = ' ' * tab_size
 
 	params: Dict[str, Param] = {}
 	last_arg: Optional[str] = None

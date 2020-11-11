@@ -258,7 +258,7 @@ class TypedDictDocumenter(ClassDocumenter):
 		types = get_type_hints(self.object)
 
 		for d in documenters:
-			name = d[0].name.split(".")[-1]
+			name = d[0].name.split('.')[-1]
 			if name in self.object.__required_keys__:
 				required_keys.append(name)
 			elif name in self.object.__optional_keys__:

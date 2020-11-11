@@ -149,7 +149,7 @@ def test_format_annotation(inv, annotation, expected_result):
 	# Test with the "fully_qualified" flag turned on
 	if "typing" in expected_result or __name__ in expected_result:
 		expected_result = expected_result.replace("~typing", "typing")
-		expected_result = expected_result.replace("~" + __name__, __name__)
+		expected_result = expected_result.replace('~' + __name__, __name__)
 		assert format_annotation(annotation, fully_qualified=True) == expected_result
 
 	# Test for the correct role (class vs data) using the official Sphinx inventory
@@ -207,7 +207,7 @@ def test_format_annotation_typevar(inv, annotation, expected_result):
 	# Test with the "fully_qualified" flag turned on
 	if "typing" in expected_result or __name__ in expected_result:
 		expected_result = expected_result.replace("~typing", "typing")
-		expected_result = expected_result.replace("~" + __name__, __name__)
+		expected_result = expected_result.replace('~' + __name__, __name__)
 		assert format_annotation(annotation, fully_qualified=True) == expected_result
 
 	# Test for the correct role (class vs data) using the official Sphinx inventory
@@ -228,7 +228,7 @@ def test_format_annotation_typevar(inv, annotation, expected_result):
 		"annotation, params, expected_result",
 		[("ClassVar", int, ":py:data:`~typing.ClassVar`\\[:py:class:`int`]"),
 			("NoReturn", None, ":py:data:`~typing.NoReturn`"),
-			("Literal", ("a", 1), ":py:data:`~typing.Literal`\\[``'a'``, ``1``]"),
+			("Literal", ('a', 1), ":py:data:`~typing.Literal`\\[``'a'``, ``1``]"),
 			("Type", None, ":py:class:`~typing.Type`"),
 			("Type", (A, ), ":py:class:`~typing.Type`\\[:py:class:`~%s.A`]" % __name__)]
 		)

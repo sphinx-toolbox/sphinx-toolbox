@@ -261,7 +261,7 @@ class RegexDocumenter(VariableDocumenter):
 				else:
 					the_pattern = self.object.pattern
 
-				the_pattern = the_pattern.replace("`", r"\`")
+				the_pattern = the_pattern.replace('`', r"\`")
 				self.add_line(f'     **Pattern**, ":regex:`{the_pattern}`"', sourcename)
 
 			if not no_flag:
@@ -382,10 +382,10 @@ class RegexParser:
 
 				if what is AT:
 					if content is AT_BEGINNING:
-						buf.append(type(self).AT_COLOUR("^"))
+						buf.append(type(self).AT_COLOUR('^'))
 						continue
 					elif content is AT_END:
-						buf.append(type(self).AT_COLOUR("$"))
+						buf.append(type(self).AT_COLOUR('$'))
 						continue
 					elif content is AT_BEGINNING_STRING:
 						buf.append(type(self).AT_COLOUR(r"\A"))
@@ -401,11 +401,11 @@ class RegexParser:
 						continue
 
 				if what is SUBPATTERN:
-					buf.append(type(self).SUBPATTERN_COLOUR("("))
+					buf.append(type(self).SUBPATTERN_COLOUR('('))
 					group, add_flags, del_flags, subpattern = content
 					# print(group, add_flags, del_flags)
 					_parse_pattern(subpattern)
-					buf.append(type(self).SUBPATTERN_COLOUR(")"))
+					buf.append(type(self).SUBPATTERN_COLOUR(')'))
 					continue
 
 				if what is LITERAL:
@@ -415,12 +415,12 @@ class RegexParser:
 
 				if what is IN:
 					if len(content) > 1 or content[0][0] is RANGE:
-						buf.append(type(self).IN_COLOUR("["))
+						buf.append(type(self).IN_COLOUR('['))
 
 					_parse_pattern(content)
 
 					if len(content) > 1 or content[0][0] is RANGE:
-						buf.append(type(self).IN_COLOUR("]"))
+						buf.append(type(self).IN_COLOUR(']'))
 					continue
 
 				if what is MAX_REPEAT or what is MIN_REPEAT:
@@ -428,23 +428,23 @@ class RegexParser:
 					_parse_pattern(item)
 
 					if min_ == 0 and max_ is MAXREPEAT:
-						buf.append(type(self).REPEAT_COLOUR("*"))
+						buf.append(type(self).REPEAT_COLOUR('*'))
 					elif min_ == 1 and max_ is MAXREPEAT:
-						buf.append(type(self).REPEAT_COLOUR("+"))
+						buf.append(type(self).REPEAT_COLOUR('+'))
 					elif min_ == 0 and max_ == 1:
-						buf.append(type(self).REPEAT_COLOUR("?"))
+						buf.append(type(self).REPEAT_COLOUR('?'))
 					elif min_ == max_:
-						buf.append(type(self).REPEAT_BRACE_COLOUR("{"))
+						buf.append(type(self).REPEAT_BRACE_COLOUR('{'))
 						buf.append(type(self).REPEAT_COLOUR(str(min_)))
-						buf.append(type(self).REPEAT_BRACE_COLOUR("}"))
+						buf.append(type(self).REPEAT_BRACE_COLOUR('}'))
 					else:
-						buf.append(type(self).REPEAT_BRACE_COLOUR("{"))
+						buf.append(type(self).REPEAT_BRACE_COLOUR('{'))
 						buf.append(type(self).REPEAT_COLOUR(str(min_)))
-						buf.append(type(self).LITERAL_COLOUR(","))
+						buf.append(type(self).LITERAL_COLOUR(','))
 						buf.append(type(self).REPEAT_COLOUR(str(max)))
-						buf.append(type(self).REPEAT_BRACE_COLOUR("}"))
+						buf.append(type(self).REPEAT_BRACE_COLOUR('}'))
 					if what is MIN_REPEAT:
-						buf.append(type(self).REPEAT_COLOUR("?"))
+						buf.append(type(self).REPEAT_COLOUR('?'))
 
 					continue
 				#
@@ -477,18 +477,18 @@ class RegexParser:
 				if what is BRANCH:
 					for branch in content[1]:
 						_parse_pattern(branch)
-						buf.append(type(self).BRANCH_COLOUR("|"))
+						buf.append(type(self).BRANCH_COLOUR('|'))
 					buf.pop(-1)
 					continue
 
 				if what is RANGE:
 					buf.append(type(self).LITERAL_COLOUR(chr(content[0])))
-					buf.append(type(self).AT_COLOUR("-"))
+					buf.append(type(self).AT_COLOUR('-'))
 					buf.append(type(self).LITERAL_COLOUR(chr(content[1])))
 					continue
 
 				if what is ANY:
-					buf.append(type(self).ANY_COLOUR("."))
+					buf.append(type(self).ANY_COLOUR('.'))
 					continue
 
 				print(what, content)
@@ -608,7 +608,7 @@ class RegexNode(nodes.literal):
 
 	def __init__(self, rawsource='', text='', *children, **attributes):
 		super().__init__(rawsource, text, *children, **attributes)
-		self.pattern = re.compile(":".join(rawsource.split(":")[2:])[1:-1])
+		self.pattern = re.compile(':'.join(rawsource.split(':')[2:])[1:-1])
 
 
 class Regex(SphinxRole):

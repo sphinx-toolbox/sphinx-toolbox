@@ -183,7 +183,7 @@ def issue_role(
 	messages: List[system_message] = []
 
 	if has_t:
-		repository_parts = utils.unescape(repository).split("/")
+		repository_parts = utils.unescape(repository).split('/')
 		if len(repository_parts) != 2:
 			inliner.document.reporter.warning(f"Invalid repository '{repository}' for issue #{issue_number}.")
 			issues_url = inliner.document.settings.env.app.config.github_issues_url
@@ -231,7 +231,7 @@ def pull_role(
 	messages: List[system_message] = []
 
 	if has_t:
-		repository_parts = utils.unescape(repository).split("/")
+		repository_parts = utils.unescape(repository).split('/')
 		if len(repository_parts) != 2:
 			inliner.document.reporter.warning(
 					f"Invalid repository '{repository}' for pull request #{issue_number}."

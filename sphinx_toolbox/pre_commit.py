@@ -200,7 +200,7 @@ class PreCommitDirective(SphinxDirective):
 			return []
 
 		content = f".. code-block:: yaml\n\n{indent(yaml_output, '    ')}\n\n"
-		view = StringList(content.split("\n"))
+		view = StringList(content.split('\n'))
 		pre_commit_node = nodes.paragraph(rawsource=content)
 		self.state.nested_parse(view, self.content_offset, pre_commit_node)
 
@@ -243,7 +243,7 @@ class Flake8PreCommitDirective(SphinxDirective):
 			return []
 
 		content = f".. code-block:: yaml\n\n{indent(yaml_output, '    ')}\n\n"
-		view = StringList(content.split("\n"))
+		view = StringList(content.split('\n'))
 		pre_commit_node = nodes.paragraph(rawsource=content)
 		self.state.nested_parse(view, self.content_offset, pre_commit_node)
 

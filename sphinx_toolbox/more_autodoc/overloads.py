@@ -123,7 +123,7 @@ class OverloadMixin(_OverloadMixinBase):
 		output.blankline()
 
 		# Size varies depending on docutils config
-		output.indent_type = " "
+		output.indent_type = ' '
 		output.indent_size = self.env.app.config.docutils_tab_width  # type: ignore
 
 		if self.analyzer and '.'.join(self.objpath) in self.analyzer.overloads:
@@ -288,7 +288,7 @@ class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):
 			sig = super(autodoc.FunctionDocumenter, self).format_signature(**kwargs)
 			sigs.append(sig)
 
-		return "\n".join(sigs)
+		return '\n'.join(sigs)
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
@@ -365,7 +365,7 @@ class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):
 			sig = super(autodoc.MethodDocumenter, self).format_signature(**kwargs)
 			sigs.append(sig)
 
-		return "\n".join(sigs)
+		return '\n'.join(sigs)
 
 	def add_directive_header(self, sig: str) -> None:
 		"""

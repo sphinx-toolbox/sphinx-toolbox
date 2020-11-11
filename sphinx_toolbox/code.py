@@ -139,7 +139,7 @@ class CodeBlock(__BaseCodeBlock):
 		Process the content of the code block.
 		"""
 
-		code = "\n".join(self.content)
+		code = '\n'.join(self.content)
 
 		if "tab-width" in self.options:
 			tab_width = self.options["tab-width"]
@@ -148,7 +148,7 @@ class CodeBlock(__BaseCodeBlock):
 
 		code = convert_indents(code, tab_width=tab_width, from_=' ' * self.config.docutils_tab_width)
 
-		self.content = StringList(code.split("\n"))
+		self.content = StringList(code.split('\n'))
 
 		return super().run()
 

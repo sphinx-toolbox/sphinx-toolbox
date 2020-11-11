@@ -202,7 +202,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		tab_size = self.env.app.config.docutils_tab_width  # type: ignore
 
 		if self.object.__doc__:
-			docstring = dedent(self.object.__doc__).expandtabs(tab_size).split("\n")
+			docstring = dedent(self.object.__doc__).expandtabs(tab_size).split('\n')
 		elif "show-inheritance" not in self.options:
 			docstring = [":class:`typing.NamedTuple`."]
 		else:
@@ -281,7 +281,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		documenters = super().sort_members(documenters, order)
 
 		# Size varies depending on docutils config
-		a_tab = " " * self.env.app.config.docutils_tab_width  # type: ignore
+		a_tab = ' ' * self.env.app.config.docutils_tab_width  # type: ignore
 
 		# Mapping of member names to docstrings (as list of strings)
 		member_docstrings: Dict[str, List[str]]
@@ -341,9 +341,9 @@ class NamedTupleDocumenter(ClassDocumenter):
 			field_entry.extend(doc)
 
 			if field_alias_re.match(getattr(self.object, field).__doc__ or ''):
-				getattr(self.object, field).__doc__ = " ".join(doc)
+				getattr(self.object, field).__doc__ = ' '.join(doc)
 
-			self.add_line(" ".join(field_entry), sourcename)
+			self.add_line(' '.join(field_entry), sourcename)
 
 		self.add_line('', sourcename)
 
@@ -353,7 +353,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		self.add_line('', sourcename)
 
 		# Remove documenters corresponding to fields and return the rest
-		return [d for d in documenters if d[0].name.split(".")[-1] not in fields]
+		return [d for d in documenters if d[0].name.split('.')[-1] not in fields]
 
 
 def setup(app: Sphinx) -> SphinxExtMetadata:

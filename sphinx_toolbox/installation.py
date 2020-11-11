@@ -312,7 +312,7 @@ def conda_installation(
 	lines.indent_type = "    "
 
 	if "conda-channels" in options:
-		channels = str(options["conda-channels"]).split(",")
+		channels = str(options["conda-channels"]).split(',')
 	else:
 		channels = env.config.conda_channels
 
