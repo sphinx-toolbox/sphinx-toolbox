@@ -474,10 +474,23 @@ def process_signature(
 	if not getattr(obj, "__annotations__", None):
 		return None
 
+	# The generated dataclass __init__() and class are weird and need extra checks
+	# This helper function operates on the generated class and methods
+	# of a dataclass, not an instantiated dataclass object. As such,
+	# it cannot be replaced by a call to `dataclasses.is_dataclass()`.
+	def _is_dataclass(name: str, what: str, qualname: str) -> bool:
+		if what == 'method' and name.endswith('.__init__'):
+			# generated __init__()
+			return True
+		if what == 'class' and qualname.endswith('.__init__'):
+			# generated class
+			return True
+		return False
+
 	# The generated dataclass __init__() is weird and needs the second condition
 	if (
 			hasattr(obj, "__qualname__") and "<locals>" in obj.__qualname__
-			and not (what == "method" and name.endswith(".__init__"))
+			and not _is_dataclass(name, what, obj.__qualname__)
 			):
 		sphinx_autodoc_typehints.logger.warning(
 				"Cannot treat a function defined as a local function: '%s'  (use @functools.wraps)", name
