@@ -24,7 +24,7 @@ repos:
     - id: mixed-line-ending
 
  - repo: https://github.com/domdfcoding/pre-commit-hooks
-   rev: v0.0.4
+   rev: v0.1.1
    hooks:
     - id: requirements-txt-sorter
       args:
@@ -62,3 +62,5 @@ repos:
    hooks:
     - id: yapf-isort
       exclude: ^(doc-source/conf|__pkginfo__|make_conda_recipe|setup)\.py$
+
+# Custom hooks can be added below this comment
