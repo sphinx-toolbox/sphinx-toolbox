@@ -106,6 +106,8 @@ from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
 # this package
+from typing_extensions import TypedDict
+
 from sphinx_toolbox.utils import Purger, SphinxExtMetadata, make_github_url
 
 __all__ = [
@@ -129,6 +131,23 @@ def parse_hooks(hooks: str) -> List[str]:
 	"""
 
 	return list(filter(None, re.split("[,; ]", hooks)))
+
+
+class _BaseHook(TypedDict):
+	id: str
+
+
+class _Hook(_BaseHook, total=False):
+	args: List[str]
+
+
+class _BaseConfig(TypedDict):
+	repo: str
+
+
+class _Config(_BaseConfig, total=False):
+	rev: str
+	hooks: List[_Hook]
 
 
 class PreCommitDirective(SphinxDirective):
@@ -162,7 +181,7 @@ class PreCommitDirective(SphinxDirective):
 				return []
 
 		repo = make_github_url(self.env.config.github_username, self.env.config.github_repository)
-		config: MutableMapping[str, Union[str, List[MutableMapping[str, str]]]] = {"repo": str(repo)}
+		config: _Config = {"repo": str(repo)}
 
 		if "rev" in self.options:
 			config["rev"] = self.options["rev"]
