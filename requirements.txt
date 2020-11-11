@@ -5,7 +5,6 @@ docutils>=0.16
 domdf-python-tools>=0.8.0
 html5lib>=1.1
 importlib-resources>=3.0.0
-requests>=2.24.0
 ruamel-yaml>=0.16.12
 sphinx>=3.0.3
 sphinx-autodoc-typehints==1.11.1

@@ -70,8 +70,8 @@ from docutils.parsers.rst import Directive, roles
 from docutils.transforms import Transform
 from domdf_python_tools.doctools import prettify_docstrings
 from domdf_python_tools.stringlist import StringList
-from pygments.lexer import Lexer  # type: ignore
-from pytest_regressions.file_regression import FileRegressionFixture
+from pygments.lexer import Lexer  # type: ignore  # nodep
+from pytest_regressions.file_regression import FileRegressionFixture  # nodep
 from sphinx.builders import Builder
 from sphinx.config import Config
 from sphinx.domains import Domain, Index

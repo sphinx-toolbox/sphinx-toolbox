@@ -64,3 +64,10 @@ repos:
       exclude: ^(doc-source/conf|__pkginfo__|make_conda_recipe|setup)\.py$
 
 # Custom hooks can be added below this comment
+
+ - repo: https://github.com/domdfcoding/dep_checker
+   rev: v0.3.1
+   hooks:
+    - id: dep_checker
+      args:
+       - sphinx_toolbox
