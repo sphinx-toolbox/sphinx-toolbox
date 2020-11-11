@@ -106,7 +106,9 @@ class FakeBuilder(Builder):
 class EventManager(BaseEventManager):
 
 	def connect(self, name: str, callback: Callable, priority: int) -> int:
-		"""Connect a handler to specific event."""
+		"""
+		Connect a handler to specific event.
+		"""
 
 		listener_id = self.next_listener_id
 		self.next_listener_id += 1
