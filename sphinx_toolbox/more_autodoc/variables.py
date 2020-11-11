@@ -105,6 +105,7 @@ import sys
 from typing import Any, List, get_type_hints
 
 # 3rd party
+import autodocsumm  # type: ignore
 import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 from sphinx.ext.autodoc import (
@@ -467,6 +468,15 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 				)
 
 
+class NoDataAttributeDocumenter(autodocsumm.NoDataAttributeDocumenter):
+	"""
+	AttributeDocumenter that prevents the displaying of large data.
+	"""
+
+	def add_directive_header(self, sig: str):
+		VariableDocumenter.add_directive_header(self, sig)
+
+
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.variables`.
@@ -479,6 +489,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_autodocumenter(TypedAttributeDocumenter, override=True)
 	app.add_autodocumenter(InstanceAttributeDocumenter, override=True)
 	app.add_autodocumenter(SlotsAttributeDocumenter, override=True)
+	app.add_autodocumenter(NoDataAttributeDocumenter, override=True)
 
 	return {
 			"version": __version__,
