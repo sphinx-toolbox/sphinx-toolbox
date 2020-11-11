@@ -133,10 +133,10 @@ from typing import Any, Callable, List, Pattern, Tuple
 
 # 3rd party
 import importlib_resources
+from consolekit.terminal_colours import Fore
 from docutils import nodes
 from docutils.nodes import Node, system_message
 from docutils.parsers.rst import roles
-from domdf_python_tools.terminal_colours import Fore
 from sphinx.application import Sphinx
 from sphinx.ext.autodoc import UNINITIALIZED_ATTR, ModuleDocumenter
 from sphinx.util.docutils import SphinxRole
@@ -572,17 +572,17 @@ class TerminalRegexParser(RegexParser):
 
 
 	The formatting is controlled by the following functions,
-	which are instances of :class:`domdf_python_tools.terminal_colours.Colour`:
+	which are instances of :class:`consolekit.terminal_colours.Colour`:
 
-	* ``AT_COLOUR`` -> :attr:`~domdf_python_tools.terminal_colours.Fore.YELLOW` -- Used for e.g. :regex:`^\A\b\B\Z$`
-	* ``SUBPATTERN_COLOUR`` -> :attr:`~domdf_python_tools.terminal_colours.Fore.LIGHTYELLOW_EX` -- Used for the parentheses around subpatterns, e.g. :regex:`(Hello) World`
-	* ``IN_COLOUR`` -> :attr:`~domdf_python_tools.terminal_colours.Fore.LIGHTRED_EX` -- Used for the square brackets around character sets, e.g. :regex:`[Hh]ello`
-	* ``REPEAT_COLOUR`` -> :attr:`~domdf_python_tools.terminal_colours.Fore.LIGHTBLUE_EX` -- Used for repeats, e.g. :regex:`A?B+C*D{2,4}E{5}`
-	* ``REPEAT_BRACE_COLOUR`` -> :attr:`~domdf_python_tools.terminal_colours.Fore.YELLOW` -- Used for the braces around numerical repeats.
-	* ``CATEGORY_COLOUR`` -> :attr:`~domdf_python_tools.terminal_colours.Fore.LIGHTYELLOW_EX` -- Used for categories, e.g. :regex:`\d\D\s\D\w\W`
-	* ``BRANCH_COLOUR`` -> :attr:`~domdf_python_tools.terminal_colours.Fore.YELLOW` -- Used for branches, e.g. :regex:`(Lovely|Horrible) Weather`
-	* ``LITERAL_COLOUR`` -> :attr:`~domdf_python_tools.terminal_colours.Fore.GREEN` -- Used for literal characters.
-	* ``ANY_COLOUR`` -> :attr:`~domdf_python_tools.terminal_colours.Fore.YELLOW` -- Used for the "any" dot ``.``.
+	* ``AT_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for e.g. :regex:`^\A\b\B\Z$`
+	* ``SUBPATTERN_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.LIGHTYELLOW_EX` -- Used for the parentheses around subpatterns, e.g. :regex:`(Hello) World`
+	* ``IN_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.LIGHTRED_EX` -- Used for the square brackets around character sets, e.g. :regex:`[Hh]ello`
+	* ``REPEAT_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.LIGHTBLUE_EX` -- Used for repeats, e.g. :regex:`A?B+C*D{2,4}E{5}`
+	* ``REPEAT_BRACE_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for the braces around numerical repeats.
+	* ``CATEGORY_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.LIGHTYELLOW_EX` -- Used for categories, e.g. :regex:`\d\D\s\D\w\W`
+	* ``BRANCH_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for branches, e.g. :regex:`(Lovely|Horrible) Weather`
+	* ``LITERAL_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.GREEN` -- Used for literal characters.
+	* ``ANY_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for the "any" dot ``.``.
 
 	.. versionadded:: 1.2.0
 	"""
