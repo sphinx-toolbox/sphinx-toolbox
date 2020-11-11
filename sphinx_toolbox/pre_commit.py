@@ -33,6 +33,8 @@ Usage
 
 		A list arguments that should or can be provided to the first hook ID.
 
+		.. versionadded:: 1.7.2
+
 
 	**Example**
 
