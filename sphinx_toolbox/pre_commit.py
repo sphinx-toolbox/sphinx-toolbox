@@ -28,6 +28,11 @@ Usage
 
 		If not given the hooks will be parsed from ``.pre-commit-hooks.yaml``.
 
+	.. rst:directive:option:: args
+		:type: comma separated list
+
+		A list arguments that should or can be provided to the first hook ID.
+
 
 	**Example**
 
@@ -135,6 +140,7 @@ class PreCommitDirective(SphinxDirective):
 	option_spec = {
 			"rev": str,  # the revision or tag to clone at.
 			"hooks": parse_hooks,
+			"args": parse_hooks,
 			}
 
 	def run(self) -> Sequence[nodes.Node]:  # type: ignore
@@ -162,6 +168,9 @@ class PreCommitDirective(SphinxDirective):
 			config["rev"] = self.options["rev"]
 
 		config["hooks"] = [{"id": hook_name} for hook_name in hooks]
+
+		if "args" in self.options:
+			config["hooks"][0]["args"] = self.options["args"]
 
 		targetid = f'pre-commit-{self.env.new_serialno("pre-commit"):d}'
 		targetnode = nodes.section(ids=[targetid])
