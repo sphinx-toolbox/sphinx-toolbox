@@ -70,7 +70,7 @@ intersphinx_mapping = {
 		"sphinx": ("https://www.sphinx-doc.org/en/stable/", None),
 		}
 
-html_theme = "domdf-sphinx-theme"
+html_theme = "domdf_sphinx_theme"
 html_theme_options = {"logo_only": False}
 html_theme_path = ["../.."]
 html_show_sourcelink = True  # True will show link to source
