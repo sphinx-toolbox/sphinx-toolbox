@@ -70,6 +70,7 @@ from docutils.parsers.rst import Directive, roles
 from docutils.transforms import Transform
 from domdf_python_tools.doctools import prettify_docstrings
 from domdf_python_tools.stringlist import StringList
+from domdf_python_tools.testing import check_file_regression
 from pygments.lexer import Lexer  # type: ignore  # nodep
 from pytest_regressions.file_regression import FileRegressionFixture  # nodep
 from sphinx.builders import Builder
@@ -625,8 +626,8 @@ def check_html_regression(page: BeautifulSoup, file_regression: FileRegressionFi
 
 	page = remove_html_footer(page)
 	page = remove_html_link_tags(page)
-	file_regression.check(
-			contents=str(StringList(page.prettify())),
+	check_file_regression(
+			StringList(page.prettify()),
+			file_regression,
 			extension=".html",
-			encoding="UTF-8",
 			)
