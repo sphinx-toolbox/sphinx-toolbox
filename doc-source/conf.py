@@ -71,11 +71,17 @@ intersphinx_mapping = {
 		}
 
 html_theme = "domdf-sphinx-theme"
-html_theme_options = {}
+html_theme_options = {"logo_only": False}
 html_theme_path = ["../.."]
 html_show_sourcelink = True  # True will show link to source
 
-html_context = {}
+html_context = {
+		"display_github": True,
+		"github_user": "domdfcoding",
+		"github_repo": "sphinx-toolbox",
+		"github_version": "master",
+		"conf_py_path": "/doc-source/",
+		}
 htmlhelp_basename = slug
 
 latex_documents = [("index", f'{slug}.tex', project, author, "manual")]

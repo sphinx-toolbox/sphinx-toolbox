@@ -552,6 +552,7 @@ def run_setup(setup_func: _setup_func_type, ) -> RunSetupOutput:  # , buildernam
 
 	:returns: 5-element namedtuple
 	"""
+
 	app = Sphinx()  # buildername
 
 	try:
