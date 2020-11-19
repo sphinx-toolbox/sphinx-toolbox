@@ -13,7 +13,7 @@ sys.path.append('.')
 from __pkginfo__ import *  # pylint: disable=wildcard-import
 
 setup(
-		description='Box of handy tools for Sphinx 🧰 📔',
+		description="Box of handy tools for Sphinx 🧰 📔",
 		extras_require=extras_require,
 		install_requires=install_requires,
 		py_modules=[],

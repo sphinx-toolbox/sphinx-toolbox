@@ -41,8 +41,5 @@ extra_sphinx_extensions:
   - sphinx_toolbox.pre_commit
   - sphinx_toolbox.flake8
 
-sphinx_conf_epilogue:
-  - hide_none_rtype = True
-
 manifest_additional:
   - include sphinx_toolbox/more_autodoc/regex.css

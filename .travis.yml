@@ -1,6 +1,7 @@
 # This file is managed by 'repo_helper'. Don't edit it directly.
 ---
 
+os: linux
 language: python
 dist: focal
 cache: pip
@@ -54,7 +55,7 @@ jobs:
           tags: true
           repo: domdfcoding/sphinx-toolbox
         provider: pypi
-        user: "DomDF"
+        username: "DomDF"
         password:
           secure: ALMXY6cTUI66wIwxJr1BBS7FER1EhtLoZn4dCjeQxh2WZXqDwzDUt5sZDJdygkgC/G1xXnTjyA79vtehwDlGLle/DT2JZ6uaWoC2Ws0nhMGurYAB+Rnig4ZP478rdIuiesvn8ZSq2rNAHqr9g22h6NQfZyGVuLmMzCCAyEMSr2Y1DITeMP0hYgLlAf60qT1BFZ3ANUIThdZbrVv+7h2Y73VUgUHSwy7wvTzjfmS1wB8AMSXEaD9Al5aEg1qRKAGotcCv7h6C1a9sSGuO3ch9VgsHdica/IZBtJnjsUTUs6eacqFQm0E+4mWIWaoe8HDW4lHgKR9ulyoX3mHuwa5R1KYJRDkYJOgOYBN3yGpJ4NJvkXsD/Gh1WcDjJSjl7irOLW3Ianb6KATOeUZEHqtRp3ZfRhoTS04u2q9sQF47PyNPX9fZrtWxWHdkq5rZz/pwalqY4/n5gRo50LjyiP4AhJMt4F88BeFM4taEMus2jFTANvbEgkfWdVSbRlxCaDij3D08eKqLL3cK/YDYIwMJFSuqkxkoVdczLHXkOk3X5xarVODIdez/mOfXRpsLFpzcd27APTH8AAG5galkLyZxEnN/BHJAjyQ9MSQLgqWYZr0tEnXeB1ykIGLl+dxFqyjdKagOrw9CXlYl5DDk3yW6owjxEKOBcPWiTJRwqohTU8w=
         distributions: "sdist bdist_wheel"
