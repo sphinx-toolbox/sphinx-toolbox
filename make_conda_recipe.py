@@ -26,7 +26,7 @@ all_requirements = (repo_root / "requirements.txt").read_text(encoding="utf-8").
 
 # TODO: entry_points, manifest
 
-for requires in {'testing': ['pygments', 'pytest>=6.0.0', 'pytest-regressions>=2.0.1'], 'all': ['pygments', 'pytest-regressions>=2.0.1', 'pytest>=6.0.0']}.values():
+for requires in {'testing': ['pygments', 'pytest>=6.0.0', 'domdf-python-tools[testing]>=1.5.0'], 'all': ['domdf-python-tools[testing]>=1.5.0', 'pygments', 'pytest>=6.0.0']}.values():
 	all_requirements += requires
 
 all_requirements = {x.replace(" ", '') for x in set(all_requirements)}
