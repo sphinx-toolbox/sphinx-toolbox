@@ -149,5 +149,7 @@ def validate_config(app: Sphinx, config: ToolboxConfig):
 	config.github_pull_url = config.github_url / "pull"
 
 	rst_prolog = StringList(config.rst_prolog or '')
-	rst_prolog.append(".. |nbsp| unicode:: 0xA0\n   :trim:")
+	nbsp_sub = ".. |nbsp| unicode:: 0xA0\n   :trim:"
+	if nbsp_sub not in rst_prolog:
+		rst_prolog.append(nbsp_sub)
 	config.rst_prolog = str(rst_prolog)
