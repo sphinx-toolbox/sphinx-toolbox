@@ -77,6 +77,7 @@ from sphinx.builders import Builder
 from sphinx.config import Config
 from sphinx.domains import Domain, Index
 # from sphinx.environment.collectors import EnvironmentCollector
+from sphinx.domains.python import PythonDomain
 from sphinx.environment.collectors import EnvironmentCollector
 from sphinx.events import EventListener
 from sphinx.events import EventManager as BaseEventManager
@@ -555,6 +556,8 @@ def run_setup(setup_func: _setup_func_type, ) -> RunSetupOutput:  # , buildernam
 	"""
 
 	app = Sphinx()  # buildername
+
+	app.add_domain(PythonDomain)
 
 	try:
 		_additional_nodes = copy.copy(docutils.additional_nodes)
