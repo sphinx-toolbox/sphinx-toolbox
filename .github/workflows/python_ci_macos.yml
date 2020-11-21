@@ -19,7 +19,6 @@ jobs:
       matrix:
         python-version: ["3.6","3.7","3.8","3.9"]
 
-
     steps:
       - name: Checkout 🛎️
         uses: "actions/checkout@v2"
@@ -33,6 +32,7 @@ jobs:
           python -m site
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install --upgrade tox tox-gh-actions virtualenv
+
 
       - name: "Run Tests for Python ${{ matrix.python-version }}"
         run: "python -m tox"
