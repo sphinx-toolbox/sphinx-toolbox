@@ -27,7 +27,7 @@ Internal configuration for ``sphinx-toolbox``.
 #
 
 # stdlib
-from typing import List
+from typing import List, Union
 
 # 3rd party
 from apeye.url import RequestsURL
@@ -148,8 +148,11 @@ def validate_config(app: Sphinx, config: ToolboxConfig):
 	config.github_issues_url = config.github_url / "issues"
 	config.github_pull_url = config.github_url / "pull"
 
-	rst_prolog = StringList(config.rst_prolog or '')
+	rst_prolog: Union[str, StringList] = config.rst_prolog or ''
+
 	nbsp_sub = ".. |nbsp| unicode:: 0xA0\n   :trim:"
 	if nbsp_sub not in rst_prolog:
+		rst_prolog = StringList(rst_prolog)
 		rst_prolog.append(nbsp_sub)
+
 	config.rst_prolog = str(rst_prolog)
