@@ -3,7 +3,7 @@
 name: Artefact Cleaner
 on:
   schedule:
-    cron: 0 9 1 * *
+  - cron: 0 9 1 * *
 jobs:
   Clean:
     runs-on: ubuntu-latest

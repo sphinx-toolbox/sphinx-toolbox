@@ -1,0 +1,33 @@
+# This file is managed by 'repo_helper'. Don't edit it directly.
+---
+name: Flake8
+
+on:
+  push:
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  Run:
+    name: "Flake8"
+    runs-on: "ubuntu-18.04"
+
+    steps:
+      - name: Checkout 🛎️
+        uses: "actions/checkout@v2"
+
+      - name: Setup Python 🐍
+        uses: "actions/setup-python@v2"
+        with:
+          python-version: "3.8"
+
+      - name: Install dependencies 🔧
+        run: |
+          python -VV
+          python -m site
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install flake8-prettycount
+          python -m pip install .
+
+      - name: "Run Flake8"
+        run: "python -m flake8_prettycount flake8_github_action --format github"

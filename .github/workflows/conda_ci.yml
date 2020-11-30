@@ -12,8 +12,6 @@ jobs:
     name: "Conda"
     runs-on: ubuntu-latest
 
-    strategy:
-
     steps:
       - name: Checkout 🛎️
         uses: "actions/checkout@v2"
@@ -41,5 +39,6 @@ jobs:
         run: |
           # This mess is only necessary because conda won't fix it themselves
           # https://github.com/conda/conda/issues/1884
+
           python -m repo_helper build --conda --out-dir conda-bld/noarch
           $CONDA/bin/conda install sphinx-toolbox -c local -y || exit 1
