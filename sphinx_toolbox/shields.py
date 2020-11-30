@@ -106,6 +106,10 @@ All shields have the following options:
 
 		.. travis-shield::
 
+	.. deprecated:: 1.8.0
+
+		Travis CI is no longer free: https://blog.travis-ci.com/2020-11-02-travis-ci-new-billing
+
 
 .. rst:directive:: actions-shield
 
@@ -395,6 +399,7 @@ from docutils import nodes
 from docutils.nodes import fully_normalize_name, whitespace_normalize_name
 from docutils.parsers.rst import directives, states
 from docutils.parsers.rst.roles import set_classes
+from domdf_python_tools.utils import deprecated
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
@@ -562,6 +567,10 @@ class RTFDShield(Shield):
 class TravisShield(GitHubBackedShield):
 	"""
 	Shield to show the `Travis CI <https://travis-ci.com/>`_ build status.
+
+	.. deprecated:: 1.8.0
+
+		Travis CI is no longer free: https://blog.travis-ci.com/2020-11-02-travis-ci-new-billing
 	"""
 
 	option_spec: OptionSpec = {
@@ -572,6 +581,13 @@ class TravisShield(GitHubBackedShield):
 			**shield_default_option_spec,
 			}
 
+	@deprecated(
+			deprecated_in="1.8.0",
+			removed_in="2.0.0",
+			current_version="1.7.5",
+			details="Travis CI is no longer free.",
+			name=".. travis-shield::"
+			)
 	def run(self) -> List[nodes.Node]:
 		"""
 		Process the content of the shield directive.
