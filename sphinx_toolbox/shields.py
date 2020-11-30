@@ -584,7 +584,7 @@ class TravisShield(GitHubBackedShield):
 	@deprecated(
 			deprecated_in="1.8.0",
 			removed_in="2.0.0",
-			current_version="1.7.5",
+			current_version="1.8.0",
 			details="Travis CI is no longer free.",
 			name=".. travis-shield::"
 			)
