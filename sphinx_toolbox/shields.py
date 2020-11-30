@@ -58,13 +58,25 @@ All shields have the following options:
 
 		The documentation version. Default ``latest``.
 
+	.. rst:directive:option:: target
 
-	**Example**
+		The hyperlink target of the shield. Useful if the documentation uses a custom domain.
+
+		.. versionadded:: 1.8.0
+
+
+	**Examples**
 
 	.. rest-example::
 
 		.. rtfd-shield::
 			:project: sphinx-toolbox
+
+	.. rest-example::
+
+		.. rtfd-shield::
+			:project: attrs
+			:target: https://www.attrs.org/
 
 
 .. rst:directive:: travis-shield
@@ -515,12 +527,18 @@ class GitHubBackedShield(Shield):
 class RTFDShield(Shield):
 	"""
 	Shield to show the `ReadTheDocs <https://readthedocs.org/>`_ documentation build status.
+
+	.. versionchanged:: 1.8.0
+
+		Added the ``:target:`` option, to allow a custom target to be specified.
+		Useful if the documentation uses a custom domain.
 	"""
 
 	required_arguments = 0
 	option_spec: OptionSpec = {
 			"project": directives.unchanged_required,
 			"version": str,
+			"target": str,
 			**shield_default_option_spec,
 			}
 
@@ -534,7 +552,9 @@ class RTFDShield(Shield):
 
 		image = SHIELDS_IO / "readthedocs" / project / f"{version}?logo=read-the-docs"
 		self.arguments = [image]
-		self.options["target"] = f"https://{project}.readthedocs.io/en/{version}/"
+
+		if "target" not in self.options:
+			self.options["target"] = f"https://{project}.readthedocs.io/en/{version}/"
 
 		return super().run()
 
