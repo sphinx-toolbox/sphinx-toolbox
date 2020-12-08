@@ -7,3 +7,6 @@ two_flags = re.compile(
 		r"Hello\s+[Ww]orld[.,](Lovely|Horrible) weather, isn't it (.*)\?", flags=re.ASCII | re.DEBUG
 		)
 backticks = re.compile(":py:class:`([A-Za-z_][A-Za-z0-9._]+)`")
+leading_whitespace = re.compile("   :py:class:`([A-Za-z_][A-Za-z0-9._]+)`")
+trailing_whitespace = re.compile(":py:class:`([A-Za-z_][A-Za-z0-9._]+)`   ")
+single_whitespace = re.compile(" :py:class:`([A-Za-z_][A-Za-z0-9._]+)` ")

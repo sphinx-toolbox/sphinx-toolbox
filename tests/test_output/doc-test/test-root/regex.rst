@@ -16,3 +16,6 @@ sphinx-toolbox Demo - Regex
 .. autoregex:: tests.regex_demo.one_flag
 .. autoregex:: tests.regex_demo.two_flags
 .. autoregex:: tests.regex_demo.backticks
+.. autoregex:: tests.regex_demo.leading_whitespace
+.. autoregex:: tests.regex_demo.trailing_whitespace
+.. autoregex:: tests.regex_demo.single_whitespace

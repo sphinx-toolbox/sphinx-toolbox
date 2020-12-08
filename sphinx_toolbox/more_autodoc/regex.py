@@ -263,6 +263,21 @@ class RegexDocumenter(VariableDocumenter):
 					the_pattern = self.object.pattern
 
 				the_pattern = the_pattern.replace('`', r"\`")
+
+				leading_spaces = len(tuple(itertools.takewhile(str.isspace, the_pattern)))
+				trailing_spaces = len(tuple(itertools.takewhile(str.isspace, the_pattern[::-1])))
+				the_pattern = the_pattern.strip(' ')
+
+				if leading_spaces > 1:
+					the_pattern = f"[ ]{leading_spaces}{the_pattern}"
+				elif leading_spaces == 1:
+					the_pattern = f"[ ]{the_pattern}"
+
+				if trailing_spaces > 1:
+					the_pattern += f" {trailing_spaces}"
+				elif trailing_spaces == 1:
+					the_pattern += "[ ]"
+
 				self.add_line(f'     **Pattern**, ":regex:`{the_pattern}`"', sourcename)
 
 			if not no_flag:
