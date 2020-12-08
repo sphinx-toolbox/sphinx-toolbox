@@ -111,6 +111,19 @@ sphinx-toolbox
 
 .. end shields
 
+Installation
+--------------
+
+.. start installation
+
+.. installation:: sphinx-toolbox
+	:pypi:
+	:github:
+	:anaconda:
+	:conda-channels: domdfcoding,conda-forge
+
+.. end installation
+
 
 .. toctree::
 	:hidden:
@@ -119,18 +132,11 @@ sphinx-toolbox
 
 
 .. toctree::
-	:maxdepth: 3
-	:caption: Usage
-	:glob:
-
-	usage
-
-
-.. toctree::
 	:maxdepth: 1
 	:caption: Extensions
 	:glob:
 
+	extensions/index
 	extensions/*
 
 .. toctree::
@@ -157,7 +163,6 @@ sphinx-toolbox
 	Source
 
 
-
 .. start links
 
 View the :ref:`Function Index <genindex>` or browse the `Source Code <_modules/index.html>`__.
@@ -165,3 +170,15 @@ View the :ref:`Function Index <genindex>` or browse the `Source Code <_modules/i
 `Browse the GitHub Repository <https://github.com/domdfcoding/sphinx-toolbox>`__
 
 .. end links
+
+
+Caching
+-----------
+
+HTTP requests to obtain issue/pull request titles are cached for four hours.
+
+To clear the cache manually, run:
+
+.. prompt:: bash
+
+	python3 -m sphinx_toolbox

@@ -1,15 +1,7 @@
-Installation
---------------
+============
+Overview
+============
 
-.. installation:: sphinx-toolbox
-	:pypi:
-	:github:
-	:anaconda:
-	:conda-channels: domdfcoding,conda-forge
-
-
-Extensions
--------------
 
 .. extensions:: sphinx-toolbox
 	:import-name: sphinx_toolbox
@@ -38,7 +30,7 @@ The following features are enabled by default:
 * :mod:`sphinx_toolbox.more_autodoc.autotypeddict`
 
 
-\* Indicates the extension cannot be enabled separately from the rest of ``sphinx_toolbox``.
+\* Indicates that the extension cannot be enabled separately from the rest of ``sphinx_toolbox``.
 
 
 Some features must be enabled separately:
@@ -62,14 +54,3 @@ Some features must be enabled separately:
 	I.e. ``foo.bar.baz()`` became ``foo.bar.foo.bar.baz()``, which of course doesn't exist
 	and so resulted in a broken link.
 
-
-Caching
------------
-
-HTTP requests to obtain issue/pull request titles are cached for four hours.
-
-To clear the cache manually, run:
-
-.. prompt:: bash
-
-	python3 -m sphinx_toolbox
