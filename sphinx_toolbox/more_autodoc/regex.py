@@ -100,6 +100,7 @@ Usage
 #
 
 # stdlib
+import itertools
 import pathlib
 import re
 import sre_parse
@@ -493,7 +494,45 @@ class RegexParser:
 
 				print(what, content)
 
-		_parse_pattern(list(sre_parse.parse(regex.pattern, regex.flags)))  # type: ignore
+		pattern = regex.pattern.replace('\t', r"\t")
+
+		# Remove leading and trailing spaces from the pattern. They will be added back at the end.
+		leading_spaces = len(tuple(itertools.takewhile(str.isspace, pattern)))
+		trailing_spaces = len(tuple(itertools.takewhile(str.isspace, pattern[::-1])))
+		pattern = pattern.strip(' ')
+
+		tokens = list(sre_parse.parse(pattern, regex.flags))
+
+		if not leading_spaces:
+			while tokens[0] == (LITERAL, ord(' ')):
+				leading_spaces += 1
+				tokens.pop(0)
+
+		if not trailing_spaces:
+			while tokens[-1] == (LITERAL, ord(' ')):
+				trailing_spaces += 1
+				tokens.pop(-1)
+
+		if leading_spaces:
+			buf.append(type(self).IN_COLOUR('['))
+			buf.append(type(self).LITERAL_COLOUR(' '))
+			buf.append(type(self).IN_COLOUR(']'))
+			if leading_spaces > 1:
+				buf.append(type(self).REPEAT_BRACE_COLOUR('{'))
+				buf.append(type(self).REPEAT_COLOUR(str(leading_spaces)))
+				buf.append(type(self).REPEAT_BRACE_COLOUR('}'))
+
+		_parse_pattern(tokens)
+
+		if trailing_spaces == 1:
+			buf.append(type(self).IN_COLOUR('['))
+			buf.append(type(self).LITERAL_COLOUR(' '))
+			buf.append(type(self).IN_COLOUR(']'))
+		elif trailing_spaces > 1:
+			buf.append(type(self).LITERAL_COLOUR(' '))
+			buf.append(type(self).REPEAT_BRACE_COLOUR('{'))
+			buf.append(type(self).REPEAT_COLOUR(str(trailing_spaces)))
+			buf.append(type(self).REPEAT_BRACE_COLOUR('}'))
 
 		return ''.join(buf)
 

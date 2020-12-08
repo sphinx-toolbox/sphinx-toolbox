@@ -26,6 +26,22 @@ parser = RegexParser()
 						re.compile(r"^:(param|parameter|arg|argument)\s*"),
 						r"^:(param|parameter|arg|argument)\s*",
 						),
+				(
+						re.compile("^:(default|Default)[ ]"),
+						"^:(default|Default)[ ]",
+						),
+				(
+						re.compile("^:(default|Default) "),
+						"^:(default|Default)[ ]",
+						),
+				(
+						re.compile(" :(default|Default)"),
+						"[ ]:(default|Default)",
+						),
+				(
+						re.compile("[ ]:(default|Default)"),
+						"[ ]:(default|Default)",
+						),
 				(no_flags, no_flags.pattern.replace("\\?", '?')),
 				(one_flag, one_flag.pattern.replace("\\?", '?')),
 				(two_flags, two_flags.pattern.replace("\\?", '?')),
