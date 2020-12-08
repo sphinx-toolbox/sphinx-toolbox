@@ -44,3 +44,10 @@ manifest_additional:
 
 tox_unmanaged:
   - flake8
+
+sphinx_conf_epilogue:
+  - html_logo = "../sphinx_toolbox.png"
+
+keywords:
+  - sphinx
+  - documentation
