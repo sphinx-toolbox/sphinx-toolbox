@@ -501,7 +501,7 @@ class RegexParser:
 		trailing_spaces = len(tuple(itertools.takewhile(str.isspace, pattern[::-1])))
 		pattern = pattern.strip(' ')
 
-		tokens = list(sre_parse.parse(pattern, regex.flags))
+		tokens: List = list(sre_parse.parse(pattern, regex.flags))  # type: ignore
 
 		if not leading_spaces:
 			while tokens[0] == (LITERAL, ord(' ')):
