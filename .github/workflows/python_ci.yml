@@ -9,7 +9,7 @@ on:
 
 jobs:
   tests:
-    name: "Python ${{ matrix.python-version }}"
+    name: "Python ${{ matrix.config.python-version }}"
     runs-on: "windows-2019"
     env:
       USING_COVERAGE: '3.6,3.7,3.8,3.9'
@@ -17,7 +17,11 @@ jobs:
     strategy:
       fail-fast: False
       matrix:
-        python-version: ["3.6","3.7","3.8","3.9"]
+        config:
+          - {python-version: "3.6", testenvs: "py36,build"}
+          - {python-version: "3.7", testenvs: "py37,build"}
+          - {python-version: "3.8", testenvs: "py38,build"}
+          - {python-version: "3.9", testenvs: "py39,build"}
 
     steps:
       - name: Checkout 🛎️
@@ -26,14 +30,14 @@ jobs:
       - name: Setup Python 🐍
         uses: "actions/setup-python@v2"
         with:
-          python-version: "${{ matrix.python-version }}"
+          python-version: "${{ matrix.config.python-version }}"
 
       - name: Install dependencies 🔧
         run: |
           python -VV
           python -m site
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install --upgrade tox tox-gh-actions virtualenv
+          python -m pip install --upgrade tox virtualenv
 
-      - name: "Run Tests for Python ${{ matrix.python-version }}"
-        run: "python -m tox"
+      - name: "Run Tests for Python ${{ matrix.config.python-version }}"
+        run: "python -m tox -e ${{ matrix.config.testenvs }}"

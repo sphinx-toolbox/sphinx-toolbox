@@ -29,7 +29,7 @@ sphinx-toolbox
 	  - |license| |language| |requires| |pre_commit|
 
 .. |docs| image:: https://img.shields.io/readthedocs/sphinx-toolbox/latest?logo=read-the-docs
-	:target: https://sphinx-toolbox.readthedocs.io/en/latest/?badge=latest
+	:target: https://sphinx-toolbox.readthedocs.io/en/latest
 	:alt: Documentation Build Status
 
 .. |docs_check| image:: https://github.com/domdfcoding/sphinx-toolbox/workflows/Docs%20Check/badge.svg

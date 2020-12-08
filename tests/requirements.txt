@@ -1,6 +1,6 @@
 coverage>=5.1
 coverage-pyver-pragma>=0.0.6
-domdf-python-tools[testing]>=1.5.0
+domdf-python-tools[testing]>=1.6.0
 flake8-dunder-all>=0.0.4
 hypothesis>=5.35.4
 iniconfig!=1.1.0,>=1.0.1
