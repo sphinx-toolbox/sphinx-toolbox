@@ -53,4 +53,3 @@ Some features must be enabled separately:
 
 	I.e. ``foo.bar.baz()`` became ``foo.bar.foo.bar.baz()``, which of course doesn't exist
 	and so resulted in a broken link.
-

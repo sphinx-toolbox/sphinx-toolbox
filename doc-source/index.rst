@@ -120,7 +120,7 @@ Installation
 	:pypi:
 	:github:
 	:anaconda:
-	:conda-channels: domdfcoding,conda-forge
+	:conda-channels: domdfcoding, conda-forge
 
 .. end installation
 
