@@ -1,6 +1,6 @@
 # This file is managed by 'repo_helper'. Don't edit it directly.
 ---
-name: Flake8
+name: mypy
 
 on:
   push:
@@ -9,8 +9,12 @@ on:
 
 jobs:
   Run:
-    name: "Flake8"
-    runs-on: "ubuntu-18.04"
+    name: "mypy"
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: Checkout 🛎️
@@ -28,5 +32,5 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install tox
 
-      - name: "Run Flake8"
-        run: "python -m tox -e lint -- --format github"
+      - name: "Run mypy"
+        run: "python -m tox -e mypy"

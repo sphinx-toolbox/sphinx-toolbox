@@ -59,8 +59,6 @@ gitstamp_fmt = "%d %b %Y"
 templates_path = ["_templates"]
 html_static_path = ["_static"]
 source_suffix = ".rst"
-exclude_patterns = []
-
 master_doc = "index"
 suppress_warnings = ["image.nonlocal_uri"]
 pygments_style = "default"
