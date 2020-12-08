@@ -135,7 +135,7 @@ def parse_hooks(hooks: str) -> List[str]:
 
 
 class _BaseHook(TypedDict):
-	id: str
+	id: str  # noqa: A003
 
 
 class _Hook(_BaseHook, total=False):

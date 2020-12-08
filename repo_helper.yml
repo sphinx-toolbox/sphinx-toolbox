@@ -33,7 +33,6 @@ extras_require:
 
 tox_testenv_extras: all
 
-
 extra_sphinx_extensions:
   - sphinx_removed_in
   - sphinx_toolbox.tweaks.param_dash
@@ -42,3 +41,6 @@ extra_sphinx_extensions:
 
 manifest_additional:
   - include sphinx_toolbox/more_autodoc/regex.css
+
+tox_unmanaged:
+  - flake8
