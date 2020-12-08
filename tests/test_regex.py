@@ -35,8 +35,16 @@ parser = RegexParser()
 						"^:(default|Default)[ ]",
 						),
 				(
+						re.compile("^:(default|Default)   "),
+						"^:(default|Default) {3}",
+						),
+				(
 						re.compile(" :(default|Default)"),
 						"[ ]:(default|Default)",
+						),
+				(
+						re.compile("   :(default|Default)"),
+						"[ ]{3}:(default|Default)",
 						),
 				(
 						re.compile("[ ]:(default|Default)"),
