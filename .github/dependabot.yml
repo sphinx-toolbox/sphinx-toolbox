@@ -1,0 +1,10 @@
+# This file is managed by 'repo_helper'. Don't edit it directly.
+---
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: /
+  schedule:
+    interval: weekly
+  reviewers:
+  - domdfcoding

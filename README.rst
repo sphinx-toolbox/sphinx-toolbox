@@ -18,7 +18,7 @@ sphinx-toolbox
 	* - Docs
 	  - |docs| |docs_check|
 	* - Tests
-	  - |travis| |actions_windows| |actions_macos| |coveralls| |codefactor| |pre_commit_ci|
+	  - |actions_linux| |actions_windows| |actions_macos| |coveralls| |codefactor| |pre_commit_ci|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
 	* - Anaconda
@@ -36,7 +36,7 @@ sphinx-toolbox
 	:target: https://github.com/domdfcoding/sphinx-toolbox/actions?query=workflow%3A%22Docs+Check%22
 	:alt: Docs Check Status
 
-.. |travis| image:: https://github.com/domdfcoding/sphinx-toolbox/workflows/Linux%20Tests/badge.svg
+.. |actions_linux| image:: https://github.com/domdfcoding/sphinx-toolbox/workflows/Linux%20Tests/badge.svg
 	:target: https://github.com/domdfcoding/sphinx-toolbox/actions?query=workflow%3A%22Linux+Tests%22
 	:alt: Linux Test Status
 
