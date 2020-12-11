@@ -4,6 +4,7 @@ extras-require>=0.2.0
 flake8-dunder-all>=0.0.4
 seed-intersphinx-mapping>=0.1.1
 sphinx-copybutton>=0.2.12
+sphinx-inline-tabs>=2020.10.19b4
 sphinx-notfound-page>=0.5
 sphinx-removed-in==0.2.1
 sphinxcontrib-httpdomain>=1.7.0

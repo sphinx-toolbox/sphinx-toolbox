@@ -31,6 +31,7 @@ language = "en"
 package_root = "sphinx_toolbox"
 
 extensions = [
+		"sphinx_inline_tabs",
 		"sphinx_toolbox",
 		"sphinx_toolbox.more_autodoc",
 		"sphinx_toolbox.more_autosummary",
