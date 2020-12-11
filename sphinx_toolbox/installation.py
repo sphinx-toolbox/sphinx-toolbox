@@ -350,11 +350,14 @@ def github_installation(
 	:param env: The Sphinx build environment.
 	"""
 
-	username = env.config.github_username
+	if "sphinx_toolbox.github" not in env.app.extensions:
+		raise ValueError("The 'sphinx_toolbox.github' is required for the :github: option but it is not enabled!")
+
+	username = getattr(env.config, "github_username", None)
 	if username is None:
 		raise ValueError("'github_username' has not been set in 'conf.py'!")
 
-	repository = env.config.github_repository
+	repository = getattr(env.config, "github_repository", None)
 	if repository is None:
 		raise ValueError("'github_repository' has not been set in 'conf.py'!")
 
