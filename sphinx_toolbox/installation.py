@@ -542,7 +542,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	# this package
 	from sphinx_toolbox import __version__
 
-	app.setup_extension("sphinx_tabs.tabs")
+	if "sphinx_inline_tabs" not in getattr(app, "extensions", ()):
+		app.setup_extension("sphinx_tabs.tabs")
+
 	app.setup_extension("sphinx-prompt")
 
 	app.add_config_value("conda_channels", [], "env", types=[list])
