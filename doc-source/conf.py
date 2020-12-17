@@ -13,7 +13,7 @@ sys.path.append(os.path.abspath(".."))
 # this package
 from __pkginfo__ import __version__
 
-github_username = "domdfcoding"
+github_username = "sphinx-toolbox"
 github_repository = "sphinx-toolbox"
 github_url = f"https://github.com/{github_username}/{github_repository}"
 
@@ -75,7 +75,7 @@ html_show_sourcelink = True  # True will show link to source
 
 html_context = {
 		"display_github": True,
-		"github_user": "domdfcoding",
+		"github_user": "sphinx-toolbox",
 		"github_repo": "sphinx-toolbox",
 		"github_version": "master",
 		"conf_py_path": "/doc-source/",

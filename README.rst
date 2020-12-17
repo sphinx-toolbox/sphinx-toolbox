@@ -32,32 +32,32 @@ sphinx-toolbox
 	:target: https://sphinx-toolbox.readthedocs.io/en/latest
 	:alt: Documentation Build Status
 
-.. |docs_check| image:: https://github.com/domdfcoding/sphinx-toolbox/workflows/Docs%20Check/badge.svg
-	:target: https://github.com/domdfcoding/sphinx-toolbox/actions?query=workflow%3A%22Docs+Check%22
+.. |docs_check| image:: https://github.com/sphinx-toolbox/sphinx-toolbox/workflows/Docs%20Check/badge.svg
+	:target: https://github.com/sphinx-toolbox/sphinx-toolbox/actions?query=workflow%3A%22Docs+Check%22
 	:alt: Docs Check Status
 
-.. |actions_linux| image:: https://github.com/domdfcoding/sphinx-toolbox/workflows/Linux%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/sphinx-toolbox/actions?query=workflow%3A%22Linux+Tests%22
+.. |actions_linux| image:: https://github.com/sphinx-toolbox/sphinx-toolbox/workflows/Linux/badge.svg
+	:target: https://github.com/sphinx-toolbox/sphinx-toolbox/actions?query=workflow%3A%22Linux%22
 	:alt: Linux Test Status
 
-.. |actions_windows| image:: https://github.com/domdfcoding/sphinx-toolbox/workflows/Windows%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/sphinx-toolbox/actions?query=workflow%3A%22Windows+Tests%22
+.. |actions_windows| image:: https://github.com/sphinx-toolbox/sphinx-toolbox/workflows/Windows/badge.svg
+	:target: https://github.com/sphinx-toolbox/sphinx-toolbox/actions?query=workflow%3A%22Windows%22
 	:alt: Windows Test Status
 
-.. |actions_macos| image:: https://github.com/domdfcoding/sphinx-toolbox/workflows/macOS%20Tests/badge.svg
-	:target: https://github.com/domdfcoding/sphinx-toolbox/actions?query=workflow%3A%22macOS+Tests%22
+.. |actions_macos| image:: https://github.com/sphinx-toolbox/sphinx-toolbox/workflows/macOS/badge.svg
+	:target: https://github.com/sphinx-toolbox/sphinx-toolbox/actions?query=workflow%3A%22macOS%22
 	:alt: macOS Test Status
 
-.. |requires| image:: https://requires.io/github/domdfcoding/sphinx-toolbox/requirements.svg?branch=master
-	:target: https://requires.io/github/domdfcoding/sphinx-toolbox/requirements/?branch=master
+.. |requires| image:: https://requires.io/github/sphinx-toolbox/sphinx-toolbox/requirements.svg?branch=master
+	:target: https://requires.io/github/sphinx-toolbox/sphinx-toolbox/requirements/?branch=master
 	:alt: Requirements Status
 
-.. |coveralls| image:: https://img.shields.io/coveralls/github/domdfcoding/sphinx-toolbox/master?logo=coveralls
-	:target: https://coveralls.io/github/domdfcoding/sphinx-toolbox?branch=master
+.. |coveralls| image:: https://img.shields.io/coveralls/github/sphinx-toolbox/sphinx-toolbox/master?logo=coveralls
+	:target: https://coveralls.io/github/sphinx-toolbox/sphinx-toolbox?branch=master
 	:alt: Coverage
 
-.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/domdfcoding/sphinx-toolbox?logo=codefactor
-	:target: https://www.codefactor.io/repository/github/domdfcoding/sphinx-toolbox
+.. |codefactor| image:: https://img.shields.io/codefactor/grade/github/sphinx-toolbox/sphinx-toolbox?logo=codefactor
+	:target: https://www.codefactor.io/repository/github/sphinx-toolbox/sphinx-toolbox
 	:alt: CodeFactor Grade
 
 .. |pypi-version| image:: https://img.shields.io/pypi/v/sphinx-toolbox
@@ -76,27 +76,27 @@ sphinx-toolbox
 	:target: https://pypi.org/project/sphinx-toolbox/
 	:alt: PyPI - Wheel
 
-.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/sphinx-toolbox?logo=anaconda
-	:target: https://anaconda.org/domdfcoding/sphinx-toolbox
+.. |conda-version| image:: https://img.shields.io/conda/v/sphinx-toolbox/sphinx-toolbox?logo=anaconda
+	:target: https://anaconda.org/sphinx-toolbox/sphinx-toolbox
 	:alt: Conda - Package Version
 
-.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/sphinx-toolbox?label=conda%7Cplatform
-	:target: https://anaconda.org/domdfcoding/sphinx-toolbox
+.. |conda-platform| image:: https://img.shields.io/conda/pn/sphinx-toolbox/sphinx-toolbox?label=conda%7Cplatform
+	:target: https://anaconda.org/sphinx-toolbox/sphinx-toolbox
 	:alt: Conda - Platform
 
-.. |license| image:: https://img.shields.io/github/license/domdfcoding/sphinx-toolbox
-	:target: https://github.com/domdfcoding/sphinx-toolbox/blob/master/LICENSE
+.. |license| image:: https://img.shields.io/github/license/sphinx-toolbox/sphinx-toolbox
+	:target: https://github.com/sphinx-toolbox/sphinx-toolbox/blob/master/LICENSE
 	:alt: License
 
-.. |language| image:: https://img.shields.io/github/languages/top/domdfcoding/sphinx-toolbox
+.. |language| image:: https://img.shields.io/github/languages/top/sphinx-toolbox/sphinx-toolbox
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/domdfcoding/sphinx-toolbox/v1.8.2
-	:target: https://github.com/domdfcoding/sphinx-toolbox/pulse
+.. |commits-since| image:: https://img.shields.io/github/commits-since/sphinx-toolbox/sphinx-toolbox/v1.8.2
+	:target: https://github.com/sphinx-toolbox/sphinx-toolbox/pulse
 	:alt: GitHub commits since tagged version
 
-.. |commits-latest| image:: https://img.shields.io/github/last-commit/domdfcoding/sphinx-toolbox
-	:target: https://github.com/domdfcoding/sphinx-toolbox/commit/master
+.. |commits-latest| image:: https://img.shields.io/github/last-commit/sphinx-toolbox/sphinx-toolbox
+	:target: https://github.com/sphinx-toolbox/sphinx-toolbox/commit/master
 	:alt: GitHub last commit
 
 .. |maintained| image:: https://img.shields.io/maintenance/yes/2020
@@ -106,8 +106,8 @@ sphinx-toolbox
 	:target: https://github.com/pre-commit/pre-commit
 	:alt: pre-commit
 
-.. |pre_commit_ci| image:: https://results.pre-commit.ci/badge/github/domdfcoding/sphinx-toolbox/master.svg
-	:target: https://results.pre-commit.ci/latest/github/domdfcoding/sphinx-toolbox/master
+.. |pre_commit_ci| image:: https://results.pre-commit.ci/badge/github/sphinx-toolbox/sphinx-toolbox/master.svg
+	:target: https://results.pre-commit.ci/latest/github/sphinx-toolbox/sphinx-toolbox/master
 	:alt: pre-commit.ci status
 
 .. end shields
