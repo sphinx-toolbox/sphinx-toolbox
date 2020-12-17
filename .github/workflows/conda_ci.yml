@@ -30,10 +30,8 @@ jobs:
           # $CONDA is an environment variable pointing to the root of the miniconda directory
           $CONDA/bin/conda update -q conda
 
-          $CONDA/bin/conda config --add channels domdfcoding
-
           $CONDA/bin/conda config --add channels conda-forge
-
+          $CONDA/bin/conda config --add channels domdfcoding
 
       - name: "Build and install package"
         run: |
