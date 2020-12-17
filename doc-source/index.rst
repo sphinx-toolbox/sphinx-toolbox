@@ -36,15 +36,15 @@ sphinx-toolbox
 	:alt: Docs Check Status
 
 .. |actions_linux| actions-shield::
-	:workflow: Linux Tests
+	:workflow: Linux
 	:alt: Linux Test Status
 
 .. |actions_windows| actions-shield::
-	:workflow: Windows Tests
+	:workflow: Windows
 	:alt: Windows Test Status
 
 .. |actions_macos| actions-shield::
-	:workflow: macOS Tests
+	:workflow: macOS
 	:alt: macOS Test Status
 
 .. |requires| requires-io-shield::

@@ -1,6 +1,6 @@
 # This file is managed by 'repo_helper'. Don't edit it directly.
 ---
-name: macOS Tests
+name: macOS
 
 on:
   push:
@@ -11,6 +11,7 @@ jobs:
   tests:
     name: "Python ${{ matrix.config.python-version }}"
     runs-on: "macos-latest"
+    continue-on-error: ${{ matrix.config.experimental }}
     env:
       USING_COVERAGE: '3.6,3.7,3.8,3.9'
 
@@ -18,10 +19,10 @@ jobs:
       fail-fast: False
       matrix:
         config:
-          - {python-version: "3.6", testenvs: "py36,build"}
-          - {python-version: "3.7", testenvs: "py37,build"}
-          - {python-version: "3.8", testenvs: "py38,build"}
-          - {python-version: "3.9", testenvs: "py39,build"}
+          - {python-version: "3.6", testenvs: "py36,build", experimental: False}
+          - {python-version: "3.7", testenvs: "py37,build", experimental: False}
+          - {python-version: "3.8", testenvs: "py38,build", experimental: False}
+          - {python-version: "3.9", testenvs: "py39,build", experimental: False}
 
     steps:
       - name: Checkout 🛎️
