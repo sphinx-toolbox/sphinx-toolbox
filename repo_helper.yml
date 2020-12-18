@@ -11,8 +11,6 @@ version: '1.8.2'
 license: 'MIT'
 short_desc: 'Box of handy tools for Sphinx 🧰 📔'
 
-enable_conda: True
-
 conda_channels:
   - domdfcoding
   - conda-forge
