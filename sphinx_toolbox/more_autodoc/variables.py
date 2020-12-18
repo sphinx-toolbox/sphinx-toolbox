@@ -160,12 +160,12 @@ def get_variable_type(documenter: Documenter) -> str:
 		annotations = {}
 
 	if documenter.objpath[-1] in annotations:
-		annotation = annotations.get(documenter.objpath[-1])
+		ann = annotations.get(documenter.objpath[-1])
 
-		if isinstance(annotation, str):
-			return format_annotation(annotation.strip("'\""))
+		if isinstance(ann, str):
+			return format_annotation(ann.strip("'\""))
 
-		return format_annotation(annotation)
+		return format_annotation(ann)
 	else:
 		# Instance attribute
 		key = ('.'.join(documenter.objpath[:-1]), documenter.objpath[-1])
