@@ -1,5 +1,5 @@
 default-values>=0.2.0
-domdf-sphinx-theme>=0.1.0
+domdf-sphinx-theme>=0.3.0
 extras-require>=0.2.0
 flake8-dunder-all>=0.0.4
 seed-intersphinx-mapping>=0.1.1
