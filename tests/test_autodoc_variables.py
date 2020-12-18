@@ -1,5 +1,6 @@
 # stdlib
-from typing import Any, Dict, List, NamedTuple, Sequence, Type, Union, no_type_check
+import sys
+from typing import Any, Dict, List, NamedTuple, Sequence, Type, no_type_check
 
 # 3rd party
 from domdf_python_tools.secrets import Secret
@@ -47,9 +48,16 @@ def test_get_variable_type():
 	assert get_variable_type(Documenter(Foo, ["Foo", 'd'], Analyzer({}))) == ":py:class:`float`"
 	assert get_variable_type(Documenter(Foo, ["Foo", 'e'], Analyzer({}))) == ":py:class:`~typing.List`"
 
-	assert get_variable_type(Documenter(Bar, ["Bar", 'a'], Analyzer({}))) == ":py:class:`str`"
-	assert get_variable_type(Documenter(Bar, ["Bar", 'b'], Analyzer({}))) == ":py:class:`int`"
-	assert get_variable_type(Documenter(Bar, ["Bar", 'c'], Analyzer({}))) == ":py:class:`float`"
+	if sys.version_info >= (3, 10):
+		# On 3.10 with PEP 563 failed forward references break things earlier
+		assert get_variable_type(Documenter(Bar, ["Bar", 'a'], Analyzer({}))) == ":py:obj:`~.str`"
+		assert get_variable_type(Documenter(Bar, ["Bar", 'b'], Analyzer({}))) == ":py:obj:`~.int`"
+		assert get_variable_type(Documenter(Bar, ["Bar", 'c'], Analyzer({}))) == ":py:obj:`~.float`"
+	else:
+		assert get_variable_type(Documenter(Bar, ["Bar", 'a'], Analyzer({}))) == ":py:class:`str`"
+		assert get_variable_type(Documenter(Bar, ["Bar", 'b'], Analyzer({}))) == ":py:class:`int`"
+		assert get_variable_type(Documenter(Bar, ["Bar", 'c'], Analyzer({}))) == ":py:class:`float`"
+
 	# Failed forward reference throws everything else out of whack
 	assert get_variable_type(Documenter(Bar, ["Bar", 'd'], Analyzer({}))) == ":py:obj:`~.float`"
 	assert get_variable_type(Documenter(Bar, ["Bar", 'e'], Analyzer({}))) == ":py:obj:`~.List`"
