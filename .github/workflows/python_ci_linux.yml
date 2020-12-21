@@ -9,7 +9,7 @@ on:
 
 jobs:
   tests:
-    name: "Python ${{ matrix.config.python-version }}"
+    name: "ubuntu-20.04 / Python ${{ matrix.config.python-version }}"
     runs-on: "ubuntu-20.04"
     continue-on-error: ${{ matrix.config.experimental }}
     env:
@@ -43,7 +43,7 @@ jobs:
           python -m pip install --upgrade coverage_pyver_pragma
 
       - name: "Run Tests for Python ${{ matrix.config.python-version }}"
-        run: "python -m tox -e ${{ matrix.config.testenvs }}"
+        run: python -m tox -e "${{ matrix.config.testenvs }}"
 
 
       - name: "Upload Coverage"
@@ -98,6 +98,7 @@ jobs:
 
   Deploy:
     needs: tests
+    if: startsWith(github.ref, 'refs/tags/')
 
     runs-on: "ubuntu-20.04"
     steps:

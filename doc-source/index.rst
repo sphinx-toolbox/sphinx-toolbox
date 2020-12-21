@@ -17,15 +17,17 @@ sphinx-toolbox
 	* - Docs
 	  - |docs| |docs_check|
 	* - Tests
-	  - |actions_linux| |actions_windows| |actions_macos| |coveralls| |codefactor| |pre_commit_ci|
+	  - |actions_linux| |actions_windows| |actions_macos| |coveralls|
 	* - PyPI
 	  - |pypi-version| |supported-versions| |supported-implementations| |wheel|
 	* - Anaconda
 	  - |conda-version| |conda-platform|
 	* - Activity
-	  - |commits-latest| |commits-since| |maintained|
+	  - |commits-latest| |commits-since| |maintained| |pypi-downloads|
+	* - QA
+	  - |codefactor| |actions_flake8| |actions_mypy| |pre_commit_ci|
 	* - Other
-	  - |license| |language| |requires| |pre_commit|
+	  - |license| |language| |requires|
 
 .. |docs| rtfd-shield::
 	:project: sphinx-toolbox
@@ -46,6 +48,14 @@ sphinx-toolbox
 .. |actions_macos| actions-shield::
 	:workflow: macOS
 	:alt: macOS Test Status
+
+.. |actions_flake8| actions-shield::
+	:workflow: Flake8
+	:alt: Flake8 Status
+
+.. |actions_mypy| actions-shield::
+	:workflow: mypy
+	:alt: mypy status
 
 .. |requires| requires-io-shield::
 	:alt: Requirements Status
@@ -103,8 +113,10 @@ sphinx-toolbox
 .. |maintained| maintained-shield:: 2020
 	:alt: Maintenance
 
-.. |pre_commit| pre-commit-shield::
-	:alt: pre-commit
+.. |pypi-downloads| pypi-shield::
+	:project: sphinx-toolbox
+	:downloads: month
+	:alt: PyPI - Downloads
 
 .. |pre_commit_ci| pre-commit-ci-shield::
 	:alt: pre-commit.ci status
