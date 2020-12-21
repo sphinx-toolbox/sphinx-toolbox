@@ -287,6 +287,7 @@ class TypedAttributeDocumenter(AttributeDocumenter):
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
 		super().__init__(directive=directive, name=name, indent=indent)
 		self.options = Options(self.options.copy())
+		self._datadescriptor = True
 
 	def add_directive_header(self, sig: str):
 		"""

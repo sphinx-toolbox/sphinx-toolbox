@@ -629,6 +629,11 @@ def check_html_regression(page: BeautifulSoup, file_regression: FileRegressionFi
 
 	page = remove_html_footer(page)
 	page = remove_html_link_tags(page)
+
+	for div in page.select("script"):
+		if "_static/language_data.js" in str(div):
+			div.extract()
+
 	check_file_regression(
 			StringList(page.prettify()),
 			file_regression,
