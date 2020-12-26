@@ -12,7 +12,6 @@ license: 'MIT'
 short_desc: 'Box of handy tools for Sphinx 🧰 📔'
 
 conda_channels:
-  - domdfcoding
   - conda-forge
 
 python_versions:
@@ -52,8 +51,20 @@ sphinx_conf_epilogue:
 keywords:
   - sphinx
   - documentation
+  - sphinx-extension
 
 third_party_version_matrix:
   sphinx:
     - 3.2
     - 3.3
+
+classifiers:
+ - 'Development Status :: 4 - Beta'
+ - "Framework :: Sphinx :: Extension"
+ - 'Intended Audience :: Developers'
+ - 'Programming Language :: Python'
+ - "Topic :: Documentation"
+ - 'Topic :: Documentation :: Sphinx'
+ - 'Topic :: Software Development :: Documentation'
+ - 'Topic :: Software Development :: Libraries :: Python Modules'
+ - "Topic :: Utilities"
