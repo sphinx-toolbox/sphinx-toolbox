@@ -395,11 +395,11 @@ from urllib.parse import quote
 
 # 3rd party
 from apeye.url import URL
+from deprecation_alias import deprecated
 from docutils import nodes
 from docutils.nodes import fully_normalize_name, whitespace_normalize_name
 from docutils.parsers.rst import directives, states
 from docutils.parsers.rst.roles import set_classes
-from domdf_python_tools.utils import deprecated
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
