@@ -298,7 +298,10 @@ class TypedDictDocumenter(ClassDocumenter):
 			else:
 				key_type = ''
 
-			content.append(f"    * **{key}** {key_type}-- {' '.join(docstrings.get(key, ''))}")
+			if key in docstrings:
+				content.append(f"    * **{key}** {key_type}-- {' '.join(docstrings.get(key, ''))}")
+			else:
+				content.append(f"    * **{key}** {key_type}")
 
 		for line in content:
 			self.add_line(line, self.get_sourcename())
