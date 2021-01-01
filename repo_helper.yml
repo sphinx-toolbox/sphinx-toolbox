@@ -59,7 +59,7 @@ third_party_version_matrix:
     - 3.3
 
 classifiers:
- - 'Development Status :: 4 - Beta'
+ - 'Development Status :: 5 - Production/Stable'
  - "Framework :: Sphinx :: Extension"
  - 'Intended Audience :: Developers'
  - 'Programming Language :: Python'
