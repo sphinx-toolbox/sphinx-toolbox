@@ -1,7 +1,7 @@
 # Configuration for 'repo_helper' (https://github.com/domdfcoding/repo_helper
 ---
 modname: 'sphinx-toolbox'
-copyright_years: 2020
+copyright_years: 2020-2021
 author: 'Dominic Davis-Foster'
 email: 'dominic@davis-foster.co.uk'
 username: 'sphinx-toolbox'
