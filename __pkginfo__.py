@@ -23,7 +23,7 @@ __all__ = [
 		]
 
 __copyright__ = """
-2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 """
 
 __version__ = "1.8.3"
