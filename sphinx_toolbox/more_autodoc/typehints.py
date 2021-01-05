@@ -109,6 +109,7 @@ In addition the following configuration value is added by this extension:
 
 # stdlib
 import inspect
+import itertools
 import json
 import operator
 import re
@@ -264,14 +265,16 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		return ":py:obj:`None`"
 	elif annotation is Ellipsis:
 		return "..."
+	elif annotation is itertools.cycle:
+		return ":func:`itertools.cycle`"
 	elif annotation is types.GetSetDescriptorType:  # noqa E721
 		return f":py:data:`{prefix}types.GetSetDescriptorType`"
 	elif annotation is types.MemberDescriptorType:  # noqa E721
 		return f":py:data:`{prefix}types.MemberDescriptorType`"
 	elif annotation is types.MappingProxyType:  # noqa E721
-		return f":py:data:`{prefix}types.MappingProxyType`"
+		return f":py:class:`{prefix}types.MappingProxyType`"
 	elif annotation is types.ModuleType:  # noqa E721
-		return f":py:data:`{prefix}types.ModuleType`"
+		return f":py:class:`{prefix}types.ModuleType`"
 	elif annotation is ClassMethodDescriptorType:  # noqa E721
 		return f":py:data:`{prefix}types.ClassMethodDescriptorType`"
 	elif annotation is MethodDescriptorType:  # noqa E721
