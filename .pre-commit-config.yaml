@@ -35,7 +35,7 @@ repos:
     - id: bind-requirements
 
  - repo: https://github.com/domdfcoding/flake8-dunder-all
-   rev: v0.1.4
+   rev: v0.1.5
    hooks:
     - id: ensure-dunder-all
       files: ^sphinx_toolbox/.*\.py$
