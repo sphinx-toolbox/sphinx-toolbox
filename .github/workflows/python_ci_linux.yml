@@ -68,7 +68,7 @@ jobs:
       - name: Install dependencies 🔧
         run: |
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install --upgrade "coveralls>=3.0.0" coverage_pyver_pragma
+          python -m pip install --upgrade coveralls coverage_pyver_pragma
 
       - name: "Download Coverage 🪂"
         uses: actions/download-artifact@v2
@@ -94,7 +94,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          coveralls --service=github
+          coveralls
 
   Deploy:
     needs: tests
