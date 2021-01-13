@@ -80,7 +80,7 @@ from urllib.parse import quote
 
 # 3rd party
 from apeye.url import URL
-from docutils import nodes, utils
+from docutils import nodes
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
 from sphinx.application import Sphinx
@@ -124,7 +124,7 @@ def make_wikipedia_link(
 	env = inliner.document.settings.env
 	lang = env.config.wikipedia_lang
 
-	text = utils.unescape(text)
+	text = nodes.unescape(text)
 	has_explicit, title, target = split_explicit_title(text)
 
 	m = re.match(r":(.*?):(.*)", target)

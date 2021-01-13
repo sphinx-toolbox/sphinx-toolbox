@@ -73,10 +73,10 @@ API Reference
 #
 
 # stdlib
-from typing import Any, Dict, List, Sequence, Tuple, Union
+from typing import Dict, List, Sequence, Tuple, Union
 
 # 3rd party
-from docutils import nodes, utils
+from docutils import nodes
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
 from sphinx import addnodes
@@ -119,8 +119,8 @@ def source_role(
 	"""
 
 	has_t, title, target = split_explicit_title(text)
-	title = utils.unescape(title)
-	target = utils.unescape(target)
+	title = nodes.unescape(title)
+	target = nodes.unescape(target)
 
 	env = inliner.document.settings.env
 	config = env.app.config

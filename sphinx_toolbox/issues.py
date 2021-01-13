@@ -91,7 +91,7 @@ from typing import Dict, List, Optional, Tuple, Union
 # 3rd party
 from apeye.url import URL
 from bs4 import BeautifulSoup  # type: ignore
-from docutils import nodes, utils
+from docutils import nodes
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
 from sphinx.application import Sphinx
@@ -178,12 +178,12 @@ def issue_role(
 	"""
 
 	has_t, issue_number, repository = split_explicit_title(text)
-	issue_number = utils.unescape(issue_number)
+	issue_number = nodes.unescape(issue_number)
 
 	messages: List[system_message] = []
 
 	if has_t:
-		repository_parts = utils.unescape(repository).split('/')
+		repository_parts = nodes.unescape(repository).split('/')
 		if len(repository_parts) != 2:
 			inliner.document.reporter.warning(f"Invalid repository '{repository}' for issue #{issue_number}.")
 			issues_url = inliner.document.settings.env.app.config.github_issues_url
@@ -226,12 +226,12 @@ def pull_role(
 	"""
 
 	has_t, issue_number, repository = split_explicit_title(text)
-	issue_number = utils.unescape(issue_number)
+	issue_number = nodes.unescape(issue_number)
 
 	messages: List[system_message] = []
 
 	if has_t:
-		repository_parts = utils.unescape(repository).split('/')
+		repository_parts = nodes.unescape(repository).split('/')
 		if len(repository_parts) != 2:
 			inliner.document.reporter.warning(
 					f"Invalid repository '{repository}' for pull request #{issue_number}."
