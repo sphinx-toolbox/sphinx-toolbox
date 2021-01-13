@@ -70,6 +70,7 @@ __all__ = [
 		"allow_subclass_add",
 		"NoMatchError",
 		"baseclass_is_private",
+		"metadata_add_version",
 		]
 
 #: Instance of :class:`apeye.url.RequestsURL` that points to the GitHub website.
@@ -578,3 +579,27 @@ def baseclass_is_private(obj: Type) -> bool:
 	if hasattr(obj, "__bases__") and len(obj.__bases__) == 1:
 		return obj.__bases__[0].__name__.startswith("__")
 	return False
+
+
+_SetupFunc = Callable[[Sphinx], Optional[SphinxExtMetadata]]
+
+
+def metadata_add_version(func: _SetupFunc) -> _SetupFunc:
+	"""
+	Internal decorator for Sphinx ``setup`` functions to add the ``sphinx-toolbox`` version number to the returned metadata dict
+
+	:param func:
+
+	.. versionadded:: 1.9.0
+	"""
+
+	# this package
+	from sphinx_toolbox import __version__
+
+	@functools.wraps(func)
+	def wrapper(app: Sphinx):
+		ret = func(app) or {}
+		ret["version"] = __version__
+		return ret
+
+	return wrapper
