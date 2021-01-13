@@ -13,7 +13,7 @@ jobs:
     runs-on: "ubuntu-20.04"
     continue-on-error: ${{ matrix.config.experimental }}
     env:
-      USING_COVERAGE: '3.6,3.7,3.8,3.9,3.10.0-alpha.3'
+      USING_COVERAGE: '3.6,3.7,3.8,3.9,3.10.0-alpha.4'
 
     strategy:
       fail-fast: False
@@ -23,7 +23,7 @@ jobs:
           - {python-version: "3.7", testenvs: "py37-sphinx{3.2,3.3},build", experimental: False}
           - {python-version: "3.8", testenvs: "py38-sphinx{3.2,3.3},build", experimental: False}
           - {python-version: "3.9", testenvs: "py39-sphinx{3.2,3.3},build", experimental: False}
-          - {python-version: "3.10.0-alpha.3", testenvs: "py310-dev-sphinx{3.2,3.3},build", experimental: True}
+          - {python-version: "3.10.0-alpha.4", testenvs: "py310-dev-sphinx{3.2,3.3},build", experimental: True}
 
     steps:
       - name: Checkout 🛎️
@@ -68,7 +68,7 @@ jobs:
       - name: Install dependencies 🔧
         run: |
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install --upgrade coveralls coverage_pyver_pragma
+          python -m pip install --upgrade "coveralls>=3.0.0" coverage_pyver_pragma
 
       - name: "Download Coverage 🪂"
         uses: actions/download-artifact@v2
@@ -94,7 +94,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          coveralls
+          coveralls --service=github
 
   Deploy:
     needs: tests
