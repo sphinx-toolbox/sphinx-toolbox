@@ -58,6 +58,7 @@ __all__ = [
 		"escape_trailing__",
 		"code_repr",
 		"SphinxExtMetadata",
+		"SetupFunc",
 		"begin_generate",
 		"unknown_module_warning",
 		"filter_members_warning",
@@ -309,6 +310,14 @@ class SphinxExtMetadata(TypedDict, total=False):
 
 	Since extensions usually don’t negatively influence the process, this defaults to :py:obj:`True`.
 	"""
+
+
+SetupFunc = Callable[[Sphinx], Optional["SphinxExtMetadata"]]
+"""
+Type annotation for Sphinx extensions' ``setup`` functions.
+
+.. versionadded:: 1.9.0
+"""
 
 
 def begin_generate(
@@ -582,17 +591,15 @@ def baseclass_is_private(obj: Type) -> bool:
 	return False
 
 
-_SetupFunc = Callable[[Sphinx], Optional[SphinxExtMetadata]]
-
-
-def metadata_add_version(func: _SetupFunc) -> _SetupFunc:
+def metadata_add_version(func: SetupFunc) -> SetupFunc:
 	"""
-	Internal decorator for Sphinx ``setup`` functions to add the ``sphinx-toolbox`` version number to the returned metadata dict
-
-	:param func:
+	Internal decorator for Sphinx ``setup`` functions to add the ``sphinx-toolbox``
+	version number to the returned metadata dict.
 
 	.. versionadded:: 1.9.0
-	"""
+
+	:param func:
+	"""  # noqa: D400
 
 	# this package
 	from sphinx_toolbox import __version__
