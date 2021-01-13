@@ -66,7 +66,7 @@ This module monkeypatches in that behaviour.
 #
 
 # stdlib
-from typing import Any, Dict, List, Type
+from typing import Dict, List, Type
 
 # 3rd party
 import sphinx.ext.autodoc.directive

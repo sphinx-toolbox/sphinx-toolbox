@@ -65,13 +65,13 @@ Documenter for alias, which usually manifest as
 #
 
 # stdlib
-from typing import Any, Dict
+from typing import Any
 
 # 3rd party
 from docutils.statemachine import StringList
 from sphinx.application import Sphinx
 from sphinx.ext.autodoc import DataDocumenter, GenericAliasDocumenter
-from sphinx.ext.autodoc.directive import DocumenterBridge
+from sphinx.ext.autodoc.directive import DocumenterBridge  # noqa: F401
 from sphinx.locale import _
 
 # this package

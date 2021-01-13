@@ -26,14 +26,11 @@ Box of handy tools for Sphinx.
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-# stdlib
-import typing
-
 # 3rd party
 from sphinx.application import Sphinx
 
 # this package
-from sphinx_toolbox import (
+from sphinx_toolbox import (  # noqa: F401
 		assets,
 		code,
 		config,
@@ -46,7 +43,7 @@ from sphinx_toolbox import (
 		utils,
 		wikipedia
 		)
-from sphinx_toolbox.cache import cache
+from sphinx_toolbox.cache import cache  # noqa: F401
 
 __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"

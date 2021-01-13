@@ -83,7 +83,7 @@ API Reference
 #
 
 # stdlib
-from typing import Tuple, Type
+from typing import Tuple
 
 # 3rd party
 from docutils.nodes import Element

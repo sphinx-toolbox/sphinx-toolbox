@@ -1,6 +1,6 @@
 # stdlib
 import sys
-from typing import Any, Dict, List, NamedTuple, Sequence, Type, Union, no_type_check
+from typing import Any, Dict, List, NamedTuple, Sequence, Type, Union, no_type_check  # noqa: F401
 
 # 3rd party
 from domdf_python_tools.secrets import Secret

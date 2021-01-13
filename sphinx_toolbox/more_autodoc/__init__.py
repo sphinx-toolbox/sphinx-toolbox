@@ -61,7 +61,7 @@ from sphinx.application import Sphinx
 
 # this package
 from sphinx_toolbox import __version__
-from sphinx_toolbox.more_autodoc.no_docstring import automodule_add_nodocstring, no_docstring_process_docstring
+from sphinx_toolbox.more_autodoc.no_docstring import automodule_add_nodocstring
 from sphinx_toolbox.utils import SphinxExtMetadata
 
 __all__ = ["setup"]

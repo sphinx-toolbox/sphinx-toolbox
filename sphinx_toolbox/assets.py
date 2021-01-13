@@ -90,7 +90,7 @@ from typing import Dict, List, Sequence, Tuple
 
 # 3rd party
 from consolekit.terminal_colours import Fore
-from docutils import nodes, utils
+from docutils import nodes
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
 from domdf_python_tools.paths import PathPlus
@@ -145,8 +145,8 @@ def asset_role(
 	"""
 
 	has_t, title, target = split_explicit_title(text)
-	title = utils.unescape(title)
-	target = utils.unescape(target)
+	title = nodes.unescape(title)
+	target = nodes.unescape(target)
 
 	if not has_t:
 		if target.startswith('~'):

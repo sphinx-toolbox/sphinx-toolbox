@@ -74,7 +74,7 @@ API Reference
 #
 
 # stdlib
-from typing import Any, Callable, Dict, List, Mapping, Sequence
+from typing import Any, Dict, List, Sequence
 
 # 3rd party
 import sphinx.environment

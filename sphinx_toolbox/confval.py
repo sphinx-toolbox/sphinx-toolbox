@@ -82,7 +82,7 @@ API Reference
 #
 
 # stdlib
-from typing import Any, Dict, List
+from typing import List
 
 # 3rd party
 from docutils.nodes import Node
