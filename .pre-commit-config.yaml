@@ -40,6 +40,11 @@ repos:
     - id: ensure-dunder-all
       files: ^sphinx_toolbox/.*\.py$
 
+ - repo: https://github.com/domdfcoding/flake2lint
+   rev: v0.1.1
+   hooks:
+    - id: flake2lint
+
  - repo: https://github.com/pre-commit/pygrep-hooks
    rev: v1.7.0
    hooks:
@@ -62,7 +67,7 @@ repos:
     - id: forbid-crlf
 
  - repo: https://github.com/domdfcoding/yapf-isort
-   rev: v0.5.4
+   rev: v0.5.5
    hooks:
     - id: yapf-isort
       exclude: ^(doc-source/conf|__pkginfo__|make_conda_recipe|setup)\.py$
