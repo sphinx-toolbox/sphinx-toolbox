@@ -1,8 +1,11 @@
+# stdlib
 from types import SimpleNamespace
 
+# 3rd party
 from domdf_python_tools.testing import check_file_output
 from pytest_regressions.file_regression import FileRegressionFixture
 
+# this package
 from sphinx_toolbox.tweaks.sphinx_panels_tabs import copy_assets
 
 

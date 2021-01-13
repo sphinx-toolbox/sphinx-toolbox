@@ -135,7 +135,7 @@ def parse_hooks(hooks: str) -> List[str]:
 
 
 class _BaseHook(TypedDict):
-	id: str  # noqa: A003
+	id: str  # noqa: A003  # pylint: disable=redefined-builtin
 
 
 class _Hook(_BaseHook, total=False):

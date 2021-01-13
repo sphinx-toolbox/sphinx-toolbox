@@ -150,7 +150,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 	objtype = "namedtuple"
 	directivetype = "namedtuple"
 	priority = 20
-	object: Type  # noqa: A003
+	object: Type  # noqa: A003  # pylint: disable=redefined-builtin
 
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
 		super().__init__(directive, name, indent)

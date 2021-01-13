@@ -270,10 +270,11 @@ def code_repr(obj: Any) -> str:
 
 class SphinxExtMetadata(TypedDict, total=False):
 	"""
-	:class:`typing.TypedDict` representing the metadata dictionary returned by Sphinx extensions' ``setup`` functions.
+	:class:`typing.TypedDict` representing the metadata dictionary returned by
+	Sphinx extensions' ``setup`` functions.
 
 	This is treated by Sphinx as metadata of the extension.
-	"""
+	"""  # noqa: D400
 
 	version: str
 	"""
