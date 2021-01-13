@@ -37,7 +37,7 @@ from sphobjinv import Inventory  # type: ignore
 # this package
 from tests.common import error_codes_list
 
-pytest_plugins = ("pytest_regressions", "sphinx.testing.fixtures")
+pytest_plugins = ("pytest_regressions", "sphinx.testing.fixtures", "domdf_python_tools.testing")
 
 collect_ignore = ["roots"]
 
