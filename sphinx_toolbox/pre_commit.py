@@ -97,7 +97,7 @@ API Reference
 import re
 import warnings
 from textwrap import indent
-from typing import List, MutableMapping, Sequence, Union
+from typing import List, Sequence
 
 # 3rd party
 import ruamel.yaml as yaml

@@ -147,7 +147,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.param_dash`.
 
-	:param app:
+	:param app: The Sphinx application.
 	"""
 
 	# this package

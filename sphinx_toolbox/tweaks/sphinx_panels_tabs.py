@@ -9,7 +9,7 @@ Fix for :issue:`51 <executablebooks/sphinx-panels>` in
 `sphinx-panels <https://github.com/executablebooks/sphinx-panels>`_.
 
 .. versionadded:: 1.9.0
-"""
+"""  # noqa: D400
 #
 #  Copyright © 2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -76,7 +76,7 @@ def copy_assets(app: Sphinx, exception: Optional[Exception] = None) -> None:
 	:param exception: Any exception which occurred and caused Sphinx to abort.
 	"""
 
-	if exception:
+	if exception:  # type: ignore
 		return
 
 	style = StringList([
@@ -109,7 +109,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.sphinx_panels_tabs`.
 
-	:param app:
+	:param app: The Sphinx application.
 	"""
 
 	# if "sphinx_panels" in app.config.extensions:
