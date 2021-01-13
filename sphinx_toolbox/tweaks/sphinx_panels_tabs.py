@@ -76,7 +76,7 @@ def copy_assets(app: Sphinx, exception: Optional[Exception] = None) -> None:
 	:param exception: Any exception which occurred and caused Sphinx to abort.
 	"""
 
-	if exception:  # type: ignore
+	if exception:  # pragma: no cover
 		return
 
 	style = StringList([
