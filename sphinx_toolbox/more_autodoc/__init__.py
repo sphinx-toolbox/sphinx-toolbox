@@ -7,7 +7,7 @@ Extensions to :mod:`sphinx.ext.autodoc`.
 .. versionadded:: 0.6.0
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -61,7 +61,6 @@ from sphinx.application import Sphinx
 
 # this package
 from sphinx_toolbox import __version__
-from sphinx_toolbox.more_autodoc.no_docstring import automodule_add_nodocstring
 from sphinx_toolbox.utils import SphinxExtMetadata
 
 __all__ = ["setup"]

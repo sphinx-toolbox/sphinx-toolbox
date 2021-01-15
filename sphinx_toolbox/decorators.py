@@ -34,7 +34,7 @@ API Reference
 
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -83,7 +83,7 @@ API Reference
 #
 
 # stdlib
-from typing import Tuple
+from typing import Tuple, Type  # noqa: F401
 
 # 3rd party
 from docutils.nodes import Element
