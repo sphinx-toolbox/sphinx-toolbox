@@ -3,9 +3,11 @@ import re
 
 # 3rd party
 import pytest
+from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
-from sphinx_toolbox.more_autodoc.regex import RegexParser
+from sphinx_toolbox.more_autodoc.regex import RegexParser, copy_asset_files
+from sphinx_toolbox.testing import check_asset_copy
 from tests.regex_demo import no_flags, one_flag, two_flags
 
 parser = RegexParser()
@@ -57,3 +59,11 @@ parser = RegexParser()
 		)
 def test_regex_parser(regex, expected):
 	assert parser.parse_pattern(regex) == expected
+
+
+def test_copy_asset_files(tmp_pathplus, file_regression: FileRegressionFixture):
+	check_asset_copy(
+			copy_asset_files,
+			"_static/regex.css",
+			file_regression=file_regression,
+			)

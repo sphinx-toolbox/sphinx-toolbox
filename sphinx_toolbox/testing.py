@@ -10,7 +10,7 @@ Functions for testing Sphinx extensions.
 .. seealso:: Sphinx's own ``testing`` library: https://github.com/sphinx-doc/sphinx/tree/3.x/sphinx/testing
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -60,6 +60,8 @@ Functions for testing Sphinx extensions.
 
 # stdlib
 import copy
+import tempfile
+from types import SimpleNamespace
 from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, Type, Union
 
 # 3rd party
@@ -69,8 +71,10 @@ from docutils import nodes
 from docutils.parsers.rst import Directive, roles
 from docutils.transforms import Transform
 from domdf_python_tools.doctools import prettify_docstrings
+from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
-from domdf_python_tools.testing import check_file_regression
+from domdf_python_tools.testing import check_file_output, check_file_regression
+from domdf_python_tools.typing import PathLike
 from pygments.lexer import Lexer  # type: ignore  # nodep
 from pytest_regressions.file_regression import FileRegressionFixture  # nodep
 from sphinx.builders import Builder
@@ -98,6 +102,7 @@ __all__ = [
 		"remove_html_footer",
 		"check_html_regression",
 		"remove_html_link_tags",
+		"check_asset_copy",
 		]
 
 
@@ -627,6 +632,8 @@ def check_html_regression(page: BeautifulSoup, file_regression: FileRegressionFi
 			check_html_regression(page, file_regression)
 	"""  # noqa D400
 
+	__tracebackhide__ = True
+
 	page = remove_html_footer(page)
 	page = remove_html_link_tags(page)
 
@@ -639,3 +646,35 @@ def check_html_regression(page: BeautifulSoup, file_regression: FileRegressionFi
 			file_regression,
 			extension=".html",
 			)
+
+
+def check_asset_copy(
+		func: Callable[[sphinx.application.Sphinx, Exception], Any],
+		*asset_files: PathLike,
+		file_regression: FileRegressionFixture,
+		):
+	r"""
+	Helper function to test functions which respond to Sphinx ``build-finished`` events and copy asset files.
+
+	.. versionadded:: 2.0.0
+
+	:param func: The function to test.
+	:param \*asset_files: The paths of asset files copied by the function, relative to the Sphinx output directory.
+	:param file_regression:
+	"""
+
+	__tracebackhide__ = True
+
+	with tempfile.TemporaryDirectory() as tmpdir:
+		tmp_pathplus = PathPlus(tmpdir)
+
+		fake_app = SimpleNamespace()
+		fake_app.builder = SimpleNamespace()
+		fake_app.outdir = fake_app.builder.outdir = tmp_pathplus
+
+		func(fake_app, None)  # type: ignore
+
+		for filename in asset_files:
+			filename = tmp_pathplus / filename
+
+			check_file_output(filename, file_regression, extension=f"_{filename.stem}{filename.suffix}")
