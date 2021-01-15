@@ -4,10 +4,9 @@ import sys
 # 3rd party
 import pytest
 from bs4 import BeautifulSoup  # type: ignore
-from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
-from sphinx_toolbox.testing import check_html_regression
+from sphinx_toolbox.testing import HTMLRegressionFixture
 
 
 def test_build_example(testing_app):
@@ -16,17 +15,17 @@ def test_build_example(testing_app):
 
 
 @pytest.mark.parametrize("page", ["confval.html"], indirect=True)
-def test_confval_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_confval_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "Confval" == title
 
 	# Testing the actual content with check_html_regression
-	check_html_regression(page, file_regression)
+	html_regression.check(page)
 
 
 @pytest.mark.parametrize("page", ["shields.html"], indirect=True)
-def test_shields_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_shields_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - Shields" == title
@@ -35,11 +34,11 @@ def test_shields_html_output(page: BeautifulSoup, file_regression: FileRegressio
 	assert list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
 
 	# Testing the actual content with check_html_regression
-	check_html_regression(page, file_regression)
+	html_regression.check(page)
 
 
 @pytest.mark.parametrize("page", ["code-block.html"], indirect=True)
-def test_code_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_code_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - Code" == title
@@ -47,11 +46,11 @@ def test_code_html_output(page: BeautifulSoup, file_regression: FileRegressionFi
 	assert list(filter(lambda a: a != '\n', page.select("div.body div#sphinx-toolbox-demo-code")[0].contents))[1:]
 
 	# Testing the actual content with check_html_regression
-	check_html_regression(page, file_regression)
+	html_regression.check(page)
 
 
 @pytest.mark.parametrize("page", ["example.html"], indirect=True)
-def test_example_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_example_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - reST Example" == title
@@ -77,11 +76,11 @@ def test_example_html_output(page: BeautifulSoup, file_regression: FileRegressio
 	assert body[3].contents == []
 
 	# Testing the actual content with check_html_regression
-	check_html_regression(page, file_regression)
+	html_regression.check(page)
 
 
 @pytest.mark.parametrize("page", ["installation.html"], indirect=True)
-def test_installation_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_installation_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - Installation" == title
@@ -90,37 +89,37 @@ def test_installation_html_output(page: BeautifulSoup, file_regression: FileRegr
 	assert list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
 
 	# Testing the actual content with check_html_regression
-	check_html_regression(page, file_regression)
+	html_regression.check(page)
 
 
 @pytest.mark.parametrize("page", ["augment-defaults.html"], indirect=True)
-def test_augment_defaults_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_augment_defaults_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "Autodoc Augment Defaults" == title
 
 	# Testing the actual content with check_html_regression
-	check_html_regression(page, file_regression)
+	html_regression.check(page)
 
 
 @pytest.mark.parametrize("page", ["wikipedia.html"], indirect=True)
-def test_wikipedia_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_wikipedia_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - Wikipedia" == title
 
 	# Testing the actual content with check_html_regression
-	check_html_regression(page, file_regression)
+	html_regression.check(page)
 
 
 @pytest.mark.parametrize("page", ["formatting.html"], indirect=True)
-def test_formatting_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_formatting_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
 	title = page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - Formatting" == title
 
 	# Testing the actual content with check_html_regression
-	check_html_regression(page, file_regression)
+	html_regression.check(page)
 
 
 @pytest.mark.parametrize(
@@ -150,33 +149,33 @@ def test_formatting_html_output(page: BeautifulSoup, file_regression: FileRegres
 				],
 		indirect=True
 		)
-def test_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	"""
 	Parametrize new files here rather than as their own function.
 	"""
 
-	check_html_regression(page, file_regression)
+	html_regression.check(page)
 
 
 @pytest.mark.skipif(condition=sys.version_info < (3, 7), reason="Output differs for Py36")
 @pytest.mark.parametrize("page", ["genericalias.html"], indirect=True)
-def test_genericalias_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
-	check_html_regression(page, file_regression)
+def test_genericalias_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
+	html_regression.check(page)
 
 
 @pytest.mark.skipif(condition=sys.version_info[:2] != (3, 6), reason="Output differs for Py36")
 @pytest.mark.parametrize("page", ["generic_bases.html"], indirect=True)
-def test_generic_bases_html_output_36(page: BeautifulSoup, file_regression: FileRegressionFixture):
-	check_html_regression(page, file_regression)
+def test_generic_bases_html_output_36(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
+	html_regression.check(page)
 
 
 @pytest.mark.skipif(condition=sys.version_info[:2] != (3, 7), reason="Output differs for Py37")
 @pytest.mark.parametrize("page", ["generic_bases.html"], indirect=True)
-def test_generic_bases_html_output_37(page: BeautifulSoup, file_regression: FileRegressionFixture):
-	check_html_regression(page, file_regression)
+def test_generic_bases_html_output_37(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
+	html_regression.check(page)
 
 
 @pytest.mark.skipif(condition=sys.version_info <= (3, 8), reason="Output differs for Py38")
 @pytest.mark.parametrize("page", ["generic_bases.html"], indirect=True)
-def test_generic_bases_html_output(page: BeautifulSoup, file_regression: FileRegressionFixture):
-	check_html_regression(page, file_regression)
+def test_generic_bases_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
+	html_regression.check(page)

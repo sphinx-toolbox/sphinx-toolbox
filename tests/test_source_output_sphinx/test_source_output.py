@@ -1,10 +1,9 @@
 # 3rd party
 import pytest
 from bs4 import BeautifulSoup  # type: ignore
-from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
-from sphinx_toolbox.testing import check_html_regression
+from sphinx_toolbox.testing import HTMLRegressionFixture
 
 
 def test_build_sphinx(sphinx_src_app):
@@ -14,7 +13,7 @@ def test_build_sphinx(sphinx_src_app):
 
 
 @pytest.mark.parametrize("sphinx_source_page", ["index.html"], indirect=True)
-def test_output_sphinx(sphinx_source_page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_output_sphinx(sphinx_source_page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
 	title = sphinx_source_page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - Sphinx source" == title
@@ -32,4 +31,4 @@ def test_output_sphinx(sphinx_source_page: BeautifulSoup, file_regression: FileR
 
 	assert tag_count == 2
 
-	check_html_regression(sphinx_source_page, file_regression)
+	html_regression.check(sphinx_source_page)

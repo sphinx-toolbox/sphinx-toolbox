@@ -1,10 +1,9 @@
 # 3rd party
 import pytest
 from bs4 import BeautifulSoup  # type: ignore
-from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
-from sphinx_toolbox.testing import check_html_regression
+from sphinx_toolbox.testing import HTMLRegressionFixture
 
 
 def test_build_github(gh_src_app):
@@ -14,7 +13,7 @@ def test_build_github(gh_src_app):
 
 
 @pytest.mark.parametrize("github_source_page", ["index.html"], indirect=True)
-def test_output_github(github_source_page: BeautifulSoup, file_regression: FileRegressionFixture):
+def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
 	title = github_source_page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - GitHub Issues" == title
@@ -43,4 +42,4 @@ def test_output_github(github_source_page: BeautifulSoup, file_regression: FileR
 			'class="reference external" href="https://github.com/pytest-dev/pytest/issues/7671">#7671</a></abbr></p>',
 			]
 
-	check_html_regression(github_source_page, file_regression)
+	html_regression.check(github_source_page)

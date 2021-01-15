@@ -50,6 +50,7 @@ extensions = [
 		"sphinx_toolbox.tweaks.param_dash",
 		"sphinx_toolbox.pre_commit",
 		"sphinx_toolbox.flake8",
+		"sphinx_autofixture",
 		]
 
 sphinxemoji_style = "twemoji"
@@ -66,6 +67,8 @@ pygments_style = "default"
 intersphinx_mapping = {
 		"python": ("https://docs.python.org/3/", None),
 		"sphinx": ("https://www.sphinx-doc.org/en/stable/", None),
+		"pytest": ("https://docs.pytest.org/en/stable", None),
+		"pytest-regressions": ("https://pytest-regressions.readthedocs.io/en/latest/", None),
 		}
 
 html_theme = "domdf_sphinx_theme"
@@ -136,3 +139,4 @@ autodoc_default_options = {
 		}
 
 html_logo = "../sphinx_toolbox.png"
+toctree_plus_types.add("fixture")

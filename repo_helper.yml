@@ -26,7 +26,7 @@ additional_ignore:
 
 extras_require:
   testing:
-    - pygments
+    - pygments>=2.7.4
     - pytest>=6.0.0
     - pytest-regressions>=2.0.2
     - domdf-python-tools[testing]>=1.5.0
@@ -38,6 +38,7 @@ extra_sphinx_extensions:
   - sphinx_toolbox.tweaks.param_dash
   - sphinx_toolbox.pre_commit
   - sphinx_toolbox.flake8
+  - sphinx_autofixture
 
 #manifest_additional:
 #  - include sphinx_toolbox/more_autodoc/regex.css
@@ -47,6 +48,7 @@ tox_unmanaged:
 
 sphinx_conf_epilogue:
   - html_logo = "../sphinx_toolbox.png"
+  - toctree_plus_types.add("fixture")
 
 keywords:
   - sphinx
@@ -68,3 +70,7 @@ classifiers:
  - 'Topic :: Software Development :: Documentation'
  - 'Topic :: Software Development :: Libraries :: Python Modules'
  - "Topic :: Utilities"
+
+intersphinx_mapping:
+ - "'pytest': ('https://docs.pytest.org/en/stable', None)"
+ - "'pytest-regressions': ('https://pytest-regressions.readthedocs.io/en/latest/', None)"

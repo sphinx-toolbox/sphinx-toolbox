@@ -32,7 +32,15 @@ repo_root = pathlib.Path(__file__).parent
 install_requires = (repo_root / "requirements.txt").read_text(encoding="utf-8").split('\n')
 extras_require = {
 		"testing": [
-				"pygments", "pytest>=6.0.0", "pytest-regressions>=2.0.2", "domdf-python-tools[testing]>=1.5.0"
+				"pygments>=2.7.4",
+				"pytest>=6.0.0",
+				"pytest-regressions>=2.0.2",
+				"domdf-python-tools[testing]>=1.5.0"
 				],
-		"all": ["domdf-python-tools[testing]>=1.5.0", "pygments", "pytest-regressions>=2.0.2", "pytest>=6.0.0"]
+		"all": [
+				"domdf-python-tools[testing]>=1.5.0",
+				"pygments>=2.7.4",
+				"pytest-regressions>=2.0.2",
+				"pytest>=6.0.0"
+				]
 		}
