@@ -39,8 +39,8 @@ extra_sphinx_extensions:
   - sphinx_toolbox.pre_commit
   - sphinx_toolbox.flake8
 
-manifest_additional:
-  - include sphinx_toolbox/more_autodoc/regex.css
+#manifest_additional:
+#  - include sphinx_toolbox/more_autodoc/regex.css
 
 tox_unmanaged:
   - flake8

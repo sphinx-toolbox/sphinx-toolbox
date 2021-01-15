@@ -101,7 +101,6 @@ Usage
 
 # stdlib
 import itertools
-import pathlib
 import re
 import sre_parse
 from sre_constants import (
@@ -133,15 +132,15 @@ from textwrap import dedent
 from typing import Any, Callable, List, Pattern, Tuple
 
 # 3rd party
-import importlib_resources
+import dict2css
 from consolekit.terminal_colours import Fore
 from docutils import nodes
 from docutils.nodes import Node, system_message
 from docutils.parsers.rst import roles
+from domdf_python_tools.paths import PathPlus
 from sphinx.application import Sphinx
 from sphinx.ext.autodoc import UNINITIALIZED_ATTR, ModuleDocumenter
 from sphinx.util.docutils import SphinxRole
-from sphinx.util.fileutil import copy_asset
 from sphinx.writers.html import HTMLTranslator
 
 # this package
@@ -157,6 +156,7 @@ __all__ = [
 		"parse_regex_flags",
 		"no_formatting",
 		"span",
+		"copy_asset_files",
 		"setup",
 		]
 
@@ -708,22 +708,36 @@ def depart_regex_node(translator: HTMLTranslator, node: RegexNode):
 	translator.body.pop(-1)
 
 
-def copy_asset_files(app: Sphinx, exc):
+def copy_asset_files(app: Sphinx, exception: Exception = None):
 	"""
 	Copy additional stylesheets into the HTML build directory.
 
-	:param app: The Sphinx app.
-	:param exc:
+	:param app: The Sphinx application.
+	:param exception: Any exception which occurred and caused Sphinx to abort.
 
 	.. versionadded:: 1.2.0
 	"""
 
-	# this package
-	import sphinx_toolbox.more_autodoc
+	if exception:  # pragma: no cover
+		return
 
-	if exc is None:  # build succeeded
-		with importlib_resources.path(sphinx_toolbox.more_autodoc, "regex.css") as cssfile:
-			copy_asset(str(pathlib.Path(cssfile)), str(pathlib.Path(app.outdir) / "_static"))
+	style = {
+			"span.regex_literal": {"color": "dimgrey"},
+			"span.regex_at": {"color": "orangered"},
+			"span.regex_repeat_brace": {"color": "orangered"},
+			"span.regex_branch": {"color": "orangered"},
+			"span.regex_subpattern": {"color": "dodgerblue"},
+			"span.regex_in": {"color": "darkorange"},
+			"span.regex_category": {"color": "darkseagreen"},
+			"span.regex_repeat": {"color": "orangered"},
+			"span.regex_any": {"color": "orangered"},
+			"code.regex": {"font-size": "80%"},
+			"span.regex": {"font-weight": "bold"},
+			}
+
+	static_dir = PathPlus(app.outdir) / "_static"
+	static_dir.maybe_make(parents=True)
+	(static_dir / "regex.css").write_clean(dict2css.dumps(style, minify=True))
 
 
 regex_parser = HTMLRegexParser()
