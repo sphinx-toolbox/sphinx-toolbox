@@ -690,8 +690,8 @@ class HTMLRegressionFixture(FileRegressionFixture):
 			if "_static/language_data.js" in str(div):
 				div.extract()
 
-		kwargs.pop("encoding")
-		kwargs.pop("extension")
+		kwargs.pop("encoding", None)
+		kwargs.pop("extension", None)
 
 		super().check(
 				str(StringList(page.prettify())),
