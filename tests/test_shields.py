@@ -15,7 +15,6 @@ def test_setup():
 
 	assert directives == {
 			"rtfd-shield": shields.RTFDShield,
-			"travis-shield": shields.TravisShield,
 			"actions-shield": shields.GitHubActionsShield,
 			"requires-io-shield": shields.RequiresIOShield,
 			"coveralls-shield": shields.CoverallsShield,

@@ -12,15 +12,10 @@ sphinx-toolbox Demo - Shields
 	:project: sphinx-toolbox
 	:version: 3.x
 
-.. travis-shield::
-	:alt: Travis Build Status
-
-.. travis-shield::
-	:alt: Travis Build Status
-	:branch: dev
-	:username: octocat
-	:repository: hello_world
-	:travis-site: org
+.. pre-commit-ci-shield::
+	:username: sphinx-toolbox
+	:repository: sphinx-toolbox
+	:branch: master
 
 .. actions-shield::
 	:workflow: Docs Check

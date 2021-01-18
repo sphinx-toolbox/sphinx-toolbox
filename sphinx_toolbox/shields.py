@@ -79,38 +79,6 @@ All shields have the following options:
 			:target: https://www.attrs.org/
 
 
-.. rst:directive:: travis-shield
-
-	Shield to show the `Travis CI <https://travis-ci.com/>`_ build status.
-
-	.. rst:directive:option:: username
-
-		The GitHub username. Defaults to :confval:`github_username`.
-
-	.. rst:directive:option:: repository
-
-		The GitHub repository. Defaults to :confval:`github_repository`.
-
-	.. rst:directive:option:: branch
-
-		The branch to show the build status for. Default ``master``.
-
-	.. rst:directive:option:: travis-site
-
-		The Travis CI site, either ``com`` or ``org``. Default ``com``.
-
-
-	**Example**
-
-	.. rest-example::
-
-		.. travis-shield::
-
-	.. deprecated:: 1.8.0
-
-		Travis CI is no longer free: https://blog.travis-ci.com/2020-11-02-travis-ci-new-billing
-
-
 .. rst:directive:: actions-shield
 
 	Shield to show the *GitHub Actions* build status.
@@ -412,7 +380,6 @@ __all__ = [
 		"Shield",
 		"GitHubBackedShield",
 		"RTFDShield",
-		"TravisShield",
 		"GitHubActionsShield",
 		"RequiresIOShield",
 		"CoverallsShield",
@@ -560,50 +527,6 @@ class RTFDShield(Shield):
 
 		if "target" not in self.options:
 			self.options["target"] = f"https://{project}.readthedocs.io/en/{version}/"
-
-		return super().run()
-
-
-class TravisShield(GitHubBackedShield):
-	"""
-	Shield to show the `Travis CI <https://travis-ci.com/>`_ build status.
-
-	.. deprecated:: 1.8.0
-
-		Travis CI is no longer free: https://blog.travis-ci.com/2020-11-02-travis-ci-new-billing
-	"""
-
-	option_spec: OptionSpec = {
-			"username": str,  # Defaults to "github_username" if undefined
-			"repository": str,  # Defaults to "github_repository" if undefined
-			"branch": str,
-			"travis-site": str,  # either com or org, default com
-			**shield_default_option_spec,
-			}
-
-	@deprecated(
-			deprecated_in="1.8.0",
-			removed_in="2.0.0",
-			current_version="1.9.0",
-			details="Travis CI is no longer free.",
-			name=".. travis-shield::"
-			)
-	def run(self) -> List[nodes.Node]:
-		"""
-		Process the content of the shield directive.
-		"""
-
-		username, repository = self.get_repo_details()
-
-		branch = self.options.pop("branch", "master")
-		site = self.options.pop("travis-site", "com")
-
-		if site == "com":
-			self.arguments = [SHIELDS_IO / "travis" / "com" / username / repository / f"{branch}?logo=travis"]
-		else:
-			self.arguments = [SHIELDS_IO / "travis" / username / repository / f"{branch}?logo=travis"]
-
-		self.options["target"] = f"https://travis-ci.com/{username}/{repository}"
 
 		return super().run()
 
@@ -918,7 +841,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	# Shields/badges
 	app.add_directive("rtfd-shield", RTFDShield)
-	app.add_directive("travis-shield", TravisShield)
 	app.add_directive("actions-shield", GitHubActionsShield)
 	app.add_directive("requires-io-shield", RequiresIOShield)
 	app.add_directive("coveralls-shield", CoverallsShield)
