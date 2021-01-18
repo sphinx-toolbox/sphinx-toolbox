@@ -126,9 +126,15 @@ from sphinx.locale import _
 from sphinx.pycode import ModuleAnalyzer
 
 # this package
-from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
-from sphinx_toolbox.utils import Param, SphinxExtMetadata, baseclass_is_private, is_namedtuple, parse_parameters
+from sphinx_toolbox.utils import (
+		Param,
+		SphinxExtMetadata,
+		baseclass_is_private,
+		is_namedtuple,
+		metadata_add_version,
+		parse_parameters
+		)
 
 __all__ = ["NamedTupleDocumenter", "setup"]
 
@@ -356,6 +362,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		return [d for d in documenters if d[0].name.split('.')[-1] not in fields]
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.autonamedtuple`.
@@ -374,7 +381,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.add_autodocumenter(NamedTupleDocumenter)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

@@ -57,11 +57,12 @@ from sphinx.application import Sphinx
 from sphinx.parsers import RSTParser
 
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["setup"]
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.tweaks.tabsize`.
@@ -71,9 +72,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	.. versionadded:: 1.0.0
 	"""
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	class CustomRSTParser(RSTParser):
 
 		def parse(self, inputstring: Union[str, StringList], document: document) -> None:
@@ -82,7 +80,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.add_source_parser(CustomRSTParser, override=True)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

@@ -111,8 +111,7 @@ from sphinx.ext.autodoc import ClassDocumenter, DataDocumenter, Documenter, Modu
 from sphinx.ext.autosummary import Autosummary, FakeDirective
 
 # this package
-from sphinx_toolbox import __version__
-from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add, get_first_matching
+from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add, get_first_matching, metadata_add_version
 
 __all__ = ["setup", "PatchedAutosummary", "PatchedAutoSummClassDocumenter", "get_documenter"]
 
@@ -280,6 +279,7 @@ class PatchedAutoSummClassDocumenter(autodocsumm.AutoSummClassDocumenter):
 			self.add_autosummary()
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autosummary`.
@@ -301,7 +301,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 			ENUM("alphabetic", "alphabetical", "bysource"),
 			)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

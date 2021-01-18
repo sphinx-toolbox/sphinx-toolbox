@@ -601,11 +601,12 @@ def metadata_add_version(func: SetupFunc) -> SetupFunc:
 	:param func:
 	"""  # noqa: D400
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	@functools.wraps(func)
 	def wrapper(app: Sphinx):
+
+		# this package
+		from sphinx_toolbox import __version__
+
 		ret = func(app) or {}
 		ret["version"] = __version__
 		return ret

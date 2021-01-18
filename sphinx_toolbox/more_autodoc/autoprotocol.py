@@ -141,8 +141,13 @@ from sphinx.locale import _
 from sphinx.util.inspect import getdoc, safe_getattr
 
 # this package
-from sphinx_toolbox import __version__
-from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add, filter_members_warning, flag
+from sphinx_toolbox.utils import (
+		SphinxExtMetadata,
+		allow_subclass_add,
+		filter_members_warning,
+		flag,
+		metadata_add_version
+		)
 
 if sys.version_info < (3, 8):  # pragma: no cover (>=py38)
 	# 3rd party
@@ -333,6 +338,7 @@ class ProtocolDocumenter(ClassDocumenter):
 		return ret
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.autoprocotol`.
@@ -348,7 +354,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	allow_subclass_add(app, ProtocolDocumenter)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

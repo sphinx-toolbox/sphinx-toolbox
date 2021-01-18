@@ -55,7 +55,7 @@ from sphinx.locale import _
 # this package
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.more_autosummary import PatchedAutoSummClassDocumenter
-from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add
+from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add, metadata_add_version
 
 if sys.version_info >= (3, 8):
 	# stdlib
@@ -107,6 +107,7 @@ class GenericBasesClassDocumenter(PatchedAutoSummClassDocumenter):
 				self.add_line("   " + _("Bases: %s") % ", ".join(bases), sourcename)
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.generic_bases`.
@@ -116,15 +117,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	.. versionadded:: 1.5.0
 	"""
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	allow_subclass_add(app, GenericBasesClassDocumenter)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}
 
 
 class Example(List[Tuple[str, float, List[str]]]):

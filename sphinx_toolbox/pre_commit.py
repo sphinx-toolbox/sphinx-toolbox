@@ -109,7 +109,7 @@ from sphinx.util.docutils import SphinxDirective
 from typing_extensions import TypedDict
 
 # this package
-from sphinx_toolbox.utils import Purger, SphinxExtMetadata, make_github_url
+from sphinx_toolbox.utils import Purger, SphinxExtMetadata, make_github_url, metadata_add_version
 
 __all__ = [
 		"pre_commit_node_purger",
@@ -252,6 +252,7 @@ class Flake8PreCommitDirective(SphinxDirective):
 		return [pre_commit_node]
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.pre_commit`.
@@ -259,15 +260,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx app.
 	"""
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	app.add_directive("pre-commit", PreCommitDirective)
 	app.add_directive("pre-commit:flake8", Flake8PreCommitDirective)
 	app.connect("env-purge-doc", pre_commit_node_purger.purge_nodes)
 	app.connect("env-purge-doc", pre_commit_f8_node_purger.purge_nodes)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

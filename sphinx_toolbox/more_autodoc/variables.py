@@ -123,9 +123,8 @@ from sphinx.ext.autodoc.directive import DocumenterBridge
 from sphinx.util.inspect import ForwardRef, object_description, safe_getattr
 
 # this package
-from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
-from sphinx_toolbox.utils import SphinxExtMetadata, flag
+from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = [
 		"VariableDocumenter",
@@ -473,6 +472,7 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 				)
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.variables`.
@@ -486,7 +486,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_autodocumenter(InstanceAttributeDocumenter, override=True)
 	app.add_autodocumenter(SlotsAttributeDocumenter, override=True)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

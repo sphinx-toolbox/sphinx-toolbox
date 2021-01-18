@@ -372,7 +372,7 @@ from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
 # this package
-from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, flag, make_github_url
+from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, flag, make_github_url, metadata_add_version
 
 __all__ = [
 		"SHIELDS_IO",
@@ -827,15 +827,13 @@ class PreCommitCIShield(GitHubBackedShield):
 		return super().run()
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.shields`.
 
 	:param app: The Sphinx app.
 	"""
-
-	# this package
-	from sphinx_toolbox import __version__
 
 	app.setup_extension("sphinx_toolbox.github")
 
@@ -851,7 +849,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_directive("pre-commit-shield", PreCommitShield)
 	app.add_directive("pre-commit-ci-shield", PreCommitCIShield)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

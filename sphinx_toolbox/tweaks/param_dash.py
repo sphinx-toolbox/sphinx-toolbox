@@ -85,7 +85,7 @@ from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["make_field", "setup"]
 
@@ -143,6 +143,7 @@ def make_field(  # noqa D102
 	return nodes.field('', fieldname, fieldbody)
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.param_dash`.
@@ -150,12 +151,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx application.
 	"""
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	sphinx.util.docfields.TypedField.make_field = make_field  # type: ignore
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

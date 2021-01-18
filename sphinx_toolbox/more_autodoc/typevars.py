@@ -113,11 +113,10 @@ from sphinx.ext.autodoc import DataDocumenter
 from typing_extensions import Protocol
 
 # this package
-from sphinx_toolbox import __version__
 from sphinx_toolbox.config import ToolboxConfig
 from sphinx_toolbox.more_autodoc.typehints import ForwardRef, format_annotation
 from sphinx_toolbox.more_autodoc.variables import VariableDocumenter
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = [
 		"TypeVarDocumenter",
@@ -334,6 +333,7 @@ def unskip_typevars(
 	return None
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.typevars`.
@@ -350,10 +350,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.connect("config-inited", validate_config, priority=850)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}
 
 
 class _TypeVar(Protocol):

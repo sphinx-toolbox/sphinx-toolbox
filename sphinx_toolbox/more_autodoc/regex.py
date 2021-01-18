@@ -144,9 +144,8 @@ from sphinx.util.docutils import SphinxRole
 from sphinx.writers.html import HTMLTranslator
 
 # this package
-from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.variables import VariableDocumenter
-from sphinx_toolbox.utils import SphinxExtMetadata, flag
+from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = [
 		"RegexDocumenter",
@@ -743,6 +742,7 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 regex_parser = HTMLRegexParser()
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.regex`.
@@ -766,7 +766,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_css_file("regex.css")
 	app.connect("build-finished", copy_asset_files)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

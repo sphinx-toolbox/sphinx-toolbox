@@ -84,7 +84,7 @@ from sphinx.application import Sphinx
 from sphinx.util import split_explicit_title
 
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["source_role"]
 
@@ -161,15 +161,13 @@ def source_role(
 	return nodes_, messages
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.source`.
 
 	:param app: The Sphinx app.
 	"""
-
-	# this package
-	from sphinx_toolbox import __version__
 
 	# Link to source code
 	app.add_role("source", source_role)
@@ -179,7 +177,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.setup_extension("sphinx_toolbox.github")
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

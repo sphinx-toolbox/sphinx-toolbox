@@ -86,7 +86,7 @@ from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
 # this package
-from sphinx_toolbox.utils import OptionSpec, Purger, SphinxExtMetadata
+from sphinx_toolbox.utils import OptionSpec, Purger, SphinxExtMetadata, metadata_add_version
 
 __all__ = ["reSTExampleDirective", "make_rest_example", "rest_example_purger", "setup"]
 
@@ -172,6 +172,7 @@ def make_rest_example(
 rest_example_purger = Purger("all_rest_example_nodes")
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.rest_example`.
@@ -181,16 +182,10 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	.. versionadded:: 0.7.0
 	"""
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	# Hack to get the docutils tab size, as there doesn't appear to be any other way
 	app.setup_extension("sphinx_toolbox.tweaks.tabsize")
 
 	app.add_directive("rest-example", reSTExampleDirective)
 	app.connect("env-purge-doc", rest_example_purger.purge_nodes)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

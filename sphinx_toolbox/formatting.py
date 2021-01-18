@@ -69,7 +69,7 @@ from sphinx.writers.html import HTMLTranslator
 from sphinx.writers.latex import LaTeXTranslator
 
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = [
 		"ItalicAbbreviationNode",
@@ -183,6 +183,7 @@ def latex_depart_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviatio
 	translator.body.append('}')
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.formatting`.
@@ -192,9 +193,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	.. versionadded:: 0.2.0
 	"""
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	roles.register_local_role("iabbr", ItalicAbbreviation())
 	app.add_node(
 			ItalicAbbreviationNode,
@@ -202,7 +200,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 			latex=(latex_visit_iabbr_node, latex_depart_iabbr_node),
 			)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

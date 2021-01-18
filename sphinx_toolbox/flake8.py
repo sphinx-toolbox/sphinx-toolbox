@@ -67,7 +67,7 @@ from sphinx.ext.autodoc.importer import import_module
 from sphinx.util.docutils import SphinxDirective
 
 # this package
-from sphinx_toolbox.utils import Purger, SphinxExtMetadata
+from sphinx_toolbox.utils import Purger, SphinxExtMetadata, metadata_add_version
 
 __all__ = ["Flake8CodesDirective", "setup"]
 
@@ -108,6 +108,10 @@ class Flake8CodesDirective(SphinxDirective):
 				except AttributeError:
 					warnings.warn(f"No such code {code!r}")
 
+		if not codes:
+			warnings.warn("No codes specified")
+			return []
+
 		targetid = f'flake8codes-{self.env.new_serialno("flake8codes"):d}'
 		targetnode = nodes.section(ids=[targetid])
 
@@ -123,6 +127,7 @@ class Flake8CodesDirective(SphinxDirective):
 		return [table_node]
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.flake8`.
@@ -130,13 +135,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx app.
 	"""
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	app.add_directive("flake8-codes", Flake8CodesDirective)
 	app.connect("env-purge-doc", table_node_purger.purge_nodes)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

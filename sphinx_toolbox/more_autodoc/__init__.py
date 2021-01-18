@@ -60,12 +60,12 @@ Extensions to :mod:`sphinx.ext.autodoc`.
 from sphinx.application import Sphinx
 
 # this package
-from sphinx_toolbox import __version__
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["setup"]
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc`.
@@ -88,7 +88,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("sphinx_toolbox.more_autodoc.overloads")
 	app.setup_extension("sphinx_toolbox.more_autodoc.generic_bases")
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

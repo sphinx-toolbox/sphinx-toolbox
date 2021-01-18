@@ -87,7 +87,7 @@ from sphinx.util.inspect import evaluate_signature, safe_getattr, stringify_sign
 
 # this package
 from sphinx_toolbox.more_autodoc.typehints import default_preprocessors, format_annotation
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = [
 		"OverloadMixin",
@@ -396,6 +396,7 @@ class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):
 		return super().process_overload_signature(overload)
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.overloads`.
@@ -405,14 +406,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	.. versionadded:: 1.4.0
 	"""
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	app.add_autodocumenter(FunctionDocumenter, override=True)
 	app.add_autodocumenter(MethodDocumenter, override=True)
 	app.add_config_value("overloads_location", "signature", "env")  # top (of body), bottom (of body)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

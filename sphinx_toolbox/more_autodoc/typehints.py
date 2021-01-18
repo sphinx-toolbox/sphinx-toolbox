@@ -139,8 +139,13 @@ from sphinx.util.inspect import signature as Signature
 from sphinx.util.inspect import stringify_signature
 
 # this package
-from sphinx_toolbox import __version__
-from sphinx_toolbox.utils import SphinxExtMetadata, code_repr, escape_trailing__, is_namedtuple
+from sphinx_toolbox.utils import (
+		SphinxExtMetadata,
+		code_repr,
+		escape_trailing__,
+		is_namedtuple,
+		metadata_add_version
+		)
 
 try:
 	# 3rd party
@@ -672,6 +677,7 @@ def process_docstring(
 					lines.insert(insert_index, f":rtype: {formatted_annotation}")
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.typehints`.
@@ -693,10 +699,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.add_config_value("hide_none_rtype", False, "env", [bool])
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}
 
 
 def _class_get_type_hints(obj, globalns=None, localns=None):

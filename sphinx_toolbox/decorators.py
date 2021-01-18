@@ -92,8 +92,7 @@ from sphinx.domains.python import PyXRefRole
 from sphinx.environment import BuildEnvironment
 
 # this package
-from sphinx_toolbox import __version__
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["PyDecoXRefRole", "setup"]
 
@@ -128,6 +127,7 @@ class PyDecoXRefRole(PyXRefRole):
 		return title, target
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.decorators`.
@@ -137,7 +137,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.add_role_to_domain("py", "deco", PyDecoXRefRole())
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

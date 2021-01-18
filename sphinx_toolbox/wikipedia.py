@@ -87,7 +87,7 @@ from sphinx.application import Sphinx
 from sphinx.util.nodes import split_explicit_title
 
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["make_wikipedia_link", "setup"]
 
@@ -141,6 +141,7 @@ def make_wikipedia_link(
 	return [node], []
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.wikipedia`.
@@ -150,13 +151,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	.. versionadded:: 1.0.0
 	"""
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	app.add_role("wikipedia", make_wikipedia_link)
 	app.add_config_value("wikipedia_lang", "en", "env", [str])
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

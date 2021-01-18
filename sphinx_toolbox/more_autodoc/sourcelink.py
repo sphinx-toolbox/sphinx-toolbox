@@ -59,7 +59,7 @@ import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata, flag
+from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = ["sourcelinks_process_docstring", "setup"]
 
@@ -92,15 +92,13 @@ def sourcelinks_process_docstring(
 		lines.insert(3, '')
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.sourcelink`.
 
 	:param app: The Sphinx app.
 	"""
-
-	# this package
-	from sphinx_toolbox import __version__
 
 	sphinx.ext.autodoc.ModuleDocumenter.option_spec["sourcelink"] = flag
 
@@ -110,7 +108,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.connect("autodoc-process-docstring", sourcelinks_process_docstring)
 	app.add_config_value("autodoc_show_sourcelink", False, "env", [bool])
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

@@ -74,7 +74,7 @@ from sphinx.application import Sphinx
 
 # this package
 from sphinx_toolbox.config import MissingOptionError, ToolboxConfig
-from sphinx_toolbox.utils import SphinxExtMetadata, make_github_url
+from sphinx_toolbox.utils import SphinxExtMetadata, make_github_url, metadata_add_version
 
 __all__ = ["validate_config", "setup"]
 
@@ -106,6 +106,7 @@ def validate_config(app: Sphinx, config: ToolboxConfig):
 	config.github_pull_url = config.github_url / "pull"
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.github`.
@@ -115,15 +116,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	.. versionadded:: 1.0.0
 	"""
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	app.connect("config-inited", validate_config, priority=850)
 
 	app.add_config_value("github_username", None, "env", types=[str])
 	app.add_config_value("github_repository", None, "env", types=[str])
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

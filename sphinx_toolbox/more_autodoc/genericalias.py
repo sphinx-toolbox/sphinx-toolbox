@@ -75,9 +75,8 @@ from sphinx.ext.autodoc.directive import DocumenterBridge  # noqa: F401
 from sphinx.locale import _
 
 # this package
-from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["PrettyGenericAliasDocumenter", "setup"]
 
@@ -103,6 +102,7 @@ class PrettyGenericAliasDocumenter(GenericAliasDocumenter):  # pragma: no cover 
 		DataDocumenter.add_content(self, content)
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.genericalias`.
@@ -113,7 +113,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("sphinx.ext.autodoc")
 	app.add_autodocumenter(PrettyGenericAliasDocumenter, override=True)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

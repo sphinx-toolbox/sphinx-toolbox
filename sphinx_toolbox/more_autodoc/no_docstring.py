@@ -38,7 +38,7 @@ import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata, flag
+from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = ["automodule_add_nodocstring", "no_docstring_process_docstring", "setup"]
 
@@ -90,6 +90,7 @@ def no_docstring_process_docstring(
 			lines.clear()
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.no_docstring`.
@@ -97,12 +98,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx app.
 	"""
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	automodule_add_nodocstring(app)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}
