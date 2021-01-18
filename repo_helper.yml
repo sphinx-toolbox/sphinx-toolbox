@@ -74,6 +74,3 @@ classifiers:
 intersphinx_mapping:
  - "'pytest': ('https://docs.pytest.org/en/stable', None)"
  - "'pytest-regressions': ('https://pytest-regressions.readthedocs.io/en/latest/', None)"
-
-exclude_files:
- - rtfd
