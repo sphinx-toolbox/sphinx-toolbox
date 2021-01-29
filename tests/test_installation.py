@@ -191,6 +191,7 @@ def test_setup():
 					EventListener(id=0, handler=installation.installation_node_purger.purge_nodes, priority=500),
 					EventListener(id=1, handler=installation.extensions_node_purger.purge_nodes, priority=500),
 					],
+			"build-finished": [EventListener(id=2, handler=installation.copy_asset_files, priority=500), ]
 			}
 
 	assert app.config.values["conda_channels"] == ([], "env", [list])

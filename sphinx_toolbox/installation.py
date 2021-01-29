@@ -156,10 +156,12 @@ import warnings
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 # 3rd party
+import dict2css
 import sphinx.environment
 from docutils import nodes
 from docutils.parsers.rst import directives
 from docutils.statemachine import ViewList
+from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from domdf_python_tools.words import word_join
 from sphinx.application import Sphinx
@@ -180,8 +182,12 @@ __all__ = [
 		"github_installation",
 		"installation_node_purger",
 		"extensions_node_purger",
+		"copy_asset_files",
 		"setup",
 		]
+
+installation_node_purger = Purger("all_installation_node_nodes")
+extensions_node_purger = Purger("all_extensions_node_nodes")
 
 
 class Sources(List[Tuple[str, str, Callable, Callable, Optional[Dict[str, Callable]]]]):
@@ -526,8 +532,24 @@ class ExtensionsDirective(SphinxDirective):
 		return [targetnode, extensions_node]
 
 
-installation_node_purger = Purger("all_installation_node_nodes")
-extensions_node_purger = Purger("all_extensions_node_nodes")
+def copy_asset_files(app: Sphinx, exception: Exception = None):
+	"""
+	Copy additional stylesheets into the HTML build directory.
+
+	:param app: The Sphinx application.
+	:param exception: Any exception which occurred and caused Sphinx to abort.
+
+	.. versionadded:: 1.2.0
+	"""
+
+	if exception:  # pragma: no cover
+		return
+
+	style = {'div[id*="installation"] .sphinx-tabs-tab': {"color": "#2980b9"}}
+
+	static_dir = PathPlus(app.outdir) / "_static"
+	static_dir.maybe_make(parents=True)
+	(static_dir / "sphinx_toolbox_installation.css").write_clean(dict2css.dumps(style, minify=True))
 
 
 def setup(app: Sphinx) -> SphinxExtMetadata:
@@ -556,6 +578,10 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	# Instructions for enabling a sphinx extension
 	app.add_directive("extensions", ExtensionsDirective)
 	app.connect("env-purge-doc", extensions_node_purger.purge_nodes)
+
+	# Little CSS tweaks
+	app.add_css_file("sphinx_toolbox_installation.css")
+	app.connect("build-finished", copy_asset_files)
 
 	return {
 			"version": __version__,
