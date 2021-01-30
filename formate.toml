@@ -1,0 +1,71 @@
+[hooks]
+dynamic_quotes = 10
+collections-import-rewrite = 20
+reformat-generics = 40
+noqa-reformat = 60
+ellipsis-reformat = 70
+squish_stubs = 80
+
+[config]
+indent = "\t"
+line_length = 115
+
+[hooks.yapf]
+priority = 30
+
+[hooks.isort]
+priority = 50
+
+[hooks.yapf.kwargs]
+yapf_style = ".style.yapf"
+
+[hooks.isort.kwargs]
+indent = "\t\t"
+multi_line_output = 8
+import_heading_stdlib = "stdlib"
+import_heading_thirdparty = "3rd party"
+import_heading_firstparty = "this package"
+import_heading_localfolder = "this package"
+balanced_wrapping = false
+lines_between_types = 0
+use_parentheses = true
+remove_redundant_aliases = true
+default_section = "THIRDPARTY"
+known_third_party = [
+    "apeye",
+    "autodocsumm",
+    "beautifulsoup4",
+    "coincidence",
+    "consolekit",
+    "coverage",
+    "coverage_pyver_pragma",
+    "deprecation_alias",
+    "dict2css",
+    "docutils",
+    "docutils_stubs",
+    "domdf_python_tools",
+    "flake8_dunder_all",
+    "github",
+    "html5lib",
+    "hypothesis",
+    "importlib_resources",
+    "pprint36",
+    "pytest",
+    "pytest_cov",
+    "pytest_httpserver",
+    "pytest_randomly",
+    "pytest_regressions",
+    "pytest_rerunfailures",
+    "pytest_timeout",
+    "requests",
+    "ruamel_yaml",
+    "sphinx",
+    "sphinx_autodoc_typehints",
+    "sphinx_prompt",
+    "sphinx_tabs",
+    "sphobjinv",
+    "tabulate",
+    "typing_extensions",
+    "typing_inspect",
+]
+known_first_party = "sphinx_toolbox"

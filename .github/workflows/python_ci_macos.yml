@@ -43,3 +43,9 @@ jobs:
 
       - name: "Run Tests for Python ${{ matrix.config.python-version }}"
         run: python -m tox -e "${{ matrix.config.testenvs }}"
+
+      - name: "Upload Coverage 🚀"
+        uses: actions/upload-artifact@v2
+        with:
+          name: "coverage-${{ matrix.config.python-version }}"
+          path: .coverage
