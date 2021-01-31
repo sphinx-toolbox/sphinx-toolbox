@@ -3,7 +3,8 @@ Overview
 
 .. This file based on https://github.com/PyGithub/PyGithub/blob/master/CONTRIBUTING.md
 
-``sphinx-toolbox`` uses `tox <https://tox.readthedocs.io>`_ to automate testing and packaging, and `pre-commit <https://pre-commit.com>`_ to maintain code quality.
+``sphinx-toolbox`` uses `tox <https://tox.readthedocs.io>`_ to automate testing and packaging,
+and `pre-commit <https://pre-commit.com>`_ to maintain code quality.
 
 Install ``pre-commit`` with ``pip`` and install the git hook:
 
@@ -16,13 +17,13 @@ Install ``pre-commit`` with ``pip`` and install the git hook:
 Coding style
 --------------
 
-`yapf-isort <https://pypi.org/project/yapf-isort/>`_ is used for code formatting.
+`formate <https://formate.readthedocs.io>`_ is used for code formatting.
 
 It can be run manually via ``pre-commit``:
 
 .. prompt:: bash
 
-	pre-commit run yapf-isort -a
+	pre-commit run formate -a
 
 
 Or, to run the complete autoformatting suite:
@@ -35,7 +36,8 @@ Or, to run the complete autoformatting suite:
 Automated tests
 -------------------
 
-Tests are run with ``tox`` and ``pytest``. To run tests for a specific Python version, such as Python 3.6, run:
+Tests are run with ``tox`` and ``pytest``.
+To run tests for a specific Python version, such as Python 3.6:
 
 .. prompt:: bash
 

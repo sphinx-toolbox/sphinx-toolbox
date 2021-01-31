@@ -1,3 +1,4 @@
+coincidence>=0.1.0
 coverage>=5.1
 coverage-pyver-pragma>=0.0.6
 domdf-python-tools[testing]>=2.2.0
