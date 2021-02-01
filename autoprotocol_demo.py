@@ -12,18 +12,15 @@ class HasLessThan(Protocol):
 	:class:`typing.Protocol` for classes that support the ``<`` operator.
 	"""
 
-	def __lt__(self, other) -> bool:
-		...
+	def __lt__(self, other) -> bool: ...
 
 
 class HasGreaterThan(Protocol):
 
-	def __gt__(self, other) -> bool:
-		...
+	def __gt__(self, other) -> bool: ...
 
 
 @runtime_checkable
 class Frobnicater(Protocol):
 
-	def frobnicate(self, something) -> Any:
-		...
+	def frobnicate(self, something) -> Any: ...
