@@ -47,6 +47,7 @@ jobs:
 
       - name: "Upload Coverage 🚀"
         uses: actions/upload-artifact@v2
+        if: ${{ always() }}
         with:
           name: "coverage-${{ matrix.config.python-version }}"
           path: .coverage
