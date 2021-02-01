@@ -5,13 +5,11 @@ __all__ = ["serde", "Foo"]
 
 
 @overload
-def serde(cls: Type[object], from_key: str = ..., to_key: str = ...) -> Type[object]:
-	...  # pragma: no cover
+def serde(cls: Type[object], from_key: str = ..., to_key: str = ...) -> Type[object]: ...  # pragma: no cover
 
 
 @overload
-def serde(cls: None = None, from_key: str = ..., to_key: str = ...) -> Callable[[Type[object]], Type[object]]:
-	...  # pragma: no cover
+def serde(cls: None = None, from_key: str = ..., to_key: str = ...) -> Callable[[Type[object]], Type[object]]: ...  # pragma: no cover
 
 
 def serde(
@@ -48,12 +46,10 @@ def serde(
 class Foo:
 
 	@overload
-	def __getitem__(self, item: int) -> str:
-		...
+	def __getitem__(self, item: int) -> str: ...
 
 	@overload
-	def __getitem__(self, item: slice) -> List[str]:
-		...
+	def __getitem__(self, item: slice) -> List[str]: ...
 
 	def __getitem__(self, item: Union[int, slice]) -> Union[str, List[str]]:
 		"""
