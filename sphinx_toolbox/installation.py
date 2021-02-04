@@ -153,7 +153,7 @@ API Reference
 # stdlib
 import inspect
 import warnings
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, MutableMapping, Optional, Tuple
 
 # 3rd party
 import dict2css
@@ -545,7 +545,7 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 	if exception:  # pragma: no cover
 		return
 
-	style = {
+	style: MutableMapping[str, dict2css.Style] = {
 			'div[id*="installation"] .sphinx-tabs-tab': {"color": "#2980b9"},
 			"button.sphinx-tabs-tab,div.sphinx-tabs-panel": {"outline": (None, dict2css.IMPORTANT)},
 			}
