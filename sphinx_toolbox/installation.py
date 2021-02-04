@@ -550,6 +550,46 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 	static_dir = PathPlus(app.outdir) / "_static"
 	static_dir.maybe_make(parents=True)
 	(static_dir / "sphinx_toolbox_installation.css").write_clean(dict2css.dumps(style, minify=True))
+	(static_dir / "sphinx_toolbox_installation.js").write_lines([
+			"// Based on https://github.com/executablebooks/sphinx-tabs/blob/master/sphinx_tabs/static/tabs.js",
+			"// Copyright (c) 2017 djungelorm",
+			"// MIT Licensed",
+			'',
+			"function deselectTabset(target) {",
+			"  const parent = target.parentNode;",
+			"  const grandparent = parent.parentNode;",
+			'',
+			'  if (parent.parentNode.parentNode.getAttribute("id").startsWith("installation")) {',
+			'',
+			"    // Hide all tabs in current tablist, but not nested",
+			"    Array.from(parent.children).forEach(t => {",
+			'      if (t.getAttribute("name") !== target.getAttribute("name")) {',
+			'        t.setAttribute("aria-selected", "false");',
+			"      }",
+			"    });",
+			'',
+			"    // Hide all associated panels",
+			"    Array.from(grandparent.children).slice(1).forEach(p => {  // Skip tablist",
+			'      if (p.getAttribute("name") !== target.getAttribute("name")) {',
+			'        p.setAttribute("hidden", "false")',
+			"      }",
+			"    });",
+			"  }",
+			'',
+			"  else {",
+			"    // Hide all tabs in current tablist, but not nested",
+			"    Array.from(parent.children).forEach(t => {",
+			'      t.setAttribute("aria-selected", "false");',
+			"    });",
+			'',
+			"    // Hide all associated panels",
+			"    Array.from(grandparent.children).slice(1).forEach(p => {  // Skip tablist",
+			'      p.setAttribute("hidden", "true")',
+			"    });",
+			"  }",
+			'',
+			'}',
+			])
 
 
 def setup(app: Sphinx) -> SphinxExtMetadata:
@@ -581,6 +621,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	# Little CSS tweaks
 	app.add_css_file("sphinx_toolbox_installation.css")
+	app.add_js_file("sphinx_toolbox_installation.js")
 	app.connect("build-finished", copy_asset_files)
 
 	return {
