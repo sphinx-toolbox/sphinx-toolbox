@@ -2,7 +2,6 @@ apeye>=0.0.4
 autodocsumm>=0.2.0
 beautifulsoup4>=4.9.1
 consolekit>=0.3.1
-deprecation-alias>=0.1.1
 dict2css>=0.1.0
 docutils>=0.16
 domdf-python-tools>=0.8.0
