@@ -59,6 +59,7 @@ repos:
     - id: pyupgrade
       args:
        - --py36-plus
+       - --keep-runtime-typing
 
  - repo: https://github.com/Lucas-C/pre-commit-hooks
    rev: v1.1.9
