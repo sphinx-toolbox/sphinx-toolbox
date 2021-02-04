@@ -545,7 +545,10 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 	if exception:  # pragma: no cover
 		return
 
-	style = {'div[id*="installation"] .sphinx-tabs-tab': {"color": "#2980b9"}}
+	style = {
+			'div[id*="installation"] .sphinx-tabs-tab': {"color": "#2980b9"},
+			"button.sphinx-tabs-tab,div.sphinx-tabs-panel": {"outline": (None, dict2css.IMPORTANT)},
+			}
 
 	static_dir = PathPlus(app.outdir) / "_static"
 	static_dir.maybe_make(parents=True)
