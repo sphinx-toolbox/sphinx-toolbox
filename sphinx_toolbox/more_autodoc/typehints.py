@@ -152,7 +152,7 @@ try:
 	import attr
 except ImportError:  # pragma: no cover
 	# attrs is used in a way that it is only required in situations
-	# where it is available to import, so its fine to do this.
+	# where it is available to import, so it is fine to do this.
 	pass
 
 __all__ = [
@@ -304,6 +304,9 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		args = get_annotation_args(annotation, module, class_name)
 	except ValueError:
 		return f":py:obj:`~.{annotation}`"
+
+	if module == "_io":
+		module = "io"
 
 	# Redirect all typing_extensions types to the stdlib typing module
 	if module == "typing_extensions":
