@@ -45,6 +45,8 @@ All shields have the following options:
 	All shields have the ``sphinx_toolbox_shield`` class by default.
 
 
+Shields
+^^^^^^^^^^^^
 
 .. rst:directive:: rtfd-shield
 
