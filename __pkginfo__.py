@@ -26,7 +26,7 @@ __copyright__ = """
 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 """
 
-__version__ = "2.0.1"
+__version__ = "2.0.2"
 
 repo_root = pathlib.Path(__file__).parent
 install_requires = (repo_root / "requirements.txt").read_text(encoding="utf-8").split('\n')
