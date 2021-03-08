@@ -50,6 +50,7 @@ known_third_party = [
     "hypothesis",
     "importlib_resources",
     "pprint36",
+    "pygments",
     "pytest",
     "pytest_cov",
     "pytest_httpserver",
