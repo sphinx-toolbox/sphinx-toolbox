@@ -25,7 +25,7 @@ repos:
     - id: end-of-file-fixer
 
  - repo: https://github.com/domdfcoding/pre-commit-hooks
-   rev: v0.2.0
+   rev: v0.2.1
    hooks:
     - id: requirements-txt-sorter
       args:
@@ -41,12 +41,12 @@ repos:
       files: ^sphinx_toolbox/.*\.py$
 
  - repo: https://github.com/domdfcoding/flake2lint
-   rev: v0.2.0
+   rev: v0.4.0
    hooks:
     - id: flake2lint
 
  - repo: https://github.com/pre-commit/pygrep-hooks
-   rev: v1.7.1
+   rev: v1.8.0
    hooks:
     - id: python-no-eval
     - id: rst-backticks
@@ -68,13 +68,13 @@ repos:
     - id: forbid-crlf
 
  - repo: https://github.com/repo-helper/formate
-   rev: v0.3.1
+   rev: v0.4.2
    hooks:
     - id: formate
       exclude: ^(doc-source/conf|__pkginfo__|make_conda_recipe|setup)\.(_)?py$
 
  - repo: https://github.com/domdfcoding/dep_checker
-   rev: v0.4.1
+   rev: v0.5.0
    hooks:
     - id: dep_checker
       args:
