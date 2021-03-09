@@ -2,6 +2,7 @@
 # This file is managed by 'repo_helper'. Don't edit it directly.
 
 # stdlib
+import shutil
 import sys
 
 # 3rd party
@@ -19,3 +20,5 @@ setup(
 		py_modules=[],
 		version=__version__,
 		)
+
+shutil.rmtree("sphinx_toolbox.egg-info", ignore_errors=True)
