@@ -1,3 +1,23 @@
 [build-system]
 requires = [ "setuptools>=40.6.0", "wheel>=0.34.2",]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "sphinx-toolbox"
+version = "2.0.2"
+description = "Box of handy tools for Sphinx 🧰 📔"
+readme = "README.rst"
+keywords = [ "sphinx", "documentation", "sphinx-extension",]
+dynamic = [ "requires-python", "classifiers", "dependencies",]
+[[project.authors]]
+email = "dominic@davis-foster.co.uk"
+name = "Dominic Davis-Foster"
+
+[project.license]
+file = "LICENSE"
+
+[project.urls]
+Homepage = "https://github.com/sphinx-toolbox/sphinx-toolbox"
+"Issue Tracker" = "https://github.com/sphinx-toolbox/sphinx-toolbox/issues"
+"Source Code" = "https://github.com/sphinx-toolbox/sphinx-toolbox"
+Documentation = "https://sphinx-toolbox.readthedocs.io/en/latest"
