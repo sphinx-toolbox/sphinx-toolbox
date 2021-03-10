@@ -720,6 +720,9 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 	if exception:  # pragma: no cover
 		return
 
+	if app.builder.format.lower() != "html":
+		return
+
 	style = {
 			"span.regex_literal": {"color": "dimgrey"},
 			"span.regex_at": {"color": "orangered"},
