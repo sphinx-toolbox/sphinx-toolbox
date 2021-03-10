@@ -11,6 +11,9 @@ version: '2.0.3'
 license: 'MIT'
 short_desc: 'Box of handy tools for Sphinx 🧰 📔'
 
+use_whey: true
+mypy_version: "0.790"
+
 conda_channels:
   - conda-forge
 
@@ -74,5 +77,3 @@ classifiers:
 intersphinx_mapping:
  - "'pytest': ('https://docs.pytest.org/en/stable', None)"
  - "'pytest-regressions': ('https://pytest-regressions.readthedocs.io/en/latest/', None)"
-
-mypy_version: "0.790"
