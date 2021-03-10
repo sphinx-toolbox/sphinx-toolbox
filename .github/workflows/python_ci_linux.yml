@@ -13,7 +13,7 @@ jobs:
     runs-on: "ubuntu-20.04"
     continue-on-error: ${{ matrix.config.experimental }}
     env:
-      USING_COVERAGE: '3.6,3.7,3.8,3.9,3.10.0-alpha.5'
+      USING_COVERAGE: '3.6,3.7,3.8,3.9,3.10.0-alpha.6'
 
     strategy:
       fail-fast: False
@@ -23,7 +23,7 @@ jobs:
           - {python-version: "3.7", testenvs: "py37-sphinx{3.2,3.3},build", experimental: False}
           - {python-version: "3.8", testenvs: "py38-sphinx{3.2,3.3},build", experimental: False}
           - {python-version: "3.9", testenvs: "py39-sphinx{3.2,3.3},build", experimental: False}
-          - {python-version: "3.10.0-alpha.5", testenvs: "py310-dev-sphinx{3.2,3.3},build", experimental: True}
+          - {python-version: "3.10.0-alpha.6", testenvs: "py310-dev-sphinx{3.2,3.3},build", experimental: True}
 
     steps:
       - name: Checkout 🛎️
