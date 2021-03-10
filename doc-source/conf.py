@@ -45,6 +45,7 @@ extensions = [
 		"sphinx_copybutton",
 		"sphinxcontrib.default_values",
 		"sphinxcontrib.toctree_plus",
+		"sphinx_debuginfo",
 		"seed_intersphinx_mapping",
 		"sphinx_removed_in",
 		"sphinx_toolbox.tweaks.param_dash",
