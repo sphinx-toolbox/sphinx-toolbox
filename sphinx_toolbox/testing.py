@@ -729,6 +729,7 @@ def check_asset_copy(
 
 		fake_app = SimpleNamespace()
 		fake_app.builder = SimpleNamespace()
+		fake_app.builder.format = "html"
 		fake_app.outdir = fake_app.builder.outdir = tmp_pathplus
 
 		func(fake_app, None)  # type: ignore
