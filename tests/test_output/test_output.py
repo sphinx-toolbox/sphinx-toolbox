@@ -146,4 +146,8 @@ def test_latex_output(app, file_regression: FileRegressionFixture):
 
 	output_file = PathPlus(app.outdir / "python.tex")
 	content = StringList(output_file.read_lines())
-	check_file_regression(re.sub(r"\\date{.*}", r"\\date{Mar 11, 2021}", str(content)), file_regression, extension=".tex")
+	check_file_regression(
+			re.sub(r"\\date{.*}", r"\\date{Mar 11, 2021}", str(content)),
+			file_regression,
+			extension=".tex",
+			)
