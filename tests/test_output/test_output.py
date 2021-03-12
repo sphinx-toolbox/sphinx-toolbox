@@ -82,6 +82,7 @@ def test_installation_html_output(page: BeautifulSoup, html_regression: HTMLRegr
 				"augment-defaults.html",
 				"autodoc-ellipsis.html",
 				"autonamedtuple.html",
+				"autonamedtuple_pep563.html",
 				"autoprotocol.html",
 				"autotypeddict.html",
 				"code-block.html",
