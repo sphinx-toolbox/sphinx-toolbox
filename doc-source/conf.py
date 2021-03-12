@@ -23,7 +23,7 @@ rst_prolog = f""".. |pkgname| replace:: sphinx-toolbox
 """
 
 author = "Dominic Davis-Foster"
-project = "sphinx-toolbox"
+project = "sphinx-toolbox".replace('_', '-')
 slug = re.sub(r'\W+', '-', project.lower())
 release = version = __version__
 copyright = "2020-2021 Dominic Davis-Foster"  # pylint: disable=redefined-builtin
