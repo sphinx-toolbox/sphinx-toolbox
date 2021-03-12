@@ -152,6 +152,7 @@ API Reference
 
 # stdlib
 import inspect
+import re
 import warnings
 from typing import Any, Callable, Dict, List, MutableMapping, Optional, Tuple
 
@@ -341,7 +342,7 @@ def conda_installation(
 		lines.append(f"conda install {conda_name}")
 		lines.blankline(ensure_single=True)
 
-	return lines
+	return list(lines)
 
 
 @sources.register("github", "GitHub", flag)
@@ -409,9 +410,9 @@ class InstallationDirective(SphinxDirective):
 	The GitHub username and repository are configured in ``conf.py`` and are available in ``env.config``.
 	"""
 
-	def run(self) -> List[nodes.Node]:
+	def run_html(self) -> List[nodes.Node]:
 		"""
-		Create the installation node.
+		Generate output for ``HTML`` builders.
 		"""
 
 		if self.arguments:
@@ -429,6 +430,50 @@ class InstallationDirective(SphinxDirective):
 
 		return [targetnode, installation_node]
 
+	def run_generic(self) -> List[nodes.Node]:
+		"""
+		Generate generic reStructuredText output.
+		"""
+
+		targetid = f'installation-{self.env.new_serialno("sphinx-toolbox installation"):d}'
+		targetnode = nodes.target('', '', ids=[targetid])
+
+		if self.arguments:
+			self.options["project_name"] = self.arguments[0]
+
+		tabs: Dict[str, List[str]] = _get_installation_instructions(self.options, self.env)
+
+		if not tabs:
+			warnings.warn("No installation source specified. No installation instructions will be shown.")
+			return []
+
+		nodes_to_return: List[nodes.Node] = [targetnode]
+
+		for tab_name, tab_content in tabs.items():
+			section_id = re.sub(r'\W+', '_', tab_name)
+			section = nodes.section(ids=[f"{targetid}-{section_id}"])
+			section += nodes.title(tab_name, tab_name)
+			nodes_to_return.append(section)
+			installation_node_purger.add_node(self.env, section, targetnode, self.lineno)
+
+			view = ViewList(tab_content)
+			paragraph_node = nodes.paragraph(rawsource=tab_content)  # type: ignore
+			self.state.nested_parse(view, self.content_offset, paragraph_node)  # type: ignore
+			nodes_to_return.append(paragraph_node)
+			installation_node_purger.add_node(self.env, paragraph_node, targetnode, self.lineno)
+
+		return nodes_to_return
+
+	def run(self) -> List[nodes.Node]:
+		"""
+		Create the installation node.
+		"""
+
+		if self.env.app.builder.format.lower() == "html":
+			return self.run_html()
+		else:
+			return self.run_generic()
+
 
 def make_installation_instructions(options: Dict[str, Any], env: BuildEnvironment) -> List[str]:
 	"""
@@ -436,8 +481,34 @@ def make_installation_instructions(options: Dict[str, Any], env: BuildEnvironmen
 
 	:param options:
 	:param env: The Sphinx build environment.
+	"""
 
-	:return:
+	tabs: Dict[str, List[str]] = _get_installation_instructions(options, env)
+
+	if not tabs:
+		warnings.warn("No installation source specified. No installation instructions will be shown.")
+		return []
+
+	content = StringList([".. tabs::", ''])
+	content.set_indent_type("    ")
+
+	for tab_name, tab_content in tabs.items():
+		with content.with_indent_size(1):
+			content.append(f".. tab:: {tab_name}")
+			content.blankline(ensure_single=True)
+
+		with content.with_indent_size(2):
+			content.extend([f"{line}" if line else '' for line in tab_content])
+
+	return list(content)
+
+
+def _get_installation_instructions(options: Dict[str, Any], env: BuildEnvironment) -> Dict[str, List[str]]:
+	"""
+	Returns a mapping of tab/section names to their content.
+
+	:param options:
+	:param env: The Sphinx build environment.
 	"""
 
 	tabs: Dict[str, List[str]] = {}
@@ -446,18 +517,7 @@ def make_installation_instructions(options: Dict[str, Any], env: BuildEnvironmen
 		if option_name in options:
 			tabs[f"from {source_name}"] = getter_function(options, env)
 
-	if tabs:
-		content = [".. tabs::", '']
-
-		for tab_name, tab_content in tabs.items():
-			content.extend([f"    .. tab:: {tab_name}", ''])
-			content.extend([f"        {line}" if line else '' for line in tab_content])
-
-		return content
-
-	else:
-		warnings.warn("No installation source specified. No installation instructions will be shown.")
-		return []
+	return tabs
 
 
 class ExtensionsDirective(SphinxDirective):

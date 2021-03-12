@@ -1,10 +1,14 @@
 # stdlib
+import re
 import sys
 
 # 3rd party
 import pytest
 from bs4 import BeautifulSoup  # type: ignore
-from domdf_python_tools.testing import min_version, only_version
+from domdf_python_tools.paths import PathPlus
+from domdf_python_tools.stringlist import StringList
+from domdf_python_tools.testing import check_file_regression, min_version, only_version
+from pytest_regressions.file_regression import FileRegressionFixture
 
 # this package
 from sphinx_toolbox.testing import HTMLRegressionFixture
@@ -132,3 +136,14 @@ def test_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture
 	"""
 
 	html_regression.check(page)
+
+
+@pytest.mark.sphinx("latex", srcdir="test-root")
+def test_latex_output(app, file_regression: FileRegressionFixture):
+
+	assert app.builder.name.lower() == "latex"
+	app.build()
+
+	output_file = PathPlus(app.outdir / "python.tex")
+	content = StringList(output_file.read_lines())
+	check_file_regression(re.sub(r"\\date{.*}", r"\\date{Mar 11, 2021}", str(content)), file_regression, extension=".tex")
