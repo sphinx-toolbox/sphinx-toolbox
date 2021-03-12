@@ -68,7 +68,7 @@ repos:
     - id: forbid-crlf
 
  - repo: https://github.com/repo-helper/formate
-   rev: v0.4.2
+   rev: v0.4.3
    hooks:
     - id: formate
       exclude: ^(doc-source/conf|__pkginfo__|make_conda_recipe|setup)\.(_)?py$
