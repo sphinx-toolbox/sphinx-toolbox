@@ -146,7 +146,7 @@ def make_field(  # noqa D102
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
-	Setup :mod:`sphinx_toolbox.param_dash`.
+	Setup :mod:`sphinx_toolbox.tweaks.param_dash`.
 
 	:param app: The Sphinx application.
 	"""
