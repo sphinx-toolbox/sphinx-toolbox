@@ -57,9 +57,14 @@ class LaTeXTranslator(sphinx.writers.latex.LaTeXTranslator):
 
 	def generate_indices(self) -> str:
 
+		super_output = super().generate_indices()
+
+		if not super_output:
+			return nest_bookmark_level_part
+
 		return '\n'.join([
 				nest_bookmark_level_part,
-				*super().generate_indices().splitlines(),
+				*super_output.splitlines(),
 				'',
 				nest_bookmark_level_part,
 				])
