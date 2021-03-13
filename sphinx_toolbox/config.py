@@ -36,7 +36,7 @@ from sphinx.application import Sphinx
 from sphinx.config import Config
 
 # this package
-from sphinx_toolbox.utils import make_github_url
+from sphinx_toolbox.utils import add_nbsp_substitution, make_github_url
 
 __all__ = ["MissingOptionError", "InvalidOptionError", "validate_config", "ToolboxConfig"]
 
@@ -148,11 +148,4 @@ def validate_config(app: Sphinx, config: ToolboxConfig):
 	config.github_issues_url = config.github_url / "issues"
 	config.github_pull_url = config.github_url / "pull"
 
-	rst_prolog: Union[str, StringList] = config.rst_prolog or ''
-
-	nbsp_sub = ".. |nbsp| unicode:: 0xA0\n   :trim:"
-	if nbsp_sub not in rst_prolog:
-		rst_prolog = StringList(rst_prolog)
-		rst_prolog.append(nbsp_sub)
-
-	config.rst_prolog = str(rst_prolog)
+	add_nbsp_substitution(config)

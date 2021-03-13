@@ -34,9 +34,23 @@ General utility functions.
 # stdlib
 import functools
 import re
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Pattern, Tuple, Type, TypeVar, cast
+from typing import (
+		Any,
+		Callable,
+		Dict,
+		Iterable,
+		List,
+		Mapping,
+		Optional,
+		Pattern,
+		Tuple,
+		Type,
+		TypeVar,
+		cast
+		)
 
 # 3rd party
+import sphinx.config
 from apeye.url import RequestsURL
 from docutils.nodes import Node
 from domdf_python_tools.doctools import prettify_docstrings
@@ -72,6 +86,7 @@ __all__ = [
 		"NoMatchError",
 		"baseclass_is_private",
 		"metadata_add_version",
+		"add_nbsp_substitution",
 		]
 
 #: Instance of :class:`apeye.url.RequestsURL` that points to the GitHub website.
@@ -612,3 +627,21 @@ def metadata_add_version(func: SetupFunc) -> SetupFunc:
 		return ret
 
 	return wrapper
+
+
+def add_nbsp_substitution(config: sphinx.config.Config):
+	"""
+	Adds the ``|nbsp|`` substitution directive to the reStructuredText prolog.
+
+	.. versionadded:: 2.1.0
+
+	:param config:
+	"""
+
+	nbsp_sub = ".. |nbsp| unicode:: 0xA0\n   :trim:"
+
+	if not config.rst_prolog:
+		config.rst_prolog = f"\n{nbsp_sub}"  # type: ignore
+
+	elif nbsp_sub not in config.rst_prolog:
+		config.rst_prolog = '\n'.join([config.rst_prolog, '', nbsp_sub])  # type: ignore

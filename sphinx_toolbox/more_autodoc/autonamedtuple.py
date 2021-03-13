@@ -131,6 +131,7 @@ from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import (
 		Param,
 		SphinxExtMetadata,
+		add_nbsp_substitution,
 		baseclass_is_private,
 		is_namedtuple,
 		metadata_add_version,
@@ -385,5 +386,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_role_to_domain("py", "namedtuple", PyXRefRole())
 
 	app.add_autodocumenter(NamedTupleDocumenter)
+
+	add_nbsp_substitution(app.config)  # type: ignore
 
 	return {"parallel_read_safe": True}

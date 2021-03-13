@@ -124,7 +124,7 @@ from sphinx.util.inspect import ForwardRef, object_description, safe_getattr
 
 # this package
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
-from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
+from sphinx_toolbox.utils import SphinxExtMetadata, add_nbsp_substitution, flag, metadata_add_version
 
 __all__ = [
 		"VariableDocumenter",
@@ -485,5 +485,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_autodocumenter(TypedAttributeDocumenter, override=True)
 	app.add_autodocumenter(InstanceAttributeDocumenter, override=True)
 	app.add_autodocumenter(SlotsAttributeDocumenter, override=True)
+
+	add_nbsp_substitution(app.config)  # type: ignore
 
 	return {"parallel_read_safe": True}
