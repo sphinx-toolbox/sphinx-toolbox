@@ -52,6 +52,17 @@ pull requests, and automatically redirects to the pull request if
 the user tries to navigate to an issue with that same number.
 
 
+Caching
+-----------
+
+HTTP requests to obtain issue/pull request titles are cached for four hours.
+
+To clear the cache manually, run:
+
+.. prompt:: bash
+
+	python3 -m sphinx_toolbox
+
 
 API Reference
 ---------------
