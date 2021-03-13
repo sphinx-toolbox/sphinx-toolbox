@@ -114,6 +114,7 @@ API Reference
 import inspect
 import re
 import sys
+import textwrap
 from textwrap import dedent
 from typing import Any, Dict, List, Tuple, Type, get_type_hints
 
@@ -299,7 +300,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		member_docstrings: Dict[str, List[str]]
 
 		try:
-			namedtuple_source = inspect.getsource(self.object)
+			namedtuple_source = textwrap.dedent(inspect.getsource(self.object))
 
 			# Mapping of member names to docstrings (as list of strings)
 			member_docstrings = {

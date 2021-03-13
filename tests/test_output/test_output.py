@@ -82,7 +82,6 @@ def test_installation_html_output(page: BeautifulSoup, html_regression: HTMLRegr
 				"augment-defaults.html",
 				"autodoc-ellipsis.html",
 				"autonamedtuple.html",
-				"autonamedtuple_pep563.html",
 				"autoprotocol.html",
 				"autotypeddict.html",
 				"code-block.html",
@@ -122,6 +121,11 @@ def test_installation_html_output(page: BeautifulSoup, html_regression: HTMLRegr
 						"generic_bases.html",
 						marks=min_version(3.8, reason="Output differs on Python 3.8+"),
 						id="generic_bases"
+						),
+				pytest.param(
+						"autonamedtuple_pep563.html",
+						marks=min_version(3.7, reason="Output differs on Python 3.6, and not as relevant."),
+						id="autonamedtuple_pep563"
 						),
 				pytest.param(
 						"genericalias.html",

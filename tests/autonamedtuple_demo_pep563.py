@@ -25,4 +25,5 @@ if sys.version_info < (3, 7):
 		voice: "Callable[[], str]"
 
 else:
+	# this package
 	from tests._autonamedtuple_demo_pep563 import Animal

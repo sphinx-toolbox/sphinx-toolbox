@@ -1,4 +1,4 @@
-from __future__ import annotations
+from __future__ import annotations  # type: ignore
 
 # stdlib
 from typing import Callable, NamedTuple
@@ -7,7 +7,6 @@ from typing import Callable, NamedTuple
 # https://docs.python.org/3/library/typing.html#typing.NamedTuple
 # https://www.python.org/dev/peps/pep-0589/#totality
 # https://github.com/python/typing/pull/700
-
 
 __all__ = ["Animal"]
 
