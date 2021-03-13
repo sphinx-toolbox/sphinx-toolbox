@@ -34,20 +34,7 @@ General utility functions.
 # stdlib
 import functools
 import re
-from typing import (
-		Any,
-		Callable,
-		Dict,
-		Iterable,
-		List,
-		Mapping,
-		Optional,
-		Pattern,
-		Tuple,
-		Type,
-		TypeVar,
-		cast
-		)
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Pattern, Tuple, Type, TypeVar, cast
 
 # 3rd party
 import sphinx.config
