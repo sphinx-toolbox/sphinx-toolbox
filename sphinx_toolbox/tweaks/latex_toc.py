@@ -44,10 +44,7 @@ from docutils import nodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
 
-__all__ = ["setup", "configure"]
-
-# this package
-from sphinx_toolbox.utils import metadata_add_version
+__all__ = ["LaTeXTranslator", "LatexTocTreeDirective", "setup"]
 
 use_bookmark = r"\usepackage{bookmark}"
 nest_bookmark_level_part = "\\bookmarksetupnext{{level=part}}\n"
@@ -57,14 +54,9 @@ class LaTeXTranslator(sphinx.writers.latex.LaTeXTranslator):
 
 	def generate_indices(self) -> str:
 
-		super_output = super().generate_indices()
-
-		if not super_output:
-			return nest_bookmark_level_part
-
 		return '\n'.join([
 				nest_bookmark_level_part,
-				*super_output.splitlines(),
+				*super().generate_indices().splitlines(),
 				'',
 				nest_bookmark_level_part,
 				])
@@ -110,7 +102,7 @@ def configure(app: Sphinx, config: Config):
 		config.latex_elements["preamble"] = f"{latex_preamble}\n{use_bookmark}"
 
 
-@metadata_add_version
+# @metadata_add_version
 def setup(app: Sphinx) -> Dict[str, Any]:
 	"""
 	Setup :mod:`sphinx_toolbox.tweaks.latex_toc`.
@@ -122,4 +114,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_directive("toctree", LatexTocTreeDirective, override=True)
 	app.set_translator("latex", LaTeXTranslator, override=True)
 
-	return {"parallel_read_safe": True}
+	return {
+			"parallel_read_safe": True,
+			"parallel_write_safe": True,
+			}

@@ -48,7 +48,6 @@ extensions = [
 		"sphinx_debuginfo",
 		"seed_intersphinx_mapping",
 		"sphinx_removed_in",
-		"sphinx_toolbox.tweaks.param_dash",
 		"sphinx_toolbox.tweaks.latex_toc",
 		"sphinx_toolbox.pre_commit",
 		"sphinx_toolbox.flake8",
