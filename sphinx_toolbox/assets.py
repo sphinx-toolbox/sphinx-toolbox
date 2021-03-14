@@ -8,6 +8,12 @@ Role to provide a link to open a file within the web browser, rather than downlo
 
 .. versionadded:: 0.5.0
 
+.. TODO::
+
+	Handle non-HTML builders
+
+	Perhaps just put a message to see the online documentation?
+
 Usage
 ------
 

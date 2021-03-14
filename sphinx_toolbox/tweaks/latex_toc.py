@@ -83,14 +83,8 @@ class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 				and self.env.docname == self.env.config.master_doc
 				):
 
-			latex_part_node = nodes.raw(
-					text=f"\\chapter{{{caption}}}",
-					format="latex"
-					)
-			# latex_part_node = nodes.raw(
-			# 		text=f"\\setcounter{{section}}{{0}}\n\\part{{{caption}}}\n\\setcounter{{chapter}}{{1}}",
-			# 		format="latex"
-			# 		)
+			latex_part_node = nodes.raw(text=f"\\chapter{{{caption}}}", format="latex")
+
 			output.append(latex_part_node)
 
 		output.extend(super().run())
@@ -132,7 +126,4 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_directive("toctree", LatexTocTreeDirective, override=True)
 	app.set_translator("latex", LaTeXTranslator, override=True)
 
-	return {
-			"parallel_read_safe": True,
-			"parallel_write_safe": True,
-			}
+	return {"parallel_read_safe": True}
