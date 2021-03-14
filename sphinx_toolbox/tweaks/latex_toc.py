@@ -112,6 +112,10 @@ def configure(app: Sphinx, config: Config):
 	print(f"Preamble is now {config.latex_elements['preamble']}")
 
 
+def purge_outdated(app: Sphinx, env, added, changed, removed):
+	return [env.config.master_doc]
+
+
 # @metadata_add_version
 def setup(app: Sphinx) -> Dict[str, Any]:
 	"""
@@ -120,6 +124,7 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	:param app:
 	"""
 
+	app.connect("env-get-outdated", purge_outdated)
 	app.connect("config-inited", configure)
 	app.add_directive("toctree", LatexTocTreeDirective, override=True)
 	app.set_translator("latex", LaTeXTranslator, override=True)
