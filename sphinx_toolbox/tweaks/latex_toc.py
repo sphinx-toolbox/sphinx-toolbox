@@ -44,7 +44,10 @@ from docutils import nodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
 
-__all__ = ["LaTeXTranslator", "LatexTocTreeDirective", "setup"]
+# this package
+from sphinx_toolbox.utils import metadata_add_version
+
+__all__ = ["setup", "configure"]
 
 use_bookmark = r"\usepackage{bookmark}"
 nest_bookmark_level_part = "\\bookmarksetupnext{{level=part}}\n"
@@ -54,8 +57,14 @@ class LaTeXTranslator(sphinx.writers.latex.LaTeXTranslator):
 
 	def generate_indices(self) -> str:
 
+		super_output = super().generate_indices()
+
+		if not super_output:
+			return nest_bookmark_level_part
+
 		return '\n'.join([
 				nest_bookmark_level_part,
+				*super_output.splitlines(),
 				*super().generate_indices().splitlines(),
 				'',
 				nest_bookmark_level_part,
@@ -74,18 +83,11 @@ class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 				and self.env.docname == self.env.config.master_doc
 				):
 
-			print(f"Creating a LaTeX part for the toctree {caption}")
 			latex_part_node = nodes.raw(
 					text=f"\\setcounter{{section}}{{0}}\n\\part{{{caption}}}\n\\setcounter{{chapter}}{{1}}",
 					format="latex"
 					)
 			output.append(latex_part_node)
-		else:
-			print("Not creating LaTeX part:")
-			print(f"caption={caption}")
-			print(f"builder.format={self.env.app.builder.format}")
-			print(f"env.docname={self.env.docname}")
-			print(f"config.master_doc={self.env.config.master_doc}")
 
 		output.extend(super().run())
 
@@ -108,15 +110,12 @@ def configure(app: Sphinx, config: Config):
 	if use_bookmark not in latex_preamble:
 		config.latex_elements["preamble"] = f"{latex_preamble}\n{use_bookmark}"
 
-	print("Configuring latex_toc tweak")
-	print(f"Preamble is now {config.latex_elements['preamble']}")
-
 
 def purge_outdated(app: Sphinx, env, added, changed, removed):
 	return [env.config.master_doc]
 
 
-# @metadata_add_version
+@metadata_add_version
 def setup(app: Sphinx) -> Dict[str, Any]:
 	"""
 	Setup :mod:`sphinx_toolbox.tweaks.latex_toc`.
@@ -128,8 +127,6 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.connect("config-inited", configure)
 	app.add_directive("toctree", LatexTocTreeDirective, override=True)
 	app.set_translator("latex", LaTeXTranslator, override=True)
-
-	print("Enabling latex_toc tweak")
 
 	return {
 			"parallel_read_safe": True,
