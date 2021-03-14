@@ -101,6 +101,9 @@ def configure(app: Sphinx, config: Config):
 	if use_bookmark not in latex_preamble:
 		config.latex_elements["preamble"] = f"{latex_preamble}\n{use_bookmark}"
 
+	print("Configuring latex_toc tweak")
+	print(f"Preamble is now {config.latex_elements['preamble']}")
+
 
 # @metadata_add_version
 def setup(app: Sphinx) -> Dict[str, Any]:
@@ -113,6 +116,8 @@ def setup(app: Sphinx) -> Dict[str, Any]:
 	app.connect("config-inited", configure)
 	app.add_directive("toctree", LatexTocTreeDirective, override=True)
 	app.set_translator("latex", LaTeXTranslator, override=True)
+
+	print("Enabling latex_toc tweak")
 
 	return {
 			"parallel_read_safe": True,
