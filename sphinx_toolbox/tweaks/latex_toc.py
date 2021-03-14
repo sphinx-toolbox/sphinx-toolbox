@@ -74,6 +74,7 @@ class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 				and self.env.docname == self.env.config.master_doc
 				):
 
+			print(f"Creating a LaTeX part for the toctree {caption}")
 			latex_part_node = nodes.raw(
 					text=f"\\setcounter{{section}}{{0}}\n\\part{{{caption}}}\n\\setcounter{{chapter}}{{1}}",
 					format="latex"
