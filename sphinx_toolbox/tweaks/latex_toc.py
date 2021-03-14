@@ -80,6 +80,12 @@ class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 					format="latex"
 					)
 			output.append(latex_part_node)
+		else:
+			print("Not creating LaTeX part:")
+			print(f"caption={caption}")
+			print(f"builder.format={self.env.app.builder.format}")
+			print(f"env.docname={self.env.docname}")
+			print(f"config.master_doc={self.env.config.master_doc}")
 
 		output.extend(super().run())
 
