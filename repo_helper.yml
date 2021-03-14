@@ -13,6 +13,7 @@ short_desc: 'Box of handy tools for Sphinx 🧰 📔'
 
 use_whey: true
 mypy_version: "0.790"
+min_coverage: 85
 python_deploy_version: 3.7
 
 conda_channels:
