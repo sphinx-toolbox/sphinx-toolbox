@@ -16,7 +16,8 @@ def test_setup():
 	assert app.registry.translation_handlers == {}
 
 	assert app.events.listeners == {
-			"config-inited": [EventListener(id=0, handler=latex_toc.configure, priority=500)],
+			"env-get-outdated": [EventListener(id=0, handler=latex_toc.purge_outdated, priority=500)],
+			"config-inited": [EventListener(id=1, handler=latex_toc.configure, priority=500)],
 			}
 
 	assert directives == {"toctree": latex_toc.LatexTocTreeDirective}
