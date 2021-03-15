@@ -4,7 +4,7 @@ build-backend = "whey"
 
 [project]
 name = "sphinx-toolbox"
-version = "2.0.4"
+version = "2.1.0"
 description = "Box of handy tools for Sphinx 🧰 📔"
 readme = "README.rst"
 keywords = [ "sphinx", "documentation", "sphinx-extension",]
@@ -27,13 +27,13 @@ testing = [
     "domdf-python-tools[testing]>=1.5.0",
     "pygments>=2.7.4",
     "pytest>=6.0.0",
-    "pytest-regressions>=2.0.4",
+    "pytest-regressions>=2.1.0",
 ]
 all = [
     "domdf-python-tools[testing]>=1.5.0",
     "pygments>=2.7.4",
     "pytest>=6.0.0",
-    "pytest-regressions>=2.0.4",
+    "pytest-regressions>=2.1.0",
 ]
 
 [tool.whey]
