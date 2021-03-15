@@ -17,7 +17,10 @@ THE ISSUE WILL BE CLOSED IF INSUFFICIENT INFORMATION IS PROVIDED.
 
 
 ## Steps to Reproduce
-<!--Please add a series of steps to reproduce the issue-->
+<!--Please add a series of steps to reproduce the issue.
+
+If possible, please include a small, self-contained reproduction.
+-->
 
    1.
    2.
