@@ -45,7 +45,7 @@ from sphinx.application import Sphinx
 from sphinx.config import Config
 
 # this package
-from sphinx_toolbox.utils import metadata_add_version
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["setup", "configure"]
 
@@ -75,7 +75,7 @@ class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 
 	def run(self) -> List[nodes.Node]:
 
-		output = []
+		output: List[nodes.Node] = []
 		caption = self.options.get("caption")
 
 		if (
@@ -101,7 +101,7 @@ def configure(app: Sphinx, config: Config):
 	"""
 
 	if not hasattr(config, "latex_elements"):
-		config.latex_elements = {}
+		config.latex_elements = {}  # type: ignore
 
 	latex_preamble = (config.latex_elements or {}).get("preamble", '')
 
@@ -114,7 +114,7 @@ def purge_outdated(app: Sphinx, env, added, changed, removed):
 
 
 @metadata_add_version
-def setup(app: Sphinx) -> Dict[str, Any]:
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.tweaks.latex_toc`.
 
