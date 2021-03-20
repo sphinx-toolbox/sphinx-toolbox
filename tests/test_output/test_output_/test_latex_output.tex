@@ -71,6 +71,17 @@
 
 
 
+\newcommand{\thesummary}{This is an awesome tool! 🚀}
+
+\makeatletter
+\renewcommand{\py@release}{
+	\releasename\space\version
+	\par
+	\vspace{25pt}
+	\textup{\thesummary}
+}
+\makeatother
+
 \usepackage{bookmark}
 
 \title{Python}
@@ -84,6 +95,7 @@
 
 \pagestyle{empty}
 \sphinxmaketitle
+\makeatletter\renewcommand{\py@release}{\releasename\space\version}\makeatother
 \pagestyle{plain}
 \sphinxtableofcontents
 \pagestyle{normal}

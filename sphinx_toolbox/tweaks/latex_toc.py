@@ -35,7 +35,7 @@ Adjusts the default LaTeX output as follows:
 #
 
 # stdlib
-from typing import Any, Dict, List
+from typing import List
 
 # 3rd party
 import sphinx.directives.other

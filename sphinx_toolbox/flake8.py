@@ -80,9 +80,9 @@ class Flake8CodesDirective(SphinxDirective):
 	"""
 
 	has_content: bool = True
-	required_arguments: int = 1
 
 	# the fully qualified name of the flake8 plugin module
+	required_arguments: int = 1
 
 	def run(self) -> Sequence[nodes.Node]:  # type: ignore
 		"""
