@@ -15,6 +15,7 @@ use_whey: true
 mypy_version: "0.790"
 min_coverage: 85
 python_deploy_version: 3.7
+tox_testenv_extras: all
 
 conda_channels:
   - conda-forge
@@ -36,8 +37,6 @@ extras_require:
     - pytest-regressions>=2.1.0
     - domdf-python-tools[testing]>=1.5.0
 
-tox_testenv_extras: all
-
 extra_sphinx_extensions:
   - sphinx_removed_in
   - sphinx_toolbox.tweaks.latex_toc
@@ -56,6 +55,7 @@ sphinx_conf_epilogue:
   - html_logo = "../sphinx_toolbox.png"
   - toctree_plus_types.add("fixture")
   - documentation_summary = "Box of handy tools for Sphinx 🧰 📔"
+  - latex_engine = "xelatex"
 
 keywords:
   - sphinx
