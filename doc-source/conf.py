@@ -144,4 +144,3 @@ autodoc_default_options = {
 html_logo = "../sphinx_toolbox.png"
 toctree_plus_types.add("fixture")
 documentation_summary = "Box of handy tools for Sphinx 🧰 📔"
-latex_engine = "xelatex"
