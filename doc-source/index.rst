@@ -4,7 +4,7 @@ sphinx-toolbox
 
 .. start short_desc
 
-**Box of handy tools for Sphinx 🧰 📔**
+.. documentation-summary::
 
 .. end short_desc
 
