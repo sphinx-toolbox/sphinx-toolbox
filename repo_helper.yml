@@ -41,9 +41,7 @@ extras_require:
 
 extra_sphinx_extensions:
   - sphinx_removed_in
-  - sphinx_toolbox.tweaks.latex_toc
   - sphinx_toolbox.pre_commit
-  - sphinx_toolbox.documentation_summary
   - sphinx_toolbox.flake8
   - sphinx_autofixture
 
@@ -56,7 +54,6 @@ tox_unmanaged:
 sphinx_conf_epilogue:
   - html_logo = "../sphinx_toolbox.png"
   - toctree_plus_types.add("fixture")
-  - documentation_summary = "Box of handy tools for Sphinx 🧰 📔"
 
 keywords:
   - sphinx

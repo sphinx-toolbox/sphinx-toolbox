@@ -50,9 +50,7 @@ extensions = [
 		"sphinx_debuginfo",
 		"seed_intersphinx_mapping",
 		"sphinx_removed_in",
-		"sphinx_toolbox.tweaks.latex_toc",
 		"sphinx_toolbox.pre_commit",
-		"sphinx_toolbox.documentation_summary",
 		"sphinx_toolbox.flake8",
 		"sphinx_autofixture",
 		]
@@ -144,4 +142,3 @@ autodoc_default_options = {
 
 html_logo = "../sphinx_toolbox.png"
 toctree_plus_types.add("fixture")
-documentation_summary = "Box of handy tools for Sphinx 🧰 📔"
