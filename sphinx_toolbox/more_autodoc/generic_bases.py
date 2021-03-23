@@ -127,6 +127,9 @@ class Example(List[Tuple[str, float, List[str]]]):
 	An example of :mod:`sphinx_toolbox.tweaks.generic_bases`.
 	"""
 
+	def __init__(self, iterable = ()):
+		pass
+
 
 class Example2(Example):
 	"""
