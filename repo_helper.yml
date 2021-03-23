@@ -26,6 +26,8 @@ python_versions:
   - 3.8
   - 3.9
   - 3.10-dev
+  - pypy36
+  - pypy37
 
 additional_ignore:
   - wip-shields-block.py

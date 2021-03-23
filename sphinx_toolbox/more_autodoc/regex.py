@@ -230,7 +230,7 @@ class RegexDocumenter(VariableDocumenter):
 				# content if desired
 				docstrings.append([])
 
-			if docstrings == [["Compiled regular expression objects", '']]:
+			if docstrings == [["Compiled regular expression objects", '']] or docstrings == [[]]:
 				docstrings = [["Compiled regular expression object.", '']]
 
 			for i, line in enumerate(self.process_doc(docstrings)):
