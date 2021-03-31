@@ -74,7 +74,7 @@ from docutils.transforms import Transform
 from domdf_python_tools.doctools import prettify_docstrings
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
-from domdf_python_tools.testing import check_file_output, check_file_regression
+from coincidence.regressions import check_file_output, check_file_regression
 from domdf_python_tools.typing import PathLike
 from pygments.lexer import Lexer  # type: ignore  # nodep
 from pytest_regressions.file_regression import FileRegressionFixture  # nodep

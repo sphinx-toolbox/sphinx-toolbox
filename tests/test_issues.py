@@ -1,7 +1,7 @@
 # 3rd party
 import pytest
 from apeye.url import RequestsURL
-from domdf_python_tools.testing import count
+from coincidence.params import count
 
 # this package
 import sphinx_toolbox

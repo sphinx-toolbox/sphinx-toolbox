@@ -40,7 +40,7 @@ from tests.common import error_codes_list
 pytest_plugins = (
 		"pytest_regressions",
 		"sphinx.testing.fixtures",
-		"domdf_python_tools.testing",
+		"coincidence",
 		"sphinx_toolbox.testing",
 		)
 

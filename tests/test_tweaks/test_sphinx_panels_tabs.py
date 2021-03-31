@@ -2,14 +2,13 @@
 from types import SimpleNamespace
 
 # 3rd party
-from domdf_python_tools.testing import check_file_output
-from pytest_regressions.file_regression import FileRegressionFixture
+from coincidence.regressions import AdvancedFileRegressionFixture
 
 # this package
 from sphinx_toolbox.tweaks.sphinx_panels_tabs import copy_assets
 
 
-def test_copy_assets(tmp_pathplus, file_regression: FileRegressionFixture):
+def test_copy_assets(tmp_pathplus, advanced_file_regression: AdvancedFileRegressionFixture):
 
 	fake_app = SimpleNamespace()
 	fake_app.builder = SimpleNamespace()
@@ -17,7 +16,4 @@ def test_copy_assets(tmp_pathplus, file_regression: FileRegressionFixture):
 
 	copy_assets(fake_app, None)  # type: ignore
 
-	check_file_output(
-			tmp_pathplus / "_static" / "css" / "tabs_customise.css",
-			file_regression,
-			)
+	advanced_file_regression.check_file(tmp_pathplus / "_static" / "css" / "tabs_customise.css")

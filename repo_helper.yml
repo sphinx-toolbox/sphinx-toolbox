@@ -37,7 +37,7 @@ extras_require:
     - pygments>=2.7.4
     - pytest>=6.0.0
     - pytest-regressions>=2.2.0
-    - domdf-python-tools[testing]>=1.5.0
+    - coincidence>=0.3.1
 
 extra_sphinx_extensions:
   - sphinx_removed_in
