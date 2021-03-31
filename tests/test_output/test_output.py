@@ -5,10 +5,10 @@ import sys
 # 3rd party
 import pytest
 from bs4 import BeautifulSoup  # type: ignore
-from domdf_python_tools.paths import PathPlus
-from domdf_python_tools.stringlist import StringList
 from coincidence.regressions import AdvancedFileRegressionFixture
 from coincidence.selectors import min_version, only_version
+from domdf_python_tools.paths import PathPlus
+from domdf_python_tools.stringlist import StringList
 
 # this package
 from sphinx_toolbox.testing import HTMLRegressionFixture
