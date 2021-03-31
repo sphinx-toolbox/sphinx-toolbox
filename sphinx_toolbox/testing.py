@@ -68,7 +68,7 @@ from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, 
 import pytest  # nodep
 import sphinx.application
 from bs4 import BeautifulSoup  # type: ignore
-from coincidence.regressions import check_file_output, check_file_regression
+from coincidence.regressions import check_file_output, check_file_regression  # nodep
 from docutils import nodes
 from docutils.parsers.rst import Directive, roles
 from docutils.transforms import Transform
