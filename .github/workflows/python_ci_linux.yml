@@ -149,7 +149,7 @@ jobs:
       - name: Install dependencies 🔧
         run: |
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install --upgrade repo_helper
+          python -m pip install --upgrade mkrecipe
 
           wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
           bash miniconda.sh -b -p $HOME/miniconda
