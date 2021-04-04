@@ -34,6 +34,7 @@ default_section = "THIRDPARTY"
 known_third_party = [
     "apeye",
     "autodocsumm",
+    "backports_entry_points_selectable",
     "beautifulsoup4",
     "coincidence",
     "consolekit",
