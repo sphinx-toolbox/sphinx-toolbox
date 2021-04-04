@@ -3,7 +3,7 @@ autodocsumm>=0.2.0
 beautifulsoup4>=4.9.1
 consolekit>=0.3.1
 dict2css>=0.1.0
-docutils>=0.16
+docutils==0.16
 domdf-python-tools>=0.8.0
 html5lib>=1.1
 ruamel-yaml>=0.16.12
