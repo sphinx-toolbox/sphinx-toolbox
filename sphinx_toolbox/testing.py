@@ -5,7 +5,7 @@
 Functions for testing Sphinx extensions.
 
 .. extras-require:: testing
-	:__pkginfo__:
+	:pyproject:
 
 .. seealso:: Sphinx's own ``testing`` library: https://github.com/sphinx-doc/sphinx/tree/3.x/sphinx/testing
 """
