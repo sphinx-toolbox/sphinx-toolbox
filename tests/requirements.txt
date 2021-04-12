@@ -5,12 +5,13 @@ coverage-pyver-pragma>=0.2.1
 domdf-python-tools[testing]>=2.2.0
 flake8-dunder-all>=0.0.4
 hypothesis>=5.35.4
+importlib-metadata>=3.6.0
 iniconfig!=1.1.0,>=1.0.1
 pprint36>=3.9.0.2
 pygments>=2.8.0
 pytest>=6.0.0
 pytest-cov>=2.8.1
 pytest-httpserver>=0.3.5
-pytest-randomly>=3.6.0
+pytest-randomly>=3.7.0
 pytest-timeout>=1.4.2
 sphobjinv>=2.0.1

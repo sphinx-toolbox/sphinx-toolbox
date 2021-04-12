@@ -26,7 +26,7 @@ sphinx-toolbox
 	* - Activity
 	  - |commits-latest| |commits-since| |maintained| |pypi-downloads|
 	* - QA
-	  - |codefactor| |actions_flake8| |actions_mypy| |pre_commit_ci|
+	  - |codefactor| |actions_flake8| |actions_mypy|
 	* - Other
 	  - |license| |language| |requires|
 
@@ -115,10 +115,6 @@ sphinx-toolbox
 .. |pypi-downloads| image:: https://img.shields.io/pypi/dm/sphinx-toolbox
 	:target: https://pypi.org/project/sphinx-toolbox/
 	:alt: PyPI - Downloads
-
-.. |pre_commit_ci| image:: https://results.pre-commit.ci/badge/github/sphinx-toolbox/sphinx-toolbox/master.svg
-	:target: https://results.pre-commit.ci/latest/github/sphinx-toolbox/sphinx-toolbox/master
-	:alt: pre-commit.ci status
 
 .. end shields
 
