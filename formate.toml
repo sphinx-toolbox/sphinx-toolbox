@@ -49,6 +49,7 @@ known_third_party = [
     "github",
     "html5lib",
     "hypothesis",
+    "importlib_metadata",
     "importlib_resources",
     "pprint36",
     "pygments",
