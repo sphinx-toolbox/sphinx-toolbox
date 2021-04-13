@@ -138,3 +138,4 @@ autodoc_default_options = {
 
 html_logo = "../sphinx_toolbox.png"
 toctree_plus_types.add("fixture")
+__import__("sys").path.append(os.path.abspath(".."))
