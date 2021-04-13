@@ -364,11 +364,13 @@ from typing import List
 from urllib.parse import quote
 
 # 3rd party
+import dict2css
 from apeye.url import URL
 from docutils import nodes
 from docutils.nodes import fully_normalize_name, whitespace_normalize_name
 from docutils.parsers.rst import directives, states
 from docutils.parsers.rst.roles import set_classes
+from domdf_python_tools.paths import PathPlus
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
@@ -390,6 +392,8 @@ __all__ = [
 		"MaintainedShield",
 		"PreCommitShield",
 		"PreCommitCIShield",
+		"copy_asset_files",
+		"setup",
 		]
 
 #: Base URL for shields.io
@@ -828,6 +832,29 @@ class PreCommitCIShield(GitHubBackedShield):
 		return super().run()
 
 
+def copy_asset_files(app: Sphinx, exception: Exception = None):
+	"""
+	Copy additional stylesheets into the HTML build directory.
+
+	:param app: The Sphinx application.
+	:param exception: Any exception which occurred and caused Sphinx to abort.
+
+	.. versionadded:: 2.3.1
+	"""
+
+	if exception:  # pragma: no cover
+		return
+
+	if app.builder.format.lower() != "html":
+		return
+
+	style = {".table-wrapper td p img.sphinx_toolbox_shield": {"vertical-align": "middle"}}
+
+	static_dir = PathPlus(app.outdir) / "_static"
+	static_dir.maybe_make(parents=True)
+	(static_dir / "toolbox-shields.css").write_clean(dict2css.dumps(style, minify=True))
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -849,5 +876,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_directive("maintained-shield", MaintainedShield)
 	app.add_directive("pre-commit-shield", PreCommitShield)
 	app.add_directive("pre-commit-ci-shield", PreCommitCIShield)
+
+	app.add_css_file("toolbox-shields.css")
+	app.connect("build-finished", copy_asset_files)
 
 	return {"parallel_read_safe": True}
