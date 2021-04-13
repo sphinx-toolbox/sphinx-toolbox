@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 #
-#  github.py
+#  __init__.py
 r"""
-Extension to provide GitHub related configuration values to other extensions.
+Sphinx domain for GitHub.com, and related utilities.
 
-.. versionadded:: 1.0.0
+.. versionadded:: 2.4.0
+
+.. extensions:: sphinx_toolbox.github
 
 
 Configuration
@@ -23,11 +25,116 @@ Configuration
 	The GitHub repository this documentation corresponds to.
 
 
+Usage
+------
+
+
+.. rst:role:: github:issue
+
+	Shows a link to the given issue on GitHub.
+
+	If the issue exists, the link has a tooltip that shows the title of the issue.
+
+	**Example**
+
+	.. rest-example::
+
+		:github:issue:`1`
+
+	You can also reference an issue in a different repository by adding the repository name inside ``<>``.
+
+	.. rest-example::
+
+		:github:issue:`7680 <pytest-dev/pytest>`
+
+
+.. rst:role:: github:pull
+
+	Shows a link to the given pull request on GitHub.
+
+	If the pull requests exists, the link has a tooltip that shows the title of the pull requests.
+
+	**Example**
+
+	.. rest-example::
+
+		:github:pull:`2`
+
+	You can also reference a pull request in a different repository by adding the repository name inside ``<>``.
+
+	.. rest-example::
+
+		:github:pull:`7671 <pytest-dev/pytest>`
+
+
+.. rst:role:: github:repo
+
+	Shows a link to the given repository on GitHub.
+
+	**Example**
+
+	.. rest-example::
+
+		:github:repo:`sphinx-toolbox/sphinx-toolbox`
+
+	You can also use a different label for the link:.
+
+	.. rest-example::
+
+		See more in the :github:repo:`pytest repository <pytest-dev/pytest>`.
+
+
+.. rst:role:: github:user
+
+	Shows a link to the given user on GitHub.
+
+	**Example**
+
+	.. rest-example::
+
+		:github:user:`domdfcoding`
+
+	You can also use a different label for the link:.
+
+	.. rest-example::
+
+		See more of my :github:user:`repositories <domdfcoding>`.
+
+
+.. rst:role:: github:org
+
+	Shows a link to the given organization on GitHub.
+
+	**Example**
+
+	.. rest-example::
+
+		:github:org:`sphinx-toolbox`
+
+	You can also use a different label for the link:.
+
+	.. rest-example::
+
+		See more repositories in the :github:org:`pytest-dev org <pytest-dev>`.
+
+
+Caching
+-----------
+
+HTTP requests to obtain issue/pull request titles are cached for four hours.
+
+To clear the cache manually, run:
+
+.. prompt:: bash
+
+	python3 -m sphinx_toolbox
+
+
+
 API Reference
 ---------------
 
-You probably don't need to use this extension directly, but if you're developing an
-extension of your own you can enable it like so:
+Enable this extension from your extension's setup function like so:
 
 .. code-block::
 
@@ -48,7 +155,6 @@ This will guarantee that the following values will be available via
 If the user has not provided either ``github_username`` or ``github_repository``
 a :exc:`~.MissingOptionError` will be raised.
 """
-# 3rd party
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -70,13 +176,40 @@ a :exc:`~.MissingOptionError` will be raised.
 #  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
+
+# 3rd party
 from sphinx.application import Sphinx
+from sphinx.domains import Domain
 
 # this package
 from sphinx_toolbox.config import MissingOptionError, ToolboxConfig
+from sphinx_toolbox.github.issues import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
+from sphinx_toolbox.github.repos_and_users import (
+		GitHubObjectLinkNode,
+		depart_github_object_link_node,
+		repository_role,
+		user_role,
+		visit_github_object_link_node
+		)
 from sphinx_toolbox.utils import SphinxExtMetadata, make_github_url, metadata_add_version
 
-__all__ = ["validate_config", "setup"]
+__all__ = ["GitHubDomain", "validate_config", "setup"]
+
+
+class GitHubDomain(Domain):
+	"""
+	Sphinx domain for `GitHub.com <https://github.com>`_.
+	"""
+
+	name = "github"
+	label = "GitHub"
+	roles = {
+			"issue": issue_role,  # type: ignore[dict-item]
+			"pull": pull_role,  # type: ignore[dict-item]
+			"user": user_role,  # type: ignore[dict-item]
+			"org": user_role,  # type: ignore[dict-item]
+			"repo": repository_role,  # type: ignore[dict-item]
+			}
 
 
 def validate_config(app: Sphinx, config: ToolboxConfig):
@@ -120,5 +253,10 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.add_config_value("github_username", None, "env", types=[str])
 	app.add_config_value("github_repository", None, "env", types=[str])
+	app.add_domain(GitHubDomain)
+
+	# Custom node for issues and PRs
+	app.add_node(IssueNode, html=(visit_issue_node, depart_issue_node))
+	app.add_node(GitHubObjectLinkNode, html=(visit_github_object_link_node, depart_github_object_link_node))
 
 	return {"parallel_read_safe": True}

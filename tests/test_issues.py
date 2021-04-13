@@ -6,7 +6,7 @@ from coincidence.params import count
 # this package
 import sphinx_toolbox
 from sphinx_toolbox import issues
-from sphinx_toolbox.issues import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
+from sphinx_toolbox.github.issues import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
 from sphinx_toolbox.testing import run_setup
 from sphinx_toolbox.utils import make_github_url
 from tests.common import AttrDict, error, error_codes, info, severe, warning
@@ -283,6 +283,5 @@ def test_setup():
 			"pull": pull_role,
 			}
 
-	assert additional_nodes == {IssueNode}
-
-	assert app.registry.translation_handlers == {"html": {"IssueNode": (visit_issue_node, depart_issue_node), }}
+	assert additional_nodes == set()
+	assert app.registry.translation_handlers == {}

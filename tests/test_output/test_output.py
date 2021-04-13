@@ -101,6 +101,7 @@ def test_installation_html_output(page: BeautifulSoup, html_regression: HTMLRegr
 				"variables.html",
 				"wikipedia.html",
 				"documentation-summary.html",
+				"github.html",
 				pytest.param(
 						"instancevar.html",
 						marks=pytest.mark.skipif(

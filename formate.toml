@@ -40,6 +40,7 @@ known_third_party = [
     "consolekit",
     "coverage",
     "coverage_pyver_pragma",
+    "deprecation",
     "deprecation_alias",
     "dict2css",
     "docutils",

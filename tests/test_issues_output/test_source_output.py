@@ -37,9 +37,9 @@ def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLR
 			'<p><abbr title="Example Pull Request"><a class="reference external" '
 			'href="https://github.com/domdfcoding/sphinx-toolbox/pull/2">#2</a></abbr></p>',
 			'<p><abbr title="Add --log-cli option"><a class="reference external" '
-			'href="https://github.com/pytest-dev/pytest/issues/7680">#7680</a></abbr></p>',
+			'href="https://github.com/pytest-dev/pytest/issues/7680">pytest-dev/pytest#7680</a></abbr></p>',
 			'<p><abbr title="RFC: python: skip work pytest_pycollect_makeitem work on certain names"><a '
-			'class="reference external" href="https://github.com/pytest-dev/pytest/issues/7671">#7671</a></abbr></p>',
+			'class="reference external" href="https://github.com/pytest-dev/pytest/issues/7671">pytest-dev/pytest#7671</a></abbr></p>',
 			]
 
 	html_regression.check(github_source_page)
