@@ -163,8 +163,6 @@ __all__ = [
 class RegexDocumenter(VariableDocumenter):
 	"""
 	Specialized Documenter subclass for regex patterns.
-
-	.. versionadded:: 1.2.0
 	"""
 
 	directivetype = "data"
@@ -308,10 +306,6 @@ def parse_regex_flags(flags: int) -> str:
 	Convert regex flags into "bitwise-or'd" Sphinx xrefs.
 
 	:param flags:
-
-	:rtype:
-
-	.. versionadded:: 1.2.0
 	"""
 
 	buf = []
@@ -339,10 +333,6 @@ def no_formatting(value: Any) -> str:
 	No-op that returns the value as a string.
 
 	Used for unformatted output.
-
-	:rtype:
-
-	.. versionadded:: 1.2.0
 	"""
 	return str(value)
 
@@ -366,8 +356,6 @@ class RegexParser:
 	These are all :class:`~typing.Callable`\[[:class:`~typing.Any`], :class:`~typing.str`\].
 
 	By default no formatting is performed.
-
-	.. versionadded:: 1.2.0
 	"""
 
 	# Colours
@@ -556,10 +544,6 @@ def span(css_class: str) -> Callable[[Any], str]:
 	Returns a function that wraps a value in a ``span`` tag with the given class.
 
 	:param css_class:
-
-	:rtype:
-
-	.. versionadded:: 1.2.0
 	"""
 
 	def f(value: Any) -> str:
@@ -588,8 +572,6 @@ class HTMLRegexParser(RegexParser):
 	Additionally, all ``span`` tags the ``regex`` class,
 	and the surrounding ``code`` tag has the following classes:
 	``docutils literal notranslate regex``.
-
-	.. versionadded:: 1.2.0
 	"""
 
 	# Colours
@@ -636,8 +618,6 @@ class TerminalRegexParser(RegexParser):
 	* ``BRANCH_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for branches, e.g. :regex:`(Lovely|Horrible) Weather`
 	* ``LITERAL_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.GREEN` -- Used for literal characters.
 	* ``ANY_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for the "any" dot ``.``.
-
-	.. versionadded:: 1.2.0
 	"""
 
 	# Colours
@@ -655,8 +635,6 @@ class TerminalRegexParser(RegexParser):
 class RegexNode(nodes.literal):
 	"""
 	Docutils Node to show a highlighted regular expression.
-
-	.. versionadded:: 1.2.0
 	"""
 
 	def __init__(self, rawsource='', text='', *children, **attributes):
@@ -667,8 +645,6 @@ class RegexNode(nodes.literal):
 class Regex(SphinxRole):
 	"""
 	Docutils role to show a highlighted regular expression.
-
-	.. versionadded:: 1.2.0
 	"""
 
 	def run(self) -> Tuple[List[Node], List[system_message]]:
@@ -687,8 +663,6 @@ def visit_regex_node(translator: HTMLTranslator, node: RegexNode):
 
 	:param translator:
 	:param node: The node being visited.
-
-	.. versionadded:: 1.2.0
 	"""
 
 	translator.body.append(regex_parser.parse_pattern(node.pattern))
@@ -700,8 +674,6 @@ def depart_regex_node(translator: HTMLTranslator, node: RegexNode):
 
 	:param translator:
 	:param node: The node being visited.
-
-	.. versionadded:: 1.2.0
 	"""
 
 	translator.body.pop(-1)
@@ -713,8 +685,6 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 
 	:param app: The Sphinx application.
 	:param exception: Any exception which occurred and caused Sphinx to abort.
-
-	.. versionadded:: 1.2.0
 	"""
 
 	if exception:  # pragma: no cover
@@ -751,10 +721,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	Setup :mod:`sphinx_toolbox.more_autodoc.regex`.
 
 	:param app: The Sphinx app.
-
-	:rtype:
-
-	.. versionadded:: 1.2.0
 	"""
 
 	app.setup_extension("sphinx.ext.autodoc")
