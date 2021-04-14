@@ -1,9 +1,11 @@
 # stdlib
 import re
 import sys
+from typing import List, Union
 
 # 3rd party
 import pytest
+from _pytest.mark import ParameterSet
 from bs4 import BeautifulSoup  # type: ignore
 from coincidence.regressions import AdvancedFileRegressionFixture
 from coincidence.selectors import min_version, only_version
@@ -18,24 +20,6 @@ def test_build_example(testing_app):
 	testing_app.build()
 	testing_app.build()
 
-
-@pytest.mark.parametrize("page", ["shields.html"], indirect=True)
-def test_shields_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
-	# Make sure the page title is what you expect
-	title = page.find("h1").contents[0].strip()
-	assert "sphinx-toolbox Demo - Shields" == title
-
-	selector_string = "div.body div#sphinx-toolbox-demo-shields"
-	assert list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
-
-
-@pytest.mark.parametrize("page", ["code-block.html"], indirect=True)
-def test_code_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
-	# Make sure the page title is what you expect
-	title = page.find("h1").contents[0].strip()
-	assert "sphinx-toolbox Demo - Code" == title
-
-	assert list(filter(lambda a: a != '\n', page.select("div.body div#sphinx-toolbox-demo-code")[0].contents))[1:]
 
 
 @pytest.mark.parametrize("page", ["example.html"], indirect=True)
@@ -65,84 +49,94 @@ def test_example_html_output(page: BeautifulSoup, html_regression: HTMLRegressio
 	assert body[3].contents == []
 
 
-@pytest.mark.parametrize("page", ["installation.html"], indirect=True)
-def test_installation_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
-	# Make sure the page title is what you expect
-	title = page.find("h1").contents[0].strip()
-	assert "sphinx-toolbox Demo - Installation" == title
+pages_to_check: List[Union[str, ParameterSet]] = [
+			"assets.html",
+			"augment-defaults.html",
+			"autodoc-ellipsis.html",
+			"autonamedtuple.html",
+			"autoprotocol.html",
+			"autotypeddict.html",
+			"code-block.html",
+			"confval.html",
+			"decorators.html",
+			"example.html",
+			"flake8.html",
+			"formatting.html",
+			"installation.html",
+			"no_docstring.html",
+			"overloads.html",
+			"pre-commit.html",
+			"regex.html",
+			"shields.html",
+			"sourcelink.html",
+			"typevars.html",
+			"variables.html",
+			"wikipedia.html",
+			"documentation-summary.html",
+			"github.html",
+			pytest.param(
+					"instancevar.html",
+					marks=pytest.mark.skipif(
+							condition=sys.version_info < (3, 7),
+							reason="Output differs on Python 3.6",
+							),
+					),
+			pytest.param(
+					"generic_bases.html",
+					marks=only_version(3.6, reason="Output differs on Python 3.6"),
+					id="generic_bases_36"
+					),
+			pytest.param(
+					"generic_bases.html",
+					marks=only_version(3.7, reason="Output differs on Python 3.7"),
+					id="generic_bases_37"
+					),
+			pytest.param(
+					"generic_bases.html",
+					marks=min_version(3.8, reason="Output differs on Python 3.8+"),
+					id="generic_bases"
+					),
+			pytest.param(
+					"autonamedtuple_pep563.html",
+					marks=min_version(3.7, reason="Output differs on Python 3.6, and not as relevant."),
+					id="autonamedtuple_pep563"
+					),
+			pytest.param(
+					"genericalias.html",
+					marks=min_version(3.7, reason="Output differs on Python 3.6"),
+					id="genericalias"
+					),
+			]
 
-	selector_string = "div.body div#sphinx-toolbox-demo-installation"
-	assert list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
-
-
-@pytest.mark.parametrize(
-		"page",
-		[
-				"assets.html",
-				"augment-defaults.html",
-				"autodoc-ellipsis.html",
-				"autonamedtuple.html",
-				"autoprotocol.html",
-				"autotypeddict.html",
-				"code-block.html",
-				"confval.html",
-				"decorators.html",
-				"example.html",
-				"flake8.html",
-				"formatting.html",
-				"installation.html",
-				"no_docstring.html",
-				"overloads.html",
-				"pre-commit.html",
-				"regex.html",
-				"shields.html",
-				"sourcelink.html",
-				"typevars.html",
-				"variables.html",
-				"wikipedia.html",
-				"documentation-summary.html",
-				"github.html",
-				pytest.param(
-						"instancevar.html",
-						marks=pytest.mark.skipif(
-								condition=sys.version_info < (3, 7),
-								reason="Output differs on Python 3.6",
-								),
-						),
-				pytest.param(
-						"generic_bases.html",
-						marks=only_version(3.6, reason="Output differs on Python 3.6"),
-						id="generic_bases_36"
-						),
-				pytest.param(
-						"generic_bases.html",
-						marks=only_version(3.7, reason="Output differs on Python 3.7"),
-						id="generic_bases_37"
-						),
-				pytest.param(
-						"generic_bases.html",
-						marks=min_version(3.8, reason="Output differs on Python 3.8+"),
-						id="generic_bases"
-						),
-				pytest.param(
-						"autonamedtuple_pep563.html",
-						marks=min_version(3.7, reason="Output differs on Python 3.6, and not as relevant."),
-						id="autonamedtuple_pep563"
-						),
-				pytest.param(
-						"genericalias.html",
-						marks=min_version(3.7, reason="Output differs on Python 3.6"),
-						id="genericalias"
-						),
-				],
-		indirect=True
-		)
-def test_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
+def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 	"""
 	Parametrize new files here rather than as their own function.
 	"""
 
-	html_regression.check(page)
+	testing_app.build(force_all=True)
+
+	for page in pages_to_check:
+		if isinstance(page, str):
+			page = pytest.param(page, id=page)
+
+		pagename: str = page.values[0]  # type: ignore
+		page_id: str = page.id or pagename
+		for mark in page.marks:
+			if mark.kwargs.get("condition", False):
+				if "reason" in mark.kwargs:
+					print(f"Skipping {page_id!r}: {mark.kwargs['reason']}")
+
+					break
+				else:
+					print(f"Skipping {page_id!r}")
+					break
+		else:
+			print(f"Checking output for {page_id}")
+			page_id = page_id.replace('.', '_').replace('-', '_')
+			content = (testing_app.outdir / pagename).read_text()
+			html_regression.check(BeautifulSoup(content, "html5lib"), extension=f"_{page_id}_.html")
+
+		continue
 
 
 @pytest.mark.sphinx("latex", srcdir="test-root")
