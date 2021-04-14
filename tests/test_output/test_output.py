@@ -21,7 +21,6 @@ def test_build_example(testing_app):
 	testing_app.build()
 
 
-
 @pytest.mark.parametrize("page", ["example.html"], indirect=True)
 def test_example_html_output(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
@@ -50,63 +49,64 @@ def test_example_html_output(page: BeautifulSoup, html_regression: HTMLRegressio
 
 
 pages_to_check: List[Union[str, ParameterSet]] = [
-			"assets.html",
-			"augment-defaults.html",
-			"autodoc-ellipsis.html",
-			"autonamedtuple.html",
-			"autoprotocol.html",
-			"autotypeddict.html",
-			"code-block.html",
-			"confval.html",
-			"decorators.html",
-			"example.html",
-			"flake8.html",
-			"formatting.html",
-			"installation.html",
-			"no_docstring.html",
-			"overloads.html",
-			"pre-commit.html",
-			"regex.html",
-			"shields.html",
-			"sourcelink.html",
-			"typevars.html",
-			"variables.html",
-			"wikipedia.html",
-			"documentation-summary.html",
-			"github.html",
-			pytest.param(
-					"instancevar.html",
-					marks=pytest.mark.skipif(
-							condition=sys.version_info < (3, 7),
-							reason="Output differs on Python 3.6",
-							),
-					),
-			pytest.param(
-					"generic_bases.html",
-					marks=only_version(3.6, reason="Output differs on Python 3.6"),
-					id="generic_bases_36"
-					),
-			pytest.param(
-					"generic_bases.html",
-					marks=only_version(3.7, reason="Output differs on Python 3.7"),
-					id="generic_bases_37"
-					),
-			pytest.param(
-					"generic_bases.html",
-					marks=min_version(3.8, reason="Output differs on Python 3.8+"),
-					id="generic_bases"
-					),
-			pytest.param(
-					"autonamedtuple_pep563.html",
-					marks=min_version(3.7, reason="Output differs on Python 3.6, and not as relevant."),
-					id="autonamedtuple_pep563"
-					),
-			pytest.param(
-					"genericalias.html",
-					marks=min_version(3.7, reason="Output differs on Python 3.6"),
-					id="genericalias"
-					),
-			]
+		"assets.html",
+		"augment-defaults.html",
+		"autodoc-ellipsis.html",
+		"autonamedtuple.html",
+		"autoprotocol.html",
+		"autotypeddict.html",
+		"code-block.html",
+		"confval.html",
+		"decorators.html",
+		"example.html",
+		"flake8.html",
+		"formatting.html",
+		"installation.html",
+		"no_docstring.html",
+		"overloads.html",
+		"pre-commit.html",
+		"regex.html",
+		"shields.html",
+		"sourcelink.html",
+		"typevars.html",
+		"variables.html",
+		"wikipedia.html",
+		"documentation-summary.html",
+		"github.html",
+		pytest.param(
+				"instancevar.html",
+				marks=pytest.mark.skipif(
+						condition=sys.version_info < (3, 7),
+						reason="Output differs on Python 3.6",
+						),
+				),
+		pytest.param(
+				"generic_bases.html",
+				marks=only_version(3.6, reason="Output differs on Python 3.6"),
+				id="generic_bases_36"
+				),
+		pytest.param(
+				"generic_bases.html",
+				marks=only_version(3.7, reason="Output differs on Python 3.7"),
+				id="generic_bases_37"
+				),
+		pytest.param(
+				"generic_bases.html",
+				marks=min_version(3.8, reason="Output differs on Python 3.8+"),
+				id="generic_bases"
+				),
+		pytest.param(
+				"autonamedtuple_pep563.html",
+				marks=min_version(3.7, reason="Output differs on Python 3.6, and not as relevant."),
+				id="autonamedtuple_pep563"
+				),
+		pytest.param(
+				"genericalias.html",
+				marks=min_version(3.7, reason="Output differs on Python 3.6"),
+				id="genericalias"
+				),
+		]
+
 
 def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 	"""
