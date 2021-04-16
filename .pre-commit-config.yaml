@@ -74,7 +74,7 @@ repos:
       exclude: ^(doc-source/conf|__pkginfo__|setup)\.(_)?py$
 
  - repo: https://github.com/domdfcoding/dep_checker
-   rev: v0.6.1
+   rev: v0.6.2
    hooks:
     - id: dep_checker
       args:
