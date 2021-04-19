@@ -698,6 +698,8 @@ class PyPIShield(Shield):
 			else:
 				raise ValueError("Unknown time period for the PyPI download statistics.")
 
+			self.options["target"] = f"https://pypistats.org/packages/{project}"
+
 		return super().run()
 
 
