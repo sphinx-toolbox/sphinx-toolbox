@@ -7,12 +7,12 @@ name = "sphinx-toolbox"
 version = "2.4.1"
 description = "Box of handy tools for Sphinx 🧰 📔"
 readme = "README.rst"
-keywords = [ "sphinx", "documentation", "sphinx-extension",]
+keywords = [ "documentation", "sphinx", "sphinx-extension",]
 dynamic = [ "requires-python", "classifiers", "dependencies",]
 
 [[project.authors]]
-email = "dominic@davis-foster.co.uk"
 name = "Dominic Davis-Foster"
+email = "dominic@davis-foster.co.uk"
 
 
 [project.license]
