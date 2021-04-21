@@ -56,3 +56,4 @@ extras = "all"
 
 [tool.dep_checker.name_mapping]
 beautifulsoup4 = "bs4"
+ruamel-yaml = "ruamel.yaml"
