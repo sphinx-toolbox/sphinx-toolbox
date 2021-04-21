@@ -54,7 +54,7 @@ tox_unmanaged:
 sphinx_conf_epilogue:
   - html_logo = "../sphinx_toolbox.png"
   - toctree_plus_types.add("fixture")
-  - __import__("sys").path.append(os.path.abspath(".."))
+  - sys.path.append(os.path.abspath(".."))
 
 keywords:
   - sphinx
