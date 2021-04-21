@@ -208,6 +208,10 @@ Shields
 
 		Show the downloads for the given period (day / week / month)
 
+		.. versionchanged:: 2.5.0  Shields created with this option now link to pypistats_.
+
+		.. _pypistats: https://pypistats.org
+
 
 	**Examples**
 
