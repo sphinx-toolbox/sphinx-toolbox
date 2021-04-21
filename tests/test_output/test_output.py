@@ -73,6 +73,7 @@ pages_to_check: List[Union[str, ParameterSet]] = [
 		"wikipedia.html",
 		"documentation-summary.html",
 		"github.html",
+		"collapse.html",
 		pytest.param(
 				"instancevar.html",
 				marks=pytest.mark.skipif(

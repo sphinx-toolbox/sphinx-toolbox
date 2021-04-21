@@ -71,6 +71,7 @@ def setup(app: Sphinx) -> "utils.SphinxExtMetadata":
 	# Setup standalone extensions
 	app.setup_extension("sphinx_toolbox.assets")
 	app.setup_extension("sphinx_toolbox.code")
+	app.setup_extension("sphinx_toolbox.collapse")
 	app.setup_extension("sphinx_toolbox.confval")
 	app.setup_extension("sphinx_toolbox.decorators")
 	app.setup_extension("sphinx_toolbox.formatting")
