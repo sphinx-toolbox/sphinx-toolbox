@@ -132,7 +132,7 @@ class CollapseNode(nodes.Body, nodes.Element):
 	"""
 
 	def __init__(self, rawsource: str = '', label: Optional[str] = None, *children, **attributes):
-		super().__init__(rawsource=rawsource, *children, **attributes)
+		super().__init__(rawsource, *children, **attributes)
 		self.label = label
 
 

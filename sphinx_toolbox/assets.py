@@ -114,7 +114,7 @@ __all__ = [
 		]
 
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 
 class AssetNode(nodes.reference):
@@ -210,6 +210,7 @@ def depart_asset_node(translator: HTMLTranslator, node: AssetNode):
 	translator.body.append(translator.context.pop())
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.assets`.
@@ -219,14 +220,10 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	.. versionadded:: 1.0.0
 	"""
 
-	# this package
-	from sphinx_toolbox import __version__
-
 	app.add_role("asset", asset_role)
 	app.add_config_value("assets_dir", "./assets", "env", [str])
 	app.add_node(AssetNode, html=(visit_asset_node, depart_asset_node))
 
 	return {
-			"version": __version__,
 			"parallel_read_safe": True,
 			}
