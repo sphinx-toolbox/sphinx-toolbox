@@ -82,6 +82,7 @@ from typing import TYPE_CHECKING, Any, Dict, List
 from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.ext import autodoc
+from sphinx.ext.autodoc.directive import DocumenterBridge
 from sphinx.util import inspect
 from sphinx.util.inspect import evaluate_signature, safe_getattr, stringify_signature
 
@@ -89,17 +90,19 @@ from sphinx.util.inspect import evaluate_signature, safe_getattr, stringify_sign
 from sphinx_toolbox.more_autodoc.typehints import default_preprocessors, format_annotation
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
+if TYPE_CHECKING:
+	_OverloadMixinBase = autodoc.ModuleLevelDocumenter
+else:
+	_OverloadMixinBase = object
+
+_ = DocumenterBridge
+
 __all__ = [
 		"OverloadMixin",
 		"FunctionDocumenter",
 		"MethodDocumenter",
 		"setup",
 		]
-
-if TYPE_CHECKING:
-	_OverloadMixinBase = autodoc.ModuleLevelDocumenter
-else:
-	_OverloadMixinBase = object
 
 
 class OverloadMixin(_OverloadMixinBase):

@@ -2,11 +2,10 @@
 #
 #  sphinx_panels_tabs.py
 """
-Tweak to `sphinx-tabs <https://github.com/executablebooks/sphinx-tabs>`_
-to fix a CSS conflict with `sphinx-panels <https://github.com/executablebooks/sphinx-panels>`_.
+Tweak to :github:repo:`executablebooks/sphinx-tabs`
+to fix a CSS conflict with :github:repo:`executablebooks/sphinx-panels`.
 
-Fix for :issue:`51 <executablebooks/sphinx-panels>` in
-`sphinx-panels <https://github.com/executablebooks/sphinx-panels>`_.
+Fix for :github:issue:`51 <executablebooks/sphinx-panels>`.
 
 .. versionadded:: 1.9.0
 """  # noqa: D400

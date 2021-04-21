@@ -180,6 +180,7 @@ a :exc:`~.MissingOptionError` will be raised.
 # 3rd party
 from sphinx.application import Sphinx
 from sphinx.domains import Domain
+from sphinx.environment import BuildEnvironment
 
 # this package
 from sphinx_toolbox.config import MissingOptionError, ToolboxConfig
@@ -192,6 +193,8 @@ from sphinx_toolbox.github.repos_and_users import (
 		visit_github_object_link_node
 		)
 from sphinx_toolbox.utils import SphinxExtMetadata, make_github_url, metadata_add_version
+
+_ = BuildEnvironment
 
 __all__ = ["GitHubDomain", "validate_config", "setup"]
 

@@ -5,9 +5,12 @@
 # stdlib
 import os
 import re
+import sys
 
 # 3rd party
 from sphinx_pyproject import SphinxConfig
+
+sys.path.append('.')
 
 config = SphinxConfig()
 
