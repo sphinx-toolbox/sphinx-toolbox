@@ -65,7 +65,6 @@ class LaTeXTranslator(sphinx.writers.latex.LaTeXTranslator):
 		return '\n'.join([
 				nest_bookmark_level_part,
 				*super_output.splitlines(),
-				*super().generate_indices().splitlines(),
 				'',
 				nest_bookmark_level_part,
 				])
