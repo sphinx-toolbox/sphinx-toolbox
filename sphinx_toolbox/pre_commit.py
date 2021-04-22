@@ -96,6 +96,7 @@ API Reference
 # stdlib
 import re
 import warnings
+from io import StringIO
 from textwrap import indent
 from typing import List, Sequence
 
@@ -104,6 +105,7 @@ import ruamel.yaml as yaml
 from docutils import nodes
 from docutils.statemachine import StringList
 from domdf_python_tools.paths import PathPlus
+from ruamel.yaml import YAML
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 from typing_extensions import TypedDict
@@ -195,7 +197,14 @@ class PreCommitDirective(SphinxDirective):
 		targetid = f'pre-commit-{self.env.new_serialno("pre-commit"):d}'
 		targetnode = nodes.section(ids=[targetid])
 
-		yaml_output = yaml.round_trip_dump([config], default_flow_style=False)
+		yaml_dumper = YAML()
+		yaml_dumper.default_flow_style = False
+
+		yaml_output_stream = StringIO()
+		yaml_dumper.dump([config], stream=yaml_output_stream)
+
+		yaml_output = yaml_output_stream.getvalue()
+
 		if not yaml_output:
 			return []
 
@@ -238,7 +247,14 @@ class Flake8PreCommitDirective(SphinxDirective):
 		targetid = f'pre-commit-{self.env.new_serialno("pre-commit"):d}'
 		targetnode = nodes.section(ids=[targetid])
 
-		yaml_output = yaml.round_trip_dump([config], default_flow_style=False)
+		yaml_dumper = YAML()
+		yaml_dumper.default_flow_style = False
+
+		yaml_output_stream = StringIO()
+		yaml_dumper.dump([config], stream=yaml_output_stream)
+
+		yaml_output = yaml_output_stream.getvalue()
+
 		if not yaml_output:
 			return []
 
