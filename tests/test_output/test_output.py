@@ -17,8 +17,9 @@ from sphinx_toolbox.testing import HTMLRegressionFixture
 
 
 def test_build_example(testing_app):
-	testing_app.build()
-	testing_app.build()
+	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
+		testing_app.build()
+		testing_app.build()
 
 
 @pytest.mark.parametrize("page", ["example.html"], indirect=True)
