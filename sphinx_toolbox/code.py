@@ -229,7 +229,7 @@ class CodeCell(CodeBlock):
 	.. versionadded:: 2.6.0
 	"""  # noqa: D400
 
-	option_spec: OptionSpec = {  # type: ignore
+	option_spec: OptionSpec = {
 		**CodeBlock.option_spec,
 		"execution-count": directives.positive_int,
 		}
@@ -370,7 +370,7 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 
 	static_dir = PathPlus(app.outdir) / "_static"
 	static_dir.maybe_make(parents=True)
-	(static_dir / "sphinx-toolbox-code.css").write_clean(dict2css.dumps(style))
+	(static_dir / "sphinx-toolbox-code.css").write_clean(dict2css.dumps(style))  # type: ignore
 
 
 def setup(app: Sphinx) -> SphinxExtMetadata:
@@ -401,7 +401,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 			latex=(visit_prompt_latex, lambda *args, **kwargs: None)
 			)
 
-	latex_elements = getattr(app.config, "latex_elements", {})
+	latex_elements = getattr(app.config, "latex_elements", {})  # type: ignore
 
 	latex_preamble = StringList(latex_elements.get("preamble", ''))
 	latex_preamble.blankline()
@@ -409,7 +409,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	latex_preamble.append(r"\definecolor{nbsphinxout}{HTML}{BF5B3D}")
 
 	latex_elements["preamble"] = str(latex_preamble)
-	app.config.latex_elements = latex_elements
+	app.config.latex_elements = latex_elements  # type: ignore
 
 	app.add_css_file("sphinx-toolbox-code.css")
 	app.connect("build-finished", copy_asset_files)
