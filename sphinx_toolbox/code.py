@@ -50,8 +50,6 @@ Usage
 	Customised ``.. code-block::`` directives which displays an execution count to
 	the left of the code block, similar to a Jupyter Notebook cell.
 
-	.. versionadded:: 2.6.0
-
 	.. rst:directive:option:: execution-count:
 		:type: positive integer
 
@@ -59,6 +57,8 @@ Usage
 
 
 	All other options from the :rst:dir:`code-block` directive above are available.
+
+	.. versionadded:: 2.6.0
 
 	**Examples**
 
@@ -87,6 +87,12 @@ Usage
 			def print(text):
 				sys.stdout.write(text)
 
+
+	.. seealso::
+
+		`nbsphinx <https://nbsphinx.readthedocs.io/en/0.8.3/>`_,
+		which inspired these directives and provides additional functionality
+		for integrating Jupyter Notebooks with Sphinx.
 
 API Reference
 ----------------
@@ -230,9 +236,9 @@ class CodeCell(CodeBlock):
 	"""  # noqa: D400
 
 	option_spec: OptionSpec = {
-		**CodeBlock.option_spec,
-		"execution-count": directives.positive_int,
-		}
+			**CodeBlock.option_spec,
+			"execution-count": directives.positive_int,
+			}
 
 	_prompt: str = "In [%s]:"
 	_class: str = "code-cell"
