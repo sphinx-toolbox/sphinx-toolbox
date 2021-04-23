@@ -44,13 +44,56 @@ Usage
 			def print(text):
 				sys.stdout.write(text)
 
+.. rst:directive:: .. code-cell:: [language]
+				   .. output-cell:: [language]
+
+	Customised ``.. code-block::`` directives which displays an execution count to
+	the left of the code block, similar to a Jupyter Notebook cell.
+
+	.. versionadded:: 2.6.0
+
+	.. rst:directive:option:: execution-count:
+		:type: positive integer
+
+		The execution count of the cell.
+
+
+	All other options from the :rst:dir:`code-block` directive above are available.
+
+	**Examples**
+
+	.. rest-example::
+
+		.. code-cell:: python
+			:execution-count: 1
+
+			def print(text):
+				sys.stdout.write(text)
+
+			print("hello world")
+
+		.. output-cell::
+			:execution-count: 1
+
+			hello world
+
+
+	.. rest-example::
+
+		.. code-cell:: python
+			:execution-count: 2
+			:tab-width: 8
+
+			def print(text):
+				sys.stdout.write(text)
+
 
 API Reference
 ----------------
 
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -102,20 +145,35 @@ API Reference
 from typing import List
 
 # 3rd party
+import dict2css
+import docutils.nodes
+import docutils.statemachine
+import sphinx.directives.code
 from docutils.nodes import Node
 from docutils.parsers.rst import directives
-from docutils.statemachine import StringList
+from domdf_python_tools.paths import PathPlus
+from domdf_python_tools.stringlist import StringList
 from domdf_python_tools.utils import convert_indents
 from sphinx.application import Sphinx
-from sphinx.directives.code import CodeBlock as __BaseCodeBlock
+from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.latex import LaTeXTranslator
 
 # this package
 from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata
 
-__all__ = ["CodeBlock", "setup"]
+__all__ = [
+		"CodeBlock",
+		"CodeCell",
+		"OutputCell",
+		"Prompt",
+		"visit_prompt_html",
+		"visit_prompt_latex",
+		"copy_asset_files",
+		"setup"
+		]
 
 
-class CodeBlock(__BaseCodeBlock):
+class CodeBlock(sphinx.directives.code.CodeBlock):
 	"""
 	Directive for a code block with special highlighting or line numbering settings.
 
@@ -148,9 +206,171 @@ class CodeBlock(__BaseCodeBlock):
 
 		code = convert_indents(code, tab_width=tab_width, from_=' ' * self.config.docutils_tab_width)
 
-		self.content = StringList(code.split('\n'))
+		self.content = docutils.statemachine.StringList(code.split('\n'))
 
 		return super().run()
+
+
+class Prompt(docutils.nodes.General, docutils.nodes.FixedTextElement):
+	"""
+	Represents a cell prompt for a :class:`CodeCell` and :class:`OutputCell`.
+
+	.. versionadded:: 2.6.0
+	"""
+
+
+class CodeCell(CodeBlock):
+	"""
+	Customised code block which displays an execution count to the left of the code block,
+	similar to a Jupyter Notebook cell.
+
+	The execution count can be set using the ``:execution-count" <int>`` option.
+
+	.. versionadded:: 2.6.0
+	"""  # noqa: D400
+
+	option_spec: OptionSpec = {  # type: ignore
+		**CodeBlock.option_spec,
+		"execution-count": directives.positive_int,
+		}
+
+	_prompt: str = "In [%s]:"
+	_class: str = "code-cell"
+
+	def run(self) -> List[Node]:
+		"""
+		Process the content of the code block.
+		"""
+
+		self.options.setdefault("class", [])
+		self.options["class"].append(f"{self._class}-code")
+
+		prompt = self._prompt % self.options.get("execution-count", ' ')
+
+		outer_node = docutils.nodes.container(classes=[self._class])
+
+		outer_node += Prompt(
+				prompt,
+				prompt,
+				language="none",
+				classes=["prompt", f"{self._class}-prompt"],
+				)
+
+		outer_node += super().run()[0]
+
+		return [outer_node]
+
+
+class OutputCell(CodeCell):
+	"""
+	Variant of :class:`~.CodeCell` for displaying the output of a cell in a Jupyter Notebook.
+
+	The execution count can be set using the ``:execution-count" <int>`` option.
+
+	.. versionadded:: 2.6.0
+	"""
+
+	_prompt: str = "[%s]:"
+	_class: str = "output-cell"
+
+
+def visit_prompt_html(translator: HTMLTranslator, node: Prompt) -> None:
+	"""
+	Visit a :class:`~.Prompt` node with the HTML translator.
+
+	.. versionadded:: 2.6.0
+
+	:param translator:
+	:param node:
+	"""
+
+	starttag = translator.starttag(node, "div", suffix='', CLASS="notranslate")
+	translator.body.append(starttag + node.rawsource + '</div>\n')
+	raise docutils.nodes.SkipNode
+
+
+def visit_prompt_latex(translator: LaTeXTranslator, node: Prompt) -> None:
+	"""
+	Visit a :class:`~.Prompt` node with the LaTeX translator.
+
+	.. versionadded:: 2.6.0
+
+	:param translator:
+	:param node:
+	"""
+
+	translator.body.append("\n\n")
+	translator.body.append(r"\vspace{4mm}")
+
+	if f"code-cell-prompt" in node["classes"]:
+		colour = "nbsphinxin"
+	elif f"output-cell-prompt" in node["classes"]:
+		colour = "nbsphinxout"
+	else:
+		colour = "black"
+
+	translator.body.append(
+			rf"\llap{{\color{{{colour}}}\texttt{{{node.rawsource}}}"
+			r"\,\hspace{{\fboxrule}}\hspace{{\fboxsep}}}}"
+			)
+	translator.body.append(r"\vspace{-7mm}")
+
+	raise docutils.nodes.SkipNode
+
+
+def copy_asset_files(app: Sphinx, exception: Exception = None):
+	"""
+	Copy additional stylesheets into the HTML build directory.
+
+	.. versionadded:: 2.6.0
+
+	:param app: The Sphinx application.
+	:param exception: Any exception which occurred and caused Sphinx to abort.
+	"""
+
+	if exception:  # pragma: no cover
+		return
+
+	if app.builder.format.lower() != "html":
+		return
+
+	prompt_style = {
+			"user-select": None,
+			"font-size": "13px",
+			"font-family": '"SFMono-Regular", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace',
+			"border": None,
+			"padding": "11px 0 0",
+			"margin": "0 5px 0 0",
+			"box-shadow": None,
+			"wrap-option": None,
+			"white-space": "nowrap",
+			}
+
+	container_style = {
+			"padding-top": "5px",
+			"display": "flex",
+			"align-items": "stretch",
+			"margin": 0,
+			}
+
+	code_style_string = "div.code-cell.container div.code-cell-code, div.output-cell.container div.output-cell-code"
+	code_style = {
+			"width": "100%",
+			"padding-top": 0,
+			"margin-top": 0,
+			}
+
+	style = {
+			"div.code-cell.container div.prompt": {"color": "#307FC1"},
+			"div.output-cell.container div.prompt": {"color": "#BF5B3D"},
+			"div.code-cell.container div.prompt, div.output-cell.container div.prompt": prompt_style,
+			"div.code-cell.container, div.output-cell.container": container_style,
+			code_style_string: code_style,
+			}
+
+	static_dir = PathPlus(app.outdir) / "_static"
+	static_dir.maybe_make(parents=True)
+	(static_dir / "sphinx-toolbox-code.css").write_clean(dict2css.dumps(style))
 
 
 def setup(app: Sphinx) -> SphinxExtMetadata:
@@ -169,8 +389,30 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_directive("code-block", CodeBlock, override=True)
 	app.add_directive("sourcecode", CodeBlock, override=True)
 
+	app.add_directive("code-cell", CodeCell)
+	app.add_directive("output-cell", OutputCell)
+
 	# Hack to get the docutils tab size, as there doesn't appear to be any other way
 	app.setup_extension("sphinx_toolbox.tweaks.tabsize")
+
+	app.add_node(
+			Prompt,
+			html=(visit_prompt_html, lambda *args, **kwargs: None),
+			latex=(visit_prompt_latex, lambda *args, **kwargs: None)
+			)
+
+	latex_elements = getattr(app.config, "latex_elements", {})
+
+	latex_preamble = StringList(latex_elements.get("preamble", ''))
+	latex_preamble.blankline()
+	latex_preamble.append(r"\definecolor{nbsphinxin}{HTML}{307FC1}")
+	latex_preamble.append(r"\definecolor{nbsphinxout}{HTML}{BF5B3D}")
+
+	latex_elements["preamble"] = str(latex_preamble)
+	app.config.latex_elements = latex_elements
+
+	app.add_css_file("sphinx-toolbox-code.css")
+	app.connect("build-finished", copy_asset_files)
 
 	return {
 			"version": __version__,

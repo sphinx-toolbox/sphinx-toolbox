@@ -35,3 +35,26 @@ sphinx-toolbox Demo - Code
 
 	def print(text):
 		sys.stdout.write(text)
+
+Code Cell
+-----------
+
+.. code-cell:: python
+	:execution-count: 1
+
+	def print(text):
+		sys.stdout.write(text)
+
+	print("hello world")
+
+.. output-cell::
+	:execution-count: 1
+
+	hello world
+
+.. code-cell:: python
+	:execution-count: 2
+	:tab-width: 8
+
+	def print(text):
+		sys.stdout.write(text)
