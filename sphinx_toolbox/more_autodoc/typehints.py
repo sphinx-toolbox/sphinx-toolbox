@@ -271,7 +271,7 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	elif annotation is Ellipsis:
 		return "..."
 	elif annotation is itertools.cycle:
-		return ":func:`itertools.cycle`"
+		return f":func:`{prefix}itertools.cycle`"
 	elif annotation is types.GetSetDescriptorType:  # noqa E721
 		return f":py:data:`{prefix}types.GetSetDescriptorType`"
 	elif annotation is types.MemberDescriptorType:  # noqa E721
