@@ -118,10 +118,10 @@ import types
 from types import FunctionType, ModuleType
 from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, Type, TypeVar, get_type_hints
 
-if sys.version_info < (3, 7, 4):
+if sys.version_info < (3, 7, 4):  # pragma: no cover (py37+)
 	# stdlib
 	from typing import _ForwardRef as ForwardRef  # type: ignore
-else:
+else:  # pragma: no cover (<py37)
 	from typing import ForwardRef  # type: ignore
 
 # 3rd party

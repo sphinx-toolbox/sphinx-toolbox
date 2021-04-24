@@ -5,3 +5,4 @@
 	installation
 	collapse
 	code-block
+	formatting

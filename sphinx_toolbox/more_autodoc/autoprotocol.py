@@ -289,14 +289,14 @@ class ProtocolDocumenter(ClassDocumenter):
 
 			if safe_getattr(member, "__sphinx_mock__", False):
 				# mocked module or object
-				keep = False
+				keep = False  # pragma: no cover
 
 			elif (
 					self.options.get("exclude-protocol-members", [])
 					and membername in self.options["exclude-protocol-members"]
 					):
 				# remove members given by exclude-protocol-members
-				keep = False
+				keep = False  # pragma: no cover
 
 			elif membername.startswith('_') and not (membername.startswith("__") and membername.endswith("__")):
 				keep = False

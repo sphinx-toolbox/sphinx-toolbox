@@ -17,7 +17,7 @@ This module monkeypatches in that behaviour.
 	Moved from :mod:`sphinx_toolbox.autodoc_augment_defaults`.
 """  # noqa D400
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -123,9 +123,10 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 
 	if "sphinx.ext.autodoc" in app.extensions:
-		raise ExtensionError(
-				"'sphinx_toolbox.more_autodoc.augment_defaults' must be loaded before 'sphinx.ext.autodoc."
-				)
+		raise ExtensionError(  # pragma: no cover
+			"'sphinx_toolbox.more_autodoc.augment_defaults' "
+			"must be loaded before 'sphinx.ext.autodoc."
+			)
 
 	sphinx.ext.autodoc.directive.process_documenter_options = process_documenter_options
 

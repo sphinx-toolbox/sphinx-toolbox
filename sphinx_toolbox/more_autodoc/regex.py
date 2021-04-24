@@ -334,6 +334,7 @@ def no_formatting(value: Any) -> str:
 
 	Used for unformatted output.
 	"""
+
 	return str(value)
 
 
@@ -494,7 +495,7 @@ class RegexParser:
 					buf.append(type(self).ANY_COLOUR('.'))
 					continue
 
-				print(what, content)
+				print(what, content)  # pragma: no cover
 
 		pattern = regex.pattern.replace('\t', r"\t")
 

@@ -312,7 +312,7 @@ def visit_prompt_latex(translator: LaTeXTranslator, node: Prompt) -> None:
 		colour = "nbsphinxin"
 	elif f"output-cell-prompt" in node["classes"]:
 		colour = "nbsphinxout"
-	else:
+	else:  # pragma: no cover
 		colour = "black"
 
 	translator.body.append(
