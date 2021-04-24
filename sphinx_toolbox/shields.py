@@ -67,19 +67,21 @@ Shields
 		.. versionadded:: 1.8.0
 
 
-	**Examples**
-
-	.. rest-example::
-
-		.. rtfd-shield::
-			:project: sphinx-toolbox
-
-	.. rest-example::
-
-		.. rtfd-shield::
-			:project: attrs
-			:target: https://www.attrs.org/
-
+	.. only:: html
+	
+		**Examples**
+		
+		.. rest-example::
+	
+			.. rtfd-shield::
+				:project: sphinx-toolbox
+	
+		.. rest-example::
+	
+			.. rtfd-shield::
+				:project: attrs
+				:target: https://www.attrs.org/
+	
 
 .. rst:directive:: actions-shield
 
@@ -97,13 +99,14 @@ Shields
 
 		The workflow to show the status for.
 
-
-	**Example**
-
-	.. rest-example::
-
-		.. actions-shield::
-			:workflow: Windows Tests
+	.. only:: html
+	
+		**Example**
+	
+		.. rest-example::
+	
+			.. actions-shield::
+				:workflow: Windows Tests
 
 
 .. rst:directive:: requires-io-shield
@@ -123,11 +126,13 @@ Shields
 		The branch to show the build status for. Default ``master``.
 
 
-	**Example**
-
-	.. rest-example::
-
-		.. requires-io-shield::
+	.. only:: html
+		
+		**Example**
+	
+		.. rest-example::
+	
+			.. requires-io-shield::
 
 
 .. rst:directive:: coveralls-shield
@@ -147,11 +152,13 @@ Shields
 		The branch to show the build status for. Default ``master``.
 
 
-	**Example**
-
-	.. rest-example::
-
-		.. coveralls-shield::
+	.. only:: html
+		
+		**Example**
+	
+		.. rest-example::
+	
+			.. coveralls-shield::
 
 
 .. rst:directive:: codefactor-shield
@@ -167,11 +174,13 @@ Shields
 		The GitHub repository. Defaults to :confval:`github_repository`.
 
 
-	**Example**
-
-	.. rest-example::
-
-		.. codefactor-shield::
+	.. only:: html
+		
+		**Example**
+	
+		.. rest-example::
+	
+			.. codefactor-shield::
 
 
 .. rst:directive:: pypi-shield
@@ -213,18 +222,20 @@ Shields
 		.. _pypistats: https://pypistats.org
 
 
-	**Examples**
+	.. only:: html
 
-	.. rest-example::
-
-		.. pypi-shield::
-			:version:
-
-		\
-
-		.. pypi-shield::
-			:project: sphinx
-			:downloads: month
+		**Examples**
+	
+		.. rest-example::
+	
+			.. pypi-shield::
+				:version:
+	
+			\
+	
+			.. pypi-shield::
+				:project: sphinx
+				:downloads: month
 
 
 .. rst:directive:: github-shield
@@ -273,17 +284,19 @@ Shields
 		Show the license detected by GitHub.
 
 
-	**Examples**
-
-	.. rest-example::
-
-		.. github-shield::
-			:last-commit:
-
-		\
-
-		.. github-shield::
-			:commits-since: v0.1.0
+	.. only:: html
+	
+		**Examples**
+	
+		.. rest-example::
+	
+			.. github-shield::
+				:last-commit:
+	
+			\
+	
+			.. github-shield::
+				:commits-since: v0.1.0
 
 
 .. rst:directive:: maintained-shield:
@@ -293,11 +306,13 @@ Shields
 	Takes a single argument: the current year.
 
 
-	**Example**
-
-	.. rest-example::
-
-		.. maintained-shield:: 2020
+	.. only:: html
+		
+		**Example**
+	
+		.. rest-example::
+	
+			.. maintained-shield:: 2020
 
 
 .. rst:directive:: pre-commit-shield
@@ -305,11 +320,13 @@ Shields
 	Shield to indicate that the project uses `pre-commit <https://pre-commit.com/>`_.
 
 
-	**Example**
-
-	.. rest-example::
-
-		.. pre-commit-shield::
+	.. only:: html
+		
+		**Example**
+	
+		.. rest-example::
+	
+			.. pre-commit-shield::
 
 
 .. rst:directive:: pre-commit-ci-shield
@@ -331,11 +348,13 @@ Shields
 		The branch to show the status for. Default ``master``.
 
 
-	**Example**
-
-	.. rest-example::
-
-		.. pre-commit-ci-shield::
+	.. only:: html
+		
+		**Example**
+	
+		.. rest-example::
+	
+			.. pre-commit-ci-shield::
 
 
 """  # noqa RST299,RST305
