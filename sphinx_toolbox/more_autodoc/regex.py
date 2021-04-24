@@ -445,7 +445,7 @@ class RegexParser:
 						buf.append(type(self).REPEAT_BRACE_COLOUR('{'))
 						buf.append(type(self).REPEAT_COLOUR(str(min_)))
 						buf.append(type(self).LITERAL_COLOUR(','))
-						buf.append(type(self).REPEAT_COLOUR(str(max)))
+						buf.append(type(self).REPEAT_COLOUR(str(max_)))
 						buf.append(type(self).REPEAT_BRACE_COLOUR('}'))
 					if what is MIN_REPEAT:
 						buf.append(type(self).REPEAT_COLOUR('?'))
