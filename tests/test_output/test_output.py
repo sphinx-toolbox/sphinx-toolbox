@@ -118,6 +118,8 @@ def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
 		testing_app.build(force_all=True)
 
+	caught_exceptions: List[BaseException] = []
+
 	for page in pages_to_check:
 		if isinstance(page, str):
 			page = pytest.param(page, id=page)
@@ -137,9 +139,17 @@ def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 			print(f"Checking output for {page_id}")
 			page_id = page_id.replace('.', '_').replace('-', '_')
 			content = (testing_app.outdir / pagename).read_text()
-			html_regression.check(BeautifulSoup(content, "html5lib"), extension=f"_{page_id}_.html")
+			try:
+				html_regression.check(BeautifulSoup(content, "html5lib"), extension=f"_{page_id}_.html")
+			except BaseException as e:
+				caught_exceptions.append(e)
 
 		continue
+
+	print(caught_exceptions)
+
+	for exception in caught_exceptions:
+		raise exception
 
 
 @pytest.mark.sphinx("latex", srcdir="test-root")
