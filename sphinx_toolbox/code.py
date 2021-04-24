@@ -317,7 +317,7 @@ def visit_prompt_latex(translator: LaTeXTranslator, node: Prompt) -> None:
 
 	translator.body.append(
 			rf"\llap{{\color{{{colour}}}\texttt{{{node.rawsource}}}"
-			r"\,\hspace{{\fboxrule}}\hspace{{\fboxsep}}}}"
+			r"\,\hspace{\fboxrule}\hspace{\fboxrule}\hspace{\fboxsep}}"
 			)
 	translator.body.append(r"\vspace{-7mm}")
 
