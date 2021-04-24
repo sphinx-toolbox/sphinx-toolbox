@@ -219,13 +219,11 @@ def get_first_matching(
 	"""
 	Returns the first value in ``iterable`` that meets ``condition``, or ``default`` if none match.
 
+	.. versionadded:: 0.7.0
+
 	:param condition: The condition to evaluate.
 	:param iterable:
 	:param default: The default value to return if no values in ``iterable`` match.
-
-	:rtype:
-
-	.. versionadded:: 0.7.0
 	"""
 
 	if default is not no_default:
@@ -245,11 +243,9 @@ def escape_trailing__(string: str) -> str:
 	"""
 	Returns the given string with trailing underscores escaped to prevent Sphinx treating them as references.
 
-	:param string:
-
-	:rtype:
-
 	.. versionadded:: 0.8.0
+
+	:param string:
 	"""
 
 	if string.endswith('_'):
@@ -261,11 +257,9 @@ def code_repr(obj: Any) -> str:
 	"""
 	Returns the repr of the given object as reStructuredText inline code.
 
-	:param obj:
-
-	:rtype:
-
 	.. versionadded:: 0.9.0
+
+	:param obj:
 	"""
 
 	return f"``{obj!r}``"
@@ -414,14 +408,13 @@ def unknown_module_warning(documenter: Documenter) -> None:
 	.. versionadded:: 0.2.0
 	"""
 
-	logger.warning(
-			__(
-					"don't know which module to import for autodocumenting "
-					'%r (try placing a "module" or "currentmodule" directive '
-					"in the document, or giving an explicit module name)"
-					) % documenter.name,
-			type="autodoc"
+	msg = __(
+			"don't know which module to import for autodocumenting %r "
+			'(try placing a "module" or "currentmodule" directive in the document, '
+			"or giving an explicit module name)"
 			)
+
+	logger.warning(msg % documenter.name, type="autodoc")
 
 
 def filter_members_warning(member, exception: Exception) -> None:

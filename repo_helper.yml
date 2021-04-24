@@ -50,6 +50,7 @@ extra_sphinx_extensions:
 
 tox_unmanaged:
   - flake8
+  - pytest
 
 sphinx_conf_epilogue:
   - html_logo = "../sphinx_toolbox.png"
