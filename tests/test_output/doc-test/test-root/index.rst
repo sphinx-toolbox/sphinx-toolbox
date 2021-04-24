@@ -4,3 +4,4 @@
 
 	installation
 	collapse
+	code-block
