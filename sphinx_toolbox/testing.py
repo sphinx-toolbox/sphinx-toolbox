@@ -644,6 +644,9 @@ def check_html_regression(page: BeautifulSoup, file_regression: FileRegressionFi
 		if "_static/language_data.js" in str(div):
 			div.extract()
 
+	for div in page.select("div.sphinxsidebar"):
+		div.extract()
+
 	check_file_regression(
 			StringList(page.prettify()),
 			file_regression,
@@ -685,6 +688,9 @@ class HTMLRegressionFixture(FileRegressionFixture):
 		for div in page.select("script"):
 			if "_static/language_data.js" in str(div):
 				div.extract()
+
+		for div in page.select("div.sphinxsidebar"):
+			div.extract()
 
 		kwargs.pop("encoding", None)
 		kwargs.pop("extension", None)
