@@ -5,7 +5,7 @@
 CLI entry point for sphinx-toolbox.
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -26,13 +26,13 @@ CLI entry point for sphinx-toolbox.
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-__all__ = ["clear_cache"]
-
 # stdlib
 import sys
 
 # this package
 from sphinx_toolbox import cache
+
+__all__ = ["clear_cache"]
 
 
 def clear_cache():

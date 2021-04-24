@@ -68,20 +68,20 @@ Shields
 
 
 	.. only:: html
-	
+
 		**Examples**
-		
+
 		.. rest-example::
-	
+
 			.. rtfd-shield::
 				:project: sphinx-toolbox
-	
+
 		.. rest-example::
-	
+
 			.. rtfd-shield::
 				:project: attrs
 				:target: https://www.attrs.org/
-	
+
 
 .. rst:directive:: actions-shield
 
@@ -100,11 +100,11 @@ Shields
 		The workflow to show the status for.
 
 	.. only:: html
-	
+
 		**Example**
-	
+
 		.. rest-example::
-	
+
 			.. actions-shield::
 				:workflow: Windows Tests
 
@@ -127,11 +127,11 @@ Shields
 
 
 	.. only:: html
-		
+
 		**Example**
-	
+
 		.. rest-example::
-	
+
 			.. requires-io-shield::
 
 
@@ -153,11 +153,11 @@ Shields
 
 
 	.. only:: html
-		
+
 		**Example**
-	
+
 		.. rest-example::
-	
+
 			.. coveralls-shield::
 
 
@@ -175,11 +175,11 @@ Shields
 
 
 	.. only:: html
-		
+
 		**Example**
-	
+
 		.. rest-example::
-	
+
 			.. codefactor-shield::
 
 
@@ -225,14 +225,14 @@ Shields
 	.. only:: html
 
 		**Examples**
-	
+
 		.. rest-example::
-	
+
 			.. pypi-shield::
 				:version:
-	
+
 			\
-	
+
 			.. pypi-shield::
 				:project: sphinx
 				:downloads: month
@@ -285,16 +285,16 @@ Shields
 
 
 	.. only:: html
-	
+
 		**Examples**
-	
+
 		.. rest-example::
-	
+
 			.. github-shield::
 				:last-commit:
-	
+
 			\
-	
+
 			.. github-shield::
 				:commits-since: v0.1.0
 
@@ -307,11 +307,11 @@ Shields
 
 
 	.. only:: html
-		
+
 		**Example**
-	
+
 		.. rest-example::
-	
+
 			.. maintained-shield:: 2020
 
 
@@ -321,11 +321,11 @@ Shields
 
 
 	.. only:: html
-		
+
 		**Example**
-	
+
 		.. rest-example::
-	
+
 			.. pre-commit-shield::
 
 
@@ -349,11 +349,11 @@ Shields
 
 
 	.. only:: html
-		
+
 		**Example**
-	
+
 		.. rest-example::
-	
+
 			.. pre-commit-ci-shield::
 
 
