@@ -9,6 +9,7 @@ from typing import Any, List
 
 # 3rd party
 import pytest
+from coincidence.selectors import not_pypy, only_pypy
 from domdf_python_tools.typing import (
 		ClassMethodDescriptorType,
 		MethodDescriptorType,
@@ -50,19 +51,39 @@ from sphinx_toolbox.more_autodoc.typehints import format_annotation
 						id="types.MethodDescriptorType"
 						),
 				pytest.param(
-						MethodWrapperType, ":py:data:`types.MethodWrapperType`", id="types.MethodWrapperType"
+						MethodWrapperType,
+						":py:data:`types.MethodWrapperType`",
+						id="types.MethodWrapperType",
+						marks=not_pypy("PyPy reuses some types"),
+						),
+				pytest.param(
+						MethodWrapperType,
+						":py:data:`types.MethodType`",
+						id="types.MethodWrapperType",
+						marks=only_pypy("PyPy reuses some types"),
 						),
 				pytest.param(
 						WrapperDescriptorType,
 						":py:data:`types.WrapperDescriptorType`",
-						id="types.WrapperDescriptorType"
+						id="types.WrapperDescriptorType",
+						marks=not_pypy("PyPy reuses some types")
+						),
+				pytest.param(
+						WrapperDescriptorType,
+						":py:data:`types.MethodDescriptorType`",
+						id="types.WrapperDescriptorType",
+						marks=only_pypy("PyPy reuses some types")
 						),
 				pytest.param(
 						types.BuiltinFunctionType,
 						":py:data:`types.BuiltinFunctionType`",
 						id="types.BuiltinFunctionType"
 						),
-				pytest.param(types.MethodType, ":py:data:`types.MethodType`", id="types.MethodType"),
+				pytest.param(
+						types.MethodType,
+						":py:data:`types.MethodType`",
+						id="types.MethodType",
+						),
 				pytest.param(
 						types.MappingProxyType, ":py:class:`types.MappingProxyType`", id="types.MappingProxyType"
 						),

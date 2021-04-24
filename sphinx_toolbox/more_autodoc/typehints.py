@@ -284,14 +284,14 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		return f":py:data:`{prefix}types.ClassMethodDescriptorType`"
 	elif annotation is MethodDescriptorType:  # noqa E721
 		return f":py:data:`{prefix}types.MethodDescriptorType`"
+	elif annotation is types.MethodType:  # noqa E721
+		return f":py:data:`{prefix}types.MethodType`"
 	elif annotation is MethodWrapperType:  # noqa E721
 		return f":py:data:`{prefix}types.MethodWrapperType`"
 	elif annotation is WrapperDescriptorType:  # noqa E721
 		return f":py:data:`{prefix}types.WrapperDescriptorType`"
 	elif annotation is types.BuiltinFunctionType:  # noqa E721
 		return f":py:data:`{prefix}types.BuiltinFunctionType`"
-	elif annotation is types.MethodType:  # noqa E721
-		return f":py:data:`{prefix}types.MethodType`"
 	elif isinstance(annotation, ForwardRef):
 		# Unresolved forward ref
 		return f":py:obj:`{prefix}.{annotation.__forward_arg__}`"
