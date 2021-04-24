@@ -92,7 +92,8 @@ def app_params(
 
 @pytest.fixture()
 def page(testing_app, request) -> BeautifulSoup:
-	testing_app.build(force_all=True)
+	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
+		testing_app.build(force_all=True)
 
 	pagename = request.param
 	c = (testing_app.outdir / pagename).read_text()

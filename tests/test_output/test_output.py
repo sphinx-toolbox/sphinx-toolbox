@@ -115,7 +115,8 @@ def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 	Parametrize new files here rather than as their own function.
 	"""
 
-	testing_app.build(force_all=True)
+	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
+		testing_app.build(force_all=True)
 
 	for page in pages_to_check:
 		if isinstance(page, str):
