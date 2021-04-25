@@ -44,6 +44,7 @@ extra_sphinx_extensions:
   - sphinx_toolbox.pre_commit
   - sphinx_toolbox.flake8
   - sphinx_autofixture
+  - sphinx_event_role
 
 #manifest_additional:
 #  - include sphinx_toolbox/more_autodoc/regex.css

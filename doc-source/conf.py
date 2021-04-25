@@ -44,6 +44,7 @@ extensions = [
 		"sphinx_toolbox.pre_commit",
 		"sphinx_toolbox.flake8",
 		"sphinx_autofixture",
+		"sphinx_event_role",
 		]
 sphinxemoji_style = "twemoji"
 gitstamp_fmt = "%d %b %Y"

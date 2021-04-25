@@ -34,7 +34,7 @@ General utility functions.
 # stdlib
 import functools
 import re
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Pattern, Tuple, Type, TypeVar, cast
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Pattern, Set, Tuple, Type, TypeVar, cast
 
 # 3rd party
 import sphinx.config
@@ -135,6 +135,15 @@ class Purger:
 		"""
 		Remove all redundant nodes.
 
+		This function can be configured for the :event:`env-purge-doc` event:
+
+		.. code-block::
+
+			my_node_purger = Purger("all_my_node_nodes")
+
+			def setup(app: Sphinx):
+				app.connect("env-purge-doc", my_node_purger.purge_nodes)
+
 		:param app: The Sphinx app.
 		:param env: The Sphinx build environment.
 		:param docname: The name of the document to remove nodes for.
@@ -147,6 +156,40 @@ class Purger:
 				todo for todo in getattr(env, self.attr_name) if todo["docname"] != docname
 				]  # pragma: no cover
 		setattr(env, self.attr_name, all_nodes)  # pragma: no cover
+
+	def get_outdated_docnames(
+			self,
+			app: Sphinx,
+			env: BuildEnvironment,
+			added: Set[str],
+			changed: Set[str],
+			removed: Set[str],
+			):
+		"""
+		Returns a list of all docnames containing one or more nodes this :class:`~.Purger` is aware of.
+
+		This function can be configured for the :event:`env-get-outdated` event:
+
+		.. code-block::
+
+			my_node_purger = Purger("all_my_node_nodes")
+
+			def setup(app: Sphinx):
+				app.connect("env-get-outdated", my_node_purger.get_outdated_docnames)
+
+		.. versionadded:: 2.7.0
+
+		:param app: The Sphinx app.
+		:param env: The Sphinx build environment.
+		:param added: A set of newly added documents.
+		:param changed: A set of document names whose content has changed.
+		:param removed: A set of document names which have been removed.
+		"""
+
+		if not hasattr(env, self.attr_name):
+			return []
+
+		return [todo["docname"] for todo in getattr(env, self.attr_name)]
 
 	def add_node(self, env: BuildEnvironment, node: Node, targetnode: Node, lineno: int):
 		"""
