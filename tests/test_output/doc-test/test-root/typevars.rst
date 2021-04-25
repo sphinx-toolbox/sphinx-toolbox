@@ -4,5 +4,5 @@
 sphinx-toolbox Demo - TypeVars
 =====================================
 
-.. automodule:: tests.typevars_demo
+.. automodule:: tests.test_output.typevars_demo
 	:members:

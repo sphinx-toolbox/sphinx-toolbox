@@ -82,6 +82,8 @@ GITHUB_COM: RequestsURL = RequestsURL("https://github.com")
 #: Type hint for the ``option_spec`` variable of Docutils directives.
 OptionSpec = Mapping[str, Callable[[str], Any]]
 
+_T = TypeVar("_T")
+
 
 @functools.lru_cache()
 def make_github_url(username: str, repository: str) -> RequestsURL:
@@ -206,9 +208,6 @@ class NoMatchError(ValueError):
 
 	.. versionadded:: 0.7.0
 	"""
-
-
-_T = TypeVar("_T")
 
 
 def get_first_matching(
@@ -508,6 +507,11 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 			params[param_name] = {"doc": [], "type": ''}
 
 	for line in lines:
+
+		if post_output:
+			post_output.append(line)
+			continue
+
 		typed_m = typed_param_regex.match(line)
 		untyped_m = untyped_param_regex.match(line)
 		type_only_m = typed_flag_regex.match(line)
@@ -541,13 +545,11 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 
 def is_namedtuple(obj: Any) -> bool:
 	"""
-	Returns whether the given class is a :func:`collections.namedtuple`.
-
-	:param obj:
-
-	:rtype:
+	Returns whether the given object is a :func:`collections.namedtuple` class.
 
 	.. versionadded:: 0.8.0
+
+	:param obj:
 	"""
 
 	return isinstance(obj, type) and issubclass(obj, tuple) and hasattr(obj, "_fields")
@@ -555,18 +557,15 @@ def is_namedtuple(obj: Any) -> bool:
 
 def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]):
 	"""
-	Add the given autodocumenters, but only if a subclass of it is not
-	already registered.
+	Add the given autodocumenters, but only if a subclass of it is not already registered.
 
 	This allows other libraries to extend the autodocumenters.
 
+	.. versionadded:: 0.8.0
+
 	:param app: The Sphinx app.
 	:param documenters:
-
-	:rtype:
-
-	.. versionadded:: 0.8.0
-	"""  # noqa D400
+	"""
 
 	for cls in documenters:
 		existing_documenter = app.registry.documenters.get(cls.objtype)

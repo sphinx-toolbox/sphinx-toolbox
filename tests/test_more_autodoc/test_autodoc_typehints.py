@@ -169,34 +169,44 @@ def test_format_annotation(inv, annotation, expected_result):
 @pytest.mark.parametrize(
 		"annotation, expected_result",
 		[
-				(Generic[T], ":py:class:`~typing.Generic`\\[:py:data:`~T <tests.test_autodoc_typehints.T>`]"),
+				(
+						Generic[T],
+						":py:class:`~typing.Generic`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`]",
+						),
 				(
 						Mapping[T, int],
-						":py:class:`~typing.Mapping`\\[:py:data:`~T <tests.test_autodoc_typehints.T>`, :py:class:`int`]"
+						":py:class:`~typing.Mapping`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`, "
+						":py:class:`int`]"
 						),
 				(
 						Mapping[str, V],
-						":py:class:`~typing.Mapping`\\[:py:class:`str`, :py:data:`-V <tests.test_autodoc_typehints.V>`]"
+						":py:class:`~typing.Mapping`\\[:py:class:`str`, "
+						":py:data:`-V <tests.test_more_autodoc.test_autodoc_typehints.V>`]"
 						),
 				(
 						Mapping[T, U],
-						":py:class:`~typing.Mapping`\\[:py:data:`~T <tests.test_autodoc_typehints.T>`, :py:data:`+U <tests.test_autodoc_typehints.U>`]"
+						":py:class:`~typing.Mapping`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`, "
+						":py:data:`+U <tests.test_more_autodoc.test_autodoc_typehints.U>`]"
 						),
 				(
 						Dict[T, int],
-						":py:class:`~typing.Dict`\\[:py:data:`~T <tests.test_autodoc_typehints.T>`, :py:class:`int`]"
+						":py:class:`~typing.Dict`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`, "
+						":py:class:`int`]"
 						),
 				(
 						Dict[str, V],
-						":py:class:`~typing.Dict`\\[:py:class:`str`, :py:data:`-V <tests.test_autodoc_typehints.V>`]"
+						":py:class:`~typing.Dict`\\[:py:class:`str`, "
+						":py:data:`-V <tests.test_more_autodoc.test_autodoc_typehints.V>`]"
 						),
 				(
 						Dict[T, U],
-						":py:class:`~typing.Dict`\\[:py:data:`~T <tests.test_autodoc_typehints.T>`, :py:data:`+U <tests.test_autodoc_typehints.U>`]"
+						":py:class:`~typing.Dict`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`, "
+						":py:data:`+U <tests.test_more_autodoc.test_autodoc_typehints.U>`]"
 						),
 				(
 						Callable[[T], T],
-						":py:data:`~typing.Callable`\\[\\[:py:data:`~T <tests.test_autodoc_typehints.T>`], :py:data:`~T <tests.test_autodoc_typehints.T>`]"
+						":py:data:`~typing.Callable`\\[\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`], "
+						":py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`]"
 						),
 				]
 		)
