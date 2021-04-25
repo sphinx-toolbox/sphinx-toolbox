@@ -557,7 +557,7 @@ class ExtensionsDirective(SphinxDirective):
 				)
 		bottom_text = (
 				"For more information see "
-				"https://www.sphinx-doc.org/en/master/usage/extensions/index.html#third-party-extensions ."
+				"https://www.sphinx-doc.org/en/master/usage/extensions#third-party-extensions ."
 				)
 
 		if "no-preamble" in self.options:
