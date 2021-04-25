@@ -189,9 +189,16 @@ def test_setup():
 	assert app.events.listeners == {
 			"env-purge-doc": [
 					EventListener(id=0, handler=installation.installation_node_purger.purge_nodes, priority=500),
-					EventListener(id=1, handler=installation.extensions_node_purger.purge_nodes, priority=500),
+					EventListener(id=2, handler=installation.extensions_node_purger.purge_nodes, priority=500),
 					],
-			"build-finished": [EventListener(id=2, handler=installation.copy_asset_files, priority=500), ]
+			"env-get-outdated": [
+					EventListener(
+							id=1,
+							handler=installation.installation_node_purger.get_outdated_docnames,
+							priority=500
+							),
+					],
+			"build-finished": [EventListener(id=3, handler=installation.copy_asset_files, priority=500), ]
 			}
 
 	assert app.config.values["conda_channels"] == ([], "env", [list])
