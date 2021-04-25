@@ -135,7 +135,7 @@ def test_code_repr(value: str, expected: str):
 
 
 def test_parse_parameters():
-	docstring = inspect.cleandoc(parse_parameters.__doc__.expandtabs(4))
+	docstring = inspect.cleandoc((parse_parameters.__doc__ or '').expandtabs(4))
 
 	docstring_dict = {
 			"lines": {"doc": ["The lines of the docstring"], "type": ''},
@@ -167,7 +167,11 @@ class NT(NamedTuple):
 				pytest.param(123, False, id="int"),
 				pytest.param(123.456, False, id="float"),
 				pytest.param(("abc", 123), False, id="tuple"),
-				pytest.param(collections.namedtuple("Foo", "str, int")("abc", 123), False, id="namedtuple"),
+				pytest.param(
+						collections.namedtuple("Foo", "str, int")("abc", 123),  # type: ignore
+						False,
+						id="namedtuple",
+						),
 				pytest.param(NT("abc", 123), False, id="typing.NamedTuple"),
 				pytest.param(str, False, id="type str"),
 				pytest.param(int, False, id="type int"),
@@ -187,4 +191,4 @@ def test_metadata_add_version():
 	def setup(app):
 		return {"parallel_read_safe": True}
 
-	assert setup(None) == {"parallel_read_safe": True, "version": __version__}
+	assert setup(None) == {"parallel_read_safe": True, "version": __version__}  # type: ignore
