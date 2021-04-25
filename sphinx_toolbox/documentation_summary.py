@@ -68,6 +68,7 @@ from typing import List
 # 3rd party
 from docutils import nodes
 from docutils.statemachine import ViewList
+from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
 from sphinx.util.docutils import SphinxDirective
@@ -105,18 +106,20 @@ class DocumentationSummaryDirective(SphinxDirective):
 
 		summary = getattr(self.config, "documentation_summary", None)
 
-		if self.env.app.builder.format.lower() == "latex" or not summary:
-			return []
+		# if self.env.app.builder.format.lower() == "latex" or not summary:
+		# 	return []
 
 		targetid = f'documentation-summary-{self.env.new_serialno("documentation-summary"):d}'
 
 		content = f'**{summary}**'
+		onlynode = addnodes.only(expr="html")
 		targetnode = nodes.paragraph(rawsource=f'**{summary}**', ids=[targetid])
+		onlynode += targetnode
 		self.state.nested_parse(ViewList([content]), self.content_offset, targetnode)  # type: ignore
 
 		summary_node_purger.add_node(self.env, targetnode, targetnode, self.lineno)
 
-		return [targetnode]
+		return [onlynode]
 
 
 def configure(app: Sphinx, config: Config):
