@@ -38,7 +38,13 @@ Usage
 		:type: string
 
 		Show this instead of the flags taken from the :class:`~typing.Pattern` object.
+		This should be correctly formatted for insertion into reStructuredText, such as ``:py:data:`re.ASCII```.
 
+
+	.. versionchanged:: 2.7.0
+
+		The flags :py:data:`re.DEBUG` and :py:data:`re.VERBOSE` are now hidden
+		as the don't affect the regex itself.
 
 .. rst:role:: regex
 
@@ -281,7 +287,9 @@ class RegexDocumenter(VariableDocumenter):
 				if "flag" in self.options:
 					the_flag = self.options["flag"]
 				else:
-					the_flag = parse_regex_flags(self.object.flags)
+					raw_flags = self.object.flags
+					raw_flags = (raw_flags & ~re.DEBUG) & ~ re.VERBOSE
+					the_flag = parse_regex_flags(raw_flags)
 
 				if the_flag:
 					self.add_line(f"     **Flags**, {the_flag}", sourcename)
