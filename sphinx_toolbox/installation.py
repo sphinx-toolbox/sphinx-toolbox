@@ -187,7 +187,25 @@ __all__ = [
 		"setup",
 		]
 
-installation_node_purger = Purger("all_installation_node_nodes")
+
+class _Purger(Purger):
+
+	def purge_nodes(self, app: Sphinx, env: BuildEnvironment, docname: str) -> None:
+		"""
+		Remove all redundant nodes.
+
+		:param app: The Sphinx app.
+		:param env: The Sphinx build environment.
+		:param docname: The name of the document to remove nodes for.
+		"""
+
+		if not hasattr(env, self.attr_name):
+			return
+
+		setattr(env, self.attr_name, [])  # pragma: no cover
+
+
+installation_node_purger = _Purger("all_installation_node_nodes")
 extensions_node_purger = Purger("all_extensions_node_nodes")
 
 
@@ -197,13 +215,15 @@ class Sources(List[Tuple[str, str, Callable, Callable, Optional[Dict[str, Callab
 
 	The syntax of each entry is:
 
-	``(option_name, source_name, getter_function, validator_function, extra_options)``
+	.. code-block:: python
 
-	* a string to use in the directive to specify the source to use,
-	* a string to use in the tabs to indicate the installation source,
-	* the function that returns the installation instructions,
-	* a function to validate the option value provided by the user,
-	* a mapping of additional options for the directive that are used by the getter_function.
+		(option_name, source_name, getter_function, validator_function, extra_options)
+
+	* ``option_name`` -- a string to use in the directive to specify the source to use,
+	* ``source_name`` -- a string to use in the tabs to indicate the installation source,
+	* ``getter_function`` -- the function that returns the installation instructions,
+	* ``validator_function`` -- a function to validate the option value provided by the user,
+	* ``extra_options`` -- a mapping of additional options for the directive that are used by the getter_function.
 	"""
 
 	def __init__(self, *args, **kwargs):
@@ -674,6 +694,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	# Instructions for installing a python package
 	app.add_directive("installation", InstallationDirective)
 	app.connect("env-purge-doc", installation_node_purger.purge_nodes)
+	app.connect("env-get-outdated", installation_node_purger.get_outdated_docnames)
 
 	# Instructions for enabling a sphinx extension
 	app.add_directive("extensions", ExtensionsDirective)
