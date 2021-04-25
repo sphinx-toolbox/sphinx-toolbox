@@ -86,7 +86,7 @@ parser = RegexParser()
 						),
 				(no_flags, no_flags.pattern.replace("\\?", '?')),
 				(one_flag, one_flag.pattern.replace("\\?", '?')),
-				(two_flags, two_flags.pattern.replace("\\?", '?')),
+				(two_flags, "Hello\\s+[Ww]orld[.,](Lovely|Horrible) weather, isn't it(.*)?"),
 				]
 		)
 def test_regex_parser(regex, expected):
