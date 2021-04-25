@@ -288,7 +288,7 @@ class RegexDocumenter(VariableDocumenter):
 					the_flag = self.options["flag"]
 				else:
 					raw_flags = self.object.flags
-					raw_flags = (raw_flags & ~re.DEBUG) & ~ re.VERBOSE
+					raw_flags = (raw_flags & ~re.DEBUG) & ~re.VERBOSE
 					the_flag = parse_regex_flags(raw_flags)
 
 				if the_flag:

@@ -415,9 +415,6 @@ class InstallationDirective(SphinxDirective):
 		Generate output for ``HTML`` builders.
 		"""
 
-		if self.arguments:
-			self.options["project_name"] = self.arguments[0]
-
 		targetid = f'installation-{self.env.new_serialno("sphinx-toolbox installation"):d}'
 		targetnode = nodes.target('', '', ids=[targetid])
 
@@ -437,9 +434,6 @@ class InstallationDirective(SphinxDirective):
 
 		targetid = f'installation-{self.env.new_serialno("sphinx-toolbox installation"):d}'
 		targetnode = nodes.target('', '', ids=[targetid])
-
-		if self.arguments:
-			self.options["project_name"] = self.arguments[0]
 
 		tabs: Dict[str, List[str]] = _get_installation_instructions(self.options, self.env)
 
@@ -468,6 +462,9 @@ class InstallationDirective(SphinxDirective):
 		"""
 		Create the installation node.
 		"""
+
+		if self.arguments:
+			self.options["project_name"] = self.arguments[0]
 
 		if self.env.app.builder.format.lower() == "html":
 			return self.run_html()
