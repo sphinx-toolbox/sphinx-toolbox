@@ -53,6 +53,10 @@ use_bookmark = r"\usepackage{bookmark}"
 nest_bookmark_level_part = "\\bookmarksetupnext{{level=part}}\n"
 
 
+class latex_toc(nodes.raw):
+	pass
+
+
 class LaTeXTranslator(sphinx.writers.latex.LaTeXTranslator):
 
 	def generate_indices(self) -> str:
@@ -69,6 +73,18 @@ class LaTeXTranslator(sphinx.writers.latex.LaTeXTranslator):
 				nest_bookmark_level_part,
 				])
 
+	def visit_latex_toc(self, node: latex_toc):
+		if not self.is_inline(node):
+			self.body.append('\n')
+		if "latex" in node.get("format", '').split():
+			self.body.append(f"\\{self.sectionnames[self.sectionlevel]}{{{node.astext()}}}")
+		if not self.is_inline(node):
+			self.body.append('\n')
+		raise nodes.SkipNode
+
+	def depart_latex_toc(self, node: latex_toc):
+		pass
+
 
 class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 
@@ -82,7 +98,7 @@ class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 				and self.env.docname == self.env.config.master_doc
 				):
 
-			latex_part_node = nodes.raw(text=f"\\chapter{{{caption}}}", format="latex")
+			latex_part_node = latex_toc(text=caption, format="latex")
 
 			output.append(latex_part_node)
 
