@@ -693,8 +693,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	# Instructions for installing a python package
 	app.add_directive("installation", InstallationDirective)
-	app.connect("env-purge-doc", installation_node_purger.purge_nodes)
 	app.connect("env-get-outdated", installation_node_purger.get_outdated_docnames)
+	# app.connect("env-purge-doc", installation_node_purger.purge_nodes)
 
 	# Instructions for enabling a sphinx extension
 	app.add_directive("extensions", ExtensionsDirective)

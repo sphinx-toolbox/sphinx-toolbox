@@ -164,7 +164,7 @@ class Purger:
 			added: Set[str],
 			changed: Set[str],
 			removed: Set[str],
-			):
+			) -> List[str]:
 		"""
 		Returns a list of all docnames containing one or more nodes this :class:`~.Purger` is aware of.
 
@@ -189,7 +189,7 @@ class Purger:
 		if not hasattr(env, self.attr_name):
 			return []
 
-		return [todo["docname"] for todo in getattr(env, self.attr_name)]
+		return list({todo["docname"] for todo in getattr(env, self.attr_name)})
 
 	def add_node(self, env: BuildEnvironment, node: Node, targetnode: Node, lineno: int):
 		"""
