@@ -68,8 +68,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	Setup :mod:`sphinx_toolbox.tweaks.tabsize`.
 
 	:param app: The Sphinx app.
-
-	.. versionadded:: 1.0.0
 	"""
 
 	class CustomRSTParser(RSTParser):
