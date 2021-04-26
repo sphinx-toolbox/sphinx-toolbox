@@ -25,7 +25,7 @@ def test_validate_config():
 			"github_source_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/blob/master"),
 			"github_issues_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/issues"),
 			"github_pull_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/pull"),
-			"rst_prolog": "\n.. |nbsp| unicode:: 0xA0\n   :trim:",
+			"rst_prolog": "\n\n.. |nbsp| unicode:: 0xA0\n   :trim:",
 			}
 
 	config = AttrDict({

@@ -406,17 +406,13 @@ class Sphinx:
 
 	def add_css_file(self, filename: str, **kwargs: str) -> None:
 		"""
-		No-op for now.
+		Register a stylesheet to include in the HTML output.
 
-		.. TODO:: Make this do something
+		.. versionadded:: 2.7.0
 		"""
 
-	# def add_css_file(self, filename: str, **kwargs: str) -> None:
-	# 	"""
-	# 	Register a stylesheet to include in the HTML output.
-	# 	"""
-	#
-	# 	self.registry.add_css_files(filename, **kwargs)
+		self.registry.add_css_files(filename, **kwargs)
+
 	# 	if hasattr(self.builder, 'add_css_file'):
 	# 		self.builder.add_css_file(filename, **kwargs)  # type: ignore
 

@@ -2,14 +2,17 @@
 import pytest
 from apeye.url import RequestsURL
 from coincidence.params import count
+from deprecation import fail_if_not_removed  # type: ignore
+from docutils.nodes import system_message
+from docutils.utils import Reporter
 
 # this package
 import sphinx_toolbox
 from sphinx_toolbox import issues
-from sphinx_toolbox.github.issues import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
+from sphinx_toolbox.github.issues import IssueNode, issue_role, pull_role
 from sphinx_toolbox.testing import run_setup
 from sphinx_toolbox.utils import make_github_url
-from tests.common import AttrDict, error, error_codes, info, severe, warning
+from tests.common import AttrDict
 
 
 class FakePullInliner:
@@ -19,12 +22,8 @@ class FakePullInliner:
 		app = AttrDict({"config": config})
 		env = AttrDict({"app": app})
 		settings = AttrDict({"env": env})
-		reporter = AttrDict({
-				"info": info,
-				"warning": warning,
-				"error": error,
-				"severe": severe,
-				})
+		reporter = Reporter('', 0, 100)
+
 		self.document = AttrDict({"settings": settings, "reporter": reporter})
 
 
@@ -35,12 +34,8 @@ class FakeIssueInliner:
 		app = AttrDict({"config": config})
 		env = AttrDict({"app": app})
 		settings = AttrDict({"env": env})
-		reporter = AttrDict({
-				"info": info,
-				"warning": warning,
-				"error": error,
-				"severe": severe,
-				})
+		reporter = Reporter('', 0, 100)
+
 		self.document = AttrDict({"settings": settings, "reporter": reporter})
 
 
@@ -141,36 +136,44 @@ def test_pull_role_with_repository(count: int, url: str, repository: str):
 	assert not nodes[0].has_tooltip
 
 
-def test_pull_role_invalid_repository(capsys):
-	url = "https://github.com/domdfcoding/sphinx-toolbox"
-
-	nodes, messages = pull_role('', '', f"7 <foo>", 0, FakePullInliner(url))  # type: ignore
-	assert capsys.readouterr().out == "WARNING: Invalid repository 'foo' for pull request #7.\n"
-
-	issue_number = 7
-	assert isinstance(nodes, list)
-	assert isinstance(messages, list)
-	assert not messages
-	assert isinstance(nodes[0], IssueNode)
-	assert nodes[0].issue_url == f"{url}/{issue_number}"
-	assert nodes[0].issue_number == issue_number
-	assert not nodes[0].has_tooltip
-
-
 def test_issue_role_invalid_repository(capsys):
 	url = "https://github.com/domdfcoding/sphinx-toolbox"
 
 	nodes, messages = issue_role('', '', f"7 <foo>", 0, FakeIssueInliner(url))  # type: ignore
-	assert capsys.readouterr().out == "WARNING: Invalid repository 'foo' for issue #7.\n"
+	assert capsys.readouterr().err == ":: (WARNING/2) Invalid repository 'foo' for issue #7.\n"
 
 	issue_number = 7
 	assert isinstance(nodes, list)
-	assert isinstance(messages, list)
-	assert not messages
+	assert nodes
 	assert isinstance(nodes[0], IssueNode)
 	assert nodes[0].issue_url == f"{url}/{issue_number}"
 	assert nodes[0].issue_number == issue_number
 	assert not nodes[0].has_tooltip
+
+	assert isinstance(messages, list)
+	assert messages
+	assert isinstance(messages[0], system_message)
+	assert messages[0].astext() == ":: (WARNING/2) Invalid repository 'foo' for issue #7."
+
+
+def test_pull_role_invalid_repository(capsys):
+	url = "https://github.com/domdfcoding/sphinx-toolbox"
+
+	nodes, messages = pull_role('', '', f"7 <foo>", 0, FakePullInliner(url))  # type: ignore
+	assert capsys.readouterr().err == ":: (WARNING/2) Invalid repository 'foo' for pull request #7.\n"
+
+	issue_number = 7
+	assert isinstance(nodes, list)
+	assert nodes
+	assert isinstance(nodes[0], IssueNode)
+	assert nodes[0].issue_url == f"{url}/{issue_number}"
+	assert nodes[0].issue_number == issue_number
+	assert not nodes[0].has_tooltip
+
+	assert isinstance(messages, list)
+	assert messages
+	assert isinstance(messages[0], system_message)
+	assert messages[0].astext() == ":: (WARNING/2) Invalid repository 'foo' for pull request #7."
 
 
 class FakeTranslator:
@@ -185,39 +188,28 @@ class FakeTranslator:
 		pass
 
 
+@fail_if_not_removed
 def test_visit_issue_node():
 	node = IssueNode(7680, make_github_url("pytest-dev", "pytest") / "issues/7680")
 	translator = FakeTranslator()
 
 	assert not node.has_tooltip
 
-	visit_issue_node(translator, node)  # type: ignore
+	with pytest.warns(DeprecationWarning):
+		issues.visit_issue_node(translator, node)
 
 	assert translator.body == ['<abbr title="Add --log-cli option">']
 	assert node.has_tooltip
 
 
-@error_codes
-def test_visit_issue_node_errors(error_code, error_server):
-	node = IssueNode(7680, error_server.url_for(f"/{error_code}"))
-	translator = FakeTranslator()
-
-	assert not node.has_tooltip
-
-	with pytest.warns(UserWarning) as w:
-		visit_issue_node(translator, node)  # type: ignore
-	assert w[0].message.args[0] == "Issue/Pull Request #7680 not found."  # type: ignore
-
-	assert translator.body == []
-	assert not node.has_tooltip
-
-
+@fail_if_not_removed
 def test_depart_issue_node():
 	node = IssueNode(7680, make_github_url("pytest-dev", "pytest") / "issues/7680")
 	translator = FakeTranslator()
 	assert not node.has_tooltip
 
-	depart_issue_node(translator, node)  # type: ignore
+	with pytest.warns(DeprecationWarning):
+		issues.depart_issue_node(translator, node)
 
 	assert translator.body == []
 
@@ -225,7 +217,8 @@ def test_depart_issue_node():
 	translator = FakeTranslator()
 	node.has_tooltip = True
 
-	depart_issue_node(translator, node)  # type: ignore
+	with pytest.warns(DeprecationWarning):
+		issues.depart_issue_node(translator, node)
 
 	assert translator.body == ["</abbr>"]
 

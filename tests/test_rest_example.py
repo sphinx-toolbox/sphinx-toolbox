@@ -99,4 +99,5 @@ def test_setup():
 	assert directives == {
 			"rest-example": reSTExampleDirective,
 			}
+
 	assert app.registry.source_parsers == {}

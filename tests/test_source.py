@@ -1,13 +1,14 @@
 # 3rd party
 from apeye.url import RequestsURL
 from docutils.nodes import inline, reference, system_message
+from docutils.utils import Reporter
 from sphinx import addnodes
 
 # this package
 from sphinx_toolbox import source
 from sphinx_toolbox.source import source_role
 from sphinx_toolbox.testing import run_setup
-from tests.common import AttrDict, error, info, severe, warning
+from tests.common import AttrDict
 
 
 class FakeSourceInliner:
@@ -20,18 +21,15 @@ class FakeSourceInliner:
 		app = AttrDict({"config": config})
 		env = AttrDict({"app": app, "docname": ''})
 		settings = AttrDict({"env": env})
-		reporter = AttrDict({
-				"info": info,
-				"warning": warning,
-				"error": error,
-				"severe": severe,
-				})
+		reporter = Reporter('', 0, 100)
+
 		self.document = AttrDict({"settings": settings, "reporter": reporter})
 
 
 def test_source_role_github():
 	github_source_url = "https://github.com/python/cpython/blob/master"
 	nodes, messages = source_role('', '', "Lib/typing.py", 0, FakeSourceInliner("github", github_source_url))  # type: ignore
+
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages
@@ -43,6 +41,7 @@ def test_source_role_github():
 
 def test_source_role_sphinx():
 	nodes, messages = source_role('', '', "Lib/typing.py", 0, FakeSourceInliner("sphinx", ''))  # type: ignore
+
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages
@@ -59,11 +58,13 @@ def test_source_role_sphinx():
 
 def test_source_role_unknown_target(capsys):
 	nodes, messages = source_role('', '', "Lib/typing.py", 0, FakeSourceInliner("gitlab", ''))  # type: ignore
-	assert capsys.readouterr().out == "ERROR: Unsupported source link target 'gitlab'.\n"
+	assert capsys.readouterr().err == ":: (ERROR/3) Unsupported source link target 'gitlab'.\n"
+
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not nodes
 	assert isinstance(messages[0], system_message)
+	assert messages[0].astext() == ":: (ERROR/3) Unsupported source link target 'gitlab'."
 
 
 def test_setup():

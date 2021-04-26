@@ -118,11 +118,8 @@ def repository_role(
 	repo_name = nodes.unescape(repo_name)
 	repository_parts = nodes.unescape(repo_name).split('/')
 
-	messages: List[system_message] = []
-
 	if len(repository_parts) != 2:
-		inliner.document.reporter.warning(f"Invalid repository '{repo_name}'.")
-		return [], messages
+		return [], [inliner.document.reporter.warning(f"Invalid repository '{repo_name}'.")]
 
 	# refnode: nodes.reference
 
@@ -139,7 +136,7 @@ def repository_role(
 				refuri=make_github_url(*repository_parts),
 				)
 
-	return [refnode], messages
+	return [refnode], []
 
 
 def user_role(

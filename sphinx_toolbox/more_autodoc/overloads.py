@@ -81,6 +81,7 @@ from typing import TYPE_CHECKING, Any, Dict, List
 # 3rd party
 from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
+from sphinx.config import ENUM
 from sphinx.ext import autodoc
 from sphinx.ext.autodoc.directive import DocumenterBridge
 from sphinx.util import inspect
@@ -411,6 +412,11 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.add_autodocumenter(FunctionDocumenter, override=True)
 	app.add_autodocumenter(MethodDocumenter, override=True)
-	app.add_config_value("overloads_location", "signature", "env")  # top (of body), bottom (of body)
+	app.add_config_value(
+			"overloads_location",
+			"signature",
+			"env",
+			ENUM("top", "bottom", "signature"),  # top (of body), bottom (of body)
+			)
 
 	return {"parallel_read_safe": True}

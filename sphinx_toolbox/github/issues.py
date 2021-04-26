@@ -172,7 +172,10 @@ def issue_role(
 	if has_t:
 		repository_parts = nodes.unescape(repository).split('/')
 		if len(repository_parts) != 2:
-			inliner.document.reporter.warning(f"Invalid repository '{repository}' for issue #{issue_number}.")
+			warning_message = inliner.document.reporter.warning(
+					f"Invalid repository '{repository}' for issue #{issue_number}.",
+					)
+			messages.append(warning_message)
 
 		else:
 			refnode = IssueNodeWithName(
@@ -224,9 +227,10 @@ def pull_role(
 	if has_t:
 		repository_parts = nodes.unescape(repository).split('/')
 		if len(repository_parts) != 2:
-			inliner.document.reporter.warning(
+			warning_message = inliner.document.reporter.warning(
 					f"Invalid repository '{repository}' for pull request #{issue_number}."
 					)
+			messages.append(warning_message)
 
 		else:
 			refnode = IssueNodeWithName(

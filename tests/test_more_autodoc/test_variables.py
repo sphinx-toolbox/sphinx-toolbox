@@ -4,9 +4,13 @@ from typing import Any, Dict, List, NamedTuple, Sequence, Type, Union, no_type_c
 
 # 3rd party
 from domdf_python_tools.secrets import Secret
+from sphinx.ext.autodoc.directive import AutodocDirective
 
 # this package
+from sphinx_toolbox import __version__
+from sphinx_toolbox.more_autodoc import variables
 from sphinx_toolbox.more_autodoc.variables import get_variable_type
+from sphinx_toolbox.testing import run_setup
 
 
 class Foo:
@@ -81,3 +85,24 @@ def test_get_variable_type():
 			) == ":py:data:`~typing.Union`\\[:py:class:`str`, :py:class:`float`, :py:class:`int`]"
 
 	assert get_variable_type(Documenter("Bar", ["Bar", 'f'], Analyzer({}))) == ''
+
+
+def test_setup():
+	setup_ret, directives, roles, additional_nodes, app = run_setup(variables.setup)
+
+	assert setup_ret == {"parallel_read_safe": True, "version": __version__}
+
+	assert directives == {
+			"autovariable": AutodocDirective,
+			"autoattribute": AutodocDirective,
+			"autoinstanceattribute": AutodocDirective,
+			"autoslotsattribute": AutodocDirective,
+			}
+
+	assert roles == {}
+	assert additional_nodes == set()
+
+	assert app.registry.documenters["variable"] == variables.VariableDocumenter
+	assert app.registry.documenters["attribute"] == variables.TypedAttributeDocumenter
+	assert app.registry.documenters["instanceattribute"] == variables.InstanceAttributeDocumenter
+	assert app.registry.documenters["slotsattribute"] == variables.SlotsAttributeDocumenter

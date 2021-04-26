@@ -735,7 +735,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("sphinx.ext.autodoc")
 	app.add_autodocumenter(RegexDocumenter)
 
-	roles.register_local_role("regex", Regex())
+	app.add_role("regex", Regex())
 	app.add_node(
 			RegexNode,
 			html=(visit_regex_node, depart_regex_node),

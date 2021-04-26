@@ -39,6 +39,7 @@ Fix for :github:issue:`51 <executablebooks/sphinx-panels>`.
 from typing import Optional
 
 # 3rd party
+from deprecation_alias import deprecated
 from docutils import nodes
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
@@ -46,9 +47,10 @@ from sphinx.application import Sphinx
 from sphinx.writers.html import HTMLTranslator
 
 # this package
+from sphinx_toolbox import __version__
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["copy_assets", "setup"]
+__all__ = ["copy_asset_files", "setup"]
 
 
 def visit_container(self: HTMLTranslator, node: nodes.container):
@@ -67,7 +69,7 @@ def depart_container(self: HTMLTranslator, node: nodes.Node):
 	self.body.append("</div>\n")
 
 
-def copy_assets(app: Sphinx, exception: Optional[Exception] = None) -> None:
+def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None:
 	"""
 	Copy asset files to the output.
 
@@ -103,6 +105,16 @@ def copy_assets(app: Sphinx, exception: Optional[Exception] = None) -> None:
 	css_file.write_lines(style)
 
 
+copy_assets = deprecated(
+		deprecated_in="2.7.0",
+		removed_in="3.0.0",
+		current_version=__version__,
+		details="Renamed to 'copy_asset_files'",
+		name="copy_assets",
+		func=copy_asset_files,
+		)
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -116,6 +128,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("sphinx_tabs.tabs")
 	app.add_node(nodes.container, override=True, html=(visit_container, depart_container))
 	app.add_css_file("css/tabs_customise.css")
-	app.connect("build-finished", copy_assets)
+	app.connect("build-finished", copy_asset_files)
 
 	return {"parallel_read_safe": True}

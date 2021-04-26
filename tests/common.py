@@ -20,26 +20,6 @@ error_codes_list = [x for x in HTTPStatus if x not in {100, 200}]  # pylint: dis
 error_codes = pytest.mark.parametrize("error_code", error_codes_list)
 
 
-def info(message):
-	print(f"INFO: {message}")
-	return system_message(message)
-
-
-def warning(message):
-	print(f"WARNING: {message}")
-	return system_message(message)
-
-
-def error(message):
-	print(f"ERROR: {message}")
-	return system_message(message)
-
-
-def severe(message):
-	print(f"SEVERE: {message}")
-	return system_message(message)
-
-
 class AppParams(NamedTuple):
 	args: Sequence[Any]
 	kwargs: Dict[str, Any]

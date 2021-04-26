@@ -47,7 +47,7 @@ API Reference
 ----------------
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -92,6 +92,11 @@ from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 __all__ = ["make_wikipedia_link", "setup"]
 
 base_url = "https://%s.wikipedia.org/wiki"
+_wiki_lang_re = re.compile(":(.*?):(.*)")
+
+
+def _get_wikipedia_lang(inliner: Inliner):  # pragma: no cover
+	return inliner.document.settings.env.config.wikipedia_lang
 
 
 def make_wikipedia_link(
@@ -121,21 +126,19 @@ def make_wikipedia_link(
 	:return: A list containing the created node, and a list containing any messages generated during the function.
 	"""
 
-	env = inliner.document.settings.env
-	lang = env.config.wikipedia_lang
-
 	text = nodes.unescape(text)
 	has_explicit, title, target = split_explicit_title(text)
 
-	m = re.match(r":(.*?):(.*)", target)
+	m = _wiki_lang_re.match(target)
+
 	if m:
 		lang, target = m.groups()
 		if not has_explicit:
 			title = target
+	else:
+		lang = _get_wikipedia_lang(inliner)
 
-	lang_url = URL(base_url % lang)
-
-	ref = lang_url / quote(target.replace(' ', '_'), safe='')
+	ref = URL(base_url % lang) / quote(target.replace(' ', '_'), safe='')
 
 	node = nodes.reference(rawtext, title, refuri=str(ref), **options)
 	return [node], []

@@ -1,6 +1,7 @@
 
 
 .. toctree::
+	:caption: Documentation
 
 	installation
 	collapse

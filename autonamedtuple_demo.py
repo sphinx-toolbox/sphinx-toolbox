@@ -77,5 +77,21 @@ class Foo(NamedTuple):
 	c: str
 
 
+class NoDocstring(NamedTuple):
+	#: An integer
+	a: int
+
+	b: str
+
+	#: C's doc
+	c: str
+
+
 Traditional = collections.namedtuple("Traditional", "a, b, c")
 Traditional.__doc__ = "A traditional Namedtuple"
+
+
+class CustomisedNew(collections.namedtuple("CustomisedNew", "a, b, c")):
+
+	def __new__(cls, values: str):
+		return super().__new__(*values.split())

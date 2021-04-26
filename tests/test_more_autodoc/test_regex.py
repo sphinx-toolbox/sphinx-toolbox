@@ -3,14 +3,17 @@ import re
 
 # 3rd party
 import pytest
-from pytest_regressions.file_regression import FileRegressionFixture
+from coincidence.regressions import AdvancedFileRegressionFixture
+from sphinx.events import EventListener
+from sphinx.ext.autodoc.directive import AutodocDirective
 
 # this package
-from sphinx_toolbox.more_autodoc.regex import RegexParser, copy_asset_files, parse_regex_flags
-from sphinx_toolbox.testing import check_asset_copy
+from sphinx_toolbox import __version__
+from sphinx_toolbox.more_autodoc import regex
+from sphinx_toolbox.testing import check_asset_copy, run_setup
 from tests.regex_demo import no_flags, one_flag, two_flags
 
-parser = RegexParser()
+parser = regex.RegexParser()
 
 
 @pytest.mark.parametrize(
@@ -37,12 +40,20 @@ parser = RegexParser()
 						"^:(default|Default)[ ]",
 						),
 				(
+						re.compile(r"\A:(default|Default) "),
+						r"\A:(default|Default)[ ]",
+						),
+				(
 						re.compile("^:(default|Default)   "),
 						"^:(default|Default) {3}",
 						),
 				(
 						re.compile(":(default|Default)   $"),
 						":(default|Default)   $",
+						),
+				(
+						re.compile(r":(default|Default)   \Z"),
+						r":(default|Default)   \Z",
 						),
 				(
 						re.compile(" :(default|Default)"),
@@ -63,6 +74,10 @@ parser = RegexParser()
 				(
 						re.compile("(hello){1,3} (world)?"),
 						"(hello){1,3} (world)?",
+						),
+				(
+						re.compile("(hello){3,3} (world)?"),
+						"(hello){3} (world)?",
 						),
 				(
 						re.compile(r"Issue #\d"),
@@ -93,11 +108,11 @@ def test_regex_parser(regex, expected):
 	assert parser.parse_pattern(regex) == expected
 
 
-def test_copy_asset_files(tmp_pathplus, file_regression: FileRegressionFixture):
+def test_copy_asset_files(tmp_pathplus, advanced_file_regression: AdvancedFileRegressionFixture):
 	check_asset_copy(
-			copy_asset_files,
+			regex.copy_asset_files,
 			"_static/regex.css",
-			file_regression=file_regression,
+			file_regression=advanced_file_regression,
 			)
 
 
@@ -119,4 +134,23 @@ def test_copy_asset_files(tmp_pathplus, file_regression: FileRegressionFixture):
 				]
 		)
 def test_parse_regex_flags(flags: int, expected: str):
-	assert parse_regex_flags(flags) == expected
+	assert regex.parse_regex_flags(flags) == expected
+
+
+def test_setup():
+	setup_ret, directives, roles, additional_nodes, app = run_setup(regex.setup)
+
+	assert setup_ret == {"parallel_read_safe": True, "version": __version__}
+
+	assert directives == {"autoregex": AutodocDirective}
+	assert "regex" in roles
+	assert isinstance(roles["regex"], regex.Regex)
+	assert additional_nodes == {regex.RegexNode}
+
+	assert app.registry.documenters["regex"] == regex.RegexDocumenter
+
+	assert app.events.listeners == {
+			"build-finished": [EventListener(id=0, handler=regex.copy_asset_files, priority=500)],
+			}
+
+	assert app.registry.css_files == [("regex.css", {})]

@@ -16,10 +16,13 @@ from domdf_python_tools.typing import (
 		MethodWrapperType,
 		WrapperDescriptorType
 		)
+from sphinx.errors import ExtensionError
 from typing_extensions import Protocol
 
 # this package
-from sphinx_toolbox.more_autodoc.typehints import format_annotation
+from sphinx_toolbox import __version__
+from sphinx_toolbox.more_autodoc import typehints
+from sphinx_toolbox.testing import Sphinx, run_setup
 
 
 @pytest.mark.parametrize(
@@ -99,4 +102,38 @@ from sphinx_toolbox.more_autodoc.typehints import format_annotation
 				]
 		)
 def test_format_annotation(annotation: Any, expected: str):
-	assert format_annotation(annotation, True) == expected
+	assert typehints.format_annotation(annotation, True) == expected
+
+
+def test_setup():
+	try:
+		Sphinx.extensions = []  # type: ignore
+
+		setup_ret, directives, roles, additional_nodes, app = run_setup(typehints.setup)
+
+		assert setup_ret == {"parallel_read_safe": True, "version": __version__}
+
+		assert app.config.values["hide_none_rtype"] == (False, "env", [bool])
+
+		assert directives == {}
+		assert roles == {}
+		assert additional_nodes == set()
+
+	finally:
+		del Sphinx.extensions  # type: ignore
+
+
+def test_setup_wrong_order():
+	try:
+		Sphinx.extensions = ["sphinx_autodoc_typehints"]  # type: ignore
+
+		with pytest.raises(
+				ExtensionError,
+				match="'sphinx_toolbox.more_autodoc.typehints' "
+				"must be loaded before 'sphinx_autodoc_typehints'.",
+				):
+
+			run_setup(typehints.setup)
+
+	finally:
+		del Sphinx.extensions  # type: ignore

@@ -129,7 +129,7 @@ API Reference
 --------------
 """  # noqa: D400
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -378,7 +378,10 @@ def github_installation(
 	"""
 
 	if "sphinx_toolbox.github" not in env.app.extensions:
-		raise ValueError("The 'sphinx_toolbox.github' is required for the :github: option but it is not enabled!")
+		raise ValueError(
+				"The 'sphinx_toolbox.github' extension is required for the "
+				":github: option but it is not enabled!"
+				)
 
 	username = getattr(env.config, "github_username", None)
 	if username is None:
