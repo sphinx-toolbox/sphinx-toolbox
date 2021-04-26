@@ -1,0 +1,3 @@
+ul.bullet-hidden, ul.bullet-hidden li {
+    list-style-type: none !important;
+}

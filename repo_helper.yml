@@ -16,6 +16,7 @@ mypy_version: "0.790"
 min_coverage: 85
 python_deploy_version: 3.7
 tox_testenv_extras: all
+preserve_custom_theme: true
 
 conda_channels:
   - conda-forge
@@ -45,9 +46,6 @@ extra_sphinx_extensions:
   - sphinx_toolbox.flake8
   - sphinx_autofixture
   - sphinx_event_role
-
-#manifest_additional:
-#  - include sphinx_toolbox/more_autodoc/regex.css
 
 tox_unmanaged:
   - flake8

@@ -4,17 +4,19 @@
 r"""
 Tweak which monkeypatches docutils to use the following symbols for footnotes:
 
-* ``†`` -- dagger
-* ``‡`` -- double dagger
-* ``§`` -- section mark
-* ``¶`` -- paragraph mark (pilcrow)
-* ``#`` -- number sign
-* ``♠`` -- spade suit
-* ``♥`` -- heart suit
-* ``♦`` -- diamond suit
-* ``♣`` -- club suit
+.. rst-class:: bullet-hidden
 
-With some themes the superscripted asterisk becomes very hard to see.
+* † -- dagger
+* ‡ -- double dagger
+* § -- section mark
+* ¶ -- paragraph mark (pilcrow)
+* # -- number sign
+* ♠ -- spade suit
+* ♥ -- heart suit
+* ♦ -- diamond suit
+* ♣ -- club suit
+
+With some themes the superscript asterisk becomes very hard to see.
 
 .. versionadded:: 2.7.0
 
