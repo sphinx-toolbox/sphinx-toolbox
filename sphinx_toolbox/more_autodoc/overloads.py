@@ -75,6 +75,7 @@ API Reference
 #
 
 # stdlib
+import re
 from inspect import Parameter, Signature
 from typing import TYPE_CHECKING, Any, Dict, List
 
@@ -104,6 +105,8 @@ __all__ = [
 		"MethodDocumenter",
 		"setup",
 		]
+
+_return_type_re = re.compile("^:(rtype|return(s)?):")
 
 
 class OverloadMixin(_OverloadMixinBase):
@@ -228,14 +231,11 @@ class OverloadMixin(_OverloadMixinBase):
 					for i, line in enumerate(lines):
 						if not line:
 							continue
+
 						if line[0].isspace():
 							continue
 
-						if (
-								line.startswith(":rtype:")
-								or line.startswith(":return:")
-								or line.startswith(":returns:")
-						):
+						if _return_type_re.match(line):
 							seen_return = True
 							continue
 
