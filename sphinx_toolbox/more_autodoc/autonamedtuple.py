@@ -133,6 +133,7 @@ from sphinx_toolbox.utils import (
 		Param,
 		SphinxExtMetadata,
 		add_nbsp_substitution,
+		allow_subclass_add,
 		baseclass_is_private,
 		is_namedtuple,
 		metadata_add_version,
@@ -386,7 +387,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_directive_to_domain("py", "namedtuple", PyClasslike)
 	app.add_role_to_domain("py", "namedtuple", PyXRefRole())
 
-	app.add_autodocumenter(NamedTupleDocumenter)
+	allow_subclass_add(app, NamedTupleDocumenter)
 
 	add_nbsp_substitution(app.config)  # type: ignore
 

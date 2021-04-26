@@ -127,7 +127,7 @@ from sphinx.application import Sphinx
 # this package
 import sphinx_toolbox.github.issues
 from sphinx_toolbox.github.issues import issue_role, pull_role
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = [
 		"IssueNode",
@@ -159,7 +159,7 @@ class IssueNode(sphinx_toolbox.github.issues.IssueNode):
 			details="Import from 'sphinx_toolbox.github.issues' instead.",
 			name="IssueNode",
 			)
-	def __init__(self, *args, **kwargs):
+	def __init__(self, *args, **kwargs):  # pragma: no cover
 		super().__init__(*args, **kwargs)
 
 
@@ -188,17 +188,15 @@ get_issue_title = deprecated(
 		)
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.issues`.
 
-	:param app: The Sphinx app.
-
 	.. versionadded:: 1.0.0
-	"""
 
-	# this package
-	from sphinx_toolbox import __version__
+	:param app: The Sphinx app.
+	"""
 
 	app.setup_extension("sphinx_toolbox.github")
 
@@ -209,7 +207,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_role("pr", pull_role)
 	app.add_role("pull", pull_role)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

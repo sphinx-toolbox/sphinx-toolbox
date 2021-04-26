@@ -96,7 +96,7 @@ from sphinx.errors import ExtensionError
 from sphinx.roles import XRefRole
 
 # this package
-from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata
+from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, metadata_add_version
 
 __all__ = ["ConfigurationValue", "register_confval", "setup"]
 
@@ -139,11 +139,9 @@ class ConfigurationValue(GenericObject):
 		"""
 		Formats the ``:type:`` option.
 
-		:param the_type:
-
-		:rtype:
-
 		.. versionadded:: 1.1.0
+
+		:param the_type:
 		"""
 
 		return the_type
@@ -152,11 +150,9 @@ class ConfigurationValue(GenericObject):
 		"""
 		Formats the ``:required:`` option.
 
-		:param required:
-
-		:rtype:
-
 		.. versionadded:: 1.1.0
+
+		:param required:
 		"""
 
 		return strtobool(required)
@@ -165,11 +161,9 @@ class ConfigurationValue(GenericObject):
 		"""
 		Formats the ``:default:`` option.
 
-		:param default:
-
-		:rtype:
-
 		.. versionadded:: 1.1.0
+
+		:param default:
 		"""
 
 		return default
@@ -199,21 +193,16 @@ def register_confval(app: Sphinx, override: bool = False) -> None:
 	object_types[name] = ObjType(name, name)
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.confval`.
 
-	:param app: The Sphinx app.
-
 	.. versionadded:: 0.7.0
-	"""
 
-	# this package
-	from sphinx_toolbox import __version__
+	:param app: The Sphinx app.
+	"""
 
 	register_confval(app)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

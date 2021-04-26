@@ -131,7 +131,12 @@ class Purger:
 	def __repr__(self) -> str:
 		return f"{self.__class__.__name__}({self.attr_name!r})"
 
-	def purge_nodes(self, app: Sphinx, env: BuildEnvironment, docname: str) -> None:
+	def purge_nodes(  # pragma: no cover
+			self,
+			app: Sphinx,
+			env: BuildEnvironment,
+			docname: str,
+			) -> None:
 		"""
 		Remove all redundant nodes.
 
@@ -152,10 +157,8 @@ class Purger:
 		if not hasattr(env, self.attr_name):
 			return
 
-		all_nodes = [
-				todo for todo in getattr(env, self.attr_name) if todo["docname"] != docname
-				]  # pragma: no cover
-		setattr(env, self.attr_name, all_nodes)  # pragma: no cover
+		all_nodes = [todo for todo in getattr(env, self.attr_name) if todo["docname"] != docname]
+		setattr(env, self.attr_name, all_nodes)
 
 	def get_outdated_docnames(
 			self,
@@ -443,11 +446,9 @@ def unknown_module_warning(documenter: Documenter) -> None:
 	"""
 	Log a warning that the module to import the object from is unknown.
 
-	:param documenter:
-
-	:rtype:
-
 	.. versionadded:: 0.2.0
+
+	:param documenter:
 	"""
 
 	msg = __(
@@ -663,7 +664,7 @@ def add_nbsp_substitution(config: sphinx.config.Config):
 	nbsp_sub = ".. |nbsp| unicode:: 0xA0\n   :trim:"
 
 	if not config.rst_prolog:
-		config.rst_prolog = f"\n{nbsp_sub}"  # type: ignore
+		config.rst_prolog = ''  # type: ignore
 
-	elif nbsp_sub not in config.rst_prolog:
+	if nbsp_sub not in config.rst_prolog:
 		config.rst_prolog = '\n'.join([config.rst_prolog, '', nbsp_sub])  # type: ignore

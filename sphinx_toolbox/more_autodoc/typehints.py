@@ -682,31 +682,6 @@ def process_docstring(
 					lines.insert(insert_index, f":rtype: {formatted_annotation}")
 
 
-@metadata_add_version
-def setup(app: Sphinx) -> SphinxExtMetadata:
-	"""
-	Setup :mod:`sphinx_toolbox.more_autodoc.typehints`.
-
-	:param app: The Sphinx app
-	"""
-
-	if "sphinx_autodoc_typehints" in app.extensions:
-		raise ExtensionError(
-				"'sphinx_toolbox.more_autodoc.typehints' must be loaded before 'sphinx_autodoc_typehints."
-				)
-
-	sphinx_autodoc_typehints.format_annotation = format_annotation
-	sphinx_autodoc_typehints.process_signature = process_signature
-	sphinx_autodoc_typehints.process_docstring = process_docstring
-
-	app.setup_extension("sphinx.ext.autodoc")
-	app.setup_extension("sphinx_autodoc_typehints")
-
-	app.add_config_value("hide_none_rtype", False, "env", [bool])
-
-	return {"parallel_read_safe": True}
-
-
 def _class_get_type_hints(obj, globalns=None, localns=None):
 	"""
 	Return type hints for an object.
@@ -790,3 +765,28 @@ def get_all_type_hints(obj, name, original_obj):
 		rv = obj.__annotations__
 
 	return rv
+
+
+@metadata_add_version
+def setup(app: Sphinx) -> SphinxExtMetadata:
+	"""
+	Setup :mod:`sphinx_toolbox.more_autodoc.typehints`.
+
+	:param app: The Sphinx app
+	"""
+
+	if "sphinx_autodoc_typehints" in app.extensions:
+		raise ExtensionError(
+				"'sphinx_toolbox.more_autodoc.typehints' must be loaded before 'sphinx_autodoc_typehints'."
+				)
+
+	sphinx_autodoc_typehints.format_annotation = format_annotation
+	sphinx_autodoc_typehints.process_signature = process_signature
+	sphinx_autodoc_typehints.process_docstring = process_docstring
+
+	app.setup_extension("sphinx.ext.autodoc")
+	app.setup_extension("sphinx_autodoc_typehints")
+
+	app.add_config_value("hide_none_rtype", False, "env", [bool])
+
+	return {"parallel_read_safe": True}

@@ -82,7 +82,7 @@ class LaTeXTranslator(sphinx.writers.latex.LaTeXTranslator):
 			self.body.append('\n')
 		raise nodes.SkipNode
 
-	def depart_latex_toc(self, node: latex_toc):
+	def depart_latex_toc(self, node: latex_toc):  # pragma: no cover
 		pass
 
 
@@ -98,9 +98,7 @@ class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 				and self.env.docname == self.env.config.master_doc
 				):
 
-			latex_part_node = latex_toc(text=caption, format="latex")
-
-			output.append(latex_part_node)
+			output.append(latex_toc(text=caption, format="latex"))
 
 		output.extend(super().run())
 
@@ -115,7 +113,7 @@ def configure(app: Sphinx, config: Config):
 	:param config:
 	"""
 
-	if not hasattr(config, "latex_elements"):
+	if not hasattr(config, "latex_elements"):  # pragma: no cover
 		config.latex_elements = {}  # type: ignore
 
 	latex_preamble = (config.latex_elements or {}).get("preamble", '')

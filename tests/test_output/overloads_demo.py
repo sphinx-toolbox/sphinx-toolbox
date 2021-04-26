@@ -55,9 +55,7 @@ class Foo:
 		"""
 		Return the item with the given index.
 
-		:param item:
-
-		:rtype:
-
 		.. versionadded:: 1.2.3
+
+		:param item:
 		"""

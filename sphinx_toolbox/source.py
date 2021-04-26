@@ -45,7 +45,7 @@ API Reference
 --------------
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -172,7 +172,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	# Link to source code
 	app.add_role("source", source_role)
 
-	# The target for the source link. One of GitHub or Sphinx (GitLab coming soon)
+	# The target for the source link. One of GitHub or Sphinx (GitLab coming soon™)
 	app.add_config_value("source_link_target", "Sphinx", "env", types=[str])
 
 	app.setup_extension("sphinx_toolbox.github")

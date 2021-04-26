@@ -165,7 +165,7 @@ from sphinx.writers.html import HTMLTranslator
 from sphinx.writers.latex import LaTeXTranslator
 
 # this package
-from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata
+from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, metadata_add_version
 
 __all__ = [
 		"CodeBlock",
@@ -379,17 +379,15 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 	(static_dir / "sphinx-toolbox-code.css").write_clean(dict2css.dumps(style))  # type: ignore
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.code`.
 
-	:param app: The Sphinx app.
-
 	.. versionadded:: 1.0.0
-	"""
 
-	# this package
-	from sphinx_toolbox import __version__
+	:param app: The Sphinx app.
+	"""
 
 	# Code block with customisable indent size.
 	app.add_directive("code-block", CodeBlock, override=True)
@@ -420,7 +418,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_css_file("sphinx-toolbox-code.css")
 	app.connect("build-finished", copy_asset_files)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

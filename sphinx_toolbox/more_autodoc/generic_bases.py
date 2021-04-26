@@ -57,10 +57,10 @@ from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.more_autosummary import PatchedAutoSummClassDocumenter
 from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add, metadata_add_version
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 8):  # pragma: no cover (<py38)
 	# stdlib
 	from typing import get_origin
-else:
+else:  # pragma: no cover (py38+)
 	# 3rd party
 	from typing_inspect import get_origin  # type: ignore
 
@@ -83,6 +83,7 @@ class GenericBasesClassDocumenter(PatchedAutoSummClassDocumenter):
 
 		if self.doc_as_attr:
 			self.directivetype = "attribute"
+
 		Documenter.add_directive_header(self, sig)
 
 		if self.analyzer and '.'.join(self.objpath) in self.analyzer.finals:
@@ -127,7 +128,7 @@ class Example(List[Tuple[str, float, List[str]]]):
 	An example of :mod:`sphinx_toolbox.tweaks.generic_bases`.
 	"""
 
-	def __init__(self, iterable=()):
+	def __init__(self, iterable=()):  # pragma: no cover
 		pass
 
 

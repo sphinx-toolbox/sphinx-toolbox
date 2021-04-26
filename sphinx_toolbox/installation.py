@@ -170,7 +170,7 @@ from sphinx.environment import BuildEnvironment
 from sphinx.util.docutils import SphinxDirective
 
 # this package
-from sphinx_toolbox.utils import OptionSpec, Purger, SphinxExtMetadata, flag
+from sphinx_toolbox.utils import OptionSpec, Purger, SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = [
 		"InstallationDirective",
@@ -190,7 +190,7 @@ __all__ = [
 
 class _Purger(Purger):
 
-	def purge_nodes(self, app: Sphinx, env: BuildEnvironment, docname: str) -> None:
+	def purge_nodes(self, app: Sphinx, env: BuildEnvironment, docname: str) -> None:  # pragma: no cover
 		"""
 		Remove all redundant nodes.
 
@@ -202,7 +202,7 @@ class _Purger(Purger):
 		if not hasattr(env, self.attr_name):
 			return
 
-		setattr(env, self.attr_name, [])  # pragma: no cover
+		setattr(env, self.attr_name, [])
 
 
 installation_node_purger = _Purger("all_installation_node_nodes")
@@ -603,10 +603,8 @@ class ExtensionsDirective(SphinxDirective):
 		if "no-postamble" not in self.options:
 			content.extend([bottom_text, ''])
 
-		view = ViewList(content)
-
 		extensions_node = nodes.paragraph(rawsource=content)  # type: ignore
-		self.state.nested_parse(view, self.content_offset, extensions_node)  # type: ignore
+		self.state.nested_parse(ViewList(content), self.content_offset, extensions_node)  # type: ignore
 		extensions_node_purger.add_node(self.env, extensions_node, targetnode, self.lineno)
 
 		return [targetnode, extensions_node]
@@ -675,17 +673,15 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 			])
 
 
+@metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.installation`.
 
-	:param app: The Sphinx app.
-
 	.. versionadded:: 0.7.0
-	"""
 
-	# this package
-	from sphinx_toolbox import __version__
+	:param app: The Sphinx app.
+	"""
 
 	if "sphinx_inline_tabs" not in getattr(app, "extensions", ()):
 		app.setup_extension("sphinx_tabs.tabs")
@@ -708,7 +704,4 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_js_file("sphinx_toolbox_installation.js")
 	app.connect("build-finished", copy_asset_files)
 
-	return {
-			"version": __version__,
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}
