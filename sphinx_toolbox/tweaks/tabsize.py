@@ -7,9 +7,6 @@ Hack to get the docutils tab size, as there doesn't appear to be any other way.
 .. versionadded:: 1.0.0
 
 
-API Reference
----------------
-
 You probably don't need to use this extension directly, but if you're developing an
 extension of your own you can enable it like so:
 

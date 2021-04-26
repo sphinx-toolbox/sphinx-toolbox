@@ -20,9 +20,6 @@ With some themes the superscript asterisk becomes very hard to see.
 
 .. versionadded:: 2.7.0
 
-
-API Reference
----------------
 """  # noqa: D400
 #
 #  Copyright © 2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
