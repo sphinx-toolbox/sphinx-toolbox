@@ -156,7 +156,9 @@ def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 def test_latex_output(app, advanced_file_regression: AdvancedFileRegressionFixture):
 
 	assert app.builder.name.lower() == "latex"
-	app.build()
+
+	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')") as w:
+		app.build()
 
 	output_file = PathPlus(app.outdir / "python.tex")
 	content = StringList(output_file.read_lines())
