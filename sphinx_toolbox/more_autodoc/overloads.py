@@ -211,8 +211,6 @@ class OverloadMixin(_OverloadMixinBase):
 
 		if self.env.config.overloads_location == "bottom":
 
-			insert_index = -1
-
 			def process_docstring(
 					app: Sphinx,
 					what: str,
@@ -222,24 +220,42 @@ class OverloadMixin(_OverloadMixinBase):
 					lines: List[str],
 					) -> None:
 
-				nonlocal insert_index
-
 				if callable(obj):
+					seen_return = False
+
+					n_lines = len(lines)
+
 					for i, line in enumerate(lines):
-						if line.startswith(":rtype:"):
-							insert_index = i - len(lines) + 1
+						if not line:
+							continue
+						if line[0].isspace():
+							continue
+
+						if (
+								line.startswith(":rtype:")
+								or line.startswith(":return:")
+								or line.startswith(":returns:")
+						):
+							seen_return = True
+							continue
+
+						if seen_return and i != n_lines:
+							lines.insert(i, '')
+							for inner_line in reversed(self.create_body_overloads()):
+								lines.insert(i, inner_line)
+							lines.insert(i, '')
+
 							break
+					else:
+						lines.append('')
+						lines.extend(self.create_body_overloads())
+						lines.append('')
 
-						elif line.startswith(":return:") or line.startswith(":returns:"):
-							insert_index = i - len(lines)
-							break
-
-			listener_id = self.env.app.connect("autodoc-process-docstring", process_docstring, priority=300)
-			super().add_content(more_content, no_docstring)
-			self.env.app.disconnect(listener_id)
-
-			for line in self.create_body_overloads():
-				self.directive.result.insert(insert_index, f"{self.indent}{line}", self.get_sourcename())
+			listener_id = self.env.app.connect("autodoc-process-docstring", process_docstring, priority=600)
+			try:
+				super().add_content(more_content, no_docstring)
+			finally:
+				self.env.app.disconnect(listener_id)
 
 		else:
 			super().add_content(more_content, no_docstring)
@@ -406,9 +422,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.overloads`.
 
-	:param app: The Sphinx app.
-
 	.. versionadded:: 1.4.0
+
+	:param app: The Sphinx app.
 	"""
 
 	app.add_autodocumenter(FunctionDocumenter, override=True)
