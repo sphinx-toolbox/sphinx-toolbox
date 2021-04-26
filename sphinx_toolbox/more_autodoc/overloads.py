@@ -232,6 +232,7 @@ class OverloadMixin(_OverloadMixinBase):
 
 						elif line.startswith(":return:") or line.startswith(":returns:"):
 							insert_index = i - len(lines)
+							break
 
 			listener_id = self.env.app.connect("autodoc-process-docstring", process_docstring, priority=300)
 			super().add_content(more_content, no_docstring)

@@ -1,7 +1,7 @@
 # stdlib
 from typing import Callable, List, Optional, Type, Union, overload
 
-__all__ = ["serde", "Foo"]
+__all__ = ["serde", "Foo", "Bar"]
 
 
 @overload
@@ -44,6 +44,26 @@ def serde(
 
 
 class Foo:
+
+	@overload
+	def __getitem__(self, item: int) -> str: ...
+
+	@overload
+	def __getitem__(self, item: slice) -> List[str]: ...
+
+	def __getitem__(self, item: Union[int, slice]) -> Union[str, List[str]]:
+		"""
+		Return the item with the given index.
+
+		:param item:
+
+		:rtype:
+
+		.. versionadded:: 1.2.3
+		"""
+
+
+class Bar:
 
 	@overload
 	def __getitem__(self, item: int) -> str: ...
