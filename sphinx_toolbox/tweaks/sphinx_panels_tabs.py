@@ -75,6 +75,11 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 
 	:param app: The Sphinx application.
 	:param exception: Any exception which occurred and caused Sphinx to abort.
+
+	.. versionchanged:: 2.7.0
+
+		Renamed from ``copy_assets``.
+		The old name is deprecated an will be removed in 3.0.0
 	"""
 
 	if exception:  # pragma: no cover
