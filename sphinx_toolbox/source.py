@@ -7,10 +7,7 @@ Add hyperlinks to source files, either on GitHub or in the documentation itself.
 .. extensions:: sphinx_toolbox.source
 
 If you're looking for a ``[source]`` button to go at the end of your class and
-function signatures, checkout
-`sphinx.ext.linkcode <https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html>`__
-and
-`sphinx.ext.viewcode <https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html>`__
+function signatures, checkout :mod:`sphinx.ext.linkcode` and :mod:`sphinx.ext.viewcode`.
 
 
 Usage
@@ -127,7 +124,7 @@ def source_role(
 
 	nodes_: List[Union[nodes.reference, addnodes.only]] = []
 	messages: List[system_message] = []
-	refnode: Union[nodes.reference, addnodes.only]
+	refnode: Union[nodes.reference, addnodes.pending_xref]
 
 	if config.source_link_target == "sphinx":
 		pagename = "_modules/" + target.replace(".py", '')

@@ -8,19 +8,29 @@ Show a link to the corresponding source code at the top of :rst:dir:`automodule`
 
 .. versionadded:: 0.6.0
 
-.. versionchanged:: 1.1.0
 
-	Can also be enabled via the ``:sourcelink:`` flag to :rst:dir:`automodule`, but it is not supported via :any:`autodoc_default_options`.
+Configuration
+----------------
 
-
-Usage
---------
+:mod:`sphinx_toolbox.more_autodoc.sourcelink` can be configured using the :confval:`autodoc_default_options`
+option in ``conf.py``, or with the :rst:dir:`:sourcelink: <sourcelink>` option flag to :rst:dir:`automodule`.
 
 .. confval:: autodoc_show_sourcelink
-	:type: bool
-	:default: False
+	:type: :class:`bool`
+	:default: :py:obj:`False`
 
-	Shows a link to the corresponding source code at the top of each :rst:dir:`automodule` directive.
+	If :py:obj:`True`, shows a link to the corresponding source code
+	at the top of each :rst:dir:`automodule` directive.
+
+.. rst:directive:option:: sourcelink
+
+	When passed as an option flag to an :rst:dir:`automodule` directive,
+	show a link to the corresponding source code at the top of the output *for that module only*.
+
+
+.. versionchanged:: 1.1.0
+
+	Added support for the :rst:dir:`:sourcelink: <sourcelink>` option flag to :rst:dir:`automodule`.
 
 
 API Reference
