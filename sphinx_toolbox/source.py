@@ -131,8 +131,9 @@ def source_role(
 
 	if config.source_link_target == "sphinx":
 		pagename = "_modules/" + target.replace(".py", '')
-		refnode = addnodes.only(expr="html")
-		refnode += addnodes.pending_xref(
+		# refnode = addnodes.only(expr="html")
+		# refnode += addnodes.pending_xref(
+		refnode = addnodes.pending_xref(
 				title,
 				nodes.inline(title, title),
 				reftype="viewcode",
