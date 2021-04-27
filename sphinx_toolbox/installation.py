@@ -170,6 +170,7 @@ from sphinx.environment import BuildEnvironment
 from sphinx.util.docutils import SphinxDirective
 
 # this package
+from sphinx_toolbox import _css
 from sphinx_toolbox.utils import OptionSpec, Purger, SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = [
@@ -574,10 +575,12 @@ class ExtensionsDirective(SphinxDirective):
 		targetid = f'extensions-{self.env.new_serialno("sphinx-toolbox extensions"):d}'
 		targetnode = nodes.target('', '', ids=[targetid])
 
-		top_text = (
-				f"Enable ``{self.arguments[0]}`` by adding the following "
-				f"to the ``extensions`` variable in your ``conf.py``:"
-				)
+		top_text = [
+				".. rst-class:: sphinx-toolbox-extensions",
+				'',
+				f"    Enable ``{self.arguments[0]}`` by adding the following",
+				f"    to the ``extensions`` variable in your ``conf.py``:",
+				]
 		bottom_text = (
 				"For more information see "
 				"https://www.sphinx-doc.org/en/master/usage/extensions#third-party-extensions ."
@@ -586,10 +589,14 @@ class ExtensionsDirective(SphinxDirective):
 		if "no-preamble" in self.options:
 			content = []
 		else:
-			content = [top_text, '']
+			content = [*top_text, '']
+
+		content.append(".. code-block:: python", )
+
+		if "no-postamble" not in self.options:
+			content.append("    :class: sphinx-toolbox-extensions")
 
 		content.extend([
-				".. code-block:: python",
 				'',
 				"    extensions = [",
 				"        ...",
@@ -623,14 +630,13 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 	if exception:  # pragma: no cover
 		return
 
-	style: MutableMapping[str, dict2css.Style] = {
-			'div[id*="installation"] .sphinx-tabs-tab': {"color": "#2980b9"},
-			"button.sphinx-tabs-tab,div.sphinx-tabs-panel": {"outline": (None, dict2css.IMPORTANT)},
-			}
+	if app.builder.format.lower() != "html":
+		return
 
 	static_dir = PathPlus(app.outdir) / "_static"
 	static_dir.maybe_make(parents=True)
-	(static_dir / "sphinx_toolbox_installation.css").write_clean(dict2css.dumps(style, minify=True))
+	dict2css.dump(_css.installation_styles, static_dir / "sphinx_toolbox_installation.css", minify=True)
+
 	(static_dir / "sphinx_toolbox_installation.js").write_lines([
 			"// Based on https://github.com/executablebooks/sphinx-tabs/blob/master/sphinx_tabs/static/tabs.js",
 			"// Copyright (c) 2017 djungelorm",
@@ -687,6 +693,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 		app.setup_extension("sphinx_tabs.tabs")
 
 	app.setup_extension("sphinx-prompt")
+	app.setup_extension("sphinx_toolbox._css")
 
 	app.add_config_value("conda_channels", [], "env", types=[list])
 

@@ -39,15 +39,15 @@ Fix for :github:issue:`51 <executablebooks/sphinx-panels>`.
 from typing import Optional
 
 # 3rd party
+import dict2css
 from deprecation_alias import deprecated
 from docutils import nodes
 from domdf_python_tools.paths import PathPlus
-from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.writers.html import HTMLTranslator
 
 # this package
-from sphinx_toolbox import __version__
+from sphinx_toolbox import __version__, _css
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["copy_asset_files", "setup"]
@@ -85,29 +85,31 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 	if exception:  # pragma: no cover
 		return
 
-	style = StringList([
-			".docutils.container {",
-			"    padding-left: 0 !important;",
-			"    padding-right: 0 !important;",
-			'}',
-			'',
-			# "div.sphinx-tabs.docutils.container {",
-			# "    padding-left: 0 !important;",
-			# "    padding-right: 0 !important;",
-			# "}",
-			# '',
-			"div.ui.top.attached.tabular.menu.sphinx-menu.docutils.container {",
-			# "    padding-left: 0 !important;",
-			# "    padding-right: 0 !important;",
-			"    margin-left: 0 !important;",
-			"    margin-right: 0 !important;",
-			'}',
-			])
+	if app.builder.format.lower() != "html":
+		return
 
-	css_dir = PathPlus(app.builder.outdir) / "_static" / "css"
-	css_dir.maybe_make(parents=True)
-	css_file = css_dir / "tabs_customise.css"
-	css_file.write_lines(style)
+	# style = StringList([
+	# 		".docutils.container {",
+	# 		"    padding-left: 0 !important;",
+	# 		"    padding-right: 0 !important;",
+	# 		'}',
+	# 		'',
+	# 		# "div.sphinx-tabs.docutils.container {",
+	# 		# "    padding-left: 0 !important;",
+	# 		# "    padding-right: 0 !important;",
+	# 		# "}",
+	# 		# '',
+	# 		"div.ui.top.attached.tabular.menu.sphinx-menu.docutils.container {",
+	# 		# "    padding-left: 0 !important;",
+	# 		# "    padding-right: 0 !important;",
+	# 		"    margin-left: 0 !important;",
+	# 		"    margin-right: 0 !important;",
+	# 		'}',
+	# 		])
+
+	css_static_dir = PathPlus(app.builder.outdir) / "_static" / "css"
+	css_static_dir.maybe_make(parents=True)
+	dict2css.dump(_css.tweaks_sphinx_panels_tabs_styles, css_static_dir / "tabs_customise.css")
 
 
 copy_assets = deprecated(
@@ -128,11 +130,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx application.
 	"""
 
-	# if "sphinx_panels" in app.config.extensions:
-
 	app.setup_extension("sphinx_tabs.tabs")
+	app.setup_extension("sphinx_toolbox._css")
+
 	app.add_node(nodes.container, override=True, html=(visit_container, depart_container))
-	app.add_css_file("css/tabs_customise.css")
-	app.connect("build-finished", copy_asset_files)
 
 	return {"parallel_read_safe": True}

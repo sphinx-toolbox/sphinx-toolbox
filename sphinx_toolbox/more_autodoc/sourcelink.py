@@ -29,7 +29,7 @@ API Reference
 
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,7 @@ API Reference
 
 # stdlib
 from types import ModuleType
-from typing import List
+from typing import Any, List, Mapping
 
 # 3rd party
 import sphinx.ext.autodoc
@@ -69,7 +69,7 @@ def sourcelinks_process_docstring(
 		what,
 		name: str,
 		obj,
-		options,
+		options: Mapping[str, Any],
 		lines: List[str],
 		):
 	"""
@@ -86,10 +86,17 @@ def sourcelinks_process_docstring(
 	show_sourcelink = options.get("sourcelink", app.config.autodoc_show_sourcelink)  # type: ignore
 
 	if isinstance(obj, ModuleType) and what == "module" and obj.__file__.endswith(".py") and show_sourcelink:
-		lines.insert(0, f"**Source code:** :source:`{name.replace('.', '/')}.py`")
-		lines.insert(1, '')
-		lines.insert(2, "--------------------")
-		lines.insert(3, '')
+		lines_to_insert = [
+				".. rst-class:: source-link",
+				'',
+				f"    **Source code:** :source:`{name.replace('.', '/')}.py`",
+				'',
+				"--------------------",
+				'',
+				]
+
+		for line in reversed(lines_to_insert):
+			lines.insert(0, line)
 
 
 @metadata_add_version
@@ -103,6 +110,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	sphinx.ext.autodoc.ModuleDocumenter.option_spec["sourcelink"] = flag
 
 	app.setup_extension("sphinx_toolbox.source")
+	app.setup_extension("sphinx_toolbox._css")
 	app.setup_extension("sphinx.ext.autodoc")
 
 	app.connect("autodoc-process-docstring", sourcelinks_process_docstring)

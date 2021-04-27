@@ -207,3 +207,6 @@ def test_setup():
 			"extensions": installation.ExtensionsDirective,
 			}
 	assert app.registry.source_parsers == {}
+
+	assert app.registry.css_files == [("sphinx_toolbox_installation.css", {})]
+	# assert app.registry.js_files == [('sphinx_toolbox_installation.js', {})]

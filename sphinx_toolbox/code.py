@@ -376,7 +376,7 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 
 	static_dir = PathPlus(app.outdir) / "_static"
 	static_dir.maybe_make(parents=True)
-	(static_dir / "sphinx-toolbox-code.css").write_clean(dict2css.dumps(style))  # type: ignore
+	dict2css.dump(style, static_dir / "sphinx-toolbox-code.css")
 
 
 @metadata_add_version

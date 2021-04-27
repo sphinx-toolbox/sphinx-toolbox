@@ -1,9 +1,9 @@
 .docutils.container {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important
 }
 
 div.ui.top.attached.tabular.menu.sphinx-menu.docutils.container {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important
 }

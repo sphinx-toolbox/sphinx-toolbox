@@ -142,7 +142,6 @@ import dict2css
 from consolekit.terminal_colours import Fore
 from docutils import nodes
 from docutils.nodes import Node, system_message
-from docutils.parsers.rst import roles
 from domdf_python_tools.paths import PathPlus
 from sphinx.application import Sphinx
 from sphinx.ext.autodoc import UNINITIALIZED_ATTR, ModuleDocumenter
@@ -150,6 +149,7 @@ from sphinx.util.docutils import SphinxRole
 from sphinx.writers.html import HTMLTranslator
 
 # this package
+from sphinx_toolbox import _css
 from sphinx_toolbox.more_autodoc.variables import VariableDocumenter
 from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
 
@@ -702,23 +702,9 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 	if app.builder.format.lower() != "html":
 		return
 
-	style = {
-			"span.regex_literal": {"color": "dimgrey"},
-			"span.regex_at": {"color": "orangered"},
-			"span.regex_repeat_brace": {"color": "orangered"},
-			"span.regex_branch": {"color": "orangered"},
-			"span.regex_subpattern": {"color": "dodgerblue"},
-			"span.regex_in": {"color": "darkorange"},
-			"span.regex_category": {"color": "darkseagreen"},
-			"span.regex_repeat": {"color": "orangered"},
-			"span.regex_any": {"color": "orangered"},
-			"code.regex": {"font-size": "80%"},
-			"span.regex": {"font-weight": "bold"},
-			}
-
 	static_dir = PathPlus(app.outdir) / "_static"
 	static_dir.maybe_make(parents=True)
-	(static_dir / "regex.css").write_clean(dict2css.dumps(style, minify=True))
+	dict2css.dump(_css.regex_styles, static_dir / "regex.css", minify=True)
 
 
 regex_parser = HTMLRegexParser()
@@ -733,15 +719,11 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 
 	app.setup_extension("sphinx.ext.autodoc")
+	app.setup_extension("sphinx_toolbox._css")
+
 	app.add_autodocumenter(RegexDocumenter)
 
 	app.add_role("regex", Regex())
-	app.add_node(
-			RegexNode,
-			html=(visit_regex_node, depart_regex_node),
-			)
-
-	app.add_css_file("regex.css")
-	app.connect("build-finished", copy_asset_files)
+	app.add_node(RegexNode, html=(visit_regex_node, depart_regex_node))
 
 	return {"parallel_read_safe": True}

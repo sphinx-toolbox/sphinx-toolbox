@@ -139,31 +139,35 @@ def make_rest_example(
 
 	:param options:
 	:param content: The user-provided content of the directive.
-
-	:return:
 	"""
 
-	output = StringList(".. code-block:: rest")
-	output.set_indent(' ' * env.config.docutils_tab_width, 1)
-
-	for option, value in options.items():
-		if value is None:
-			output.append(f":{option}:")
-		else:
-			output.append(f":{option}: {value}")
+	output = StringList(".. container:: rest-example")
+	output.indent_type = ' ' * env.config.docutils_tab_width
 
 	output.blankline()
 
-	for line in content:
-		output.append(f"{line}")
+	with output.with_indent_size(1):
 
-	output.set_indent_size(0)
-	output.blankline(ensure_single=True)
+		output.append(".. code-block:: rest")
 
-	for line in content:
-		output.append(line)
+		with output.with_indent_size(2):
+			for option, value in options.items():
+				if value is None:
+					output.append(f":{option}:")
+				else:
+					output.append(f":{option}: {value}")
 
-	output.blankline(ensure_single=True)
+			output.blankline()
+
+			for line in content:
+				output.append(line)
+
+		output.blankline(ensure_single=True)
+
+		for line in content:
+			output.append(line)
+
+		output.blankline(ensure_single=True)
 
 	return list(output)
 
@@ -184,6 +188,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	# Hack to get the docutils tab size, as there doesn't appear to be any other way
 	app.setup_extension("sphinx_toolbox.tweaks.tabsize")
+	app.setup_extension("sphinx_toolbox._css")
 
 	app.add_directive("rest-example", reSTExampleDirective)
 	app.connect("env-purge-doc", rest_example_purger.purge_nodes)

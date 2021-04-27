@@ -29,24 +29,31 @@ def test_example_html_output(page: BeautifulSoup, html_regression: HTMLRegressio
 	assert "sphinx-toolbox Demo - reST Example" == title
 
 	selector_string = "div.body div#sphinx-toolbox-demo-rest-example"
-	body = list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
 
-	assert len(body) == 4
+	body = list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
+	assert len(body) == 3
 
 	assert body[0].name == 'p'
 	assert body[0]["id"] == "example-0"
 	assert body[0].contents == []
 
 	assert body[1].name == "div"
-	assert body[1]["class"] == ["highlight-rest", "notranslate"]
-	assert body[1].contents[0].name == "div"
-	assert body[1].contents[0]["class"] == ["highlight"]
+	assert body[1]["class"] == ["rest-example", "docutils", "container"]
 
-	assert body[2].name == "div"
-	assert body[2]["class"] == ["highlight-python", "notranslate"]
+	body_body = list(filter(lambda a: a != '\n', body[1].contents))
+	assert len(body_body) == 2
 
-	assert body[3].name == 'p'
-	assert body[3].contents == []
+	assert body_body[0].name == "div"
+	assert body_body[0]["class"] == ["highlight-rest", "notranslate"]
+
+	assert body_body[0].contents[0].name == "div"
+	assert body_body[0].contents[0]["class"] == ["highlight"]
+
+	assert body_body[1].name == "div"
+	assert body_body[1]["class"] == ["highlight-python", "notranslate"]
+
+	assert body[2].name == 'p'
+	assert body[2].contents == []
 
 
 pages_to_check: List[Union[str, ParameterSet]] = [

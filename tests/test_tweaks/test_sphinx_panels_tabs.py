@@ -28,6 +28,4 @@ def test_setup():
 			"html": {"container": (sphinx_panels_tabs.visit_container, sphinx_panels_tabs.depart_container)}
 			}
 
-	assert app.events.listeners == {
-			"build-finished": [EventListener(id=0, handler=sphinx_panels_tabs.copy_asset_files, priority=500)],
-			}
+	assert app.events.listeners == {}

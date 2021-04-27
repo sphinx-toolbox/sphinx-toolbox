@@ -398,6 +398,7 @@ from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 
 # this package
+from sphinx_toolbox import _css
 from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, flag, make_github_url, metadata_add_version
 
 __all__ = [
@@ -873,11 +874,9 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 	if app.builder.format.lower() != "html":
 		return
 
-	style = {".table-wrapper td p img.sphinx_toolbox_shield": {"vertical-align": "middle"}}
-
 	static_dir = PathPlus(app.outdir) / "_static"
 	static_dir.maybe_make(parents=True)
-	(static_dir / "toolbox-shields.css").write_clean(dict2css.dumps(style, minify=True))
+	dict2css.dump(_css.shields_styles, static_dir / "toolbox-shields.css", minify=True)
 
 
 @metadata_add_version
@@ -889,6 +888,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 
 	app.setup_extension("sphinx_toolbox.github")
+	app.setup_extension("sphinx_toolbox._css")
 
 	# Shields/badges
 	app.add_directive("rtfd-shield", RTFDShield)
@@ -901,8 +901,5 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_directive("maintained-shield", MaintainedShield)
 	app.add_directive("pre-commit-shield", PreCommitShield)
 	app.add_directive("pre-commit-ci-shield", PreCommitCIShield)
-
-	app.add_css_file("toolbox-shields.css")
-	app.connect("build-finished", copy_asset_files)
 
 	return {"parallel_read_safe": True}
