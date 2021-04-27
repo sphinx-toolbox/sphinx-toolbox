@@ -75,6 +75,7 @@
 
 \definecolor{nbsphinxin}{HTML}{307FC1}
 \definecolor{nbsphinxout}{HTML}{BF5B3D}
+\usepackage[symbol]{footmisc}
 \newcommand{\thesummary}{This is an awesome tool! 🚀}
 
 \makeatletter
@@ -86,7 +87,7 @@
 }
 \makeatother
 
-\usepackage{bookmark}
+\usepackage[]{bookmark}
 
 \title{Python}
 \date{Mar 11, 2021}
@@ -496,6 +497,32 @@ Something else that might escape notice.
 \textit{\sphinxstyleabbreviation{m/z} (mass to charge ratio)}
 
 \textit{\sphinxstyleabbreviation{doodad}}
+
+
+\chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} footnotes}
+\label{\detokenize{footnote_symbols:sphinx-toolbox-demo-footnotes}}\label{\detokenize{footnote_symbols::doc}}
+Some text %
+\begin{footnote}[2]\sphinxAtStartFootnote
+An auto\sphinxhyphen{}symbol footnote
+%
+\end{footnote}
+
+Some more text %
+\begin{footnote}[3]\sphinxAtStartFootnote
+Another footnote
+%
+\end{footnote}
+
+Sometimes %
+\begin{footnote}[4]\sphinxAtStartFootnote
+A footnote with lots of content.
+
+\sphinxSetupCodeBlockInFootnote
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Look ma! I}\PYG{l+s+s2}{\PYGZsq{}}\PYG{l+s+s2}{m in a footnote}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{sphinxVerbatim}
+%
+\end{footnote} strange things happen.
 
 
 \bookmarksetupnext{{level=part}}

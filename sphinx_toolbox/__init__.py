@@ -77,6 +77,7 @@ def setup(app: Sphinx) -> "utils.SphinxExtMetadata":
 	app.setup_extension("sphinx_toolbox.formatting")
 	app.setup_extension("sphinx_toolbox.installation")
 	app.setup_extension("sphinx_toolbox.issues")
+	app.setup_extension("sphinx_toolbox.latex")
 	app.setup_extension("sphinx_toolbox.rest_example")
 	app.setup_extension("sphinx_toolbox.shields")
 	app.setup_extension("sphinx_toolbox.source")

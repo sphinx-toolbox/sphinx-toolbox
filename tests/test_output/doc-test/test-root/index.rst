@@ -7,3 +7,4 @@
 	collapse
 	code-block
 	formatting
+	footnote_symbols

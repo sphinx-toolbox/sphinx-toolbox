@@ -13,6 +13,7 @@ extensions = [
 		"sphinx_toolbox.more_autodoc.generic_bases",
 		"sphinx_toolbox.documentation_summary",
 		"sphinx_toolbox.tweaks.latex_toc",
+		"sphinx_toolbox.tweaks.footnote_symbols",
 		"sphinx_toolbox.flake8",
 		"sphinx_toolbox.pre_commit",
 		"sphinx_tabs.tabs",

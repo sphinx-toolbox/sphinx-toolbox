@@ -45,15 +45,13 @@ def test_source_role_sphinx():
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages
-	assert isinstance(nodes[0], addnodes.only)
-	assert nodes[0].attributes["expr"] == "html"
-	assert isinstance(nodes[0].children[0], addnodes.pending_xref)
-	assert isinstance(nodes[0].children[0].children[0], inline)
-	assert nodes[0].children[0].attributes["reftype"] == "viewcode"
-	assert nodes[0].children[0].attributes["refdomain"] == "std"
-	assert nodes[0].children[0].attributes["reftarget"] == "_modules/Lib/typing"
-	assert nodes[0].children[0].attributes["refid"] == "Lib/typing.py"
-	assert not nodes[0].children[0].attributes["refexplicit"]
+	assert isinstance(nodes[0], addnodes.pending_xref)
+	assert isinstance(nodes[0].children[0], inline)
+	assert nodes[0].attributes["reftype"] == "viewcode"
+	assert nodes[0].attributes["refdomain"] == "std"
+	assert nodes[0].attributes["reftarget"] == "_modules/Lib/typing"
+	assert nodes[0].attributes["refid"] == "Lib/typing.py"
+	assert not nodes[0].attributes["refexplicit"]
 
 
 def test_source_role_unknown_target(capsys):

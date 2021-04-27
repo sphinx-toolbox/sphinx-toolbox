@@ -45,11 +45,11 @@ from sphinx.application import Sphinx
 from sphinx.config import Config
 
 # this package
+from sphinx_toolbox.latex import use_package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["setup", "configure"]
 
-use_bookmark = r"\usepackage{bookmark}"
 nest_bookmark_level_part = "\\bookmarksetupnext{{level=part}}\n"
 
 
@@ -109,17 +109,11 @@ def configure(app: Sphinx, config: Config):
 	"""
 	Configure :mod:`sphinx_toolbox.tweaks.latex_toc`.
 
-	:param app:
+	:param app: The Sphinx app.
 	:param config:
 	"""
 
-	if not hasattr(config, "latex_elements"):  # pragma: no cover
-		config.latex_elements = {}  # type: ignore
-
-	latex_preamble = (config.latex_elements or {}).get("preamble", '')
-
-	if use_bookmark not in latex_preamble:
-		config.latex_elements["preamble"] = f"{latex_preamble}\n{use_bookmark}"
+	use_package("bookmark", config)
 
 
 def purge_outdated(app: Sphinx, env, added, changed, removed):

@@ -23,6 +23,7 @@ The following features are enabled by default:
 * :mod:`sphinx_toolbox.github`
 * :mod:`sphinx_toolbox.installation`
 * :mod:`sphinx_toolbox.issues`
+* :mod:`sphinx_toolbox.latex`
 * :mod:`sphinx_toolbox.rest_example`
 * :mod:`sphinx_toolbox.shields` *
 * :mod:`sphinx_toolbox.source`
