@@ -16,9 +16,11 @@ The following features are enabled by default:
 
 * :mod:`sphinx_toolbox.assets`
 * :mod:`sphinx_toolbox.code`
+* :mod:`sphinx_toolbox.collapse`
 * :mod:`sphinx_toolbox.confval`
 * :mod:`sphinx_toolbox.decorators`
 * :mod:`sphinx_toolbox.formatting`
+* :mod:`sphinx_toolbox.github`
 * :mod:`sphinx_toolbox.installation`
 * :mod:`sphinx_toolbox.issues`
 * :mod:`sphinx_toolbox.rest_example`
@@ -38,10 +40,14 @@ Some features must be enabled separately:
 * :mod:`sphinx_toolbox.more_autodoc`
 
 	* :mod:`sphinx_toolbox.more_autodoc.augment_defaults`
+	* :mod:`sphinx_toolbox.more_autodoc.generic_bases`
 	* :mod:`sphinx_toolbox.more_autodoc.genericalias`
 	* :mod:`sphinx_toolbox.more_autodoc.no_docstring`
+	* :mod:`sphinx_toolbox.more_autodoc.overloads`
+	* :mod:`sphinx_toolbox.more_autodoc.regex`
 	* :mod:`sphinx_toolbox.more_autodoc.sourcelink`
 	* :mod:`sphinx_toolbox.more_autodoc.typehints`
+	* :mod:`sphinx_toolbox.more_autodoc.typevars`
 	* :mod:`sphinx_toolbox.more_autodoc.variables`
 
 	:mod:`sphinx_toolbox.more_autodoc` can also be specified as an extension, which enables all of the above features.

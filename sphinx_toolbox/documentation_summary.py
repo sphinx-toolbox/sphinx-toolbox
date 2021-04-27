@@ -126,7 +126,7 @@ def configure(app: Sphinx, config: Config):
 	"""
 	Configure :mod:`sphinx_toolbox.documentation_summary`.
 
-	:param app:
+	:param app: The Sphinx app.
 	:param config:
 	"""
 
