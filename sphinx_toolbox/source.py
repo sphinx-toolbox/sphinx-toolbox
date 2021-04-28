@@ -96,7 +96,7 @@ def source_role(
 		inliner: Inliner,
 		options: Dict = {},
 		content: List[str] = []
-		) -> Tuple[Sequence[Union[nodes.reference, addnodes.only]], List[system_message]]:
+		) -> Tuple[Sequence[Union[nodes.reference, addnodes.pending_xref]], List[system_message]]:
 	"""
 	Adds a link to the given Python source file in the documentation or on GitHub.
 
@@ -113,6 +113,13 @@ def source_role(
 		To be interpreted by the function.
 
 	:return: A list containing the created node, and a list containing any messages generated during the function.
+
+	.. versionchanged:: 2.8.0
+
+		Now returns a sequence of :class:`nodes.reference <docutils.nodes.reference>` and
+		:class:`addnodes.pending_xref <sphinx.addnodes.pending_xref>` as the first tuple element,
+		rather than :class:`nodes.reference <docutils.nodes.reference>` and
+		:class:`addnodes.pending_xref <sphinx.addnodes.only>` as in previous versions.
 	"""
 
 	has_t, title, target = split_explicit_title(text)
@@ -122,7 +129,7 @@ def source_role(
 	env = inliner.document.settings.env
 	config = env.app.config
 
-	nodes_: List[Union[nodes.reference, addnodes.only]] = []
+	nodes_: List[Union[nodes.reference, addnodes.pending_xref]] = []
 	messages: List[system_message] = []
 	refnode: Union[nodes.reference, addnodes.pending_xref]
 
