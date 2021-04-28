@@ -54,6 +54,89 @@ namespace_packages = [ "ruamel.yaml",]
 conda-channels = [ "conda-forge", "domdfcoding",]
 extras = "all"
 
+[tool.sphinx-pyproject]
+github_username = "sphinx-toolbox"
+github_repository = "sphinx-toolbox"
+author = "Dominic Davis-Foster"
+project = "sphinx-toolbox"
+copyright = "2020-2021 Dominic Davis-Foster"
+language = "en"
+package_root = "sphinx_toolbox"
+extensions = [
+    "sphinx_toolbox",
+    "sphinx_toolbox.more_autodoc",
+    "sphinx_toolbox.more_autosummary",
+    "sphinx_toolbox.documentation_summary",
+    "sphinx_toolbox.tweaks.param_dash",
+    "sphinx_toolbox.tweaks.latex_toc",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.mathjax",
+    "sphinxcontrib.httpdomain",
+    "sphinxcontrib.extras_require",
+    "sphinx.ext.todo",
+    "sphinxemoji.sphinxemoji",
+    "notfound.extension",
+    "sphinx_copybutton",
+    "sphinxcontrib.default_values",
+    "sphinxcontrib.toctree_plus",
+    "sphinx_debuginfo",
+    "seed_intersphinx_mapping",
+    "sphinx_removed_in",
+    "sphinx_toolbox.pre_commit",
+    "sphinx_toolbox.flake8",
+    "sphinx_autofixture",
+    "sphinx_event_role",
+]
+sphinxemoji_style = "twemoji"
+gitstamp_fmt = "%d %b %Y"
+templates_path = [ "_templates",]
+html_static_path = [ "_static",]
+source_suffix = ".rst"
+master_doc = "index"
+suppress_warnings = [ "image.nonlocal_uri",]
+pygments_style = "default"
+html_theme = "domdf_sphinx_theme"
+html_theme_path = [ "../..",]
+html_show_sourcelink = true
+toctree_plus_types = [
+    "class",
+    "confval",
+    "data",
+    "directive",
+    "enum",
+    "exception",
+    "flag",
+    "function",
+    "method",
+    "namedtuple",
+    "protocol",
+    "role",
+    "typeddict",
+]
+add_module_names = false
+hide_none_rtype = true
+all_typevars = true
+overloads_location = "bottom"
+documentation_summary = "Box of handy tools for Sphinx 🧰 📔"
+autodoc_exclude_members = [
+    "__dict__",
+    "__class__",
+    "__dir__",
+    "__weakref__",
+    "__module__",
+    "__annotations__",
+    "__orig_bases__",
+    "__parameters__",
+    "__subclasshook__",
+    "__init_subclass__",
+    "__attrs_attrs__",
+    "__init__",
+    "__new__",
+    "__getnewargs__",
+    "__abstractmethods__",
+    "__hash__",
+]
+
 [tool.dep_checker.name_mapping]
 beautifulsoup4 = "bs4"
 ruamel-yaml = "ruamel.yaml"
