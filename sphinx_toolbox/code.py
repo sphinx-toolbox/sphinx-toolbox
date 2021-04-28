@@ -148,7 +148,7 @@ API Reference
 #
 
 # stdlib
-from typing import List
+from typing import List, MutableMapping
 
 # 3rd party
 import dict2css
@@ -340,7 +340,7 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 	if app.builder.format.lower() != "html":
 		return
 
-	prompt_style = {
+	prompt_style: dict2css.Style = {
 			"user-select": None,
 			"font-size": "13px",
 			"font-family": '"SFMono-Regular", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace',
@@ -352,7 +352,7 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 			"white-space": "nowrap",
 			}
 
-	container_style = {
+	container_style: dict2css.Style = {
 			"padding-top": "5px",
 			"display": "flex",
 			"align-items": "stretch",
@@ -360,13 +360,13 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 			}
 
 	code_style_string = "div.code-cell.container div.code-cell-code, div.output-cell.container div.output-cell-code"
-	code_style = {
+	code_style: dict2css.Style = {
 			"width": "100%",
 			"padding-top": 0,
 			"margin-top": 0,
 			}
 
-	style = {
+	style: MutableMapping[str, dict2css.Style] = {
 			"div.code-cell.container div.prompt": {"color": "#307FC1"},
 			"div.output-cell.container div.prompt": {"color": "#BF5B3D"},
 			"div.code-cell.container div.prompt, div.output-cell.container div.prompt": prompt_style,

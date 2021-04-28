@@ -103,7 +103,7 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 			"border-color": "darkgray",
 			}
 
-	style = {
+	style: MutableMapping[str, dict2css.Style] = {
 			"p.source-link": {"margin-bottom": 0},
 			"p.source-link + hr.docutils": {"margin-top": "10px"},
 			extensions_selector: {"margin-bottom": "10px"},
