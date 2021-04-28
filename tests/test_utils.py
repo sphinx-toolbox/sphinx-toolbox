@@ -141,15 +141,18 @@ def test_parse_parameters():
 			"lines": {"doc": ["The lines of the docstring"], "type": ''},
 			"tab_size": {"doc": [''], "type": ''},
 			}
-	pre_output = ["Parse parameters from the docstring of a class/function.", '']
+	pre_output = [
+			"Parse parameters from the docstring of a class/function.",
+			'',
+			".. versionadded:: 0.8.0",
+			'',
+			]
 	post_output = [
 			'',
-			':return: A dictionary mapping parameter names to their docstrings and '
+			':return: A mapping of parameter names to their docstrings and '
 			'types, a list of docstring lines that',
 			'    appeared before the parameters, and the list of docstring lines that '
 			'appear after the parameters.',
-			'',
-			".. versionadded:: 0.8.0",
 			]
 
 	assert parse_parameters(docstring.split('\n'), tab_size=4) == (docstring_dict, pre_output, post_output)
