@@ -70,7 +70,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	# Setup sub-extensions

@@ -4,9 +4,8 @@
 """
 Show a link to the corresponding source code at the top of :rst:dir:`automodule` output.
 
-.. extensions:: sphinx_toolbox.more_autodoc.sourcelink
-
 .. versionadded:: 0.6.0
+.. extensions:: sphinx_toolbox.more_autodoc.sourcelink
 
 
 Configuration
@@ -85,9 +84,9 @@ def sourcelinks_process_docstring(
 	"""
 	Process the docstring of a module and add a link to the source code if given in the configuration.
 
-	:param app: The Sphinx app
+	:param app: The Sphinx application.
 	:param what:
-	:param name: The name of the object being documented
+	:param name: The name of the object being documented.
 	:param obj: The object being documented.
 	:param options: Mapping of autodoc options to values.
 	:param lines: List of strings representing the current contents of the docstring.
@@ -114,7 +113,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.sourcelink`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	sphinx.ext.autodoc.ModuleDocumenter.option_spec["sourcelink"] = flag

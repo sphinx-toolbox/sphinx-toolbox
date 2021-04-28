@@ -4,9 +4,8 @@
 """
 Sphinx utilities for LaTeX builders.
 
-.. extensions:: sphinx_toolbox.latex
-
 .. versionadded:: 2.8.0
+.. extensions:: sphinx_toolbox.latex
 """
 #
 #  Copyright © 2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -120,7 +119,7 @@ def configure(app: Sphinx, config: Config):
 	"""
 	Configure :mod:`sphinx_toolbox.latex`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	:param config:
 	"""
 
@@ -133,7 +132,7 @@ def setup(app: Sphinx):
 
 	.. versionadded:: 2.8.0
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.add_node(nodes.footnote, latex=(visit_footnote, depart_footnote), override=True)

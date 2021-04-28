@@ -5,17 +5,11 @@ r"""
 Documenter for module level variables, similar to :rst:dir:`autodata` but
 with a different appearance and more customisation options.
 
-.. extensions:: sphinx_toolbox.more_autodoc.variables
-
 .. versionadded:: 0.6.0
+.. extensions:: sphinx_toolbox.more_autodoc.variables
+.. versionchanged:: 0.7.0  Added ``*AttributeDocumenter``\s
+.. versionchanged:: 1.1.0  Added :class:`~.SlotsAttributeDocumenter`
 
-.. versionchanged:: 0.7.0
-
-	Added ``*AttributeDocumenter``\s
-
-.. versionchanged:: 1.1.0
-
-	Added :class:`~.SlotsAttributeDocumenter`
 
 Usage
 ----------
@@ -51,7 +45,7 @@ API Reference
 ----------------
 """  # noqa D400
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -277,10 +271,7 @@ class TypedAttributeDocumenter(AttributeDocumenter):
 	Specialized Documenter subclass for attributes.
 
 	.. versionadded:: 0.7.0
-
-	.. versionchanged:: 1.0.0
-
-		Now uses the type of the variable if it is not explicitly annotated.
+	.. versionchanged:: 1.0.0  Now uses the type of the variable if it is not explicitly annotated.
 	"""  # noqa D400
 
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
@@ -345,10 +336,7 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 	because they are instance attributes (e.g. assigned in ``__init__``).
 
 	.. versionadded:: 0.7.0
-
-	.. versionchanged:: 1.0.0
-
-		Now uses the type of the variable if it is not explicitly annotated.
+	.. versionchanged:: 1.0.0  Now uses the type of the variable if it is not explicitly annotated.
 	"""  # noqa D400
 
 	objtype = sphinx.ext.autodoc.InstanceAttributeDocumenter.objtype
@@ -477,7 +465,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.variables`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.setup_extension("sphinx.ext.autodoc")

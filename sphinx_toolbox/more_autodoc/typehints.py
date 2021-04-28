@@ -11,7 +11,7 @@ The changes are:
   If `intersphinx <https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html>`_
   is used this will now be a link to the Python documentation.
 
-  Since :pull:`154 <agronholm/sphinx-autodoc-typehints>` this feature is now available upstream.
+  Since :github:pull:`154 <agronholm/sphinx-autodoc-typehints>` this feature is now available upstream.
 
 * If the signature of the object cannot be read, the signature provided by Sphinx will be used
   rather than raising an error.
@@ -50,7 +50,7 @@ The changes are:
   and returns that object after modification. The ``75`` is the priority of the hook:
 
    * ``< 20`` runs before ``fget`` functions are extracted from properties
-   * ``< 90`` runs before ``__new__`` functions are extracted from :class:`NamedTuples <typing.NamedTuple>`.
+   * ``< 90`` runs before ``__new__`` functions are extracted from :class:`~typing.NamedTuple`\s.
    * ``< 100`` runs before ``__init__`` functions are extracted from classes.
 
 * Unresolved forward references are handled better.
@@ -59,6 +59,7 @@ The changes are:
 
 -----
 
+.. versionadded:: 0.4.0
 .. extensions:: sphinx_toolbox.more_autodoc.typehints
 
 
@@ -73,20 +74,16 @@ In addition the following configuration value is added by this extension:
 	Hides return types of :py:obj:`None`.
 
 
-.. versionadded:: 0.4.0
+.. versionchanged:: 0.6.0  Moved from :mod:`sphinx_toolbox.autodoc_typehints`.
+.. versionchanged:: 0.8.0  Added support for :func:`collections.namedtuple`.
 
-.. versionchanged:: 0.6.0
-
-	Moved from :mod:`sphinx_toolbox.autodoc_typehints`.
-
-.. versionchanged:: 0.8.0
-
-	Added support for namedtuples.
+API Reference
+-----------------
 
 """  # noqa SXL001
 #
 #  Copyright (c) Alex Grönholm
-#  Changes copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Changes copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -203,9 +200,9 @@ class ObjectAlias:
 	"""
 	Used to represent a module, class, function etc in a Sphinx function/class signature.
 
-	:param name: The name of the object being aliased.
-
 	.. versionadded:: 0.9.0
+
+	:param name: The name of the object being aliased.
 	"""
 
 	_alias_type: str
@@ -235,9 +232,9 @@ class Function(ObjectAlias):
 	"""
 	Used to represent a function in a Sphinx function/class signature.
 
-	:param name: The name of the function.
-
 	.. versionadded:: 0.9.0
+
+	:param name: The name of the function.
 	"""
 
 	_alias_type = "function"
@@ -247,9 +244,9 @@ class Class(ObjectAlias):
 	"""
 	Used to represent a class in a Sphinx function/class signature.
 
-	:param name: The name of the class.
-
 	.. versionadded:: 0.9.0
+
+	:param name: The name of the class.
 	"""
 
 	_alias_type = "class"
@@ -371,11 +368,11 @@ def preprocess_function_defaults(obj: Callable) -> Tuple[Optional[inspect.Signat
 	"""
 	Pre-processes the default values for the arguments of a function.
 
+	.. versionadded:: 0.8.0
+
 	:param obj: The function.
 
 	:return: The function signature and a list of arguments/parameters.
-
-	.. versionadded:: 0.8.0
 	"""
 
 	try:
@@ -405,11 +402,11 @@ def preprocess_class_defaults(
 	"""
 	Pre-processes the default values for the arguments of a class.
 
+	.. versionadded:: 0.8.0
+
 	:param obj: The class.
 
-	:return: The class signature and a list of arguments/parameters
-
-	.. versionadded:: 0.8.0
+	:return: The class signature and a list of arguments/parameters.
 	"""
 
 	init = getattr(obj, "__init__", getattr(obj, "__new__", None))
@@ -457,7 +454,7 @@ def process_signature(
 	"""
 	Process the signature for a function/method.
 
-	:param app: The Sphinx app
+	:param app: The Sphinx application.
 	:param what:
 	:param name: The name of the object being documented.
 	:param obj: The object being documented.
@@ -599,9 +596,9 @@ def process_docstring(
 	"""
 	Process the docstring of a class, function, method etc.
 
-	:param app: The Sphinx app
+	:param app: The Sphinx application.
 	:param what:
-	:param name: The name of the object being documented
+	:param name: The name of the object being documented.
 	:param obj: The object being documented.
 	:param options: Mapping of autodoc options to values.
 	:param lines: List of strings representing the current contents of the docstring.
@@ -772,7 +769,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.typehints`.
 
-	:param app: The Sphinx app
+	:param app: The Sphinx application.
 	"""
 
 	if "sphinx_autodoc_typehints" in app.extensions:

@@ -4,9 +4,8 @@
 """
 Sphinx extension to show examples of ``.pre-commit-config.yaml`` configuration.
 
-.. extensions:: sphinx_toolbox.pre_commit
-
 .. versionadded:: 1.6.0
+.. extensions:: sphinx_toolbox.pre_commit
 
 
 Usage
@@ -14,7 +13,7 @@ Usage
 
 .. rst:directive:: pre-commit
 
-	Shows an example snippet of ``.pre-commit-config.yaml``.
+	Directive which shows an example snippet of ``.pre-commit-config.yaml``.
 
 	.. rst:directive:option:: rev
 		:type: string
@@ -47,7 +46,7 @@ Usage
 
 .. rst:directive:: pre-commit:flake8
 
-	Shows an example snippet of ``.pre-commit-config.yaml`` for a flake8 plugin.
+	Directive which shows an example snippet of ``.pre-commit-config.yaml`` for a flake8 plugin.
 
 	The directive takes a single argument -- the version of the flake8 plugin to install from PyPI.
 
@@ -67,12 +66,13 @@ Usage
 
 		.. pre-commit:flake8:: 0.0.4
 
+	.. versionchanged:: 2.8.0  Changed the flake8 repository URL to GitHub.
 
 API Reference
 ----------------
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -239,7 +239,7 @@ class Flake8PreCommitDirective(SphinxDirective):
 		flake8_version = self.options.get("flake8-version", "3.8.4")
 
 		config = {
-				"repo": "https://gitlab.com/pycqa/flake8",
+				"repo": "https://github.com/pycqa/flake8",
 				"rev": flake8_version,
 				"hooks": [{"id": "flake8", "additional_dependencies": [f"{plugin_name}=={self.arguments[0]}"]}]
 				}
@@ -273,7 +273,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.pre_commit`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.add_directive("pre-commit", PreCommitDirective)

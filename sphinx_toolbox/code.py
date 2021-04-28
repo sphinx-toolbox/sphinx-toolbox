@@ -15,7 +15,7 @@ Usage
 
 	Customised ``.. code-block::`` directive with an adjustable indent size.
 
-	.. rst:directive:option:: tab-width:
+	.. rst:directive:option:: tab-width: width
 		:type: integer
 
 		Sets the size of the indentation in spaces.
@@ -47,18 +47,17 @@ Usage
 .. rst:directive:: .. code-cell:: [language]
 				   .. output-cell:: [language]
 
-	Customised ``.. code-block::`` directives which displays an execution count to
+	Customised ``.. code-block::`` directives which display an execution count to
 	the left of the code block, similar to a Jupyter Notebook cell.
 
-	.. rst:directive:option:: execution-count:
+	.. versionadded:: 2.6.0
+
+	.. rst:directive:option:: execution-count: count
 		:type: positive integer
 
 		The execution count of the cell.
 
-
 	All other options from the :rst:dir:`code-block` directive above are available.
-
-	.. versionadded:: 2.6.0
 
 	**Examples**
 
@@ -230,7 +229,7 @@ class CodeCell(CodeBlock):
 	Customised code block which displays an execution count to the left of the code block,
 	similar to a Jupyter Notebook cell.
 
-	The execution count can be set using the ``:execution-count" <int>`` option.
+	The execution count can be set using the ``:execution-count: <int>`` option.
 
 	.. versionadded:: 2.6.0
 	"""  # noqa: D400
@@ -271,7 +270,7 @@ class OutputCell(CodeCell):
 	"""
 	Variant of :class:`~.CodeCell` for displaying the output of a cell in a Jupyter Notebook.
 
-	The execution count can be set using the ``:execution-count" <int>`` option.
+	The execution count can be set using the ``:execution-count: <int>`` option.
 
 	.. versionadded:: 2.6.0
 	"""
@@ -386,7 +385,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	.. versionadded:: 1.0.0
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	# Code block with customisable indent size.

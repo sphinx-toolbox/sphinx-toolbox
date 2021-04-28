@@ -149,7 +149,7 @@ class Purger:
 			def setup(app: Sphinx):
 				app.connect("env-purge-doc", my_node_purger.purge_nodes)
 
-		:param app: The Sphinx app.
+		:param app: The Sphinx application.
 		:param env: The Sphinx build environment.
 		:param docname: The name of the document to remove nodes for.
 		"""
@@ -182,7 +182,7 @@ class Purger:
 
 		.. versionadded:: 2.7.0
 
-		:param app: The Sphinx app.
+		:param app: The Sphinx application.
 		:param env: The Sphinx build environment.
 		:param added: A set of newly added documents.
 		:param changed: A set of document names whose content has changed.
@@ -369,14 +369,14 @@ def begin_generate(
 	"""
 	Boilerplate for the top of ``generate`` in :class:`sphinx.ext.autodoc.Documenter` subclasses.
 
+	.. versionadded:: 0.2.0
+
 	:param documenter:
 	:param real_modname:
 	:param check_module:
 
 	:return: The ``sourcename``, or :py:obj:`None` if certain conditions are met,
 		to indicate that the Documenter class should exit early.
-
-	.. versionadded:: 0.2.0
 	"""
 
 	# Do not pass real_modname and use the name from the __module__
@@ -464,10 +464,10 @@ def filter_members_warning(member, exception: Exception) -> None:
 	"""
 	Log a warning when filtering members.
 
+	.. versionadded:: 0.2.0
+
 	:param member:
 	:param exception:
-
-	.. versionadded:: 0.2.0
 	"""
 
 	logger.warning(
@@ -529,13 +529,13 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 	"""
 	Parse parameters from the docstring of a class/function.
 
+	.. versionadded:: 0.8.0
+
 	:param lines: The lines of the docstring
 	:param tab_size:
 
-	:return: A dictionary mapping parameter names to their docstrings and types, a list of docstring lines that
+	:return: A mapping of parameter names to their docstrings and types, a list of docstring lines that
 		appeared before the parameters, and the list of docstring lines that appear after the parameters.
-
-	.. versionadded:: 0.8.0
 	"""
 
 	a_tab = ' ' * tab_size
@@ -607,7 +607,7 @@ def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]):
 
 	.. versionadded:: 0.8.0
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	:param documenters:
 	"""
 

@@ -4,9 +4,8 @@
 """
 reStructuredText XRef role for decorators.
 
-.. extensions:: sphinx_toolbox.decorators
-
 .. versionadded:: 0.9.0
+.. extensions:: sphinx_toolbox.decorators
 
 
 Usage
@@ -110,6 +109,17 @@ class PyDecoXRefRole(PyXRefRole):
 		title: str,
 		target: str,
 		) -> Tuple[str, str]:
+		"""
+		Called after parsing title and target text, and creating the reference node (given in ``refnode``).
+
+		This method can alter the reference node and must return a new (or the same) ``(title, target)`` tuple.
+
+		:param env:
+		:param refnode:
+		:param has_explicit_title:
+		:param title:
+		:param target:
+		"""
 
 		target = target.lstrip('@')
 
@@ -132,7 +142,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.decorators`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.add_role_to_domain("py", "deco", PyDecoXRefRole())

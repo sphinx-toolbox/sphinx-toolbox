@@ -78,7 +78,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.tweaks.footnote_symbols`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	Footnotes.symbols = symbols

@@ -5,6 +5,7 @@ r"""
 Documenters for functions and methods which display overloads differently.
 
 .. versionadded:: 1.4.0
+.. extensions:: sphinx_toolbox.more_autodoc.overloads
 
 
 Configuration
@@ -25,7 +26,7 @@ API Reference
 ----------------
 """  # noqa D400
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -424,7 +425,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	.. versionadded:: 1.4.0
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.add_autodocumenter(FunctionDocumenter, override=True)

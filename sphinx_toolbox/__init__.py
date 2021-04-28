@@ -5,7 +5,7 @@
 Box of handy tools for Sphinx.
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -59,7 +59,7 @@ def setup(app: Sphinx) -> "utils.SphinxExtMetadata":
 	"""
 	Setup :mod:`sphinx_toolbox`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	# Ensure dependencies are set up

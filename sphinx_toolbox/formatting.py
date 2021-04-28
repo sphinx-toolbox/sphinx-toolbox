@@ -4,9 +4,8 @@
 """
 Directives, roles and nodes for text formatting.
 
-.. extensions:: sphinx_toolbox.formatting
-
 .. versionadded:: 0.2.0
+.. extensions:: sphinx_toolbox.formatting
 
 
 Usage
@@ -33,7 +32,7 @@ API Reference
 ---------------
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -85,23 +84,17 @@ __all__ = [
 class ItalicAbbreviationNode(nodes.abbreviation):
 	"""
 	Docutils Node to show an abbreviation in italics.
-
-	.. versionadded:: 0.2.0
 	"""
 
 
 class ItalicAbbreviation(Abbreviation):
 	"""
 	Docutils role to show an abbreviation in italics.
-
-	.. versionadded:: 0.2.0
 	"""
 
 	def run(self) -> Tuple[List[Node], List[system_message]]:
 		"""
 		Process the content of the italic abbreviation role.
-
-		.. versionadded:: 0.2.0
 		"""
 
 		options = self.options.copy()  # type: ignore
@@ -122,8 +115,6 @@ def visit_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode):
 
 	:param translator:
 	:param node: The node being visited.
-
-	.. versionadded:: 0.2.0
 	"""
 
 	translator.body.append('<i class="abbreviation">')
@@ -141,8 +132,6 @@ def depart_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode):
 
 	:param translator:
 	:param node: The node being visited.
-
-	.. versionadded:: 0.2.0
 	"""
 
 	translator.body.append("</i></abbr>")
@@ -154,8 +143,6 @@ def latex_visit_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviation
 
 	:param translator:
 	:param node: The node being visited.
-
-	.. versionadded:: 0.2.0
 	"""
 
 	abbr = node.astext()
@@ -175,8 +162,6 @@ def latex_depart_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviatio
 
 	:param translator:
 	:param node: The node being visited.
-
-	.. versionadded:: 0.2.0
 	"""
 
 	translator.body.append(translator.context.pop())
@@ -188,9 +173,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.formatting`.
 
-	:param app: The Sphinx app.
-
-	.. versionadded:: 0.2.0
+	:param app: The Sphinx application.
 	"""
 
 	roles.register_local_role("iabbr", ItalicAbbreviation())

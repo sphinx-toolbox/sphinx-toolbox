@@ -4,13 +4,9 @@
 """
 Role to provide a link to open a file within the web browser, rather than downloading it.
 
-.. extensions:: sphinx_toolbox.assets
-
 .. versionadded:: 0.5.0
-
-.. TODO::
-
-	Handle non-HTML builders
+.. extensions:: sphinx_toolbox.assets
+.. TODO:: Handle non-HTML builders
 
 	Perhaps just put a message to see the online documentation?
 
@@ -67,7 +63,7 @@ API Reference
 
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -215,15 +211,13 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.assets`.
 
-	:param app: The Sphinx app.
-
 	.. versionadded:: 1.0.0
+
+	:param app: The Sphinx application.
 	"""
 
 	app.add_role("asset", asset_role)
 	app.add_config_value("assets_dir", "./assets", "env", [str])
 	app.add_node(AssetNode, html=(visit_asset_node, depart_asset_node))
 
-	return {
-			"parallel_read_safe": True,
-			}
+	return {"parallel_read_safe": True}

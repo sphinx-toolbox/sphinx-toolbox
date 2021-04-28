@@ -42,7 +42,7 @@ Usage
 
 .. rst:role:: confval
 
-	Role that provides a cross-reference to a :rst:dir:`confval` directive.
+	Role which provides a cross-reference to a :rst:dir:`confval` directive.
 
 	**Example:**
 
@@ -57,7 +57,7 @@ API Reference
 
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Based on https://github.com/readthedocs/sphinx_rtd_theme/blob/master/docs/conf.py
 #  Copyright (c) 2013-2018 Dave Snider, Read the Docs, Inc. & contributors
@@ -135,7 +135,8 @@ class ConfigurationValue(GenericObject):
 
 		return super().run()
 
-	def format_type(self, the_type: str) -> str:
+	@staticmethod
+	def format_type(the_type: str) -> str:
 		"""
 		Formats the ``:type:`` option.
 
@@ -146,7 +147,8 @@ class ConfigurationValue(GenericObject):
 
 		return the_type
 
-	def format_required(self, required: str) -> bool:
+	@staticmethod
+	def format_required(required: str) -> bool:
 		"""
 		Formats the ``:required:`` option.
 
@@ -157,7 +159,8 @@ class ConfigurationValue(GenericObject):
 
 		return strtobool(required)
 
-	def format_default(self, default: str) -> str:
+	@staticmethod
+	def format_default(default: str) -> str:
 		"""
 		Formats the ``:default:`` option.
 
@@ -173,7 +176,7 @@ def register_confval(app: Sphinx, override: bool = False) -> None:
 	"""
 	Create and register the ``confval`` role and directive.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	:param override:
 	"""
 
@@ -200,7 +203,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	.. versionadded:: 0.7.0
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	register_confval(app)

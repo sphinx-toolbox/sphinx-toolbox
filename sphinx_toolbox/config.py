@@ -5,7 +5,7 @@
 Internal configuration for ``sphinx-toolbox``.
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -120,10 +120,9 @@ def validate_config(app: Sphinx, config: ToolboxConfig):
 	r"""
 	Validate the provided configuration values.
 
-
 	See :class:`~sphinx_toolbox.config.ToolboxConfig` for a list of the configuration values.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	:param config:
 	:type config: :class:`~sphinx.config.Config`
 	"""

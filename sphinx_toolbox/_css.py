@@ -123,7 +123,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox._css`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.add_css_file("css/sphinx-toolbox.css")

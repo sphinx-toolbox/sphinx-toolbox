@@ -12,7 +12,7 @@ Usage
 
 .. rst:role:: issue
 
-	Shows a link to the given issue on GitHub.
+	Role which shows a link to the given issue on GitHub.
 
 	If the issue exists, the link has a tooltip that shows the title of the issue.
 
@@ -31,7 +31,7 @@ Usage
 
 .. rst:role:: pull
 
-	Shows a link to the given pull request on GitHub.
+	Role which shows a link to the given pull request on GitHub.
 
 	If the pull requests exists, the link has a tooltip that shows the title of the pull requests.
 
@@ -195,7 +195,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	.. versionadded:: 1.0.0
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.setup_extension("sphinx_toolbox.github")

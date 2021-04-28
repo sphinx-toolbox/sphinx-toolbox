@@ -4,9 +4,8 @@
 r"""
 Specialized Documenter for regular expression variables, similar to :rst:dir:`autodata`.
 
-.. extensions:: sphinx_toolbox.more_autodoc.regex
-
 .. versionadded:: 1.2.0
+.. extensions:: sphinx_toolbox.more_autodoc.regex
 
 Usage
 -------
@@ -715,7 +714,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.regex`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.setup_extension("sphinx.ext.autodoc")

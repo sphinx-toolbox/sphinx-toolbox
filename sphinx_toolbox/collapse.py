@@ -7,7 +7,6 @@ Adds a collapsible section to an HTML page using a details_ element.
 .. _details: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details>
 
 .. versionadded:: 2.5.0
-
 .. extensions:: sphinx_toolbox.collapse
 
 
@@ -174,7 +173,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.collapse`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.add_directive("collapse", CollapseDirective)

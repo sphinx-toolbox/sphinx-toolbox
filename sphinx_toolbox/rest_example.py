@@ -10,7 +10,6 @@ Directive to show example reStructuredText and the rendered output.
 Usage
 ---------
 
-
 .. rst:directive:: rest-example
 
 	Directive to show example reStructuredText and the rendered output.
@@ -52,7 +51,7 @@ API Reference
 
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -181,9 +180,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.rest_example`.
 
-	:param app: The Sphinx app.
-
 	.. versionadded:: 0.7.0
+
+	:param app: The Sphinx application.
 	"""
 
 	# Hack to get the docutils tab size, as there doesn't appear to be any other way

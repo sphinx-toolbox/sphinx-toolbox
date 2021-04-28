@@ -2,20 +2,20 @@
 #
 #  genericalias.py
 """
-Documenter for alias, which usually manifest as
-`type aliases <https://docs.python.org/3/library/typing.html#type-aliases>`_.
+Documenter for alias, which usually manifest as `type aliases`_.
 
+.. _type aliases: https://docs.python.org/3/library/typing.html#type-aliases
+
+.. versionadded:: 0.6.0
 .. extensions:: sphinx_toolbox.more_autodoc.genericalias
 
 .. note::
 
 	:mod:`sphinx_toolbox.more_autodoc.genericalias` is only supported on Python 3.7 and above.
 
-.. versionadded:: 0.6.0
-
-"""  # noqa D400
+"""
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -107,7 +107,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.genericalias`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.setup_extension("sphinx.ext.autodoc")

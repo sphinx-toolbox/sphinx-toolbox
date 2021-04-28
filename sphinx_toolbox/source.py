@@ -24,7 +24,7 @@ Usage
 
 .. rst:role:: source
 
-	Shows a link to the given source file, either on GitHub or within the Sphinx documentation.
+	Role which shows a link to the given source file, either on GitHub or within the Sphinx documentation.
 
 	By default, the link points to the code within the documentation,
 	but can be configured to point to GitHub by setting :confval:`source_link_target` to ``'GitHub'``.
@@ -83,7 +83,7 @@ from sphinx.util import split_explicit_title
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["source_role"]
+__all__ = ["source_role", "setup"]
 
 # TODO: rawstring: Return it as a problematic node linked to a system message if a problem is encountered.
 
@@ -171,7 +171,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.source`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	# Link to source code

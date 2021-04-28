@@ -5,7 +5,6 @@ r"""
 Sphinx domain for GitHub.com, and related utilities.
 
 .. versionadded:: 2.4.0
-
 .. extensions:: sphinx_toolbox.github
 
 
@@ -31,7 +30,7 @@ Usage
 
 .. rst:role:: github:issue
 
-	Shows a link to the given issue on GitHub.
+	Role which shows a link to the given issue on GitHub.
 
 	If the issue exists, the link has a tooltip that shows the title of the issue.
 
@@ -50,7 +49,7 @@ Usage
 
 .. rst:role:: github:pull
 
-	Shows a link to the given pull request on GitHub.
+	Role which shows a link to the given pull request on GitHub.
 
 	If the pull requests exists, the link has a tooltip that shows the title of the pull requests.
 
@@ -69,7 +68,7 @@ Usage
 
 .. rst:role:: github:repo
 
-	Shows a link to the given repository on GitHub.
+	Role which shows a link to the given repository on GitHub.
 
 	**Example**
 
@@ -86,7 +85,7 @@ Usage
 
 .. rst:role:: github:user
 
-	Shows a link to the given user on GitHub.
+	Role which shows a link to the given user on GitHub.
 
 	**Example**
 
@@ -103,7 +102,7 @@ Usage
 
 .. rst:role:: github:org
 
-	Shows a link to the given organization on GitHub.
+	Role which shows a link to the given organization on GitHub.
 
 	**Example**
 
@@ -156,7 +155,7 @@ If the user has not provided either ``github_username`` or ``github_repository``
 a :exc:`~.MissingOptionError` will be raised.
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -221,7 +220,7 @@ def validate_config(app: Sphinx, config: ToolboxConfig):
 
 	See :class:`~sphinx_toolbox.config.ToolboxConfig` for a list of the configuration values.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	:param config:
 	:type config: :class:`~sphinx.config.Config`
 	"""
@@ -247,9 +246,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.github`.
 
-	:param app: The Sphinx app.
-
 	.. versionadded:: 1.0.0
+
+	:param app: The Sphinx application.
 	"""
 
 	app.connect("config-inited", validate_config, priority=850)

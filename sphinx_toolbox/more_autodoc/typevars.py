@@ -5,9 +5,27 @@ r"""
 Documenter for module level :class:`typing.TypeVar`\'s, similar to Sphinx's
 :rst:dir:`sphinx:autotypevar` but with a different appearance.
 
+.. versionadded:: 1.3.0
 .. extensions:: sphinx_toolbox.more_autodoc.typevars
 
-.. versionadded:: 1.3.0
+Configuration
+-------------
+
+.. confval:: all_typevars
+	:type: :class:`bool`
+	:default: False
+
+	Document all :class:`typing.TypeVar`\s, even if they have no docstring.
+
+
+.. confval:: no_unbound_typevars
+	:type: :class:`bool`
+	:default: True
+
+	Only document :class:`typing.TypeVar`\s that have a constraint of are bound.
+
+	This option has no effect if :confval:`all_typevars` is False.
+
 
 Usage
 ----------
@@ -33,26 +51,11 @@ Usage
 		Don't show the type of the variable.
 
 
-.. confval:: all_typevars
-	:type: :class:`bool`
-	:default: False
-
-	Document all :class:`typing.TypeVar`\s, even if they have no docstring.
-
-
-.. confval:: no_unbound_typevars
-	:type: :class:`bool`
-	:default: True
-
-	Only document :class:`typing.TypeVar`\s that have a constraint of are bound.
-
-	This option has no effect if :confval:`all_typevars` is False.
-
 API Reference
 ----------------
 """  # noqa D400
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -131,8 +134,6 @@ class TypeVarDocumenter(VariableDocumenter):
 	with better type hint rendering.
 
 	Specialized Documenter subclass for :class:`typing.TypeVars`.
-
-	.. versionadded:: 1.3.0
 	"""  # noqa: D400
 
 	objtype = "typevar"
@@ -283,11 +284,9 @@ def validate_config(app: Sphinx, config: ToolboxConfig):
 
 	See :class:`~sphinx_toolbox.config.ToolboxConfig` for a list of the configuration values.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	:param config:
 	:type config: :class:`~sphinx.config.Config`
-
-	.. versionadded:: 1.3.0
 	"""
 
 	if config.all_typevars:
@@ -305,7 +304,7 @@ def unskip_typevars(
 	r"""
 	Unskip undocumented :class:`typing.TypeVar`\s if :confval:`all_typevars` is :py:obj:`True`.
 
-	:param app: The Sphinx application object.
+	:param app: The Sphinx application.
 	:param what: The type of the object which the docstring belongs to (one of
 		``'module'``, ``'class'``, ``'exception'``, ``'function'``, ``'method'``,
 		``'attribute'``).
@@ -317,8 +316,6 @@ def unskip_typevars(
 		``inherited_members``, ``undoc_members``, ``show_inheritance`` and
 		``noindex`` that are true if the flag option of same name was given to the
 		auto directive.
-
-	.. versionadded:: 1.3.0
 	"""
 
 	if isinstance(obj, TypeVar):
@@ -338,9 +335,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.typevars`.
 
-	:param app: The Sphinx app.
-
-	.. versionadded:: 1.3.0
+	:param app: The Sphinx application.
 	"""
 
 	app.setup_extension("sphinx.ext.autodoc")

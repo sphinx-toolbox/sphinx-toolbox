@@ -5,8 +5,8 @@ r"""
 .. extensions:: sphinx_toolbox.installation
 
 
-Usage
--------
+Configuration
+--------------
 
 .. confval:: conda_channels
 	:type: :class:`~typing.List`\[:class:`str`\]
@@ -14,57 +14,21 @@ Usage
 	:default: ``[]``
 
 	The conda channels required to install the library from Anaconda.
+
 	An alternative to setting it within the :rst:dir:`installation` directive.
 
 
-.. rst:directive:: extensions
-
-	Shows instructions on how to enable a Sphinx extension.
-
-	Takes a single argument -- the name of the extension.
-
-	.. rst:directive:option:: import-name
-		:type: string
-
-		The name used to import the extension, if different from the name of the extension.
-
-	.. rst:directive:option:: no-preamble
-		:type: flag
-
-		Disables the preamble text.
-
-	.. rst:directive:option:: no-postamble
-		:type: flag
-
-		Disables the postamble text.
-
-	.. rst:directive:option:: first
-		:type: flag
-
-		Puts the entry for extension before its dependencies.
-		By default is is placed at the end.
-
-		.. versionadded:: 0.4.0
-
-
-	**Example**
-
-	.. rest-example::
-
-		.. extensions:: sphinx-toolbox
-			:import-name: sphinx_toolbox
-
-			sphinx.ext.viewcode
-			sphinx_tabs.tabs
-			sphinx-prompt
-
+Usage
+-------
 
 .. rst:directive:: installation
 
 	Adds a series of tabs providing installation instructions for the project from a number of sources.
 
-	The directive has a single required argument -- the name of the project.
-	If the project uses a different name on PyPI and/or Anaconda, the ``pypi-name`` and ``conda-name`` options can be used to set the name for those repositories.
+	The directive takes a single required argument -- the name of the project.
+	If the project uses a different name on PyPI and/or Anaconda,
+	the ``:pypi-name:`` and ``:conda-name:`` options can be used to set the name
+	for those repositories.
 
 	.. rst:directive:option:: pypi
 		:type: flag
@@ -123,6 +87,48 @@ Usage
 			:anaconda:
 			:conda-channels: domdfcoding,conda-forge
 			:github:
+
+
+.. rst:directive:: extensions
+
+	Shows instructions on how to enable a Sphinx extension.
+
+	The directive takes a single argument -- the name of the extension.
+
+	.. rst:directive:option:: import-name
+		:type: string
+
+		The name used to import the extension, if different from the name of the extension.
+
+	.. rst:directive:option:: no-preamble
+		:type: flag
+
+		Disables the preamble text.
+
+	.. rst:directive:option:: no-postamble
+		:type: flag
+
+		Disables the postamble text.
+
+	.. rst:directive:option:: first
+		:type: flag
+
+		Puts the entry for extension before its dependencies.
+		By default is is placed at the end.
+
+		.. versionadded:: 0.4.0
+
+
+	**Example**
+
+	.. rest-example::
+
+		.. extensions:: sphinx-toolbox
+			:import-name: sphinx_toolbox
+
+			sphinx.ext.viewcode
+			sphinx_tabs.tabs
+			sphinx-prompt
 
 
 API Reference
@@ -195,7 +201,7 @@ class _Purger(Purger):
 		"""
 		Remove all redundant nodes.
 
-		:param app: The Sphinx app.
+		:param app: The Sphinx application.
 		:param env: The Sphinx build environment.
 		:param docname: The name of the document to remove nodes for.
 		"""
@@ -621,10 +627,10 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 	"""
 	Copy additional stylesheets into the HTML build directory.
 
+	.. versionadded:: 1.2.0
+
 	:param app: The Sphinx application.
 	:param exception: Any exception which occurred and caused Sphinx to abort.
-
-	.. versionadded:: 1.2.0
 	"""
 
 	if exception:  # pragma: no cover
@@ -686,7 +692,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	.. versionadded:: 0.7.0
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	if "sphinx_inline_tabs" not in getattr(app, "extensions", ()):

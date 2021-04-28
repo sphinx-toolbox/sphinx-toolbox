@@ -24,11 +24,11 @@ and so resulted in a broken link.
 	falling back to :class:`~sphinx.ext.autodoc.DataDocumenter`.
 
 
-Usage
--------
+Configuration
+--------------
 
 .. confval:: autodocsumm_member_order
-	:type: str
+	:type: :py:obj:`str`
 	:default: ``'alphabetical'``
 
 	Determines the sort order of members in ``autodocsumm`` summary tables.
@@ -45,7 +45,7 @@ API Reference
 ----------------
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -169,10 +169,7 @@ class PatchedAutosummary(Autosummary):
 	and so resulted in a broken link.
 
 	.. versionadded:: 0.5.1
-
-	.. versionchanged:: 0.7.0
-
-		Moved from :mod:`sphinx_toolbox.patched_autosummary`.
+	.. versionchanged:: 0.7.0  Moved from :mod:`sphinx_toolbox.patched_autosummary`.
 	"""
 
 	def import_by_name(self, name: str, prefixes: List[str]) -> Tuple[str, Any, Any, str]:
@@ -199,7 +196,7 @@ class PatchedAutosummary(Autosummary):
 		"""
 		Get an :class:`autodoc.Documenter` class suitable for documenting the given object.
 
-		:param app: The Sphinx app.
+		:param app: The Sphinx application.
 		:param obj: The object being documented.
 		:param parent: The parent of the object (e.g. a module or a class).
 		:param full_name: The full name of the object.
@@ -216,13 +213,13 @@ class PatchedAutosummary(Autosummary):
 
 def get_documenter(app: Sphinx, obj: Any, parent: Any) -> Type[Documenter]:
 	"""
-	Get an autodoc.Documenter class suitable for documenting the given object.
-
-	:param app: The Sphinx app.
-	:param obj: The object being documented.
-	:param parent: The parent of the object (e.g. a module or a class).
+	Returns an :class:`autodoc.Documenter` class suitable for documenting the given object.
 
 	.. versionadded:: 1.3.0
+
+	:param app: The Sphinx application.
+	:param obj: The object being documented.
+	:param parent: The parent of the object (e.g. a module or a class).
 	"""
 
 	if inspect.ismodule(obj):
@@ -284,7 +281,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autosummary`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.setup_extension("sphinx.ext.autosummary")

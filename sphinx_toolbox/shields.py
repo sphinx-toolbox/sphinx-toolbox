@@ -359,7 +359,7 @@ Shields
 
 """  # noqa RST299,RST305
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -862,10 +862,10 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 	"""
 	Copy additional stylesheets into the HTML build directory.
 
+	.. versionadded:: 2.3.1
+
 	:param app: The Sphinx application.
 	:param exception: Any exception which occurred and caused Sphinx to abort.
-
-	.. versionadded:: 2.3.1
 	"""
 
 	if exception:  # pragma: no cover
@@ -884,7 +884,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.shields`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.setup_extension("sphinx_toolbox.github")

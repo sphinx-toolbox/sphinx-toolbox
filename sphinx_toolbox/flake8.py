@@ -4,9 +4,8 @@
 """
 A Sphinx directive for documenting flake8 codes.
 
-.. extensions:: sphinx_toolbox.flake8
-
 .. versionadded:: 1.6.0
+.. extensions:: sphinx_toolbox.flake8
 
 
 Usage
@@ -33,7 +32,7 @@ API Reference
 ----------------
 """
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -132,7 +131,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.flake8`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	"""
 
 	app.add_directive("flake8-codes", Flake8CodesDirective)

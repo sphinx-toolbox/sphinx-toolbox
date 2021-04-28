@@ -4,13 +4,12 @@
 """
 Sphinx extension to create links to Wikipedia articles.
 
+.. versionadded:: 0.2.0
 .. extensions:: sphinx_toolbox.wikipedia
 
-.. versionadded:: 0.2.0
 
-
-Usage
-------
+Configuration
+--------------
 
 .. confval:: wikipedia_lang
 	:type: :class:`str`
@@ -22,9 +21,12 @@ Usage
 	.. versionadded:: 0.2.0
 
 
+Usage
+------
+
 .. rst:role:: wikipedia
 
-	Shows a link to the given article on Wikipedia.
+	Role which shows a link to the given article on Wikipedia.
 
 	The title and language can be customised.
 
@@ -149,9 +151,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.wikipedia`.
 
-	:param app: The Sphinx app.
-
 	.. versionadded:: 1.0.0
+
+	:param app: The Sphinx application.
 	"""
 
 	app.add_role("wikipedia", make_wikipedia_link)

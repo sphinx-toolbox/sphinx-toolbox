@@ -8,7 +8,6 @@ to show generic base classes.
 This requires a relatively new version of the :mod:`typing` module that implements ``__orig_bases__``.
 
 .. versionadded:: 1.5.0
-
 .. extensions:: sphinx_toolbox.more_autodoc.generic_bases
 
 
@@ -22,7 +21,7 @@ API Reference
 -----------------
 """  # noqa: D400
 #
-#  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -113,9 +112,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.generic_bases`.
 
-	:param app: The Sphinx app.
-
 	.. versionadded:: 1.5.0
+
+	:param app: The Sphinx application.
 	"""
 
 	allow_subclass_add(app, GenericBasesClassDocumenter)

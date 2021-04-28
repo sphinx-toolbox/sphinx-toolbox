@@ -109,7 +109,7 @@ def configure(app: Sphinx, config: Config):
 	"""
 	Configure :mod:`sphinx_toolbox.tweaks.latex_toc`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	:param config:
 	"""
 
@@ -125,7 +125,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.tweaks.latex_toc`.
 
-	:param app:
+	:param app: The Sphinx application.
 	"""
 
 	app.connect("env-get-outdated", purge_outdated)

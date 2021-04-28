@@ -6,7 +6,6 @@ Allows insertion of a summary line on the title page generated with the LaTeX bu
 and at a custom location throughout the document.
 
 .. versionadded:: 2.2.0
-
 .. extensions:: sphinx_toolbox.documentation_summary
 
 
@@ -126,7 +125,7 @@ def configure(app: Sphinx, config: Config):
 	"""
 	Configure :mod:`sphinx_toolbox.documentation_summary`.
 
-	:param app: The Sphinx app.
+	:param app: The Sphinx application.
 	:param config:
 	"""
 
@@ -157,7 +156,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.documentation_summary`.
 
-	:param app:
+	:param app: The Sphinx application.
 	"""
 
 	app.connect("config-inited", configure)
