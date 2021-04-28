@@ -184,7 +184,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		return is_namedtuple(member)
 
 	def add_content(self, more_content: Any, no_docstring: bool = True):
-		"""
+		r"""
 		Add extra content (from docstrings, attribute docs etc.),
 		but not the :class:`typing.NamedTuple`\'s docstring.
 
@@ -282,7 +282,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 			documenters: List[Tuple[Documenter, bool]],
 			order: str,
 			) -> List[Tuple[Documenter, bool]]:
-		"""
+		r"""
 		Sort the :class:`typing.NamedTuple`\'s members.
 
 		:param documenters:
