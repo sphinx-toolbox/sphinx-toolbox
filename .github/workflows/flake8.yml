@@ -14,12 +14,23 @@ jobs:
       - name: Checkout 🛎️
         uses: "actions/checkout@v2"
 
+      - name: Check for changed files
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          list-files: "json"
+          filters: |
+            code:
+              - '!(doc-source/**|CONTRIBUTING.rst|.imgbotconfig|.pre-commit-config.yaml|.pylintrc|.readthedocs.yml)'
+
       - name: Setup Python 🐍
+        if: steps.changes.outputs.code == 'true'
         uses: "actions/setup-python@v2"
         with:
           python-version: "3.7"
 
       - name: Install dependencies 🔧
+        if: steps.changes.outputs.code == 'true'
         run: |
           python -VV
           python -m site
@@ -27,4 +38,5 @@ jobs:
           python -m pip install tox
 
       - name: "Run Flake8"
+        if: steps.changes.outputs.code == 'true'
         run: "python -m tox -e lint -- --format github"
