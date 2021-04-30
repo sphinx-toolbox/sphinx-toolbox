@@ -26,4 +26,4 @@ if sys.version_info < (3, 7):
 
 else:
 	# this package
-	from tests._autonamedtuple_demo_pep563 import Animal
+	from tests.test_output._autonamedtuple_demo_pep563 import Animal
