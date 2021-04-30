@@ -388,18 +388,13 @@ class Sphinx:
 
 	def add_js_file(self, filename: str, **kwargs: str) -> None:
 		"""
-		No-op for now.
+		Register a JavaScript file to include in the HTML output.
 
-		.. TODO:: Make this do something
+		.. versionadded:: 2.8.0
 		"""
 
-	#
-	# def add_js_file(self, filename: str, **kwargs: str) -> None:
-	# 	"""
-	# 	Register a JavaScript file to include in the HTML output.
-	# 	"""
-	#
-	# 	self.registry.add_js_file(filename, **kwargs)
+		self.registry.add_js_file(filename, **kwargs)
+
 	# 	if hasattr(self.builder, 'add_js_file'):
 	# 		self.builder.add_js_file(filename, **kwargs)  # type: ignore
 	#

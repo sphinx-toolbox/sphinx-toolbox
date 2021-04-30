@@ -209,4 +209,4 @@ def test_setup():
 	assert app.registry.source_parsers == {}
 
 	assert app.registry.css_files == [("sphinx_toolbox_installation.css", {})]
-	# assert app.registry.js_files == [('sphinx_toolbox_installation.js', {})]
+	assert app.registry.js_files == [("sphinx_toolbox_installation.js", {})]
