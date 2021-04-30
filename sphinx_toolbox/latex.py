@@ -5,6 +5,13 @@
 Sphinx utilities for LaTeX builders.
 
 .. versionadded:: 2.8.0
+
+In addition to the developer API (see below), :mod:`sphinx_toolbox.latex`
+configures Sphinx to use the LaTeX footmisc_ package for symbol footnotes,
+which ensures they are handled correctly.
+
+.. _footmisc: https://ctan.org/pkg/footmisc
+
 .. extensions:: sphinx_toolbox.latex
 """
 #
