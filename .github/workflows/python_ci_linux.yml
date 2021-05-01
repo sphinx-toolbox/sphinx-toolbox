@@ -85,33 +85,26 @@ jobs:
           python -m pip install --upgrade "coveralls>=3.0.0" coverage_pyver_pragma
 
       - name: "Download Coverage 🪂"
-        id: download-cov
         uses: actions/download-artifact@v2
-        continue-on-error: true
         with:
           path: coverage
-          if-no-files-found: error
 
       - name: Display structure of downloaded files
-        if: steps.download-cov.outcome == 'success'
         run: ls -R
         working-directory: coverage
 
       - name: Combine Coverage 👷
-        if: steps.download-cov.outcome == 'success'
         run: |
           shopt -s globstar
           python -m coverage combine coverage/**/.coverage
 
       - name: "Upload Combined Coverage Artefact 🚀"
-        if: steps.download-cov.outcome == 'success'
         uses: actions/upload-artifact@v2
         with:
           name: "combined-coverage"
           path: .coverage
 
       - name: "Upload Combined Coverage to Coveralls"
-        if: steps.download-cov.outcome == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
