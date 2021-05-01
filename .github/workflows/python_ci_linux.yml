@@ -30,7 +30,7 @@ jobs:
         uses: "actions/checkout@v2"
 
       - name: Check for changed files
-        if: !startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') != true
         uses: dorny/paths-filter@v2
         id: changes
         with:
@@ -93,25 +93,25 @@ jobs:
           if-no-files-found: error
 
       - name: Display structure of downloaded files
-        if: steps.download-cov.outcome == "success"
+        if: steps.download-cov.outcome == 'success'
         run: ls -R
         working-directory: coverage
 
       - name: Combine Coverage 👷
-        if: steps.download-cov.outcome == "success"
+        if: steps.download-cov.outcome == 'success'
         run: |
           shopt -s globstar
           python -m coverage combine coverage/**/.coverage
 
       - name: "Upload Combined Coverage Artefact 🚀"
-        if: steps.download-cov.outcome == "success"
+        if: steps.download-cov.outcome == 'success'
         uses: actions/upload-artifact@v2
         with:
           name: "combined-coverage"
           path: .coverage
 
       - name: "Upload Combined Coverage to Coveralls"
-        if: steps.download-cov.outcome == "success"
+        if: steps.download-cov.outcome == 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
