@@ -30,6 +30,7 @@ jobs:
         uses: "actions/checkout@v2"
 
       - name: Check for changed files
+        if: !startsWith(github.ref, 'refs/tags/')
         uses: dorny/paths-filter@v2
         id: changes
         with:
@@ -39,13 +40,14 @@ jobs:
               - '!(doc-source/**|CONTRIBUTING.rst|.imgbotconfig|.pre-commit-config.yaml|.pylintrc|.readthedocs.yml)'
 
       - name: Setup Python 🐍
-        if: steps.changes.outputs.code == 'true'
+        id: setup-python
+        if: ${{ steps.changes.outputs.code == 'true' || steps.changes.outputs.outcome == 'skipped' }}
         uses: "actions/setup-python@v2"
         with:
           python-version: "${{ matrix.config.python-version }}"
 
       - name: Install dependencies 🔧
-        if: steps.changes.outputs.code == 'true'
+        if: steps.setup-python.outcome == 'success'
         run: |
           python -VV
           python -m site
@@ -53,12 +55,12 @@ jobs:
           python -m pip install --upgrade tox virtualenv
 
       - name: "Run Tests for Python ${{ matrix.config.python-version }}"
-        if: steps.changes.outputs.code == 'true'
+        if: steps.setup-python.outcome == 'success'
         run: python -m tox -e "${{ matrix.config.testenvs }}"
 
       - name: "Upload Coverage 🚀"
         uses: actions/upload-artifact@v2
-        if: ${{ always() && steps.changes.outputs.code == 'true'}}
+        if: ${{ always() && steps.setup-python.outcome == 'success' }}
         with:
           name: "coverage-${{ matrix.config.python-version }}"
           path: .coverage

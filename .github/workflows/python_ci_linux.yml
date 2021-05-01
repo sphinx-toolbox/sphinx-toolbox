@@ -30,6 +30,7 @@ jobs:
         uses: "actions/checkout@v2"
 
       - name: Check for changed files
+        if: !startsWith(github.ref, 'refs/tags/')
         uses: dorny/paths-filter@v2
         id: changes
         with:
@@ -39,13 +40,14 @@ jobs:
               - '!(doc-source/**|CONTRIBUTING.rst|.imgbotconfig|.pre-commit-config.yaml|.pylintrc|.readthedocs.yml)'
 
       - name: Setup Python 🐍
-        if: steps.changes.outputs.code == 'true'
+        id: setup-python
+        if: ${{ steps.changes.outputs.code == 'true' || steps.changes.outputs.outcome == 'skipped' }}
         uses: "actions/setup-python@v2"
         with:
           python-version: "${{ matrix.config.python-version }}"
 
       - name: Install dependencies 🔧
-        if: steps.changes.outputs.code == 'true'
+        if: steps.setup-python.outcome == 'success'
         run: |
           python -VV
           python -m site
@@ -54,12 +56,12 @@ jobs:
           python -m pip install --upgrade coverage_pyver_pragma
 
       - name: "Run Tests for Python ${{ matrix.config.python-version }}"
-        if: steps.changes.outputs.code == 'true'
+        if: steps.setup-python.outcome == 'success'
         run: python -m tox -e "${{ matrix.config.testenvs }}"
 
       - name: "Upload Coverage 🚀"
         uses: actions/upload-artifact@v2
-        if: ${{ always() && steps.changes.outputs.code == 'true'}}
+        if: ${{ always() && steps.setup-python.outcome == 'success' }}
         with:
           name: "coverage-${{ matrix.config.python-version }}"
           path: .coverage
@@ -83,26 +85,33 @@ jobs:
           python -m pip install --upgrade "coveralls>=3.0.0" coverage_pyver_pragma
 
       - name: "Download Coverage 🪂"
+        id: download-cov
         uses: actions/download-artifact@v2
+        continue-on-error: true
         with:
           path: coverage
+          if-no-files-found: error
 
       - name: Display structure of downloaded files
+        if: steps.download-cov.outcome == "success"
         run: ls -R
         working-directory: coverage
 
       - name: Combine Coverage 👷
+        if: steps.download-cov.outcome == "success"
         run: |
           shopt -s globstar
           python -m coverage combine coverage/**/.coverage
 
       - name: "Upload Combined Coverage Artefact 🚀"
+        if: steps.download-cov.outcome == "success"
         uses: actions/upload-artifact@v2
         with:
           name: "combined-coverage"
           path: .coverage
 
       - name: "Upload Combined Coverage to Coveralls"
+        if: steps.download-cov.outcome == "success"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
