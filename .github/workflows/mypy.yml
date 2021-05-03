@@ -5,6 +5,9 @@ name: mypy
 on:
   push:
 
+permissions:
+  contents: read
+
 jobs:
   Run:
     name: "mypy / ${{ matrix.os }}"
