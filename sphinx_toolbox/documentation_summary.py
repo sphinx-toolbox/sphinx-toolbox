@@ -103,7 +103,10 @@ class DocumentationSummaryDirective(SphinxDirective):
 		Process the content of the directive.
 		"""
 
-		summary = getattr(self.config, "documentation_summary", None)
+		summary = getattr(self.config, "documentation_summary", '').strip()
+
+		if not summary:
+			return []  # pragma: no cover
 
 		# if self.env.app.builder.format.lower() == "latex" or not summary:
 		# 	return []
@@ -135,7 +138,7 @@ def configure(app: Sphinx, config: Config):
 	latex_elements = (config.latex_elements or {})
 
 	latex_preamble = latex_elements.get("preamble", '')
-	summary = getattr(config, "documentation_summary", None)
+	summary = getattr(config, "documentation_summary", '').strip()
 
 	if not summary:
 		return  # pragma: no cover
