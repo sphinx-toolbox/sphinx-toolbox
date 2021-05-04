@@ -89,6 +89,9 @@ class LaTeXTranslator(sphinx.writers.latex.LaTeXTranslator):
 class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 
 	def run(self) -> List[nodes.Node]:
+		"""
+		Process the content of the directive.
+		"""
 
 		output: List[nodes.Node] = []
 		caption = self.options.get("caption")

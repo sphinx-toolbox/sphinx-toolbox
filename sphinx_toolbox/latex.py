@@ -162,6 +162,10 @@ class SamepageDirective(SphinxDirective):
 	has_content = True
 
 	def run(self):
+		"""
+		Process the content of the directive.
+		"""
+
 		content_node = compound(rawsource='\n'.join(self.content))
 		self.state.nested_parse(self.content, self.content_offset, content_node)
 
