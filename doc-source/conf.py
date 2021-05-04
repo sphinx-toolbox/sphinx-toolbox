@@ -61,6 +61,10 @@ autodoc_default_options = {
 		"exclude-members": ','.join(config["autodoc_exclude_members"]),
 		}
 
+latex_elements = {
+		"fncychap": "\\usepackage[Bjarne]{fncychap}\n\\ChNameAsIs\n\\ChTitleAsIs\n",
+		}
+
 html_logo = "../sphinx_toolbox.png"
 toctree_plus_types.add("fixture")
 sys.path.append(os.path.abspath(".."))

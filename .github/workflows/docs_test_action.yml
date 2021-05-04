@@ -24,9 +24,9 @@ jobs:
               - '!tests/**'
 
       - name: Install and Build 🔧
-        uses: ammaraskar/sphinx-action@master
+        uses: sphinx-toolbox/sphinx-action@sphinx-3.3.1
         if: steps.changes.outputs.code == 'true'
         with:
-          pre-build-command: apt-get update && apt-get install gcc python3-dev git pandoc -y && python -m pip install tox
+          pre-build-command: python -m pip install tox
           docs-folder: "doc-source/"
           build-command: "tox -e docs -- "
