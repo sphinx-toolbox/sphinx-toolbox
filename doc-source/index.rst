@@ -167,12 +167,13 @@ Installation
 
 
 .. toctree::
-	:maxdepth: 3
-	:caption: Contributing
+	:caption: Links
+	:hidden:
 
-	contributing
+	GitHub <https://github.com/sphinx-toolbox/default_values>
+	PyPI <https://pypi.org/project/default_values>
+	Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
 	Source
-
 
 .. start links
 
