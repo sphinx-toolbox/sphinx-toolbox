@@ -155,7 +155,7 @@ class IssueNode(sphinx_toolbox.github.issues.IssueNode):
 	@deprecated(
 			deprecated_in="2.4.0",
 			removed_in="3.0.0",
-			current_version="2.8.0",
+			current_version="2.8.1",
 			details="Import from 'sphinx_toolbox.github.issues' instead.",
 			name="IssueNode",
 			)
@@ -166,7 +166,7 @@ class IssueNode(sphinx_toolbox.github.issues.IssueNode):
 visit_issue_node = deprecated(
 		deprecated_in="2.4.0",
 		removed_in="3.0.0",
-		current_version="2.8.0",
+		current_version="2.8.1",
 		details="Import from 'sphinx_toolbox.github.issues' instead.",
 		func=sphinx_toolbox.github.issues.visit_issue_node,
 		)
@@ -174,7 +174,7 @@ visit_issue_node = deprecated(
 depart_issue_node = deprecated(
 		deprecated_in="2.4.0",
 		removed_in="3.0.0",
-		current_version="2.8.0",
+		current_version="2.8.1",
 		details="Import from 'sphinx_toolbox.github.issues' instead.",
 		func=sphinx_toolbox.github.issues.depart_issue_node,
 		)
@@ -182,7 +182,7 @@ depart_issue_node = deprecated(
 get_issue_title = deprecated(
 		deprecated_in="2.4.0",
 		removed_in="3.0.0",
-		current_version="2.8.0",
+		current_version="2.8.1",
 		details="Import from 'sphinx_toolbox.github.issues' instead.",
 		func=sphinx_toolbox.github.issues.get_issue_title,
 		)
