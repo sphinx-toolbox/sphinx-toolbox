@@ -94,7 +94,8 @@ class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 		caption = self.options.get("caption")
 
 		if (
-				caption is not None and self.env.app.builder.format.lower() == "latex"
+				caption is not None and "hidden" not in self.options
+				and self.env.app.builder.format.lower() == "latex"
 				and self.env.docname == self.env.config.master_doc
 				):
 
