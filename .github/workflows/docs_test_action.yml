@@ -4,6 +4,9 @@ name: "Docs Check"
 on:
   - push
 
+permissions:
+  contents: read
+
 jobs:
   docs:
     runs-on: ubuntu-latest

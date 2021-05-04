@@ -5,6 +5,9 @@ name: Flake8
 on:
   push:
 
+permissions:
+  contents: read
+
 jobs:
   Run:
     name: "Flake8"
