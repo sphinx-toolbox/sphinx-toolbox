@@ -13,6 +13,23 @@ which ensures they are handled correctly.
 .. _footmisc: https://ctan.org/pkg/footmisc
 
 .. extensions:: sphinx_toolbox.latex
+
+Usage
+-------
+
+.. rst:directive:: .. samepage::
+
+	Configures LaTeX to make all content within this directive appear on the same page.
+
+	This can be useful to avoid awkward page breaks.
+
+	This directive has no effect with non-LaTeX builders.
+
+	.. versionadded:: 2.9.0
+
+
+API Reference
+----------------
 """
 #
 #  Copyright © 2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -41,12 +58,21 @@ from typing import cast
 
 # 3rd party
 from docutils import nodes
+from docutils.nodes import compound, raw
 from domdf_python_tools.stringlist import DelimitedList
 from sphinx.application import Sphinx
 from sphinx.config import Config
+from sphinx.util.docutils import SphinxDirective
 from sphinx.writers.latex import LaTeXTranslator
 
-__all__ = ["use_package", "visit_footnote", "depart_footnote", "configure", "setup"]
+__all__ = [
+		"use_package",
+		"visit_footnote",
+		"depart_footnote",
+		"SamepageDirective",
+		"configure",
+		"setup",
+		]
 
 footmisc_symbols = ['0', '*', '†', '‡', '§', '¶', '‖', "**", "††", "‡‡"]
 
@@ -122,6 +148,30 @@ def use_package(package: str, config: Config, *args: str, **kwargs: str) -> None
 		config.latex_elements["preamble"] = f"{latex_preamble}\n{use_string}"
 
 
+class SamepageDirective(SphinxDirective):
+	"""
+	Directive which configures LaTeX to make all content within this directive appear on the same page.
+
+	This can be useful to avoid awkward page breaks.
+
+	This directive has no effect with non-LaTeX builders.
+
+	.. versionadded:: 2.9.0
+	"""
+
+	has_content = True
+
+	def run(self):
+		content_node = compound(rawsource='\n'.join(self.content))
+		self.state.nested_parse(self.content, self.content_offset, content_node)
+
+		return [
+				raw('', r"\par\begin{samepage}", format="latex"),
+				content_node,
+				raw('', r"\end{samepage}\par", format="latex"),
+				]
+
+
 def configure(app: Sphinx, config: Config):
 	"""
 	Configure :mod:`sphinx_toolbox.latex`.
@@ -143,4 +193,5 @@ def setup(app: Sphinx):
 	"""
 
 	app.add_node(nodes.footnote, latex=(visit_footnote, depart_footnote), override=True)
+	app.add_directive("samepage", SamepageDirective)
 	app.connect("config-inited", configure)
