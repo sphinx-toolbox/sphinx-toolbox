@@ -3,7 +3,7 @@
 
 set -e -x
 
-python -m mkrecipe || exit 1
+python -m mkrecipe --type wheel || exit 1
 
 # Switch to miniconda
 source "/home/runner/miniconda/etc/profile.d/conda.sh"
