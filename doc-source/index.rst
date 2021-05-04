@@ -170,8 +170,8 @@ Installation
 	:caption: Links
 	:hidden:
 
-	GitHub <https://github.com/sphinx-toolbox/default_values>
-	PyPI <https://pypi.org/project/default_values>
+	GitHub <https://github.com/sphinx-toolbox/sphinx-toolbox>
+	PyPI <https://pypi.org/project/sphinx-toolbox>
 	Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
 	Source
 
