@@ -230,16 +230,16 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 		super().add_directive_header(sig)
 
-		if "show-inheritance" in self.options:
-			if (  # pylint: disable=using-constant-test
-				self.directive.result[-1] == "   Bases: :class:`tuple`"
-				or self.directive.result[-1] == "   Bases: :class:`tuple`, :class:`typing.Generic`"
-				or baseclass_is_private(self.object),
-				):
-				if hasattr(self.object, "__annotations__"):
-					self.directive.result[-1] = "   Bases: :class:`~typing.NamedTuple`"
-				else:
-					self.directive.result[-1] = "   Bases: :func:`~collections.namedtuple`"
+		if "show-inheritance" not in self.options:
+			return
+
+		acceptable_bases = {"   Bases: :class:`tuple`", "   Bases: :class:`tuple`, :class:`typing.Generic`"}
+
+		if self.directive.result[-1] in acceptable_bases or baseclass_is_private(self.object):
+			if hasattr(self.object, "__annotations__"):
+				self.directive.result[-1] = "   Bases: :class:`~typing.NamedTuple`"
+			else:
+				self.directive.result[-1] = "   Bases: :func:`~collections.namedtuple`"
 
 	def filter_members(
 			self,
