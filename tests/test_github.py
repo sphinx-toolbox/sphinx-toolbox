@@ -360,8 +360,10 @@ def test_setup():
 					},
 			"latex": {
 					"IssueNode": (_visit_issue_node_latex, _depart_issue_node_latex),
-					"GitHubObjectLinkNode":
-							(_visit_github_object_link_node_latex, _depart_github_object_link_node_latex)
+					"GitHubObjectLinkNode": (
+							_visit_github_object_link_node_latex,
+							_depart_github_object_link_node_latex,
+							)
 					},
 			}
 
