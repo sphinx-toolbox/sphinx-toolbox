@@ -14,9 +14,19 @@ from sphinx.events import EventListener
 import sphinx_toolbox
 from sphinx_toolbox import github
 from sphinx_toolbox.config import MissingOptionError
-from sphinx_toolbox.github.issues import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
+from sphinx_toolbox.github.issues import (
+		IssueNode,
+		_depart_issue_node_latex,
+		_visit_issue_node_latex,
+		depart_issue_node,
+		issue_role,
+		pull_role,
+		visit_issue_node
+		)
 from sphinx_toolbox.github.repos_and_users import (
 		GitHubObjectLinkNode,
+		_depart_github_object_link_node_latex,
+		_visit_github_object_link_node_latex,
 		depart_github_object_link_node,
 		repository_role,
 		user_role,
@@ -347,7 +357,12 @@ def test_setup():
 			"html": {
 					"IssueNode": (visit_issue_node, depart_issue_node),
 					"GitHubObjectLinkNode": (visit_github_object_link_node, depart_github_object_link_node)
-					}
+					},
+			"latex": {
+					"IssueNode": (_visit_issue_node_latex, _depart_issue_node_latex),
+					"GitHubObjectLinkNode":
+							(_visit_github_object_link_node_latex, _depart_github_object_link_node_latex)
+					},
 			}
 
 	# Moved to own setup function

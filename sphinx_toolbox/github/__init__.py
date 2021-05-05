@@ -183,9 +183,19 @@ from sphinx.environment import BuildEnvironment
 
 # this package
 from sphinx_toolbox.config import MissingOptionError, ToolboxConfig
-from sphinx_toolbox.github.issues import IssueNode, depart_issue_node, issue_role, pull_role, visit_issue_node
+from sphinx_toolbox.github.issues import (
+		IssueNode,
+		_depart_issue_node_latex,
+		_visit_issue_node_latex,
+		depart_issue_node,
+		issue_role,
+		pull_role,
+		visit_issue_node
+		)
 from sphinx_toolbox.github.repos_and_users import (
 		GitHubObjectLinkNode,
+		_depart_github_object_link_node_latex,
+		_visit_github_object_link_node_latex,
 		depart_github_object_link_node,
 		repository_role,
 		user_role,
@@ -258,7 +268,15 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_domain(GitHubDomain)
 
 	# Custom node for issues and PRs
-	app.add_node(IssueNode, html=(visit_issue_node, depart_issue_node))
-	app.add_node(GitHubObjectLinkNode, html=(visit_github_object_link_node, depart_github_object_link_node))
+	app.add_node(
+			IssueNode,
+			html=(visit_issue_node, depart_issue_node),
+			latex=(_visit_issue_node_latex, _depart_issue_node_latex)
+			)
+	app.add_node(
+			GitHubObjectLinkNode,
+			html=(visit_github_object_link_node, depart_github_object_link_node),
+			latex=(_visit_github_object_link_node_latex, _depart_github_object_link_node_latex)
+			)
 
 	return {"parallel_read_safe": True}

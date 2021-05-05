@@ -9,3 +9,4 @@
 	formatting
 	footnote_symbols
 	latex
+	github
