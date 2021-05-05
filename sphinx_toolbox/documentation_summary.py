@@ -143,6 +143,25 @@ def configure(app: Sphinx, config: Config):
 	if not summary:
 		return  # pragma: no cover
 
+	# Escape latex special characters
+	summary = summary.replace("~ ", r"\textasciitilde\space ")
+	summary = summary.replace("^ ", r"\textasciicircum\space ")
+	summary = summary.replace("\\ ", r"\textbackslash\space ")
+
+	summary = summary.translate({
+			35: r"\#",
+			36: r"\$",
+			37: r"\%",
+			38: r"\&",
+			94: r"\textasciicircum",
+			95: r"\_",
+			123: r"\{",
+			125: r"\}",
+			126: r"\textasciitilde",
+			})
+
+	# TODO: excape backslashes without breaking the LaTeX commands
+
 	summary_command = rf"\newcommand{{\thesummary}}{{{summary}}}"
 
 	if summary_command not in latex_preamble:
