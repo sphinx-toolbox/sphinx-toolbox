@@ -42,13 +42,13 @@ from bs4 import BeautifulSoup  # type: ignore
 from docutils import nodes
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
-from sphinx.application import Sphinx
 from sphinx.util.nodes import split_explicit_title
 from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.latex import LaTeXTranslator
 
 # this package
 from sphinx_toolbox.cache import cache
-from sphinx_toolbox.utils import SphinxExtMetadata, make_github_url
+from sphinx_toolbox.utils import make_github_url
 
 __all__ = [
 		"IssueNode",
@@ -98,7 +98,7 @@ class IssueNode(nodes.reference):
 		# This was required to stop some breakage, but it doesn't seem to run during the tests.
 		obj = self.__class__(**self._copy_kwargs)
 		obj.document = self.document
-		obj.source = self.source
+		obj.has_tooltip = self.has_tooltip
 		obj.line = self.line
 		return obj
 
@@ -186,7 +186,7 @@ def issue_role(
 			return [refnode], messages
 
 	issues_url = inliner.document.settings.env.app.config.github_issues_url
-	refnode = IssueNode(issue_number, refuri=issues_url / str(int(issue_number)))
+	refnode = IssueNode(issue_number=issue_number, refuri=issues_url / str(int(issue_number)))
 
 	return [refnode], messages
 
@@ -241,7 +241,7 @@ def pull_role(
 			return [refnode], messages
 
 	pull_url = inliner.document.settings.env.app.config.github_pull_url
-	refnode = IssueNode(issue_number, refuri=pull_url / str(int(issue_number)))
+	refnode = IssueNode(issue_number=issue_number, refuri=pull_url / str(int(issue_number)))
 
 	return [refnode], messages
 
@@ -278,6 +278,32 @@ def depart_issue_node(translator: HTMLTranslator, node: IssueNode):
 	if node.has_tooltip:
 		translator.depart_reference(node)
 		translator.body.append("</abbr>")
+
+
+def _visit_issue_node_latex(translator: LaTeXTranslator, node: IssueNode):
+	"""
+	Visit an :class:`~.IssueNode`.
+
+	If the node points to a valid issue / pull request,
+	add a tooltip giving the title of the issue / pull request and a hyperlink to the page on GitHub.
+
+	:param translator:
+	:param node: The node being visited.
+	"""
+
+	node.children = node.children[:1]
+	translator.visit_reference(node)
+
+
+def _depart_issue_node_latex(translator: LaTeXTranslator, node: IssueNode):
+	"""
+	Depart an :class:`~.IssueNode`.
+
+	:param translator:
+	:param node: The node being visited.
+	"""
+
+	translator.depart_reference(node)
 
 
 def get_issue_title(issue_url: str) -> Optional[str]:

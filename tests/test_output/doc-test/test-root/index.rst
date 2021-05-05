@@ -8,3 +8,5 @@
 	code-block
 	formatting
 	footnote_symbols
+	latex
+	github

@@ -39,6 +39,7 @@ from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
 from sphinx.util.nodes import split_explicit_title
 from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.latex import LaTeXTranslator
 
 # this package
 from sphinx_toolbox.utils import GITHUB_COM, make_github_url
@@ -209,3 +210,26 @@ def depart_github_object_link_node(translator: HTMLTranslator, node: GitHubObjec
 
 	translator.depart_reference(node)
 	translator.body.append("</b>")
+
+
+def _visit_github_object_link_node_latex(translator: LaTeXTranslator, node: GitHubObjectLinkNode):
+	"""
+	Visit a :class:`~.GitHubObjectLinkNode`.
+
+	:param translator:
+	:param node: The node being visited.
+	"""
+
+	node.children = node.children[:1]
+	translator.visit_reference(node)
+
+
+def _depart_github_object_link_node_latex(translator: LaTeXTranslator, node: GitHubObjectLinkNode):
+	"""
+	Depart an :class:`~.GitHubObjectLinkNode`.
+
+	:param translator:
+	:param node: The node being visited.
+	"""
+
+	translator.depart_reference(node)
