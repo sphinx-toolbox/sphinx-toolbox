@@ -35,7 +35,7 @@ def test_missing_extension():
 			ValueError,
 			match="The 'sphinx_toolbox.github' extension is required for the :github: option but it is not enabled!"
 			):
-		sidebar_links.SidebarLinksDirective.process_github_option(directive)
+		sidebar_links.SidebarLinksDirective.process_github_option(directive)  # type: ignore
 
 
 def test_missing_username():
@@ -45,7 +45,7 @@ def test_missing_username():
 	directive.env.config = AttrDict({"github_repository": "hello_world"})
 
 	with pytest.raises(ValueError, match="'github_username' has not been set in 'conf.py'!"):
-		sidebar_links.SidebarLinksDirective.process_github_option(directive)
+		sidebar_links.SidebarLinksDirective.process_github_option(directive)  # type: ignore
 
 
 def test_missing_repo():
@@ -55,7 +55,7 @@ def test_missing_repo():
 	directive.env.config = AttrDict({"github_username": "octocat"})
 
 	with pytest.raises(ValueError, match="'github_repository' has not been set in 'conf.py'!"):
-		sidebar_links.SidebarLinksDirective.process_github_option(directive)
+		sidebar_links.SidebarLinksDirective.process_github_option(directive)  # type: ignore
 
 
 def test_setup():

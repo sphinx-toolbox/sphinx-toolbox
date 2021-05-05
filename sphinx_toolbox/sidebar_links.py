@@ -121,11 +121,11 @@ class SidebarLinksDirective(SphinxDirective):
 
 	has_content: bool = True
 
-	option_spec: OptionSpec = {
-			"pypi": directives.unchanged_required,
-			"github": flag,
-			"caption": directives.unchanged_required,
-			}
+	option_spec: OptionSpec = {  # type: ignore
+		"pypi": directives.unchanged_required,
+		"github": flag,
+		"caption": directives.unchanged_required,
+		}
 
 	def process_github_option(self) -> str:
 		"""
