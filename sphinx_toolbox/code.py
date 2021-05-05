@@ -160,6 +160,7 @@ from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from domdf_python_tools.utils import convert_indents
 from sphinx.application import Sphinx
+from sphinx.config import Config
 from sphinx.writers.html import HTMLTranslator
 from sphinx.writers.latex import LaTeXTranslator
 
@@ -174,7 +175,8 @@ __all__ = [
 		"visit_prompt_html",
 		"visit_prompt_latex",
 		"copy_asset_files",
-		"setup"
+		"configure",
+		"setup",
 		]
 
 
@@ -378,6 +380,27 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 	dict2css.dump(style, static_dir / "sphinx-toolbox-code.css")
 
 
+def configure(app: Sphinx, config: Config):
+	"""
+	Configure :mod:`sphinx_toolbox.code`.
+
+	:param app: The Sphinx application.
+	:param config:
+
+	.. versionadded:: 2.9.0
+	"""
+
+	latex_elements = getattr(app.config, "latex_elements", {})  # type: ignore
+
+	latex_preamble = StringList(latex_elements.get("preamble", ''))
+	latex_preamble.blankline()
+	latex_preamble.append(r"\definecolor{nbsphinxin}{HTML}{307FC1}")
+	latex_preamble.append(r"\definecolor{nbsphinxout}{HTML}{BF5B3D}")
+
+	latex_elements["preamble"] = str(latex_preamble)
+	app.config.latex_elements = latex_elements  # type: ignore
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -404,16 +427,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 			latex=(visit_prompt_latex, lambda *args, **kwargs: None)
 			)
 
-	latex_elements = getattr(app.config, "latex_elements", {})  # type: ignore
-
-	latex_preamble = StringList(latex_elements.get("preamble", ''))
-	latex_preamble.blankline()
-	latex_preamble.append(r"\definecolor{nbsphinxin}{HTML}{307FC1}")
-	latex_preamble.append(r"\definecolor{nbsphinxout}{HTML}{BF5B3D}")
-
-	latex_elements["preamble"] = str(latex_preamble)
-	app.config.latex_elements = latex_elements  # type: ignore
-
+	app.connect("config-inited", configure)
 	app.add_css_file("sphinx-toolbox-code.css")
 	app.connect("build-finished", copy_asset_files)
 

@@ -24,7 +24,8 @@ def test_setup(file_regression: FileRegressionFixture):
 	assert additional_nodes == {code.Prompt}
 
 	assert app.events.listeners == {
-			"build-finished": [EventListener(id=0, handler=code.copy_asset_files, priority=500), ],
+			"build-finished": [EventListener(id=1, handler=code.copy_asset_files, priority=500)],
+			"config-inited": [EventListener(id=0, handler=code.configure, priority=500)],
 			}
 
 
