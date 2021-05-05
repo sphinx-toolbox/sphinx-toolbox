@@ -52,7 +52,7 @@ def test_get_variable_type():
 	assert get_variable_type(Documenter(Foo, ["Foo", 'd'], Analyzer({}))) == ":py:class:`float`"
 	assert get_variable_type(Documenter(Foo, ["Foo", 'e'], Analyzer({}))) == ":py:class:`~typing.List`"
 
-	if sys.version_info >= (3, 10):
+	if sys.version_info >= (3, 11):
 		# On 3.10 with PEP 563 failed forward references break things earlier
 		assert get_variable_type(Documenter(Bar, ["Bar", 'a'], Analyzer({}))) == ":py:obj:`~.str`"
 		assert get_variable_type(Documenter(Bar, ["Bar", 'b'], Analyzer({}))) == ":py:obj:`~.int`"
