@@ -23,6 +23,8 @@ name from its description if a description was given.
 
 .. extensions:: sphinx_toolbox.tweaks.param_dash
 
+-----
+
 """  # noqa D400
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>

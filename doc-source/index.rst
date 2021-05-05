@@ -135,6 +135,11 @@ Installation
 
 .. end installation
 
+Contents
+------------
+
+.. phantom-section::
+
 
 .. toctree::
 	:hidden:
@@ -166,14 +171,16 @@ Installation
 	api/*
 
 
-.. toctree::
-	:caption: Links
-	:hidden:
+.. only:: html
 
-	GitHub <https://github.com/sphinx-toolbox/sphinx-toolbox>
-	PyPI <https://pypi.org/project/sphinx-toolbox>
-	Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
-	Source
+	.. toctree::
+		:caption: Links
+		:hidden:
+
+		GitHub <https://github.com/sphinx-toolbox/sphinx-toolbox>
+		PyPI <https://pypi.org/project/sphinx-toolbox>
+		Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
+		Source
 
 .. start links
 

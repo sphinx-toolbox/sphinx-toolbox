@@ -3,3 +3,4 @@
 ==============================================
 
 .. automodule:: sphinx_toolbox.tweaks.footnote_symbols
+	:no-autosummary:

@@ -3,3 +3,4 @@
 =====================================
 
 .. automodule:: sphinx_toolbox.tweaks.tabsize
+	:no-autosummary:

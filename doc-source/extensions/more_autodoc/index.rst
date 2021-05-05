@@ -17,8 +17,6 @@ Alternatively, the following features can be enabled individually:
 
 	*
 
-|
-
-.. automodulesumm:: sphinx_toolbox.more_autodoc
+-----
 
 .. autofunction:: sphinx_toolbox.more_autodoc.setup
