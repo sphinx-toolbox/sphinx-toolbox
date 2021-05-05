@@ -86,8 +86,8 @@ extensions = [
     "sphinx_toolbox.flake8",
     "sphinx_autofixture",
     "sphinx_event_role",
-    "phantom_section",
     "latex_unicode",
+    "html_section",
 ]
 sphinxemoji_style = "twemoji"
 gitstamp_fmt = "%d %b %Y"
