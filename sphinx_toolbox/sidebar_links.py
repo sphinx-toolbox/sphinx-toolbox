@@ -23,6 +23,10 @@ Usage
 
 	The toctree is only shown in the sidebar and is hidden with non-HTML builders.
 
+	.. only:: html
+
+		You can see an example of this in the sidebar of this documentation.
+
 
 	.. rst:directive:option:: github
 		:type: flag
