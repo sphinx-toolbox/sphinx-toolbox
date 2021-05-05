@@ -80,6 +80,7 @@ def setup(app: Sphinx) -> "utils.SphinxExtMetadata":
 	app.setup_extension("sphinx_toolbox.latex")
 	app.setup_extension("sphinx_toolbox.rest_example")
 	app.setup_extension("sphinx_toolbox.shields")
+	app.setup_extension("sphinx_toolbox.sidebar_links")
 	app.setup_extension("sphinx_toolbox.source")
 	app.setup_extension("sphinx_toolbox.wikipedia")
 	app.setup_extension("sphinx_toolbox.more_autodoc.autoprotocol")

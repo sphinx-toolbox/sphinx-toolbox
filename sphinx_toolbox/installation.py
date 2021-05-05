@@ -310,7 +310,7 @@ def pypi_installation(
 	elif "project_name" in options:
 		pypi_name = options["project_name"]
 	else:
-		raise ValueError("No username supplied for the PyPI installation instructions.")
+		raise ValueError("No PyPI project name supplied for the PyPI installation instructions.")
 
 	return [".. prompt:: bash", '', f"    python3 -m pip install {pypi_name} --user"]
 

@@ -171,16 +171,14 @@ Contents
 	api/*
 
 
-.. only:: html
+.. sidebar-links::
+	:caption: Links
+	:github:
+	:pypi: sphinx-toolbox
 
-	.. toctree::
-		:caption: Links
-		:hidden:
+	Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
+	Source
 
-		GitHub <https://github.com/sphinx-toolbox/sphinx-toolbox>
-		PyPI <https://pypi.org/project/sphinx-toolbox>
-		Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
-		Source
 
 .. start links
 

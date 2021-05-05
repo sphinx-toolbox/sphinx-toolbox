@@ -10,7 +10,10 @@ from docutils.nodes import system_message
 class AttrDict(dict):
 
 	def __getattr__(self, item):
-		return self[item]
+		try:
+			return self[item]
+		except KeyError as e:
+			raise AttributeError(str(e))
 
 	def __setattr__(self, item, value):
 		self[item] = value

@@ -13,7 +13,7 @@ from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 
 # this package
-from sphinx_toolbox.testing import HTMLRegressionFixture
+from sphinx_toolbox.testing import HTMLRegressionFixture, remove_html_footer, remove_html_link_tags
 
 
 def test_build_example(testing_app):
@@ -182,6 +182,26 @@ def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 
 	for exception in caught_exceptions:
 		raise exception
+
+
+def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFileRegressionFixture):
+	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
+		testing_app.build(force_all=True)
+
+	content = (testing_app.outdir / "index.html").read_text()
+
+	page = BeautifulSoup(content, "html5lib")
+	page = remove_html_footer(page)
+	page = remove_html_link_tags(page)
+
+	for div in page.select("script"):
+		if "_static/language_data.js" in str(div):
+			div.extract()
+
+	advanced_file_regression.check(
+			str(StringList(page.prettify())),
+			extension=".html",
+			)
 
 
 @pytest.mark.sphinx("latex", srcdir="test-root")
