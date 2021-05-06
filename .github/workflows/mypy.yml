@@ -46,4 +46,4 @@ jobs:
 
       - name: "Run mypy"
         if: steps.changes.outputs.code == 'true'
-        run: "python -m tox -e mypy"
+        run: "python -m tox -e mypy -s false"

@@ -61,7 +61,7 @@ jobs:
 
       - name: "Run Tests for Python ${{ matrix.config.python-version }}"
         if: steps.setup-python.outcome == 'success'
-        run: python -m tox -e "${{ matrix.config.testenvs }}"
+        run: python -m tox -e "${{ matrix.config.testenvs }}" -s false
 
       - name: "Upload Coverage 🚀"
         uses: actions/upload-artifact@v2
@@ -148,7 +148,6 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
           skip_existing: true
-
 
 
   Conda:
