@@ -35,7 +35,7 @@ Usage
 	This directive has no effect with non-LaTeX builders.
 
 	.. versionadded:: 2.10.0
-	.. seealso:: :rst:dir`~.cleardoublepage`
+	.. seealso:: :rst:dir:`~.cleardoublepage`
 
 
 .. rst:directive:: .. cleardoublepage::
@@ -48,7 +48,7 @@ Usage
 	This directive has no effect with non-LaTeX builders.
 
 	.. versionadded:: 2.10.0
-	.. seealso:: :rst:dir`~.clearpage`
+	.. seealso:: :rst:dir:`~.clearpage`
 
 
 
