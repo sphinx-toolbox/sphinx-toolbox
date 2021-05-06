@@ -13,7 +13,7 @@ configuration value, or via :confval:`autodocsumm_member_order`.
 Also patches :class:`sphinx.ext.autosummary.Autosummary` to fix an issue where
 the module name is sometimes duplicated.
 I.e. ``foo.bar.baz()`` became ``foo.bar.foo.bar.baz()``, which of course doesn't exist
-and so resulted in a broken link.
+and created a broken link..
 
 
 .. versionadded:: 0.7.0
@@ -166,7 +166,7 @@ class PatchedAutosummary(Autosummary):
 	the module name is sometimes duplicated.
 
 	I.e. ``foo.bar.baz()`` became ``foo.bar.foo.bar.baz()``, which of course doesn't exist
-	and so resulted in a broken link.
+	and created a broken link.
 
 	.. versionadded:: 0.5.1
 	.. versionchanged:: 0.7.0  Moved from :mod:`sphinx_toolbox.patched_autosummary`.

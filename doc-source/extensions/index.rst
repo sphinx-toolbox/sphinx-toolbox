@@ -2,7 +2,6 @@
 Overview
 ============
 
-
 .. extensions:: sphinx-toolbox
 	:import-name: sphinx_toolbox
 	:no-postamble:
@@ -26,6 +25,7 @@ The following features are enabled by default:
 * :mod:`sphinx_toolbox.latex`
 * :mod:`sphinx_toolbox.rest_example`
 * :mod:`sphinx_toolbox.shields` *
+* :mod:`sphinx_toolbox.sidebar_links`
 * :mod:`sphinx_toolbox.source`
 * :mod:`sphinx_toolbox.wikipedia`
 * :mod:`sphinx_toolbox.more_autodoc.autonamedtuple`
@@ -59,4 +59,4 @@ Some features must be enabled separately:
 	to fix an issue where the module name is sometimes duplicated.
 
 	I.e. ``foo.bar.baz()`` became ``foo.bar.foo.bar.baz()``, which of course doesn't exist
-	and so resulted in a broken link.
+	and created a broken link.
