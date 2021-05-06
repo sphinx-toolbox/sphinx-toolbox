@@ -83,19 +83,7 @@ pages_to_check: List[Union[str, ParameterSet]] = [
 		"formatting.html",
 		"installation.html",
 		"no_docstring.html",
-		pytest.param(
-				"overloads.html",
-				marks=pytest.mark.skipif(
-						condition=sys.version_info >= (3, 10),
-						reason="Output differs on Python 3.10",
-						),
-				id="overloads.html"
-				),
-		pytest.param(
-				"overloads.html",
-				marks=min_version((3, 10), reason="Output differs on Python 3.10"),
-				id="overloads_3_10",
-				),
+		"overloads.html",
 		"pre-commit.html",
 		"regex.html",
 		"shields.html",

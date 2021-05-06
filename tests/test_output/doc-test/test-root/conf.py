@@ -29,7 +29,7 @@ github_repository = "sphinx-toolbox"
 source_link_target = "GitHub"
 
 autodoc_default_options = {
-		"exclude-members": "__repr__,__weakref__,__dict__",
+		"exclude-members": "__repr__,__weakref__,__dict__,__annotations__",
 		}
 
 all_typevars = True
