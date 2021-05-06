@@ -61,6 +61,7 @@ from docutils import nodes
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import DelimitedList
 from sphinx.application import Sphinx
+from sphinx.builders.latex import LaTeXBuilder
 from sphinx.config import Config
 from sphinx.util.docutils import SphinxDirective
 from sphinx.writers.latex import LaTeXTranslator
@@ -210,7 +211,8 @@ def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None):
 	if app.builder.name.lower() != "latex":
 		return
 
-	output_file = PathPlus(app.builder.outdir) / f"{app.builder.titles[0][1].lower()}.tex"
+	builder = cast(LaTeXBuilder, app.builder)
+	output_file = PathPlus(builder.outdir) / f"{builder.titles[0][1].lower()}.tex"
 
 	output_content = output_file.read_text()
 
