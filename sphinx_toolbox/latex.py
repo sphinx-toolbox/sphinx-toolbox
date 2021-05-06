@@ -95,6 +95,8 @@ __all__ = [
 		"visit_footnote",
 		"depart_footnote",
 		"SamepageDirective",
+		"ClearPageDirective",
+		"ClearDoublePageDirective",
 		"replace_unknown_unicode",
 		"configure",
 		"setup",
