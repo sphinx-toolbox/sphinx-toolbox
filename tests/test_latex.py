@@ -13,7 +13,12 @@ def test_setup():
 			"config-inited": [EventListener(id=0, handler=latex.configure, priority=500)],
 			}
 
-	assert directives == {"samepage": latex.SamepageDirective}
+	assert directives == {
+			"samepage": latex.SamepageDirective,
+			"clearpage": latex.ClearPageDirective,
+			"cleardoublepage": latex.ClearDoublePageDirective,
+			}
+
 	assert app.registry.source_parsers == {}
 	assert app.registry.translation_handlers["latex"]["footnote"] == (latex.visit_footnote, latex.depart_footnote)
 

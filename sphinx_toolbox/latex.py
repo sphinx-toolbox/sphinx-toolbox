@@ -28,6 +28,30 @@ Usage
 	.. versionadded:: 2.9.0
 
 
+.. rst:directive:: .. clearpage::
+
+	Configures LaTeX to start a new page.
+
+	This directive has no effect with non-LaTeX builders.
+
+	.. versionadded:: 2.10.0
+	.. seealso:: :rst:dir`~.cleardoublepage`
+
+
+.. rst:directive:: .. cleardoublepage::
+
+	Configures LaTeX to start a new page.
+
+	In a two-sided printing it also makes the next page a right-hand (odd-numbered) page,
+	inserting a blank page if necessary.
+
+	This directive has no effect with non-LaTeX builders.
+
+	.. versionadded:: 2.10.0
+	.. seealso:: :rst:dir`~.clearpage`
+
+
+
 API Reference
 ----------------
 """
@@ -178,6 +202,49 @@ class SamepageDirective(SphinxDirective):
 				]
 
 
+class ClearPageDirective(SphinxDirective):
+	"""
+	Directive which configures LaTeX to start a new page.
+
+	This directive has no effect with non-LaTeX builders.
+
+	.. versionadded:: 2.10.0
+	.. seealso:: :class:`~.ClearDoublePageDirective`
+	"""
+
+	has_content = True
+
+	def run(self):
+		"""
+		Process the content of the directive.
+		"""
+
+		return [nodes.raw('', r"\clearpage", format="latex")]
+
+
+class ClearDoublePageDirective(SphinxDirective):
+	"""
+	Directive which configures LaTeX to start a new page.
+
+	In a two-sided printing it also makes the next page a right-hand (odd-numbered) page,
+	inserting a blank page if necessary.
+
+	This directive has no effect with non-LaTeX builders.
+
+	.. versionadded:: 2.10.0
+	.. seealso:: :class:`~.ClearPageDirective`
+	"""
+
+	has_content = True
+
+	def run(self):
+		"""
+		Process the content of the directive.
+		"""
+
+		return [nodes.raw('', r"\cleardoublepage", format="latex")]
+
+
 def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None):
 	r"""
 	Replaces certain unknown unicode characters in the Sphinx LaTeX output with the best equivalents.
@@ -248,4 +315,6 @@ def setup(app: Sphinx):
 
 	app.add_node(nodes.footnote, latex=(visit_footnote, depart_footnote), override=True)
 	app.add_directive("samepage", SamepageDirective)
+	app.add_directive("clearpage", ClearPageDirective)
+	app.add_directive("cleardoublepage", ClearDoublePageDirective)
 	app.connect("config-inited", configure)
