@@ -5,8 +5,11 @@ from typing import Optional
 from domdf_python_tools.paths import PathPlus
 from sphinx.application import Sphinx
 
+# this package
+from sphinx_toolbox import latex
 
-def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None):
+
+def replace_emoji(app: Sphinx, exception: Optional[Exception] = None):
 	if exception:
 		return
 
@@ -19,13 +22,10 @@ def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None):
 
 	output_content = output_content.replace('🧰', '')
 	output_content = output_content.replace('📔', '')
-	output_content = output_content.replace('♠', r' $\spadesuit$ ')
-	output_content = output_content.replace('♥', r' $\heartsuit$ ')
-	output_content = output_content.replace('♦', r' $\diamondsuit$ ')
-	output_content = output_content.replace('♣', r' $\clubsuit$ ')
 
 	output_file.write_clean(output_content)
 
 
 def setup(app: Sphinx):
-	app.connect("build-finished", replace_unknown_unicode)
+	app.connect("build-finished", replace_emoji)
+	app.connect("build-finished", latex.replace_unknown_unicode)

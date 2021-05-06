@@ -54,11 +54,11 @@ API Reference
 #
 
 # stdlib
-from typing import cast
+from typing import Optional, cast
 
 # 3rd party
 from docutils import nodes
-from docutils.nodes import compound, raw
+from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import DelimitedList
 from sphinx.application import Sphinx
 from sphinx.config import Config
@@ -70,6 +70,7 @@ __all__ = [
 		"visit_footnote",
 		"depart_footnote",
 		"SamepageDirective",
+		"replace_unknown_unicode",
 		"configure",
 		"setup",
 		]
@@ -166,14 +167,61 @@ class SamepageDirective(SphinxDirective):
 		Process the content of the directive.
 		"""
 
-		content_node = compound(rawsource='\n'.join(self.content))
+		content_node = nodes.container(rawsource='\n'.join(self.content))
 		self.state.nested_parse(self.content, self.content_offset, content_node)
 
 		return [
-				raw('', r"\par\begin{samepage}", format="latex"),
+				nodes.raw('', r"\par\begin{samepage}", format="latex"),
 				content_node,
-				raw('', r"\end{samepage}\par", format="latex"),
+				nodes.raw('', r"\end{samepage}\par", format="latex"),
 				]
+
+
+def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None):
+	r"""
+	Replaces certain unknown unicode characters in the Sphinx LaTeX output with the best equivalents.
+
+	.. only:: html
+
+		The mapping is as follows:
+
+		* ♠ -- \spadesuit
+		* ♥ -- \heartsuit
+		* ♦ -- \diamondsuit
+		* ♣ -- \clubsuit
+		* Zero width space -- \hspace{0pt}
+		* μ -- \textmu
+
+	This function can be hooked into the :event:`build-finished` event as follows:
+
+	.. code-block:: python
+
+		app.connect("build-finished", replace_unknown_unicode)
+
+	.. versionadded:: 2.9.0
+
+	:param app: The Sphinx application.
+	:param exception: Any exception which occurred and caused Sphinx to abort.
+	"""
+
+	if exception:  # pragma: no cover
+		return
+
+	if app.builder.name.lower() != "latex":
+		return
+
+	output_file = PathPlus(app.builder.outdir) / f"{app.builder.titles[0][1].lower()}.tex"
+
+	output_content = output_file.read_text()
+
+	output_content = output_content.replace('♠', r' $\spadesuit$ ')
+	output_content = output_content.replace('♥', r' $\heartsuit$ ')
+	output_content = output_content.replace('♦', r' $\diamondsuit$ ')
+	output_content = output_content.replace('♣', r' $\clubsuit$ ')
+	output_content = output_content.replace('\u200b', r'\hspace{0pt}')  # Zero width space
+	output_content = output_content.replace('μ', r"\textmu")
+
+	output_file.write_clean(output_content)
 
 
 def configure(app: Sphinx, config: Config):

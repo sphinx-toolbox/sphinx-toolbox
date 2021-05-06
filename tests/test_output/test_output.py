@@ -105,6 +105,7 @@ pages_to_check: List[Union[str, ParameterSet]] = [
 		"wikipedia.html",
 		"documentation-summary.html",
 		"github.html",
+		"latex.html",
 		"collapse.html",
 		"footnote_symbols.html",
 		pytest.param(

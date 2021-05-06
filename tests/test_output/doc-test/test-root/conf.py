@@ -1,3 +1,6 @@
+# this package
+from sphinx_toolbox import latex
+
 extensions = [
 		"sphinx.ext.viewcode",
 		"sphinx_toolbox",
@@ -34,3 +37,7 @@ no_unbound_typevars = False
 
 overloads_location = "bottom"
 documentation_summary = "   This is an awesome tool! 🚀 ~ intersphinx_mapping # {{ jinja2 }} 100%"
+
+
+def setup(app):
+	app.connect("build-finished", latex.replace_unknown_unicode)
