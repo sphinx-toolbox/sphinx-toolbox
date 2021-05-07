@@ -68,7 +68,7 @@ repos:
     - id: forbid-crlf
 
  - repo: https://github.com/repo-helper/formate
-   rev: v0.4.3
+   rev: v0.4.4
    hooks:
     - id: formate
       exclude: ^(doc-source/conf|__pkginfo__|setup)\.(_)?py$

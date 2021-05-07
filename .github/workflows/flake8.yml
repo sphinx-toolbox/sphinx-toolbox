@@ -42,4 +42,4 @@ jobs:
 
       - name: "Run Flake8"
         if: steps.changes.outputs.code == 'true'
-        run: "python -m tox -e lint -- --format github"
+        run: "python -m tox -e lint -s false -- --format github"
