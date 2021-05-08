@@ -39,7 +39,7 @@ Usage
 
 		Show this instead of the type taken from the Python source code.
 
-
+	An example of the output cen be seen below for :py:obj:`~.type_template`.
 
 API Reference
 ----------------
@@ -251,8 +251,13 @@ class VariableDocumenter(DataDocumenter):
 					# obtain type annotation for this data
 					the_type = get_variable_type(self)
 					if not the_type.strip():
+						obj_type = type(self.object)
+
+						if obj_type is object:
+							return
+
 						try:
-							the_type = format_annotation(type(self.object))
+							the_type = format_annotation(obj_type)
 						except Exception:
 							return
 
@@ -315,8 +320,13 @@ class TypedAttributeDocumenter(AttributeDocumenter):
 					# obtain type annotation for this attribute
 					the_type = get_variable_type(self)
 					if not the_type.strip():
+						obj_type = type(self.object)
+
+						if obj_type is object:
+							return
+
 						try:
-							the_type = format_annotation(type(self.object))
+							the_type = format_annotation(obj_type)
 						except Exception:
 							return
 
