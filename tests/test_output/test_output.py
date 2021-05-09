@@ -92,6 +92,7 @@ pages_to_check: List[Union[str, ParameterSet]] = [
 		"variables.html",
 		"wikipedia.html",
 		"documentation-summary.html",
+		"documentation-summary-meta.html",
 		"github.html",
 		"latex.html",
 		"collapse.html",

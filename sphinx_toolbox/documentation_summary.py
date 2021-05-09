@@ -35,6 +35,20 @@ Usage
 		.. documentation-summary::
 
 
+	.. rst:directive:option:: meta
+
+		Include the summary as a meta_ "description" tag in the HTML output.
+
+		The structure of the description is ``{project} -- {summary}``,
+		where ``project`` is configured in ``conf.py``.
+
+		See `the sphinx documentation`_ for more information on the ``project`` option.
+
+		.. versionadded:: 2.10.0
+
+		.. _meta: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+		.. _the sphinx documentation: https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-project
+
 API Reference
 ----------------
 
@@ -74,7 +88,7 @@ from sphinx.util.docutils import SphinxDirective
 from sphinx.util.smartypants import educateQuotes
 
 # this package
-from sphinx_toolbox.utils import Purger, SphinxExtMetadata, metadata_add_version
+from sphinx_toolbox.utils import Purger, SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = ["DocumentationSummaryDirective", "configure", "setup"]
 
@@ -99,6 +113,8 @@ class DocumentationSummaryDirective(SphinxDirective):
 	A Sphinx directive for creating a summary line.
 	"""
 
+	option_spec = {"meta": flag}
+
 	def run(self) -> List[nodes.Node]:
 		"""
 		Process the content of the directive.
@@ -121,6 +137,15 @@ class DocumentationSummaryDirective(SphinxDirective):
 		onlynode += content_node
 		self.state.nested_parse(ViewList([content]), self.content_offset, content_node)  # type: ignore
 		summary_node_purger.add_node(self.env, content_node, content_node, self.lineno)
+
+		if "meta" in self.options:
+			meta_content = f'.. meta::\n    :description: {self.config.project} -- {summary}\n'
+			meta_node = nodes.paragraph(rawsource=meta_content, ids=[targetid])
+			onlynode += meta_node
+			self.state.nested_parse(
+					ViewList(meta_content.split('\n')), self.content_offset, meta_node
+					)  # type: ignore
+			summary_node_purger.add_node(self.env, meta_node, meta_node, self.lineno)
 
 		return [onlynode]
 
