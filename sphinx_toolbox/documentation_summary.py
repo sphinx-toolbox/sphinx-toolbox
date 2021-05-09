@@ -113,13 +113,13 @@ class DocumentationSummaryDirective(SphinxDirective):
 
 		targetid = f'documentation-summary-{self.env.new_serialno("documentation-summary"):d}'
 
-		content = f'**{summary}**'
 		onlynode = addnodes.only(expr="html")
-		targetnode = nodes.paragraph(rawsource=f'**{summary}**', ids=[targetid])
-		onlynode += targetnode
-		self.state.nested_parse(ViewList([content]), self.content_offset, targetnode)  # type: ignore
 
-		summary_node_purger.add_node(self.env, targetnode, targetnode, self.lineno)
+		content = f'**{summary}**'
+		content_node = nodes.paragraph(rawsource=content, ids=[targetid])
+		onlynode += content_node
+		self.state.nested_parse(ViewList([content]), self.content_offset, content_node)  # type: ignore
+		summary_node_purger.add_node(self.env, content_node, content_node, self.lineno)
 
 		return [onlynode]
 
