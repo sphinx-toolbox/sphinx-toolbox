@@ -71,6 +71,7 @@ from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
 from sphinx.util.docutils import SphinxDirective
+from sphinx.util.smartypants import educateQuotes
 
 # this package
 from sphinx_toolbox.utils import Purger, SphinxExtMetadata, metadata_add_version
@@ -160,9 +161,9 @@ def configure(app: Sphinx, config: Config):
 			126: r"\textasciitilde",
 			})
 
-	# TODO: excape backslashes without breaking the LaTeX commands
+	# TODO: escape backslashes without breaking the LaTeX commands
 
-	summary_command = rf"\newcommand{{\thesummary}}{{{summary}}}"
+	summary_command = rf"\newcommand{{\thesummary}}{{{educateQuotes(summary)}}}"
 
 	if summary_command not in latex_preamble:
 		config.latex_elements["preamble"] = '\n'.join([

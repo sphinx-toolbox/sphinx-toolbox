@@ -36,7 +36,7 @@ all_typevars = True
 no_unbound_typevars = False
 
 overloads_location = "bottom"
-documentation_summary = "   This is an awesome tool! 🚀 ~ intersphinx_mapping # {{ jinja2 }} 100%"
+documentation_summary = "   This is an awesome tool! 🚀 ~ intersphinx_mapping # {{ jinja2 }} 100% 'Quotes'"
 
 
 def setup(app):
