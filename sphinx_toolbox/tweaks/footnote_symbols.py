@@ -19,6 +19,9 @@ Tweak which monkeypatches docutils to use the following symbols for footnotes:
 With some themes the superscript asterisk becomes very hard to see.
 
 .. versionadded:: 2.7.0
+.. extensions:: sphinx_toolbox.tweaks.footnote_symbols
+
+-----
 
 """  # noqa: D400
 #

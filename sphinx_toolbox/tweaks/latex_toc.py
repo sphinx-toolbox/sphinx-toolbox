@@ -8,8 +8,9 @@ Adjusts the default LaTeX output as follows:
 * The PDF outline has the correct hierarchy, including having the indices as top-level elements.
 
 .. versionadded:: 2.1.0
-
 .. extensions:: sphinx_toolbox.tweaks.latex_toc
+
+-----
 
 """  # noqa: D400
 #

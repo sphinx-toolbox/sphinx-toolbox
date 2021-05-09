@@ -8,6 +8,10 @@ to fix a CSS conflict with :github:repo:`executablebooks/sphinx-panels`.
 Fix for :github:issue:`51 <executablebooks/sphinx-panels>`.
 
 .. versionadded:: 1.9.0
+.. extensions:: sphinx_toolbox.tweaks.sphinx_panels_tabs
+
+-----
+
 """  # noqa: D400
 #
 #  Copyright © 2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
