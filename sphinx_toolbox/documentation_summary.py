@@ -80,7 +80,7 @@ from typing import List
 
 # 3rd party
 from docutils import nodes
-from docutils.statemachine import ViewList
+from docutils.statemachine import StringList
 from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
@@ -135,7 +135,7 @@ class DocumentationSummaryDirective(SphinxDirective):
 		content = f'**{summary}**'
 		content_node = nodes.paragraph(rawsource=content, ids=[targetid])
 		onlynode += content_node
-		self.state.nested_parse(ViewList([content]), self.content_offset, content_node)  # type: ignore
+		self.state.nested_parse(StringList([content]), self.content_offset, content_node)
 		summary_node_purger.add_node(self.env, content_node, content_node, self.lineno)
 
 		if "meta" in self.options:
@@ -143,8 +143,10 @@ class DocumentationSummaryDirective(SphinxDirective):
 			meta_node = nodes.paragraph(rawsource=meta_content, ids=[targetid])
 			onlynode += meta_node
 			self.state.nested_parse(
-					ViewList(meta_content.split('\n')), self.content_offset, meta_node
-					)  # type: ignore
+					StringList(meta_content.split('\n')),
+					self.content_offset,
+					meta_node,
+					)
 			summary_node_purger.add_node(self.env, meta_node, meta_node, self.lineno)
 
 		return [onlynode]
