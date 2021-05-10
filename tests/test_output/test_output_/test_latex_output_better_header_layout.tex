@@ -53,6 +53,9 @@
 
 
 \usepackage[Bjarne]{fncychap}
+\ChNameAsIs
+\ChTitleAsIs
+
 \usepackage{sphinx}
 
 \fvset{fontsize=\small}
@@ -88,6 +91,27 @@
 \makeatother
 
 \usepackage[]{bookmark}
+
+% begin st better header layout
+\makeatletter
+	\renewcommand{\DOCH}{%
+		\mghrulefill{\RW}\par\nobreak
+		\CNV\FmN{\@chapapp}\par\nobreak
+		\CNoV\TheAlphaChapter\par\nobreak
+		\vskip -1\baselineskip\vskip 5pt\mghrulefill{\RW}\par\nobreak
+		\vskip 10\p@
+		}
+	\renewcommand{\DOTI}[1]{%
+		\CTV\FmTi{#1}\par\nobreak
+		\vskip 9\p@
+		}
+	\renewcommand{\DOTIS}[1]{%
+		\CTV\FmTi{#1}\par\nobreak
+		\vskip 19\p@
+		}
+\makeatother
+% end st better header layout
+
 
 \title{Python}
 \date{Mar 11, 2021}

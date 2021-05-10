@@ -13,6 +13,7 @@ from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 
 # this package
+from sphinx_toolbox.latex import better_header_layout
 from sphinx_toolbox.testing import HTMLRegressionFixture, remove_html_footer, remove_html_link_tags
 
 
@@ -201,6 +202,43 @@ def test_latex_output(app, advanced_file_regression: AdvancedFileRegressionFixtu
 
 	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')") as w:
 		app.build()
+
+	output_file = PathPlus(app.outdir / "python.tex")
+	content = StringList(output_file.read_lines())
+	advanced_file_regression.check(
+			re.sub(r"\\date{.*}", r"\\date{Mar 11, 2021}", str(content)),
+			extension=".tex",
+			)
+
+
+@pytest.mark.sphinx("latex", srcdir="test-root")
+def test_latex_output_latex_layout(app, advanced_file_regression: AdvancedFileRegressionFixture):
+
+	assert app.builder.name.lower() == "latex"
+
+	app.setup_extension("sphinx_toolbox.tweaks.latex_layout")
+
+	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')") as w:
+		app.build(force_all=True)
+
+	output_file = PathPlus(app.outdir / "python.tex")
+	content = StringList(output_file.read_lines())
+	advanced_file_regression.check(
+			re.sub(r"\\date{.*}", r"\\date{Mar 11, 2021}", str(content)),
+			extension=".tex",
+			)
+
+
+@pytest.mark.sphinx("latex", srcdir="test-root")
+def test_latex_output_better_header_layout(app, advanced_file_regression: AdvancedFileRegressionFixture):
+
+	assert app.builder.name.lower() == "latex"
+
+	better_header_layout(app.config, 9, 19)
+	app.builder.context.update(app.config.latex_elements)
+
+	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')") as w:
+		app.build(force_all=True)
 
 	output_file = PathPlus(app.outdir / "python.tex")
 	content = StringList(output_file.read_lines())

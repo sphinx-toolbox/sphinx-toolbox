@@ -19,3 +19,8 @@
 
 	Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
 	regex
+
+.. function:: foo(bar, baz)
+
+	:param bar: Does something
+	:param baz: Does something else

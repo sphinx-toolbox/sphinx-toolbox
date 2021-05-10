@@ -78,6 +78,8 @@ API Reference
 #
 
 # stdlib
+import re
+from textwrap import dedent
 from typing import Optional, cast
 
 # 3rd party
@@ -98,6 +100,7 @@ __all__ = [
 		"ClearPageDirective",
 		"ClearDoublePageDirective",
 		"replace_unknown_unicode",
+		"better_header_layout",
 		"configure",
 		"setup",
 		]
@@ -293,6 +296,65 @@ def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None):
 	output_content = output_content.replace('μ', r"\textmu")
 
 	output_file.write_clean(output_content)
+
+
+def better_header_layout(
+		config: Config,
+		space_before: int = 10,
+		space_after: int = 20,
+		) -> None:
+	"""
+	Makes LaTeX chapter names lowercase, and adjusts the spacing above and below the chapter name.
+
+	.. versionadded:: 2.10.0
+
+	:param config: The Sphinx configuration object.
+	:param space_before: The space, in pixels, before the chapter name.
+	:param space_after: The space, in pixels, after the chapter name.
+	"""
+
+	begin = "% begin st better header layout"
+	end = "% end st better header layout"
+
+	commands = rf"""
+	{begin}
+	\makeatletter
+		\renewcommand{{\DOCH}}{{%
+			\mghrulefill{{\RW}}\par\nobreak
+			\CNV\FmN{{\@chapapp}}\par\nobreak
+			\CNoV\TheAlphaChapter\par\nobreak
+			\vskip -1\baselineskip\vskip 5pt\mghrulefill{{\RW}}\par\nobreak
+			\vskip 10\p@
+			}}
+		\renewcommand{{\DOTI}}[1]{{%
+			\CTV\FmTi{{#1}}\par\nobreak
+			\vskip {space_before}\p@
+			}}
+		\renewcommand{{\DOTIS}}[1]{{%
+			\CTV\FmTi{{#1}}\par\nobreak
+			\vskip {space_after}\p@
+			}}
+	\makeatother
+	{end}
+	"""
+
+	if not hasattr(config, "latex_elements") or not config.latex_elements:  # pragma: no cover
+		config.latex_elements = {}  # type: ignore
+
+	latex_preamble = config.latex_elements.get("preamble", '')
+
+	if begin in latex_preamble:
+		config.latex_elements["preamble"] = re.sub(
+				f"{begin}.*{end}",
+				dedent(commands),
+				latex_preamble,
+				count=1,
+				flags=re.DOTALL,
+				)
+	else:
+		config.latex_elements["preamble"] = f"{latex_preamble}\n{dedent(commands)}"
+
+	config.latex_elements["fncychap"] = "\\usepackage[Bjarne]{fncychap}\n\\ChNameAsIs\n\\ChTitleAsIs\n"
 
 
 def configure(app: Sphinx, config: Config):
