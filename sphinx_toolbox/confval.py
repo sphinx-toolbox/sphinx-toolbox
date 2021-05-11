@@ -140,7 +140,7 @@ class ConfigurationValue(GenericObject):
 		Process the content of the directive.
 		"""
 
-		content = []
+		content: List[str] = []
 
 		if self.options and set(self.options.keys()) != {"noindex"}:
 			content.extend(('', ".. raw:: latex", '', r"    \vspace{-45px}", ''))
