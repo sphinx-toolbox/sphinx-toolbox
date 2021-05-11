@@ -61,9 +61,15 @@ autodoc_default_options = {
 		"exclude-members": ','.join(config["autodoc_exclude_members"]),
 		}
 
-latex_elements = {
-		"fncychap": "\\usepackage[Bjarne]{fncychap}\n\\ChNameAsIs\n\\ChTitleAsIs\n",
-		}
+latex_elements = {}
+
+
+def setup(app):
+	# 3rd party
+	from sphinx_toolbox.latex import better_header_layout
+
+	app.connect("config-inited", lambda app, config: better_header_layout(config))
+
 
 html_logo = "../sphinx_toolbox.png"
 toctree_plus_types.add("fixture")
