@@ -10,6 +10,7 @@
 	formatting
 	footnote_symbols
 	latex
+	regex
 	github
 
 

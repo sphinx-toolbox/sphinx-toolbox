@@ -149,5 +149,5 @@ def test_setup():
 
 	assert app.registry.documenters["regex"] == regex.RegexDocumenter
 
-	assert app.events.listeners == {}
+	assert app.events.listeners == {"config-inited": [EventListener(0, regex.configure, 500)]}
 	assert app.registry.css_files == []

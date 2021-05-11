@@ -79,6 +79,16 @@
 \definecolor{nbsphinxin}{HTML}{307FC1}
 \definecolor{nbsphinxout}{HTML}{BF5B3D}
 \usepackage[symbol]{footmisc}
+
+\definecolor{regex_literal}{HTML}{696969}
+\definecolor{regex_at}{HTML}{FF4500}
+\definecolor{regex_repeat_brace}{HTML}{FF4500}
+\definecolor{regex_branch}{HTML}{FF4500}
+\definecolor{regex_subpattern}{HTML}{1e90ff}
+\definecolor{regex_in}{HTML}{ff8c00}
+\definecolor{regex_category}{HTML}{8fbc8f}
+\definecolor{regex_repeat}{HTML}{FF4500}
+\definecolor{regex_any}{HTML}{FF4500}
 \newcommand{\thesummary}{This is an awesome tool! 🚀 \textasciitilde\space intersphinx\_mapping \# \{\{ jinja2 \}\} 100\% ‘Quotes’}
 
 \makeatletter
@@ -731,6 +741,262 @@ The \hspace{0pt}following \hspace{0pt}characters \hspace{0pt}are \hspace{0pt}pro
 \vspace{30mm}
 
 Goodbyeee!
+
+
+\chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} Regex}
+\label{\detokenize{regex:module-sphinx_toolbox.utils}}\label{\detokenize{regex:sphinx-toolbox-demo-regex}}\label{\detokenize{regex::doc}}\index{module@\spxentry{module}!sphinx\_toolbox.utils@\spxentry{sphinx\_toolbox.utils}}\index{sphinx\_toolbox.utils@\spxentry{sphinx\_toolbox.utils}!module@\spxentry{module}}
+General utility functions.
+\index{untyped\_param\_regex (in module sphinx\_toolbox.utils)@\spxentry{untyped\_param\_regex}\spxextra{in module sphinx\_toolbox.utils}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{regex:sphinx_toolbox.utils.untyped_param_regex}}\pysigline{\sphinxcode{\sphinxupquote{sphinx\_toolbox.utils.}}\sphinxbfcode{\sphinxupquote{untyped\_param\_regex}}}
+\sphinxstylestrong{Type:}    \sphinxcode{\sphinxupquote{Pattern}}{[}\sphinxcode{\sphinxupquote{str}}{]}
+
+Regex to match \sphinxcode{\sphinxupquote{:param \textless{}name\textgreater{}: \textless{}docstring\textgreater{}}} flags.
+
+\DUrole{versionmodified,added}{New in version 0.8.0.}
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabulary}{\linewidth}[t]{|T|T|}
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&
+\sphinxcode{\sphinxupquote{\textcolor{regex_at}{\textasciicircum{}}\textcolor{regex_literal}{:}\textcolor{regex_subpattern}{(}\textcolor{regex_literal}{p}\textcolor{regex_literal}{a}\textcolor{regex_literal}{r}\textcolor{regex_literal}{a}\textcolor{regex_literal}{m}\textcolor{regex_branch}{|}\textcolor{regex_literal}{p}\textcolor{regex_literal}{a}\textcolor{regex_literal}{r}\textcolor{regex_literal}{a}\textcolor{regex_literal}{m}\textcolor{regex_literal}{e}\textcolor{regex_literal}{t}\textcolor{regex_literal}{e}\textcolor{regex_literal}{r}\textcolor{regex_branch}{|}\textcolor{regex_literal}{a}\textcolor{regex_literal}{r}\textcolor{regex_literal}{g}\textcolor{regex_branch}{|}\textcolor{regex_literal}{a}\textcolor{regex_literal}{r}\textcolor{regex_literal}{g}\textcolor{regex_literal}{u}\textcolor{regex_literal}{m}\textcolor{regex_literal}{e}\textcolor{regex_literal}{n}\textcolor{regex_literal}{t}\textcolor{regex_subpattern}{)}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{(}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_category}{\textbackslash{}w}\textcolor{regex_repeat}{*}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{:}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{(}\textcolor{regex_any}{.}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}}}
+\\
+\hline\sphinxstyletheadfamily
+\sphinxstylestrong{Flags}
+&
+\sphinxcode{\sphinxupquote{re.ASCII}}
+\\
+\hline
+\end{tabulary}
+\par
+\sphinxattableend\end{savenotes}
+
+\end{fulllineitems}
+
+\index{typed\_flag\_regex (in module sphinx\_toolbox.utils)@\spxentry{typed\_flag\_regex}\spxextra{in module sphinx\_toolbox.utils}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{regex:sphinx_toolbox.utils.typed_flag_regex}}\pysigline{\sphinxcode{\sphinxupquote{sphinx\_toolbox.utils.}}\sphinxbfcode{\sphinxupquote{typed\_flag\_regex}}}
+\sphinxstylestrong{Type:}    \sphinxcode{\sphinxupquote{Pattern}}{[}\sphinxcode{\sphinxupquote{str}}{]}
+
+Regex to match \sphinxcode{\sphinxupquote{:type \textless{}name\textgreater{}: \textless{}type\textgreater{}}} flags.
+
+\DUrole{versionmodified,added}{New in version 0.8.0.}
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabulary}{\linewidth}[t]{|T|T|}
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&
+\sphinxcode{\sphinxupquote{\textcolor{regex_at}{\textasciicircum{}}\textcolor{regex_literal}{:}\textcolor{regex_subpattern}{(}\textcolor{regex_literal}{p}\textcolor{regex_literal}{a}\textcolor{regex_literal}{r}\textcolor{regex_literal}{a}\textcolor{regex_literal}{m}\textcolor{regex_literal}{t}\textcolor{regex_literal}{y}\textcolor{regex_literal}{p}\textcolor{regex_literal}{e}\textcolor{regex_branch}{|}\textcolor{regex_literal}{t}\textcolor{regex_literal}{y}\textcolor{regex_literal}{p}\textcolor{regex_literal}{e}\textcolor{regex_subpattern}{)}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{(}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_category}{\textbackslash{}w}\textcolor{regex_repeat}{*}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{:}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{(}\textcolor{regex_any}{.}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}}}
+\\
+\hline\sphinxstyletheadfamily
+\sphinxstylestrong{Flags}
+&
+\sphinxcode{\sphinxupquote{re.ASCII}}
+\\
+\hline
+\end{tabulary}
+\par
+\sphinxattableend\end{savenotes}
+
+\end{fulllineitems}
+
+
+\sphinxcode{\sphinxupquote{\textcolor{regex_at}{\textasciicircum{}}\textcolor{regex_literal}{H}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{l}\textcolor{regex_literal}{o}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{+}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{W}\textcolor{regex_literal}{w}\textcolor{regex_in}{{]}}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{l}\textcolor{regex_literal}{d}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{.}\textcolor{regex_literal}{,}\textcolor{regex_in}{{]}}\textcolor{regex_subpattern}{(}\textcolor{regex_literal}{L}\textcolor{regex_literal}{o}\textcolor{regex_literal}{v}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{y}\textcolor{regex_branch}{|}\textcolor{regex_literal}{H}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{r}\textcolor{regex_literal}{i}\textcolor{regex_literal}{b}\textcolor{regex_literal}{l}\textcolor{regex_literal}{e}\textcolor{regex_subpattern}{)}\enspace\textcolor{regex_literal}{w}\textcolor{regex_literal}{e}\textcolor{regex_literal}{a}\textcolor{regex_literal}{t}\textcolor{regex_literal}{h}\textcolor{regex_literal}{e}\textcolor{regex_literal}{r}\textcolor{regex_literal}{,}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{s}\textcolor{regex_literal}{n}\textcolor{regex_literal}{\textquotesingle{}}\textcolor{regex_literal}{t}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{t}\enspace\textcolor{regex_subpattern}{(}\textcolor{regex_any}{.}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{?}}}
+\index{no\_flags (in module tests.regex\_demo)@\spxentry{no\_flags}\spxextra{in module tests.regex\_demo}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.no_flags}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{no\_flags}}}
+\sphinxstylestrong{Type:}    \sphinxcode{\sphinxupquote{Pattern}}
+
+Compiled regular expression object.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabulary}{\linewidth}[t]{|T|T|}
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&
+\sphinxcode{\sphinxupquote{\textcolor{regex_literal}{H}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{l}\textcolor{regex_literal}{o}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{+}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{W}\textcolor{regex_literal}{w}\textcolor{regex_in}{{]}}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{l}\textcolor{regex_literal}{d}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{.}\textcolor{regex_literal}{,}\textcolor{regex_in}{{]}}\textcolor{regex_subpattern}{(}\textcolor{regex_literal}{L}\textcolor{regex_literal}{o}\textcolor{regex_literal}{v}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{y}\textcolor{regex_branch}{|}\textcolor{regex_literal}{H}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{r}\textcolor{regex_literal}{i}\textcolor{regex_literal}{b}\textcolor{regex_literal}{l}\textcolor{regex_literal}{e}\textcolor{regex_subpattern}{)}\enspace\textcolor{regex_literal}{w}\textcolor{regex_literal}{e}\textcolor{regex_literal}{a}\textcolor{regex_literal}{t}\textcolor{regex_literal}{h}\textcolor{regex_literal}{e}\textcolor{regex_literal}{r}\textcolor{regex_literal}{,}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{s}\textcolor{regex_literal}{n}\textcolor{regex_literal}{\textquotesingle{}}\textcolor{regex_literal}{t}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{t}\enspace\textcolor{regex_subpattern}{(}\textcolor{regex_any}{.}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{?}}}
+\\
+\hline
+\end{tabulary}
+\par
+\sphinxattableend\end{savenotes}
+
+\end{fulllineitems}
+
+\index{one\_flag (in module tests.regex\_demo)@\spxentry{one\_flag}\spxextra{in module tests.regex\_demo}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.one_flag}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{one\_flag}}}
+\sphinxstylestrong{Type:}    \sphinxcode{\sphinxupquote{Pattern}}
+
+Compiled regular expression object.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabulary}{\linewidth}[t]{|T|T|}
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&
+\sphinxcode{\sphinxupquote{\textcolor{regex_literal}{H}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{l}\textcolor{regex_literal}{o}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{+}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{W}\textcolor{regex_literal}{w}\textcolor{regex_in}{{]}}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{l}\textcolor{regex_literal}{d}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{.}\textcolor{regex_literal}{,}\textcolor{regex_in}{{]}}\textcolor{regex_subpattern}{(}\textcolor{regex_literal}{L}\textcolor{regex_literal}{o}\textcolor{regex_literal}{v}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{y}\textcolor{regex_branch}{|}\textcolor{regex_literal}{H}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{r}\textcolor{regex_literal}{i}\textcolor{regex_literal}{b}\textcolor{regex_literal}{l}\textcolor{regex_literal}{e}\textcolor{regex_subpattern}{)}\enspace\textcolor{regex_literal}{w}\textcolor{regex_literal}{e}\textcolor{regex_literal}{a}\textcolor{regex_literal}{t}\textcolor{regex_literal}{h}\textcolor{regex_literal}{e}\textcolor{regex_literal}{r}\textcolor{regex_literal}{,}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{s}\textcolor{regex_literal}{n}\textcolor{regex_literal}{\textquotesingle{}}\textcolor{regex_literal}{t}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{t}\enspace\textcolor{regex_subpattern}{(}\textcolor{regex_any}{.}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{?}}}
+\\
+\hline\sphinxstyletheadfamily
+\sphinxstylestrong{Flags}
+&
+\sphinxcode{\sphinxupquote{re.IGNORECASE}}
+\\
+\hline
+\end{tabulary}
+\par
+\sphinxattableend\end{savenotes}
+
+\end{fulllineitems}
+
+\index{two\_flags (in module tests.regex\_demo)@\spxentry{two\_flags}\spxextra{in module tests.regex\_demo}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.two_flags}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{two\_flags}}}
+\sphinxstylestrong{Type:}    \sphinxcode{\sphinxupquote{Pattern}}
+
+Compiled regular expression object.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabulary}{\linewidth}[t]{|T|T|}
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&
+\sphinxcode{\sphinxupquote{\textcolor{regex_literal}{H}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{l}\textcolor{regex_literal}{o}\enspace\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{+}\enspace\textcolor{regex_in}{{[}}\textcolor{regex_literal}{W}\textcolor{regex_literal}{w}\textcolor{regex_in}{{]}}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{l}\textcolor{regex_literal}{d}\enspace\textcolor{regex_in}{{[}}\textcolor{regex_literal}{.}\textcolor{regex_literal}{,}\textcolor{regex_in}{{]}}\enspace\textcolor{regex_subpattern}{(}\textcolor{regex_literal}{L}\textcolor{regex_literal}{o}\textcolor{regex_literal}{v}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{y}\textcolor{regex_branch}{|}\textcolor{regex_literal}{H}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{r}\textcolor{regex_literal}{i}\textcolor{regex_literal}{b}\textcolor{regex_literal}{l}\textcolor{regex_literal}{e}\textcolor{regex_subpattern}{)}\enspace\textcolor{regex_literal}{w}\textcolor{regex_literal}{e}\textcolor{regex_literal}{a}\textcolor{regex_literal}{t}\textcolor{regex_literal}{h}\textcolor{regex_literal}{e}\textcolor{regex_literal}{r}\textcolor{regex_literal}{,}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{s}\textcolor{regex_literal}{n}\textcolor{regex_literal}{\textquotesingle{}}\textcolor{regex_literal}{t}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{t}\enspace\textcolor{regex_subpattern}{(}\textcolor{regex_any}{.}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}\enspace\textcolor{regex_literal}{?}}}
+\\
+\hline\sphinxstyletheadfamily
+\sphinxstylestrong{Flags}
+&
+\sphinxcode{\sphinxupquote{re.ASCII}}
+\\
+\hline
+\end{tabulary}
+\par
+\sphinxattableend\end{savenotes}
+
+\end{fulllineitems}
+
+\index{backticks (in module tests.regex\_demo)@\spxentry{backticks}\spxextra{in module tests.regex\_demo}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.backticks}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{backticks}}}
+\sphinxstylestrong{Type:}    \sphinxcode{\sphinxupquote{Pattern}}
+
+Compiled regular expression object.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabulary}{\linewidth}[t]{|T|T|}
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&
+\sphinxcode{\sphinxupquote{\textcolor{regex_literal}{:}\textcolor{regex_literal}{p}\textcolor{regex_literal}{y}\textcolor{regex_literal}{:}\textcolor{regex_literal}{c}\textcolor{regex_literal}{l}\textcolor{regex_literal}{a}\textcolor{regex_literal}{s}\textcolor{regex_literal}{s}\textcolor{regex_literal}{:}\textcolor{regex_literal}{\textasciigrave{}}\textcolor{regex_subpattern}{(}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{0}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{9}\textcolor{regex_literal}{.}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_repeat}{+}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{\textasciigrave{}}}}
+\\
+\hline
+\end{tabulary}
+\par
+\sphinxattableend\end{savenotes}
+
+\end{fulllineitems}
+
+\index{leading\_whitespace (in module tests.regex\_demo)@\spxentry{leading\_whitespace}\spxextra{in module tests.regex\_demo}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.leading_whitespace}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{leading\_whitespace}}}
+\sphinxstylestrong{Type:}    \sphinxcode{\sphinxupquote{Pattern}}
+
+Compiled regular expression object.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabulary}{\linewidth}[t]{|T|T|}
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&
+\sphinxcode{\sphinxupquote{\textcolor{regex_in}{{[}}\enspace\textcolor{regex_in}{{]}}\textcolor{regex_literal}{3}\textcolor{regex_literal}{:}\textcolor{regex_literal}{p}\textcolor{regex_literal}{y}\textcolor{regex_literal}{:}\textcolor{regex_literal}{c}\textcolor{regex_literal}{l}\textcolor{regex_literal}{a}\textcolor{regex_literal}{s}\textcolor{regex_literal}{s}\textcolor{regex_literal}{:}\textcolor{regex_literal}{\textasciigrave{}}\textcolor{regex_subpattern}{(}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{0}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{9}\textcolor{regex_literal}{.}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_repeat}{+}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{\textasciigrave{}}}}
+\\
+\hline
+\end{tabulary}
+\par
+\sphinxattableend\end{savenotes}
+
+\end{fulllineitems}
+
+\index{trailing\_whitespace (in module tests.regex\_demo)@\spxentry{trailing\_whitespace}\spxextra{in module tests.regex\_demo}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.trailing_whitespace}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{trailing\_whitespace}}}
+\sphinxstylestrong{Type:}    \sphinxcode{\sphinxupquote{Pattern}}
+
+Compiled regular expression object.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabulary}{\linewidth}[t]{|T|T|}
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&
+\sphinxcode{\sphinxupquote{\textcolor{regex_literal}{:}\textcolor{regex_literal}{p}\textcolor{regex_literal}{y}\textcolor{regex_literal}{:}\textcolor{regex_literal}{c}\textcolor{regex_literal}{l}\textcolor{regex_literal}{a}\textcolor{regex_literal}{s}\textcolor{regex_literal}{s}\textcolor{regex_literal}{:}\textcolor{regex_literal}{\textasciigrave{}}\textcolor{regex_subpattern}{(}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{0}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{9}\textcolor{regex_literal}{.}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_repeat}{+}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{\textasciigrave{}}\enspace\textcolor{regex_literal}{3}}}
+\\
+\hline
+\end{tabulary}
+\par
+\sphinxattableend\end{savenotes}
+
+\end{fulllineitems}
+
+\index{single\_whitespace (in module tests.regex\_demo)@\spxentry{single\_whitespace}\spxextra{in module tests.regex\_demo}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.single_whitespace}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{single\_whitespace}}}
+\sphinxstylestrong{Type:}    \sphinxcode{\sphinxupquote{Pattern}}
+
+Compiled regular expression object.
+
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabulary}{\linewidth}[t]{|T|T|}
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&
+\sphinxcode{\sphinxupquote{\textcolor{regex_in}{{[}}\enspace\textcolor{regex_in}{{]}}\textcolor{regex_literal}{:}\textcolor{regex_literal}{p}\textcolor{regex_literal}{y}\textcolor{regex_literal}{:}\textcolor{regex_literal}{c}\textcolor{regex_literal}{l}\textcolor{regex_literal}{a}\textcolor{regex_literal}{s}\textcolor{regex_literal}{s}\textcolor{regex_literal}{:}\textcolor{regex_literal}{\textasciigrave{}}\textcolor{regex_subpattern}{(}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{0}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{9}\textcolor{regex_literal}{.}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_repeat}{+}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{\textasciigrave{}}\textcolor{regex_in}{{[}}\enspace\textcolor{regex_in}{{]}}}}
+\\
+\hline
+\end{tabulary}
+\par
+\sphinxattableend\end{savenotes}
+
+\end{fulllineitems}
+
 
 
 \chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} GitHub}

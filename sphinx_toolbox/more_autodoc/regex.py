@@ -53,6 +53,8 @@ Usage
 
 		:regex:`^Hello\s+[Ww]orld[.,](Lovely|Horrible) weather, isn't it (.*)?`
 
+	.. versionchanged:: 2.11.0  Now generates coloured output with the LaTeX builder.
+
 """
 #
 #  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -142,8 +144,11 @@ from consolekit.terminal_colours import Fore
 from docutils import nodes
 from docutils.nodes import Node, system_message
 from domdf_python_tools.paths import PathPlus
+from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
+from sphinx.config import Config
 from sphinx.ext.autodoc import UNINITIALIZED_ATTR, ModuleDocumenter
+from sphinx.util import texescape
 from sphinx.util.docutils import SphinxRole
 from sphinx.writers.html import HTMLTranslator
 
@@ -157,9 +162,11 @@ __all__ = [
 		"RegexParser",
 		"TerminalRegexParser",
 		"HTMLRegexParser",
+		"LaTeXRegexParser",
 		"parse_regex_flags",
 		"no_formatting",
 		"span",
+		"latex_textcolor",
 		"copy_asset_files",
 		"setup",
 		]
@@ -560,6 +567,23 @@ def span(css_class: str) -> Callable[[Any], str]:
 	return f
 
 
+def latex_textcolor(colour_name: str) -> Callable[[Any], str]:
+	"""
+	Returns a function that wraps a value in a LaTeX ``textcolor`` command for the given colour.
+
+	.. versionadded:: 2.11.0
+
+	:param colour_name:
+	"""
+
+	def f(value: Any) -> str:
+		if value == ' ':
+			return "\\enspace"
+		return f'\\textcolor{{{colour_name}}}{{{texescape.escape(value)}}}'
+
+	return f
+
+
 class HTMLRegexParser(RegexParser):
 	r"""
 	:class:`~.RegexParser` that outputs styled HTML.
@@ -607,6 +631,47 @@ class HTMLRegexParser(RegexParser):
 		</code>
 		"""
 				)
+
+
+class LaTeXRegexParser(RegexParser):
+	r"""
+	:class:`~.RegexParser` that outputs styled LaTeX.
+
+	The formatting is controlled by the following functions, which
+	wrap the character in a LaTeX ``textcolor`` command for an appropriate colour:
+
+	* ``AT_COLOUR`` -> ``regex_at`` -- Used for e.g. :regex:`^\A\b\B\Z$`
+	* ``SUBPATTERN_COLOUR`` -> ``regex_subpattern`` -- Used for the parentheses around subpatterns, e.g. :regex:`(Hello) World`
+	* ``IN_COLOUR`` -> ``regex_in`` -- Used for the square brackets around character sets, e.g. :regex:`[Hh]ello`
+	* ``REPEAT_COLOUR`` -> ``regex_repeat`` -- Used for repeats, e.g. :regex:`A?B+C*D{2,4}E{5}`
+	* ``REPEAT_BRACE_COLOUR`` -> ``regex_repeat_brace`` -- Used for the braces around numerical repeats.
+	* ``CATEGORY_COLOUR`` -> ``regex_category`` -- Used for categories, e.g. :regex:`\d\D\s\D\w\W`
+	* ``BRANCH_COLOUR`` -> ``regex_branch`` -- Used for branches, e.g. :regex:`(Lovely|Horrible) Weather`
+	* ``LITERAL_COLOUR`` -> ``regex_literal`` -- Used for literal characters.
+	* ``ANY_COLOUR`` -> ``regex_any`` -- Used for the "any" dot.
+
+	.. versionadded:: 2.11.0
+	"""
+
+	# Colours
+	AT_COLOUR = latex_textcolor("regex_at")
+	SUBPATTERN_COLOUR = latex_textcolor("regex_subpattern")
+	IN_COLOUR = latex_textcolor("regex_in")
+	REPEAT_COLOUR = latex_textcolor("regex_repeat")
+	REPEAT_BRACE_COLOUR = latex_textcolor("regex_repeat_brace")
+	CATEGORY_COLOUR = latex_textcolor("regex_category")
+	BRANCH_COLOUR = latex_textcolor("regex_branch")
+	LITERAL_COLOUR = latex_textcolor("regex_literal")
+	ANY_COLOUR = latex_textcolor("regex_any")
+
+	def parse_pattern(self, regex: Pattern) -> str:
+		"""
+		Parse the given regular expression and return the formatted pattern.
+
+		:param regex:
+		"""
+
+		return f"\\sphinxcode{{\\sphinxupquote{{{super().parse_pattern(regex)}}}}}"
 
 
 class TerminalRegexParser(RegexParser):
@@ -687,6 +752,32 @@ def depart_regex_node(translator: HTMLTranslator, node: RegexNode):
 	translator.body.pop(-1)
 
 
+def visit_regex_node_latex(translator: HTMLTranslator, node: RegexNode):
+	"""
+	Visit an :class:`~.RegexNode` with the LaTeX builder.
+
+	.. versionadded:: 2.11.0
+
+	:param translator:
+	:param node: The node being visited.
+	"""
+
+	translator.body.append(latex_regex_parser.parse_pattern(node.pattern))
+
+
+def depart_regex_node_latex(translator: HTMLTranslator, node: RegexNode):
+	"""
+	Depart an :class:`~.RegexNode` with the LaTeX builder.
+
+	.. versionadded:: 2.11.0
+
+	:param translator:
+	:param node: The node being visited.
+	"""
+
+	translator.body.pop(-1)
+
+
 def copy_asset_files(app: Sphinx, exception: Exception = None):
 	"""
 	Copy additional stylesheets into the HTML build directory.
@@ -707,6 +798,35 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 
 
 regex_parser = HTMLRegexParser()
+latex_regex_parser = LaTeXRegexParser()
+
+
+def configure(app: Sphinx, config: Config):
+	"""
+	Configure :mod:`sphinx_toolbox.code`.
+
+	.. versionadded:: 2.11.0
+
+	:param app: The Sphinx application.
+	:param config:
+	"""
+
+	latex_elements = getattr(app.config, "latex_elements", {})  # type: ignore
+
+	latex_preamble = StringList(latex_elements.get("preamble", ''))
+	latex_preamble.blankline()
+	latex_preamble.append(r"\definecolor{regex_literal}{HTML}{696969}")
+	latex_preamble.append(r"\definecolor{regex_at}{HTML}{FF4500}")
+	latex_preamble.append(r"\definecolor{regex_repeat_brace}{HTML}{FF4500}")
+	latex_preamble.append(r"\definecolor{regex_branch}{HTML}{FF4500}")
+	latex_preamble.append(r"\definecolor{regex_subpattern}{HTML}{1e90ff}")
+	latex_preamble.append(r"\definecolor{regex_in}{HTML}{ff8c00}")
+	latex_preamble.append(r"\definecolor{regex_category}{HTML}{8fbc8f}")
+	latex_preamble.append(r"\definecolor{regex_repeat}{HTML}{FF4500}")
+	latex_preamble.append(r"\definecolor{regex_any}{HTML}{FF4500}")
+
+	latex_elements["preamble"] = str(latex_preamble)
+	app.config.latex_elements = latex_elements  # type: ignore
 
 
 @metadata_add_version
@@ -720,9 +840,15 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("sphinx.ext.autodoc")
 	app.setup_extension("sphinx_toolbox._css")
 
+	app.connect("config-inited", configure)
+
 	app.add_autodocumenter(RegexDocumenter)
 
 	app.add_role("regex", Regex())
-	app.add_node(RegexNode, html=(visit_regex_node, depart_regex_node))
+	app.add_node(
+			RegexNode,
+			html=(visit_regex_node, depart_regex_node),
+			latex=(visit_regex_node_latex, depart_regex_node_latex)
+			)
 
 	return {"parallel_read_safe": True}
