@@ -5,6 +5,7 @@
 
 	installation
 	collapse
+	confval
 	code-block
 	formatting
 	footnote_symbols

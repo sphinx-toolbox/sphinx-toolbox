@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  confval.py
-"""
+r"""
 The confval directive and role for configuration values.
 
 .. extensions:: sphinx_toolbox.confval
@@ -12,6 +12,10 @@ Usage
 .. rst:directive:: .. confval:: [name]
 
 	Used to document a configuration value.
+
+	.. raw:: latex
+
+		\begin{multicols}{2}
 
 	.. rst:directive:option:: type
 		:type: string
@@ -28,27 +32,35 @@ Usage
 
 		Indicates the default value.
 
+	.. rst:directive:option:: noindex
+		:type: flag
 
-	**Example:**
+		Disables the index entry and cross-referencing for this configuration value.
 
-	.. rest-example::
+		.. versionadded:: 2.11.0
 
-		.. confval:: demo
-			:type: string
-			:default: ``"Hello World"``
-			:required: False
+	.. raw:: latex
 
+		\end{multicols}
 
 
 .. rst:role:: confval
 
 	Role which provides a cross-reference to a :rst:dir:`confval` directive.
 
-	**Example:**
 
-	.. rest-example::
+**Examples:**
 
-		:confval:`demo`
+.. rest-example::
+
+	.. confval:: demo
+		:type: string
+		:default: ``"Hello World"``
+		:required: False
+
+.. rest-example::
+
+	To enable this feature set the :confval:`demo` configuration value to "True".
 
 
 
@@ -96,7 +108,7 @@ from sphinx.errors import ExtensionError
 from sphinx.roles import XRefRole
 
 # this package
-from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, metadata_add_version
+from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = ["ConfigurationValue", "register_confval", "setup"]
 
@@ -109,12 +121,18 @@ class ConfigurationValue(GenericObject):
 
 		The formatting of the type, required and default options can be customised
 		using the ``self.format_*`` methods.
+
+	.. versionchanged:: 2.11.0
+
+		Added the ``:noindex:`` option, which disables the index entry
+		and cross-referencing for this configuration value.
 	"""
 
 	option_spec: OptionSpec = {  # type: ignore
 		"type": directives.unchanged_required,
 		"required": directives.unchanged_required,
 		"default": directives.unchanged_required,
+		"noindex": flag,
 		}
 
 	def run(self) -> List[Node]:
@@ -124,6 +142,9 @@ class ConfigurationValue(GenericObject):
 
 		content = []
 
+		if self.options and set(self.options.keys()) != {"noindex"}:
+			content.extend(('', ".. raw:: latex", '', r"    \vspace{-45px}", ''))
+
 		if "type" in self.options:
 			content.append(f"| **Type:** {self.format_type(self.options['type'])}")
 		if "required" in self.options:
@@ -131,7 +152,18 @@ class ConfigurationValue(GenericObject):
 		if "default" in self.options:
 			content.append(f"| **Default:** {self.format_default(self.options['default'])}")
 
-		self.content = StringList(['', *content, '', *self.content])
+		if self.content:
+
+			content.extend((
+					'',
+					".. raw:: latex",
+					'',
+					r"    \vspace{-25px}",
+					'',
+					))
+			content.extend(self.content)
+
+		self.content = StringList(content)
 
 		return super().run()
 

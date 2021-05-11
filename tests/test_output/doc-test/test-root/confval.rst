@@ -16,7 +16,6 @@ Confval
 	:type: :class:`str`
 	:required: True
 
-	The username of the GitHub account that owns the repository this documentation corresponds to.
 
 .. confval:: github_repository
 	:type: :class:`str`
@@ -29,3 +28,17 @@ Confval
 	:required: True
 
 	The GitHub repository this documentation corresponds to.
+
+
+.. confval:: github_repository
+	:type: :class:`str`
+	:noindex:
+
+	This is a duplicate with ``:noindex:`` set.
+
+This is an xref to the :confval:`github_repository` configuration option.
+
+
+.. confval:: something
+
+	A configuration value.
