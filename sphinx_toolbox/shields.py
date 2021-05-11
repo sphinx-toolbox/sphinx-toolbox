@@ -356,9 +356,7 @@ Shields
 
 			.. pre-commit-ci-shield::
 
-.. raw:: latex
-
-	\vspace{5mm}
+.. latex:vspace:: 5mm
 
 """  # noqa RST299,RST305
 #

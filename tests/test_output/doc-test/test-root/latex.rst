@@ -22,4 +22,32 @@ The ​following ​characters ​are ​problematic ​in ​LaTeX:
 
 .. clearpage::
 
+Hello
+
+.. latex:clearpage::
+
+.. latex:samepage::
+
+	Content under the samepage directive
+
+	.. figure:: https://avatars.githubusercontent.com/u/75883961
+
+.. latex:vspace:: -5px
+
+.. latex:cleardoublepage::
+
+The ​following ​characters ​are ​problematic ​in ​LaTeX:
+
+* ♠
+* ♥
+* ♦
+* ♣
+* μ
+
+.. latex:vspace:: 10px
+
+.. latex:clearpage::
+
+.. latex:vspace:: 30mm
+
 Goodbyeee!

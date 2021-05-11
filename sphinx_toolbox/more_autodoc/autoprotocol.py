@@ -72,9 +72,7 @@ Usage
 	The objects being sorted must implement the :protocol:`~.HasGreaterThan` protocol.
 
 
-.. raw:: latex
-
-	\vspace{30px}
+.. latex:vspace:: 30px
 
 
 API Reference

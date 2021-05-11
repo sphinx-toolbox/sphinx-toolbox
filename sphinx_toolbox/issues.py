@@ -90,9 +90,7 @@ API Reference
 	* :func:`~.depart_issue_node`
 	* :func:`~.get_issue_title`
 
-.. raw:: latex
-
-	\vspace{10px}
+.. latex:vspace:: 10px
 
 """
 #

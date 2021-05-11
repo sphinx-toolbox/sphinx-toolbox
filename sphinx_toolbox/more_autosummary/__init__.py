@@ -24,9 +24,7 @@ and created a broken link..
 	falling back to :class:`~sphinx.ext.autodoc.DataDocumenter`.
 
 
-.. raw:: latex
-
-	\vspace{-10px}
+.. latex:vspace:: -10px
 
 
 Configuration
@@ -46,18 +44,14 @@ This applies not only to :rst:dir:`automodule` etc. directives,
 but also to :rst:dir:`automodulesumm` etc. directives.
 
 
-.. raw:: latex
-
-	\vspace{-10px}
+.. latex:vspace:: -10px
 
 
 API Reference
 ----------------
 
 
-.. raw:: latex
-
-	\vspace{-10px}
+.. latex:vspace:: -10px
 
 """
 #

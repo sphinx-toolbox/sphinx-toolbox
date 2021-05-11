@@ -8,17 +8,13 @@ Documenters for functions and methods which display overloads differently.
 .. extensions:: sphinx_toolbox.more_autodoc.overloads
 
 
-.. raw:: latex
-
-	\vspace{-10px}
+.. latex:vspace:: -10px
 
 
 Configuration
 ----------------
 
-.. raw:: latex
-
-	\vspace{-12px}
+.. latex:vspace:: -12px
 
 .. confval:: overloads_location
 	:type: :class:`str`
@@ -31,18 +27,14 @@ Configuration
 	* ``'bottom'`` -- Display overloads at the bottom of the docstring, or immediately below the return type.
 
 
-.. raw:: latex
-
-	\vspace{-10px}
+.. latex:vspace:: -10px
 
 
 API Reference
 ----------------
 
 
-.. raw:: latex
-
-	\vspace{-12px}
+.. latex:vspace:: -12px
 
 
 """  # noqa D400

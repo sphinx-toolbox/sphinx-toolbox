@@ -68,3 +68,4 @@ latex_elements = {
 html_logo = "../sphinx_toolbox.png"
 toctree_plus_types.add("fixture")
 sys.path.append(os.path.abspath(".."))
+latex_elements["preamble"] = r"\usepackage{multicol}"

@@ -414,9 +414,7 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 
 	.. versionadded:: 1.1.0
 
-	.. raw:: latex
-
-		\vspace{10px}
+	.. latex:vspace:: 10px
 
 	"""  # noqa D400
 

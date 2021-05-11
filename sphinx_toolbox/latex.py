@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  latex.py
-"""
+r"""
 Sphinx utilities for LaTeX builders.
 
 .. versionadded:: 2.8.0
@@ -17,7 +17,12 @@ which ensures they are handled correctly.
 Usage
 -------
 
-.. rst:directive:: .. samepage::
+.. raw:: latex
+
+	\begin{multicols}{2}
+
+.. rst:directive:: latex:samepage
+                   samepage
 
 	Configures LaTeX to make all content within this directive appear on the same page.
 
@@ -28,17 +33,19 @@ Usage
 	.. versionadded:: 2.9.0
 
 
-.. rst:directive:: .. clearpage::
+.. rst:directive:: latex:clearpage
+                   clearpage
 
 	Configures LaTeX to start a new page.
 
 	This directive has no effect with non-LaTeX builders.
 
 	.. versionadded:: 2.10.0
-	.. seealso:: :rst:dir:`cleardoublepage`
+	.. seealso:: :rst:dir:`latex:cleardoublepage`
 
 
-.. rst:directive:: .. cleardoublepage::
+.. rst:directive:: latex:cleardoublepage
+                   cleardoublepage
 
 	Configures LaTeX to start a new page.
 
@@ -48,8 +55,21 @@ Usage
 	This directive has no effect with non-LaTeX builders.
 
 	.. versionadded:: 2.10.0
-	.. seealso:: :rst:dir:`clearpage`
+	.. seealso:: :rst:dir:`latex:clearpage`
 
+
+.. rst:directive:: latex:vspace
+
+	Configures LaTeX to add or remove vertical space.
+
+	This directive has no effect with non-LaTeX builders.
+
+	.. versionadded:: 2.11.0
+
+
+.. raw:: latex
+
+	\end{multicols}
 
 
 API Reference
@@ -89,8 +109,12 @@ from domdf_python_tools.stringlist import DelimitedList
 from sphinx.application import Sphinx
 from sphinx.builders.latex import LaTeXBuilder
 from sphinx.config import Config
+from sphinx.domains import Domain
+from sphinx.environment import BuildEnvironment
 from sphinx.util.docutils import SphinxDirective
 from sphinx.writers.latex import LaTeXTranslator
+
+_ = BuildEnvironment
 
 __all__ = [
 		"use_package",
@@ -99,6 +123,8 @@ __all__ = [
 		"SamepageDirective",
 		"ClearPageDirective",
 		"ClearDoublePageDirective",
+		"VSpaceDirective",
+		"LaTeXDomain",
 		"replace_unknown_unicode",
 		"better_header_layout",
 		"configure",
@@ -252,6 +278,44 @@ class ClearDoublePageDirective(SphinxDirective):
 		return [nodes.raw('', r"\cleardoublepage", format="latex")]
 
 
+class VSpaceDirective(SphinxDirective):
+	"""
+	Directive which configures LaTeX to add or remove vertical space.
+
+	This directive has no effect with non-LaTeX builders.
+
+	.. versionadded:: 2.11.0
+
+	.. clearpage::
+	"""
+
+	required_arguments = 1  # the space
+
+	def run(self):
+		"""
+		Process the content of the directive.
+		"""
+
+		return [nodes.raw('', fr"\vspace{{{self.arguments[0]}}}", format="latex")]
+
+
+class LaTeXDomain(Domain):
+	"""
+	Domain containing various LaTeX-specific directives.
+
+	.. versionadded:: 2.11.0
+	"""
+
+	name = "latex"
+	label = "LaTeX"
+	directives = {
+			"samepage": SamepageDirective,
+			"clearpage": ClearPageDirective,
+			"cleardoublepage": ClearDoublePageDirective,
+			"vspace": VSpaceDirective,
+			}
+
+
 def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None):
 	r"""
 	Replaces certain unknown unicode characters in the Sphinx LaTeX output with the best equivalents.
@@ -380,7 +444,11 @@ def setup(app: Sphinx):
 	"""
 
 	app.add_node(nodes.footnote, latex=(visit_footnote, depart_footnote), override=True)
+
 	app.add_directive("samepage", SamepageDirective)
 	app.add_directive("clearpage", ClearPageDirective)
 	app.add_directive("cleardoublepage", ClearDoublePageDirective)
+
+	app.add_domain(LaTeXDomain)
+
 	app.connect("config-inited", configure)

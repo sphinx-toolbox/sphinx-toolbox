@@ -67,16 +67,12 @@ The changes are:
 
 .. extensions:: sphinx_toolbox.more_autodoc.typehints
 
-.. raw:: latex
-
-	\vspace{-20px}
+.. latex:vspace:: -20px
 
 | For configuration information see https://github.com/agronholm/sphinx-autodoc-typehints
 | In addition, the following configuration value is added by this extension:
 
-.. raw:: latex
-
-	\vspace{-20px}
+.. latex:vspace:: -20px
 
 .. confval:: hide_none_rtype
 	:type: :class:`bool`

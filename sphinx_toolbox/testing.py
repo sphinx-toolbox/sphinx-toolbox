@@ -9,9 +9,7 @@ Functions for testing Sphinx extensions.
 
 .. seealso:: Sphinx's own ``testing`` library: https://github.com/sphinx-doc/sphinx/tree/3.x/sphinx/testing
 
-.. raw:: latex
-
-	\vspace{45px}
+.. latex:vspace:: 45px
 
 """
 #
