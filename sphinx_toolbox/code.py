@@ -44,6 +44,8 @@ Usage
 			def print(text):
 				sys.stdout.write(text)
 
+.. clearpage::
+
 .. rst:directive:: .. code-cell:: [language]
 				   .. output-cell:: [language]
 
@@ -333,6 +335,8 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 
 	:param app: The Sphinx application.
 	:param exception: Any exception which occurred and caused Sphinx to abort.
+
+	.. clearpage::
 	"""
 
 	if exception:  # pragma: no cover
@@ -384,10 +388,10 @@ def configure(app: Sphinx, config: Config):
 	"""
 	Configure :mod:`sphinx_toolbox.code`.
 
+	.. versionadded:: 2.9.0
+
 	:param app: The Sphinx application.
 	:param config:
-
-	.. versionadded:: 2.9.0
 	"""
 
 	latex_elements = getattr(app.config, "latex_elements", {})  # type: ignore

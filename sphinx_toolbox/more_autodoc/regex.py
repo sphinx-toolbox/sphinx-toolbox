@@ -359,7 +359,7 @@ class RegexParser:
 	* ``CATEGORY_COLOUR`` -- Used for categories, e.g. :regex:`\d\D\s\D\w\W`
 	* ``BRANCH_COLOUR`` -- Used for branches, e.g. :regex:`(Lovely|Horrible) Weather`
 	* ``LITERAL_COLOUR`` -- Used for literal characters.
-	* ``ANY_COLOUR`` -- Used for the "any" dot ``.``.
+	* ``ANY_COLOUR`` -- Used for the "any" dot.
 
 	These are all :class:`~typing.Callable`\[[:class:`~typing.Any`], :class:`~typing.str`\].
 
@@ -575,7 +575,7 @@ class HTMLRegexParser(RegexParser):
 	* ``CATEGORY_COLOUR`` -> ``regex_category`` -- Used for categories, e.g. :regex:`\d\D\s\D\w\W`
 	* ``BRANCH_COLOUR`` -> ``regex_branch`` -- Used for branches, e.g. :regex:`(Lovely|Horrible) Weather`
 	* ``LITERAL_COLOUR`` -> ``regex_literal`` -- Used for literal characters.
-	* ``ANY_COLOUR`` -> ``regex_any`` -- Used for the "any" dot ``.``.
+	* ``ANY_COLOUR`` -> ``regex_any`` -- Used for the "any" dot.
 
 	Additionally, all ``span`` tags the ``regex`` class,
 	and the surrounding ``code`` tag has the following classes:
@@ -625,7 +625,7 @@ class TerminalRegexParser(RegexParser):
 	* ``CATEGORY_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.LIGHTYELLOW_EX` -- Used for categories, e.g. :regex:`\d\D\s\D\w\W`
 	* ``BRANCH_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for branches, e.g. :regex:`(Lovely|Horrible) Weather`
 	* ``LITERAL_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.GREEN` -- Used for literal characters.
-	* ``ANY_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for the "any" dot ``.``.
+	* ``ANY_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for the "any" dot.
 	"""
 
 	# Colours

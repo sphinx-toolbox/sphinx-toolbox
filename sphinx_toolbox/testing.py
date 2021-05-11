@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 #
 #  testing.py
-"""
+r"""
 Functions for testing Sphinx extensions.
 
 .. extras-require:: testing
 	:pyproject:
 
 .. seealso:: Sphinx's own ``testing`` library: https://github.com/sphinx-doc/sphinx/tree/3.x/sphinx/testing
+
+.. raw:: latex
+
+	\vspace{45px}
+
 """
 #
 #  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -198,6 +203,8 @@ class Sphinx:
 
 		The registered values are stored in the ``app.registry.translators`` dictionary.
 		(:class:`typing.Dict`\[:class:`str`\, :class:`typing.Type`\[:class:`docutils.nodes.NodeVisitor`\]]).
+
+		.. clearpage::
 		"""
 
 		self.registry.add_translator(name, translator_class, override=override)
@@ -419,6 +426,8 @@ class Sphinx:
 			) -> None:
 		"""
 		Register a package to include in the LaTeX source code.
+
+		.. clearpage::
 		"""
 
 		self.registry.add_latex_package(packagename, options, after_hyperref)  # type: ignore
@@ -552,6 +561,8 @@ def run_setup(setup_func: _setup_func_type) -> RunSetupOutput:  # , buildername:
 	:param setup_func: The ``setup()`` function under test.
 
 	:returns: 5-element namedtuple
+
+	.. clearpage::
 	"""
 
 	app = Sphinx()  # buildername
@@ -601,6 +612,8 @@ def remove_html_link_tags(page: BeautifulSoup) -> BeautifulSoup:
 	:param page: The page to remove the link tags from.
 
 	:return: The page without the link tags.
+
+	.. clearpage::
 	"""
 
 	for div in page.select("head link"):

@@ -1,5 +1,5 @@
 ===================================
-:mod:`sphinx_toolbox.shields`
+:mod:`.shields`
 ===================================
 
 .. automodule:: sphinx_toolbox.shields
@@ -20,4 +20,4 @@ API Reference
 	:no-docstring:
 	:no-autosummary:
 	:member-order: bysource
-	:exclude-members: SHIELDS_IO,shield_default_option_spec
+	:exclude-members: SHIELDS_IO,shield_default_option_spec, run

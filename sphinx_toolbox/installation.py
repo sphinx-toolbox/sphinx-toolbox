@@ -303,6 +303,10 @@ def pypi_installation(
 
 	:param options: Mapping of option names to values.
 	:param env: The Sphinx build environment.
+
+	:rtype:
+
+	.. clearpage::
 	"""
 
 	if "pypi-name" in options:

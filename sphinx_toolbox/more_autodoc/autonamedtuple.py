@@ -29,22 +29,6 @@ Usage
 
 	.. versionadded:: 0.8.0
 
-	**Examples:**
-
-	.. literalinclude:: ../../../autonamedtuple_demo.py
-		:language: python
-		:tab-width: 4
-		:linenos:
-		:lines: 1-59
-
-	.. rest-example::
-
-		.. automodule:: autonamedtuple_demo
-			:no-autosummary:
-			:exclude-members: Movie
-
-		.. autonamedtuple:: autonamedtuple_demo.Movie
-
 
 .. rst:role:: namedtuple
 
@@ -52,6 +36,25 @@ Usage
 
 
 .. seealso:: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
+
+
+**Examples:**
+
+.. literalinclude:: ../../../autonamedtuple_demo.py
+	:language: python
+	:tab-width: 4
+	:linenos:
+	:lines: 1-59
+
+.. rest-example::
+
+	.. automodule:: autonamedtuple_demo
+		:no-autosummary:
+		:exclude-members: Movie
+
+	.. autonamedtuple:: autonamedtuple_demo.Movie
+
+	This function takes a single argument, the :namedtuple:`~.Movie` to watch.
 
 
 API Reference

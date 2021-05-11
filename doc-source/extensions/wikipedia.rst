@@ -1,5 +1,5 @@
 =======================================
-:mod:`sphinx_toolbox.wikipedia`
+:mod:`.wikipedia`
 =======================================
 
 .. automodule:: sphinx_toolbox.wikipedia

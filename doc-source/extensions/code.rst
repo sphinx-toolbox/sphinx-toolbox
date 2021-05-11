@@ -1,5 +1,5 @@
 ===========================
-:mod:`sphinx_toolbox.code`
+:mod:`.code`
 ===========================
 
 .. automodule:: sphinx_toolbox.code

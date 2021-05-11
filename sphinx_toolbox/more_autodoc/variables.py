@@ -405,7 +405,7 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 
 
 class SlotsAttributeDocumenter(TypedAttributeDocumenter):
-	"""
+	r"""
 	Alternative version of :class:`sphinx.ext.autodoc.InstanceAttributeDocumenter`
 	with better type hint rendering.
 
@@ -413,6 +413,11 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 	because they are attributes in __slots__.
 
 	.. versionadded:: 1.1.0
+
+	.. raw:: latex
+
+		\vspace{10px}
+
 	"""  # noqa D400
 
 	objtype = sphinx.ext.autodoc.SlotsAttributeDocumenter.objtype

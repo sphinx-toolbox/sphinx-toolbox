@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  issues.py
-"""
+r"""
 Add links to GitHub issues and Pull Requests.
 
 .. extensions:: sphinx_toolbox.issues
@@ -90,6 +90,9 @@ API Reference
 	* :func:`~.depart_issue_node`
 	* :func:`~.get_issue_title`
 
+.. raw:: latex
+
+	\vspace{10px}
 
 """
 #

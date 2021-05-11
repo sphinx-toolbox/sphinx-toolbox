@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  __init__.py
-"""
+r"""
 Extensions to :mod:`sphinx.ext.autosummary`.
 
 Provides an enhanced version of https://autodocsumm.readthedocs.io/
@@ -24,6 +24,11 @@ and created a broken link..
 	falling back to :class:`~sphinx.ext.autodoc.DataDocumenter`.
 
 
+.. raw:: latex
+
+	\vspace{-10px}
+
+
 Configuration
 --------------
 
@@ -41,8 +46,19 @@ This applies not only to :rst:dir:`automodule` etc. directives,
 but also to :rst:dir:`automodulesumm` etc. directives.
 
 
+.. raw:: latex
+
+	\vspace{-10px}
+
+
 API Reference
 ----------------
+
+
+.. raw:: latex
+
+	\vspace{-10px}
+
 """
 #
 #  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -205,6 +221,10 @@ class PatchedAutosummary(Autosummary):
 
 			Now selects the appropriate documenter for attributes rather than
 			falling back to :class:`~sphinx.ext.autodoc.DataDocumenter`.
+
+		:rtype:
+
+		.. clearpage::
 		"""
 
 		doccls = get_documenter(app, obj, parent)

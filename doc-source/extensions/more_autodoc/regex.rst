@@ -1,5 +1,5 @@
 ==========================================
-:mod:`~sphinx_toolbox.more_autodoc.regex`
+:mod:`.more_autodoc.regex`
 ==========================================
 
 .. automodule:: sphinx_toolbox.more_autodoc.regex
@@ -25,8 +25,11 @@ API Reference
 .. autoclass:: sphinx_toolbox.more_autodoc.regex.HTMLRegexParser
 	:no-members:
 
+.. autoclass:: sphinx_toolbox.more_autodoc.regex.LaTeXRegexParser
+	:no-members:
+
 .. automodule:: sphinx_toolbox.more_autodoc.regex
 	:no-docstring:
 	:no-autosummary:
-	:members: parse_regex_flags,no_formatting,span,setup
+	:members: parse_regex_flags,no_formatting,span,latex_textcolor,setup
 	:member-order: bysource

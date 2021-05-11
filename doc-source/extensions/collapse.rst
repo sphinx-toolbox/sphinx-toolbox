@@ -1,5 +1,5 @@
 ==============================
-:mod:`sphinx_toolbox.collapse`
+:mod:`.collapse`
 ==============================
 
 .. automodule:: sphinx_toolbox.collapse

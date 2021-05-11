@@ -1,17 +1,21 @@
 ==============================
-:mod:`sphinx_toolbox.github`
+:mod:`.github`
 ==============================
 
 .. automodule:: sphinx_toolbox.github
 	:autosummary-no-nesting:
+	:member-order: bysource
 
-:mod:`sphinx_toolbox.github.issues` submodule
+:mod:`.github.issues` submodule
 ================================================
 
 .. automodule:: sphinx_toolbox.github.issues
 	:member-order: bysource
+	:exclude-members: copy
 
-:mod:`sphinx_toolbox.github.repos_and_users` submodule
+:mod:`.github.repos_and_users` submodule
 =======================================================
 
 .. automodule:: sphinx_toolbox.github.repos_and_users
+	:member-order: bysource
+	:exclude-members: copy

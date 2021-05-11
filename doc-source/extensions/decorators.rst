@@ -1,5 +1,5 @@
 =================================
-:mod:`sphinx_toolbox.decorators`
+:mod:`.decorators`
 =================================
 
 .. automodule:: sphinx_toolbox.decorators

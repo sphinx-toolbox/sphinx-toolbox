@@ -155,6 +155,10 @@ class ConfigurationValue(GenericObject):
 		.. versionadded:: 1.1.0
 
 		:param required:
+
+		:rtype:
+
+		.. clearpage::
 		"""
 
 		return strtobool(required)

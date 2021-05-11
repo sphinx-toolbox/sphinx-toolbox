@@ -1,5 +1,5 @@
 ===================================
-:mod:`sphinx_toolbox.sidebar_links`
+:mod:`.sidebar_links`
 ===================================
 
 .. automodule:: sphinx_toolbox.sidebar_links

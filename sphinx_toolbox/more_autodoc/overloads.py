@@ -8,8 +8,17 @@ Documenters for functions and methods which display overloads differently.
 .. extensions:: sphinx_toolbox.more_autodoc.overloads
 
 
+.. raw:: latex
+
+	\vspace{-10px}
+
+
 Configuration
 ----------------
+
+.. raw:: latex
+
+	\vspace{-12px}
 
 .. confval:: overloads_location
 	:type: :class:`str`
@@ -22,8 +31,20 @@ Configuration
 	* ``'bottom'`` -- Display overloads at the bottom of the docstring, or immediately below the return type.
 
 
+.. raw:: latex
+
+	\vspace{-10px}
+
+
 API Reference
 ----------------
+
+
+.. raw:: latex
+
+	\vspace{-12px}
+
+
 """  # noqa D400
 #
 #  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -273,8 +294,6 @@ class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):
 	def format_signature(self, **kwargs: Any) -> str:
 		"""
 		Format the function's signature, including those for any overloaded implementations.
-
-		:param kwargs:
 
 		:return: The signature(s), as a multi-line string.
 		"""

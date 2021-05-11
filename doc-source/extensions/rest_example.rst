@@ -1,5 +1,5 @@
 ===================================
-:mod:`sphinx_toolbox.rest_example`
+:mod:`.rest_example`
 ===================================
 
 .. automodule:: sphinx_toolbox.rest_example

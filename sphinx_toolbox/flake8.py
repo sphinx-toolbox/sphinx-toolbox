@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  flake8.py
-"""
+r"""
 A Sphinx directive for documenting flake8 codes.
 
 .. versionadded:: 1.6.0
@@ -21,12 +21,19 @@ Usage
 
 	**Example**
 
+	.. raw:: latex
+
+		\begin{multicols}{2}
+
 	.. rest-example::
 
 		.. flake8-codes:: flake8_dunder_all
 
 			DALL000
 
+	.. raw:: latex
+
+		\end{multicols}
 
 API Reference
 ----------------

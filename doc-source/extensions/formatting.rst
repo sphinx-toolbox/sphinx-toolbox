@@ -1,5 +1,5 @@
 =======================================
-:mod:`sphinx_toolbox.formatting`
+:mod:`.formatting`
 =======================================
 
 .. automodule:: sphinx_toolbox.formatting

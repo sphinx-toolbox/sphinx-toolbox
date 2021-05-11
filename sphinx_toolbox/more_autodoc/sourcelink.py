@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  sourcelink.py
-"""
+r"""
 Show a link to the corresponding source code at the top of :rst:dir:`automodule` output.
 
 .. versionadded:: 0.6.0
@@ -11,8 +11,17 @@ Show a link to the corresponding source code at the top of :rst:dir:`automodule`
 Configuration
 ----------------
 
+.. raw:: latex
+
+	\begin{flushleft}
+
 :mod:`sphinx_toolbox.more_autodoc.sourcelink` can be configured using the :confval:`autodoc_default_options`
 option in ``conf.py``, or with the :rst:dir:`:sourcelink: <sourcelink>` option flag to :rst:dir:`automodule`.
+
+.. raw:: latex
+
+	\end{flushleft}
+
 
 .. confval:: autodoc_show_sourcelink
 	:type: :class:`bool`

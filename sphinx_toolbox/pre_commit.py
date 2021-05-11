@@ -43,6 +43,7 @@ Usage
 			:rev: v0.0.4
 			:hooks: some-hook,some-other-hook
 
+.. clearpage::
 
 .. rst:directive:: pre-commit:flake8
 
@@ -66,7 +67,7 @@ Usage
 
 		.. pre-commit:flake8:: 0.0.4
 
-	.. versionchanged:: 2.8.0  Changed the flake8 repository URL to GitHub.
+	.. versionchanged:: 2.8.0  The repository URL now points to GitHub.
 
 API Reference
 ----------------
@@ -156,6 +157,8 @@ class _Config(_BaseConfig, total=False):
 class PreCommitDirective(SphinxDirective):
 	"""
 	A Sphinx directive for documenting pre-commit hooks.
+
+	.. clearpage::
 	"""
 
 	has_content: bool = False

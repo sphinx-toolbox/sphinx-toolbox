@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  autoprotocol.py
-"""
+r"""
 A Sphinx directive for documenting :class:`Protocols <typing.Protocol>` in Python.
 
 .. versionadded:: 0.2.0
@@ -42,24 +42,6 @@ Usage
 	See https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
 	for further information.
 
-	.. versionadded:: 0.2.0
-
-	**Examples:**
-
-	.. literalinclude:: ../../../autoprotocol_demo.py
-		:language: python
-		:tab-width: 4
-		:linenos:
-
-	.. rest-example::
-
-		.. automodule:: autoprotocol_demo
-			:members:
-			:no-autosummary:
-			:exclude-members: HasGreaterThan
-
-		.. autoprotocol:: autoprotocol_demo.HasGreaterThan
-
 
 .. rst:role:: protocol
 
@@ -67,6 +49,32 @@ Usage
 
 
 .. seealso:: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
+
+.. clearpage::
+
+
+**Examples:**
+
+.. literalinclude:: ../../../autoprotocol_demo.py
+	:language: python
+	:tab-width: 4
+	:linenos:
+
+.. rest-example::
+
+	.. automodule:: autoprotocol_demo
+		:members:
+		:no-autosummary:
+		:exclude-members: HasGreaterThan
+
+	.. autoprotocol:: autoprotocol_demo.HasGreaterThan
+
+	The objects being sorted must implement the :protocol:`~.HasGreaterThan` protocol.
+
+
+.. raw:: latex
+
+	\vspace{30px}
 
 
 API Reference
@@ -186,8 +194,6 @@ class ProtocolDocumenter(ClassDocumenter):
 	r"""
 	Sphinx autodoc :class:`~sphinx.ext.autodoc.Documenter`
 	for documenting :class:`typing.Protocol`\s.
-
-	.. versionadded:: 0.2.0
 	"""  # noqa D400
 
 	objtype = "protocol"
@@ -338,8 +344,6 @@ class ProtocolDocumenter(ClassDocumenter):
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.autoprocotol`.
-
-	.. versionadded:: 0.2.0
 
 	:param app: The Sphinx application.
 	"""

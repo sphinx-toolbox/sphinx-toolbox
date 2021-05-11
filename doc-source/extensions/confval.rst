@@ -1,5 +1,5 @@
 ==============================
-:mod:`sphinx_toolbox.confval`
+:mod:`.confval`
 ==============================
 
 .. automodule:: sphinx_toolbox.confval

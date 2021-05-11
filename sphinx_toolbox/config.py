@@ -72,8 +72,12 @@ class ToolboxConfig(Config):
 	#: The username of the GitHub account that owns the repository this documentation corresponds to.
 	github_username: str
 
-	#: The GitHub repository this documentation corresponds to.
 	github_repository: str
+	"""
+	The GitHub repository this documentation corresponds to.
+
+	.. clearpage::
+	"""
 
 	#: The complete URL of the repository on GitHub.
 	github_url: RequestsURL

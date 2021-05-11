@@ -112,6 +112,8 @@ class IssueNodeWithName(IssueNode):
 	:param repo_name: The full name of the repository, in the form ``owner/name``.
 	:param issue_number: The number of the issue or pull request.
 	:param refuri: The URL of the issue / pull request on GitHub.
+
+	.. clearpage::
 	"""
 
 	repo_name: str
@@ -216,6 +218,8 @@ def pull_role(
 		To be interpreted by the function.
 
 	:return: A list containing the created node, and a list containing any messages generated during the function.
+
+	.. clearpage::
 	"""
 
 	has_t, issue_number, repository = split_explicit_title(text)

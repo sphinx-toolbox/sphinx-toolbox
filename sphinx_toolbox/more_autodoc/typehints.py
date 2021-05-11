@@ -60,12 +60,23 @@ The changes are:
 -----
 
 .. versionadded:: 0.4.0
+.. versionchanged:: 0.6.0  Moved from :mod:`sphinx_toolbox.autodoc_typehints`.
+.. versionchanged:: 0.8.0  Added support for :func:`collections.namedtuple`.
+
+-----
+
 .. extensions:: sphinx_toolbox.more_autodoc.typehints
 
+.. raw:: latex
 
-For configuration information see https://github.com/agronholm/sphinx-autodoc-typehints
+	\vspace{-20px}
 
-In addition the following configuration value is added by this extension:
+| For configuration information see https://github.com/agronholm/sphinx-autodoc-typehints
+| In addition, the following configuration value is added by this extension:
+
+.. raw:: latex
+
+	\vspace{-20px}
 
 .. confval:: hide_none_rtype
 	:type: :class:`bool`
@@ -73,9 +84,6 @@ In addition the following configuration value is added by this extension:
 
 	Hides return types of :py:obj:`None`.
 
-
-.. versionchanged:: 0.6.0  Moved from :mod:`sphinx_toolbox.autodoc_typehints`.
-.. versionchanged:: 0.8.0  Added support for :func:`collections.namedtuple`.
 
 API Reference
 -----------------
@@ -606,6 +614,8 @@ def process_docstring(
 	.. versionchanged:: 1.1.0
 
 		An empty ``:rtype:`` flag can be used to control the position of the return type annotation in the docstring.
+
+	.. clearpage::
 	"""
 
 	original_obj = obj

@@ -1,5 +1,5 @@
 ==============================
-:mod:`sphinx_toolbox.latex`
+:mod:`.latex`
 ==============================
 
 .. automodule:: sphinx_toolbox.latex

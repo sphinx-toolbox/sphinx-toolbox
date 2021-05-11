@@ -8,6 +8,10 @@ Documenter for module level :class:`typing.TypeVar`\'s, similar to Sphinx's
 .. versionadded:: 1.3.0
 .. extensions:: sphinx_toolbox.more_autodoc.typevars
 
+.. raw:: latex
+
+	\vspace{-15px}
+
 Configuration
 -------------
 
@@ -27,14 +31,22 @@ Configuration
 	This option has no effect if :confval:`all_typevars` is False.
 
 
+.. raw:: latex
+
+	\vspace{-15px}
+
 Usage
 ----------
+
+.. raw:: latex
+
+	\vspace{-10px}
 
 .. rst:directive:: autotypevar
 
 	Directive to automatically document a :class:`typing.TypeVar`.
 
-	The output is based on the :rst:dir:`autodata` directive, and takes all of its options,
+	The output is based on the :rst:dir:`autodata` directive, and takes all of its options
 	plus these additional ones:
 
 	.. rst:directive:option:: no-value

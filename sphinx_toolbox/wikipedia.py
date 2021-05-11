@@ -47,11 +47,6 @@ Usage
 
 			:wikipedia:`:zh:斯芬克斯`
 
-	.. rest-example::
-
-		:wikipedia:`Answer to the Ultimate Question of Life, the Universe, and Everything <:de:42 (Antwort)>`
-
-
 
 API Reference
 ----------------

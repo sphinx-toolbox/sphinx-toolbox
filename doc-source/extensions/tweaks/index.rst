@@ -1,5 +1,5 @@
 ===============================
-:mod:`sphinx_toolbox.tweaks`
+:mod:`.tweaks`
 ===============================
 
 The following tweaks are available:

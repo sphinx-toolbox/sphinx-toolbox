@@ -35,6 +35,7 @@ The following features are enabled by default:
 
 \* Indicates that the extension cannot be enabled separately from the rest of ``sphinx_toolbox``.
 
+.. clearpage::
 
 Some features must be enabled separately:
 

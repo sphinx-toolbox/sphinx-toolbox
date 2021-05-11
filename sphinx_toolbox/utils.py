@@ -50,30 +50,30 @@ from sphinx.pycode import ModuleAnalyzer
 from typing_extensions import TypedDict
 
 __all__ = [
-		"make_github_url",
-		"GITHUB_COM",
-		"flag",
-		"Purger",
-		"OptionSpec",
-		"get_first_matching",
-		"escape_trailing__",
-		"code_repr",
-		"SphinxExtMetadata",
-		"SetupFunc",
-		"begin_generate",
-		"unknown_module_warning",
-		"filter_members_warning",
-		"is_namedtuple",
-		"parse_parameters",
-		"Param",
-		"typed_param_regex",
-		"untyped_param_regex",
-		"typed_flag_regex",
-		"allow_subclass_add",
-		"NoMatchError",
-		"baseclass_is_private",
-		"metadata_add_version",
 		"add_nbsp_substitution",
+		"allow_subclass_add",
+		"baseclass_is_private",
+		"begin_generate",
+		"code_repr",
+		"escape_trailing__",
+		"filter_members_warning",
+		"flag",
+		"get_first_matching",
+		"GITHUB_COM",
+		"is_namedtuple",
+		"make_github_url",
+		"metadata_add_version",
+		"NoMatchError",
+		"OptionSpec",
+		"Param",
+		"parse_parameters",
+		"Purger",
+		"SetupFunc",
+		"SphinxExtMetadata",
+		"typed_flag_regex",
+		"typed_param_regex",
+		"unknown_module_warning",
+		"untyped_param_regex",
 		]
 
 #: Instance of :class:`apeye.url.RequestsURL` that points to the GitHub website.
@@ -536,6 +536,8 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 
 	:return: A mapping of parameter names to their docstrings and types, a list of docstring lines that
 		appeared before the parameters, and the list of docstring lines that appear after the parameters.
+
+	.. clearpage::
 	"""
 
 	a_tab = ' ' * tab_size

@@ -102,8 +102,8 @@ from sphinx.util import split_explicit_title
 from sphinx.writers.html import HTMLTranslator
 
 __all__ = [
-		"AssetNode",
 		"asset_role",
+		"AssetNode",
 		"visit_asset_node",
 		"depart_asset_node",
 		"setup",
@@ -115,7 +115,7 @@ from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 class AssetNode(nodes.reference):
 	"""
-	Node that represents a link to an asset.
+	Node representing a link to an asset.
 	"""
 
 

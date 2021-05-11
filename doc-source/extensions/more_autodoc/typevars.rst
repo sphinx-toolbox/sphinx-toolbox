@@ -1,5 +1,5 @@
 =============================================
-:mod:`~sphinx_toolbox.more_autodoc.typevars`
+:mod:`.more_autodoc.typevars`
 =============================================
 
 .. automodule:: sphinx_toolbox.more_autodoc.typevars

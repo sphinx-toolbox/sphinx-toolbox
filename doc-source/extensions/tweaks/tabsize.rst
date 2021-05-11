@@ -1,5 +1,5 @@
 =====================================
-:mod:`sphinx_toolbox.tweaks.tabsize`
+:mod:`.tweaks.tabsize`
 =====================================
 
 .. automodule:: sphinx_toolbox.tweaks.tabsize

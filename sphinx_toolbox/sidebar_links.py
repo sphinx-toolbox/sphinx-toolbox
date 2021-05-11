@@ -9,18 +9,20 @@ Directive which adds a toctree to the sidebar containing links to the GitHub rep
 .. extensions:: sphinx_toolbox.sidebar_links
 
 
+.. raw:: latex
+
+	\vspace{-2px}
+
 Usage
 -------
+
+.. raw:: latex
+
+	\vspace{-2px}
 
 .. rst:directive:: sidebar-links
 
 	Adds a toctree to the sidebar containing links to the GitHub repository, PyPI project page etc.
-
-	The directive takes a single argument -- the name of the project.
-	If the project uses a different name on PyPI and/or Anaconda,
-	the ``:pypi-name:`` and ``:conda-name:`` options can be used to set the name
-	for those repositories.
-
 	The toctree is only shown in the sidebar and is hidden with non-HTML builders.
 
 	.. only:: html
