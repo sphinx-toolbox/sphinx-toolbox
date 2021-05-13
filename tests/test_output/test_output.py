@@ -77,6 +77,7 @@ pages_to_check: List[Union[str, ParameterSet]] = [
 		"autoprotocol.html",
 		"autotypeddict.html",
 		"code-block.html",
+		"changeset.html",
 		"confval.html",
 		"decorators.html",
 		"example.html",

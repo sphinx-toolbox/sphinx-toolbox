@@ -14,6 +14,7 @@ Overview
 The following features are enabled by default:
 
 * :mod:`sphinx_toolbox.assets`
+* :mod:`sphinx_toolbox.changeset`
 * :mod:`sphinx_toolbox.code`
 * :mod:`sphinx_toolbox.collapse`
 * :mod:`sphinx_toolbox.confval`

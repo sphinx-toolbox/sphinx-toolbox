@@ -12,6 +12,7 @@
 	latex
 	regex
 	github
+	changeset
 
 
 .. sidebar-links::

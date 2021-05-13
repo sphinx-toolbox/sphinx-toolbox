@@ -41,13 +41,13 @@ extras_require:
     - coincidence>=0.3.1
 
 extra_sphinx_extensions:
-  - sphinx_removed_in
   - sphinx_toolbox.pre_commit
   - sphinx_toolbox.flake8
   - sphinx_autofixture
   - sphinx_event_role
   - latex_unicode
   - html_section
+  - sphinxcontrib.email
 
 tox_unmanaged:
   - flake8
