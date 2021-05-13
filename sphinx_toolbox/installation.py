@@ -21,7 +21,7 @@ Configuration
 Usage
 -------
 
-.. rst:directive:: installation
+.. rst:directive:: .. installation:: name
 
 	Adds a series of tabs providing installation instructions for the project from a number of sources.
 

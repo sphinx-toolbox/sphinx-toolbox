@@ -58,9 +58,12 @@ Usage
 	.. seealso:: :rst:dir:`latex:clearpage`
 
 
-.. rst:directive:: latex:vspace
+.. rst:directive:: .. latex:vspace:: space
 
 	Configures LaTeX to add or remove vertical space.
+
+	The value for ``space`` is passed verbatim to the ``\vspace{}`` command.
+	Ensure you pass a valid value.
 
 	This directive has no effect with non-LaTeX builders.
 

@@ -45,7 +45,7 @@ Usage
 
 .. clearpage::
 
-.. rst:directive:: pre-commit:flake8
+.. rst:directive:: .. pre-commit:flake8:: version
 
 	Directive which shows an example snippet of ``.pre-commit-config.yaml`` for a flake8 plugin.
 

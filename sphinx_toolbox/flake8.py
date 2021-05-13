@@ -11,7 +11,7 @@ A Sphinx directive for documenting flake8 codes.
 Usage
 ------
 
-.. rst:directive:: flake8-codes
+.. rst:directive:: .. flake8-codes:: plugin
 
 	Adds a table documenting a flake8 plugin's codes.
 

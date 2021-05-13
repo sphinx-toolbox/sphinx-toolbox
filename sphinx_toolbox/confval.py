@@ -9,7 +9,7 @@ The confval directive and role for configuration values.
 Usage
 -------
 
-.. rst:directive:: .. confval:: [name]
+.. rst:directive:: .. confval:: name
 
 	Used to document a configuration value.
 
