@@ -8,45 +8,44 @@ and :rst:dir:`deprecated` directives to correctly handle bullet lists.
 .. versionadded:: 2.11.0
 .. extensions:: sphinx_toolbox.changeset
 
+.. latex:vspace:: -10px
 
 Usage
 ------
 
+.. rst:directive:: .. versionadded:: version
+
+   Documents the version of the project which added the described feature.
+
+   The first argument must be given and is the version in question; you can add
+   a second argument consisting of a *brief* explanation of the change.
+   Alternatively, a longer description my be given in the body of the directive.
+
+.. rst:directive:: .. versionchanged:: version
+
+   Similar to :rst:dir:`versionadded`, but describes when and what changed in
+   the feature in some way (new parameters, changed side effects, etc.).
+
+.. rst:directive:: .. deprecated:: version
+
+   Similar to :rst:dir:`versionchanged`, but describes when the feature was deprecated.
+   An explanation can also be given, for example to inform the reader what should be used instead.
+
+
 This extension also adds the following directive:
 
+.. rst:directive:: .. versionremoved:: version [details]
 
-.. rst:directive:: .. versionremoved:: [version] [details]
+   Similar to :rst:dir:`versionchanged`, but describes when the feature was or will be removed.
+   An explanation can also be given, for example to inform the reader what should be used instead.
 
-	Directive to indicate which version a feature has or will be removed in.
 
-	Longer details may instead be given in the directive's body.
-
-	.. latex:vspace:: 15px
-
-**Examples:**
-
-.. rest-example::
-
-	.. versionremoved:: 1.2.3  Use :func:`foo` instead.
-
-	.. versionremoved:: 1.2.3
-
-		Due to an unfixable bug this function has been removed.
-		If you desperately need this functionality please write to the mailing list at
-		:email:`python-users@example.org`
-
-	.. versionchanged:: 0.3.0
-
-		* Parameters for ``__init__`` can be documented either in the class docstring
-		  or alongside the attribute.
-		  The class docstring has priority.
-		* Added support for `autodocsumm <https://github.com/Chilipp/autodocsumm>`_.
-
+.. latex:vspace:: -10px
 
 API Reference
 ----------------
 
-"""
+"""  # noqa: D400
 #
 #  Copyright © 2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -129,6 +128,10 @@ class VersionChange(sphinx.domains.changeset.VersionChange):
 	"""
 
 	def run(self) -> List[Node]:
+		"""
+		Process the content of the directive.
+		"""
+
 		node = addnodes.versionmodified()
 		node.document = self.state.document
 		self.set_source_info(node)
