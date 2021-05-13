@@ -52,6 +52,8 @@ known_third_party = [
     "hypothesis",
     "importlib_metadata",
     "importlib_resources",
+    "jinja2",
+    "markupsafe",
     "pprint36",
     "pygments",
     "pytest",
