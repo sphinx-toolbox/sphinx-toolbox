@@ -27,3 +27,5 @@
 
 	:param bar: Does something
 	:param baz: Does something else
+
+.. automodulesumm:: autonamedtuple_demo

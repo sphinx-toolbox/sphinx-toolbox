@@ -22,6 +22,7 @@ extensions = [
 		"sphinx_tabs.tabs",
 		"sphinx-prompt",
 		"sphinx.ext.autodoc",
+		"sphinx_toolbox.more_autosummary",
 		]
 
 github_username = "domdfcoding"

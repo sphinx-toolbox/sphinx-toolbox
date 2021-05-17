@@ -139,13 +139,23 @@ def add_autosummary(self):
 	sourcename = self.get_sourcename()
 	grouped_documenters = self.get_grouped_documenters()
 
+	if not self.options.get("autosummary-no-titles", False) and grouped_documenters:
+		content.blankline()
+		content.append(".. latex:vspace:: 10px")
+		content.blankline()
+
 	for section, documenters in grouped_documenters.items():
 		if not self.options.get("autosummary-no-titles", False):
 			content.append(f"**{section}:**")
+			content.blankline()
+			content.append(".. latex:vspace:: -5px")
 
 		content.blankline(ensure_single=True)
 
+		# TODO transform to make caption associated with table in LaTeX
+
 		content.append(".. autosummary::")
+		content.blankline(ensure_single=True)
 		content.blankline(ensure_single=True)
 
 		member_order = get_first_matching(
