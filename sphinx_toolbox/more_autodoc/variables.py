@@ -482,6 +482,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 
 	app.setup_extension("sphinx.ext.autodoc")
+	app.setup_extension("sphinx_toolbox.more_autosummary")
+
 	app.add_autodocumenter(VariableDocumenter)
 	app.add_autodocumenter(TypedAttributeDocumenter, override=True)
 	app.add_autodocumenter(InstanceAttributeDocumenter, override=True)
