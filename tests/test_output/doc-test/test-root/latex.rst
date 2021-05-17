@@ -19,6 +19,7 @@ The ​following ​characters ​are ​problematic ​in ​LaTeX:
 * ♦
 * ♣
 * μ
+* ≡
 
 .. clearpage::
 
