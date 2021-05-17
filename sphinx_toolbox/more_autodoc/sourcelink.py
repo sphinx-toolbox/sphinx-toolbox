@@ -73,6 +73,7 @@ from types import ModuleType
 from typing import Any, List, Mapping
 
 # 3rd party
+import autodocsumm
 import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 
@@ -126,6 +127,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 
 	sphinx.ext.autodoc.ModuleDocumenter.option_spec["sourcelink"] = flag
+	autodocsumm.AutoSummModuleDocumenter.option_spec["sourcelink"] = flag
 
 	app.setup_extension("sphinx_toolbox.source")
 	app.setup_extension("sphinx_toolbox._css")
