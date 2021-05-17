@@ -49,7 +49,7 @@ __author__: str = "Dominic Davis-Foster"
 __copyright__: str = "2020 Dominic Davis-Foster"
 
 __license__: str = "MIT License"
-__version__: str = "2.10.0"
+__version__: str = "2.11.0"
 __email__: str = "dominic@davis-foster.co.uk"
 
 __all__ = ["setup"]
