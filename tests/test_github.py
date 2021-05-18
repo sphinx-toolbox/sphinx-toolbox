@@ -315,7 +315,7 @@ def test_visit_issue_node():
 
 @error_codes
 def test_visit_issue_node_errors(error_code, error_server):
-	node = IssueNode(7680, error_server.url_for(f"/{error_code}"))
+	node = IssueNode(7680, error_server.url_for(f"/{error_code:d}"))
 	translator = FakeTranslator()
 
 	assert not node.has_tooltip
