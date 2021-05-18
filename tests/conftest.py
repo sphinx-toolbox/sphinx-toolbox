@@ -73,7 +73,7 @@ def httpserver(httpserver_listen_address):
 @pytest.fixture(scope="session")
 def error_server(httpserver: HTTPServer) -> HTTPServer:
 	for status_code in error_codes_list:
-		httpserver.expect_request(f"/{status_code}").respond_with_json('', status=status_code)
+		httpserver.expect_request(f"/{status_code:d}").respond_with_json('', status=status_code)
 
 	return httpserver
 
