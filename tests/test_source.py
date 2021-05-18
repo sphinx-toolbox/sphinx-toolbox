@@ -3,6 +3,7 @@ from apeye.url import RequestsURL
 from docutils.nodes import inline, reference, system_message
 from docutils.utils import Reporter
 from sphinx import addnodes
+from sphinx.events import EventListener
 
 # this package
 from sphinx_toolbox import source
@@ -71,3 +72,4 @@ def test_setup():
 	assert roles == {"source": source.source_role}
 	assert app.config.values["source_link_target"] == ("Sphinx", "env", [str])
 	assert app.registry.source_parsers == {}
+	assert app.events.listeners == {"config-inited": [EventListener(0, source._configure, 500)]}

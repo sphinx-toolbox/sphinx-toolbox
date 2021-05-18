@@ -106,25 +106,20 @@ def sourcelinks_process_docstring(
 
 	if isinstance(obj, ModuleType) and what == "module" and show_sourcelink:
 		if obj.__file__.endswith("/__init__.py"):
-			lines_to_insert = [
-					".. rst-class:: source-link",
-					'',
-					f"    **Source code:** :source:`{name.replace('.', '/')}/__init__.py`",
-					'',
-					"--------------------",
-					'',
-					]
+			source_target = f"{name.replace('.', '/')}/__init__.py"
 		elif obj.__file__.endswith(".py"):
-			lines_to_insert = [
-					".. rst-class:: source-link",
-					'',
-					f"    **Source code:** :source:`{name.replace('.', '/')}.py`",
-					'',
-					"--------------------",
-					'',
-					]
+			source_target = f"{name.replace('.', '/')}.py"
 		else:
 			return
+
+		lines_to_insert = [
+				".. rst-class:: source-link",
+				'',
+				f"    **Source code:** :source:`{source_target}`",
+				'',
+				"--------------------",
+				'',
+				]
 
 		for line in reversed(lines_to_insert):
 			lines.insert(0, line)
