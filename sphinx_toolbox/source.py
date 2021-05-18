@@ -182,7 +182,7 @@ def _configure(app: Sphinx, config: "Config"):
 	:param config:
 	"""
 
-	config.source_link_target = str(config.source_link_target).lower().strip()
+	config.source_link_target = str(config.source_link_target).lower().strip()  # type: ignore
 
 	if config.source_link_target not in {"sphinx", "github"}:
 
