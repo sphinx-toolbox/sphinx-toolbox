@@ -36,6 +36,7 @@ known_third_party = [
     "autodocsumm",
     "backports_entry_points_selectable",
     "beautifulsoup4",
+    "cachecontrol",
     "coincidence",
     "consolekit",
     "coverage",
