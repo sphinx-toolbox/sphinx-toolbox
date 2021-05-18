@@ -367,6 +367,205 @@
          </dl>
         </dd>
        </dl>
+       <span class="target" id="module-sphinx_toolbox.more_autosummary">
+       </span>
+       <p class="source-link">
+        <strong>
+         Source code:
+        </strong>
+        <a class="reference external" href="https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/more_autosummary/__init__.py">
+         sphinx_toolbox/more_autosummary/__init__.py
+        </a>
+       </p>
+       <hr class="docutils"/>
+       <p>
+        Extensions to
+        <code class="xref py py-mod docutils literal notranslate">
+         <span class="pre">
+          sphinx.ext.autosummary
+         </span>
+        </code>
+        .
+       </p>
+       <p>
+        Provides an enhanced version of
+        <a class="reference external" href="https://autodocsumm.readthedocs.io/">
+         https://autodocsumm.readthedocs.io/
+        </a>
+        which respects the autodoc
+        <code class="docutils literal notranslate">
+         <span class="pre">
+          member-order
+         </span>
+        </code>
+        option.
+This can be given for an individual directive, in the
+        <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_member_order">
+         autodoc_member_order
+        </a>
+        configuration value, or via
+        <a class="reference internal" href="#confval-autodocsumm_member_order">
+         <code class="xref std std-confval docutils literal notranslate">
+          <span class="pre">
+           autodocsumm_member_order
+          </span>
+         </code>
+        </a>
+        .
+       </p>
+       <p>
+        Also patches
+        <code class="xref py py-class docutils literal notranslate">
+         <span class="pre">
+          sphinx.ext.autosummary.Autosummary
+         </span>
+        </code>
+        to fix an issue where
+the module name is sometimes duplicated.
+I.e.
+        <code class="docutils literal notranslate">
+         <span class="pre">
+          foo.bar.baz()
+         </span>
+        </code>
+        became
+        <code class="docutils literal notranslate">
+         <span class="pre">
+          foo.bar.foo.bar.baz()
+         </span>
+        </code>
+        , which of course doesn’t exist
+and created a broken link..
+       </p>
+       <div class="versionadded">
+        <p>
+         <span class="versionmodified added">
+          New in version 0.7.0.
+         </span>
+        </p>
+       </div>
+       <div class="versionchanged">
+        <p>
+         <span class="versionmodified changed">
+          Changed in version 1.3.0:
+         </span>
+         Autosummary now selects the appropriate documenter for attributes rather than
+falling back to
+         <code class="xref py py-class docutils literal notranslate">
+          <span class="pre">
+           DataDocumenter
+          </span>
+         </code>
+         .
+        </p>
+       </div>
+       <div class="section" id="configuration">
+        <h2>
+         Configuration
+         <a class="headerlink" href="#configuration" title="Permalink to this headline">
+          ¶
+         </a>
+        </h2>
+        <dl class="std confval">
+         <dt id="confval-autodocsumm_member_order">
+          <code class="sig-name descname">
+           autodocsumm_member_order
+          </code>
+          <a class="headerlink" href="#confval-autodocsumm_member_order" title="Permalink to this definition">
+           ¶
+          </a>
+         </dt>
+         <dd>
+          <div class="line-block">
+           <div class="line">
+            <strong>
+             Type:
+            </strong>
+            <code class="xref py py-obj docutils literal notranslate">
+             <span class="pre">
+              str
+             </span>
+            </code>
+           </div>
+           <div class="line">
+            <strong>
+             Default:
+            </strong>
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              'alphabetical'
+             </span>
+            </code>
+           </div>
+          </div>
+          <p>
+           Determines the sort order of members in
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             autodocsumm
+            </span>
+           </code>
+           summary tables.
+Valid values are
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             'alphabetical'
+            </span>
+           </code>
+           and
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             'bysource'
+            </span>
+           </code>
+           .
+          </p>
+          <p>
+           Note that for
+           <code class="docutils literal notranslate">
+            <span class="pre">
+             'bysource'
+            </span>
+           </code>
+           the module must be a Python module with the source code available.
+          </p>
+         </dd>
+        </dl>
+        <p>
+         The member order can also be set on a per-directive basis using the
+         <code class="docutils literal notranslate">
+          <span class="pre">
+           :member-order:
+          </span>
+          <span class="pre">
+           [order]
+          </span>
+         </code>
+         option.
+This applies not only to
+         <code class="xref rst rst-dir docutils literal notranslate">
+          <span class="pre">
+           automodule
+          </span>
+         </code>
+         etc. directives,
+but also to
+         <code class="xref rst rst-dir docutils literal notranslate">
+          <span class="pre">
+           automodulesumm
+          </span>
+         </code>
+         etc. directives.
+        </p>
+       </div>
+       <div class="section" id="api-reference">
+        <h2>
+         API Reference
+         <a class="headerlink" href="#api-reference" title="Permalink to this headline">
+          ¶
+         </a>
+        </h2>
+       </div>
       </div>
      </div>
     </div>

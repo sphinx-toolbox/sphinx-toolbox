@@ -225,7 +225,7 @@ class GitHubDomain(Domain):
 
 
 def validate_config(app: Sphinx, config: ToolboxConfig):
-	r"""
+	"""
 	Validate the provided configuration values.
 
 	See :class:`~sphinx_toolbox.config.ToolboxConfig` for a list of the configuration values.

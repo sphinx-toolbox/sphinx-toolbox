@@ -27,16 +27,15 @@ Internal configuration for ``sphinx-toolbox``.
 #
 
 # stdlib
-from typing import List, Union
+from typing import List
 
 # 3rd party
 from apeye.url import RequestsURL
-from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.config import Config
 
 # this package
-from sphinx_toolbox.utils import add_nbsp_substitution, make_github_url
+from sphinx_toolbox.utils import add_nbsp_substitution
 
 __all__ = ["MissingOptionError", "InvalidOptionError", "validate_config", "ToolboxConfig"]
 
@@ -121,7 +120,7 @@ class ToolboxConfig(Config):
 
 
 def validate_config(app: Sphinx, config: ToolboxConfig):
-	r"""
+	"""
 	Validate the provided configuration values.
 
 	See :class:`~sphinx_toolbox.config.ToolboxConfig` for a list of the configuration values.
@@ -131,24 +130,9 @@ def validate_config(app: Sphinx, config: ToolboxConfig):
 	:type config: :class:`~sphinx.config.Config`
 	"""
 
-	config.source_link_target = str(config.source_link_target).lower().strip()
+	# this package
+	from sphinx_toolbox import github, source
 
-	if config.source_link_target not in {"sphinx", "github"}:
-		raise InvalidOptionError("Invalid value for 'source_link_target'.")
-
-	if not config.github_username:
-		raise MissingOptionError("The 'github_username' option is required.")
-	else:
-		config.github_username = str(config.github_username)
-
-	if not config.github_repository:
-		raise MissingOptionError("The 'github_repository' option is required.")
-	else:
-		config.github_repository = str(config.github_repository)
-
-	config.github_url = make_github_url(config.github_username, config.github_repository)
-	config.github_source_url = config.github_url / "blob" / "master"
-	config.github_issues_url = config.github_url / "issues"
-	config.github_pull_url = config.github_url / "pull"
-
+	source._configure(app, config)
+	github.validate_config(app, config)
 	add_nbsp_substitution(config)

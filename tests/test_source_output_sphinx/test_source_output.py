@@ -29,6 +29,6 @@ def test_output_sphinx(sphinx_source_page: BeautifulSoup, html_regression: HTMLR
 				assert a_tag["href"] == "_modules/sphinx_toolbox/config.html#sphinx_toolbox/config.py"
 		tag_count += 1
 
-	assert tag_count == 2
+	assert tag_count == 4
 
 	html_regression.check(sphinx_source_page)

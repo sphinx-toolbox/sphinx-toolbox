@@ -19,7 +19,7 @@ def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLR
 	assert "sphinx-toolbox Demo - GitHub Issues" == title
 
 	links = github_source_page.select('p')
-	assert len(links) == 5
+	assert len(links) == 7
 
 	assert links[1] == links[2]
 
@@ -40,6 +40,10 @@ def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLR
 			'href="https://github.com/pytest-dev/pytest/issues/7680">pytest-dev/pytest#7680</a></abbr></p>',
 			'<p><abbr title="RFC: python: skip work pytest_pycollect_makeitem work on certain names"><a '
 			'class="reference external" href="https://github.com/pytest-dev/pytest/issues/7671">pytest-dev/pytest#7671</a></abbr></p>',
+			'<p><a class="reference external" '
+			'href="https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/source.py">sphinx_toolbox/source.py</a></p>',
+			'<p><a class="reference external" '
+			'href="https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/more_autodoc/__init__.py">sphinx_toolbox/more_autodoc/__init__.py</a></p>',
 			]
 
 	html_regression.check(github_source_page)

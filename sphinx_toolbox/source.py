@@ -70,7 +70,7 @@ API Reference
 #
 
 # stdlib
-from typing import Dict, List, Sequence, Tuple, Union
+from typing import TYPE_CHECKING, Dict, List, Sequence, Tuple, Union
 
 # 3rd party
 from docutils import nodes
@@ -82,6 +82,10 @@ from sphinx.util import split_explicit_title
 
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
+
+if TYPE_CHECKING:
+	# 3rd party
+	from sphinx.config import Config
 
 __all__ = ["source_role", "setup"]
 
@@ -134,7 +138,11 @@ def source_role(
 	refnode: Union[nodes.reference, addnodes.pending_xref]
 
 	if config.source_link_target == "sphinx":
-		pagename = "_modules/" + target.replace(".py", '')
+		if target.endswith("/__init__.py"):
+			pagename = "_modules/" + target.rsplit('/', 1)[0]
+		else:
+			pagename = "_modules/" + target.replace(".py", '')
+
 		# refnode = addnodes.only(expr="html")
 		# refnode += addnodes.pending_xref(
 		refnode = addnodes.pending_xref(
@@ -166,6 +174,24 @@ def source_role(
 	return nodes_, messages
 
 
+def _configure(app: Sphinx, config: "Config"):
+	"""
+	Validate the provided configuration values.
+
+	:param app: The Sphinx application.
+	:param config:
+	"""
+
+	config.source_link_target = str(config.source_link_target).lower().strip()
+
+	if config.source_link_target not in {"sphinx", "github"}:
+
+		# this package
+		from sphinx_toolbox.config import InvalidOptionError
+
+		raise InvalidOptionError("Invalid value for 'source_link_target'.")
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -179,6 +205,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	# The target for the source link. One of GitHub or Sphinx (GitLab coming soon™)
 	app.add_config_value("source_link_target", "Sphinx", "env", types=[str])
+	app.connect("config-inited", _configure)
 
 	app.setup_extension("sphinx_toolbox.github")
 
