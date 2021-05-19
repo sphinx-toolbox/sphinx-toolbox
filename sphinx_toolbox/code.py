@@ -394,7 +394,7 @@ def configure(app: Sphinx, config: Config):
 	:param config:
 	"""
 
-	latex_elements = getattr(app.config, "latex_elements", {})  # type: ignore
+	latex_elements = getattr(config, "latex_elements", {})
 
 	latex_preamble = StringList(latex_elements.get("preamble", ''))
 	latex_preamble.blankline()
@@ -402,7 +402,7 @@ def configure(app: Sphinx, config: Config):
 	latex_preamble.append(r"\definecolor{nbsphinxout}{HTML}{BF5B3D}")
 
 	latex_elements["preamble"] = str(latex_preamble)
-	app.config.latex_elements = latex_elements  # type: ignore
+	config.latex_elements = latex_elements  # type: ignore
 
 
 @metadata_add_version
