@@ -1,12 +1,11 @@
-apeye>=0.0.4
+apeye[limiter]>=0.9.0
 autodocsumm<0.2.3,>=0.2.0
 beautifulsoup4>=4.9.1
-cachecontrol[filecache]>=0.12.6
 consolekit>=0.3.1
 deprecation-alias>=0.2.0
 dict2css>=0.1.0
 docutils==0.16
-domdf-python-tools>=0.8.0
+domdf-python-tools>=2.9.0
 html5lib>=1.1
 jinja2<3.0.0
 markupsafe<2.0.0
