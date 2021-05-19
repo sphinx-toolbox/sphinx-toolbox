@@ -47,7 +47,7 @@ license-key = "MIT"
 package = "sphinx_toolbox"
 
 [tool.dep_checker]
-allowed_unused = [ "html5lib", "sphinx_prompt", "sphinx_tabs", "jinja2", "markupsafe", ]
+allowed_unused = [ "html5lib", "sphinx_prompt", "sphinx_tabs", "jinja2", "markupsafe",]
 namespace_packages = [ "ruamel.yaml",]
 
 [tool.mkrecipe]
