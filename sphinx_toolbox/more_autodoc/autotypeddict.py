@@ -63,7 +63,7 @@ Usage
 
 	.. automodule:: autotypeddict_demo
 		:no-autosummary:
-		:exclude-members: Movie
+		:exclude-members: Movie,AquaticBird,OldStyleAnimal
 
 	.. autotypeddict:: autotypeddict_demo.Movie
 
@@ -128,13 +128,15 @@ API Reference
 from typing import Any, Callable, Dict, List, Tuple, Type, get_type_hints
 
 # 3rd party
+import docutils.statemachine
 from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyClasslike, PyXRefRole
 from sphinx.ext.autodoc import INSTANCEATTR, ClassDocumenter, Documenter, Options
+from sphinx.locale import _
 from sphinx.pycode import ModuleAnalyzer
-from sphinx.util.inspect import getdoc, safe_getattr
+from sphinx.util.inspect import safe_getattr
 
 # this package
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
@@ -217,12 +219,48 @@ class TypedDictDocumenter(ClassDocumenter):
 		:param no_docstring:
 		"""
 
-		super().add_content(more_content=more_content, no_docstring=no_docstring)
+		if self.doc_as_attr:  # pragma: no cover (verbatim from Sphinx)
+			classname = safe_getattr(self.object, "__qualname__", None)
+			if not classname:
+				classname = safe_getattr(self.object, "__name__", None)
+			if classname:
+				module = safe_getattr(self.object, "__module__", None)
+				parentmodule = safe_getattr(self.parent, "__module__", None)
+				if module and module != parentmodule:
+					classname = str(module) + '.' + str(classname)
+				more_content = docutils.statemachine.StringList([_("alias of :class:`%s`") % classname], source='')
+				no_docstring = True
 
-		if not getdoc(self.object):
-			sourcename = self.get_sourcename()
-			self.add_line(":class:`typing.TypedDict`.", sourcename)
-			self.add_line('', sourcename)
+		# set sourcename and add content from attribute documentation
+		sourcename = self.get_sourcename()
+		if self.analyzer:
+			attr_docs = self.analyzer.find_attr_docs()
+			if self.objpath:
+				key = ('.'.join(self.objpath[:-1]), self.objpath[-1])
+				if key in attr_docs:
+					no_docstring = True
+					# make a copy of docstring for attributes to avoid cache
+					# the change of autodoc-process-docstring event.
+					docstrings = [list(attr_docs[key])]
+
+					for i, line in enumerate(self.process_doc(docstrings)):
+						self.add_line(line, sourcename, i)
+
+		# add content from docstrings
+		if not no_docstring:
+			docstrings = self.get_doc()
+			if not docstrings:
+				# append at least a dummy docstring, so that the event
+				# autodoc-process-docstring is fired and can add some
+				# content if desired
+				docstrings.append([":class:`typing.TypedDict`.", ''])
+			for i, line in enumerate(self.process_doc(docstrings)):
+				self.add_line(line, sourcename, i)
+
+		# add additional content (e.g. from document), if present
+		if more_content:  # pragma: no cover (verbatim from Sphinx)
+			for line, src in zip(more_content.data, more_content.items):
+				self.add_line(line, src[0], src[1])
 
 	def document_members(self, all_members: bool = False) -> None:
 		"""

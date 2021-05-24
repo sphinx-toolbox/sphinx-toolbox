@@ -8,7 +8,7 @@ Demo of ``.. autotypeddict::``
 # 3rd party
 from typing_extensions import TypedDict
 
-__all__ = ["Movie", "Animal", "Cat", "Bird"]
+__all__ = ["Movie", "Animal", "OldStyleAnimal", "Cat", "Bird", "AquaticBird"]
 
 
 class Movie(TypedDict):
@@ -43,6 +43,15 @@ class Animal(_Animal, total=False):
 	voice: str
 
 
+#: Old style TypedDict for Python 2 and where keys aren't valid Python identifiers.
+OldStyleAnimal = TypedDict(
+		"OldStyleAnimal", {
+				"animal-name": str,
+				"animal-voice": str,
+				}, total=False
+		)
+
+
 class Cat(Animal):
 	"""
 	A cat.
@@ -59,3 +68,9 @@ class Bird(Animal):
 
 	#: The size of the bird's egg, in mm.
 	egg_size: float
+
+
+class AquaticBird(Bird):
+
+	#: The bird's habitat (e.g. lake, sea)
+	habitat: float
