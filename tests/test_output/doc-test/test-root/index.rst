@@ -1,7 +1,14 @@
 
+.. only:: html
+
+	.. toctree::
+		:hidden:
+
+		Home<self>
 
 .. toctree::
 	:caption: Documentation
+	:maxdepth: 2
 
 	installation
 	collapse

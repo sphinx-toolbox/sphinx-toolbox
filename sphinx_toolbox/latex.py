@@ -12,6 +12,11 @@ which ensures they are handled correctly.
 
 .. _footmisc: https://ctan.org/pkg/footmisc
 
+.. versionchanged:: 2.12.0
+
+	Sphinx is also configured to respect ``.. only:: html`` etc. directives surrounding
+	toctree directives when determining the overall toctree depth.
+
 .. extensions:: sphinx_toolbox.latex
 
 Usage
@@ -99,23 +104,57 @@ API Reference
 #  OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
+#  PatchedLaTeXBuilder based on Sphinx
+#  Copyright (c) 2007-2020 by the Sphinx team.
+#  |  All rights reserved.
+#  |
+#  |  Redistribution and use in source and binary forms, with or without
+#  |  modification, are permitted provided that the following conditions are
+#  |  met:
+#  |
+#  |  * Redistributions of source code must retain the above copyright
+#  |    notice, this list of conditions and the following disclaimer.
+#  |
+#  |  * Redistributions in binary form must reproduce the above copyright
+#  |    notice, this list of conditions and the following disclaimer in the
+#  |    documentation and/or other materials provided with the distribution.
+#  |
+#  |  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+#  |  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+#  |  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+#  |  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+#  |  HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  |  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+#  |  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+#  |  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+#  |  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+#  |  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+#  |  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
 
 # stdlib
+import os
 import re
 from textwrap import dedent
-from typing import Optional, cast
+from typing import Any, Optional, cast
 
 # 3rd party
 from docutils import nodes
+from docutils.frontend import OptionParser
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import DelimitedList
+from sphinx import addnodes
 from sphinx.application import Sphinx
-from sphinx.builders.latex import LaTeXBuilder
+from sphinx.builders.latex import LaTeXBuilder, patch_settings
 from sphinx.config import Config
 from sphinx.domains import Domain
 from sphinx.environment import BuildEnvironment
-from sphinx.util.docutils import SphinxDirective
-from sphinx.writers.latex import LaTeXTranslator
+from sphinx.locale import __
+from sphinx.util import progress_message
+from sphinx.util.console import bold, darkgreen  # type: ignore
+from sphinx.util.docutils import SphinxDirective, SphinxFileOutput
+from sphinx.util.nodes import process_only_nodes
+from sphinx.writers.latex import LaTeXTranslator, LaTeXWriter
 
 _ = BuildEnvironment
 
@@ -428,6 +467,77 @@ def better_header_layout(
 	config.latex_elements["fncychap"] = "\\usepackage[Bjarne]{fncychap}\n\\ChNameAsIs\n\\ChTitleAsIs\n"
 
 
+class PatchedLaTeXBuilder(LaTeXBuilder):
+	"""
+	Patched version of Sphinx's LaTeX builder which skips toctrees under ``.. only:: html`` etc. directives
+	when determining the max toctree depth.
+
+	The default behaviour uses the ``:maxdepth:`` option of the first toctree,
+	irrespective of whether the toctree will exist with the LaTeX builder.
+	"""  # noqa: D400
+
+	# TODO: respect toctree caption for LaTeX table of contents too
+	# \addto\captionsenglish{\renewcommand{\contentsname}{Documentation}}
+
+	def write(self, *ignored: Any) -> None:
+		docwriter = LaTeXWriter(self)
+		docsettings = OptionParser(
+				defaults=self.env.settings,
+				components=(docwriter, ),
+				read_config_files=True,
+				).get_default_values()  # type: Any
+		patch_settings(docsettings)
+
+		self.init_document_data()
+		self.write_stylesheet()
+
+		for entry in self.document_data:
+			docname, targetname, title, author, themename = entry[:5]
+			theme = self.themes.get(themename)
+			toctree_only = False
+			if len(entry) > 5:
+				toctree_only = entry[5]
+			destination = SphinxFileOutput(
+					destination_path=os.path.join(self.outdir, targetname),
+					encoding="utf-8",
+					overwrite_if_changed=True
+					)
+			with progress_message(__("processing %s") % targetname):
+				doctree = self.env.get_doctree(docname)
+				process_only_nodes(doctree, self.tags)
+				toctree = next(iter(doctree.traverse(addnodes.toctree)), None)
+				if toctree and toctree.get("maxdepth") > 0:
+					tocdepth = toctree.get("maxdepth")
+				else:
+					tocdepth = None
+
+				doctree = self.assemble_doctree(
+						docname,
+						toctree_only,
+						appendices=(self.config.latex_appendices if theme.name != "howto" else [])
+						)
+				doctree["docclass"] = theme.docclass
+				doctree["contentsname"] = self.get_contentsname(docname)
+				doctree["tocdepth"] = tocdepth
+				self.post_process_images(doctree)
+				self.update_doc_context(title, author, theme)
+
+				if hasattr(self, "update_context"):  # pragma: no cover
+					# Only present in newer Sphinx versions
+					self.update_context()
+
+			with progress_message(__("writing")):
+				docsettings._author = author
+				docsettings._title = title
+				docsettings._contentsname = doctree["contentsname"]
+				docsettings._docname = docname
+				docsettings._docclass = theme.name
+
+				doctree.settings = docsettings
+				docwriter.theme = theme
+				docwriter.write(doctree, destination)
+
+
 def configure(app: Sphinx, config: Config):
 	"""
 	Configure :mod:`sphinx_toolbox.latex`.
@@ -455,5 +565,7 @@ def setup(app: Sphinx):
 	app.add_directive("cleardoublepage", ClearDoublePageDirective)
 
 	app.add_domain(LaTeXDomain)
+
+	app.add_builder(PatchedLaTeXBuilder, override=True)
 
 	app.connect("config-inited", configure)
