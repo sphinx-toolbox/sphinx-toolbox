@@ -151,7 +151,6 @@ from sphinx.domains import Domain
 from sphinx.environment import BuildEnvironment
 from sphinx.locale import __
 from sphinx.util import progress_message
-from sphinx.util.console import bold, darkgreen  # type: ignore
 from sphinx.util.docutils import SphinxDirective, SphinxFileOutput
 from sphinx.util.nodes import process_only_nodes
 from sphinx.writers.latex import LaTeXTranslator, LaTeXWriter

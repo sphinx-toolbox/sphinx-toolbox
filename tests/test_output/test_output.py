@@ -201,7 +201,7 @@ def test_latex_output(app, advanced_file_regression: AdvancedFileRegressionFixtu
 
 	assert app.builder.name.lower() == "latex"
 
-	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')") as w:
+	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
 		app.build()
 
 	output_file = PathPlus(app.outdir / "python.tex")
