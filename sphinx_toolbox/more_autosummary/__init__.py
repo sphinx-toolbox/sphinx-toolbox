@@ -23,7 +23,6 @@ and created a broken link..
 	Autosummary now selects the appropriate documenter for attributes rather than
 	falling back to :class:`~sphinx.ext.autodoc.DataDocumenter`.
 
-
 .. latex:vspace:: -10px
 
 
@@ -43,13 +42,11 @@ The member order can also be set on a per-directive basis using the ``:member-or
 This applies not only to :rst:dir:`automodule` etc. directives,
 but also to :rst:dir:`automodulesumm` etc. directives.
 
-
 .. latex:vspace:: -10px
 
 
 API Reference
 ----------------
-
 
 .. latex:vspace:: -10px
 
@@ -155,7 +152,6 @@ def add_autosummary(self):
 		# TODO transform to make caption associated with table in LaTeX
 
 		content.append(".. autosummary::")
-		content.blankline(ensure_single=True)
 		content.blankline(ensure_single=True)
 
 		member_order = get_first_matching(
