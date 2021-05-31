@@ -402,7 +402,7 @@ def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None):
 	output_content = output_content.replace('♦', r' $\diamondsuit$ ')
 	output_content = output_content.replace('♣', r' $\clubsuit$ ')
 	output_content = output_content.replace('\u200b', r'\hspace{0pt}')  # Zero width space
-	output_content = output_content.replace('μ', r"\textmu")
+	output_content = output_content.replace('μ', r"\textmu{}")
 	output_content = output_content.replace('≡', r" $\equiv$ ")
 	output_content = output_content.replace('≈', r" $\approx$ ")
 

@@ -47,6 +47,10 @@ The ​following ​characters ​are ​problematic ​in ​LaTeX:
 * ≡
 * ≈
 
+This is a μ-library for doing something.
+
+The Greek letter μ has several uses.
+
 .. latex:vspace:: 10px
 
 .. latex:clearpage::
