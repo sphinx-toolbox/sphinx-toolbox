@@ -5,6 +5,7 @@ import itertools
 import re
 import types
 from email.headerregistry import Address
+from tempfile import TemporaryDirectory
 from typing import Any, List
 
 # 3rd party
@@ -99,6 +100,11 @@ from sphinx_toolbox.testing import Sphinx, run_setup
 						),
 				pytest.param(io.StringIO, ":py:class:`io.StringIO`", id="io.StringIO"),
 				pytest.param(ast.AST, ":py:class:`ast.AST`", id="ast.AST"),
+				pytest.param(
+						TemporaryDirectory,
+						":py:obj:`tempfile.TemporaryDirectory`",
+						id="tempfile.TemporaryDirectory"
+						),
 				]
 		)
 def test_format_annotation(annotation: Any, expected: str):

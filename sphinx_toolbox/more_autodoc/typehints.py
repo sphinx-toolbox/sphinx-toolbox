@@ -116,6 +116,7 @@ import operator
 import re
 import sys
 import types
+from tempfile import TemporaryDirectory
 from types import FunctionType, ModuleType
 from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, Type, TypeVar, get_type_hints
 
@@ -298,6 +299,8 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		return f":py:obj:`{prefix}.{annotation.__forward_arg__}`"
 	elif annotation is type(re.compile('')):  # noqa E721
 		return f":py:class:`{prefix}typing.Pattern`"
+	elif annotation is TemporaryDirectory:  # noqa E721
+		return f":py:obj:`{prefix}tempfile.TemporaryDirectory`"
 
 	try:
 		module = get_annotation_module(annotation)
