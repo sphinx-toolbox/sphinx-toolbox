@@ -38,7 +38,7 @@ Usage
 .. seealso:: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
 
 
-**Examples:**
+:bold-title:`Examples`
 
 .. literalinclude:: ../../../autonamedtuple_demo.py
 	:language: python

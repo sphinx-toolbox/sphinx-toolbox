@@ -29,7 +29,8 @@ Usage
 	By default, the link points to the code within the documentation,
 	but can be configured to point to GitHub by setting :confval:`source_link_target` to ``'GitHub'``.
 
-	**Example**
+
+	:bold-title:`Example`
 
 	.. rest-example::
 

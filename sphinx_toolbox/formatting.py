@@ -21,11 +21,28 @@ Usage
 
 	.. versionadded:: 0.2.0
 
-	**Example**
+	:bold-title:`Example`
 
 	.. rest-example::
 
 		:iabbr:`LIFO (last-in, first-out)`
+
+
+.. rst:role:: bold-title
+
+	Role for displaying a pseudo title in bold.
+
+	This is useful for breaking up Python docstrings.
+
+	.. versionadded:: 2.12.0
+
+	:bold-title:`Example`
+
+	.. rest-example::
+
+		:bold-title:`Examples:`
+
+		:bold-title:`Other Extensions`
 
 
 API Reference
@@ -64,6 +81,7 @@ from docutils.nodes import Node, system_message
 from docutils.parsers.rst import roles
 from sphinx.application import Sphinx
 from sphinx.roles import Abbreviation
+from sphinx.util.docutils import SphinxRole
 from sphinx.writers.html import HTMLTranslator
 from sphinx.writers.latex import LaTeXTranslator
 
@@ -107,6 +125,25 @@ class ItalicAbbreviation(Abbreviation):
 			text = self.text
 
 		return [ItalicAbbreviationNode(self.rawtext, text, **options)], []  # type: ignore
+
+
+class BoldTitle(SphinxRole):
+	"""
+	Role for displaying a pseudo title in bold.
+
+	This is useful for breaking up Python docstrings.
+	"""
+
+	def run(self) -> Tuple[List[nodes.Node], List[nodes.system_message]]:
+
+		assert self.text is not None
+
+		node_list: List[nodes.Node] = [
+				nodes.raw('', r"\vspace{10px}", format="latex"),
+				nodes.strong(f"**{self.text}**", self.text),
+				]
+
+		return node_list, []
 
 
 def visit_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode):
@@ -177,6 +214,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 
 	roles.register_local_role("iabbr", ItalicAbbreviation())
+	app.add_role("bold-title", BoldTitle())
+
 	app.add_node(
 			ItalicAbbreviationNode,
 			html=(visit_iabbr_node, depart_iabbr_node),

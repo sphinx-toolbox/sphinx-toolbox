@@ -35,7 +35,7 @@ Usage
 		Strip indentation characters from the code block,
 
 
-	**Example**
+	:bold-title:`Example`
 
 	.. rest-example::
 

@@ -9,7 +9,7 @@ name from its description if a description was given.
 .. versionadded:: 0.9.0
 
 
-**Example:**
+:bold-title:`Example`
 
 .. rest-example::
 

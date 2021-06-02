@@ -31,7 +31,7 @@ Usage
 	The title and language can be customised.
 
 
-	**Example**
+	:bold-title:`Example`
 
 	.. rest-example::
 

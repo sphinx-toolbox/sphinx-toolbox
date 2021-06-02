@@ -35,7 +35,7 @@ Usage
 		.. versionadded:: 1.7.2
 
 
-	**Example**
+	:bold-title:`Example`
 
 	.. rest-example::
 
@@ -61,7 +61,7 @@ Usage
 
 		The name of the plugin to install from PyPI. Defaults to the repository name.
 
-	**Example**
+	:bold-title:`Example`
 
 	.. rest-example::
 
