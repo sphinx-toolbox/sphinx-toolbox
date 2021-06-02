@@ -28,8 +28,6 @@ Usage
 		<page where the error occurred>: Asset file '<missing asset file name>' not found.
 
 
-	.. versionadded:: 0.5.0
-
 	**Asset**
 
 	.. rest-example::
@@ -54,8 +52,6 @@ Configuration
 	:default: ``'./assets'``
 
 	The directory in which to find assets for the :rst:role:`asset` role.
-
-	.. versionadded:: 0.5.0
 
 
 API Reference

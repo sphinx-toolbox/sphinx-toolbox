@@ -8,13 +8,8 @@ Documenters for functions and methods which display overloads differently.
 .. extensions:: sphinx_toolbox.more_autodoc.overloads
 
 
-.. latex:vspace:: -10px
-
-
 Configuration
 ----------------
-
-.. latex:vspace:: -12px
 
 .. confval:: overloads_location
 	:type: :class:`str`
@@ -27,15 +22,16 @@ Configuration
 	* ``'bottom'`` -- Display overloads at the bottom of the docstring, or immediately below the return type.
 
 
-.. latex:vspace:: -10px
-
-
 API Reference
 ----------------
 
+.. automodulesumm:: sphinx_toolbox.more_autodoc.overloads
+	:autosummary-sections: Classes
 
-.. latex:vspace:: -12px
+.. latex:clearpage::
 
+.. automodulesumm:: sphinx_toolbox.more_autodoc.overloads
+	:autosummary-sections: Functions
 
 """  # noqa D400
 #
@@ -418,6 +414,10 @@ class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):
 		Processes the signature of the given overloaded implementation.
 
 		:param overload:
+
+		:rtype:
+
+		.. latex:clearpage::
 		"""
 
 		__globals__ = safe_getattr(self.object, "__globals__", {})

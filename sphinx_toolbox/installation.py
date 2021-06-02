@@ -77,6 +77,7 @@ Usage
 
 		See :mod:`sphinx_toolbox.github` for more information.
 
+	.. latex:vspace:: 5px
 
 	**Example**
 
@@ -87,6 +88,8 @@ Usage
 			:anaconda:
 			:conda-channels: domdfcoding,conda-forge
 			:github:
+
+.. latex:clearpage::
 
 
 .. rst:directive:: extensions
@@ -119,6 +122,8 @@ Usage
 		.. versionadded:: 0.4.0
 
 
+	.. latex:vspace:: 10px
+
 	**Example**
 
 	.. rest-example::
@@ -130,6 +135,8 @@ Usage
 			sphinx_tabs.tabs
 			sphinx-prompt
 
+
+.. latex:clearpage::
 
 API Reference
 --------------
@@ -160,7 +167,7 @@ API Reference
 import inspect
 import re
 import warnings
-from typing import Any, Callable, Dict, List, MutableMapping, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 # 3rd party
 import dict2css
@@ -303,10 +310,6 @@ def pypi_installation(
 
 	:param options: Mapping of option names to values.
 	:param env: The Sphinx build environment.
-
-	:rtype:
-
-	.. clearpage::
 	"""
 
 	if "pypi-name" in options:
@@ -586,6 +589,7 @@ class ExtensionsDirective(SphinxDirective):
 		targetnode = nodes.target('', '', ids=[targetid])
 
 		top_text = [
+				".. latex:vspace:: 10px",
 				".. rst-class:: sphinx-toolbox-extensions",
 				'',
 				f"    Enable ``{self.arguments[0]}`` by adding the following",
@@ -704,6 +708,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.setup_extension("sphinx-prompt")
 	app.setup_extension("sphinx_toolbox._css")
+	app.setup_extension("sphinx_toolbox.latex")
 
 	app.add_config_value("conda_channels", [], "env", types=[list])
 

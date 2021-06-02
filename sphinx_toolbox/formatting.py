@@ -8,6 +8,8 @@ Directives, roles and nodes for text formatting.
 .. extensions:: sphinx_toolbox.formatting
 
 
+.. latex:vspace:: -10px
+
 Usage
 -------
 

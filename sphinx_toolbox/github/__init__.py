@@ -11,6 +11,8 @@ Sphinx domain for GitHub.com, and related utilities.
 Configuration
 --------------
 
+.. latex:vspace:: -10px
+
 .. confval:: github_username
 	:type: :class:`str`
 	:required: True
@@ -27,6 +29,7 @@ Configuration
 Usage
 ------
 
+.. latex:vspace:: -10px
 
 .. rst:role:: github:issue
 
@@ -146,10 +149,10 @@ This will guarantee that the following values will be available via
 
 * **github_username** (:class:`str`\) -- The username of the GitHub account that owns the repository this documentation corresponds to.
 * **github_repository** (:class:`str`\) -- The GitHub repository this documentation corresponds to.
-* **github_url** (:class:`apeye.url.RequestsURL`\) -- The complete URL of the repository on GitHub.
-* **github_source_url** (:class:`apeye.url.RequestsURL`\) -- The base URL for the source code on GitHub.
-* **github_issues_url** (:class:`apeye.url.RequestsURL`\) -- The base URL for the issues on GitHub.
-* **github_pull_url** (:class:`apeye.url.RequestsURL`\) -- The base URL for the pull requests on GitHub.
+* **github_url** (:class:`apeye.requests_url.RequestsURL`\) -- The complete URL of the repository on GitHub.
+* **github_source_url** (:class:`~apeye.requests_url.RequestsURL`\) -- The base URL for the source code on GitHub.
+* **github_issues_url** (:class:`~apeye.requests_url.RequestsURL`\) -- The base URL for the issues on GitHub.
+* **github_pull_url** (:class:`~apeye.requests_url.RequestsURL`\) -- The base URL for the pull requests on GitHub.
 
 If the user has not provided either ``github_username`` or ``github_repository``
 a :exc:`~.MissingOptionError` will be raised.

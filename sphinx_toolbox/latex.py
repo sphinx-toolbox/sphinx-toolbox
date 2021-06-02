@@ -48,6 +48,9 @@ Usage
 	.. versionadded:: 2.10.0
 	.. seealso:: :rst:dir:`latex:cleardoublepage`
 
+.. raw:: latex
+
+	\columnbreak
 
 .. rst:directive:: latex:cleardoublepage
                    cleardoublepage
@@ -337,7 +340,7 @@ class VSpaceDirective(SphinxDirective):
 		Process the content of the directive.
 		"""
 
-		return [nodes.raw('', fr"\vspace{{{self.arguments[0]}}}", format="latex")]
+		return [nodes.raw('', f"\n\\vspace{{{self.arguments[0]}}}\n", format="latex")]
 
 
 class LaTeXDomain(Domain):

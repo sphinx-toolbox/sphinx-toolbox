@@ -9,12 +9,12 @@ Directive which adds a toctree to the sidebar containing links to the GitHub rep
 .. extensions:: sphinx_toolbox.sidebar_links
 
 
-.. latex:vspace:: -2px
+.. latex:vspace:: -5px
 
 Usage
 -------
 
-.. latex:vspace:: -2px
+.. latex:vspace:: -10px
 
 .. rst:directive:: sidebar-links
 
@@ -25,6 +25,7 @@ Usage
 
 		You can see an example of this in the sidebar of this documentation.
 
+	.. note:: This directive can only be used on the root document (i.e. index.rst).
 
 	.. rst:directive:option:: github
 		:type: flag
@@ -59,8 +60,6 @@ Usage
 		The caption of the toctree. Defaults to ``Links``
 
 	Additional toctree entries may be added as the content of the directive, in the same manner as normal toctrees.
-
-	.. note:: This directive can only be used on the root document (i.e. index.rst).
 
 
 API Reference

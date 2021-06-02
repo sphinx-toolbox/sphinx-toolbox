@@ -43,7 +43,9 @@ Usage
 	.. versionchanged:: 2.7.0
 
 		The flags :py:data:`re.DEBUG` and :py:data:`re.VERBOSE` are now hidden
-		as the don't affect the regex itself.
+		as they don't affect the regex itself.
+
+.. latex:clearpage::
 
 .. rst:role:: regex
 

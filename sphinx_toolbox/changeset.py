@@ -31,6 +31,7 @@ Usage
    Similar to :rst:dir:`versionchanged`, but describes when the feature was deprecated.
    An explanation can also be given, for example to inform the reader what should be used instead.
 
+.. latex:vspace:: 10px
 
 This extension also adds the following directive:
 

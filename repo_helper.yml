@@ -45,8 +45,8 @@ extra_sphinx_extensions:
   - sphinx_toolbox.flake8
   - sphinx_autofixture
   - sphinx_event_role
-  - latex_unicode
   - html_section
+  - _internal_extension
   - sphinxcontrib.email
 
 tox_unmanaged:

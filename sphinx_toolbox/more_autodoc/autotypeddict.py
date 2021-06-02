@@ -69,10 +69,12 @@ Usage
 
 	This function takes a single argument, the :typeddict:`~.Movie` to watch.
 
+.. latex:vspace:: -5px
 
 API Reference
 ---------------
 
+.. latex:vspace:: -10px
 """
 #
 #  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -264,9 +266,7 @@ class TypedDictDocumenter(ClassDocumenter):
 
 	def document_members(self, all_members: bool = False) -> None:
 		"""
-		Generate reST for member documentation.
-
-		All members are always documented.
+		Generate reST for member documentation. All members are always documented.
 		"""
 
 		super().document_members(True)

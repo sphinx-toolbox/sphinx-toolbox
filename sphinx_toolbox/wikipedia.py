@@ -11,6 +11,8 @@ Sphinx extension to create links to Wikipedia articles.
 Configuration
 --------------
 
+.. latex:vspace:: -5px
+
 .. confval:: wikipedia_lang
 	:type: :class:`str`
 	:required: False
@@ -23,6 +25,8 @@ Configuration
 
 Usage
 ------
+
+.. latex:vspace:: -5px
 
 .. rst:role:: wikipedia
 

@@ -19,6 +19,9 @@ Usage
 
 	Codes to document are given in the body of the directive.
 
+
+	.. latex:vspace:: 10px
+
 	**Example**
 
 	.. raw:: latex

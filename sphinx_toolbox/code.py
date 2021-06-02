@@ -187,6 +187,9 @@ class CodeBlock(sphinx.directives.code.CodeBlock):
 	Directive for a code block with special highlighting or line numbering settings.
 
 	The indent_size can be adjusted with the ``:tab-width: <int>`` option.
+
+	.. autoclasssumm:: CodeBlock
+		:autosummary-sections: ;;
 	"""
 
 	option_spec: OptionSpec = {  # type: ignore
@@ -233,7 +236,12 @@ class CodeCell(CodeBlock):
 	Customised code block which displays an execution count to the left of the code block,
 	similar to a Jupyter Notebook cell.
 
+	The indent_size can be adjusted with the ``:tab-width: <int>`` option.
+
 	The execution count can be set using the ``:execution-count: <int>`` option.
+
+	.. autoclasssumm:: CodeCell
+		:autosummary-sections: ;;
 
 	.. versionadded:: 2.6.0
 	"""  # noqa: D400
@@ -274,9 +282,14 @@ class OutputCell(CodeCell):
 	"""
 	Variant of :class:`~.CodeCell` for displaying the output of a cell in a Jupyter Notebook.
 
+	The indent_size can be adjusted with the ``:tab-width: <int>`` option.
+
 	The execution count can be set using the ``:execution-count: <int>`` option.
 
 	.. versionadded:: 2.6.0
+
+	.. autoclasssumm:: OutputCell
+		:autosummary-sections: ;;
 	"""
 
 	_prompt: str = "[%s]:"
@@ -335,8 +348,6 @@ def copy_asset_files(app: Sphinx, exception: Exception = None):
 
 	:param app: The Sphinx application.
 	:param exception: Any exception which occurred and caused Sphinx to abort.
-
-	.. clearpage::
 	"""
 
 	if exception:  # pragma: no cover
