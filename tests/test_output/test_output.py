@@ -218,6 +218,7 @@ def test_latex_output_latex_layout(app, advanced_file_regression: AdvancedFileRe
 	assert app.builder.name.lower() == "latex"
 
 	app.setup_extension("sphinx_toolbox.tweaks.latex_layout")
+	app.events.emit('config-inited', app.config)
 
 	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')") as w:
 		app.build(force_all=True)
