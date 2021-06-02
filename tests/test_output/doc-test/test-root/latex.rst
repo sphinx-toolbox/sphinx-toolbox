@@ -47,7 +47,11 @@ The ​following ​characters ​are ​problematic ​in ​LaTeX:
 * ≡
 * ≈
 
+.. latex:nopagebreak::
+
 This is a μ-library for doing something.
+
+.. latex:nopagebreak:: 2
 
 The Greek letter μ has several uses.
 

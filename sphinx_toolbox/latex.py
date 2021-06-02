@@ -322,6 +322,32 @@ class ClearDoublePageDirective(SphinxDirective):
 		return [nodes.raw('', r"\cleardoublepage", format="latex")]
 
 
+class NoPageBreakDirective(SphinxDirective):
+	"""
+	Directive which configures LaTeX to never break a page at the given point.
+
+	This directive has no effect with non-LaTeX builders.
+
+	.. versionadded:: 2.12.0
+	.. seealso:: :class:`~.ClearPageDirective`
+	"""
+
+	optional_arguments = 1
+	has_content = True
+
+	def run(self):
+		"""
+		Process the content of the directive.
+		"""
+
+		if self.arguments:
+			source = fr"\nopagebreak[{self.arguments[0]}]"
+		else:
+			source = r"\nopagebreak"
+
+		return [nodes.raw('', source, format="latex")]
+
+
 class VSpaceDirective(SphinxDirective):
 	"""
 	Directive which configures LaTeX to add or remove vertical space.
@@ -356,6 +382,7 @@ class LaTeXDomain(Domain):
 			"samepage": SamepageDirective,
 			"clearpage": ClearPageDirective,
 			"cleardoublepage": ClearDoublePageDirective,
+			"nopagebreak": NoPageBreakDirective,
 			"vspace": VSpaceDirective,
 			}
 
