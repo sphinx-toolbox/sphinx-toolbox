@@ -77,7 +77,7 @@
 
 \definecolor{nbsphinxin}{HTML}{307FC1}
 \definecolor{nbsphinxout}{HTML}{BF5B3D}
-\usepackage[symbol]{footmisc}
+\newcommand\thesymbolfootnote{\fnsymbol{footnote}}\let\thenumberfootnote\thefootnote
 
 \definecolor{regex_literal}{HTML}{696969}
 \definecolor{regex_at}{HTML}{FF4500}
@@ -646,19 +646,19 @@ A configuration value.
 \chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} footnotes}
 \label{\detokenize{footnote_symbols:sphinx-toolbox-demo-footnotes}}\label{\detokenize{footnote_symbols::doc}}
 Some text %
-\begin{footnote}[2]\sphinxAtStartFootnote
+\renewcommand\thefootnote{\thesymbolfootnote}\begin{footnote}[2]\sphinxAtStartFootnote
 An auto\sphinxhyphen{}symbol footnote
 %
-\end{footnote}
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
 
 Some more text %
-\begin{footnote}[3]\sphinxAtStartFootnote
+\renewcommand\thefootnote{\thesymbolfootnote}\begin{footnote}[3]\sphinxAtStartFootnote
 Another footnote
 %
-\end{footnote}
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
 
 Sometimes %
-\begin{footnote}[4]\sphinxAtStartFootnote
+\renewcommand\thefootnote{\thesymbolfootnote}\begin{footnote}[4]\sphinxAtStartFootnote
 A footnote with lots of content.
 
 \sphinxSetupCodeBlockInFootnote
@@ -666,7 +666,7 @@ A footnote with lots of content.
 \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Look ma! I}\PYG{l+s+s2}{\PYGZsq{}}\PYG{l+s+s2}{m in a footnote}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
 \end{sphinxVerbatim}
 %
-\end{footnote} strange things happen.
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote} strange things happen.
 
 
 \chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} LaTeX}
@@ -773,6 +773,76 @@ The Greek letter \textmu{} has several uses.
 
 
 Goodbyeee!
+
+
+\section{Example Footnotes}
+\label{\detokenize{latex:example-footnotes}}
+\begin{DUlineblock}{0em}
+\item[] Hello %
+\begin{footnote}[1]\sphinxAtStartFootnote
+One
+%
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
+\item[] Goodbye %
+\begin{footnote}[2]\sphinxAtStartFootnote
+Two
+%
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
+\item[] Symbol %
+\renewcommand\thefootnote{\thesymbolfootnote}\begin{footnote}[2]\sphinxAtStartFootnote
+Buckle my shoe
+%
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
+\item[] Another Symbol %
+\renewcommand\thefootnote{\thesymbolfootnote}\begin{footnote}[3]\sphinxAtStartFootnote
+The second symbol
+%
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
+\item[] Number Again %
+\begin{footnote}[3]\sphinxAtStartFootnote
+The number after the symbol
+%
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
+\item[] Symbol 3 %
+\renewcommand\thefootnote{\thesymbolfootnote}\begin{footnote}[4]\sphinxAtStartFootnote
+Symbol 3
+%
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
+\item[] Symbol 4 %
+\renewcommand\thefootnote{\thesymbolfootnote}\begin{footnote}[5]\sphinxAtStartFootnote
+Symbol 4
+%
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
+\item[] Symbol 5 %
+\renewcommand\thefootnote{\thesymbolfootnote}\begin{footnote}[6]\sphinxAtStartFootnote
+Symbol 5
+%
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
+\item[] Symbol 6 %
+\renewcommand\thefootnote{\thesymbolfootnote}\begin{footnote}[7]\sphinxAtStartFootnote
+Symbol 6
+%
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
+\item[] Symbol 7 %
+\renewcommand\thefootnote{\thesymbolfootnote}\begin{footnote}[8]\sphinxAtStartFootnote
+Symbol 7
+%
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
+\item[] Symbol 8 %
+\renewcommand\thefootnote{\thesymbolfootnote}\begin{footnote}[9]\sphinxAtStartFootnote
+Symbol 8
+%
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
+\item[] Symbol 9 %
+\renewcommand\thefootnote{\thesymbolfootnote}\begin{footnote}[10]\sphinxAtStartFootnote
+Symbol 9
+%
+\end{footnote}\renewcommand\thefootnote{\thenumberfootnote}
+\end{DUlineblock}
+
+
+\vspace{20px}
+
 
 
 \chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} Regex}

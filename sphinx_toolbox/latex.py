@@ -7,10 +7,7 @@ Sphinx utilities for LaTeX builders.
 .. versionadded:: 2.8.0
 
 In addition to the developer API (see below), :mod:`sphinx_toolbox.latex`
-configures Sphinx to use the LaTeX footmisc_ package for symbol footnotes,
-which ensures they are handled correctly.
-
-.. _footmisc: https://ctan.org/pkg/footmisc
+configures Sphinx and LaTeX to correctly handle symbol footnotes.
 
 .. versionchanged:: 2.12.0
 
@@ -19,8 +16,45 @@ which ensures they are handled correctly.
 
 .. extensions:: sphinx_toolbox.latex
 
+
+Example Footnotes
+--------------------
+
+| Hello [1]_
+| Goodbye [2]_
+| Symbol [*]_
+| Another Symbol [*]_
+| Number Again [3]_
+| Symbol 3 [*]_
+| Symbol 4 [*]_
+| Symbol 5 [*]_
+| Symbol 6 [*]_
+| Symbol 7 [*]_
+| Symbol 8 [*]_
+| Symbol 9 [*]_
+
+.. latex:vspace:: 20px
+
+.. [1] One
+.. [2] Two
+.. [*] Buckle my shoe
+.. [*] The second symbol
+.. [3] The number after the symbol
+.. [*] Symbol 3
+.. [*] Symbol 4
+.. [*] Symbol 5
+.. [*] Symbol 6
+.. [*] Symbol 7
+.. [*] Symbol 8
+.. [*] Symbol 9
+
+
+.. latex:vspace:: -10px
+
 Usage
 -------
+
+.. latex:vspace:: -20px
 
 .. raw:: latex
 
@@ -83,8 +117,12 @@ Usage
 	\end{multicols}
 
 
+.. latex:vspace:: -20px
+
 API Reference
 ----------------
+
+.. latex:vspace:: -20px
 """
 #
 #  Copyright © 2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
@@ -144,6 +182,7 @@ from typing import Any, Optional, cast
 # 3rd party
 from docutils import nodes
 from docutils.frontend import OptionParser
+from docutils.transforms.references import Footnotes
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import DelimitedList
 from sphinx import addnodes
@@ -175,7 +214,8 @@ __all__ = [
 		"setup",
 		]
 
-footmisc_symbols = ['0', '*', '†', '‡', '§', '¶', '‖', "**", "††", "‡‡"]
+footmisc_symbols = ['0', *Footnotes.symbols]
+# footmisc_symbols = ['0', '*', '†', '‡', '§', '¶', '‖', "**", "††", "‡‡"]
 
 
 def visit_footnote(translator: LaTeXTranslator, node: nodes.footnote) -> None:
@@ -188,19 +228,17 @@ def visit_footnote(translator: LaTeXTranslator, node: nodes.footnote) -> None:
 
 	:param translator:
 	:param node:
-
-	.. clearpage::
 	"""
 
 	translator.in_footnote += 1
 	footnote_id = str(cast(nodes.label, node[0]).astext())
 
-	if not footnote_id.isnumeric():
-		if footnote_id in footmisc_symbols:
-			footnote_id = str(footmisc_symbols.index(footnote_id))
-
 	if not translator.in_parsed_literal:
 		translator.body.append("%\n")
+
+	if not footnote_id.isnumeric() and footnote_id in footmisc_symbols:
+		footnote_id = str(footmisc_symbols.index(footnote_id))
+		translator.body.append(r"\renewcommand\thefootnote{\thesymbolfootnote}")
 
 	translator.body.append(rf"\begin{{footnote}}[{footnote_id}]")
 	translator.body.append("\\sphinxAtStartFootnote\n")
@@ -220,6 +258,7 @@ def depart_footnote(translator: LaTeXTranslator, node: nodes.footnote) -> None:
 		translator.body.append("%\n")
 
 	translator.body.append(r"\end{footnote}")
+	translator.body.append(r"\renewcommand\thefootnote{\thenumberfootnote}")
 	translator.in_footnote -= 1
 
 
@@ -329,8 +368,6 @@ class VSpaceDirective(SphinxDirective):
 	This directive has no effect with non-LaTeX builders.
 
 	.. versionadded:: 2.11.0
-
-	.. clearpage::
 	"""
 
 	required_arguments = 1  # the space
@@ -550,7 +587,15 @@ def configure(app: Sphinx, config: Config):
 	:param config:
 	"""
 
-	use_package("footmisc", config, "symbol")
+	if not hasattr(config, "latex_elements") or not config.latex_elements:  # pragma: no cover
+		config.latex_elements = {}  # type: ignore
+
+	latex_preamble = config.latex_elements.get("preamble", '')
+
+	command_string = r"\newcommand\thesymbolfootnote{\fnsymbol{footnote}}\let\thenumberfootnote\thefootnote"
+
+	if command_string not in latex_preamble:
+		config.latex_elements["preamble"] = f"{latex_preamble}\n{command_string}"
 
 
 def setup(app: Sphinx):
