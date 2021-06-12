@@ -178,7 +178,7 @@ class SidebarLinksDirective(SphinxDirective):
 			if "github" in self.options:
 				body.append(self.process_github_option())
 			if "pypi" in self.options:
-				body.append(f"PyPI <https://pypi.org/{self.options['pypi']}>")
+				body.append(f"PyPI <https://pypi.org/project/{self.options['pypi']}>")
 
 			body.extend(self.content)
 
