@@ -1,6 +1,6 @@
 # 3rd party
 import pytest
-from apeye.url import RequestsURL
+from apeye.requests_url import RequestsURL
 
 # this package
 from sphinx_toolbox.config import InvalidOptionError, MissingOptionError, validate_config

@@ -1,6 +1,6 @@
 # 3rd party
 import pytest
-from apeye.url import RequestsURL
+from apeye.requests_url import RequestsURL
 from coincidence.params import count
 from deprecation import fail_if_not_removed  # type: ignore
 from docutils.nodes import system_message
