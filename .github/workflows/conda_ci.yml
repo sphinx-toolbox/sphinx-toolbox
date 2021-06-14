@@ -36,11 +36,22 @@ jobs:
           $CONDA/bin/conda config --add channels conda-forge
           $CONDA/bin/conda config --add channels domdfcoding
 
-      - name: "Build and install package"
+      - name: "Build and index channel"
         run: |
-          # This mess is only necessary because conda won't fix it themselves
-          # https://github.com/conda/conda/issues/1884
-
           python -m repo_helper build --conda --out-dir conda-bld/noarch
           $CONDA/bin/conda index ./conda-bld || exit 1
-          $CONDA/bin/conda install -c file://$(pwd)/conda-bld sphinx-toolbox -y || exit 1
+
+      - name: "Search for package"
+        run: |
+          $CONDA/bin/conda search -c file://$(pwd)/conda-bld sphinx-toolbox
+          $CONDA/bin/conda search -c file://$(pwd)/conda-bld --override-channels sphinx-toolbox
+
+      - name: "Install package"
+        run: |
+          $CONDA/bin/conda install -c file://$(pwd)/conda-bld sphinx-toolbox=2.12.1=py_1 -y || exit 1
+
+      - name: "Run Tests"
+        run: |
+          rm -rf sphinx_toolbox
+          $CONDA/bin/pip install -r tests/requirements.txt
+          $CONDA/bin/pytest tests/
