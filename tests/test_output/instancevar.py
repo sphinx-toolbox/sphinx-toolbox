@@ -2,7 +2,7 @@
 from typing import Union
 
 # 3rd party
-from apeye.url import SlumberURL
+from apeye.slumber_url import SlumberURL
 from domdf_python_tools.secrets import Secret
 
 
