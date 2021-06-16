@@ -4,7 +4,7 @@ from typing import Set, Type
 # 3rd party
 import docutils.nodes
 import pytest
-from apeye.url import RequestsURL
+from apeye.requests_url import RequestsURL
 from coincidence.params import count
 from docutils import nodes
 from docutils.utils import Reporter

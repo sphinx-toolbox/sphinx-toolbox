@@ -30,7 +30,7 @@ Internal configuration for ``sphinx-toolbox``.
 from typing import List, Union
 
 # 3rd party
-from apeye.url import RequestsURL
+from apeye.requests_url import RequestsURL
 from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.config import Config

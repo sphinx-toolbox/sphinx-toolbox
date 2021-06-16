@@ -6,7 +6,7 @@ from typing import NamedTuple
 
 # 3rd party
 import pytest
-from apeye.url import RequestsURL
+from apeye.requests_url import RequestsURL
 from domdf_python_tools.utils import strtobool
 from hypothesis import given
 from hypothesis.strategies import text

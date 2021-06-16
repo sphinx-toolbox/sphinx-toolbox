@@ -1,4 +1,4 @@
-apeye>=0.0.4
+apeye[limiter]>=0.6.0
 autodocsumm>=0.2.0
 beautifulsoup4>=4.9.1
 consolekit>=0.3.1

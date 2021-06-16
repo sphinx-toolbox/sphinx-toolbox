@@ -1,5 +1,5 @@
 # 3rd party
-from apeye.url import RequestsURL
+from apeye.requests_url import RequestsURL
 from docutils.nodes import inline, reference, system_message
 from docutils.utils import Reporter
 from sphinx import addnodes

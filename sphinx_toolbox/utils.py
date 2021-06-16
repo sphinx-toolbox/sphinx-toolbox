@@ -38,7 +38,7 @@ from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Patte
 
 # 3rd party
 import sphinx.config
-from apeye.url import RequestsURL
+from apeye.requests_url import RequestsURL
 from docutils.nodes import Node
 from domdf_python_tools.doctools import prettify_docstrings
 from sphinx.application import Sphinx
