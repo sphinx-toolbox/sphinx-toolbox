@@ -4,4 +4,4 @@
 
 .. automodule:: sphinx_toolbox.more_autodoc.variables
 	:member-order: bysource
-	:exclude-members: add_directive_header
+	:exclude-members: is_function_or_method,document_members,isinstanceattribute,import_object,get_real_modname

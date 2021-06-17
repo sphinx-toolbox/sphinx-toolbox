@@ -39,6 +39,7 @@ import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 
 # this package
+from sphinx_toolbox.more_autosummary import PatchedAutoSummModuleDocumenter
 from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = ["automodule_add_nodocstring", "no_docstring_process_docstring", "setup"]
@@ -57,6 +58,7 @@ def automodule_add_nodocstring(app) -> None:
 
 	sphinx.ext.autodoc.ModuleDocumenter.option_spec["no-docstring"] = flag
 	autodocsumm.AutoSummModuleDocumenter.option_spec["no-docstring"] = flag
+	PatchedAutoSummModuleDocumenter.option_spec["no-docstring"] = flag
 
 	app.setup_extension("sphinx.ext.autodoc")
 	app.connect("autodoc-process-docstring", no_docstring_process_docstring, priority=1000)

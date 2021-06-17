@@ -70,24 +70,44 @@ from typing import Any
 # 3rd party
 from docutils.statemachine import StringList
 from sphinx.application import Sphinx
-from sphinx.ext.autodoc import DataDocumenter, GenericAliasDocumenter
+from sphinx.ext.autodoc import SUPPRESS, Options
 from sphinx.ext.autodoc.directive import DocumenterBridge  # noqa: F401
 from sphinx.locale import _
+from sphinx.util import inspect
 
 # this package
+from sphinx_toolbox._data_documenter import DataDocumenter
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["PrettyGenericAliasDocumenter", "setup"]
 
 
-class PrettyGenericAliasDocumenter(GenericAliasDocumenter):  # pragma: no cover (<Py37)
+class PrettyGenericAliasDocumenter(DataDocumenter):  # pragma: no cover (<Py37)
 	"""
-	Specialized Documenter subclass for GenericAliases,
-	with prettier output than Sphinx's one.
-	"""  # noqa D400
+	Specialized Documenter subclass for GenericAliases, with prettier output than Sphinx's one.
+	"""
 
-	priority = GenericAliasDocumenter.priority + 1
+	objtype = "genericalias"
+	directivetype = "data"
+	priority = DataDocumenter.priority + 2
+
+	@classmethod
+	def can_document_member(cls, member: Any, membername: str, isattr: bool, parent: Any) -> bool:
+		"""
+		Called to see if a member can be documented by this documenter.
+		"""
+
+		return inspect.isgenericalias(member)
+
+	def add_directive_header(self, sig: str) -> None:
+		"""
+		Add the directive header and options to the generated content.
+		"""
+
+		self.options = Options(self.options)
+		self.options["annotation"] = SUPPRESS
+		super().add_directive_header(sig)
 
 	def add_content(self, more_content: Any, no_docstring: bool = False):
 		"""

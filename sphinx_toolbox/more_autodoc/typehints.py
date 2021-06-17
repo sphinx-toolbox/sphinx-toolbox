@@ -633,7 +633,7 @@ def process_docstring(
 
 			formatted_annotation = format_annotation(
 					annotation,
-					fully_qualified=app.config.typehints_fully_qualified,  # type: ignore
+					fully_qualified=app.config.typehints_fully_qualified,
 					)
 
 			searchfor = [f":{field} {argname}:" for field in ("param", "parameter", "arg", "argument")]
@@ -644,7 +644,7 @@ def process_docstring(
 					insert_index = i
 					break
 
-			if insert_index is None and app.config.always_document_param_types:  # type: ignore
+			if insert_index is None and app.config.always_document_param_types:
 				lines.append(f":param {argname}:")
 				insert_index = len(lines)
 
@@ -658,7 +658,7 @@ def process_docstring(
 
 			formatted_annotation = format_annotation(
 					type_hints["return"],
-					fully_qualified=app.config.typehints_fully_qualified,  # type: ignore
+					fully_qualified=app.config.typehints_fully_qualified,
 					)
 
 			insert_index = len(lines)
@@ -675,7 +675,7 @@ def process_docstring(
 				elif line.startswith(":return:") or line.startswith(":returns:"):
 					insert_index = i
 
-			if insert_index is not None and app.config.typehints_document_rtype:  # type: ignore
+			if insert_index is not None and app.config.typehints_document_rtype:
 
 				if insert_index == len(lines):
 					# Ensure that :rtype: doesn't get joined with a paragraph of text, which
@@ -683,7 +683,7 @@ def process_docstring(
 					lines.append('')
 					insert_index += 1
 
-				if not (formatted_annotation == ":py:obj:`None`" and app.config.hide_none_rtype):  # type: ignore
+				if not (formatted_annotation == ":py:obj:`None`" and app.config.hide_none_rtype):
 					lines.insert(insert_index, f":rtype: {formatted_annotation}")
 
 

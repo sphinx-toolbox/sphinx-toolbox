@@ -129,6 +129,7 @@ from sphinx.locale import _
 from sphinx.pycode import ModuleAnalyzer
 
 # this package
+from sphinx_toolbox.more_autodoc import ObjectMembers
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import (
 		Param,
@@ -211,7 +212,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		"""
 
 		# Size varies depending on docutils config
-		tab_size = self.env.app.config.docutils_tab_width  # type: ignore
+		tab_size = self.env.app.config.docutils_tab_width
 
 		if self.object.__doc__:
 			docstring = dedent(self.object.__doc__).expandtabs(tab_size).split('\n')
@@ -246,7 +247,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 	def filter_members(
 			self,
-			members: List[Tuple[str, Any]],
+			members: ObjectMembers,
 			want_all: bool,
 			) -> List[Tuple[str, Any, bool]]:
 		"""
@@ -297,7 +298,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		documenters = super().sort_members(documenters, order)
 
 		# Size varies depending on docutils config
-		a_tab = ' ' * self.env.app.config.docutils_tab_width  # type: ignore
+		a_tab = ' ' * self.env.app.config.docutils_tab_width
 
 		# Mapping of member names to docstrings (as list of strings)
 		member_docstrings: Dict[str, List[str]]
@@ -391,6 +392,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	allow_subclass_add(app, NamedTupleDocumenter)
 
-	add_nbsp_substitution(app.config)  # type: ignore
+	add_nbsp_substitution(app.config)
 
 	return {"parallel_read_safe": True}

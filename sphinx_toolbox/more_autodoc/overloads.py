@@ -141,7 +141,7 @@ class OverloadMixin(_OverloadMixinBase):
 
 		# Size varies depending on docutils config
 		output.indent_type = ' '
-		output.indent_size = self.env.app.config.docutils_tab_width  # type: ignore
+		output.indent_size = self.env.app.config.docutils_tab_width
 
 		if self.analyzer and '.'.join(self.objpath) in self.analyzer.overloads:
 

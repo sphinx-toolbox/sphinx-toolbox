@@ -13,7 +13,7 @@ configuration value, or via :confval:`autodocsumm_member_order`.
 Also patches :class:`sphinx.ext.autosummary.Autosummary` to fix an issue where
 the module name is sometimes duplicated.
 I.e. ``foo.bar.baz()`` became ``foo.bar.foo.bar.baz()``, which of course doesn't exist
-and created a broken link..
+and created a broken link.
 
 
 .. versionadded:: 0.7.0
@@ -22,6 +22,12 @@ and created a broken link..
 
 	Autosummary now selects the appropriate documenter for attributes rather than
 	falling back to :class:`~sphinx.ext.autodoc.DataDocumenter`.
+
+.. versionchanged:: 2.13.0
+
+	Also patches :class:`sphinx.ext.autodoc.ModuleDocumenter` to fix an issue where
+	``__all__`` is not respected for autosummary tables.
+
 
 .. latex:vspace:: -10px
 
@@ -106,21 +112,42 @@ API Reference
 
 # stdlib
 import inspect
+import operator
 import re
-from typing import Any, List, Tuple, Type
+from typing import Any, List, Optional, Tuple, Type
 
 # 3rd party
 import autodocsumm  # type: ignore
 from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.config import ENUM
-from sphinx.ext.autodoc import ClassDocumenter, DataDocumenter, Documenter, ModuleDocumenter
+from sphinx.ext.autodoc import (
+		ALL,
+		INSTANCEATTR,
+		ClassDocumenter,
+		Documenter,
+		ModuleDocumenter,
+		get_module_members,
+		logger,
+		special_member_re
+		)
 from sphinx.ext.autosummary import Autosummary, FakeDirective
+from sphinx.locale import __
+from sphinx.util.docstrings import extract_metadata
+from sphinx.util.inspect import getdoc, safe_getattr
 
 # this package
+from sphinx_toolbox._data_documenter import DataDocumenter
+from sphinx_toolbox.more_autodoc import ObjectMembers
 from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add, get_first_matching, metadata_add_version
 
-__all__ = ["setup", "PatchedAutosummary", "PatchedAutoSummClassDocumenter", "get_documenter"]
+__all__ = [
+		"PatchedAutosummary",
+		"PatchedAutoSummModuleDocumenter",
+		"PatchedAutoSummClassDocumenter",
+		"get_documenter",
+		"setup",
+		]
 
 
 def add_autosummary(self):
@@ -277,6 +304,195 @@ def get_documenter(app: Sphinx, obj: Any, parent: Any) -> Type[Documenter]:
 		return DataDocumenter
 
 
+class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
+	"""
+	Patched version of :class:`autodocsumm.AutoSummClassDocumenter`
+	which works around a bug in Sphinx 3.4 and above where ``__all__`` is not respected.
+
+	.. versionadded:: 2.13.0
+	"""  # noqa D400
+
+	def filter_members(self, members: ObjectMembers, want_all: bool) -> List[Tuple[str, Any, bool]]:
+		"""
+		Filter the given member list.
+
+		Members are skipped if:
+
+		* they are private (except if given explicitly or the ``private-members`` option is set)
+		* they are special methods (except if given explicitly or the ``special-members`` option is set)
+		* they are undocumented (except if the ``undoc-members`` option is set)
+
+		The user can override the skipping decision by connecting to the :event:`autodoc-skip-member` event.
+		"""
+
+		def is_filtered_inherited_member(name: str) -> bool:
+			if inspect.isclass(self.object):
+				for cls in self.object.__mro__:
+					if cls.__name__ == self.options.inherited_members and cls != self.object:
+						# given member is a member of specified *super class*
+						return True
+					elif name in cls.__dict__:
+						return False
+					elif name in self.get_attr(cls, "__annotations__", {}):
+						return False
+
+			return False
+
+		ret = []
+
+		# search for members in source code too
+		namespace = '.'.join(self.objpath)  # will be empty for modules
+
+		if self.analyzer:
+			attr_docs = self.analyzer.find_attr_docs()
+		else:
+			attr_docs = {}
+
+		doc: Optional[str]
+
+		# process members and determine which to skip
+		for (membername, member) in members:
+			# if isattr is True, the member is documented as an attribute
+			if member is INSTANCEATTR:
+				isattr = True
+			else:
+				isattr = False
+
+			doc = getdoc(
+					member,
+					self.get_attr,
+					self.env.config.autodoc_inherit_docstrings,
+					self.parent,
+					self.object_name
+					)
+			if not isinstance(doc, str):
+				# Ignore non-string __doc__
+				doc = None
+
+			# if the member __doc__ is the same as self's __doc__, it's just
+			# inherited and therefore not the member's doc
+			cls = self.get_attr(member, "__class__", None)
+			if cls:
+				cls_doc = self.get_attr(cls, "__doc__", None)
+				if cls_doc == doc:
+					doc = None
+			has_doc = bool(doc)
+
+			metadata = extract_metadata(doc)  # type: ignore
+			if "private" in metadata:
+				# consider a member private if docstring has "private" metadata
+				isprivate = True
+			elif "public" in metadata:
+				# consider a member public if docstring has "public" metadata
+				isprivate = False
+			else:
+				isprivate = membername.startswith('_')
+
+			keep = False
+			if safe_getattr(member, "__sphinx_mock__", False):
+				# mocked module or object
+				pass
+			elif self.options.exclude_members and membername in self.options.exclude_members:
+				# remove members given by exclude-members
+				keep = False
+			elif want_all and special_member_re.match(membername):
+				# special __methods__
+				if self.options.special_members and membername in self.options.special_members:
+					if membername == "__doc__":
+						keep = False
+					elif is_filtered_inherited_member(membername):
+						keep = False
+					else:
+						keep = has_doc or self.options.undoc_members
+				else:
+					keep = False
+			elif (namespace, membername) in attr_docs:
+				if want_all and isprivate:
+					if self.options.private_members is None:
+						keep = False
+					else:
+						keep = membername in self.options.private_members
+				else:
+					# keep documented attributes
+					keep = True
+				isattr = True
+			elif want_all and isprivate:
+				if has_doc or self.options.undoc_members:
+					if self.options.private_members is None:
+						keep = False
+					elif is_filtered_inherited_member(membername):
+						keep = False
+					else:
+						keep = membername in self.options.private_members
+				else:
+					keep = False
+			else:
+				if self.options.members is ALL and is_filtered_inherited_member(membername):
+					keep = False
+				else:
+					# ignore undocumented members if :undoc-members: is not given
+					keep = has_doc or self.options.undoc_members
+
+			# give the user a chance to decide whether this member
+			# should be skipped
+			if self.env.app:
+				# let extensions preprocess docstrings
+				try:
+					skip_user = self.env.app.emit_firstresult(
+							"autodoc-skip-member", self.objtype, membername, member, not keep, self.options
+							)
+					if skip_user is not None:
+						keep = not skip_user
+				except Exception as exc:
+					logger.warning(
+							__(
+									'autodoc: failed to determine %r to be documented, '
+									'the following exception was raised:\n%s'
+									),
+							member,
+							exc,
+							type="autodoc"
+							)
+					keep = False
+
+			if keep:
+				ret.append((membername, member, isattr))
+
+		return ret
+
+	def get_object_members(self, want_all: bool) -> Tuple[bool, List[Tuple[str, Any]]]:
+		"""
+		Return a tuple of  ``(members_check_module, members)``,
+		where ``members`` is a list of ``(membername, member)`` pairs of the members of ``self.object``.
+
+		If ``want_all`` is :py:obj:`True`, return all members.
+		Otherwise, only return those members given by ``self.options.members`` (which may also be none).
+		"""
+
+		if want_all:
+			if self.__all__:
+				memberlist = self.__all__
+			else:
+				# for implicit module members, check __module__ to avoid
+				# documenting imported objects
+				return True, get_module_members(self.object)
+		else:
+			memberlist = self.options.members or []
+		ret = []
+		for mname in memberlist:
+			try:
+				ret.append((mname, safe_getattr(self.object, mname)))
+			except AttributeError:
+				logger.warning(
+						operator.mod(
+								__("missing attribute mentioned in :members: or __all__: module %s, attribute %s"),
+								(safe_getattr(self.object, "__name__", "???"), mname),
+								),
+						type="autodoc"
+						)
+		return False, ret
+
+
 class PatchedAutoSummClassDocumenter(autodocsumm.AutoSummClassDocumenter):
 	"""
 	Patched version of :class:`autodocsumm.AutoSummClassDocumenter`
@@ -309,6 +525,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.add_directive("autosummary", PatchedAutosummary, override=True)
 	autodocsumm.AutosummaryDocumenter.add_autosummary = add_autosummary
+	allow_subclass_add(app, PatchedAutoSummModuleDocumenter)
 	allow_subclass_add(app, PatchedAutoSummClassDocumenter)
 
 	app.add_config_value(

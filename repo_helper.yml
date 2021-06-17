@@ -52,6 +52,7 @@ extra_sphinx_extensions:
 tox_unmanaged:
   - flake8
   - pytest
+  - testenv:docs
 
 sphinx_conf_epilogue:
   - html_logo = "../sphinx_toolbox.png"
@@ -69,6 +70,7 @@ third_party_version_matrix:
   sphinx:
     - 3.2
     - 3.3
+    - 3.4
 
 classifiers:
  - 'Development Status :: 5 - Production/Stable'

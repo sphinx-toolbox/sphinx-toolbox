@@ -118,10 +118,10 @@ from typing import Any, Dict, List, Optional, Tuple, Type, TypeVar, Union
 # 3rd party
 from domdf_python_tools.words import word_join
 from sphinx.application import Sphinx
-from sphinx.ext.autodoc import DataDocumenter
 from typing_extensions import Protocol
 
 # this package
+from sphinx_toolbox._data_documenter import DataDocumenter
 from sphinx_toolbox.config import ToolboxConfig
 from sphinx_toolbox.more_autodoc.typehints import ForwardRef, format_annotation
 from sphinx_toolbox.more_autodoc.variables import VariableDocumenter
