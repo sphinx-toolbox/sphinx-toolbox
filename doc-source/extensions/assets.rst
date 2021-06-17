@@ -1,5 +1,5 @@
 =======================================
-:mod:`.assets`
+:mod:`~sphinx_toolbox.assets`
 =======================================
 
 .. automodule:: sphinx_toolbox.assets

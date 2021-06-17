@@ -341,7 +341,7 @@ class ProtocolDocumenter(ClassDocumenter):
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
-	Setup :mod:`sphinx_toolbox.more_autodoc.autoprocotol`.
+	Setup :mod:`sphinx_toolbox.more_autodoc.autoprotocol`.
 
 	:param app: The Sphinx application.
 	"""
