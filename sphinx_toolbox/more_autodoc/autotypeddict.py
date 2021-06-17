@@ -141,6 +141,7 @@ from sphinx.pycode import ModuleAnalyzer
 from sphinx.util.inspect import safe_getattr
 
 # this package
+from sphinx_toolbox.more_autodoc import ObjectMembers
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import (
 		SphinxExtMetadata,
@@ -347,7 +348,7 @@ class TypedDictDocumenter(ClassDocumenter):
 
 	def filter_members(
 			self,
-			members: List[Tuple[str, Any]],
+			members: ObjectMembers,
 			want_all: bool,
 			) -> List[Tuple[str, Any, bool]]:
 		"""

@@ -457,7 +457,7 @@ I.e.
          </span>
         </code>
         , which of course doesn’t exist
-and created a broken link..
+and created a broken link.
        </p>
        <div class="versionadded">
         <p>
@@ -479,6 +479,26 @@ falling back to
           </span>
          </code>
          .
+        </p>
+       </div>
+       <div class="versionchanged">
+        <p>
+         <span class="versionmodified changed">
+          Changed in version 2.13.0:
+         </span>
+         Also patches
+         <code class="xref py py-class docutils literal notranslate">
+          <span class="pre">
+           sphinx.ext.autodoc.ModuleDocumenter
+          </span>
+         </code>
+         to fix an issue where
+         <code class="docutils literal notranslate">
+          <span class="pre">
+           __all__
+          </span>
+         </code>
+         is not respected for autosummary tables.
         </p>
        </div>
        <div class="section" id="configuration">

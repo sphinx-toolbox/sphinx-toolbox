@@ -15,8 +15,10 @@ def test_setup(advanced_file_regression: AdvancedFileRegressionFixture):
 	assert directives == {
 			"autosummary": more_autosummary.PatchedAutosummary,
 			"autoclass": AutodocDirective,
+			"automodule": AutodocDirective,
 			}
 
+	assert app.registry.documenters["module"] == more_autosummary.PatchedAutoSummModuleDocumenter
 	assert app.registry.documenters["class"] == more_autosummary.PatchedAutoSummClassDocumenter
 
 	assert not roles

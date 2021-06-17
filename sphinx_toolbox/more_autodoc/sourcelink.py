@@ -78,6 +78,7 @@ import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 
 # this package
+from sphinx_toolbox.more_autosummary import PatchedAutoSummModuleDocumenter
 from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = ["sourcelinks_process_docstring", "setup"]
@@ -102,7 +103,7 @@ def sourcelinks_process_docstring(
 	:param lines: List of strings representing the current contents of the docstring.
 	"""
 
-	show_sourcelink = options.get("sourcelink", app.config.autodoc_show_sourcelink)  # type: ignore
+	show_sourcelink = options.get("sourcelink", app.config.autodoc_show_sourcelink)
 
 	if isinstance(obj, ModuleType) and what == "module" and show_sourcelink:
 		if obj.__file__.endswith("/__init__.py"):
@@ -137,6 +138,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	sphinx.ext.autodoc.ModuleDocumenter.option_spec["sourcelink"] = flag
 	autodocsumm.AutoSummModuleDocumenter.option_spec["sourcelink"] = flag
+	PatchedAutoSummModuleDocumenter.option_spec["sourcelink"] = flag
 
 	app.setup_extension("sphinx_toolbox.source")
 	app.setup_extension("sphinx_toolbox._css")

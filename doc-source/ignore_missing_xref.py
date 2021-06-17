@@ -15,7 +15,7 @@ def handle_missing_xref(app: Sphinx, env, node: nodes.Node, contnode: nodes.Node
 	if node.get("reftarget", '').startswith("sphinx.ext.autosummary."):
 		raise NoUri
 
-	if node.get("reftarget", '').startswith("sphinx_toolbox._autodoc_331."):
+	if node.get("reftarget", '').startswith("sphinx_toolbox._data_documenter."):
 		# TODO: redirect
 		raise NoUri
 

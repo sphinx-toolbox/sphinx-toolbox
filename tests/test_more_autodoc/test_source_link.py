@@ -1,10 +1,12 @@
 # 3rd party
+from autodocsumm import AutoSummModuleDocumenter  # type: ignore
 from sphinx.events import EventListener
 from sphinx.ext.autodoc import ModuleDocumenter
 
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc import sourcelink
+from sphinx_toolbox.more_autosummary import PatchedAutoSummModuleDocumenter
 from sphinx_toolbox.testing import run_setup
 from sphinx_toolbox.utils import flag
 
@@ -16,6 +18,12 @@ def test_setup():
 
 	assert "sourcelink" in ModuleDocumenter.option_spec
 	assert ModuleDocumenter.option_spec["sourcelink"] is flag
+
+	assert "sourcelink" in AutoSummModuleDocumenter.option_spec
+	assert AutoSummModuleDocumenter.option_spec["sourcelink"] is flag
+
+	assert "sourcelink" in PatchedAutoSummModuleDocumenter.option_spec
+	assert PatchedAutoSummModuleDocumenter.option_spec["sourcelink"] is flag
 
 	assert app.events.listeners == {
 			"autodoc-process-docstring": [

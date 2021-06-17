@@ -95,28 +95,38 @@ API Reference
 #
 
 # stdlib
+import importlib
 import sys
+import warnings
 from typing import Any, List, get_type_hints
 
 # 3rd party
-import sphinx.ext.autodoc
 from sphinx.application import Sphinx
+from sphinx.deprecation import RemovedInSphinx50Warning
+from sphinx.errors import PycodeError
 from sphinx.ext.autodoc import (
 		INSTANCEATTR,
 		SLOTSATTR,
 		UNINITIALIZED_ATTR,
-		AttributeDocumenter,
 		ClassLevelDocumenter,
-		DataDocumenter,
+		DocstringStripSignatureMixin,
 		Documenter,
 		ModuleDocumenter,
 		ModuleLevelDocumenter,
-		Options
+		Options,
+		annotation_option,
+		import_object,
+		logger,
+		mock
 		)
 from sphinx.ext.autodoc.directive import DocumenterBridge
+from sphinx.pycode import ModuleAnalyzer
+from sphinx.util import inspect
+from sphinx.util.docstrings import prepare_docstring
 from sphinx.util.inspect import ForwardRef, object_description, safe_getattr
 
 # this package
+from sphinx_toolbox._data_documenter import DataDocumenter
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import SphinxExtMetadata, add_nbsp_substitution, flag, metadata_add_version
 
@@ -268,7 +278,7 @@ class VariableDocumenter(DataDocumenter):
 			super().add_directive_header(sig)
 
 
-class TypedAttributeDocumenter(AttributeDocumenter):
+class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumenter):
 	"""
 	Alternative version of :class:`sphinx.ext.autodoc.AttributeDocumenter`
 	with better type hint rendering.
@@ -279,10 +289,98 @@ class TypedAttributeDocumenter(AttributeDocumenter):
 	.. versionchanged:: 1.0.0  Now uses the type of the variable if it is not explicitly annotated.
 	"""  # noqa D400
 
+	objtype = "attribute"
+	member_order = 60
+	option_spec = dict(ModuleLevelDocumenter.option_spec)
+	option_spec["annotation"] = annotation_option
+
+	# must be higher than the MethodDocumenter, else it will recognize
+	# some non-data descriptors as methods
+	priority = 10
+
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
 		super().__init__(directive=directive, name=name, indent=indent)
 		self.options = Options(self.options.copy())
 		self._datadescriptor = True
+
+	@staticmethod
+	def is_function_or_method(obj: Any) -> bool:  # noqa: D102
+		return inspect.isfunction(obj) or inspect.isbuiltin(obj) or inspect.ismethod(obj)
+
+	@classmethod
+	def can_document_member(cls, member: Any, membername: str, isattr: bool, parent: Any) -> bool:
+		"""
+		Called to see if a member can be documented by this documenter.
+		"""
+
+		if inspect.isattributedescriptor(member):
+			return True
+		elif (
+				not isinstance(parent, ModuleDocumenter) and not inspect.isroutine(member)
+				and not isinstance(member, type)
+				):
+			return True
+		else:
+			return False
+
+	def document_members(self, all_members: bool = False) -> None:  # noqa: D102
+		pass
+
+	def isinstanceattribute(self) -> bool:
+		"""
+		Check the subject is an instance attribute.
+		"""
+
+		try:
+			analyzer = ModuleAnalyzer.for_module(self.modname)
+			attr_docs = analyzer.find_attr_docs()
+			if self.objpath:
+				key = ('.'.join(self.objpath[:-1]), self.objpath[-1])
+				if key in attr_docs:
+					return True
+
+			return False
+		except PycodeError:
+			return False
+
+	def import_object(self, raiseerror: bool = False) -> bool:
+		"""
+		Import the object given by *self.modname* and *self.objpath* and set it as ``self.object``.
+
+		:returns: :py:obj:`True` if successful, :py:obj:`False` if an error occurred.
+		"""
+
+		try:
+			ret = super().import_object(raiseerror=True)
+			if inspect.isenumattribute(self.object):
+				self.object = self.object.value
+			if inspect.isattributedescriptor(self.object):
+				self._datadescriptor = True
+			else:
+				# if it's not a data descriptor
+				self._datadescriptor = False
+		except ImportError as exc:
+			if self.isinstanceattribute():
+				self.object = INSTANCEATTR
+				self._datadescriptor = False
+				ret = True
+			elif raiseerror:
+				raise
+			else:
+				logger.warning(exc.args[0], type="autodoc", subtype="import_object")
+				self.env.note_reread()
+				ret = False
+
+		return ret
+
+	def get_real_modname(self) -> str:
+		"""
+		Get the real module name of an object to document.
+
+		It can differ from the name of the module through which the object was imported.
+		"""
+
+		return self.get_attr(self.parent or self.object, "__module__", None) or self.modname
 
 	def add_directive_header(self, sig: str):
 		"""
@@ -336,6 +434,35 @@ class TypedAttributeDocumenter(AttributeDocumenter):
 		else:
 			super().add_directive_header(sig)
 
+	def get_doc(self, encoding: str = None, ignore: int = None) -> List[List[str]]:  # noqa: D102
+		"""
+		Decode and return lines of the docstring(s) for the object.
+
+		:param encoding:
+		:param ignore:
+		"""
+
+		try:
+			# Disable `autodoc_inherit_docstring` temporarily to avoid to obtain
+			# a docstring from the value which descriptor returns unexpectedly.
+			# ref: https://github.com/sphinx-doc/sphinx/issues/7805
+			orig = self.env.config.autodoc_inherit_docstrings
+			self.env.config.autodoc_inherit_docstrings = False  # type: ignore
+			return super().get_doc(encoding, ignore)
+		finally:
+			self.env.config.autodoc_inherit_docstrings = orig  # type: ignore
+
+	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
+		"""
+		Add content from docstrings, attribute documentation and user.
+		"""
+
+		if not self._datadescriptor:
+			# if it's not a data descriptor, its docstring is very probably the
+			# wrong thing to display
+			no_docstring = True
+		super().add_content(more_content, no_docstring)
+
 
 class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 	"""
@@ -349,8 +476,8 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 	.. versionchanged:: 1.0.0  Now uses the type of the variable if it is not explicitly annotated.
 	"""  # noqa D400
 
-	objtype = sphinx.ext.autodoc.InstanceAttributeDocumenter.objtype
-	directivetype = sphinx.ext.autodoc.InstanceAttributeDocumenter.directivetype
+	objtype = "instanceattribute"
+	directivetype = "attribute"
 	member_order = 60
 
 	# must be higher than TypedAttributeDocumenter
@@ -382,7 +509,14 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 		Import and return the attribute's parent.
 		"""
 
-		return sphinx.ext.autodoc.InstanceAttributeDocumenter.import_parent(self)  # type: ignore
+		try:
+			parent = importlib.import_module(self.modname)
+			for name in self.objpath[:-1]:
+				parent = self.get_attr(parent, name)
+
+			return parent
+		except (ImportError, AttributeError):
+			return None
 
 	def import_object(self, raiseerror: bool = False) -> bool:
 		"""
@@ -391,10 +525,12 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 		:param raiseerror:
 		"""
 
-		return sphinx.ext.autodoc.InstanceAttributeDocumenter.import_object(
-				self,  # type: ignore
-				raiseerror=raiseerror,
-				)
+		# disguise as an attribute
+		self.objtype = "attribute"
+		self.object = INSTANCEATTR
+		self.parent = self.import_parent()
+		self._datadescriptor = False
+		return True
 
 	def add_content(self, more_content: Any, no_docstring: bool = False):
 		"""
@@ -418,8 +554,8 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 
 	"""  # noqa D400
 
-	objtype = sphinx.ext.autodoc.SlotsAttributeDocumenter.objtype
-	directivetype = sphinx.ext.autodoc.SlotsAttributeDocumenter.directivetype
+	objtype = "slotsattribute"
+	directivetype = "attribute"
 	member_order = 60
 
 	# must be higher than AttributeDocumenter
@@ -453,10 +589,28 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 		:param raiseerror:
 		"""
 
-		return sphinx.ext.autodoc.SlotsAttributeDocumenter.import_object(
-				self,  # type: ignore
-				raiseerror=raiseerror,
-				)
+		# disguise as an attribute
+		self.objtype = "attribute"
+		self._datadescriptor = True
+
+		with mock(self.env.config.autodoc_mock_imports):
+			try:
+				ret = import_object(
+						self.modname,
+						self.objpath[:-1],
+						"class",
+						attrgetter=self.get_attr,
+						warningiserror=self.env.config.autodoc_warningiserror
+						)
+				self.module, _, _, self.parent = ret
+				return True
+			except ImportError as exc:
+				if raiseerror:
+					raise
+				else:
+					logger.warning(exc.args[0], type="autodoc", subtype="import_object")
+					self.env.note_reread()
+					return False
 
 	def get_doc(self, encoding: str = None, ignore: int = None) -> List[List[str]]:
 		"""
@@ -466,11 +620,20 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 		:param ignore:
 		"""
 
-		return sphinx.ext.autodoc.SlotsAttributeDocumenter.get_doc(
-				self,  # type: ignore
-				encoding=encoding,
-				ignore=ignore,
-				)
+		if ignore is not None:  # pragma: no cover
+			warnings.warn(
+					"The 'ignore' argument to autodoc.%s.get_doc() is deprecated." % self.__class__.__name__,
+					RemovedInSphinx50Warning,
+					stacklevel=2
+					)
+
+		name = self.objpath[-1]
+		__slots__ = safe_getattr(self.parent, "__slots__", [])
+
+		if isinstance(__slots__, dict) and isinstance(__slots__.get(name), str):
+			return [prepare_docstring(__slots__[name])]
+		else:
+			return []
 
 
 @metadata_add_version
@@ -489,6 +652,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_autodocumenter(InstanceAttributeDocumenter, override=True)
 	app.add_autodocumenter(SlotsAttributeDocumenter, override=True)
 
-	add_nbsp_substitution(app.config)  # type: ignore
+	add_nbsp_substitution(app.config)
 
 	return {"parallel_read_safe": True}

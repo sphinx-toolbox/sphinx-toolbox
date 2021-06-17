@@ -56,11 +56,22 @@ Extensions to :mod:`sphinx.ext.autodoc`.
 #  |  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+# stdlib
+from typing import TYPE_CHECKING, Any, List, Tuple
+
 # 3rd party
 from sphinx.application import Sphinx
 
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
+
+if TYPE_CHECKING:
+	# 3rd party
+	from sphinx.ext.autodoc import ObjectMembers
+
+	ObjectMembers = ObjectMembers
+else:
+	ObjectMembers = List[Tuple[str, Any]]
 
 __all__ = ["setup"]
 

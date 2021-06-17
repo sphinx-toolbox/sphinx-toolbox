@@ -813,7 +813,7 @@ def configure(app: Sphinx, config: Config):
 	:param config:
 	"""
 
-	latex_elements = getattr(app.config, "latex_elements", {})  # type: ignore
+	latex_elements = getattr(app.config, "latex_elements", {})
 
 	latex_preamble = StringList(latex_elements.get("preamble", ''))
 	latex_preamble.blankline()
