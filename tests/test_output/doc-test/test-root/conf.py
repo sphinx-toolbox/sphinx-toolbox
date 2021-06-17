@@ -3,6 +3,7 @@ from sphinx_toolbox import latex
 
 extensions = [
 		"sphinx.ext.viewcode",
+		"sphinx.ext.intersphinx",
 		"sphinx_toolbox",
 		"sphinx_toolbox.more_autodoc.augment_defaults",
 		"sphinx_toolbox.more_autodoc.typehints",
@@ -38,6 +39,8 @@ no_unbound_typevars = False
 
 overloads_location = "bottom"
 documentation_summary = "   This is an awesome tool! 🚀 ~ intersphinx_mapping # {{ jinja2 }} 100% 'Quotes'"
+
+intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 
 
 def setup(app):

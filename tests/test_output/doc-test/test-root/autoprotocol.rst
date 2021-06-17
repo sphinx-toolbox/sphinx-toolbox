@@ -9,3 +9,7 @@ sphinx-toolbox Demo - Autoprotocol
 	:exclude-members: HasGreaterThan
 
 .. autoprotocol:: autoprotocol_demo.HasGreaterThan
+
+.. autoprotocol:: autoprotocol_demo.HasGreaterThan
+	:noindex:
+	:show-inheritance:
