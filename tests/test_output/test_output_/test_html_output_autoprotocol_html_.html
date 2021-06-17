@@ -338,7 +338,7 @@
           <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Protocol" title="(in Python v3.9)">
            <code class="xref py py-class docutils literal notranslate">
             <span class="pre">
-             typing.Protocol
+             Protocol
             </span>
            </code>
           </a>
@@ -397,6 +397,99 @@
                 </span>
                </code>
               </a>
+             </p>
+            </dd>
+           </dl>
+          </dd>
+         </dl>
+        </dd>
+       </dl>
+       <dl class="py protocol">
+        <dt id="autoprotocol_demo.SupportsAbs">
+         <em class="property">
+          protocol
+         </em>
+         <code class="sig-prename descclassname">
+          autoprotocol_demo.
+         </code>
+         <code class="sig-name descname">
+          SupportsAbs
+         </code>
+         <a class="reference internal" href="_modules/autoprotocol_demo.html#SupportsAbs">
+          <span class="viewcode-link">
+           [source]
+          </span>
+         </a>
+         <a class="headerlink" href="#autoprotocol_demo.SupportsAbs" title="Permalink to this definition">
+          ¶
+         </a>
+        </dt>
+        <dd>
+         <p>
+          Bases:
+          <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Protocol" title="(in Python v3.9)">
+           <code class="xref py py-class docutils literal notranslate">
+            <span class="pre">
+             Protocol
+            </span>
+           </code>
+          </a>
+          [
+          <code class="xref py py-data docutils literal notranslate">
+           <span class="pre">
+            +T_co
+           </span>
+          </code>
+          ]
+         </p>
+         <p>
+          An ABC with one abstract method __abs__ that is covariant in its return type.
+         </p>
+         <p>
+          This protocol is
+          <a class="reference external" href="https://www.python.org/dev/peps/pep-0544/#runtime-checkable-decorator-and-narrowing-types-by-isinstance">
+           runtime checkable
+          </a>
+          .
+         </p>
+         <p>
+          Classes that implement this protocol must have the following methods / attributes:
+         </p>
+         <dl class="py method">
+          <dt id="autoprotocol_demo.SupportsAbs.__abs__">
+           <em class="property">
+            abstract
+           </em>
+           <code class="sig-name descname">
+            __abs__
+           </code>
+           <span class="sig-paren">
+            (
+           </span>
+           <span class="sig-paren">
+            )
+           </span>
+           <a class="reference internal" href="_modules/autoprotocol_demo.html#SupportsAbs.__abs__">
+            <span class="viewcode-link">
+             [source]
+            </span>
+           </a>
+           <a class="headerlink" href="#autoprotocol_demo.SupportsAbs.__abs__" title="Permalink to this definition">
+            ¶
+           </a>
+          </dt>
+          <dd>
+           <dl class="field-list simple">
+            <dt class="field-odd">
+             Return type
+            </dt>
+            <dd class="field-odd">
+             <p>
+              <code class="xref py py-data docutils literal notranslate">
+               <span class="pre">
+                +T_co
+               </span>
+              </code>
              </p>
             </dd>
            </dl>

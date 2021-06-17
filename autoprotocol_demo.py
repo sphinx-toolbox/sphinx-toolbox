@@ -1,5 +1,6 @@
 # stdlib
-from typing import Any
+from abc import abstractmethod
+from typing import Any, TypeVar
 
 # 3rd party
 from domdf_python_tools.doctools import prettify_docstrings
@@ -27,3 +28,21 @@ class HasGreaterThan(Protocol):
 class Frobnicater(Protocol):
 
 	def frobnicate(self, something) -> Any: ...
+
+
+# From https://github.com/python/cpython/blob/main/Lib/typing.py
+
+T_co = TypeVar("T_co", covariant=True)  # Any type covariant containers.
+
+
+@runtime_checkable
+class SupportsAbs(Protocol[T_co]):
+	"""
+	An ABC with one abstract method __abs__ that is covariant in its return type.
+	"""
+
+	__slots__ = ()
+
+	@abstractmethod
+	def __abs__(self) -> T_co:
+		pass

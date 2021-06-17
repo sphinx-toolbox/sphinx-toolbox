@@ -7,6 +7,7 @@ A Sphinx directive for documenting :class:`Protocols <typing.Protocol>` in Pytho
 .. versionadded:: 0.2.0
 .. extensions:: sphinx_toolbox.more_autodoc.autoprotocol
 .. versionchanged:: 0.6.0  Moved from :mod:`sphinx_toolbox.autoprotocol`.
+.. versionchanged:: 2.13.0, Added support for generic aliases, such as ``class SupportsAbs(Protocol[T_co]): ...``.
 
 
 Usage
@@ -58,6 +59,7 @@ Usage
 .. literalinclude:: ../../../autoprotocol_demo.py
 	:language: python
 	:tab-width: 4
+	:lines: 1-31
 	:linenos:
 
 .. rest-example::
@@ -143,6 +145,7 @@ from sphinx.locale import _
 from sphinx.util.inspect import getdoc, safe_getattr
 
 # this package
+from sphinx_toolbox.more_autodoc.generic_bases import GenericBasesClassDocumenter
 from sphinx_toolbox.utils import (
 		SphinxExtMetadata,
 		allow_subclass_add,
@@ -227,6 +230,15 @@ class ProtocolDocumenter(ClassDocumenter):
 
 		# _is_protocol = True
 		return isinstance(member, _ProtocolMeta)
+
+	def add_directive_header(self, sig: str) -> None:
+		"""
+		Add the directive header.
+
+		:param sig:
+		"""
+
+		GenericBasesClassDocumenter.add_directive_header(self, sig)
 
 	def format_signature(self, **kwargs: Any) -> str:
 		"""

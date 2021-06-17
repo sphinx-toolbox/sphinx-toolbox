@@ -13,3 +13,6 @@ sphinx-toolbox Demo - Autoprotocol
 .. autoprotocol:: autoprotocol_demo.HasGreaterThan
 	:noindex:
 	:show-inheritance:
+
+.. autoprotocol:: autoprotocol_demo.SupportsAbs
+	:show-inheritance:
