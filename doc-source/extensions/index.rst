@@ -2,6 +2,8 @@
 Overview
 ============
 
+.. py:module:: sphinx_toolbox
+
 .. extensions:: sphinx-toolbox
 	:import-name: sphinx_toolbox
 	:no-postamble:

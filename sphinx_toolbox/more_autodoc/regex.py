@@ -370,7 +370,7 @@ class RegexParser:
 	* ``LITERAL_COLOUR`` -- Used for literal characters.
 	* ``ANY_COLOUR`` -- Used for the "any" dot.
 
-	These are all :class:`~typing.Callable`\[[:class:`~typing.Any`], :class:`~typing.str`\].
+	These are all :class:`~typing.Callable`\[[:class:`~typing.Any`], :class:`str`\].
 
 	By default no formatting is performed.
 	"""

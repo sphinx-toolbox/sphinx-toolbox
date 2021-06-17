@@ -129,7 +129,7 @@ copy_assets = deprecated(
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
-	Setup :mod:`sphinx_toolbox.sphinx_panels_tabs`.
+	Setup :mod:`sphinx_toolbox.tweaks.sphinx_panels_tabs`.
 
 	:param app: The Sphinx application.
 	"""

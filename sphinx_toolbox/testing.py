@@ -540,7 +540,7 @@ class RunSetupOutput(NamedTuple):
 	directives: Dict[str, Callable]  #: Mapping of directive names to directive functions.
 	roles: Dict[str, Callable]  #: Mapping of role names to role functions.
 	additional_nodes: Set[Type[Any]]  #: Set of custom docutils nodes registered in ``setup()``.
-	app: Sphinx  #: Instance of :class:`sphinx-toolbox.testing.Sphinx`.
+	app: Sphinx  #: Instance of :class:`sphinx_toolbox.testing.Sphinx`.
 
 
 _sphinx_dict_setup = Callable[[sphinx.application.Sphinx], Optional[Dict[str, Any]]]

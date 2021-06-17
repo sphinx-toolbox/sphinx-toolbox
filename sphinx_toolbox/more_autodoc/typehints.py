@@ -21,7 +21,7 @@ The changes are:
 * :class:`typing.TypeVar`\s are linked to if they have been included in the documentation.
 
 * If a function/method argument has a :class:`module <types.ModuleType>`, :class:`class <typing.Type>`
-  or :class:`function <types.FunctionType>` object as its default value a better
+  or :py:obj:`function <types.FunctionType>` object as its default value a better
   representation will be shown in the signature.
 
   For example:

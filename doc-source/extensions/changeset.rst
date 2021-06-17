@@ -1,6 +1,6 @@
-===========================
-:mod:`.changeset`
-===========================
+=================================
+:mod:`~sphinx_toolbox.changeset`
+=================================
 
 .. automodule:: sphinx_toolbox.changeset
 	:member-order: bysource

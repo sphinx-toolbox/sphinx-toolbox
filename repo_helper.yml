@@ -17,6 +17,7 @@ min_coverage: 90
 python_deploy_version: 3.7
 tox_testenv_extras: all
 preserve_custom_theme: true
+docs_fail_on_warning: true
 
 conda_channels:
   - conda-forge
@@ -46,6 +47,7 @@ extra_sphinx_extensions:
   - html_section
   - _internal_extension
   - sphinxcontrib.email
+  - ignore_missing_xref
 
 tox_unmanaged:
   - flake8
@@ -56,6 +58,7 @@ sphinx_conf_epilogue:
   - toctree_plus_types.add("fixture")
   - sys.path.append(os.path.abspath(".."))
   - latex_elements["preamble"] = r"\usepackage{multicol}"
+  - nitpicky = True
 
 keywords:
   - sphinx
@@ -80,6 +83,7 @@ classifiers:
 intersphinx_mapping:
  - "'pytest': ('https://docs.pytest.org/en/stable', None)"
  - "'pytest-regressions': ('https://pytest-regressions.readthedocs.io/en/latest/', None)"
+ - "'autodocsumm': ('https://autodocsumm.readthedocs.io/en/latest', None)"
 
 exclude_files:
  - contributing

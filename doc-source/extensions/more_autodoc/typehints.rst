@@ -1,6 +1,6 @@
-=============================================
-:mod:`.more_autodoc.typehints`
-=============================================
+====================================================================================
+:mod:`more_autodoc.typehints <sphinx_toolbox.more_autodoc.typehints>`
+====================================================================================
 
 .. automodule:: sphinx_toolbox.more_autodoc.typehints
 	:no-autosummary:

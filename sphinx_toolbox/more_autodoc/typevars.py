@@ -3,7 +3,7 @@
 #  typevars.py
 r"""
 Documenter for module level :class:`typing.TypeVar`\'s, similar to Sphinx's
-:rst:dir:`sphinx:autotypevar` but with a different appearance.
+``autotypevar`` but with a different appearance.
 
 .. versionadded:: 1.3.0
 .. extensions:: sphinx_toolbox.more_autodoc.typevars
@@ -135,11 +135,11 @@ __all__ = [
 
 
 class TypeVarDocumenter(VariableDocumenter):
-	"""
+	r"""
 	Alternative version of :class:`sphinx.ext.autodoc.TypeVarDocumenter`
 	with better type hint rendering.
 
-	Specialized Documenter subclass for :class:`typing.TypeVars`.
+	Specialized Documenter subclass for :class:`typing.TypeVar`\s.
 	"""  # noqa: D400
 
 	objtype = "typevar"

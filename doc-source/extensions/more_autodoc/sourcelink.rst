@@ -1,6 +1,6 @@
-=================================================
-:mod:`.more_autodoc.sourcelink`
-=================================================
+====================================================================================
+:mod:`more_autodoc.sourcelink <sphinx_toolbox.more_autodoc.sourcelink>`
+====================================================================================
 
 .. automodule:: sphinx_toolbox.more_autodoc.sourcelink
 	:member-order: bysource

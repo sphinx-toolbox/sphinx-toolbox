@@ -76,7 +76,7 @@ __all__ = [
 		"untyped_param_regex",
 		]
 
-#: Instance of :class:`apeye.url.RequestsURL` that points to the GitHub website.
+#: Instance of :class:`apeye.requests_url.RequestsURL` that points to the GitHub website.
 GITHUB_COM: RequestsURL = RequestsURL("https://github.com")
 
 #: Type hint for the ``option_spec`` variable of Docutils directives.

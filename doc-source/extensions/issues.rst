@@ -1,5 +1,5 @@
 ========================================
-:mod:`issues <sphinx_toolbox.issues>`
+:mod:`~sphinx_toolbox.issues`
 ========================================
 
 .. automodule:: sphinx_toolbox.issues

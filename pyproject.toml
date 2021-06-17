@@ -89,6 +89,7 @@ extensions = [
     "html_section",
     "_internal_extension",
     "sphinxcontrib.email",
+    "ignore_missing_xref",
 ]
 sphinxemoji_style = "twemoji"
 gitstamp_fmt = "%d %b %Y"

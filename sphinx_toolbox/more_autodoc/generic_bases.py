@@ -124,7 +124,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 class Example(List[Tuple[str, float, List[str]]]):
 	"""
-	An example of :mod:`sphinx_toolbox.tweaks.generic_bases`.
+	An example of :mod:`sphinx_toolbox.more_autodoc.generic_bases`.
 	"""
 
 	def __init__(self, iterable=()):  # pragma: no cover
@@ -133,7 +133,7 @@ class Example(List[Tuple[str, float, List[str]]]):
 
 class Example2(Example):
 	"""
-	An example of :mod:`sphinx_toolbox.tweaks.generic_bases`.
+	An example of :mod:`sphinx_toolbox.more_autodoc.generic_bases`.
 
 	This one does not directly subclass a Generic.
 	"""

@@ -1,6 +1,8 @@
 ===================================
-:mod:`sphinx_toolbox.more_autodoc`
+:mod:`~sphinx_toolbox.more_autodoc`
 ===================================
+
+.. py:module:: sphinx_toolbox.more_autodoc
 
 .. html-section::
 

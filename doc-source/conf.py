@@ -34,6 +34,7 @@ intersphinx_mapping = {
 		"sphinx": ("https://www.sphinx-doc.org/en/stable/", None),
 		"pytest": ("https://docs.pytest.org/en/stable", None),
 		"pytest-regressions": ("https://pytest-regressions.readthedocs.io/en/latest/", None),
+		"autodocsumm": ("https://autodocsumm.readthedocs.io/en/latest", None),
 		}
 
 html_theme_options = {"logo_only": False}
@@ -78,3 +79,4 @@ html_logo = "../sphinx_toolbox.png"
 toctree_plus_types.add("fixture")
 sys.path.append(os.path.abspath(".."))
 latex_elements["preamble"] = r"\usepackage{multicol}"
+nitpicky = True

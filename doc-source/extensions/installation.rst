@@ -1,5 +1,5 @@
 ===================================
-:mod:`.installation`
+:mod:`~sphinx_toolbox.installation`
 ===================================
 
 .. automodule:: sphinx_toolbox.installation

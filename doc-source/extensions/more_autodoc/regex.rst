@@ -1,6 +1,6 @@
-==========================================
-:mod:`.more_autodoc.regex`
-==========================================
+====================================================================================
+:mod:`more_autodoc.regex <sphinx_toolbox.more_autodoc.regex>`
+====================================================================================
 
 .. automodule:: sphinx_toolbox.more_autodoc.regex
 	:noindex:
@@ -31,5 +31,5 @@ API Reference
 .. automodule:: sphinx_toolbox.more_autodoc.regex
 	:no-docstring:
 	:no-autosummary:
-	:members: parse_regex_flags,no_formatting,span,latex_textcolor,setup
+	:members: parse_regex_flags,no_formatting,span,latex_textcolor,copy_asset_files,setup
 	:member-order: bysource
