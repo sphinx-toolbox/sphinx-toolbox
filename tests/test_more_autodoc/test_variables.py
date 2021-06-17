@@ -1,8 +1,8 @@
 # stdlib
-import sys
 from typing import Any, Dict, List, NamedTuple, Sequence, Type, Union, no_type_check  # noqa: F401
 
 # 3rd party
+from coincidence import PEP_563
 from domdf_python_tools.secrets import Secret
 from sphinx.ext.autodoc.directive import AutodocDirective
 
@@ -52,7 +52,7 @@ def test_get_variable_type():
 	assert get_variable_type(Documenter(Foo, ["Foo", 'd'], Analyzer({}))) == ":py:class:`float`"
 	assert get_variable_type(Documenter(Foo, ["Foo", 'e'], Analyzer({}))) == ":py:class:`~typing.List`"
 
-	if sys.version_info >= (3, 11):
+	if PEP_563:
 		# On 3.10 with PEP 563 failed forward references break things earlier
 		assert get_variable_type(Documenter(Bar, ["Bar", 'a'], Analyzer({}))) == ":py:obj:`~.str`"
 		assert get_variable_type(Documenter(Bar, ["Bar", 'b'], Analyzer({}))) == ":py:obj:`~.int`"
