@@ -467,7 +467,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 
 		If ``want_all`` is :py:obj:`True`, return all members.
 		Otherwise, only return those members given by ``self.options.members`` (which may also be none).
-		"""
+		"""  # noqa: D400
 
 		if want_all:
 			if self.__all__:
