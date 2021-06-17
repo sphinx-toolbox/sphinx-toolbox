@@ -139,13 +139,21 @@ from typing import Any, Callable, Dict, List, Tuple
 from sphinx.application import Sphinx
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyClasslike, PyXRefRole
-from sphinx.ext.autodoc import INSTANCEATTR, ClassDocumenter, Options, exclude_members_option, member_order_option
+from sphinx.ext.autodoc import (
+		INSTANCEATTR,
+		ClassDocumenter,
+		Documenter,
+		Options,
+		exclude_members_option,
+		member_order_option
+		)
 from sphinx.ext.autodoc.directive import DocumenterBridge
 from sphinx.locale import _
 from sphinx.util.inspect import getdoc, safe_getattr
 
 # this package
-from sphinx_toolbox.more_autodoc.generic_bases import GenericBasesClassDocumenter
+from sphinx_toolbox.more_autodoc.generic_bases import get_origin
+from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import (
 		SphinxExtMetadata,
 		allow_subclass_add,
@@ -238,7 +246,34 @@ class ProtocolDocumenter(ClassDocumenter):
 		:param sig:
 		"""
 
-		GenericBasesClassDocumenter.add_directive_header(self, sig)
+		sourcename = self.get_sourcename()
+
+		if self.doc_as_attr:
+			self.directivetype = "attribute"
+
+		Documenter.add_directive_header(self, sig)
+
+		if self.analyzer and '.'.join(self.objpath) in self.analyzer.finals:
+			self.add_line("   :final:", sourcename)
+
+		# add inheritance info, if wanted
+		if not self.doc_as_attr and self.options.show_inheritance:
+			self.add_line('', sourcename)
+			bases = []
+
+			if (
+					hasattr(self.object, "__orig_bases__") and len(self.object.__orig_bases__)
+					and get_origin(self.object.__orig_bases__[0]) is self.object.__bases__[0]
+					):
+				# Last condition guards against classes that don't directly subclass a Generic.
+				bases = [format_annotation(b) for b in self.object.__orig_bases__]
+
+			elif hasattr(self.object, "__bases__") and len(self.object.__bases__):
+				bases = [format_annotation(b) for b in self.object.__bases__]
+
+			if bases:
+				bases_string = ", ".join(bases).replace("typing_extensions.Protocol", "typing.Protocol")
+				self.add_line("   " + _("Bases: %s") % bases_string, sourcename)
 
 	def format_signature(self, **kwargs: Any) -> str:
 		"""

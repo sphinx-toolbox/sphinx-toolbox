@@ -313,9 +313,8 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		module = "io"
 	elif module == "_ast":
 		module = "ast"
-
 	# Redirect all typing_extensions types to the stdlib typing module
-	if module == "typing_extensions":
+	elif module == "typing_extensions":
 		module = "typing"
 
 	full_name = (module + '.' + class_name) if module != "builtins" else class_name
