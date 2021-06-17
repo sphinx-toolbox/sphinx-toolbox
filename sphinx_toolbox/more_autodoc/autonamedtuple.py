@@ -237,7 +237,11 @@ class NamedTupleDocumenter(ClassDocumenter):
 		if "show-inheritance" not in self.options:
 			return
 
-		acceptable_bases = {"   Bases: :class:`tuple`", "   Bases: :class:`tuple`, :class:`typing.Generic`"}
+		acceptable_bases = {
+				"   Bases: :class:`tuple`",
+				"   Bases: :class:`tuple`, :class:`typing.Generic`",
+				'   Bases: :class:`NamedTuple`',
+				}
 
 		if self.directive.result[-1] in acceptable_bases or baseclass_is_private(self.object):
 			if hasattr(self.object, "__annotations__"):
