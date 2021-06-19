@@ -1,6 +1,11 @@
+# stdlib
+from typing import List, Union
+
 # 3rd party
 import pytest
+from _pytest.mark import ParameterSet
 from bs4 import BeautifulSoup  # type: ignore
+from coincidence.selectors import min_version, only_version
 
 # this package
 from sphinx_toolbox.testing import HTMLRegressionFixture
@@ -47,3 +52,66 @@ def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLR
 			]
 
 	html_regression.check(github_source_page)
+
+
+# The following is in here because it needs to run with different options to tests/test_output
+
+pages_to_check: List[Union[str, ParameterSet]] = [
+		"autoprotocol.html",
+		pytest.param(
+				"generic_bases.html",
+				marks=only_version(3.6, reason="Output differs on Python 3.6"),
+				id="generic_bases_36"
+				),
+		pytest.param(
+				"generic_bases.html",
+				marks=only_version(3.7, reason="Output differs on Python 3.7"),
+				id="generic_bases_37"
+				),
+		pytest.param(
+				"generic_bases.html",
+				marks=min_version(3.8, reason="Output differs on Python 3.8+"),
+				id="generic_bases"
+				),
+		]
+
+
+def test_html_output(gh_src_app, html_regression: HTMLRegressionFixture):
+	"""
+	Parametrize new files here rather than as their own function.
+	"""
+
+	gh_src_app.build(force_all=True)
+
+	caught_exceptions: List[BaseException] = []
+
+	for page in pages_to_check:
+		if isinstance(page, str):
+			page = pytest.param(page, id=page)
+
+		pagename: str = page.values[0]  # type: ignore
+		page_id: str = page.id or pagename
+		for mark in page.marks:
+			if mark.kwargs.get("condition", False):
+				if "reason" in mark.kwargs:
+					print(f"Skipping {page_id!r}: {mark.kwargs['reason']}")
+
+					break
+				else:
+					print(f"Skipping {page_id!r}")
+					break
+		else:
+			print(f"Checking output for {page_id}")
+			page_id = page_id.replace('.', '_').replace('-', '_')
+			content = (gh_src_app.outdir / pagename).read_text()
+			try:
+				html_regression.check(BeautifulSoup(content, "html5lib"), extension=f"_{page_id}_.html")
+			except BaseException as e:
+				caught_exceptions.append(e)
+
+		continue
+
+	print(caught_exceptions)
+
+	for exception in caught_exceptions:
+		raise exception
