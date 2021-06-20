@@ -269,6 +269,12 @@ class PatchedAutosummary(Autosummary):
 		return doccls(self.bridge, full_name)
 
 	def get_table(self, items: List[Tuple[str, str, str, str]]) -> List[nodes.Node]:
+		"""
+		Generate a list of table nodes for the :rst:dir:`autosummary` directive.
+
+		:param items: A list  produced by ``self.get_items``.
+		"""
+
 		table_spec, *other_nodes = super().get_table(items)
 		assert isinstance(table_spec, addnodes.tabular_col_spec)
 
