@@ -142,7 +142,7 @@ def _add_generic_bases(documenter: Documenter) -> None:
 	if (
 			hasattr(documenter.object, "__orig_bases__") and len(documenter.object.__orig_bases__)
 			and get_origin(documenter.object.__orig_bases__[0]) is documenter.object.__bases__[0]
-	):
+			):
 		# Last condition guards against classes that don't directly subclass a Generic.
 		bases = [format_annotation(b, fully_qualified) for b in documenter.object.__orig_bases__]
 
