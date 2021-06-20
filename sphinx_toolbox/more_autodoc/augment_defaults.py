@@ -69,7 +69,7 @@ This module monkeypatches in that behaviour.
 from typing import Dict, List, Type
 
 # 3rd party
-import autodocsumm
+import autodocsumm  # type: ignore
 import sphinx.ext.autodoc.directive
 from docutils.utils import assemble_option_dict
 from sphinx.application import Sphinx
