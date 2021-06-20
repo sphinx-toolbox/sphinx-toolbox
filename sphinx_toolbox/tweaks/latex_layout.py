@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  latex_layout.py
-"""
+r"""
 Makes minor adjustments to the LaTeX layout.
 
 * Increases the whitespace above function signatures by 5px,
@@ -13,7 +13,7 @@ Makes minor adjustments to the LaTeX layout.
 
   .. versionadded:: 2.12.0
 
-* With Sphinx 3.5, doesn't add ``\\sphinxAtStartPar`` before every paragraph.
+* With Sphinx 3.5, doesn't add ``\sphinxAtStartPar`` before every paragraph.
   The change in :github:issue:`8781 <sphinx-doc/sphinx>` was to solve an issue with *tables*,
   but it isn't clear why it then gets added for *every* paragraph so this extension removes it.
 

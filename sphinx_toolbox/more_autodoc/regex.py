@@ -235,7 +235,7 @@ class RegexDocumenter(VariableDocumenter):
 
 		# add content from docstrings
 		if not no_docstring:
-			docstrings = self.get_doc()
+			docstrings = self.get_doc() or []
 			if not docstrings:
 				# append at least a dummy docstring, so that the event
 				# autodoc-process-docstring is fired and can add some
