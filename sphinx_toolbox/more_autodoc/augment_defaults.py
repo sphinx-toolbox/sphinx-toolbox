@@ -129,6 +129,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 				)
 
 	sphinx.ext.autodoc.directive.process_documenter_options = process_documenter_options
+	autodocsumm.process_documenter_options = process_documenter_options
 
 	app.setup_extension("sphinx.ext.autodoc")
 

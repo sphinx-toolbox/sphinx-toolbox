@@ -127,10 +127,10 @@ from sphinx.ext.autodoc import (
 		ClassDocumenter,
 		Documenter,
 		ModuleDocumenter,
-		get_module_members,
 		logger,
 		special_member_re
 		)
+from sphinx.ext.autodoc.importer import get_module_members
 from sphinx.ext.autosummary import Autosummary, FakeDirective
 from sphinx.locale import __
 from sphinx.util.docstrings import extract_metadata

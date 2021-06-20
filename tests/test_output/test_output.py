@@ -207,7 +207,7 @@ def test_latex_output(app, advanced_file_regression: AdvancedFileRegressionFixtu
 	output_file = PathPlus(app.outdir / "python.tex")
 	content = StringList(output_file.read_lines())
 	advanced_file_regression.check(
-			re.sub(r"\\date{.*}", r"\\date{Mar 11, 2021}", str(content)),
+			re.sub(r"\\date{.*}", r"\\date{Mar 11, 2021}", str(content).replace("\\sphinxAtStartPar\n", '')),
 			extension=".tex",
 			)
 
@@ -245,6 +245,6 @@ def test_latex_output_better_header_layout(app, advanced_file_regression: Advanc
 	output_file = PathPlus(app.outdir / "python.tex")
 	content = StringList(output_file.read_lines())
 	advanced_file_regression.check(
-			re.sub(r"\\date{.*}", r"\\date{Mar 11, 2021}", str(content)),
+			re.sub(r"\\date{.*}", r"\\date{Mar 11, 2021}", str(content).replace("\\sphinxAtStartPar\n", '')),
 			extension=".tex",
 			)
