@@ -248,3 +248,20 @@ def test_latex_output_better_header_layout(app, advanced_file_regression: Advanc
 			re.sub(r"\\date{.*}", r"\\date{Mar 11, 2021}", str(content).replace("\\sphinxAtStartPar\n", '')),
 			extension=".tex",
 			)
+
+
+@pytest.mark.sphinx("latex", srcdir="test-root")
+def test_latex_output_autosummary_col_type(app, advanced_file_regression: AdvancedFileRegressionFixture):
+
+	assert app.builder.name.lower() == "latex"
+	app.config.autosummary_col_type = r"\Y"
+
+	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
+		app.build()
+
+	output_file = PathPlus(app.outdir / "python.tex")
+	content = StringList(output_file.read_lines())
+	advanced_file_regression.check(
+			re.sub(r"\\date{.*}", r"\\date{Mar 11, 2021}", str(content).replace("\\sphinxAtStartPar\n", '')),
+			extension=".tex",
+			)
