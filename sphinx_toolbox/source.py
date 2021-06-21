@@ -74,11 +74,13 @@ API Reference
 from typing import TYPE_CHECKING, Dict, List, Sequence, Tuple, Union
 
 # 3rd party
+import sphinx
 from docutils import nodes
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
 from sphinx import addnodes
 from sphinx.application import Sphinx
+from sphinx.environment import BuildEnvironment
 from sphinx.util import split_explicit_title
 
 # this package
@@ -91,6 +93,42 @@ if TYPE_CHECKING:
 __all__ = ["source_role", "setup"]
 
 # TODO: rawstring: Return it as a problematic node linked to a system message if a problem is encountered.
+
+_sphinx_version = sphinx.version_info[:3]
+
+
+def _make_viewcode_node(
+		title: str,
+		pagename: str,
+		env: BuildEnvironment,
+		) -> Union[nodes.reference, addnodes.pending_xref]:
+	"""
+	Construct a node for the :mod:`sphinx.ext.viewcode` link.
+
+	Handles Sphinx 3.5+ compatibility.
+	"""
+
+	if _sphinx_version < (3, 5, 0):
+		return addnodes.pending_xref(
+				title,
+				nodes.inline(title, title),
+				reftype="viewcode",
+				refdomain="std",
+				refexplicit=False,
+				reftarget=pagename,
+				refid=title,
+				refdoc=env.docname,
+				)
+	else:
+		# 3rd party
+		from sphinx.util.nodes import make_refnode
+		return make_refnode(
+				env.app.builder,
+				fromdocname=env.docname,
+				todocname=pagename,
+				targetid=title,
+				child=nodes.inline(title, title),  # title=title,
+				)
 
 
 def source_role(
@@ -146,16 +184,23 @@ def source_role(
 
 		# refnode = addnodes.only(expr="html")
 		# refnode += addnodes.pending_xref(
-		refnode = addnodes.pending_xref(
+
+		refnode = _make_viewcode_node(
 				title,
-				nodes.inline(title, title),
-				reftype="viewcode",
-				refdomain="std",
-				refexplicit=False,
-				reftarget=pagename,
-				refid=title,
-				refdoc=env.docname,
+				pagename,
+				env,
 				)
+
+		# refnode = addnodes.pending_xref(
+		# 		title,
+		# 		nodes.inline(title, title),
+		# 		reftype="viewcode",
+		# 		refdomain="std",
+		# 		refexplicit=False,
+		# 		reftarget=pagename,
+		# 		refid=title,
+		# 		refdoc=env.docname,
+		# 		)
 
 		nodes_.append(refnode)
 
