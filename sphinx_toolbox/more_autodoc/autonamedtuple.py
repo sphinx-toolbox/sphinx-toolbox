@@ -240,7 +240,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		acceptable_bases = {
 				"   Bases: :class:`tuple`",
 				"   Bases: :class:`tuple`, :class:`typing.Generic`",
-				'   Bases: :class:`NamedTuple`',
+				"   Bases: :class:`NamedTuple`",
 				}
 
 		if self.directive.result[-1] in acceptable_bases or baseclass_is_private(self.object):
