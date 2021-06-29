@@ -349,6 +349,8 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		# TODO: Bool, Enums?
 		formatted_args = "\\[" + ", ".join(code_repr(arg) for arg in args) + ']'
 
+	# TODO: unions with one or more forward refs
+
 	if args and not formatted_args:
 		formatted_args = args_format.format(", ".join(format_annotation(arg, fully_qualified) for arg in args))
 
