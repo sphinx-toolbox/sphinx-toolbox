@@ -11,6 +11,35 @@ This requires a relatively new version of the :mod:`typing` module that implemen
 .. extensions:: sphinx_toolbox.more_autodoc.generic_bases
 
 
+Configuration
+----------------
+
+.. confval:: generic_bases_fully_qualified
+	:type: :class:`bool`
+	:required: False
+	:default: :py:obj:`False`
+
+	Determines whether the fully qualified name should be shown for bases.
+
+	If :py:obj:`False` (the default):
+
+		.. class:: Foo
+			:noindex:
+
+			**Bases**: :class:`~typing.List`\[:class:`str`\]
+
+	If :py:obj:`True`:
+
+		.. class:: Foo
+			:noindex:
+
+			**Bases**: :class:`typing.List`\[:class:`str`\]
+
+	Corresponds to the ``fully_qualified`` argument to
+	:func:`sphinx_toolbox.more_autodoc.typehints.format_annotation`.
+
+	.. versionadded:: 2.13.0
+
 Example
 --------
 
@@ -90,21 +119,39 @@ class GenericBasesClassDocumenter(PatchedAutoSummClassDocumenter):
 
 		# add inheritance info, if wanted
 		if not self.doc_as_attr and self.options.show_inheritance:
-			self.add_line('', sourcename)
-			bases = []
+			_add_generic_bases(self)
 
-			if (
-					hasattr(self.object, "__orig_bases__") and len(self.object.__orig_bases__)
-					and get_origin(self.object.__orig_bases__[0]) is self.object.__bases__[0]
-					):
-				# Last condition guards against classes that don't directly subclass a Generic.
-				bases = [format_annotation(b) for b in self.object.__orig_bases__]
 
-			elif hasattr(self.object, "__bases__") and len(self.object.__bases__):
-				bases = [format_annotation(b) for b in self.object.__bases__]
+def _add_generic_bases(documenter: Documenter) -> None:
+	"""
+	Add the generic bases to the output of the given Documenter.
 
-			if bases:
-				self.add_line("   " + _("Bases: %s") % ", ".join(bases), sourcename)
+	.. versionadded:: 2.13.0  (undocumented)
+
+	:param documenter:
+	"""
+
+	sourcename = documenter.get_sourcename()
+
+	# add inheritance info, if wanted
+	fully_qualified = getattr(documenter.env.config, "generic_bases_fully_qualified", False)
+
+	documenter.add_line('', sourcename)
+	bases = []
+
+	if (
+			hasattr(documenter.object, "__orig_bases__") and len(documenter.object.__orig_bases__)
+			and get_origin(documenter.object.__orig_bases__[0]) is documenter.object.__bases__[0]
+			):
+		# Last condition guards against classes that don't directly subclass a Generic.
+		bases = [format_annotation(b, fully_qualified) for b in documenter.object.__orig_bases__]
+
+	elif hasattr(documenter.object, "__bases__") and len(documenter.object.__bases__):
+		bases = [format_annotation(b, fully_qualified) for b in documenter.object.__bases__]
+
+	if bases:
+		bases_string = ", ".join(bases).replace("typing_extensions.", "typing.")
+		documenter.add_line("   " + _("Bases: %s") % bases_string, sourcename)
 
 
 @metadata_add_version
@@ -118,6 +165,12 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 
 	allow_subclass_add(app, GenericBasesClassDocumenter)
+	app.add_config_value(
+			"generic_bases_fully_qualified",
+			default=False,
+			rebuild="env",
+			types=[bool],
+			)
 
 	return {"parallel_read_safe": True}
 

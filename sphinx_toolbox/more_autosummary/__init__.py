@@ -29,8 +29,6 @@ and created a broken link.
 	``__all__`` is not respected for autosummary tables.
 
 
-.. latex:vspace:: -10px
-
 
 Configuration
 --------------
@@ -44,17 +42,24 @@ Configuration
 
 	Note that for ``'bysource'`` the module must be a Python module with the source code available.
 
-The member order can also be set on a per-directive basis using the ``:member-order: [order]`` option.
-This applies not only to :rst:dir:`automodule` etc. directives,
-but also to :rst:dir:`automodulesumm` etc. directives.
+	The member order can also be set on a per-directive basis using the ``:member-order: [order]`` option.
+	This applies not only to :rst:dir:`automodule` etc. directives,
+	but also to :rst:dir:`automodulesumm` etc. directives.
 
-.. latex:vspace:: -10px
+.. confval:: autosummary_col_type
+	:type: :py:obj:`str`
+	:default: ``'\X'``
+
+	The LaTeX column type to use for autosummary tables
+
+	.. versionadded:: 2.13.0
+
+
+.. latex:clearpage::
 
 
 API Reference
 ----------------
-
-.. latex:vspace:: -10px
 
 """
 #
@@ -118,7 +123,9 @@ from typing import Any, List, Optional, Tuple, Type
 
 # 3rd party
 import autodocsumm  # type: ignore
+from docutils import nodes
 from domdf_python_tools.stringlist import StringList
+from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.config import ENUM
 from sphinx.ext.autodoc import (
@@ -127,10 +134,10 @@ from sphinx.ext.autodoc import (
 		ClassDocumenter,
 		Documenter,
 		ModuleDocumenter,
-		get_module_members,
 		logger,
 		special_member_re
 		)
+from sphinx.ext.autodoc.importer import get_module_members
 from sphinx.ext.autosummary import Autosummary, FakeDirective
 from sphinx.locale import __
 from sphinx.util.docstrings import extract_metadata
@@ -213,6 +220,10 @@ class PatchedAutosummary(Autosummary):
 
 	.. versionadded:: 0.5.1
 	.. versionchanged:: 0.7.0  Moved from :mod:`sphinx_toolbox.patched_autosummary`.
+
+	.. versionchanged:: 2.13.0
+
+		Added support for customising the column type with the :confval:`autosummary_col_type` option.
 	"""
 
 	def import_by_name(self, name: str, prefixes: List[str]) -> Tuple[str, Any, Any, str]:
@@ -256,6 +267,21 @@ class PatchedAutosummary(Autosummary):
 
 		doccls = get_documenter(app, obj, parent)
 		return doccls(self.bridge, full_name)
+
+	def get_table(self, items: List[Tuple[str, str, str, str]]) -> List[nodes.Node]:
+		"""
+		Generate a list of table nodes for the :rst:dir:`autosummary` directive.
+
+		:param items: A list  produced by ``self.get_items``.
+		"""
+
+		table_spec, *other_nodes = super().get_table(items)
+		assert isinstance(table_spec, addnodes.tabular_col_spec)
+
+		column_type = getattr(self.env.config, "autosummary_col_type", r"\X")
+		table_spec["spec"] = f'{column_type}{{1}}{{2}}{column_type}{{1}}{{2}}'
+
+		return [table_spec, *other_nodes]
 
 
 def get_documenter(app: Sphinx, obj: Any, parent: Any) -> Type[Documenter]:
@@ -530,9 +556,16 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.add_config_value(
 			"autodocsumm_member_order",
-			"alphabetical",
-			True,
-			ENUM("alphabetic", "alphabetical", "bysource"),
+			default="alphabetical",
+			rebuild=True,
+			types=ENUM("alphabetic", "alphabetical", "bysource"),
+			)
+
+	app.add_config_value(
+			"autosummary_col_type",
+			default=r"\X",
+			rebuild="latex",
+			types=[str],
 			)
 
 	return {"parallel_read_safe": True}

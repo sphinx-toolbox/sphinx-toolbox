@@ -153,8 +153,7 @@ from sphinx.util.inspect import getdoc, safe_getattr
 
 # this package
 from sphinx_toolbox.more_autodoc import ObjectMembers
-from sphinx_toolbox.more_autodoc.generic_bases import get_origin
-from sphinx_toolbox.more_autodoc.typehints import format_annotation
+from sphinx_toolbox.more_autodoc.generic_bases import _add_generic_bases
 from sphinx_toolbox.utils import (
 		SphinxExtMetadata,
 		allow_subclass_add,
@@ -259,22 +258,7 @@ class ProtocolDocumenter(ClassDocumenter):
 
 		# add inheritance info, if wanted
 		if not self.doc_as_attr and self.options.show_inheritance:
-			self.add_line('', sourcename)
-			bases = []
-
-			if (
-					hasattr(self.object, "__orig_bases__") and len(self.object.__orig_bases__)
-					and get_origin(self.object.__orig_bases__[0]) is self.object.__bases__[0]
-					):
-				# Last condition guards against classes that don't directly subclass a Generic.
-				bases = [format_annotation(b) for b in self.object.__orig_bases__]
-
-			elif hasattr(self.object, "__bases__") and len(self.object.__bases__):
-				bases = [format_annotation(b) for b in self.object.__bases__]
-
-			if bases:
-				bases_string = ", ".join(bases).replace("typing_extensions.Protocol", "typing.Protocol")
-				self.add_line("   " + _("Bases: %s") % bases_string, sourcename)
+			_add_generic_bases(self)
 
 	def format_signature(self, **kwargs: Any) -> str:
 		"""

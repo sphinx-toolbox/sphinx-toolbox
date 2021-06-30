@@ -1,6 +1,6 @@
 git+https://github.com/sphinx-toolbox/html-section.git
 git+https://github.com/sphinx-toolbox/email@translator
-default-values>=0.4.2
+default-values>=0.5.0
 domdf-sphinx-theme>=0.3.0
 extras-require>=0.2.0
 flake8-dunder-all>=0.0.4
@@ -15,4 +15,4 @@ sphinx-notfound-page>=0.5
 sphinx-pyproject>=0.1.0
 sphinxcontrib-httpdomain>=1.7.0
 sphinxemoji>=0.1.6
-toctree-plus>=0.1.0
+toctree-plus>=0.5.0

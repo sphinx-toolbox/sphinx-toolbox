@@ -279,7 +279,7 @@ class TypeVarDocumenter(VariableDocumenter):
 		"""
 
 		if self.object.__doc__ != TypeVar.__doc__:
-			return super().get_doc()
+			return super().get_doc() or []
 		else:
 			return []
 

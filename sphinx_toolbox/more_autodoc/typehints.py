@@ -262,7 +262,8 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	Format a type annotation.
 
 	:param annotation:
-	:param fully_qualified:
+	:param fully_qualified: Whether the fully qualified name should be shown (e.g. ``typing.List``)
+		or only the object name (e.g. ``List``).
 	"""
 
 	prefix = '' if fully_qualified else '~'
@@ -347,6 +348,8 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	elif full_name == "typing.Literal":
 		# TODO: Bool, Enums?
 		formatted_args = "\\[" + ", ".join(code_repr(arg) for arg in args) + ']'
+
+	# TODO: unions with one or more forward refs
 
 	if args and not formatted_args:
 		formatted_args = args_format.format(", ".join(format_annotation(arg, fully_qualified) for arg in args))

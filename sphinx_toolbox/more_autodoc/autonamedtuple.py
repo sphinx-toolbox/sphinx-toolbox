@@ -268,6 +268,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 				globalns=sys.modules[self.object.__module__].__dict__,
 				localns=self.object.__dict__,
 				)
+		# TODO: need a better way to partially resolve type hints, and warn about failures
 
 		if class_hints and new_hints and class_hints != new_hints:
 			#: __new__ has a different signature or different annotations

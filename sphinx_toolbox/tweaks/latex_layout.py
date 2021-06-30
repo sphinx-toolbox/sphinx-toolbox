@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 #  latex_layout.py
-"""
+r"""
 Makes minor adjustments to the LaTeX layout.
 
 * Increases the whitespace above function signatures by 5px,
@@ -12,6 +12,13 @@ Makes minor adjustments to the LaTeX layout.
   This is a backport of changes from Sphinx 4 added in :github:pull:`8997 <sphinx-doc/sphinx>`.
 
   .. versionadded:: 2.12.0
+
+* With Sphinx 3.5, doesn't add ``\sphinxAtStartPar`` before every paragraph.
+  The change in :github:issue:`8781 <sphinx-doc/sphinx>` was to solve an issue with *tables*,
+  but it isn't clear why it then gets added for *every* paragraph so this extension removes it.
+
+  .. versionadded:: 2.13.0
+
 
 .. versionadded:: 2.10.0
 .. extensions:: sphinx_toolbox.tweaks.latex_layout
@@ -45,6 +52,7 @@ Makes minor adjustments to the LaTeX layout.
 from docutils import nodes
 from sphinx import addnodes
 from sphinx.application import Sphinx
+from sphinx.builders.latex.nodes import footnotetext
 from sphinx.config import Config
 from sphinx.writers.latex import LaTeXTranslator
 
@@ -99,6 +107,24 @@ def configure(app: Sphinx, config: Config):
 			])
 
 
+def visit_paragraph(translator: LaTeXTranslator, node: nodes.paragraph) -> None:
+	index = node.parent.index(node)
+	if (
+			index > 0 and isinstance(node.parent, nodes.compound)
+			and not isinstance(node.parent[index - 1], nodes.paragraph)
+			and not isinstance(node.parent[index - 1], nodes.compound)
+			):
+		# insert blank line, if the paragraph follows a non-paragraph node in a compound
+		translator.body.append("\\noindent\n")
+	elif index == 1 and isinstance(node.parent, (nodes.footnote, footnotetext)):
+		# don't insert blank line, if the paragraph is second child of a footnote
+		# (first one is label node)
+		pass
+	else:
+		# Sphinx 3.5 adds \sphinxAtStartPar here, but I don't see what it gains.
+		translator.body.append('\n')
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -111,5 +137,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.add_node(addnodes.desc, latex=(visit_desc, LaTeXTranslator.depart_desc), override=True)
 	app.add_node(nodes.field_list, latex=(visit_field_list, depart_field_list), override=True)
+	app.add_node(nodes.paragraph, latex=(visit_paragraph, LaTeXTranslator.depart_paragraph), override=True)
 
 	return {"parallel_read_safe": True}

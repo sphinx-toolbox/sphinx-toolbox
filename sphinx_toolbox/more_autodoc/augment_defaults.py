@@ -69,6 +69,7 @@ This module monkeypatches in that behaviour.
 from typing import Dict, List, Type
 
 # 3rd party
+import autodocsumm  # type: ignore
 import sphinx.ext.autodoc.directive
 from docutils.utils import assemble_option_dict
 from sphinx.application import Sphinx
@@ -129,6 +130,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 				)
 
 	sphinx.ext.autodoc.directive.process_documenter_options = process_documenter_options
+	autodocsumm.process_documenter_options = process_documenter_options
 
 	app.setup_extension("sphinx.ext.autodoc")
 

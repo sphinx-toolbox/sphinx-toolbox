@@ -152,12 +152,20 @@ class OverloadMixin(_OverloadMixinBase):
 
 				for name, param in overload.parameters.items():
 					buf.append(f"**{name}**")
+
 					if param.annotation is not Parameter.empty:
 						buf.append(r"\: ")
 						buf.append(format_annotation(param.annotation))
+
 					if param.default is not Parameter.empty:
+						default = param.default
+
+						if hasattr(inspect, "DefaultValue") and isinstance(default, inspect.DefaultValue):
+							default = default.value
+
 						buf.append(" = ")
-						buf.append(param.default)
+						buf.append(default)
+
 					buf.append(r"\, ")
 
 				if buf[-2][-1] != '`':
