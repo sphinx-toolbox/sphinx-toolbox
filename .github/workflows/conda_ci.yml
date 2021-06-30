@@ -28,7 +28,7 @@ jobs:
           python -VV
           python -m site
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install --upgrade repo_helper
+          python -m pip install --upgrade whey-conda
           # $CONDA is an environment variable pointing to the root of the miniconda directory
           $CONDA/bin/conda update -q conda
           $CONDA/bin/conda install conda-build=3.21.0
@@ -38,7 +38,7 @@ jobs:
 
       - name: "Build and index channel"
         run: |
-          python -m repo_helper build --conda --out-dir conda-bld/noarch
+          python -m whey --builder whey_conda --out-dir conda-bld/noarch
           $CONDA/bin/conda index ./conda-bld || exit 1
 
       - name: "Search for package"
