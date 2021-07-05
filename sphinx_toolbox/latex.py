@@ -413,6 +413,8 @@ def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None):
 		* μ -- \textmu
 		* ≡ -- \equiv (new in version 2.11.0)
 		* ≈ -- \approx (new in version 2.12.0)
+		* ≥ -- \geq (new in version 2.13.0)
+		* ≤ -- \leq (new in version 2.13.0)
 
 	This function can be hooked into the :event:`build-finished` event as follows:
 
@@ -445,6 +447,8 @@ def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None):
 	output_content = output_content.replace('μ', r"\textmu{}")
 	output_content = output_content.replace('≡', r" $\equiv$ ")
 	output_content = output_content.replace('≈', r" $\approx$ ")
+	output_content = output_content.replace('≥', r" $\geq$ ")
+	output_content = output_content.replace('≤', r" $\leq$ ")
 
 	output_file.write_clean(output_content)
 
