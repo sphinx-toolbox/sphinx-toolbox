@@ -7,7 +7,7 @@ A Sphinx directive for documenting :class:`Protocols <typing.Protocol>` in Pytho
 .. versionadded:: 0.2.0
 .. extensions:: sphinx_toolbox.more_autodoc.autoprotocol
 .. versionchanged:: 0.6.0  Moved from :mod:`sphinx_toolbox.autoprotocol`.
-.. versionchanged:: 2.13.0, Added support for generic bases, such as ``class SupportsAbs(Protocol[T_co]): ...``.
+.. versionchanged:: 2.13.0  Added support for generic bases, such as ``class SupportsAbs(Protocol[T_co]): ...``.
 
 
 Usage
