@@ -338,6 +338,8 @@ class NamedTupleDocumenter(ClassDocumenter):
 		self.add_line('', sourcename)
 
 		self.add_line(":Fields:", sourcename)
+		# TODO: Add xref targets for each field as an attribute
+		# TODO: support for default_values
 		self.add_line('', sourcename)
 
 		fields = self.object._fields
