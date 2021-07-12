@@ -50,7 +50,23 @@ Configuration
 	:type: :py:obj:`str`
 	:default: ``'\X'``
 
-	The LaTeX column type to use for autosummary tables
+	The LaTeX column type to use for autosummary tables.
+
+	Custom columns can be defined in the LaTeX preamble for use with this option.
+
+	For example:
+
+	.. code-block:: python
+
+		latex_elements["preamble"] = r'''
+			\makeatletter
+			\newcolumntype{\Xx}[2]{>{\raggedright\arraybackslash}p{\dimexpr
+				(\linewidth-\arrayrulewidth)*#1/#2-\tw@\tabcolsep-\arrayrulewidth\relax}}
+			\makeatother
+			'''
+
+		autosummary_col_type = "\\Xx"
+
 
 	.. versionadded:: 2.13.0
 
