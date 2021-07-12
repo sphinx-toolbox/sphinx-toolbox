@@ -636,8 +636,27 @@ but also to
            </div>
           </div>
           <p>
-           The LaTeX column type to use for autosummary tables
+           The LaTeX column type to use for autosummary tables.
           </p>
+          <p>
+           Custom columns can be defined in the LaTeX preamble for use with this option.
+          </p>
+          <p>
+           For example:
+          </p>
+          <div class="highlight-python notranslate">
+           <div class="highlight">
+            <pre><span></span><span class="n">latex_elements</span><span class="p">[</span><span class="s2">"preamble"</span><span class="p">]</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">'''</span>
+<span class="s1">    \makeatletter</span>
+<span class="s1">    \newcolumntype{\Xx}[2]{&gt;{\raggedright\arraybackslash}p{\dimexpr</span>
+<span class="s1">        (\linewidth-\arrayrulewidth)*#1/#2-\tw@\tabcolsep-\arrayrulewidth\relax}}</span>
+<span class="s1">    \makeatother</span>
+<span class="s1">    '''</span>
+
+<span class="n">autosummary_col_type</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\\</span><span class="s2">Xx"</span>
+</pre>
+           </div>
+          </div>
           <div class="versionadded">
            <p>
             <span class="versionmodified added">
