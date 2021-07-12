@@ -267,6 +267,10 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	:param annotation:
 	:param fully_qualified: Whether the fully qualified name should be shown (e.g. ``typing.List``)
 		or only the object name (e.g. ``List``).
+
+	:rtype:
+
+	.. versionchanged:: 2.13.0  Added support for :py:obj:`True` and :py:obj:`False`
 	"""
 
 	prefix = '' if fully_qualified else '~'
@@ -352,7 +356,7 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		formatted_args += ", " + format_annotation(args[-1]) + ']'
 	elif full_name == "typing.Literal":
 		# TODO: Enums?
-		formatted_arg_list = DelimitedList()
+		formatted_arg_list: DelimitedList[str] = DelimitedList()
 		for arg in args:
 			if isinstance(arg, bool):
 				formatted_arg_list.append(format_annotation(arg))

@@ -162,6 +162,11 @@ Contents
 
 	extensions/**/index
 
+.. toctree::
+	:maxdepth: 2
+	:glob:
+
+	changelog
 
 .. toctree::
 	:maxdepth: 3
