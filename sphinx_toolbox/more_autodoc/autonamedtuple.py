@@ -244,10 +244,18 @@ class NamedTupleDocumenter(ClassDocumenter):
 				}
 
 		if self.directive.result[-1] in acceptable_bases or baseclass_is_private(self.object):
-			if hasattr(self.object, "__annotations__"):
-				self.directive.result[-1] = "   Bases: :class:`~typing.NamedTuple`"
+			# TODO: multiple inheritance
+
+			if getattr(self.env.config, "generic_bases_fully_qualified", False):
+				# Might not be present; extension might not be enabled
+				prefix = ''
 			else:
-				self.directive.result[-1] = "   Bases: :func:`~collections.namedtuple`"
+				prefix = '~'
+
+			if hasattr(self.object, "__annotations__"):
+				self.directive.result[-1] = f"   Bases: :class:`{prefix}typing.NamedTuple`"
+			else:
+				self.directive.result[-1] = f"   Bases: :func:`{prefix}collections.namedtuple`"
 
 	def filter_members(
 			self,
