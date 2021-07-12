@@ -179,8 +179,10 @@ class PreCommitDirective(SphinxDirective):
 			cwd = PathPlus.cwd()
 
 			for directory in (cwd, *cwd.parents):
-				if (directory / ".pre-commit-hooks.yaml").is_file():
-					hooks = [h["id"] for h in yaml.safe_load((directory / ".pre-commit-hooks.yaml").read_text())]
+				hook_file = directory / ".pre-commit-hooks.yaml"
+				if hook_file.is_file():
+					hooks_dict = YAML(typ="safe", pure=True).load(hook_file.read_text())
+					hooks = [h["id"] for h in hooks_dict]
 					break
 			else:
 				warnings.warn("No hooks specified and no .pre-commit-hooks.yaml file found.")
