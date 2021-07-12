@@ -18,5 +18,8 @@ __all__ = [
 
 __version__ = "2.13.0b3"
 extras_require = {
-		"testing": ["coincidence>=0.4.3", "pygments>=2.7.4"], "all": ["coincidence>=0.4.3", "pygments>=2.7.4"]
+		"precommit": ["ruamel-yaml>=0.16.12"],
+		"flake8": ["tabulate>=0.8.7"],
+		"testing": ["coincidence>=0.4.3", "pygments>=2.7.4"],
+		"all": ["coincidence>=0.4.3", "pygments>=2.7.4", "ruamel-yaml>=0.16.12", "tabulate>=0.8.7"]
 		}

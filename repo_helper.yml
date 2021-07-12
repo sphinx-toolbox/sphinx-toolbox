@@ -35,6 +35,10 @@ additional_ignore:
   - wip-shields-block.py
 
 extras_require:
+  precommit:
+   - ruamel-yaml>=0.16.12
+  flake8:
+   - tabulate>=0.8.7
   testing:
     - pygments>=2.7.4
     - coincidence>=0.4.3

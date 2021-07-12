@@ -25,8 +25,10 @@ Homepage = "https://github.com/sphinx-toolbox/sphinx-toolbox"
 Documentation = "https://sphinx-toolbox.readthedocs.io/en/latest"
 
 [project.optional-dependencies]
+precommit = [ "ruamel-yaml>=0.16.12",]
+flake8 = [ "tabulate>=0.8.7",]
 testing = [ "coincidence>=0.4.3", "pygments>=2.7.4",]
-all = [ "coincidence>=0.4.3", "pygments>=2.7.4",]
+all = [ "coincidence>=0.4.3", "pygments>=2.7.4", "ruamel-yaml>=0.16.12", "tabulate>=0.8.7",]
 
 [tool.whey]
 base-classifiers = [

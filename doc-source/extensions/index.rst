@@ -42,6 +42,22 @@ The following features are enabled by default:
 
 Some features must be enabled separately:
 
+* :mod:`sphinx_toolbox.documentation_summary`
+
+	Allows insertion of a summary line on the title page generated with the LaTeX builder.
+
+* :mod:`sphinx_toolbox.flake8`
+
+	Provides a directive for creating a table of Flake8 codes.
+
+	.. note:: Requires the ``flake8`` extra to be installed (``pip install sphinx-toolbox[flake8]``)
+
+* :mod:`sphinx_toolbox.pre_commit`
+
+	Provides directives to show examples of ``.pre-commit-config.yaml`` configuration.
+
+	.. note:: Requires the ``precommit`` extra to be installed (``pip install sphinx-toolbox[precommit]``)
+
 * :mod:`sphinx_toolbox.more_autodoc`
 
 	* :mod:`sphinx_toolbox.more_autodoc.augment_defaults`
@@ -64,3 +80,7 @@ Some features must be enabled separately:
 
 	I.e. ``foo.bar.baz()`` became ``foo.bar.foo.bar.baz()``, which of course doesn't exist
 	and created a broken link.
+
+* :mod:`sphinx_toolbox.tweaks.* <sphinx_toolbox.tweaks>`
+
+	Provides various tweaks to Sphinx's output.

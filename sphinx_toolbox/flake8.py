@@ -5,6 +5,11 @@ r"""
 A Sphinx directive for documenting flake8 codes.
 
 .. versionadded:: 1.6.0
+
+.. extras-require:: flake8
+	:scope: extension
+	:pyproject:
+
 .. extensions:: sphinx_toolbox.flake8
 
 
@@ -68,7 +73,6 @@ import warnings
 from typing import List, Sequence, Tuple
 
 # 3rd party
-import tabulate
 from docutils import nodes
 from docutils.statemachine import StringList
 from sphinx.application import Sphinx
@@ -77,6 +81,16 @@ from sphinx.util.docutils import SphinxDirective
 
 # this package
 from sphinx_toolbox.utils import Purger, SphinxExtMetadata, metadata_add_version
+
+try:
+	# 3rd party
+	import tabulate
+except ImportError as e:
+	raise e.__class__(
+			f"{e}\n"
+			f"Tip! 'sphinx_toolbox.flake8' requires the 'flake8' extra.\n"
+			f"Run 'pip install sphinx-toolbox[flake8]'"
+			).with_traceback(e.__traceback__) from None
 
 __all__ = ["Flake8CodesDirective", "setup"]
 

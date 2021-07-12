@@ -5,6 +5,11 @@
 Sphinx extension to show examples of ``.pre-commit-config.yaml`` configuration.
 
 .. versionadded:: 1.6.0
+
+.. extras-require:: precommit
+	:scope: extension
+	:pyproject:
+
 .. extensions:: sphinx_toolbox.pre_commit
 
 
@@ -102,17 +107,27 @@ from textwrap import indent
 from typing import List, Sequence
 
 # 3rd party
-import ruamel.yaml as yaml
 from docutils import nodes
 from docutils.statemachine import StringList
 from domdf_python_tools.paths import PathPlus
-from ruamel.yaml import YAML
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
 from typing_extensions import TypedDict
 
 # this package
 from sphinx_toolbox.utils import Purger, SphinxExtMetadata, make_github_url, metadata_add_version
+
+
+try:
+	# 3rd party
+	from ruamel.yaml import YAML
+except ImportError as e:
+	raise e.__class__(
+			f"{e}\n"
+			f"Tip! 'sphinx_toolbox.pre_commit' requires the 'precommit' extra.\n"
+			f"Run 'pip install sphinx-toolbox[precommit]'"
+			).with_traceback(e.__traceback__) from None
+
 
 __all__ = [
 		"pre_commit_node_purger",
