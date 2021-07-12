@@ -81,6 +81,7 @@ from docutils.parsers.rst.states import Inliner
 from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
+from sphinx.errors import NoUri
 from sphinx.util import split_explicit_title
 
 # this package
@@ -101,7 +102,7 @@ def _make_viewcode_node(
 		title: str,
 		pagename: str,
 		env: BuildEnvironment,
-		) -> Union[nodes.reference, addnodes.pending_xref]:
+		) -> nodes.Node:
 	"""
 	Construct a node for the :mod:`sphinx.ext.viewcode` link.
 
@@ -122,13 +123,16 @@ def _make_viewcode_node(
 	else:
 		# 3rd party
 		from sphinx.util.nodes import make_refnode
-		return make_refnode(
-				env.app.builder,
-				fromdocname=env.docname,
-				todocname=pagename,
-				targetid=title,
-				child=nodes.inline(title, title),  # title=title,
-				)
+		try:
+			return make_refnode(
+					env.app.builder,
+					fromdocname=env.docname,
+					todocname=pagename,
+					targetid=title,
+					child=nodes.inline(title, title),
+					)
+		except NoUri:
+			return nodes.inline(title, title)
 
 
 def source_role(
@@ -172,9 +176,9 @@ def source_role(
 	env = inliner.document.settings.env
 	config = env.app.config
 
-	nodes_: List[Union[nodes.reference, addnodes.pending_xref]] = []
+	nodes_: List[nodes.Node] = []
 	messages: List[system_message] = []
-	refnode: Union[nodes.reference, addnodes.pending_xref]
+	refnode: nodes.Node
 
 	if config.source_link_target == "sphinx":
 		if target.endswith("/__init__.py"):
@@ -231,7 +235,6 @@ def _configure(app: Sphinx, config: "Config"):
 	config.source_link_target = str(config.source_link_target).lower().strip()  # type: ignore
 
 	if config.source_link_target not in {"sphinx", "github"}:
-
 		# this package
 		from sphinx_toolbox.config import InvalidOptionError
 
