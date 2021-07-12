@@ -120,6 +120,9 @@ from tempfile import TemporaryDirectory
 from types import FunctionType, ModuleType
 from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, Type, TypeVar, get_type_hints
 
+# 3rd party
+from domdf_python_tools.stringlist import DelimitedList
+
 if sys.version_info < (3, 7, 4):  # pragma: no cover (py37+)
 	# stdlib
 	from typing import _ForwardRef as ForwardRef  # type: ignore
@@ -271,6 +274,8 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	# Special cases
 	if annotation is None or annotation is type(None):  # noqa: E721
 		return ":py:obj:`None`"
+	elif isinstance(annotation, bool):
+		return f":py:obj:`{annotation}`"
 	elif annotation is Ellipsis:
 		return "..."
 	elif annotation is itertools.cycle:
@@ -346,8 +351,15 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		formatted_args = "\\[\\[" + ", ".join(format_annotation(arg) for arg in args[:-1]) + ']'
 		formatted_args += ", " + format_annotation(args[-1]) + ']'
 	elif full_name == "typing.Literal":
-		# TODO: Bool, Enums?
-		formatted_args = "\\[" + ", ".join(code_repr(arg) for arg in args) + ']'
+		# TODO: Enums?
+		formatted_arg_list = DelimitedList()
+		for arg in args:
+			if isinstance(arg, bool):
+				formatted_arg_list.append(format_annotation(arg))
+			else:
+				formatted_arg_list.append(code_repr(arg))
+
+		formatted_args = f"\\[{formatted_arg_list:, }]"
 
 	# TODO: unions with one or more forward refs
 

@@ -18,7 +18,7 @@ from domdf_python_tools.typing import (
 		WrapperDescriptorType
 		)
 from sphinx.errors import ExtensionError
-from typing_extensions import Protocol
+from typing_extensions import Literal, Protocol
 
 # this package
 from sphinx_toolbox import __version__
@@ -29,6 +29,8 @@ from sphinx_toolbox.testing import Sphinx, run_setup
 @pytest.mark.parametrize(
 		"annotation, expected",
 		[
+				pytest.param(True, ":py:obj:`True`", id="True"),
+				pytest.param(False, ":py:obj:`False`", id="False"),
 				pytest.param(None, ":py:obj:`None`", id="None"),
 				pytest.param(type(None), ":py:obj:`None`", id="NoneType"),
 				pytest.param(Ellipsis, "...", id="Ellipsis"),
@@ -104,6 +106,18 @@ from sphinx_toolbox.testing import Sphinx, run_setup
 						TemporaryDirectory,
 						":py:obj:`tempfile.TemporaryDirectory`",
 						id="tempfile.TemporaryDirectory"
+						),
+				pytest.param(Literal[True], r":py:data:`typing.Literal`\[:py:obj:`True`]", id="Literal_True"),
+				pytest.param(Literal[False], r":py:data:`typing.Literal`\[:py:obj:`False`]", id="Literal_False"),
+				pytest.param(
+						Literal[True, "Hello"],
+						r":py:data:`typing.Literal`\[:py:obj:`True`, ``'Hello'``]",
+						id="Literal_True_String"
+						),
+				pytest.param(
+						Literal[True, 123],
+						r":py:data:`typing.Literal`\[:py:obj:`True`, ``123``]",
+						id="Literal_True_Int"
 						),
 				]
 		)
