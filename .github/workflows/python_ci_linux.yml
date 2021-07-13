@@ -4,6 +4,7 @@ name: Linux
 
 on:
   push:
+  pull_request:
 
 permissions:
   actions: write
