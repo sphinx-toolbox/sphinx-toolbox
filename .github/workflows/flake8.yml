@@ -4,6 +4,9 @@ name: Flake8
 
 on:
   push:
+    branches-ignore:
+      - 'repo-helper-update'
+      - 'pre-commit-ci-update-config'
   pull_request:
 
 permissions:
