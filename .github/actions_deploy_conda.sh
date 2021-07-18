@@ -8,8 +8,7 @@ source "/home/runner/miniconda/etc/profile.d/conda.sh"
 hash -r
 conda activate base
 conda config --set always_yes yes --set changeps1 no
-conda update -q conda
-conda install anaconda-client
+conda install conda=4.8.5 anaconda-client
 conda info -a
 
 for f in conda/dist/noarch/sphinx-toolbox-*.tar.bz2; do
