@@ -384,7 +384,7 @@ Shields
 #
 
 # stdlib
-from typing import List
+from typing import List, Optional
 from urllib.parse import quote
 
 # 3rd party
@@ -859,7 +859,7 @@ class PreCommitCIShield(GitHubBackedShield):
 		return super().run()
 
 
-def copy_asset_files(app: Sphinx, exception: Exception = None):
+def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None):
 	"""
 	Copy additional stylesheets into the HTML build directory.
 

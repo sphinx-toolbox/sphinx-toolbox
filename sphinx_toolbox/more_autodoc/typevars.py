@@ -270,7 +270,7 @@ class TypeVarDocumenter(VariableDocumenter):
 
 		super().add_directive_header(sig)
 
-	def get_doc(self, encoding: str = None, ignore: int = None) -> List[List[str]]:
+	def get_doc(self, encoding: Optional[str] = None, ignore: Optional[int] = None) -> List[List[str]]:
 		"""
 		Decode and return lines of the docstring(s) for the object.
 

@@ -77,7 +77,7 @@ name from its description if a description was given.
 #
 
 # stdlib
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 # 3rd party
 import sphinx.util.docfields
@@ -97,7 +97,7 @@ def make_field(  # noqa D102
 		types: Dict[str, List[nodes.Node]],
 		domain: str,
 		items: Tuple,
-		env: BuildEnvironment = None,
+		env: Optional[BuildEnvironment] = None,
 		) -> nodes.field:
 
 	def handle_item(fieldarg: str, content: List[nodes.Element]) -> nodes.paragraph:

@@ -65,7 +65,7 @@ Functions for testing Sphinx extensions.
 import copy
 import tempfile
 from types import SimpleNamespace
-from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, Type, Union
+from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, Type, Union, cast
 
 # 3rd party
 import pytest  # nodep
@@ -233,7 +233,7 @@ class Sphinx:
 			self,
 			node: Type[nodes.Element],
 			figtype: str,
-			title_getter: TitleGetter = None,
+			title_getter: Optional[TitleGetter] = None,
 			override: bool = False,
 			**kwargs: Tuple[Callable, Callable],
 			) -> None:
@@ -241,7 +241,13 @@ class Sphinx:
 		Register a Docutils node class as a numfig target.
 		"""
 
-		self.registry.add_enumerable_node(node, figtype, title_getter, override=override)
+		# Sphinx's signature is wrong WRT Optional
+		self.registry.add_enumerable_node(
+				node,
+				figtype,
+				title_getter,  # type: ignore
+				override=override,
+				)
 		self.add_node(node, override=override, **kwargs)
 
 	def add_directive(self, name: str, cls: Type[Directive], override: bool = False) -> None:
@@ -334,8 +340,8 @@ class Sphinx:
 			directivename: str,
 			rolename: str,
 			indextemplate: str = '',
-			parse_node: Callable = None,
-			ref_nodeclass: Type[nodes.TextElement] = None,
+			parse_node: Optional[Callable] = None,
+			ref_nodeclass: Optional[Type[nodes.TextElement]] = None,
 			objname: str = '',
 			doc_field_types: List = [],
 			override: bool = False,
@@ -344,12 +350,13 @@ class Sphinx:
 		Register a new object type.
 		"""
 
+		# Sphinx's signature is wrong WRT Optional
 		self.registry.add_object_type(
 				directivename,
 				rolename,
 				indextemplate,
-				parse_node,
-				ref_nodeclass,
+				parse_node,  # type: ignore
+				ref_nodeclass,  # type: ignore
 				objname,
 				doc_field_types,
 				override=override,
@@ -360,7 +367,7 @@ class Sphinx:
 			directivename: str,
 			rolename: str,
 			indextemplate: str = '',
-			ref_nodeclass: Type[nodes.TextElement] = None,
+			ref_nodeclass: Optional[Type[nodes.TextElement]] = None,
 			objname: str = '',
 			override: bool = False,
 			) -> None:
@@ -368,11 +375,12 @@ class Sphinx:
 		Register a new crossref object type.
 		"""
 
+		# Sphinx's signature is wrong WRT Optional
 		self.registry.add_crossref_type(
 				directivename,
 				rolename,
 				indextemplate,
-				ref_nodeclass,
+				ref_nodeclass,  # type: ignore
 				objname,
 				override=override,
 				)
@@ -419,14 +427,15 @@ class Sphinx:
 	def add_latex_package(
 			self,
 			packagename: str,
-			options: str = None,
+			options: Optional[str] = None,
 			after_hyperref: bool = False,
 			) -> None:
 		"""
 		Register a package to include in the LaTeX source code.
 		"""
 
-		self.registry.add_latex_package(packagename, options, after_hyperref)  # type: ignore
+		# Sphinx's signature is wrong WRT Optional
+		self.registry.add_latex_package(packagename, cast(str, options), after_hyperref)
 
 	def add_lexer(self, alias: str, lexer: Type[Lexer]) -> None:
 		"""

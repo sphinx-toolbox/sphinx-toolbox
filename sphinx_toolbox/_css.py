@@ -29,7 +29,7 @@ Internal Sphinx extension to provide custom CSS.
 #
 
 # stdlib
-from typing import MutableMapping
+from typing import MutableMapping, Optional
 
 # 3rd party
 import dict2css
@@ -76,7 +76,7 @@ tweaks_sphinx_panels_tabs_styles: MutableMapping[str, dict2css.Style] = {
 		}
 
 
-def copy_asset_files(app: Sphinx, exception: Exception = None):
+def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None):
 	"""
 	Copy additional stylesheets into the HTML build directory.
 

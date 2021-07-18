@@ -98,7 +98,7 @@ API Reference
 import importlib
 import sys
 import warnings
-from typing import Any, List, get_type_hints
+from typing import Any, List, Optional, cast, get_type_hints
 
 # 3rd party
 from sphinx.application import Sphinx
@@ -434,7 +434,7 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 		else:
 			super().add_directive_header(sig)
 
-	def get_doc(self, encoding: str = None, ignore: int = None) -> List[List[str]]:
+	def get_doc(self, encoding: Optional[str] = None, ignore: Optional[int] = None) -> List[List[str]]:
 		"""
 		Decode and return lines of the docstring(s) for the object.
 
@@ -448,7 +448,9 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 			# ref: https://github.com/sphinx-doc/sphinx/issues/7805
 			orig = self.env.config.autodoc_inherit_docstrings
 			self.env.config.autodoc_inherit_docstrings = False  # type: ignore
-			return super().get_doc(encoding, ignore) or []
+
+			# Sphinx's signature is wrong wrt Optional
+			return super().get_doc(cast(str, encoding), cast(int, ignore)) or []
 		finally:
 			self.env.config.autodoc_inherit_docstrings = orig  # type: ignore
 
@@ -612,7 +614,7 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 					self.env.note_reread()
 					return False
 
-	def get_doc(self, encoding: str = None, ignore: int = None) -> List[List[str]]:
+	def get_doc(self, encoding: Optional[str] = None, ignore: Optional[int] = None) -> List[List[str]]:
 		"""
 		Decode and return lines of the docstring(s) for the object.
 

@@ -138,7 +138,7 @@ from sre_constants import (
 		SUBPATTERN
 		)
 from textwrap import dedent
-from typing import Any, Callable, List, Pattern, Tuple
+from typing import Any, Callable, List, Optional, Pattern, Tuple
 
 # 3rd party
 import dict2css
@@ -780,7 +780,7 @@ def depart_regex_node_latex(translator: HTMLTranslator, node: RegexNode):
 	translator.body.pop(-1)
 
 
-def copy_asset_files(app: Sphinx, exception: Exception = None):
+def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None):
 	"""
 	Copy additional stylesheets into the HTML build directory.
 

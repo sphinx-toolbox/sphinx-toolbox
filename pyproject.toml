@@ -138,6 +138,13 @@ autodoc_exclude_members = [
     "__hash__",
 ]
 
+[tool.mypy]
+python_version = "3.6"
+namespace_packages = true
+check_untyped_defs = true
+warn_unused_ignores = true
+no_implicit_optional = true
+
 [tool.dep_checker.name_mapping]
 beautifulsoup4 = "bs4"
 ruamel-yaml = "ruamel.yaml"

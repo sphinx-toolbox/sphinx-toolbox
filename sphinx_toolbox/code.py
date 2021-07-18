@@ -149,7 +149,7 @@ API Reference
 #
 
 # stdlib
-from typing import List, MutableMapping
+from typing import List, MutableMapping, Optional
 
 # 3rd party
 import dict2css
@@ -340,7 +340,7 @@ def visit_prompt_latex(translator: LaTeXTranslator, node: Prompt) -> None:
 	raise docutils.nodes.SkipNode
 
 
-def copy_asset_files(app: Sphinx, exception: Exception = None):
+def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None):
 	"""
 	Copy additional stylesheets into the HTML build directory.
 
