@@ -19,6 +19,10 @@ Makes minor adjustments to the LaTeX layout.
 
   .. versionadded:: 2.13.0
 
+* Configures hyperref to apply correct page numbering to the frontmatter.
+
+  .. versionadded:: $VERSION
+
 
 .. versionadded:: 2.10.0
 .. extensions:: sphinx_toolbox.tweaks.latex_layout
@@ -106,6 +110,21 @@ def configure(app: Sphinx, config: Config):
 			r"\makeatother",
 			])
 
+	config.latex_elements["hyperref"] = '\n'.join([
+			r"% Include hyperref last.",
+			r"\usepackage[pdfpagelabels,hyperindex,hyperfigures]{hyperref}",
+			r"% Fix anchor placement for figures with captions.",
+			r"\usepackage{hypcap}% it must be loaded after hyperref.",
+			])
+
+	config.latex_elements["maketitle"] = '\n'.join([
+			r"\begingroup",
+			r"\let\oldthepage\thepage",
+			r"\renewcommand{\thepage}{T\oldthepage}",
+			config.latex_elements.get("maketitle", r"\sphinxmaketitle"),
+			r"\endgroup"
+			])
+
 
 def visit_paragraph(translator: LaTeXTranslator, node: nodes.paragraph) -> None:
 	index = node.parent.index(node)
@@ -133,7 +152,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx application.
 	"""
 
-	app.connect("config-inited", configure)
+	app.connect("config-inited", configure, priority=500)
 
 	app.add_node(addnodes.desc, latex=(visit_desc, LaTeXTranslator.depart_desc), override=True)
 	app.add_node(nodes.field_list, latex=(visit_field_list, depart_field_list), override=True)

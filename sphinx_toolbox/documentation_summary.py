@@ -198,7 +198,10 @@ def configure(app: Sphinx, config: Config):
 				summary_command,
 				RENEW,
 				])
-		config.latex_elements["maketitle"] = '\n'.join([r"\sphinxmaketitle", RESET])
+		config.latex_elements["maketitle"] = '\n'.join([
+				config.latex_elements.get("maketitle", r"\sphinxmaketitle"),
+				RESET,
+				])
 
 
 @metadata_add_version
@@ -209,7 +212,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx application.
 	"""
 
-	app.connect("config-inited", configure)
+	app.connect("config-inited", configure, priority=550)
 	app.add_directive("documentation-summary", DocumentationSummaryDirective)
 	app.add_config_value("documentation_summary", None, "env", types=[str, None])
 	app.connect("env-purge-doc", summary_node_purger.purge_nodes)
