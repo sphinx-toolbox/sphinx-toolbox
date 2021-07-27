@@ -85,6 +85,7 @@ from sphinx_toolbox.testing import Sphinx, run_setup
 						":py:data:`types.BuiltinFunctionType`",
 						id="types.BuiltinFunctionType"
 						),
+				pytest.param(types.FunctionType, ":py:data:`types.FunctionType`", id="types.FunctionType"),
 				pytest.param(
 						types.MethodType,
 						":py:data:`types.MethodType`",

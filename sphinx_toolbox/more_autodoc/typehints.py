@@ -304,6 +304,8 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		return f":py:data:`{prefix}types.WrapperDescriptorType`"
 	elif annotation is types.BuiltinFunctionType:  # noqa E721
 		return f":py:data:`{prefix}types.BuiltinFunctionType`"
+	elif annotation is types.FunctionType:  # noqa E721
+		return f":py:data:`{prefix}types.FunctionType`"
 	elif isinstance(annotation, ForwardRef):
 		# Unresolved forward ref
 		return f":py:obj:`{prefix}.{annotation.__forward_arg__}`"
