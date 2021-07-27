@@ -15,7 +15,7 @@ Usage
 
 .. rst:role:: iabbr
 
-	An abbreviation. If the role content contains a parenthesized  explanation,
+	An abbreviation. If the role content contains a parenthesized explanation,
 	it will be treated specially: it will be shown in a tool-tip in HTML,
 	and output only once in LaTeX.
 

@@ -96,6 +96,6 @@ def page(testing_app, request) -> BeautifulSoup:
 		testing_app.build(force_all=True)
 
 	pagename = request.param
-	c = (testing_app.outdir / pagename).read_text()
+	c = (testing_app.outdir / pagename).read_text(encoding="UTF-8")
 
 	yield BeautifulSoup(c, "html5lib")
