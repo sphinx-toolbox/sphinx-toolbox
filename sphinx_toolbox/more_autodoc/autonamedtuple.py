@@ -271,12 +271,19 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 		all_hints = get_type_hints(self.object)
 		class_hints = {k: all_hints[k] for k in self.object._fields if k in all_hints}
+
+		# TODO: need a better way to partially resolve type hints, and warn about failures
 		new_hints = get_type_hints(
 				self.object.__new__,
 				globalns=sys.modules[self.object.__module__].__dict__,
 				localns=self.object.__dict__,
 				)
-		# TODO: need a better way to partially resolve type hints, and warn about failures
+
+		# Stock NamedTuples don't have these, but customised collections.namedtuple or hand-rolled classes may
+		if "cls" in new_hints:
+			new_hints.pop("cls")
+		if "return" in new_hints:
+			new_hints.pop("return")
 
 		if class_hints and new_hints and class_hints != new_hints:
 			#: __new__ has a different signature or different annotations
