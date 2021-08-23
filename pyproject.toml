@@ -144,6 +144,8 @@ namespace_packages = true
 check_untyped_defs = true
 warn_unused_ignores = true
 no_implicit_optional = true
+incremental = false
+exclude = "^tests/.*?/[^/]*doc-test/.*"
 
 [tool.dep_checker.name_mapping]
 beautifulsoup4 = "bs4"

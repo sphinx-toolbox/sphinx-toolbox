@@ -1,3 +1,4 @@
 # Type stubs
 git+https://github.com/domdfcoding/docutils-stubs@docutils-16
 git+https://github.com/domdfcoding/pytest-regressions-stubs
+types-tabulate
