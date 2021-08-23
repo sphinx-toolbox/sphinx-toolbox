@@ -3,6 +3,7 @@ import ast
 import io
 import itertools
 import re
+import sys
 import types
 from email.headerregistry import Address
 from tempfile import TemporaryDirectory
@@ -10,7 +11,7 @@ from typing import Any, List
 
 # 3rd party
 import pytest
-from coincidence.selectors import not_pypy, only_pypy
+from coincidence.selectors import min_version, not_pypy, only_pypy
 from domdf_python_tools.typing import (
 		ClassMethodDescriptorType,
 		MethodDescriptorType,
@@ -24,6 +25,11 @@ from typing_extensions import Literal, Protocol
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc import typehints
 from sphinx_toolbox.testing import Sphinx, run_setup
+
+if sys.version_info >= (3, 10):
+	from types import UnionType
+else:
+	UnionType = None
 
 
 @pytest.mark.parametrize(
@@ -50,6 +56,18 @@ from sphinx_toolbox.testing import Sphinx, run_setup
 						ClassMethodDescriptorType,
 						":py:data:`types.ClassMethodDescriptorType`",
 						id="types.ClassMethodDescriptorType"
+						),
+				pytest.param(
+						MethodDescriptorType,
+						":py:data:`types.MethodDescriptorType`",
+						id="types.MethodDescriptorType",
+						marks=not_pypy("PyPy reuses some types"),
+						),
+				pytest.param(
+						MethodDescriptorType,
+						":py:data:`types.MethodType`",
+						id="types.MethodDescriptorType",
+						marks=only_pypy("PyPy reuses some types"),
 						),
 				pytest.param(
 						MethodDescriptorType,
@@ -119,6 +137,13 @@ from sphinx_toolbox.testing import Sphinx, run_setup
 						Literal[True, 123],
 						r":py:data:`typing.Literal`\[:py:obj:`True`, ``123``]",
 						id="Literal_True_Int"
+						),
+
+				pytest.param(
+						UnionType,
+						":py:data:`types.UnionType`",
+						id="types.UnionType",
+						marks=min_version("3.10", reason="Introduced in 3.10")
 						),
 				]
 		)

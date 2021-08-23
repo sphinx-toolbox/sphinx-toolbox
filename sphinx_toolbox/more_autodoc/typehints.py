@@ -292,20 +292,20 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		return f":py:class:`{prefix}types.MappingProxyType`"
 	elif annotation is types.ModuleType:  # noqa E721
 		return f":py:class:`{prefix}types.ModuleType`"
-	elif annotation is ClassMethodDescriptorType:  # noqa E721
-		return f":py:data:`{prefix}types.ClassMethodDescriptorType`"
-	elif annotation is MethodDescriptorType:  # noqa E721
-		return f":py:data:`{prefix}types.MethodDescriptorType`"
+	elif annotation is types.FunctionType:  # noqa E721
+		return f":py:data:`{prefix}types.FunctionType`"
+	elif annotation is types.BuiltinFunctionType:  # noqa E721
+		return f":py:data:`{prefix}types.BuiltinFunctionType`"
 	elif annotation is types.MethodType:  # noqa E721
 		return f":py:data:`{prefix}types.MethodType`"
+	elif annotation is MethodDescriptorType:  # noqa E721
+		return f":py:data:`{prefix}types.MethodDescriptorType`"
+	elif annotation is ClassMethodDescriptorType:  # noqa E721
+		return f":py:data:`{prefix}types.ClassMethodDescriptorType`"
 	elif annotation is MethodWrapperType:  # noqa E721
 		return f":py:data:`{prefix}types.MethodWrapperType`"
 	elif annotation is WrapperDescriptorType:  # noqa E721
 		return f":py:data:`{prefix}types.WrapperDescriptorType`"
-	elif annotation is types.BuiltinFunctionType:  # noqa E721
-		return f":py:data:`{prefix}types.BuiltinFunctionType`"
-	elif annotation is types.FunctionType:  # noqa E721
-		return f":py:data:`{prefix}types.FunctionType`"
 	elif isinstance(annotation, ForwardRef):
 		# Unresolved forward ref
 		return f":py:obj:`{prefix}.{annotation.__forward_arg__}`"
@@ -313,6 +313,9 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		return f":py:class:`{prefix}typing.Pattern`"
 	elif annotation is TemporaryDirectory:  # noqa E721
 		return f":py:obj:`{prefix}tempfile.TemporaryDirectory`"
+	elif sys.version_info >= (3, 10):
+		if annotation is types.UnionType:  # noqa E721
+			return f":py:data:`{prefix}types.UnionType`"
 
 	try:
 		module = get_annotation_module(annotation)
@@ -349,10 +352,16 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	# Some types require special handling
 	if full_name == "typing.NewType":
 		args_format = f"\\(:py:data:`~{annotation.__name__}`, {{}})"
-		role = "func"
+		role = "class" if sys.version_info > (3, 10) else "func"
 	elif full_name == "typing.Union" and len(args) == 2 and type(None) in args:
 		full_name = "typing.Optional"
 		args = tuple(x for x in args if x is not type(None))  # noqa: E721
+	elif full_name == "types.UnionType" and len(args) == 2 and type(None) in args:
+		full_name = "typing.Optional"
+		args = tuple(x for x in args if x is not type(None))  # noqa: E721
+	elif full_name == "types.UnionType":
+		full_name = "typing.Union"
+		role = "data"
 	elif full_name == "typing.Callable" and args and args[0] is not ...:
 		formatted_args = "\\[\\[" + ", ".join(format_annotation(arg) for arg in args[:-1]) + ']'
 		formatted_args += ", " + format_annotation(args[-1]) + ']'

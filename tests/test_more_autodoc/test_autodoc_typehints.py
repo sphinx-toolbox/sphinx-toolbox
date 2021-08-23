@@ -91,6 +91,13 @@ class Metaclass(type):
 	pass
 
 
+if sys.version_info >= (3, 10):
+	union_str_bool = str | bool
+	union_str_any = str | Any
+else:
+	union_str_bool = NotImplemented
+	union_str_any = NotImplemented
+
 @pytest.mark.parametrize(
 		"annotation, expected_result",
 		[
@@ -116,6 +123,16 @@ class Metaclass(type):
 				(Union, ":py:data:`~typing.Union`"),
 				(Union[str, bool], ":py:data:`~typing.Union`\\[:py:class:`str`, :py:class:`bool`]"),
 				(Union[str, Any], ":py:data:`~typing.Union`\\[:py:class:`str`, :py:data:`~typing.Any`]"),
+				pytest.param(
+						union_str_bool,
+						":py:data:`~typing.Union`\\[:py:class:`str`, :py:class:`bool`]",
+						marks=min_version("3.10", reason="Introduced in 3.10"),
+						),
+				pytest.param(
+						union_str_any,
+						":py:data:`~typing.Union`\\[:py:class:`str`, :py:data:`~typing.Any`]",
+						marks=min_version("3.10", reason="Introduced in 3.10"),
+						),
 				(Optional[str], ":py:data:`~typing.Optional`\\[:py:class:`str`]"),
 				(Callable, ":py:data:`~typing.Callable`"),
 				(Callable[..., int], ":py:data:`~typing.Callable`\\[..., :py:class:`int`]"),

@@ -26,6 +26,15 @@ Box of handy tools for Sphinx.
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# stdlib
+import sys
+
+# This all has to be up here so it's triggered first.
+if sys.version_info >= (3, 10):
+	# stdlib
+	import types
+	types.Union = types.UnionType
+
 # 3rd party
 from sphinx.application import Sphinx
 
