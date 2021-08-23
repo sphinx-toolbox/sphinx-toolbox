@@ -27,7 +27,7 @@ from sphinx_toolbox.more_autodoc import typehints
 from sphinx_toolbox.testing import Sphinx, run_setup
 
 if sys.version_info >= (3, 10):
-	from types import UnionType
+	UnionType = types.UnionType
 else:
 	UnionType = None
 
@@ -138,7 +138,6 @@ else:
 						r":py:data:`typing.Literal`\[:py:obj:`True`, ``123``]",
 						id="Literal_True_Int"
 						),
-
 				pytest.param(
 						UnionType,
 						":py:data:`types.UnionType`",

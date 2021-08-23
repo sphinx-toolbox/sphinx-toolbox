@@ -98,6 +98,7 @@ else:
 	union_str_bool = NotImplemented
 	union_str_any = NotImplemented
 
+
 @pytest.mark.parametrize(
 		"annotation, expected_result",
 		[
