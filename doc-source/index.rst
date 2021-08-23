@@ -184,6 +184,7 @@ Contents
 
 	Contributing Guide <https://contributing-to-sphinx-toolbox.readthedocs.io/en/latest/>
 	Source
+	license
 
 
 .. start links
