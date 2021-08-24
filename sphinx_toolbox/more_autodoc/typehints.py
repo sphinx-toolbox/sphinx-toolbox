@@ -118,7 +118,7 @@ import sys
 import types
 from tempfile import TemporaryDirectory
 from types import FunctionType, ModuleType
-from typing import Any, AnyStr, Callable, Dict, List, Optional, Tuple, Type, TypeVar, get_type_hints
+from typing import Any, AnyStr, Callable, Dict, List, NewType, Optional, Tuple, Type, TypeVar, get_type_hints
 
 # 3rd party
 from domdf_python_tools.stringlist import DelimitedList
@@ -320,6 +320,11 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	try:
 		module = get_annotation_module(annotation)
 		class_name = get_annotation_class_name(annotation, module)
+
+		# Special case for typing.NewType being a class in 3.10
+		if sys.version_info >= (3, 10) and isinstance(annotation, NewType):
+			module, class_name = "typing", "NewType"
+
 		args = get_annotation_args(annotation, module, class_name)
 	except ValueError:
 		return f":py:obj:`~.{annotation}`"
