@@ -65,14 +65,9 @@ else:
 						),
 				pytest.param(
 						MethodDescriptorType,
-						":py:data:`types.MethodType`",
+						":py:data:`types.FunctionType`",
 						id="types.MethodDescriptorType",
 						marks=only_pypy("PyPy reuses some types"),
-						),
-				pytest.param(
-						MethodDescriptorType,
-						":py:data:`types.MethodDescriptorType`",
-						id="types.MethodDescriptorType"
 						),
 				pytest.param(
 						MethodWrapperType,
@@ -94,7 +89,7 @@ else:
 						),
 				pytest.param(
 						WrapperDescriptorType,
-						":py:data:`types.MethodDescriptorType`",
+						":py:data:`types.FunctionType`",
 						id="types.WrapperDescriptorType",
 						marks=only_pypy("PyPy reuses some types")
 						),
