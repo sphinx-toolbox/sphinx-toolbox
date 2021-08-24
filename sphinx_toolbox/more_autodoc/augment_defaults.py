@@ -15,7 +15,7 @@ This module monkeypatches in that behaviour.
 .. versionchanged:: 0.6.0
 
 	Moved from :mod:`sphinx_toolbox.autodoc_augment_defaults`.
-"""  # noqa D400
+"""  # noqa: D400
 #
 #  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #

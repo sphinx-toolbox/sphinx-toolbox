@@ -43,7 +43,7 @@ Usage
 
 API Reference
 ----------------
-"""  # noqa D400
+"""  # noqa: D400
 #
 #  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -287,7 +287,7 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 
 	.. versionadded:: 0.7.0
 	.. versionchanged:: 1.0.0  Now uses the type of the variable if it is not explicitly annotated.
-	"""  # noqa D400
+	"""  # noqa: D400
 
 	objtype = "attribute"
 	member_order = 60
@@ -476,7 +476,7 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 
 	.. versionadded:: 0.7.0
 	.. versionchanged:: 1.0.0  Now uses the type of the variable if it is not explicitly annotated.
-	"""  # noqa D400
+	"""  # noqa: D400
 
 	objtype = "instanceattribute"
 	directivetype = "attribute"
@@ -554,7 +554,7 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 
 	.. latex:vspace:: 10px
 
-	"""  # noqa D400
+	"""  # noqa: D400
 
 	objtype = "slotsattribute"
 	directivetype = "attribute"

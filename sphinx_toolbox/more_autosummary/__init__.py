@@ -352,7 +352,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 	which works around a bug in Sphinx 3.4 and above where ``__all__`` is not respected.
 
 	.. versionadded:: 2.13.0
-	"""  # noqa D400
+	"""  # noqa: D400
 
 	def filter_members(self, members: ObjectMembers, want_all: bool) -> List[Tuple[str, Any, bool]]:
 		"""
@@ -541,7 +541,7 @@ class PatchedAutoSummClassDocumenter(autodocsumm.AutoSummClassDocumenter):
 	which doesn't show summary tables for aliased objects.
 
 	.. versionadded:: 0.9.0
-	"""  # noqa D400
+	"""  # noqa: D400
 
 	def add_content(self, *args, **kwargs):
 		"""

@@ -157,7 +157,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 	.. versionchanged:: 0.1.0
 
 		Will no longer attempt to find attribute docstrings from other namedtuple classes.
-	"""  # noqa D400
+	"""  # noqa: D400
 
 	objtype = "namedtuple"
 	directivetype = "namedtuple"

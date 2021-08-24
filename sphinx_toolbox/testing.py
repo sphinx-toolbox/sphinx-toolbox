@@ -642,7 +642,7 @@ def check_html_regression(page: BeautifulSoup, file_regression: FileRegressionFi
 		@pytest.mark.parametrize("page", ["index.html"], indirect=True)
 		def test_page(page: BeautifulSoup, file_regression: FileRegressionFixture):
 			check_html_regression(page, file_regression)
-	"""  # noqa D400
+	"""  # noqa: D400
 
 	__tracebackhide__ = True
 
@@ -687,7 +687,7 @@ class HTMLRegressionFixture(FileRegressionFixture):
 			@pytest.mark.parametrize("page", ["index.html"], indirect=True)
 			def test_page(page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 				html_regression.check(page, file_regression)
-		"""  # noqa D400
+		"""  # noqa: D400
 
 		__tracebackhide__ = True
 

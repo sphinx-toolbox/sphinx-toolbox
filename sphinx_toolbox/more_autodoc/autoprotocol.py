@@ -203,7 +203,7 @@ class ProtocolDocumenter(ClassDocumenter):
 	r"""
 	Sphinx autodoc :class:`~sphinx.ext.autodoc.Documenter`
 	for documenting :class:`typing.Protocol`\s.
-	"""  # noqa D400
+	"""  # noqa: D400
 
 	objtype = "protocol"
 	directivetype = "protocol"

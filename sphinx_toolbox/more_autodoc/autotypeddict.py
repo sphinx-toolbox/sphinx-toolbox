@@ -158,7 +158,7 @@ class TypedDictDocumenter(ClassDocumenter):
 	r"""
 	Sphinx autodoc :class:`~sphinx.ext.autodoc.Documenter`
 	for documenting :class:`typing.TypedDict`\s.
-	"""  # noqa D400
+	"""  # noqa: D400
 
 	objtype = "typeddict"
 	directivetype = "typeddict"

@@ -25,7 +25,7 @@ name from its description if a description was given.
 
 -----
 
-"""  # noqa D400
+"""  # noqa: D400
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -92,7 +92,7 @@ from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 __all__ = ["make_field", "setup"]
 
 
-def make_field(  # noqa D102
+def make_field(  # noqa: D102
 		self,
 		types: Dict[str, List[nodes.Node]],
 		domain: str,

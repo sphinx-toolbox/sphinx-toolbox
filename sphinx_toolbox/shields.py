@@ -358,7 +358,7 @@ Shields
 
 .. latex:vspace:: 5mm
 
-"""  # noqa RST299,RST305
+"""  # noqa: RST299,RST305
 #
 #  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #

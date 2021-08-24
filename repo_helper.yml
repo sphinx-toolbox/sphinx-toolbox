@@ -50,7 +50,6 @@ extra_sphinx_extensions:
   - ignore_missing_xref
 
 tox_unmanaged:
-  - flake8
   - pytest
 
 sphinx_conf_epilogue:

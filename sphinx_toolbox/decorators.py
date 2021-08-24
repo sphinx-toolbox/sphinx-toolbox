@@ -101,14 +101,14 @@ class PyDecoXRefRole(PyXRefRole):
 	XRef Role for decorators members.
 	"""
 
-	def process_link(  # noqa D102
-		self,
-		env: BuildEnvironment,
-		refnode: Element,
-		has_explicit_title: bool,
-		title: str,
-		target: str,
-		) -> Tuple[str, str]:
+	def process_link(
+			self,
+			env: BuildEnvironment,
+			refnode: Element,
+			has_explicit_title: bool,
+			title: str,
+			target: str,
+			) -> Tuple[str, str]:
 		"""
 		Called after parsing title and target text, and creating the reference node (given in ``refnode``).
 

@@ -33,7 +33,7 @@ API Reference
 .. automodulesumm:: sphinx_toolbox.more_autodoc.overloads
 	:autosummary-sections: Functions
 
-"""  # noqa D400
+"""
 #
 #  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #

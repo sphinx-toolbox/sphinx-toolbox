@@ -489,7 +489,7 @@ class Param(TypedDict):
 	doc: List[str]
 
 	#: The type of the parameter.
-	type: str  # noqa A003
+	type: str  # noqa: A003  # pylint: disable=redefined-builtin
 
 
 _identifier_pattern = r"[A-Za-z_]\w*"

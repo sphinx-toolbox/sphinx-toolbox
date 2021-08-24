@@ -59,7 +59,7 @@ Usage
 
 API Reference
 ----------------
-"""  # noqa D400
+"""  # noqa: D400
 #
 #  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
