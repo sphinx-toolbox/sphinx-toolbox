@@ -26,6 +26,7 @@ import os
 import pathlib
 import shutil
 import sys
+import types
 
 # 3rd party
 import pytest
@@ -36,6 +37,9 @@ from sphobjinv import Inventory  # type: ignore
 
 # this package
 from tests.common import error_codes_list
+
+if sys.version_info >= (3, 10):
+	types.Union = types.UnionType
 
 pytest_plugins = (
 		"pytest_regressions",
