@@ -89,10 +89,10 @@ from sphinx.environment import BuildEnvironment
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["make_field", "setup"]
+__all__ = ["setup"]
 
 
-def make_field(  # noqa: D102
+def make_field(
 		self,
 		types: Dict[str, List[nodes.Node]],
 		domain: str,
