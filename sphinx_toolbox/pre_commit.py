@@ -99,10 +99,10 @@ import re
 import warnings
 from io import StringIO
 from textwrap import indent
-from typing import List, Sequence
+from typing import Any, List, Sequence
 
 # 3rd party
-import ruamel.yaml as yaml
+import sphinx.util.docutils
 from docutils import nodes
 from docutils.statemachine import StringList
 from domdf_python_tools.paths import PathPlus
@@ -273,6 +273,69 @@ class Flake8PreCommitDirective(SphinxDirective):
 		return [pre_commit_node]
 
 
+def revert_8345():
+	"""
+	Remove the incorrect warning emitted since https://github.com/sphinx-doc/sphinx/pull/8345.
+	"""
+
+	#  Copyright (c) 2007-2020 by the Sphinx team (see AUTHORS file).
+	#  BSD Licensed
+	#  All rights reserved.
+	#
+	#  Redistribution and use in source and binary forms, with or without
+	#  modification, are permitted provided that the following conditions are
+	#  met:
+	#
+	#  * Redistributions of source code must retain the above copyright
+	#   notice, this list of conditions and the following disclaimer.
+	#
+	#  * Redistributions in binary form must reproduce the above copyright
+	#   notice, this list of conditions and the following disclaimer in the
+	#   documentation and/or other materials provided with the distribution.
+	#
+	#  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+	#  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+	#  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+	#  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+	#  HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+	#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+	#  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+	#  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+	#  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+	#  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+	#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+	def lookup_domain_element(self, type: str, name: str) -> Any:
+		"""Lookup a markup element (directive or role), given its name which can
+		be a full name (with domain).
+		"""
+		name = name.lower()
+		# explicit domain given?
+		if ':' in name:
+			domain_name, name = name.split(':', 1)
+			if domain_name in self.env.domains:
+				domain = self.env.get_domain(domain_name)
+				element = getattr(domain, type)(name)
+				if element is not None:
+					return element, []
+		# else look in the default domain
+		else:
+			def_domain = self.env.temp_data.get("default_domain")
+			if def_domain is not None:
+				element = getattr(def_domain, type)(name)
+				if element is not None:
+					return element, []
+
+		# always look in the std domain
+		element = getattr(self.env.get_domain("std"), type)(name)
+		if element is not None:
+			return element, []
+
+		raise sphinx.util.docutils.ElementLookupError
+
+	sphinx.util.docutils.sphinx_domains.lookup_domain_element = lookup_domain_element
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -285,5 +348,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_directive("pre-commit:flake8", Flake8PreCommitDirective)
 	app.connect("env-purge-doc", pre_commit_node_purger.purge_nodes)
 	app.connect("env-purge-doc", pre_commit_f8_node_purger.purge_nodes)
+
+	if sphinx.version_info >= (4, 0):
+		revert_8345()
 
 	return {"parallel_read_safe": True}
