@@ -101,6 +101,7 @@ import warnings
 from typing import Any, List, Optional, cast, get_type_hints
 
 # 3rd party
+import sphinx
 from sphinx.application import Sphinx
 from sphinx.deprecation import RemovedInSphinx50Warning
 from sphinx.errors import PycodeError
@@ -450,7 +451,13 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 			self.env.config.autodoc_inherit_docstrings = False  # type: ignore
 
 			# Sphinx's signature is wrong wrt Optional
-			return super().get_doc(cast(str, encoding), cast(int, ignore)) or []
+			if sphinx.version_info >= (4, 0):
+				if encoding is not None:
+					raise TypeError("The 'encoding' argument to get_doc was removed in Sphinx 4")
+				else:
+					return super().get_doc(ignore=cast(int, ignore)) or []
+			else:
+				return super().get_doc(cast(str, encoding), cast(int, ignore)) or []
 		finally:
 			self.env.config.autodoc_inherit_docstrings = orig  # type: ignore
 
