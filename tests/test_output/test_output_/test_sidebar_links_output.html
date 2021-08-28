@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -144,10 +146,10 @@
       <p>
       </p>
       <dl class="py function">
-       <dt id="foo">
-        <code class="sig-name descname">
+       <dt{{ sig_object_class }} id="foo">
+        <{{ sig_prename_tag }} class="sig-name descname">
          foo
-        </code>
+        </{{ sig_prename_tag }}>
         <span class="sig-paren">
          (
         </span>

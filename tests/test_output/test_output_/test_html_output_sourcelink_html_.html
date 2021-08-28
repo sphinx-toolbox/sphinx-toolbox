@@ -1,3 +1,6 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class_std=(' class="sig sig-object std"' if sphinx_version >= (4, 0) else '') -%}
+{% set sig_object_class_py=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -53,16 +56,16 @@
         </code>
        </p>
        <dl class="py typeddict">
-        <dt id="autotypeddict_demo.Animal">
+        <dt{{ sig_object_class_py }} id="autotypeddict_demo.Animal">
          <em class="property">
           typeddict
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autotypeddict_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Animal
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autotypeddict_demo.html#Animal">
           <span class="viewcode-link">
            [source]
@@ -127,16 +130,16 @@
         </dd>
        </dl>
        <dl class="py typeddict">
-        <dt id="autotypeddict_demo.Bird">
+        <dt{{ sig_object_class_py }} id="autotypeddict_demo.Bird">
          <em class="property">
           typeddict
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autotypeddict_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Bird
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autotypeddict_demo.html#Bird">
           <span class="viewcode-link">
            [source]
@@ -217,16 +220,16 @@
         </dd>
        </dl>
        <dl class="py typeddict">
-        <dt id="autotypeddict_demo.Cat">
+        <dt{{ sig_object_class_py }} id="autotypeddict_demo.Cat">
          <em class="property">
           typeddict
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autotypeddict_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Cat
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autotypeddict_demo.html#Cat">
           <span class="viewcode-link">
            [source]
@@ -307,16 +310,16 @@
         </dd>
        </dl>
        <dl class="py typeddict">
-        <dt id="autotypeddict_demo.Movie">
+        <dt{{ sig_object_class_py }} id="autotypeddict_demo.Movie">
          <em class="property">
           typeddict
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autotypeddict_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Movie
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autotypeddict_demo.html#Movie">
           <span class="viewcode-link">
            [source]
@@ -509,10 +512,10 @@ falling back to
          </a>
         </h2>
         <dl class="std confval">
-         <dt id="confval-autodocsumm_member_order">
-          <code class="sig-name descname">
+         <dt{{ sig_object_class_std }} id="confval-autodocsumm_member_order">
+          <{{ sig_prename_tag }} class="sig-name descname">
            autodocsumm_member_order
-          </code>
+          </{{ sig_prename_tag }}>
           <a class="headerlink" href="#confval-autodocsumm_member_order" title="Permalink to this definition">
            ¶
           </a>
@@ -602,10 +605,10 @@ but also to
          </dd>
         </dl>
         <dl class="std confval">
-         <dt id="confval-autosummary_col_type">
-          <code class="sig-name descname">
+         <dt{{ sig_object_class_std }} id="confval-autosummary_col_type">
+          <{{ sig_prename_tag }} class="sig-name descname">
            autosummary_col_type
-          </code>
+          </{{ sig_prename_tag }}>
           <a class="headerlink" href="#confval-autosummary_col_type" title="Permalink to this definition">
            ¶
           </a>

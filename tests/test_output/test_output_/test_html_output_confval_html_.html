@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object std"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -31,10 +33,10 @@
         </a>
        </h1>
        <dl class="std confval">
-        <dt id="confval-source_link_target">
-         <code class="sig-name descname">
+        <dt{{ sig_object_class }} id="confval-source_link_target">
+         <{{ sig_prename_tag }} class="sig-name descname">
           source_link_target
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#confval-source_link_target" title="Permalink to this definition">
           ¶
          </a>
@@ -93,10 +95,10 @@ Case insensitive.
         </dd>
        </dl>
        <dl class="std confval">
-        <dt id="confval-github_username">
-         <code class="sig-name descname">
+        <dt{{ sig_object_class }} id="confval-github_username">
+         <{{ sig_prename_tag }} class="sig-name descname">
           github_username
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#confval-github_username" title="Permalink to this definition">
           ¶
          </a>
@@ -129,10 +131,10 @@ Case insensitive.
         </dd>
        </dl>
        <dl class="std confval">
-        <dt id="confval-github_repository">
-         <code class="sig-name descname">
+        <dt{{ sig_object_class }} id="confval-github_repository">
+         <{{ sig_prename_tag }} class="sig-name descname">
           github_repository
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#confval-github_repository" title="Permalink to this definition">
           ¶
          </a>
@@ -168,10 +170,10 @@ Case insensitive.
         </dd>
        </dl>
        <dl class="std confval">
-        <dt id="confval-conda_channels">
-         <code class="sig-name descname">
+        <dt{{ sig_object_class }} id="confval-conda_channels">
+         <{{ sig_prename_tag }} class="sig-name descname">
           conda_channels
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#confval-conda_channels" title="Permalink to this definition">
           ¶
          </a>
@@ -201,10 +203,10 @@ Case insensitive.
         </dd>
        </dl>
        <dl class="std confval">
-        <dt>
-         <code class="sig-name descname">
+        <dt{{ sig_object_class }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           github_repository
-         </code>
+         </{{ sig_prename_tag }}>
         </dt>
         <dd>
          <div class="line-block">
@@ -244,10 +246,10 @@ Case insensitive.
         configuration option.
        </p>
        <dl class="std confval">
-        <dt id="confval-something">
-         <code class="sig-name descname">
+        <dt{{ sig_object_class }} id="confval-something">
+         <{{ sig_prename_tag }} class="sig-name descname">
           something
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#confval-something" title="Permalink to this definition">
           ¶
          </a>

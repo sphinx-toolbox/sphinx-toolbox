@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -33,13 +35,13 @@
         </a>
        </h1>
        <dl class="py data">
-        <dt id="tests.test_output.typevars_demo.DS">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.DS">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.typevars_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           DS
-         </code>
+         </{{ sig_prename_tag }}>
          <em class="property">
           = TypeVar(DS, SlotsDemo, Demo)
          </em>
@@ -90,16 +92,16 @@
         </dd>
        </dl>
        <dl class="py class">
-        <dt id="tests.test_output.typevars_demo.Demo">
+        <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.Demo">
          <em class="property">
           class
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.typevars_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Demo
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -131,10 +133,10 @@
           An attrs class
          </p>
          <dl class="py attribute">
-          <dt id="tests.test_output.typevars_demo.Demo.arg1">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.Demo.arg1">
+           <{{ sig_prename_tag }} class="sig-name descname">
             arg1
-           </code>
+           </{{ sig_prename_tag }}>
            <a class="headerlink" href="#tests.test_output.typevars_demo.Demo.arg1" title="Permalink to this definition">
             ¶
            </a>
@@ -158,10 +160,10 @@
           </dd>
          </dl>
          <dl class="py attribute">
-          <dt id="tests.test_output.typevars_demo.Demo.arg2">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.Demo.arg2">
+           <{{ sig_prename_tag }} class="sig-name descname">
             arg2
-           </code>
+           </{{ sig_prename_tag }}>
            <a class="headerlink" href="#tests.test_output.typevars_demo.Demo.arg2" title="Permalink to this definition">
             ¶
            </a>
@@ -187,13 +189,13 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="tests.test_output.typevars_demo.FR">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.FR">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.typevars_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           FR
-         </code>
+         </{{ sig_prename_tag }}>
          <em class="property">
           = TypeVar(FR, bound=SlotsDemo)
          </em>
@@ -236,13 +238,13 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="tests.test_output.typevars_demo.S">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.S">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.typevars_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           S
-         </code>
+         </{{ sig_prename_tag }}>
          <em class="property">
           = TypeVar(S, bound=SlotsDemo)
          </em>
@@ -285,16 +287,16 @@
         </dd>
        </dl>
        <dl class="py class">
-        <dt id="tests.test_output.typevars_demo.SlotsDemo">
+        <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.SlotsDemo">
          <em class="property">
           class
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.typevars_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           SlotsDemo
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -326,10 +328,10 @@
           An attrs class with slots=True
          </p>
          <dl class="py attribute">
-          <dt id="tests.test_output.typevars_demo.SlotsDemo.arg1">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.SlotsDemo.arg1">
+           <{{ sig_prename_tag }} class="sig-name descname">
             arg1
-           </code>
+           </{{ sig_prename_tag }}>
            <a class="headerlink" href="#tests.test_output.typevars_demo.SlotsDemo.arg1" title="Permalink to this definition">
             ¶
            </a>
@@ -353,10 +355,10 @@
           </dd>
          </dl>
          <dl class="py attribute">
-          <dt id="tests.test_output.typevars_demo.SlotsDemo.arg2">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.SlotsDemo.arg2">
+           <{{ sig_prename_tag }} class="sig-name descname">
             arg2
-           </code>
+           </{{ sig_prename_tag }}>
            <a class="headerlink" href="#tests.test_output.typevars_demo.SlotsDemo.arg2" title="Permalink to this definition">
             ¶
            </a>
@@ -382,13 +384,13 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="tests.test_output.typevars_demo.T">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.T">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.typevars_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           T
-         </code>
+         </{{ sig_prename_tag }}>
          <em class="property">
           = TypeVar(T)
          </em>
@@ -423,13 +425,13 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="tests.test_output.typevars_demo.T_co">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.T_co">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.typevars_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           T_co
-         </code>
+         </{{ sig_prename_tag }}>
          <em class="property">
           = TypeVar(T_co, covariant=True)
          </em>
@@ -464,13 +466,13 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="tests.test_output.typevars_demo.T_contra">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.T_contra">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.typevars_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           T_contra
-         </code>
+         </{{ sig_prename_tag }}>
          <em class="property">
           = TypeVar(T_contra, contravariant=True)
          </em>

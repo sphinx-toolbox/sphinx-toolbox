@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -31,16 +33,16 @@
         </a>
        </h1>
        <dl class="py class">
-        <dt id="sphinx_toolbox.more_autodoc.generic_bases.Example">
+        <dt{{ sig_object_class }} id="sphinx_toolbox.more_autodoc.generic_bases.Example">
          <em class="property">
           class
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           sphinx_toolbox.more_autodoc.generic_bases.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Example
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -137,16 +139,16 @@
         </dd>
        </dl>
        <dl class="py class">
-        <dt id="sphinx_toolbox.more_autodoc.generic_bases.Example2">
+        <dt{{ sig_object_class }} id="sphinx_toolbox.more_autodoc.generic_bases.Example2">
          <em class="property">
           class
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           sphinx_toolbox.more_autodoc.generic_bases.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Example2
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>

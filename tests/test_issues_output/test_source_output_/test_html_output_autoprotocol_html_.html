@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -33,16 +35,16 @@
         </a>
        </h1>
        <dl class="py protocol">
-        <dt id="autoprotocol_demo.Frobnicater">
+        <dt{{ sig_object_class }} id="autoprotocol_demo.Frobnicater">
          <em class="property">
           protocol
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autoprotocol_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Frobnicater
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autoprotocol_demo.html#Frobnicater">
           <span class="viewcode-link">
            [source]
@@ -72,10 +74,10 @@
           Classes that implement this protocol must have the following methods / attributes:
          </p>
          <dl class="py method">
-          <dt id="autoprotocol_demo.Frobnicater.frobnicate">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="autoprotocol_demo.Frobnicater.frobnicate">
+           <{{ sig_prename_tag }} class="sig-name descname">
             frobnicate
-           </code>
+           </{{ sig_prename_tag }}>
            <span class="sig-paren">
             (
            </span>
@@ -103,16 +105,16 @@
         </dd>
        </dl>
        <dl class="py protocol">
-        <dt id="autoprotocol_demo.HasLessThan">
+        <dt{{ sig_object_class }} id="autoprotocol_demo.HasLessThan">
          <em class="property">
           protocol
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autoprotocol_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           HasLessThan
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autoprotocol_demo.html#HasLessThan">
           <span class="viewcode-link">
            [source]
@@ -141,10 +143,10 @@
           Classes that implement this protocol must have the following methods / attributes:
          </p>
          <dl class="py method">
-          <dt id="autoprotocol_demo.HasLessThan.__lt__">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="autoprotocol_demo.HasLessThan.__lt__">
+           <{{ sig_prename_tag }} class="sig-name descname">
             __lt__
-           </code>
+           </{{ sig_prename_tag }}>
            <span class="sig-paren">
             (
            </span>
@@ -187,16 +189,16 @@
         </dd>
        </dl>
        <dl class="py protocol">
-        <dt id="autoprotocol_demo.HasGreaterThan">
+        <dt{{ sig_object_class }} id="autoprotocol_demo.HasGreaterThan">
          <em class="property">
           protocol
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autoprotocol_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           HasGreaterThan
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autoprotocol_demo.html#HasGreaterThan">
           <span class="viewcode-link">
            [source]
@@ -219,10 +221,10 @@
           Classes that implement this protocol must have the following methods / attributes:
          </p>
          <dl class="py method">
-          <dt id="autoprotocol_demo.HasGreaterThan.__gt__">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="autoprotocol_demo.HasGreaterThan.__gt__">
+           <{{ sig_prename_tag }} class="sig-name descname">
             __gt__
-           </code>
+           </{{ sig_prename_tag }}>
            <span class="sig-paren">
             (
            </span>
@@ -265,16 +267,16 @@
         </dd>
        </dl>
        <dl class="py protocol">
-        <dt>
+        <dt{{ sig_object_class }}>
          <em class="property">
           protocol
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autoprotocol_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           HasGreaterThan
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autoprotocol_demo.html#HasGreaterThan">
           <span class="viewcode-link">
            [source]
@@ -294,10 +296,10 @@
           Classes that implement this protocol must have the following methods / attributes:
          </p>
          <dl class="py method">
-          <dt>
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }}>
+           <{{ sig_prename_tag }} class="sig-name descname">
             __gt__
-           </code>
+           </{{ sig_prename_tag }}>
            <span class="sig-paren">
             (
            </span>
@@ -337,16 +339,16 @@
         </dd>
        </dl>
        <dl class="py protocol">
-        <dt id="autoprotocol_demo.SupportsAbs">
+        <dt{{ sig_object_class }} id="autoprotocol_demo.SupportsAbs">
          <em class="property">
           protocol
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autoprotocol_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           SupportsAbs
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autoprotocol_demo.html#SupportsAbs">
           <span class="viewcode-link">
            [source]
@@ -386,13 +388,13 @@
           Classes that implement this protocol must have the following methods / attributes:
          </p>
          <dl class="py method">
-          <dt id="autoprotocol_demo.SupportsAbs.__abs__">
+          <dt{{ sig_object_class }} id="autoprotocol_demo.SupportsAbs.__abs__">
            <em class="property">
             abstract
            </em>
-           <code class="sig-name descname">
+           <{{ sig_prename_tag }} class="sig-name descname">
             __abs__
-           </code>
+           </{{ sig_prename_tag }}>
            <span class="sig-paren">
             (
            </span>
