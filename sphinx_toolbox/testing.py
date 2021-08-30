@@ -64,6 +64,7 @@ Functions for testing Sphinx extensions.
 
 # stdlib
 import copy
+import sys
 import tempfile
 from types import SimpleNamespace
 from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, Type, Union, cast
@@ -720,7 +721,14 @@ class HTMLRegressionFixture(FileRegressionFixture):
 
 				expected_filename = PathPlus(expected_filename)
 				template = Template(expected_filename.read_text())
-				expected_filename.write_text(template.render(sphinx_version=sphinx.version_info))
+
+				expected_filename.write_text(
+						template.render(
+								sphinx_version=sphinx.version_info,
+								python_version=sys.version_info,
+								)
+						)
+
 				return check_text_files(obtained_filename, expected_filename)
 
 		else:

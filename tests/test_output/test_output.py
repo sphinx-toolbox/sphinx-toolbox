@@ -204,7 +204,14 @@ def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFil
 		print(obtained_filename, expected_filename)
 		expected_filename = PathPlus(expected_filename)
 		template = Template(expected_filename.read_text())
-		expected_filename.write_text(template.render(sphinx_version=sphinx.version_info))
+
+		expected_filename.write_text(
+				template.render(
+						sphinx_version=sphinx.version_info,
+						python_version=sys.version_info,
+						)
+				)
+
 		return check_text_files(obtained_filename, expected_filename)
 
 	advanced_file_regression.check(
@@ -253,7 +260,13 @@ class LaTeXRegressionFixture(AdvancedFileRegressionFixture):
 					comment_end_string="#>",
 					)
 
-			expected_filename.write_text(template.render(sphinx_version=sphinx.version_info))
+			expected_filename.write_text(
+					template.render(
+							sphinx_version=sphinx.version_info,
+							python_version=sys.version_info,
+							)
+					)
+
 			return check_text_files(obtained_filename, expected_filename)
 
 		return super().check(

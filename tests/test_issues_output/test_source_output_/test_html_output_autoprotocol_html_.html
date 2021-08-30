@@ -401,7 +401,7 @@
            <span class="sig-paren">
             )
            </span>
-           → T_co
+           → {{ 'autoprotocol_demo.T_co' if sphinx_version >= (4, 0) and python_version >= (3, 7) else 'T_co' }}
            <a class="reference internal" href="_modules/autoprotocol_demo.html#SupportsAbs.__abs__">
             <span class="viewcode-link">
              [source]
