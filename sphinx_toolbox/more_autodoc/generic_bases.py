@@ -79,6 +79,7 @@ from typing import List, Tuple
 from sphinx.application import Sphinx
 from sphinx.ext.autodoc import Documenter
 from sphinx.locale import _
+from typing_extensions import final
 
 # this package
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
@@ -190,3 +191,13 @@ class Example2(Example):
 
 	This one does not directly subclass a Generic.
 	"""
+
+
+@final
+class FinalExample(List[Tuple[str, float, List[str]]]):
+	"""
+	An example of :mod:`sphinx_toolbox.more_autodoc.generic_bases` decorated with ``@final``.
+	"""
+
+	def __init__(self, iterable=()):  # pragma: no cover
+		pass
