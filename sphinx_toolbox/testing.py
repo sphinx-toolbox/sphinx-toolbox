@@ -735,7 +735,7 @@ class HTMLRegressionFixture(FileRegressionFixture):
 								)
 						)
 
-				return check_text_files(obtained_filename, expected_filename)
+				return check_text_files(obtained_filename, expected_filename, encoding="UTF-8")
 
 		else:
 			check_fn = check_text_files
