@@ -435,7 +435,11 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 		else:
 			super().add_directive_header(sig)
 
-	def get_doc(self, encoding: Optional[str] = None, ignore: Optional[int] = None) -> List[List[str]]:
+	def get_doc(  # type: ignore
+			self,
+			encoding: Optional[str] = None,
+			ignore: Optional[int] = None,
+			) -> List[List[str]]:
 		"""
 		Decode and return lines of the docstring(s) for the object.
 
@@ -457,7 +461,7 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 				else:
 					return super().get_doc(ignore=cast(int, ignore)) or []
 			else:
-				return super().get_doc(cast(str, encoding), cast(int, ignore)) or []
+				return super().get_doc(cast(str, encoding), cast(int, ignore)) or []  # type: ignore
 		finally:
 			self.env.config.autodoc_inherit_docstrings = orig  # type: ignore
 
@@ -621,7 +625,11 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 					self.env.note_reread()
 					return False
 
-	def get_doc(self, encoding: Optional[str] = None, ignore: Optional[int] = None) -> List[List[str]]:
+	def get_doc(  # type: ignore
+			self,
+			encoding: Optional[str] = None,
+			ignore: Optional[int] = None,
+			) -> List[List[str]]:
 		"""
 		Decode and return lines of the docstring(s) for the object.
 

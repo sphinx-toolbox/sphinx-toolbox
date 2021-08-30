@@ -535,7 +535,7 @@ class PatchedLaTeXBuilder(LaTeXBuilder):
 
 		if sphinx.version_info <= (4, 0):
 			# 3rd party
-			from sphinx.builders.latex import LaTeXBuilder, patch_settings
+			from sphinx.builders.latex import patch_settings  # type: ignore
 			patch_settings(docsettings)
 
 		self.init_document_data()

@@ -305,10 +305,11 @@ def revert_8345():
 	#  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 	#  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-	def lookup_domain_element(self, type: str, name: str) -> Any:
-		"""Lookup a markup element (directive or role), given its name which can
-		be a full name (with domain).
+	def lookup_domain_element(self, type: str, name: str) -> Any:  # noqa: A002  # pylint: disable=redefined-builtin
 		"""
+		Lookup a markup element (directive or role), given its name which can be a full name (with domain).
+		"""
+
 		name = name.lower()
 		# explicit domain given?
 		if ':' in name:
@@ -333,7 +334,7 @@ def revert_8345():
 
 		raise sphinx.util.docutils.ElementLookupError
 
-	sphinx.util.docutils.sphinx_domains.lookup_domain_element = lookup_domain_element
+	sphinx.util.docutils.sphinx_domains.lookup_domain_element = lookup_domain_element  # type: ignore
 
 
 @metadata_add_version
