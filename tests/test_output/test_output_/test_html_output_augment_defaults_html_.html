@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=('class="sig sig-object py" ' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -33,16 +35,16 @@
         </a>
        </h1>
        <dl class="py class">
-        <dt id="tests.augment_defaults_demo.Foo">
+        <dt {{ 'class="sig sig-object py" ' if sphinx_version >= (4, 0) else '' }}id="tests.augment_defaults_demo.Foo">
          <em class="property">
           class
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.augment_defaults_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Foo
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/tests/augment_defaults_demo.html#Foo">
           <span class="viewcode-link">
            [source]
@@ -63,10 +65,10 @@
           .
          </p>
          <dl class="py method">
-          <dt id="tests.augment_defaults_demo.Foo.__init__">
-           <code class="sig-name descname">
+          <dt {{ 'class="sig sig-object py" ' if sphinx_version >= (4, 0) else '' }}id="tests.augment_defaults_demo.Foo.__init__">
+           <{{ sig_prename_tag }} class="sig-name descname">
             __init__
-           </code>
+           </{{ sig_prename_tag }}>
            <span class="sig-paren">
             (
            </span>
@@ -94,10 +96,10 @@
           </dd>
          </dl>
          <dl class="py method">
-          <dt id="tests.augment_defaults_demo.Foo.function">
-           <code class="sig-name descname">
+          <dt {{ 'class="sig sig-object py" ' if sphinx_version >= (4, 0) else '' }}id="tests.augment_defaults_demo.Foo.function">
+           <{{ sig_prename_tag }} class="sig-name descname">
             function
-           </code>
+           </{{ sig_prename_tag }}>
            <span class="sig-paren">
             (
            </span>

@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -36,13 +38,13 @@
         General utility functions.
        </p>
        <dl class="py data">
-        <dt id="sphinx_toolbox.utils.untyped_param_regex">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="sphinx_toolbox.utils.untyped_param_regex">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           sphinx_toolbox.utils.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           untyped_param_regex
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#sphinx_toolbox.utils.untyped_param_regex" title="Permalink to this definition">
           ¶
          </a>
@@ -301,13 +303,13 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="sphinx_toolbox.utils.typed_flag_regex">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="sphinx_toolbox.utils.typed_flag_regex">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           sphinx_toolbox.utils.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           typed_flag_regex
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#sphinx_toolbox.utils.typed_flag_regex" title="Permalink to this definition">
           ¶
          </a>
@@ -707,13 +709,13 @@
         </code>
        </p>
        <dl class="py data">
-        <dt id="tests.regex_demo.no_flags">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.regex_demo.no_flags">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.regex_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           no_flags
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#tests.regex_demo.no_flags" title="Permalink to this definition">
           ¶
          </a>
@@ -932,13 +934,13 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="tests.regex_demo.one_flag">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.regex_demo.one_flag">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.regex_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           one_flag
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#tests.regex_demo.one_flag" title="Permalink to this definition">
           ¶
          </a>
@@ -1177,13 +1179,13 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="tests.regex_demo.two_flags">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.regex_demo.two_flags">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.regex_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           two_flags
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#tests.regex_demo.two_flags" title="Permalink to this definition">
           ¶
          </a>
@@ -1432,13 +1434,13 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="tests.regex_demo.backticks">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.regex_demo.backticks">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.regex_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           backticks
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#tests.regex_demo.backticks" title="Permalink to this definition">
           ¶
          </a>
@@ -1592,13 +1594,13 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="tests.regex_demo.leading_whitespace">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.regex_demo.leading_whitespace">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.regex_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           leading_whitespace
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#tests.regex_demo.leading_whitespace" title="Permalink to this definition">
           ¶
          </a>
@@ -1763,13 +1765,13 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="tests.regex_demo.trailing_whitespace">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.regex_demo.trailing_whitespace">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.regex_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           trailing_whitespace
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#tests.regex_demo.trailing_whitespace" title="Permalink to this definition">
           ¶
          </a>
@@ -1928,13 +1930,13 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="tests.regex_demo.single_whitespace">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.regex_demo.single_whitespace">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.regex_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           single_whitespace
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#tests.regex_demo.single_whitespace" title="Permalink to this definition">
           ¶
          </a>

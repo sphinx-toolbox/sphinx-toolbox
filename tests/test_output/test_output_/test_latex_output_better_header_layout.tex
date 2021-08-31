@@ -4,7 +4,12 @@
 \ifdefined\pdfpxdimen
    \let\sphinxpxdimen\pdfpxdimen\else\newdimen\sphinxpxdimen
 \fi \sphinxpxdimen=.75bp\relax
-
+<% if sphinx_version >= (4, 0) %>\ifdefined\pdfimageresolution
+    \pdfimageresolution= \numexpr \dimexpr1in\relax/\sphinxpxdimen\relax
+\fi
+%% let collapsable pdf bookmarks panel have high depth per default
+\PassOptionsToPackage{bookmarksdepth=5}{hyperref}
+<% endif %>
 \PassOptionsToPackage{warn}{textcomp}
 \usepackage[utf8]{inputenc}
 \ifdefined\DeclareUnicodeCharacter
@@ -26,7 +31,13 @@
 \usepackage{amsmath,amssymb,amstext}
 \usepackage{babel}
 
+<%+ if sphinx_version >= (4, 0) %>
 
+\usepackage{tgtermes}
+\usepackage{tgheros}
+\renewcommand{\ttdefault}{txtt}
+
+<% else %>
 
 \usepackage{times}
 \expandafter\ifx\csname T@LGR\endcsname\relax
@@ -50,15 +61,18 @@
   \substitutefont{X2}{\sfdefault}{cmss}
   \substitutefont{X2}{\ttdefault}{cmtt}
 \fi
-
+<% endif %>
 
 \usepackage[Bjarne]{fncychap}
 \ChNameAsIs
 \ChTitleAsIs
 
 \usepackage{sphinx}
-
+<% if sphinx_version >= (4, 0) %>
+\fvset{fontsize=auto}
+<% else %>
 \fvset{fontsize=\small}
+<% endif -%>
 \usepackage{geometry}
 
 

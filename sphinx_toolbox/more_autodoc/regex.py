@@ -727,7 +727,7 @@ class Regex(SphinxRole):
 		Process the content of the regex role.
 		"""
 
-		options = self.options.copy()  # type: ignore
+		options = self.options.copy()
 
 		return [RegexNode(self.rawtext, self.text, **options)], []
 

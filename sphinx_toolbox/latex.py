@@ -180,6 +180,7 @@ from textwrap import dedent
 from typing import Any, Optional, cast
 
 # 3rd party
+import sphinx
 from docutils import nodes
 from docutils.frontend import OptionParser
 from docutils.transforms.references import Footnotes
@@ -187,7 +188,7 @@ from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import DelimitedList
 from sphinx import addnodes
 from sphinx.application import Sphinx
-from sphinx.builders.latex import LaTeXBuilder, patch_settings
+from sphinx.builders.latex import LaTeXBuilder
 from sphinx.config import Config
 from sphinx.domains import Domain
 from sphinx.environment import BuildEnvironment
@@ -526,12 +527,16 @@ class PatchedLaTeXBuilder(LaTeXBuilder):
 
 	def write(self, *ignored: Any) -> None:
 		docwriter = LaTeXWriter(self)
-		docsettings = OptionParser(
+		docsettings: Any = OptionParser(
 				defaults=self.env.settings,
 				components=(docwriter, ),
 				read_config_files=True,
-				).get_default_values()  # type: Any
-		patch_settings(docsettings)
+				).get_default_values()
+
+		if sphinx.version_info <= (4, 0):
+			# 3rd party
+			from sphinx.builders.latex import patch_settings  # type: ignore
+			patch_settings(docsettings)
 
 		self.init_document_data()
 		self.write_stylesheet()

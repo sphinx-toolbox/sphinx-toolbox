@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -33,16 +35,16 @@
         </a>
        </h1>
        <dl class="py class">
-        <dt id="tests.test_output.overloads_demo.Bar">
+        <dt{{ sig_object_class }} id="tests.test_output.overloads_demo.Bar">
          <em class="property">
           class
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.overloads_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Bar
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/tests/test_output/overloads_demo.html#Bar">
           <span class="viewcode-link">
            [source]
@@ -54,10 +56,10 @@
         </dt>
         <dd>
          <dl class="py method">
-          <dt id="tests.test_output.overloads_demo.Bar.__getitem__">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="tests.test_output.overloads_demo.Bar.__getitem__">
+           <{{ sig_prename_tag }} class="sig-name descname">
             __getitem__
-           </code>
+           </{{ sig_prename_tag }}>
            <span class="sig-paren">
             (
            </span>
@@ -246,10 +248,10 @@
           </dd>
          </dl>
          <dl class="py attribute">
-          <dt id="tests.test_output.overloads_demo.Bar.__module__">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="tests.test_output.overloads_demo.Bar.__module__">
+           <{{ sig_prename_tag }} class="sig-name descname">
             __module__
-           </code>
+           </{{ sig_prename_tag }}>
            <em class="property">
             = 'tests.test_output.overloads_demo'
            </em>
@@ -275,16 +277,16 @@
         </dd>
        </dl>
        <dl class="py class">
-        <dt id="tests.test_output.overloads_demo.Foo">
+        <dt{{ sig_object_class }} id="tests.test_output.overloads_demo.Foo">
          <em class="property">
           class
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.overloads_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Foo
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/tests/test_output/overloads_demo.html#Foo">
           <span class="viewcode-link">
            [source]
@@ -296,10 +298,10 @@
         </dt>
         <dd>
          <dl class="py method">
-          <dt id="tests.test_output.overloads_demo.Foo.__getitem__">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="tests.test_output.overloads_demo.Foo.__getitem__">
+           <{{ sig_prename_tag }} class="sig-name descname">
             __getitem__
-           </code>
+           </{{ sig_prename_tag }}>
            <span class="sig-paren">
             (
            </span>
@@ -488,10 +490,10 @@
           </dd>
          </dl>
          <dl class="py attribute">
-          <dt id="tests.test_output.overloads_demo.Foo.__module__">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="tests.test_output.overloads_demo.Foo.__module__">
+           <{{ sig_prename_tag }} class="sig-name descname">
             __module__
-           </code>
+           </{{ sig_prename_tag }}>
            <em class="property">
             = 'tests.test_output.overloads_demo'
            </em>
@@ -517,13 +519,13 @@
         </dd>
        </dl>
        <dl class="py function">
-        <dt id="tests.test_output.overloads_demo.serde">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.test_output.overloads_demo.serde">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.overloads_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           serde
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -867,16 +869,16 @@
           will have two new methods added:
          </p>
          <dl class="py method">
-          <dt id="tests.test_output.overloads_demo.from_dict">
+          <dt{{ sig_object_class }} id="tests.test_output.overloads_demo.from_dict">
            <em class="property">
             classmethod
            </em>
-           <code class="sig-prename descclassname">
+           <{{ sig_prename_tag }} class="sig-prename descclassname">
             tests.test_output.overloads_demo.
-           </code>
-           <code class="sig-name descname">
+           </{{ sig_prename_tag }}>
+           <{{ sig_prename_tag }} class="sig-name descname">
             from_dict
-           </code>
+           </{{ sig_prename_tag }}>
            <span class="sig-paren">
             (
            </span>
@@ -936,13 +938,13 @@
           </dd>
          </dl>
          <dl class="py method">
-          <dt id="tests.test_output.overloads_demo.to_dict">
-           <code class="sig-prename descclassname">
+          <dt{{ sig_object_class }} id="tests.test_output.overloads_demo.to_dict">
+           <{{ sig_prename_tag }} class="sig-prename descclassname">
             tests.test_output.overloads_demo.
-           </code>
-           <code class="sig-name descname">
+           </{{ sig_prename_tag }}>
+           <{{ sig_prename_tag }} class="sig-name descname">
             to_dict
-           </code>
+           </{{ sig_prename_tag }}>
            <span class="sig-paren">
             (
            </span>

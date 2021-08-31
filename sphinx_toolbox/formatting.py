@@ -117,16 +117,16 @@ class ItalicAbbreviation(Abbreviation):
 		Process the content of the italic abbreviation role.
 		"""
 
-		options = self.options.copy()  # type: ignore
-		matched = self.abbr_re.search(self.text)  # type: ignore
+		options = self.options.copy()
+		matched = self.abbr_re.search(self.text)
 
 		if matched:
-			text = self.text[:matched.start()].strip()  # type: ignore
+			text = self.text[:matched.start()].strip()
 			options["explanation"] = matched.group(1)
 		else:
 			text = self.text
 
-		return [ItalicAbbreviationNode(self.rawtext, text, **options)], []  # type: ignore
+		return [ItalicAbbreviationNode(self.rawtext, text, **options)], []
 
 
 class BoldTitle(SphinxRole):

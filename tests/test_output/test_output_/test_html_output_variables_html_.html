@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -23,29 +25,24 @@
    <div class="documentwrapper">
     <div class="bodywrapper">
      <div class="body" role="main">
-      <div class="section" id="module-tests.test_output.variables_genericalias_demo">
-       <span id="sphinx-toolbox-demo-variables">
-       </span>
+      <div class="section" id="sphinx-toolbox-demo-variables">
        <h1>
         sphinx-toolbox Demo - Variables
-        <a class="headerlink" href="#module-tests.test_output.variables_genericalias_demo" title="Permalink to this headline">
+        <a class="headerlink" href="#sphinx-toolbox-demo-variables" title="Permalink to this headline">
          ¶
         </a>
        </h1>
        <dl class="py data">
-        <dt id="tests.test_output.variables_genericalias_demo.CONSTANT">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }}>
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.variables_genericalias_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           CONSTANT
-         </code>
+         </{{ sig_prename_tag }}>
          <em class="property">
           = 42
          </em>
-         <a class="headerlink" href="#tests.test_output.variables_genericalias_demo.CONSTANT" title="Permalink to this definition">
-          ¶
-         </a>
         </dt>
         <dd>
          <p>
@@ -66,16 +63,16 @@
         </dd>
        </dl>
        <dl class="py class">
-        <dt id="tests.test_output.variables_genericalias_demo.Demo">
+        <dt{{ sig_object_class }}>
          <em class="property">
           class
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.variables_genericalias_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Demo
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -98,22 +95,16 @@
            [source]
           </span>
          </a>
-         <a class="headerlink" href="#tests.test_output.variables_genericalias_demo.Demo" title="Permalink to this definition">
-          ¶
-         </a>
         </dt>
         <dd>
          <p>
           An attrs class
          </p>
          <dl class="py attribute">
-          <dt id="tests.test_output.variables_genericalias_demo.Demo.arg1">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }}>
+           <{{ sig_prename_tag }} class="sig-name descname">
             arg1
-           </code>
-           <a class="headerlink" href="#tests.test_output.variables_genericalias_demo.Demo.arg1" title="Permalink to this definition">
-            ¶
-           </a>
+           </{{ sig_prename_tag }}>
           </dt>
           <dd>
            <p>
@@ -134,13 +125,10 @@
           </dd>
          </dl>
          <dl class="py attribute">
-          <dt id="tests.test_output.variables_genericalias_demo.Demo.arg2">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }}>
+           <{{ sig_prename_tag }} class="sig-name descname">
             arg2
-           </code>
-           <a class="headerlink" href="#tests.test_output.variables_genericalias_demo.Demo.arg2" title="Permalink to this definition">
-            ¶
-           </a>
+           </{{ sig_prename_tag }}>
           </dt>
           <dd>
            <p>
@@ -163,16 +151,16 @@
         </dd>
        </dl>
        <dl class="py class">
-        <dt id="tests.test_output.variables_genericalias_demo.SlotsDemo">
+        <dt{{ sig_object_class }}>
          <em class="property">
           class
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.variables_genericalias_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           SlotsDemo
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -195,22 +183,16 @@
            [source]
           </span>
          </a>
-         <a class="headerlink" href="#tests.test_output.variables_genericalias_demo.SlotsDemo" title="Permalink to this definition">
-          ¶
-         </a>
         </dt>
         <dd>
          <p>
           An attrs class with slots=True
          </p>
          <dl class="py attribute">
-          <dt id="tests.test_output.variables_genericalias_demo.SlotsDemo.arg1">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }}>
+           <{{ sig_prename_tag }} class="sig-name descname">
             arg1
-           </code>
-           <a class="headerlink" href="#tests.test_output.variables_genericalias_demo.SlotsDemo.arg1" title="Permalink to this definition">
-            ¶
-           </a>
+           </{{ sig_prename_tag }}>
           </dt>
           <dd>
            <p>
@@ -231,13 +213,10 @@
           </dd>
          </dl>
          <dl class="py attribute">
-          <dt id="tests.test_output.variables_genericalias_demo.SlotsDemo.arg2">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }}>
+           <{{ sig_prename_tag }} class="sig-name descname">
             arg2
-           </code>
-           <a class="headerlink" href="#tests.test_output.variables_genericalias_demo.SlotsDemo.arg2" title="Permalink to this definition">
-            ¶
-           </a>
+           </{{ sig_prename_tag }}>
           </dt>
           <dd>
            <p>
@@ -260,19 +239,16 @@
         </dd>
        </dl>
        <dl class="py data">
-        <dt id="tests.test_output.variables_genericalias_demo.variable">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }}>
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.variables_genericalias_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           variable
-         </code>
+         </{{ sig_prename_tag }}>
          <em class="property">
           = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
          </em>
-         <a class="headerlink" href="#tests.test_output.variables_genericalias_demo.variable" title="Permalink to this definition">
-          ¶
-         </a>
         </dt>
         <dd>
          <p>

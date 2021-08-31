@@ -36,3 +36,7 @@ function deselectTabset(target) {
   }
 
 }
+
+
+// Compatibility with sphinx-tabs 2.1.0 and later
+function deselectTabList(tab) {deselectTabset(tab)}

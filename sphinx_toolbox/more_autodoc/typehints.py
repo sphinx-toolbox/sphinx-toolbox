@@ -116,6 +116,7 @@ import operator
 import re
 import sys
 import types
+from contextlib import suppress
 from tempfile import TemporaryDirectory
 from types import FunctionType, ModuleType
 from typing import Any, AnyStr, Callable, Dict, List, NewType, Optional, Tuple, Type, TypeVar, get_type_hints
@@ -344,15 +345,13 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	formatted_args = ''
 
 	# Type variables are also handled specially
-	try:
+	with suppress(TypeError):
 		if isinstance(annotation, TypeVar) and annotation is not AnyStr:
 			if sys.version_info < (3, 7):
 				typevar_name = annotation.__name__
 			else:
 				typevar_name = (annotation.__module__ + '.' + annotation.__name__)
 			return f":py:data:`{repr(annotation)} <{typevar_name}>`"
-	except TypeError:
-		pass
 
 	# Some types require special handling
 	if full_name == "typing.NewType":

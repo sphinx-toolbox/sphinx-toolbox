@@ -8,3 +8,4 @@ sphinx-toolbox Demo - :no-docstring:
 	:members:
 	:no-docstring:
 	:exclude-members: OldStyleAnimal,AquaticBird
+	:noindex:

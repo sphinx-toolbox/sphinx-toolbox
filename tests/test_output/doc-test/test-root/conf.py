@@ -41,6 +41,8 @@ autodoc_default_options = {
 
 all_typevars = True
 no_unbound_typevars = False
+sphinx_tabs_disable_tab_closing = True
+html_codeblock_linenos_style = "table"
 
 overloads_location = "bottom"
 documentation_summary = "   This is an awesome tool! 🚀 ~ intersphinx_mapping # {{ jinja2 }} 100% 'Quotes'"

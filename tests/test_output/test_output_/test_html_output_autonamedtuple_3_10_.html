@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -33,16 +35,16 @@
         </a>
        </h1>
        <dl class="py namedtuple">
-        <dt id="autonamedtuple_demo.Animal">
+        <dt{{ sig_object_class }} id="autonamedtuple_demo.Animal">
          <em class="property">
           namedtuple
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autonamedtuple_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Animal
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -117,16 +119,16 @@
         </dd>
        </dl>
        <dl class="py namedtuple">
-        <dt id="autonamedtuple_demo.Employee">
+        <dt{{ sig_object_class }} id="autonamedtuple_demo.Employee">
          <em class="property">
           namedtuple
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autonamedtuple_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Employee
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -205,10 +207,10 @@
           </dd>
          </dl>
          <dl class="py method">
-          <dt id="autonamedtuple_demo.Employee.is_executive">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="autonamedtuple_demo.Employee.is_executive">
+           <{{ sig_prename_tag }} class="sig-name descname">
             is_executive
-           </code>
+           </{{ sig_prename_tag }}>
            <span class="sig-paren">
             (
            </span>
@@ -252,16 +254,16 @@
         </dd>
        </dl>
        <dl class="py namedtuple">
-        <dt id="autonamedtuple_demo.Movie">
+        <dt{{ sig_object_class }} id="autonamedtuple_demo.Movie">
          <em class="property">
           namedtuple
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autonamedtuple_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Movie
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -358,16 +360,16 @@
         </dd>
        </dl>
        <dl class="py namedtuple">
-        <dt id="autonamedtuple_demo.Foo">
+        <dt{{ sig_object_class }} id="autonamedtuple_demo.Foo">
          <em class="property">
           namedtuple
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autonamedtuple_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Foo
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -474,16 +476,16 @@
         </dd>
        </dl>
        <dl class="py namedtuple">
-        <dt id="autonamedtuple_demo.Traditional">
+        <dt{{ sig_object_class }} id="autonamedtuple_demo.Traditional">
          <em class="property">
           namedtuple
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autonamedtuple_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Traditional
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -561,16 +563,16 @@
         </dd>
        </dl>
        <dl class="py namedtuple">
-        <dt id="autonamedtuple_demo.NoDocstring">
+        <dt{{ sig_object_class }} id="autonamedtuple_demo.NoDocstring">
          <em class="property">
           namedtuple
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autonamedtuple_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           NoDocstring
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -677,16 +679,16 @@
         </dd>
        </dl>
        <dl class="py namedtuple">
-        <dt>
+        <dt{{ sig_object_class }}>
          <em class="property">
           namedtuple
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autonamedtuple_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           NoDocstring
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -780,16 +782,16 @@
         </dd>
        </dl>
        <dl class="py namedtuple">
-        <dt id="autonamedtuple_demo.CustomisedNew">
+        <dt{{ sig_object_class }} id="autonamedtuple_demo.CustomisedNew">
          <em class="property">
           namedtuple
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autonamedtuple_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           CustomisedNew
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>

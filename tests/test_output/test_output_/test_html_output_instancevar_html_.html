@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -33,16 +35,16 @@
         </a>
        </h1>
        <dl class="py class">
-        <dt id="tests.test_output.instancevar.OctoAPI">
+        <dt{{ sig_object_class }} id="tests.test_output.instancevar.OctoAPI">
          <em class="property">
           class
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.instancevar.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           OctoAPI
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>
@@ -96,10 +98,10 @@
           .
          </p>
          <dl class="py attribute">
-          <dt id="tests.test_output.instancevar.OctoAPI.API_BASE">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="tests.test_output.instancevar.OctoAPI.API_BASE">
+           <{{ sig_prename_tag }} class="sig-name descname">
             API_BASE
-           </code>
+           </{{ sig_prename_tag }}>
            <a class="headerlink" href="#tests.test_output.instancevar.OctoAPI.API_BASE" title="Permalink to this definition">
             ¶
            </a>
@@ -121,10 +123,10 @@
           </dd>
          </dl>
          <dl class="py attribute">
-          <dt id="tests.test_output.instancevar.OctoAPI.API_KEY">
-           <code class="sig-name descname">
+          <dt{{ sig_object_class }} id="tests.test_output.instancevar.OctoAPI.API_KEY">
+           <{{ sig_prename_tag }} class="sig-name descname">
             API_KEY
-           </code>
+           </{{ sig_prename_tag }}>
            <a class="headerlink" href="#tests.test_output.instancevar.OctoAPI.API_KEY" title="Permalink to this definition">
             ¶
            </a>

@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -33,13 +35,13 @@
         </a>
        </h1>
        <dl class="py data">
-        <dt id="tests.test_output.variables_genericalias_demo.PathLike">
-         <code class="sig-prename descclassname">
+        <dt{{ sig_object_class }} id="tests.test_output.variables_genericalias_demo.PathLike">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.variables_genericalias_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           PathLike
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#tests.test_output.variables_genericalias_demo.PathLike" title="Permalink to this definition">
           ¶
          </a>

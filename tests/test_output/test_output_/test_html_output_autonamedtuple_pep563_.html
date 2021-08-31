@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -33,16 +35,16 @@
         </a>
        </h1>
        <dl class="py namedtuple">
-        <dt id="tests.test_output.autonamedtuple_demo_pep563.Animal">
+        <dt{{ sig_object_class }} id="tests.test_output.autonamedtuple_demo_pep563.Animal">
          <em class="property">
           namedtuple
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.autonamedtuple_demo_pep563.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Animal
-         </code>
+         </{{ sig_prename_tag }}>
          <span class="sig-paren">
           (
          </span>

@@ -2,6 +2,24 @@
 Changelog
 ===============
 
+Unreleased
+-------------
+
+Features
+^^^^^^^^^
+
+* :class:`sphinx_toolbox.testing.HTMLRegressionFixture` -- Added support for rendering the reference file as a jinja2 template, which can be used to account for differences between Python and Sphinx versions.
+* Added support for Sphinx 4.0 and sphinx-tabs versions up to 3.2.0
+* Improved support for Python 3.10.0 rc.1
+* :mod:`sphinx_toolbox.tweaks.latex_layout` -- Now configures ``hyperref`` to use correct page numbering for the frontmatter.
+
+Bugs Fixed
+^^^^^^^^^^^^^
+
+* URLs pointing to https://pypistats.org/ now use lowercased project names.
+* The ``cls`` and ``return`` attributes are ignored from ``__annotations__`` when deciding whether to include the ``__new__`` method for a :class:`~.NamedTuple` with :class:`~.NamedTupleDocumenter`.
+
+
 2.13.0
 --------
 

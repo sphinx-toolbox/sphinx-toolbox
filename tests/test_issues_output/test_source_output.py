@@ -105,7 +105,11 @@ def test_html_output(gh_src_app, html_regression: HTMLRegressionFixture):
 			page_id = page_id.replace('.', '_').replace('-', '_')
 			content = (gh_src_app.outdir / pagename).read_text()
 			try:
-				html_regression.check(BeautifulSoup(content, "html5lib"), extension=f"_{page_id}_.html")
+				html_regression.check(
+						BeautifulSoup(content, "html5lib"),
+						extension=f"_{page_id}_.html",
+						jinja2=True,
+						)
 			except BaseException as e:
 				caught_exceptions.append(e)
 

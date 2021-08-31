@@ -1,3 +1,5 @@
+{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
+{% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -44,16 +46,16 @@
         </code>
        </p>
        <dl class="py typeddict">
-        <dt id="autotypeddict_demo.Animal">
+        <dt{{ sig_object_class }} id="autotypeddict_demo.Animal">
          <em class="property">
           typeddict
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autotypeddict_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Animal
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autotypeddict_demo.html#Animal">
           <span class="viewcode-link">
            [source]
@@ -118,16 +120,16 @@
         </dd>
        </dl>
        <dl class="py typeddict">
-        <dt id="autotypeddict_demo.AquaticBird">
+        <dt{{ sig_object_class }} id="autotypeddict_demo.AquaticBird">
          <em class="property">
           typeddict
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autotypeddict_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           AquaticBird
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autotypeddict_demo.html#AquaticBird">
           <span class="viewcode-link">
            [source]
@@ -231,16 +233,16 @@
         </dd>
        </dl>
        <dl class="py typeddict">
-        <dt id="autotypeddict_demo.Bird">
+        <dt{{ sig_object_class }} id="autotypeddict_demo.Bird">
          <em class="property">
           typeddict
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autotypeddict_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Bird
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autotypeddict_demo.html#Bird">
           <span class="viewcode-link">
            [source]
@@ -321,16 +323,16 @@
         </dd>
        </dl>
        <dl class="py typeddict">
-        <dt id="autotypeddict_demo.Cat">
+        <dt{{ sig_object_class }} id="autotypeddict_demo.Cat">
          <em class="property">
           typeddict
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autotypeddict_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Cat
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autotypeddict_demo.html#Cat">
           <span class="viewcode-link">
            [source]
@@ -411,16 +413,16 @@
         </dd>
        </dl>
        <dl class="py typeddict">
-        <dt id="autotypeddict_demo.OldStyleAnimal">
+        <dt{{ sig_object_class }} id="autotypeddict_demo.OldStyleAnimal">
          <em class="property">
           typeddict
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autotypeddict_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           OldStyleAnimal
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="headerlink" href="#autotypeddict_demo.OldStyleAnimal" title="Permalink to this definition">
           ¶
          </a>
@@ -473,16 +475,16 @@
         </dd>
        </dl>
        <dl class="py typeddict">
-        <dt id="autotypeddict_demo.Movie">
+        <dt{{ sig_object_class }} id="autotypeddict_demo.Movie">
          <em class="property">
           typeddict
          </em>
-         <code class="sig-prename descclassname">
+         <{{ sig_prename_tag }} class="sig-prename descclassname">
           autotypeddict_demo.
-         </code>
-         <code class="sig-name descname">
+         </{{ sig_prename_tag }}>
+         <{{ sig_prename_tag }} class="sig-name descname">
           Movie
-         </code>
+         </{{ sig_prename_tag }}>
          <a class="reference internal" href="_modules/autotypeddict_demo.html#Movie">
           <span class="viewcode-link">
            [source]

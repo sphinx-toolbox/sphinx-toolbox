@@ -179,6 +179,7 @@ from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from domdf_python_tools.words import word_join
 from sphinx.application import Sphinx
+from sphinx.config import Config
 from sphinx.environment import BuildEnvironment
 from sphinx.util.docutils import SphinxDirective
 
@@ -690,7 +691,16 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None):
 			"  }",
 			'',
 			'}',
+			'',
+			"// Compatibility with sphinx-tabs 2.1.0 and later",
+			"function deselectTabList(tab) {deselectTabset(tab)}",
+			'',
 			])
+
+
+def _on_config_inited(app: Sphinx, config: Config):
+	app.add_css_file("sphinx_toolbox_installation.css")
+	app.add_js_file("sphinx_toolbox_installation.js")
 
 
 @metadata_add_version
@@ -721,9 +731,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_directive("extensions", ExtensionsDirective)
 	app.connect("env-purge-doc", extensions_node_purger.purge_nodes)
 
-	# Little CSS tweaks
-	app.add_css_file("sphinx_toolbox_installation.css")
-	app.add_js_file("sphinx_toolbox_installation.js")
+	# Ensure this happens after tabs.js has been added
+	app.connect("config-inited", _on_config_inited, priority=510)
 	app.connect("build-finished", copy_asset_files)
 
 	return {"parallel_read_safe": True}

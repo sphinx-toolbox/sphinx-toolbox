@@ -197,7 +197,8 @@ def test_setup():
 							priority=500
 							),
 					],
-			"build-finished": [EventListener(id=2, handler=installation.copy_asset_files, priority=500), ]
+			"build-finished": [EventListener(id=3, handler=installation.copy_asset_files, priority=500)],
+			"config-inited": [EventListener(id=2, handler=installation._on_config_inited, priority=510)],
 			}
 
 	assert app.config.values["conda_channels"] == ([], "env", [list])
@@ -208,5 +209,9 @@ def test_setup():
 			}
 	assert app.registry.source_parsers == {}
 
+	assert app.registry.css_files == []
+	assert app.registry.js_files == []
+
+	installation._on_config_inited(app, app.config)  # type: ignore
 	assert app.registry.css_files == [("sphinx_toolbox_installation.css", {})]
 	assert app.registry.js_files == [("sphinx_toolbox_installation.js", {})]
