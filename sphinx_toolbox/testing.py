@@ -688,7 +688,7 @@ class HTMLRegressionFixture(FileRegressionFixture):
 		:param \*\*kwargs: Additional keyword arguments passed to
 			:meth:`pytest_regressions.file_regression.FileRegressionFixture.check`.
 
-		.. versionchanged:: $VERSION  Added the ``jinja2`` keyword argument.
+		.. versionchanged:: 2.14.0  Added the ``jinja2`` keyword argument.
 
 		When ``jinja2`` is :py:obj:`True`, the reference file will be rendered as a jinja2 template.
 		The template is passed the following variables:

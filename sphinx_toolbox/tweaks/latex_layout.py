@@ -21,7 +21,7 @@ Makes minor adjustments to the LaTeX layout.
 
 * Configures hyperref to apply correct page numbering to the frontmatter.
 
-  .. versionadded:: $VERSION
+  .. versionadded:: 2.14.0
 
 
 .. versionadded:: 2.10.0
