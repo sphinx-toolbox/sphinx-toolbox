@@ -6,6 +6,7 @@ on:
     branches-ignore:
       - 'repo-helper-update'
       - 'pre-commit-ci-update-config'
+      - 'imgbot'
   pull_request:
 
 permissions:

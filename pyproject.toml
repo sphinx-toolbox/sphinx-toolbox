@@ -120,6 +120,7 @@ add_module_names = false
 hide_none_rtype = true
 all_typevars = true
 overloads_location = "bottom"
+html_codeblock_linenos_style = "table"
 autodoc_exclude_members = [
     "__dict__",
     "__class__",
@@ -147,7 +148,32 @@ warn_unused_ignores = true
 no_implicit_optional = true
 incremental = false
 exclude = "^tests/.*?/[^/]*doc-test/.*"
+show_error_codes = true
+
+[tool.snippet-fmt]
+directives = [ "code-block",]
 
 [tool.dep_checker.name_mapping]
 beautifulsoup4 = "bs4"
 ruamel-yaml = "ruamel.yaml"
+
+[tool.dependency-dash."requirements.txt"]
+order = 10
+
+[tool.dependency-dash."tests/requirements.txt"]
+order = 20
+include = false
+
+[tool.dependency-dash."doc-source/requirements.txt"]
+order = 30
+include = false
+
+[tool.snippet-fmt.languages.python]
+reformat = true
+
+[tool.snippet-fmt.languages.TOML]
+reformat = true
+
+[tool.snippet-fmt.languages.ini]
+
+[tool.snippet-fmt.languages.json]
