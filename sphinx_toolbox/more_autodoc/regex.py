@@ -261,6 +261,19 @@ class RegexDocumenter(VariableDocumenter):
 			self.add_line('', sourcename)
 			self.add_line('', sourcename)
 
+			the_flag: Optional[str] = None
+
+			if not no_flag:
+				if "flag" in self.options:
+					the_flag = self.options["flag"]
+				else:
+					raw_flags = self.object.flags
+					raw_flags = (raw_flags & ~re.DEBUG) & ~re.VERBOSE
+					the_flag = parse_regex_flags(raw_flags)
+
+			if no_value and not the_flag:
+				return
+
 			self.add_line(".. csv-table::", sourcename)
 			self.add_line("     :widths: auto", sourcename)
 			self.add_line("     :stub-columns: 1", sourcename)
@@ -291,16 +304,8 @@ class RegexDocumenter(VariableDocumenter):
 
 				self.add_line(f'     **Pattern**, ":regex:`{the_pattern}`"', sourcename)
 
-			if not no_flag:
-				if "flag" in self.options:
-					the_flag = self.options["flag"]
-				else:
-					raw_flags = self.object.flags
-					raw_flags = (raw_flags & ~re.DEBUG) & ~re.VERBOSE
-					the_flag = parse_regex_flags(raw_flags)
-
-				if the_flag:
-					self.add_line(f"     **Flags**, {the_flag}", sourcename)
+			if the_flag:
+				self.add_line(f"     **Flags**, {the_flag}", sourcename)
 
 			self.add_line('', sourcename)
 
