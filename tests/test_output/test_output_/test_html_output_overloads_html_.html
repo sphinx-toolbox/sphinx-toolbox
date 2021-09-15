@@ -951,7 +951,17 @@
            <span class="sig-paren">
             )
            </span>
-           → MutableMapping[str, Any]:
+           {% if sphinx_version >= (4, 1) -%}
+           <span class="sig-return">
+            <span class="sig-return-icon">
+             →
+            </span>
+            <span class="sig-return-typehint">
+             MutableMapping[str, Any]:
+            </span>
+           </span>
+           {% else -%}→ MutableMapping[str, Any]:
+           {% endif -%}
            <a class="headerlink" href="#tests.test_output.overloads_demo.to_dict" title="Permalink to this definition">
             ¶
            </a>

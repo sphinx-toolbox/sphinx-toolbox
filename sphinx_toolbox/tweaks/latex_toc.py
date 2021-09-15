@@ -96,6 +96,8 @@ class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 		Process the content of the directive.
 		"""
 
+		assert self.env.app.builder is not None
+
 		output: List[nodes.Node] = []
 		caption = self.options.get("caption")
 

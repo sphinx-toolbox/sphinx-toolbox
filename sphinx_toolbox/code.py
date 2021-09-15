@@ -353,7 +353,7 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None):
 	if exception:  # pragma: no cover
 		return
 
-	if app.builder.format.lower() != "html":
+	if app.builder is None or app.builder.format.lower() != "html":
 		return
 
 	prompt_style: dict2css.Style = {

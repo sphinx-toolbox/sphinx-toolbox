@@ -123,6 +123,9 @@ def _make_viewcode_node(
 	else:
 		# 3rd party
 		from sphinx.util.nodes import make_refnode
+
+		assert env.app.builder is not None
+
 		try:
 			return make_refnode(
 					env.app.builder,

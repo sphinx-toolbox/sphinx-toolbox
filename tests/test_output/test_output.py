@@ -221,6 +221,9 @@ def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFil
 			)
 
 
+_latex_date_re = re.compile(r"\\date{.*}")
+
+
 class LaTeXRegressionFixture(AdvancedFileRegressionFixture):
 	"""
 	Subclass of :class:`pytest_regressions.file_regression.FileRegressionFixture`
@@ -269,8 +272,14 @@ class LaTeXRegressionFixture(AdvancedFileRegressionFixture):
 
 			return check_text_files(obtained_filename, expected_filename)
 
+		new_contents = _latex_date_re.sub(
+				r"\\date{Mar 11, 2021}",
+				str(contents).replace("\\sphinxAtStartPar\n", ''),
+				)
+		new_contents = new_contents.replace("%% let collapsible ", "%% let collapsable ")  # changed in Sphinx 4.2
+
 		return super().check(
-				re.sub(r"\\date{.*}", r"\\date{Mar 11, 2021}", str(contents).replace("\\sphinxAtStartPar\n", '')),
+				new_contents,
 				extension=".tex",
 				check_fn=check_fn,
 				)

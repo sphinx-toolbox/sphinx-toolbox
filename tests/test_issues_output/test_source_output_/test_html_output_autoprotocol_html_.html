@@ -1,5 +1,6 @@
 {% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
 {% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
+{% set tco_annotation=('autoprotocol_demo.T_co' if python_version >= (3, 7) else 'T_co') -%}
 <!DOCTYPE html>
 <html>
  <head>
@@ -89,7 +90,18 @@
            <span class="sig-paren">
             )
            </span>
+           {%- if sphinx_version >= (4, 1) %}
+           <span class="sig-return">
+            <span class="sig-return-icon">
+             →
+            </span>
+            <span class="sig-return-typehint">
+             Any
+            </span>
+           </span>
+           {% else %}
            → Any
+           {% endif -%}
            <a class="reference internal" href="_modules/autoprotocol_demo.html#Frobnicater.frobnicate">
             <span class="viewcode-link">
              [source]
@@ -158,7 +170,18 @@
            <span class="sig-paren">
             )
            </span>
+           {%- if sphinx_version >= (4, 1) %}
+           <span class="sig-return">
+            <span class="sig-return-icon">
+             →
+            </span>
+            <span class="sig-return-typehint">
+             bool
+            </span>
+           </span>
+           {% else %}
            → bool
+           {% endif -%}
            <a class="reference internal" href="_modules/autoprotocol_demo.html#HasLessThan.__lt__">
             <span class="viewcode-link">
              [source]
@@ -236,7 +259,18 @@
            <span class="sig-paren">
             )
            </span>
+           {%- if sphinx_version >= (4, 1) %}
+           <span class="sig-return">
+            <span class="sig-return-icon">
+             →
+            </span>
+            <span class="sig-return-typehint">
+             bool
+            </span>
+           </span>
+           {% else %}
            → bool
+           {% endif -%}
            <a class="reference internal" href="_modules/autoprotocol_demo.html#HasGreaterThan.__gt__">
             <span class="viewcode-link">
              [source]
@@ -311,7 +345,18 @@
            <span class="sig-paren">
             )
            </span>
+           {%- if sphinx_version >= (4, 1) %}
+           <span class="sig-return">
+            <span class="sig-return-icon">
+             →
+            </span>
+            <span class="sig-return-typehint">
+             bool
+            </span>
+           </span>
+           {% else %}
            → bool
+           {% endif -%}
            <a class="reference internal" href="_modules/autoprotocol_demo.html#HasGreaterThan.__gt__">
             <span class="viewcode-link">
              [source]
@@ -401,7 +446,20 @@
            <span class="sig-paren">
             )
            </span>
-           → {{ 'autoprotocol_demo.T_co' if sphinx_version >= (4, 0) and python_version >= (3, 7) else 'T_co' }}
+           {%- if sphinx_version >= (4, 1) %}
+           <span class="sig-return">
+            <span class="sig-return-icon">
+             →
+            </span>
+            <span class="sig-return-typehint">
+             {{ tco_annotation }}
+            </span>
+           </span>
+           {% elif sphinx_version >= (4, 0) %}
+           → {{ tco_annotation }}
+           {% else %}
+           → T_co
+           {% endif -%}
            <a class="reference internal" href="_modules/autoprotocol_demo.html#SupportsAbs.__abs__">
             <span class="viewcode-link">
              [source]

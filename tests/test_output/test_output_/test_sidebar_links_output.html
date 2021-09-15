@@ -28,7 +28,7 @@
       <div class="toctree-wrapper compound">
       </div>
       <div class="toctree-wrapper compound">
-       <p class="caption">
+       <p class="caption"{% if sphinx_version > (4, 1) %} role="heading"{% endif %}>
         <span class="caption-text">
          Documentation
         </span>
@@ -289,7 +289,7 @@
        </a>
       </li>
      </ul>
-     <p class="caption">
+     <p class="caption"{% if sphinx_version > (4, 1) %} role="heading"{% endif %}>
       <span class="caption-text">
        Documentation
       </span>
@@ -346,7 +346,7 @@
        </a>
       </li>
      </ul>
-     <p class="caption">
+     <p class="caption"{% if sphinx_version > (4, 1) %} role="heading"{% endif %}>
       <span class="caption-text">
        Links
       </span>
@@ -399,7 +399,7 @@
       </h3>
       <div class="searchformwrapper">
        <form action="search.html" class="search" method="get">
-        <input aria-labelledby="searchlabel" name="q" type="text"/>
+        <input aria-labelledby="searchlabel" {% if sphinx_version >= (4, 1) %}autocapitalize="off" autocomplete="off" autocorrect="off" name="q" spellcheck="false"{% else %}name="q"{% endif %} type="text"/>
         <input type="submit" value="Go"/>
        </form>
       </div>

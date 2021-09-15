@@ -328,6 +328,8 @@ def unskip_typevars(
 		auto directive.
 	"""
 
+	assert app.env is not None
+
 	if isinstance(obj, TypeVar):
 		if app.env.config.no_unbound_typevars:
 			if obj.__bound__ or obj.__constraints__:

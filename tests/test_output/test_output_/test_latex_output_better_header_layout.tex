@@ -623,6 +623,8 @@ A configuration value.
 
 \section{Code Cell}
 \label{\detokenize{code-block:code-cell}}
+<%- if sphinx_version >= (4, 1) %>
+\begin{sphinxuseclass}{code-cell}<% endif %>
 
 \vspace{4mm}\llap{\color{nbsphinxin}\texttt{In [1]:}\,\hspace{\fboxrule}\hspace{\fboxrule}\hspace{\fboxsep}}\vspace{-7mm}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
@@ -631,20 +633,25 @@ A configuration value.
 
 \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{hello world}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
 \end{sphinxVerbatim}
-
+<% if sphinx_version >= (4, 1) %>
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{output-cell}<% endif %>
 
 \vspace{4mm}\llap{\color{nbsphinxout}\texttt{[1]:}\,\hspace{\fboxrule}\hspace{\fboxrule}\hspace{\fboxsep}}\vspace{-7mm}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{hello} \PYG{n}{world}
 \end{sphinxVerbatim}
-
+<% if sphinx_version >= (4, 1) %>
+\end{sphinxuseclass}
+\begin{sphinxuseclass}{code-cell}<% endif %>
 
 \vspace{4mm}\llap{\color{nbsphinxin}\texttt{In [2]:}\,\hspace{\fboxrule}\hspace{\fboxrule}\hspace{\fboxsep}}\vspace{-7mm}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k}{def} \PYG{n+nf}{print}\PYG{p}{(}\PYG{n}{text}\PYG{p}{)}\PYG{p}{:}
         \PYG{n}{sys}\PYG{o}{.}\PYG{n}{stdout}\PYG{o}{.}\PYG{n}{write}\PYG{p}{(}\PYG{n}{text}\PYG{p}{)}
 \end{sphinxVerbatim}
-
+<% if sphinx_version >= (4, 1) %>
+\end{sphinxuseclass}<% endif %>
 
 \chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} Formatting}
 \label{\detokenize{formatting:sphinx-toolbox-demo-formatting}}\label{\detokenize{formatting::doc}}

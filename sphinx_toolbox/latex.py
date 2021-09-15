@@ -432,7 +432,7 @@ def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None):
 	if exception:  # pragma: no cover
 		return
 
-	if app.builder.name.lower() != "latex":
+	if app.builder is None or app.builder.name.lower() != "latex":
 		return
 
 	builder = cast(LaTeXBuilder, app.builder)
@@ -526,6 +526,8 @@ class PatchedLaTeXBuilder(LaTeXBuilder):
 	# \addto\captionsenglish{\renewcommand{\contentsname}{Documentation}}
 
 	def write(self, *ignored: Any) -> None:
+		assert self.env is not None
+
 		docwriter = LaTeXWriter(self)
 		docsettings: Any = OptionParser(
 				defaults=self.env.settings,
