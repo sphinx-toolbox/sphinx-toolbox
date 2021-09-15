@@ -357,12 +357,8 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	if full_name == "typing.NewType":
 		args_format = f"\\(:py:data:`~{annotation.__name__}`, {{}})"
 		role = "class" if sys.version_info > (3, 10) else "func"
-	elif full_name == "typing.Union" and len(args) == 2 and type(None) in args:
+	elif full_name in {"typing.Union", "types.UnionType"} and len(args) == 2 and type(None) in args:
 		full_name = "typing.Optional"
-		args = tuple(x for x in args if x is not type(None))  # noqa: E721
-	elif full_name == "types.UnionType" and len(args) == 2 and type(None) in args:
-		full_name = "typing.Optional"
-		args = tuple(x for x in args if x is not type(None))  # noqa: E721
 	elif full_name == "types.UnionType":
 		full_name = "typing.Union"
 		role = "data"
@@ -379,6 +375,9 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 				formatted_arg_list.append(code_repr(arg))
 
 		formatted_args = f"\\[{formatted_arg_list:, }]"
+
+	if full_name == "typing.Optional":
+		args = tuple(x for x in args if x is not type(None))  # noqa: E721
 
 	# TODO: unions with one or more forward refs
 
