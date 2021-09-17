@@ -127,8 +127,20 @@ API Reference
 #  |  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 #  |  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-#  Builds on top of https://github.com/Chilipp/autodocsumm
-#  GPLv2 Licensed
+#  Builds on top of, and PatchedAutoDocSummDirective based on, https://github.com/Chilipp/autodocsumm
+#  | Copyright 2016-2019, Philipp S. Sommer
+#  | Copyright 2020-2021, Helmholtz-Zentrum Hereon
+#  |
+#  | Licensed under the Apache License, Version 2.0 (the "License");
+#  | you may not use this file except in compliance with the License.
+#  | You may obtain a copy of the License at
+#  |
+#  |     http://www.apache.org/licenses/LICENSE-2.0
+#  |
+#  | Unless required by applicable law or agreed to in writing,
+#  | software distributed under the License is distributed on an "AS IS" BASIS,
+#  | WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  | See the License for the specific language governing permissions and limitations under the License.
 #
 
 # stdlib
@@ -153,6 +165,7 @@ from sphinx.ext.autodoc import (
 		logger,
 		special_member_re
 		)
+from sphinx.ext.autodoc.directive import DocumenterBridge, process_documenter_options
 from sphinx.ext.autodoc.importer import get_module_members
 from sphinx.ext.autosummary import Autosummary, FakeDirective
 from sphinx.locale import __
@@ -554,6 +567,55 @@ class PatchedAutoSummClassDocumenter(autodocsumm.AutoSummClassDocumenter):
 			self.add_autosummary()
 
 
+class PatchedAutoDocSummDirective(autodocsumm.AutoDocSummDirective):
+	"""
+	Patched ``AutoDocSummDirective`` which uses :py:obj:`None` for the members option rather than an empty string.
+
+	.. attention:: This class is not part of the public API.
+	"""
+
+	def run(self):
+		reporter = self.state.document.reporter
+
+		if hasattr(reporter, "get_source_and_line"):
+			source, lineno = reporter.get_source_and_line(self.lineno)
+		else:
+			source, lineno = (None, None)
+
+		# look up target Documenter
+		objtype = self.name[4:-4]  # strip prefix (auto-) and suffix (-summ).
+		doccls = self.env.app.registry.documenters[objtype]
+
+		self.options["autosummary-force-inline"] = "True"
+		self.options["autosummary"] = "True"
+		if "no-members" not in self.options:
+			self.options["members"] = None
+
+		# process the options with the selected documenter's option_spec
+		try:
+			documenter_options = process_documenter_options(doccls, self.config, self.options)
+		except (KeyError, ValueError, TypeError) as exc:
+			# an option is either unknown or has a wrong type
+			logger.error(
+					"An option to %s is either unknown or has an invalid value: %s",
+					self.name,
+					exc,
+					location=(self.env.docname, lineno),
+					)
+			return []
+
+		# generate the output
+		params = DocumenterBridge(self.env, reporter, documenter_options, lineno, self.state)
+		documenter = doccls(params, self.arguments[0])
+		documenter.add_autosummary()
+
+		node = nodes.paragraph()
+		node.document = self.state.document
+		self.state.nested_parse(params.result, 0, node)
+
+		return node.children
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -566,6 +628,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("autodocsumm")
 
 	app.add_directive("autosummary", PatchedAutosummary, override=True)
+	app.add_directive('autoclasssumm', PatchedAutoDocSummDirective, override=True)
+	app.add_directive('automodulesumm', PatchedAutoDocSummDirective, override=True)
+
 	autodocsumm.AutosummaryDocumenter.add_autosummary = add_autosummary
 	allow_subclass_add(app, PatchedAutoSummModuleDocumenter)
 	allow_subclass_add(app, PatchedAutoSummClassDocumenter)

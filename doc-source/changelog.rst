@@ -2,6 +2,22 @@
 Changelog
 ===============
 
+Unreleased
+------------
+
+Features
+^^^^^^^^^
+
+* Added support for Sphinx 4.1 and 4.2
+* Added support for autodocsumm > 0.2.2
+* Improved support for Python 3.10.0 rc.2
+
+Bugs Fixed
+^^^^^^^^^^^^^
+
+* :class:`~.RegexDocumenter` -- No longer outputs a ``csv-table`` directive when there is no pattern and no flags. This prevents docutils emitting a warning.
+
+
 2.14.0
 --------
 

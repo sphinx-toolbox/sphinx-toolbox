@@ -1,5 +1,5 @@
 apeye[limiter]>=0.9.0
-autodocsumm<0.2.3,>=0.2.0
+autodocsumm>=0.2.0
 beautifulsoup4>=4.9.1
 consolekit>=0.3.1
 deprecation-alias>=0.2.0

@@ -16,6 +16,8 @@ def test_setup(advanced_file_regression: AdvancedFileRegressionFixture):
 			"autosummary": more_autosummary.PatchedAutosummary,
 			"autoclass": AutodocDirective,
 			"automodule": AutodocDirective,
+			"autoclasssumm": more_autosummary.PatchedAutoDocSummDirective,
+			"automodulesumm": more_autosummary.PatchedAutoDocSummDirective,
 			}
 
 	assert app.registry.documenters["module"] == more_autosummary.PatchedAutoSummModuleDocumenter
