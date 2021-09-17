@@ -470,11 +470,15 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 		Add content from docstrings, attribute documentation and user.
 		"""
 
-		if not self._datadescriptor:
-			# if it's not a data descriptor, its docstring is very probably the
-			# wrong thing to display
-			no_docstring = True
-		super().add_content(more_content, no_docstring)
+		with warnings.catch_warnings():
+			# TODO: work out what to do about this
+			warnings.simplefilter("ignore", RemovedInSphinx50Warning)
+
+			if not self._datadescriptor:
+				# if it's not a data descriptor, its docstring is very probably the
+				# wrong thing to display
+				no_docstring = True
+			super().add_content(more_content, no_docstring)
 
 
 class InstanceAttributeDocumenter(TypedAttributeDocumenter):

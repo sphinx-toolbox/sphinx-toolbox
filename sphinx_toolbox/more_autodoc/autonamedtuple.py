@@ -116,11 +116,13 @@ import inspect
 import re
 import sys
 import textwrap
+import warnings
 from textwrap import dedent
 from typing import Any, Dict, List, Tuple, Type, get_type_hints
 
 # 3rd party
 from sphinx.application import Sphinx
+from sphinx.deprecation import RemovedInSphinx50Warning
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyClasslike, PyXRefRole
 from sphinx.ext.autodoc import ClassDocumenter, Documenter, Options
@@ -196,7 +198,11 @@ class NamedTupleDocumenter(ClassDocumenter):
 		:param no_docstring:
 		"""  # noqa: D400
 
-		Documenter.add_content(self, more_content, True)
+		with warnings.catch_warnings():
+			# TODO: work out what to do about this
+			warnings.simplefilter("ignore", RemovedInSphinx50Warning)
+
+			Documenter.add_content(self, more_content, True)
 
 		# set sourcename and add content from attribute documentation
 		sourcename = self.get_sourcename()
