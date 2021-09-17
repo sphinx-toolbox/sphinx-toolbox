@@ -151,6 +151,7 @@ from typing import Any, List, Optional, Tuple, Type
 
 # 3rd party
 import autodocsumm  # type: ignore
+import sphinx
 from docutils import nodes
 from domdf_python_tools.stringlist import StringList
 from sphinx import addnodes
@@ -169,13 +170,19 @@ from sphinx.ext.autodoc.directive import DocumenterBridge, process_documenter_op
 from sphinx.ext.autodoc.importer import get_module_members
 from sphinx.ext.autosummary import Autosummary, FakeDirective
 from sphinx.locale import __
-from sphinx.util.docstrings import extract_metadata
 from sphinx.util.inspect import getdoc, safe_getattr
 
 # this package
 from sphinx_toolbox._data_documenter import DataDocumenter
 from sphinx_toolbox.more_autodoc import ObjectMembers
 from sphinx_toolbox.utils import SphinxExtMetadata, allow_subclass_add, get_first_matching, metadata_add_version
+
+if sphinx.version_info > (4, 1):
+	# 3rd party
+	from sphinx.util.docstrings import separate_metadata
+else:
+	# 3rd party
+	from sphinx.util.docstrings import extract_metadata
 
 __all__ = [
 		"PatchedAutosummary",
@@ -408,7 +415,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 		# process members and determine which to skip
 		for (membername, member) in members:
 			# if isattr is True, the member is documented as an attribute
-			if member is INSTANCEATTR:
+			if member is INSTANCEATTR or (namespace, membername) in attr_docs:
 				isattr = True
 			else:
 				isattr = False
@@ -431,9 +438,14 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 				cls_doc = self.get_attr(cls, "__doc__", None)
 				if cls_doc == doc:
 					doc = None
-			has_doc = bool(doc)
 
-			metadata = extract_metadata(doc)  # type: ignore
+			if sphinx.version_info > (4, 1):
+				doc, metadata = separate_metadata(doc)
+				has_doc = bool(doc)
+			else:
+				has_doc = bool(doc)
+				metadata = extract_metadata(doc)  # type: ignore
+
 			if "private" in metadata:
 				# consider a member private if docstring has "private" metadata
 				isprivate = True

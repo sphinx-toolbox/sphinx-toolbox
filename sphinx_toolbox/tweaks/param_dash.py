@@ -98,11 +98,21 @@ def make_field(
 		domain: str,
 		items: Tuple,
 		env: Optional[BuildEnvironment] = None,
+		**kwargs,  # To support Sphinx 4.1 and later
 		) -> nodes.field:
 
 	def handle_item(fieldarg: str, content: List[nodes.Element]) -> nodes.paragraph:
 		par = nodes.paragraph()
-		par.extend(self.make_xrefs(self.rolename, domain, fieldarg, addnodes.literal_strong, env=env))
+		par.extend(
+				self.make_xrefs(
+						self.rolename,
+						domain,
+						fieldarg,
+						addnodes.literal_strong,
+						env=env,
+						**kwargs,  # To support Sphinx 4.1 and later
+						)
+				)
 
 		if fieldarg in types:
 			par += nodes.Text(" (")
