@@ -81,11 +81,11 @@ from typing import List
 # 3rd party
 from docutils import nodes
 from docutils.statemachine import StringList
+from docutils.utils.smartquotes import educateQuotes
 from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.config import Config
 from sphinx.util.docutils import SphinxDirective
-from sphinx.util.smartypants import educateQuotes
 
 # this package
 from sphinx_toolbox.utils import Purger, SphinxExtMetadata, flag, metadata_add_version
