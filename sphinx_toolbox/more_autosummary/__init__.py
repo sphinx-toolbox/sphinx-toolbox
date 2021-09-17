@@ -440,11 +440,11 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 					doc = None
 
 			if sphinx.version_info > (4, 1):
-				doc, metadata = separate_metadata(doc)
-				has_doc = bool(doc)
+				doc, metadata = separate_metadata(doc)  # type: ignore
 			else:
-				has_doc = bool(doc)
 				metadata = extract_metadata(doc)  # type: ignore
+
+			has_doc = bool(doc)
 
 			if "private" in metadata:
 				# consider a member private if docstring has "private" metadata
