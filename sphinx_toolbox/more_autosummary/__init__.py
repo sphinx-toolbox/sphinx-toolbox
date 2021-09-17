@@ -494,20 +494,18 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 				# let extensions preprocess docstrings
 				try:
 					skip_user = self.env.app.emit_firstresult(
-							"autodoc-skip-member", self.objtype, membername, member, not keep, self.options
+							"autodoc-skip-member",
+							self.objtype,
+							membername,
+							member,
+							not keep,
+							self.options,
 							)
 					if skip_user is not None:
 						keep = not skip_user
 				except Exception as exc:
-					logger.warning(
-							__(
-									'autodoc: failed to determine %r to be documented, '
-									'the following exception was raised:\n%s'
-									),
-							member,
-							exc,
-							type="autodoc"
-							)
+					msg = 'autodoc: failed to determine %r to be documented, the following exception was raised:\n%s'
+					logger.warning(__(msg), member, exc, type="autodoc")
 					keep = False
 
 			if keep:
@@ -515,7 +513,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 
 		return ret
 
-	def get_object_members(self, want_all: bool) -> Tuple[bool, List[Tuple[str, Any]]]:
+	def get_object_members(self, want_all: bool) -> Tuple[bool, ObjectMembers]:
 		"""
 		Return a tuple of  ``(members_check_module, members)``,
 		where ``members`` is a list of ``(membername, member)`` pairs of the members of ``self.object``.
@@ -628,8 +626,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("autodocsumm")
 
 	app.add_directive("autosummary", PatchedAutosummary, override=True)
-	app.add_directive('autoclasssumm', PatchedAutoDocSummDirective, override=True)
-	app.add_directive('automodulesumm', PatchedAutoDocSummDirective, override=True)
+	app.add_directive("autoclasssumm", PatchedAutoDocSummDirective, override=True)
+	app.add_directive("automodulesumm", PatchedAutoDocSummDirective, override=True)
 
 	autodocsumm.AutosummaryDocumenter.add_autosummary = add_autosummary
 	allow_subclass_add(app, PatchedAutoSummModuleDocumenter)
