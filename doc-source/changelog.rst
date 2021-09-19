@@ -16,7 +16,7 @@ Bugs Fixed
 ^^^^^^^^^^^^^
 
 * :class:`~.RegexDocumenter` -- No longer outputs a ``csv-table`` directive when there is no pattern and no flags. This prevents docutils emitting a warning.
-
+* Correctly uses UTF-8 when reading files in HTML regression tests.
 
 2.14.0
 --------
