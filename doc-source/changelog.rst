@@ -2,6 +2,15 @@
 Changelog
 ===============
 
+
+2.14.1
+--------
+
+Bugs Fixed
+^^^^^^^^^^^^^
+
+* Correctly uses UTF-8 when reading files in HTML regression tests.
+
 2.14.0
 --------
 

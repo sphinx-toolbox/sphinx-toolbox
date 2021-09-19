@@ -66,6 +66,7 @@ Functions for testing Sphinx extensions.
 import copy
 import sys
 import tempfile
+from functools import partial
 from types import SimpleNamespace
 from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, Type, Union, cast
 
@@ -738,7 +739,7 @@ class HTMLRegressionFixture(FileRegressionFixture):
 				return check_text_files(obtained_filename, expected_filename, encoding="UTF-8")
 
 		else:
-			check_fn = check_text_files
+			check_fn = partial(check_text_files, encoding="UTF-8")
 
 		super().check(
 				str(StringList(page.prettify())),
