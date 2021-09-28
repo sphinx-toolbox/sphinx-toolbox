@@ -249,6 +249,8 @@ class NamedTupleDocumenter(ClassDocumenter):
 				"   Bases: :class:`NamedTuple`",
 				}
 
+		# TODO: support generic bases for multiple inheritance
+
 		if self.directive.result[-1] in acceptable_bases or baseclass_is_private(self.object):
 			# TODO: multiple inheritance
 
