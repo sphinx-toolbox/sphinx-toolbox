@@ -2,7 +2,7 @@
 Changelog
 ===============
 
-Unreleased
+2.15.0
 ------------
 
 Features
