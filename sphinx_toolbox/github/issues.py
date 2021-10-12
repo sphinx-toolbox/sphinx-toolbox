@@ -37,6 +37,7 @@ import warnings
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 # 3rd party
+import requests
 from apeye.url import URL
 from bs4 import BeautifulSoup  # type: ignore
 from docutils import nodes
@@ -318,7 +319,10 @@ def get_issue_title(issue_url: str) -> Optional[str]:
 	:param issue_url:
 	"""  # noqa: D400
 
-	r = cache.session.get(issue_url)
+	try:
+		r = cache.session.get(issue_url, timeout=30)
+	except requests.exceptions.RequestException:
+		return None
 
 	if r.status_code == 200:
 		soup = BeautifulSoup(r.content, "html5lib")

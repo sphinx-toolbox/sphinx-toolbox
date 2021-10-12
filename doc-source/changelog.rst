@@ -2,6 +2,14 @@
 Changelog
 ===============
 
+2.15.1
+------------
+
+Bugs Fixed
+^^^^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.github` -- fix crash when getting GitHub issue titles if there's no internet.
+
 2.15.0
 ------------
 
