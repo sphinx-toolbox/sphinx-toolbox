@@ -37,7 +37,7 @@ import warnings
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 # 3rd party
-import requests
+import requests  # nodep
 from apeye.url import URL
 from bs4 import BeautifulSoup  # type: ignore
 from docutils import nodes
