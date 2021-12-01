@@ -7,7 +7,7 @@ dict2css>=0.2.3
 docutils==0.16
 domdf-python-tools>=2.9.0
 html5lib>=1.1
-ruamel-yaml>=0.16.12
+ruamel.yaml>=0.16.12
 sphinx<4.3,>=3.2.0
 sphinx-autodoc-typehints==1.11.1
 sphinx-prompt>=1.1.0
