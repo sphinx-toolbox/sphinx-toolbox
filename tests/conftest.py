@@ -30,8 +30,8 @@ import types
 
 # 3rd party
 import pytest
-from pytest_httpserver import HTTPServer  # type: ignore
-from pytest_httpserver.pytest_plugin import Plugin, PluginHTTPServer, get_httpserver_listen_address  # type: ignore
+from pytest_httpserver import HTTPServer
+from pytest_httpserver.pytest_plugin import Plugin, PluginHTTPServer, get_httpserver_listen_address
 from sphinx.testing.path import path
 from sphobjinv import Inventory  # type: ignore
 
