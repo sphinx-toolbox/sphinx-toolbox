@@ -27,9 +27,10 @@ python_versions:
   - 3.7
   - 3.8
   - 3.9
-  - 3.10-dev
-  - pypy36
-  - pypy37
+  - "3.10"
+  - 3.11-dev
+#  - pypy36
+#  - pypy37
 
 additional_ignore:
   - wip-shields-block.py
@@ -73,6 +74,7 @@ third_party_version_matrix:
     - 4.0
     - 4.1
     - 4.2
+    - 4.3
 
 classifiers:
  - 'Development Status :: 5 - Production/Stable'

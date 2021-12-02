@@ -22,19 +22,18 @@ jobs:
     runs-on: "ubuntu-20.04"
     continue-on-error: ${{ matrix.config.experimental }}
     env:
-      USING_COVERAGE: '3.6,3.7,3.8,3.9,3.10.0-rc.2,pypy-3.6,pypy-3.7'
+      USING_COVERAGE: '3.6,3.7,3.8,3.9,3.10,3.11.0-a1'
 
     strategy:
       fail-fast: False
       matrix:
         config:
-          - {python-version: "3.6", testenvs: "py36-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2},build", experimental: False}
-          - {python-version: "3.7", testenvs: "py37-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2},build", experimental: False}
-          - {python-version: "3.8", testenvs: "py38-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2},build", experimental: False}
-          - {python-version: "3.9", testenvs: "py39-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2},build", experimental: False}
-          - {python-version: "3.10.0-rc.2", testenvs: "py310-dev-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2},build", experimental: True}
-          - {python-version: "pypy-3.6", testenvs: "pypy36-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2},build", experimental: False}
-          - {python-version: "pypy-3.7", testenvs: "pypy37-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2},build", experimental: True}
+          - {python-version: "3.6", testenvs: "py36-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3},build", experimental: False}
+          - {python-version: "3.7", testenvs: "py37-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3},build", experimental: False}
+          - {python-version: "3.8", testenvs: "py38-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3},build", experimental: False}
+          - {python-version: "3.9", testenvs: "py39-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3},build", experimental: False}
+          - {python-version: "3.10", testenvs: "py310-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3},build", experimental: False}
+          - {python-version: "3.11.0-a1", testenvs: "py311-dev-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3},build", experimental: True}
 
     steps:
       - name: Checkout 🛎️
@@ -101,21 +100,26 @@ jobs:
           path: coverage
 
       - name: Display structure of downloaded files
+        id: show
         run: ls -R
         working-directory: coverage
+        continue-on-error: true
 
       - name: Combine Coverage 👷
+        if: ${{ steps.show.outcome != 'failure' }}
         run: |
           shopt -s globstar
           python -m coverage combine coverage/**/.coverage
 
       - name: "Upload Combined Coverage Artefact 🚀"
+        if: ${{ steps.show.outcome != 'failure' }}
         uses: actions/upload-artifact@v2
         with:
           name: "combined-coverage"
           path: .coverage
 
       - name: "Upload Combined Coverage to Coveralls"
+        if: ${{ steps.show.outcome != 'failure' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

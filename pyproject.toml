@@ -40,8 +40,8 @@ base-classifiers = [
     "Topic :: Utilities",
     "Typing :: Typed",
 ]
-python-versions = [ "3.6", "3.7", "3.8", "3.9",]
-python-implementations = [ "CPython", "PyPy",]
+python-versions = [ "3.6", "3.7", "3.8", "3.9", "3.10",]
+python-implementations = [ "CPython",]
 platforms = [ "Windows", "macOS", "Linux",]
 license-key = "MIT"
 package = "sphinx_toolbox"
