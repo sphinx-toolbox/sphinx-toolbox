@@ -2,6 +2,14 @@
 Changelog
 ===============
 
+Unreleased
+--------------
+
+Bugs Fixed
+^^^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.decorators` -- Ensure the ``deco`` role correctly finds the targets of xrefs.
+
 2.15.1
 ------------
 

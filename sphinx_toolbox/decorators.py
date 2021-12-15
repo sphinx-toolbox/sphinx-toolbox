@@ -134,6 +134,9 @@ class PyDecoXRefRole(PyXRefRole):
 		if not has_explicit_title and not title.startswith('@'):
 			title = f"@{title}"
 
+		# Ensure the reference is correctly found in the broader scope.
+		refnode["reftype"] = "obj"
+
 		return title, target
 
 
