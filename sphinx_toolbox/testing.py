@@ -722,11 +722,10 @@ class HTMLRegressionFixture(FileRegressionFixture):
 			for div in page.select("span.w"):
 				div.extract()
 			for div in page.select("span.p"):
-				if div.string == "=":
+				if div.string == '=':
 					sibling = div.next_sibling
-					div.replace_with("")
+					div.replace_with('')
 					sibling.replace_with(f"= {sibling.text}")
-
 
 		kwargs.pop("encoding", None)
 		kwargs.pop("extension", None)
