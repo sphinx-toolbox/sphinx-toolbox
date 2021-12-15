@@ -245,8 +245,11 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 		acceptable_bases = {
 				"   Bases: :class:`tuple`",
+				"   Bases: :py:class:`tuple`",
 				"   Bases: :class:`tuple`, :class:`typing.Generic`",
+				"   Bases: :py:class:`tuple`, :py:class:`typing.Generic`",
 				"   Bases: :class:`NamedTuple`",
+				"   Bases: :py:class:`NamedTuple`",
 				}
 
 		# TODO: support generic bases for multiple inheritance
