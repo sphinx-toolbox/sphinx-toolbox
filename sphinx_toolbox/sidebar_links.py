@@ -88,29 +88,21 @@ API Reference
 #
 
 # stdlib
-import inspect
-import re
 import warnings
-from typing import Any, Callable, Dict, List, MutableMapping, Optional, Tuple
+from typing import List
 
 # 3rd party
-import dict2css
 import docutils
-import sphinx.environment
 from docutils import nodes
 from docutils.parsers.rst import directives
 from docutils.statemachine import ViewList
-from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
-from domdf_python_tools.words import word_join
 from sphinx import addnodes
 from sphinx.application import Sphinx
-from sphinx.environment import BuildEnvironment
 from sphinx.util.docutils import SphinxDirective
 
 # this package
-from sphinx_toolbox import _css
-from sphinx_toolbox.utils import OptionSpec, Purger, SphinxExtMetadata, flag, metadata_add_version
+from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = ["SidebarLinksDirective", "setup"]
 
