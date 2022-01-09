@@ -204,6 +204,10 @@ Renders like:
 
 	**Type:** |nbsp| |nbsp| |nbsp| |nbsp| :class:`str`
 
+.. note::
+
+	Be sure to call :func:~.add_nbsp_substitution` in the ``setup`` function
+	of any extensions using this template.
 """
 
 
@@ -226,6 +230,7 @@ class VariableDocumenter(DataDocumenter):
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
 		super().__init__(directive=directive, name=name, indent=indent)
 		self.options = Options(self.options.copy())
+		add_nbsp_substitution(self.env.app.config)
 
 	def add_directive_header(self, sig: str):
 		"""
