@@ -12,3 +12,4 @@ pytest-httpserver>=0.3.5
 pytest-randomly>=3.7.0
 pytest-timeout>=1.4.2
 sphobjinv>=2.0.1
+pygments>=2.11.0
