@@ -131,7 +131,7 @@ else:  # pragma: no cover (<py37)
 	from typing import ForwardRef  # type: ignore
 
 # 3rd party
-import sphinx_autodoc_typehints  # type: ignore
+import sphinx_autodoc_typehints
 from domdf_python_tools.typing import (
 		ClassMethodDescriptorType,
 		MethodDescriptorType,
@@ -160,6 +160,36 @@ except ImportError:  # pragma: no cover
 	# attrs is used in a way that it is only required in situations
 	# where it is available to import, so it is fine to do this.
 	pass
+
+try:
+	# 3rd party
+	from sphinx_autodoc_typehints import logger as sat_logger  # type: ignore[attr-defined]
+	from sphinx_autodoc_typehints import pydata_annotations  # type: ignore[attr-defined]
+except ImportError:
+	# Privatised in 1.14.1
+	# 3rd party
+	from sphinx_autodoc_typehints import _LOGGER as sat_logger
+	from sphinx_autodoc_typehints import _PYDATA_ANNOTATIONS as pydata_annotations
+
+try:
+	# 3rd party
+	from sphinx_autodoc_typehints import _future_annotations_imported
+except ImportError:
+
+	def _future_annotations_imported(obj: Any) -> bool:
+		if sys.version_info < (3, 7):  # pragma: no cover (py37+)
+			# Only Python ≥ 3.7 supports PEP563.
+			return False
+
+		_annotations = getattr(inspect.getmodule(obj), "annotations", None)
+		if _annotations is None:
+			return False
+
+		# Make sure that annotations is imported from __future__ - defined in cpython/Lib/__future__.py
+		# annotations become strings at runtime
+		CO_FUTURE_ANNOTATIONS = 0x100000 if sys.version_info[0:2] == (3, 7) else 0x1000000
+		return _annotations.compiler_flag == CO_FUTURE_ANNOTATIONS
+
 
 __all__ = [
 		"ObjectAlias",
@@ -314,7 +344,7 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		return f":py:class:`{prefix}typing.Pattern`"
 	elif annotation is TemporaryDirectory:
 		return f":py:obj:`{prefix}tempfile.TemporaryDirectory`"
-	elif sys.version_info >= (3, 10):
+	elif sys.version_info >= (3, 10):  # pragma: no cover (<py310)
 		if annotation is types.UnionType:  # noqa: E721
 			return f":py:data:`{prefix}types.UnionType`"
 
@@ -323,7 +353,8 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 		class_name = get_annotation_class_name(annotation, module)
 
 		# Special case for typing.NewType being a class in 3.10
-		if sys.version_info >= (3, 10) and isinstance(annotation, NewType):
+		# Fixed upstream in 1.13.0
+		if sys.version_info >= (3, 10) and isinstance(annotation, NewType):  # pragma: no cover (<py310)
 			module, class_name = "typing", "NewType"
 
 		args = get_annotation_args(annotation, module, class_name)
@@ -338,18 +369,18 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	elif module == "typing_extensions":
 		module = "typing"
 
-	full_name = (module + '.' + class_name) if module != "builtins" else class_name
+	full_name = (f"{module}.{class_name}") if module != "builtins" else class_name
 	prefix = '' if fully_qualified or full_name == class_name else '~'
-	role = "data" if class_name in sphinx_autodoc_typehints.pydata_annotations else "class"
+	role = "data" if class_name in pydata_annotations else "class"
 	args_format = "\\[{}]"
 	formatted_args = ''
 
 	# Type variables are also handled specially
 	with suppress(TypeError):
 		if isinstance(annotation, TypeVar) and annotation is not AnyStr:
-			if sys.version_info < (3, 7):
+			if sys.version_info < (3, 7):  # pragma: no cover (py37)+
 				typevar_name = annotation.__name__
-			else:
+			else:  # pragma: no cover (<py37)
 				typevar_name = (annotation.__module__ + '.' + annotation.__name__)
 			return f":py:data:`{repr(annotation)} <{typevar_name}>`"
 
@@ -541,7 +572,7 @@ def process_signature(
 			hasattr(obj, "__qualname__") and "<locals>" in obj.__qualname__
 			and not _is_dataclass(name, what, obj.__qualname__)
 			):
-		sphinx_autodoc_typehints.logger.warning(
+		sat_logger.warning(
 				"Cannot treat a function defined as a local function: '%s'  (use @functools.wraps)", name
 				)
 		return None
@@ -749,7 +780,7 @@ def _class_get_type_hints(obj, globalns=None, localns=None):
 			localns = {**sys.modules[klasse.__module__].__dict__, **localns}
 
 
-def get_all_type_hints(obj, name, original_obj):
+def get_all_type_hints(obj: Any, name: str, original_obj) -> Dict[str, Any]:
 	"""
 	Returns the resolved type hints for the given objects.
 
@@ -759,7 +790,7 @@ def get_all_type_hints(obj, name, original_obj):
 	"""
 
 	def log(exc):
-		sphinx_autodoc_typehints.logger.warning(
+		sat_logger.warning(
 				'Cannot resolve forward reference in type annotations of "%s": %s',
 				name,
 				exc,
@@ -772,10 +803,19 @@ def get_all_type_hints(obj, name, original_obj):
 			rv = _class_get_type_hints(original_obj)
 		else:
 			rv = get_type_hints(obj)
-	except (AttributeError, TypeError, RecursionError):
+
+	except (AttributeError, TypeError, RecursionError) as exc:
 		# Introspecting a slot wrapper will raise TypeError, and some recursive type
 		# definitions will cause a RecursionError (https://github.com/python/typing/issues/574).
-		pass
+
+		# If one is using PEP563 annotations, Python will raise a (e.g.,)
+		# TypeError("TypeError: unsupported operand type(s) for |: 'type' and 'NoneType'")
+		# on 'str | None', therefore we accept TypeErrors with that error message
+		# if 'annotations' is imported from '__future__'.
+		if isinstance(exc, TypeError):
+			if _future_annotations_imported(obj) and "unsupported operand type" in str(exc):
+				rv = obj.__annotations__
+
 	except NameError as exc:
 		log(exc)
 		rv = obj.__annotations__
@@ -818,9 +858,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 				"'sphinx_toolbox.more_autodoc.typehints' must be loaded before 'sphinx_autodoc_typehints'."
 				)
 
-	sphinx_autodoc_typehints.format_annotation = format_annotation
+	sphinx_autodoc_typehints.format_annotation = format_annotation  # type: ignore[assignment]
 	sphinx_autodoc_typehints.process_signature = process_signature
-	sphinx_autodoc_typehints.process_docstring = process_docstring
+	sphinx_autodoc_typehints.process_docstring = process_docstring  # type: ignore[assignment]
 
 	app.setup_extension("sphinx.ext.autodoc")
 	app.setup_extension("sphinx_autodoc_typehints")
