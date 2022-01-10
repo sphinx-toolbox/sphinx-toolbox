@@ -17,6 +17,13 @@ Bugs Fixed
 * :mod:`sphinx_toolbox.more_autodoc.regex` -- Ensure the ``|nbsp|`` substitution is set up
   when using the extension on its own.
 
+
+Deprecations
+^^^^^^^^^^^^^^
+
+* :func:`sphinx_toolbox.utils.begin_generate` -- Will be removed in v3.0.0.
+  Users of this function should reimplement it in their own code.
+
 2.15.2
 --------------
 

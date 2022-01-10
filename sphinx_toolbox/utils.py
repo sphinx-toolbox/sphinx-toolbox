@@ -39,6 +39,7 @@ from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Patte
 # 3rd party
 import sphinx.config
 from apeye.requests_url import RequestsURL
+from deprecation_alias import deprecated
 from docutils.nodes import Node
 from domdf_python_tools.doctools import prettify_docstrings
 from sphinx.application import Sphinx
@@ -361,6 +362,12 @@ Type annotation for Sphinx extensions' ``setup`` functions.
 """
 
 
+@deprecated(
+		deprecated_in="2.16.0",
+		removed_in="3.0.0",
+		current_version="2.15.2",
+		details="Users of this function should reimplement it in their own code.",
+		)
 def begin_generate(
 		documenter: Documenter,
 		real_modname: Optional[str] = None,
