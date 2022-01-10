@@ -2,6 +2,21 @@
 Changelog
 ===============
 
+Unreleased
+--------------
+
+Features
+^^^^^^^^^^^
+
+* Support ``sphinx-autodoc-typehints`` versions 1.12-1.14.
+
+
+Bugs Fixed
+^^^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.more_autodoc.regex` -- Ensure the ``|nbsp|`` substitution is set up
+  when using the extension on its own.
+
 2.15.2
 --------------
 
