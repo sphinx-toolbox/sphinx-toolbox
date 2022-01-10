@@ -33,13 +33,19 @@
        <p>
        </p>
        <div class="highlight-yaml notranslate">
-        <div class="highlight">
+        <div class="highlight">{% if sphinx_version  >= (4, 3) %}
+         <pre><span></span><span class="p p-Indicator">-</span><span class="nt">repo</span><span class="p">:</span><span class="l l-Scalar l-Scalar-Plain">https://github.com/domdfcoding/sphinx-toolbox</span>
+<span class="nt">rev</span><span class="p">:</span><span class="l l-Scalar l-Scalar-Plain">v0.0.4</span>
+<span class="nt">hooks</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="nt">id</span><span class="p">:</span><span class="l l-Scalar l-Scalar-Plain">some-hook</span>
+<span class="p p-Indicator">-</span><span class="nt">id</span><span class="p">:</span><span class="l l-Scalar l-Scalar-Plain">some-other-hook</span>
+</pre>{% else %}
          <pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/domdfcoding/sphinx-toolbox</span><span class="w"></span>
 <span class="w">  </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v0.0.4</span><span class="w"></span>
 <span class="w">  </span><span class="nt">hooks</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some-hook</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">some-other-hook</span><span class="w"></span>
-</pre>
+</pre>{% endif %}
         </div>
        </div>
        <p>
@@ -47,14 +53,21 @@
        <p>
        </p>
        <div class="highlight-yaml notranslate">
-        <div class="highlight">
+        <div class="highlight">{% if sphinx_version  >= (4, 3) %}
+         <pre><span></span><span class="p p-Indicator">-</span><span class="nt">repo</span><span class="p">:</span><span class="l l-Scalar l-Scalar-Plain">https://github.com/pycqa/flake8</span>
+<span class="nt">rev</span><span class="p">:</span><span class="l l-Scalar l-Scalar-Plain">3.8.4</span>
+<span class="nt">hooks</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="nt">id</span><span class="p">:</span><span class="l l-Scalar l-Scalar-Plain">flake8</span>
+<span class="nt">additional_dependencies</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="l l-Scalar l-Scalar-Plain">sphinx-toolbox==0.0.4</span>
+</pre>{% else %}
          <pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/pycqa/flake8</span><span class="w"></span>
 <span class="w">  </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.8.4</span><span class="w"></span>
 <span class="w">  </span><span class="nt">hooks</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">flake8</span><span class="w"></span>
 <span class="w">    </span><span class="nt">additional_dependencies</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sphinx-toolbox==0.0.4</span><span class="w"></span>
-</pre>
+</pre>{% endif %}
         </div>
        </div>
        <p>
