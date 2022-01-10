@@ -157,7 +157,7 @@ from sphinx.writers.html import HTMLTranslator
 # this package
 from sphinx_toolbox import _css
 from sphinx_toolbox.more_autodoc.variables import VariableDocumenter
-from sphinx_toolbox.utils import add_nbsp_substitution, SphinxExtMetadata, flag, metadata_add_version
+from sphinx_toolbox.utils import SphinxExtMetadata, add_nbsp_substitution, flag, metadata_add_version
 
 __all__ = [
 		"RegexDocumenter",
