@@ -98,6 +98,7 @@ API Reference
 import importlib
 import sys
 import warnings
+from contextlib import suppress
 from typing import Any, List, Optional, cast, get_type_hints
 
 # 3rd party
@@ -154,12 +155,8 @@ def get_variable_type(documenter: Documenter) -> str:
 	except NameError:
 		# Failed to evaluate ForwardRef (maybe TYPE_CHECKING)
 		annotations = safe_getattr(documenter.parent, "__annotations__", {})
-	except TypeError:
-		annotations = {}
-	except KeyError:
-		# a broken class found (refs: https://github.com/sphinx-doc/sphinx/issues/8084)
-		annotations = {}
-	except AttributeError:
+	except (TypeError, KeyError, AttributeError):
+		# KeyError: a broken class found (refs: https://github.com/sphinx-doc/sphinx/issues/8084)
 		# AttributeError is raised on 3.5.2 (fixed by 3.5.3)
 		annotations = {}
 
@@ -251,12 +248,10 @@ class VariableDocumenter(DataDocumenter):
 				if "value" in self.options:
 					self.add_line(f"   :value: {self.options['value']}", sourcename)
 				else:
-					try:
+					with suppress(ValueError):
 						if self.object is not UNINITIALIZED_ATTR:
 							objrepr = object_description(self.object)
 							self.add_line(f"   :value: {objrepr}", sourcename)
-					except ValueError:
-						pass
 
 			self.add_line('', sourcename)
 
@@ -408,12 +403,10 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 				if "value" in self.options:
 					self.add_line("   :value: " + self.options["value"], sourcename)
 				else:
-					try:
+					with suppress(ValueError):
 						if self.object is not INSTANCEATTR:
 							objrepr = object_description(self.object)
 							self.add_line("   :value: " + objrepr, sourcename)
-					except ValueError:
-						pass
 
 			self.add_line('', sourcename)
 

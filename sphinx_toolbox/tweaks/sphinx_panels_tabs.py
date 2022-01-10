@@ -89,7 +89,7 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 	if exception:  # pragma: no cover
 		return
 
-	if app.builder is None or app.builder.format.lower() != "html":
+	if app.builder is None or app.builder.format.lower() != "html":  # pragma: no cover
 		return
 
 	# style = StringList([
