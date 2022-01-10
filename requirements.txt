@@ -1,12 +1,14 @@
-apeye[limiter]>=0.9.0
+apeye>=0.4.0
 autodocsumm>=0.2.0
 beautifulsoup4>=4.9.1
+cachecontrol[filecache]>=0.12.6
 consolekit>=0.3.1
 deprecation-alias>=0.2.0
 dict2css>=0.2.3
 docutils==0.16
 domdf-python-tools>=2.9.0
 html5lib>=1.1
+lockfile>=0.12.2
 ruamel.yaml>=0.16.12
 sphinx<4.4,>=3.2.0
 sphinx-autodoc-typehints==1.11.1
