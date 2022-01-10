@@ -158,15 +158,12 @@ else:
 				(D, ":py:class:`~%s.D`" % __name__),
 				(E, ":py:class:`~%s.E`" % __name__),
 				(E[int], ":py:class:`~%s.E`\\[:py:class:`int`]" % __name__),
-				pytest.param(
+				(
 						W,
-						":py:func:`~typing.NewType`\\(:py:data:`~W`, :py:class:`str`)",
-						marks=pytest.mark.skipif(sys.version_info[:2] >= (3, 10), reason="Changed in Python 3.10"),
-						),
-				pytest.param(
-						W,
-						":py:class:`~typing.NewType`\\(:py:data:`~W`, :py:class:`str`)",
-						marks=min_version((3, 10), reason="Changed in Python 3.10"),
+						(
+								f':py:{"class" if sys.version_info >= (3, 10) else "func"}:'
+								f'`~typing.NewType`\\(:py:data:`~W`, :py:class:`str`)'
+								)
 						),
 				]
 		)
