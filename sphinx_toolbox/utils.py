@@ -365,7 +365,7 @@ Type annotation for Sphinx extensions' ``setup`` functions.
 @deprecated(
 		deprecated_in="2.16.0",
 		removed_in="3.0.0",
-		current_version="2.15.2",
+		current_version="2.15.3",
 		details="Users of this function should reimplement it in their own code.",
 		)
 def begin_generate(
