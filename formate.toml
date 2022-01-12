@@ -54,6 +54,7 @@ known_third_party = [
     "importlib_metadata",
     "importlib_resources",
     "jinja2",
+    "lockfile",
     "markupsafe",
     "pprint36",
     "pygments",
