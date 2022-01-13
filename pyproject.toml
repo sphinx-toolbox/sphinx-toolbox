@@ -82,6 +82,7 @@ extensions = [
     "sphinx_debuginfo",
     "sphinx_licenseinfo",
     "seed_intersphinx_mapping",
+    "html_section",
     "sphinx_toolbox.pre_commit",
     "sphinx_toolbox.flake8",
     "sphinx_autofixture",

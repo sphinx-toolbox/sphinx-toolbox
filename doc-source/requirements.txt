@@ -1,9 +1,9 @@
-git+https://github.com/sphinx-toolbox/html-section.git
 git+https://github.com/sphinx-toolbox/email@translator
 default-values>=0.5.0
 domdf-sphinx-theme>=0.3.0
 extras-require>=0.2.0
 flake8-dunder-all>=0.0.4
+html-section>=0.1.0
 pygments>=2.7.4
 pytest>=6.0.0
 pytest-regressions>=2.0.2
