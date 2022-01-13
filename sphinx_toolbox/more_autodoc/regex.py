@@ -834,6 +834,7 @@ def configure(app: Sphinx, config: Config):
 
 	latex_elements["preamble"] = str(latex_preamble)
 	app.config.latex_elements = latex_elements  # type: ignore
+	add_nbsp_substitution(config)
 
 
 @metadata_add_version
@@ -850,7 +851,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.connect("config-inited", configure)
 
 	app.add_autodocumenter(RegexDocumenter)
-	add_nbsp_substitution(app.config)
 
 	app.add_role("regex", Regex())
 	app.add_node(

@@ -425,6 +425,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	allow_subclass_add(app, NamedTupleDocumenter)
 
-	add_nbsp_substitution(app.config)
+	app.connect("config-inited", lambda _, config: add_nbsp_substitution(config))
 
 	return {"parallel_read_safe": True}

@@ -49,6 +49,7 @@ documentation_summary = "   This is an awesome tool! 🚀 ~ intersphinx_mapping 
 
 intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 
+rst_prolog = ".. |hello| replace:: world"
 
 # These revert https://github.com/sphinx-doc/sphinx/pull/8472
 def visit_desc_signature(self, node: addnodes.desc_signature) -> None:

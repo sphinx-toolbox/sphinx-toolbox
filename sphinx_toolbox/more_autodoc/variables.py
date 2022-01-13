@@ -674,6 +674,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_autodocumenter(InstanceAttributeDocumenter, override=True)
 	app.add_autodocumenter(SlotsAttributeDocumenter, override=True)
 
-	add_nbsp_substitution(app.config)
+	app.connect("config-inited", lambda _, config: add_nbsp_substitution(config))
 
 	return {"parallel_read_safe": True}
