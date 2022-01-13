@@ -136,6 +136,7 @@ from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import (
 		Param,
 		SphinxExtMetadata,
+		add_fallback_css_class,
 		add_nbsp_substitution,
 		allow_subclass_add,
 		baseclass_is_private,
@@ -422,6 +423,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.registry.domains["py"].object_types["namedtuple"] = ObjType(_("namedtuple"), "namedtuple", "class", "obj")
 	app.add_directive_to_domain("py", "namedtuple", PyClasslike)
 	app.add_role_to_domain("py", "namedtuple", PyXRefRole())
+
+	app.connect("object-description-transform", add_fallback_css_class({"namedtuple": "class"}))
 
 	allow_subclass_add(app, NamedTupleDocumenter)
 

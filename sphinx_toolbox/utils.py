@@ -42,6 +42,7 @@ from apeye.requests_url import RequestsURL
 from deprecation_alias import deprecated
 from docutils.nodes import Node
 from domdf_python_tools.doctools import prettify_docstrings
+from sphinx.addnodes import desc_content
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 from sphinx.errors import PycodeError
@@ -75,6 +76,7 @@ __all__ = [
 		"typed_param_regex",
 		"unknown_module_warning",
 		"untyped_param_regex",
+		"add_fallback_css_class",
 		]
 
 #: Instance of :class:`apeye.requests_url.RequestsURL` that points to the GitHub website.
@@ -677,3 +679,58 @@ def add_nbsp_substitution(config: sphinx.config.Config):
 
 	if nbsp_sub not in config.rst_prolog:
 		config.rst_prolog = '\n'.join([config.rst_prolog, '', nbsp_sub])  # type: ignore
+
+
+_OBJTYPES_CSS_FALLBACKS = {
+		"namedtuple": "class",
+		"protocol": "class",
+		"typeddict": "class",
+		}
+
+# From https://github.com/mansenfranzen/autodoc_pydantic/pull/86/files
+# MIT Licensed
+# Copyright (c) 2021 Franz Wöllert
+
+
+def add_fallback_css_class(objtypes_css_fallbacks: Dict[str, str]):
+	"""
+	Registers a transform which will edit the CSS classes of documented objects based on their ``objtype``.
+
+	:param objtypes_css_fallbacks: A mapping of Sphinx objtypes to the CSS class which should be added to them.
+		The class is usually the ``objtype`` attribute from the documenter's parent class.
+
+	.. versionadded:: 2.16.0
+
+	Used as follows:
+
+	.. code-block:: python
+
+		app.connect("object-description-transform", add_fallback_css_class({"typeddict": "class"}))
+
+	This will apply the transformation to documented objects with the ``typeddict`` CSS class
+	by adding the ``class`` CSS class.
+
+	:param objtypes_css_fallbacks:
+	"""
+
+	def func(
+			app: Sphinx,
+			domain: str,
+			objtype: str,
+			contentnode: desc_content,
+			):
+
+		if objtype not in objtypes_css_fallbacks:
+			return
+
+		classes = contentnode.parent.attributes["classes"]
+
+		# for older sphinx versions, add objtype explicitly
+		if sphinx.version_info < (3, 6):
+			classes.append(objtype)
+
+		idx = classes.index(objtype)
+		fallback = objtypes_css_fallbacks[objtype]
+		classes.insert(idx, fallback)
+
+	return func

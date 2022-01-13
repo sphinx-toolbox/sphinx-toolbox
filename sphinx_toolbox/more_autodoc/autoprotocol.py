@@ -156,6 +156,7 @@ from sphinx_toolbox.more_autodoc import ObjectMembers
 from sphinx_toolbox.more_autodoc.generic_bases import _add_generic_bases
 from sphinx_toolbox.utils import (
 		SphinxExtMetadata,
+		add_fallback_css_class,
 		allow_subclass_add,
 		filter_members_warning,
 		flag,
@@ -381,6 +382,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.registry.domains["py"].object_types["protocol"] = ObjType(_("protocol"), "protocol", "class", "obj")
 	app.add_directive_to_domain("py", "protocol", PyClasslike)
 	app.add_role_to_domain("py", "protocol", PyXRefRole())
+	app.connect("object-description-transform", add_fallback_css_class({"protocol": "class"}))
 
 	allow_subclass_add(app, ProtocolDocumenter)
 

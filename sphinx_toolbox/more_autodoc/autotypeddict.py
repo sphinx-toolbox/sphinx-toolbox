@@ -145,6 +145,7 @@ from sphinx_toolbox.more_autodoc import ObjectMembers
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import (
 		SphinxExtMetadata,
+		add_fallback_css_class,
 		allow_subclass_add,
 		filter_members_warning,
 		flag,
@@ -410,6 +411,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.registry.domains["py"].object_types["typeddict"] = ObjType("typeddict", "typeddict", "class", "obj")
 	app.add_directive_to_domain("py", "typeddict", PyClasslike)
 	app.add_role_to_domain("py", "typeddict", PyXRefRole())
+	app.connect("object-description-transform", add_fallback_css_class({"typeddict": "class"}))
 
 	allow_subclass_add(app, TypedDictDocumenter)
 

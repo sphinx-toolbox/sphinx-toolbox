@@ -2,6 +2,24 @@
 Changelog
 ===============
 
+
+2.16.0
+--------------
+
+Bugs Fixed
+^^^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.more_autodoc` -- Ensure the ``|nbsp|`` substitution is set up correctly when the ``rst_prolog`` option is specified in ``conf.py`` (Issue :issue:`80`).
+  when using the extension on its own.
+* Set the ``class`` CSS class with custom autodocumenters (:mod:`~.autonamedtuple`, :mod:`~.autoprotocol` and :mod:`~.autotypeddict`) (Issue :issue:`79`)
+
+
+Additions
+^^^^^^^^^^^
+
+* :func:`sphinx_toolbox.utils.add_fallback_css_class`
+
+
 2.15.3
 --------------
 
@@ -15,7 +33,7 @@ Bugs Fixed
 ^^^^^^^^^^^^
 
 * :mod:`sphinx_toolbox.more_autodoc.regex` -- Ensure the ``|nbsp|`` substitution is set up
-  when using the extension on its own.
+  when using the extension on its own (Issue :issue:`80`).
 
 
 Deprecations
