@@ -212,7 +212,7 @@ def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFil
 						)
 				)
 
-		return check_text_files(obtained_filename, expected_filename)
+		return check_text_files(obtained_filename, expected_filename, encoding="UTF-8")
 
 	advanced_file_regression.check(
 			str(StringList(page.prettify())),
@@ -270,7 +270,7 @@ class LaTeXRegressionFixture(AdvancedFileRegressionFixture):
 							)
 					)
 
-			return check_text_files(obtained_filename, expected_filename)
+			return check_text_files(obtained_filename, expected_filename, encoding="UTF-8")
 
 		new_contents = _latex_date_re.sub(
 				r"\\date{Mar 11, 2021}",
