@@ -45,7 +45,6 @@ extra_sphinx_extensions:
   - sphinx_toolbox.flake8
   - sphinx_autofixture
   - sphinx_event_role
-  - html_section
   - _internal_extension
   - sphinxcontrib.email
   - ignore_missing_xref
