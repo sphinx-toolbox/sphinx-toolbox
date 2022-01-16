@@ -75,6 +75,7 @@ import pytest  # nodep
 import sphinx.application
 from bs4 import BeautifulSoup  # type: ignore
 from coincidence.regressions import check_file_output, check_file_regression  # nodep
+from docutils import __version_info__ as docutils_version
 from docutils import nodes
 from docutils.parsers.rst import Directive, roles
 from docutils.transforms import Transform
@@ -578,9 +579,9 @@ def run_setup(setup_func: _setup_func_type) -> RunSetupOutput:  # , buildername:
 
 	app.add_domain(PythonDomain)
 
+	_additional_nodes = copy.copy(docutils.additional_nodes)
 	try:
-		_additional_nodes = copy.copy(docutils.additional_nodes)
-		docutils.additional_nodes = set()
+		sphinx.util.docutils.additional_nodes = set()
 
 		with docutils.docutils_namespace():
 			setup_ret = setup_func(app)  # type: ignore
@@ -696,6 +697,7 @@ class HTMLRegressionFixture(FileRegressionFixture):
 
 		* ``sphinx_version`` -- the Sphinx version number, as a tuple of integers.
 		* ``python_version`` -- the Python version number, in the form returned by :data:`sys.version_info`.
+		* ``docutils_version`` -- the docutils version number, as a tuple of integers (*New in version 2.16.0*).
 
 		**Example usage**
 
@@ -742,6 +744,7 @@ class HTMLRegressionFixture(FileRegressionFixture):
 						template.render(
 								sphinx_version=sphinx.version_info,
 								python_version=sys.version_info,
+								docutils_version=docutils_version,
 								)
 						)
 

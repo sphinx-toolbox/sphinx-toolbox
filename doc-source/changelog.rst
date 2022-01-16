@@ -18,7 +18,7 @@ Additions
 ^^^^^^^^^^^
 
 * :func:`sphinx_toolbox.utils.add_fallback_css_class`
-
+* :class:`sphinx_toolbox.testing.HTMLRegressionFixture` -- made the ``docutils_version`` variable available in jinja2 templates.
 
 2.15.3
 --------------
