@@ -4,7 +4,8 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <meta content="Python -- This is an awesome tool! 🚀 ~ intersphinx_mapping # {{ jinja2 }} 100% 'Quotes'" name="description"/>
-  <title>
+    {% if docutils_version >= (0, 18) %}<meta content="Docutils {{ docutils_version[0] }}.{{ docutils_version[1] }}.{{ docutils_version[2] }}: http://docutils.sourceforge.net/" name="generator"/>
+  {% endif %}<title>
    sphinx-toolbox Demo - documentation-summary :meta: — Python  documentation
   </title>
   <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
@@ -24,7 +25,7 @@
    <div class="documentwrapper">
     <div class="bodywrapper">
      <div class="body" role="main">
-      <div class="section" id="sphinx-toolbox-demo-documentation-summary-meta">
+      <{% if docutils_version >= (0, 18) %}section{% else %}div class="section"{% endif %} id="sphinx-toolbox-demo-documentation-summary-meta">
        <h1>
         sphinx-toolbox Demo - documentation-summary :meta:
         <a class="headerlink" href="#sphinx-toolbox-demo-documentation-summary-meta" title="Permalink to this headline">
@@ -42,7 +43,7 @@
        </p>
        <p id="documentation-summary-0">
        </p>
-      </div>
+      </{% if docutils_version >= (0, 18) %}section{% else %}div{% endif %}>
      </div>
     </div>
    </div>

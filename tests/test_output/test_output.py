@@ -4,6 +4,7 @@ import sys
 from typing import List, Union
 
 # 3rd party
+import docutils
 import pytest
 import sphinx
 from _pytest.mark import ParameterSet
@@ -11,6 +12,7 @@ from bs4 import BeautifulSoup  # type: ignore
 from coincidence.params import param
 from coincidence.regressions import AdvancedFileRegressionFixture
 from coincidence.selectors import min_version, only_version
+from docutils import __version_info__ as docutils_version
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from jinja2 import Template
@@ -33,8 +35,12 @@ def test_example_html_output(page: BeautifulSoup):
 	title = page.find("h1").contents[0].strip()
 	assert "sphinx-toolbox Demo - reST Example" == title
 
-	selector_string = "div.body div#sphinx-toolbox-demo-rest-example"
+	if docutils.__version_info__ >= (0, 18):
+		selector_string = "div.body section#sphinx-toolbox-demo-rest-example"
+	else:
+		selector_string = "div.body div#sphinx-toolbox-demo-rest-example"
 
+	# import pdb; pdb.set_trace()
 	body = list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
 	assert len(body) == 3
 
@@ -62,7 +68,7 @@ def test_example_html_output(page: BeautifulSoup):
 
 
 pages_to_check: List[ParameterSet] = [
-		param("assets.html", False, idx=0),
+		param("assets.html", True, idx=0),
 		param("augment-defaults.html", True, idx=0),
 		param("autodoc-ellipsis.html", True, idx=0),
 		pytest.param(
@@ -204,11 +210,13 @@ def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFil
 		print(obtained_filename, expected_filename)
 		expected_filename = PathPlus(expected_filename)
 		template = Template(expected_filename.read_text())
+		template.filename = expected_filename.as_posix()
 
 		expected_filename.write_text(
 				template.render(
 						sphinx_version=sphinx.version_info,
 						python_version=sys.version_info,
+						docutils_version=docutils_version,
 						)
 				)
 
@@ -262,6 +270,7 @@ class LaTeXRegressionFixture(AdvancedFileRegressionFixture):
 					comment_start_string="<#",
 					comment_end_string="#>",
 					)
+			template.filename = expected_filename.as_posix()
 
 			expected_filename.write_text(
 					template.render(

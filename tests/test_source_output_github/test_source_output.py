@@ -35,4 +35,4 @@ def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLR
 
 	assert tag_count == 2
 
-	html_regression.check(github_source_page)
+	html_regression.check(github_source_page, jinja2=True)

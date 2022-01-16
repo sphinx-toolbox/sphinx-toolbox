@@ -3,7 +3,8 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
+  {% if docutils_version >= (0, 18) %}<meta content="Docutils {{ docutils_version[0] }}.{{ docutils_version[1] }}.{{ docutils_version[2] }}: http://docutils.sourceforge.net/" name="generator"/>
+  {% endif %}<title>
    Changeset — Python  documentation
   </title>
   <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
@@ -23,14 +24,14 @@
    <div class="documentwrapper">
     <div class="bodywrapper">
      <div class="body" role="main">
-      <div class="section" id="changeset">
+      <{% if docutils_version >= (0, 18) %}section{% else %}div class="section"{% endif %} id="changeset">
        <h1>
         Changeset
         <a class="headerlink" href="#changeset" title="Permalink to this headline">
          ¶
         </a>
        </h1>
-       <div class="section" id="removed">
+       <{% if docutils_version >= (0, 18) %}section{% else %}div class="section"{% endif %} id="removed">
         <h2>
          Removed
          <a class="headerlink" href="#removed" title="Permalink to this headline">
@@ -111,7 +112,7 @@ If you desperately need this functionality please write to the mailing list at
          </ul>
         </div>
        </div>
-       <div class="section" id="changed">
+       <{% if docutils_version >= (0, 18) %}section{% else %}div class="section"{% endif %} id="changed">
         <h2>
          Changed
          <a class="headerlink" href="#changed" title="Permalink to this headline">
@@ -165,7 +166,7 @@ The class docstring has priority.
          </ul>
         </div>
        </div>
-      </div>
+      </{% if docutils_version >= (0, 18) %}section{% else %}div{% endif %}>
      </div>
     </div>
    </div>

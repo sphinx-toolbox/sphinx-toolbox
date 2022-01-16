@@ -31,4 +31,4 @@ def test_output_sphinx(sphinx_source_page: BeautifulSoup, html_regression: HTMLR
 
 	assert tag_count == 4
 
-	html_regression.check(sphinx_source_page)
+	html_regression.check(sphinx_source_page, jinja2=True)

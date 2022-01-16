@@ -739,6 +739,7 @@ class HTMLRegressionFixture(FileRegressionFixture):
 
 				expected_filename = PathPlus(expected_filename)
 				template = Template(expected_filename.read_text())
+				template.filename = expected_filename.as_posix()
 
 				expected_filename.write_text(
 						template.render(

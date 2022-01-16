@@ -3,7 +3,8 @@
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
+  {% if docutils_version >= (0, 18) %}<meta content="Docutils {{ docutils_version[0] }}.{{ docutils_version[1] }}.{{ docutils_version[2] }}: http://docutils.sourceforge.net/" name="generator"/>
+  {% endif %}<title>
    sphinx-toolbox Demo - footnotes — Python  documentation
   </title>
   <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
@@ -23,7 +24,7 @@
    <div class="documentwrapper">
     <div class="bodywrapper">
      <div class="body" role="main">
-      <div class="section" id="sphinx-toolbox-demo-footnotes">
+      <{% if docutils_version >= (0, 18) %}section{% else %}div class="section"{% endif %} id="sphinx-toolbox-demo-footnotes">
        <h1>
         sphinx-toolbox Demo - footnotes
         <a class="headerlink" href="#sphinx-toolbox-demo-footnotes" title="Permalink to this headline">
@@ -93,7 +94,7 @@
          </div>
         </dd>
        </dl>
-      </div>
+      </{% if docutils_version >= (0, 18) %}section{% else %}div{% endif %}>
      </div>
     </div>
    </div>
