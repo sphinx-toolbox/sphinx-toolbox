@@ -12,7 +12,6 @@ license: 'MIT'
 short_desc: 'Box of handy tools for Sphinx 🧰 📔'
 
 use_whey: true
-mypy_version: "0.910"
 min_coverage: 90
 python_deploy_version: 3.7
 tox_testenv_extras: all

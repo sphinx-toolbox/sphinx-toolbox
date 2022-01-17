@@ -106,7 +106,9 @@ def sourcelinks_process_docstring(
 	show_sourcelink = options.get("sourcelink", app.config.autodoc_show_sourcelink)
 
 	if isinstance(obj, ModuleType) and what == "module" and show_sourcelink:
-		if obj.__file__.endswith("/__init__.py"):
+		if not obj.__file__:
+			return
+		elif obj.__file__.endswith("/__init__.py"):
 			source_target = f"{name.replace('.', '/')}/__init__.py"
 		elif obj.__file__.endswith("\\__init__.py"):
 			source_target = f"{name.replace('.', '/')}/__init__.py"

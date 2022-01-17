@@ -479,13 +479,13 @@ def preprocess_class_defaults(
 	:return: The class signature and a list of arguments/parameters.
 	"""
 
-	init = getattr(obj, "__init__", getattr(obj, "__new__", None))
+	init: Optional[Callable[..., Any]] = getattr(obj, "__init__", getattr(obj, "__new__", None))
 
 	if is_namedtuple(obj):
 		init = getattr(obj, "__new__")
 
 	try:
-		signature = Signature(inspect.unwrap(init))
+		signature = Signature(inspect.unwrap(init))  # type: ignore[arg-type]
 	except ValueError:  # pragma: no cover
 		return init, None, []
 
