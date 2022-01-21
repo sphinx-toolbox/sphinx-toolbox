@@ -3,6 +3,13 @@ Changelog
 ===============
 
 
+2.16.1
+--------------
+
+Removed top-end requirement for Sphinx.
+The officially supported versions are Sphinx 3.2 to 4.4 inclusive.
+
+
 2.16.0
 --------------
 
