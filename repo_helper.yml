@@ -73,6 +73,8 @@ third_party_version_matrix:
     - 4.1
     - 4.2
     - 4.3
+    - 4.4
+    - latest
 
 classifiers:
  - 'Development Status :: 5 - Production/Stable'
