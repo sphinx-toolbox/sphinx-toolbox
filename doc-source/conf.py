@@ -34,6 +34,7 @@ intersphinx_mapping = {
 		"sphinx": ("https://www.sphinx-doc.org/en/stable/", None),
 		"pytest": ("https://docs.pytest.org/en/stable", None),
 		"pytest-regressions": ("https://pytest-regressions.readthedocs.io/en/latest/", None),
+		"coincidence": ("https://coincidence.readthedocs.io/en/latest", None),
 		"autodocsumm": ("https://autodocsumm.readthedocs.io/en/latest", None),
 		}
 

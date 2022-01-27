@@ -3,6 +3,16 @@ Changelog
 ===============
 
 
+2.17.0
+--------------
+
+Additions
+^^^^^^^^^^^
+
+* :func:`sphinx_toolbox.testing.latex_regression` and :class:`sphinx_toolbox.testing.LaTeXRegressionFixture`
+* The ``jinja2_namespace`` argument to :class:`sphinx_toolbox.testing.HTMLRegressionFixture.check`
+
+
 2.16.1
 --------------
 
