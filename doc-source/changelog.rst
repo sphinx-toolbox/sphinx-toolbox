@@ -13,6 +13,12 @@ Additions
 * The ``jinja2_namespace`` argument to :class:`sphinx_toolbox.testing.HTMLRegressionFixture.check`
 
 
+Bugs Fixed
+^^^^^^^^^^^
+
+* Close the underlying requests session of :data:`sphinx_toolbox.utils.GITHUB_COM` when the Python interpreter exits.
+
+
 2.16.1
 --------------
 

@@ -32,6 +32,7 @@ General utility functions.
 #
 
 # stdlib
+import atexit
 import functools
 import re
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Pattern, Set, Tuple, Type, TypeVar, cast
@@ -86,6 +87,8 @@ GITHUB_COM: RequestsURL = RequestsURL("https://github.com")
 OptionSpec = Mapping[str, Callable[[str], Any]]
 
 _T = TypeVar("_T")
+
+atexit.register(GITHUB_COM.session.close)
 
 
 @functools.lru_cache()
