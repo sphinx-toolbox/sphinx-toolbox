@@ -87,7 +87,7 @@ API Reference
 """  # noqa: SXL001
 #
 #  Copyright (c) Alex Grönholm
-#  Changes copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Changes copyright © 2020-2022 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -679,6 +679,10 @@ def process_docstring(
 
 	.. clearpage::
 	"""
+
+	if what in {"variable", "regex"}:
+		# Doesn't have parameters or return type
+		return
 
 	original_obj = obj
 
