@@ -17,6 +17,8 @@ Bugs Fixed
 ^^^^^^^^^^^
 
 * Close the underlying requests session of :data:`sphinx_toolbox.utils.GITHUB_COM` when the Python interpreter exits.
+* :func:`sphinx_toolbox.more_autodoc.typehints.process_docstring` is skipped for ``variable`` and ``regex`` documenters
+  where there aren't ``:param:`` and ``:rtype:`` attributes.
 
 
 2.16.1
