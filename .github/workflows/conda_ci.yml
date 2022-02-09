@@ -13,6 +13,9 @@ jobs:
   tests:
     name: "Conda"
     runs-on: ubuntu-18.04
+    defaults:
+      run:
+        shell: bash -l {0}
 
     steps:
       - name: Checkout 🛎️
@@ -23,6 +26,12 @@ jobs:
         with:
           python-version: "3.8"
 
+      - name: Setup Conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: env
+          conda-build-version: 3.21.0
+
       - name: Install dependencies 🔧
         run: |
           python -VV
@@ -30,9 +39,6 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install --upgrade "whey-conda" "whey"
           # $CONDA is an environment variable pointing to the root of the miniconda directory
-          $CONDA/bin/conda update -q conda
-          $CONDA/bin/conda install conda-build=3.21.0
-
           $CONDA/bin/conda config --add channels conda-forge
           $CONDA/bin/conda config --add channels domdfcoding
 
@@ -53,5 +59,6 @@ jobs:
       - name: "Run Tests"
         run: |
           rm -rf sphinx_toolbox
-          $CONDA/bin/pip install -r tests/requirements.txt
-          $CONDA/bin/pytest tests/
+          $CONDA/bin/conda install pytest coincidence || exit 1
+          pip install -r tests/requirements.txt
+          pytest tests/

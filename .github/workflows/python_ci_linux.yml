@@ -14,6 +14,7 @@ on:
 
 permissions:
   actions: write
+  issues: write
   contents: read
 
 jobs:
@@ -22,7 +23,7 @@ jobs:
     runs-on: "ubuntu-20.04"
     continue-on-error: ${{ matrix.config.experimental }}
     env:
-      USING_COVERAGE: '3.6,3.7,3.8,3.9,3.10,3.11.0-alpha.4,pypy-3.6,pypy-3.7'
+      USING_COVERAGE: '3.6,3.7,3.8,3.9,3.10,3.11.0-alpha.5,pypy-3.6,pypy-3.7'
 
     strategy:
       fail-fast: False
@@ -33,7 +34,7 @@ jobs:
           - {python-version: "3.8", testenvs: "py38-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3,4.4,latest},build", experimental: False}
           - {python-version: "3.9", testenvs: "py39-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3,4.4,latest},build", experimental: False}
           - {python-version: "3.10", testenvs: "py310-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3,4.4,latest},build", experimental: False}
-          - {python-version: "3.11.0-alpha.4", testenvs: "py311-dev-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3,4.4,latest},build", experimental: True}
+          - {python-version: "3.11.0-alpha.5", testenvs: "py311-dev-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3,4.4,latest},build", experimental: True}
           - {python-version: "pypy-3.6", testenvs: "pypy36-sphinx{4.0,4.1,4.2,4.3,4.4,latest},build", experimental: False}
           - {python-version: "pypy-3.7", testenvs: "pypy37-sphinx{4.0,4.1,4.2,4.3,4.4,latest},build", experimental: True}
 
@@ -138,21 +139,21 @@ jobs:
 
       - name: Setup Python 🐍
         uses: "actions/setup-python@v2"
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           python-version: 3.8
-        if: startsWith(github.ref, 'refs/tags/')
 
       - name: Install dependencies 🔧
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install --upgrade tox
-        if: startsWith(github.ref, 'refs/tags/')
 
       - name: Build distributions 📦
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           tox -e build
 
-        if: startsWith(github.ref, 'refs/tags/')
 
       - name: Upload distribution to PyPI 🚀
         if: startsWith(github.ref, 'refs/tags/')
@@ -161,6 +162,15 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_TOKEN }}
           skip_existing: true
+
+      - name: Close milestone 🚪
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          python -m pip install --upgrade github3.py packaging
+          python .github/milestones.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 
   Conda:
