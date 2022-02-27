@@ -59,7 +59,7 @@ Usage
 
 """
 #
-#  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
+#  Copyright © 2020-2022 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -142,7 +142,6 @@ from typing import Any, Callable, List, Optional, Pattern, Tuple
 
 # 3rd party
 import dict2css
-from consolekit.terminal_colours import Fore
 from docutils import nodes
 from docutils.nodes import Node, system_message
 from domdf_python_tools.paths import PathPlus
@@ -363,7 +362,7 @@ class RegexParser:
 	r"""
 	Parser for regular expressions that outputs coloured output.
 
-	The formatting is controlled by the following variables:
+	The formatting is controlled by the following callable attributes:
 
 	* ``AT_COLOUR`` -- Used for e.g. :regex:`^\A\b\B\Z$`
 	* ``SUBPATTERN_COLOUR`` -- Used for the parentheses around subpatterns, e.g. :regex:`(Hello) World`
@@ -378,6 +377,7 @@ class RegexParser:
 	These are all :class:`~typing.Callable`\[[:class:`~typing.Any`], :class:`str`\].
 
 	By default no formatting is performed.
+	Subclasses should set these attributes to appropriate functions.
 	"""
 
 	# Colours
@@ -686,30 +686,44 @@ class TerminalRegexParser(RegexParser):
 	:class:`~.RegexParser` that outputs ANSI coloured output for the terminal.
 
 
-	The formatting is controlled by the following functions,
-	which are instances of :class:`consolekit.terminal_colours.Colour`:
+	The formatting is controlled by the following callable attributes,
+	which set ANSI escape codes for the appropriate colour:
 
-	* ``AT_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for e.g. :regex:`^\A\b\B\Z$`
-	* ``SUBPATTERN_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.LIGHTYELLOW_EX` -- Used for the parentheses around subpatterns, e.g. :regex:`(Hello) World`
-	* ``IN_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.LIGHTRED_EX` -- Used for the square brackets around character sets, e.g. :regex:`[Hh]ello`
-	* ``REPEAT_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.LIGHTBLUE_EX` -- Used for repeats, e.g. :regex:`A?B+C*D{2,4}E{5}`
-	* ``REPEAT_BRACE_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for the braces around numerical repeats.
-	* ``CATEGORY_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.LIGHTYELLOW_EX` -- Used for categories, e.g. :regex:`\d\D\s\D\w\W`
-	* ``BRANCH_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for branches, e.g. :regex:`(Lovely|Horrible) Weather`
-	* ``LITERAL_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.GREEN` -- Used for literal characters.
-	* ``ANY_COLOUR`` -> :attr:`~consolekit.terminal_colours.Fore.YELLOW` -- Used for the "any" dot.
+	* ``AT_COLOUR`` -> YELLOW, Used for e.g. :regex:`^\A\b\B\Z$`
+	* ``SUBPATTERN_COLOUR`` -> LIGHTYELLOW_EX, Used for the parentheses around subpatterns, e.g. :regex:`(Hello) World`
+	* ``IN_COLOUR`` -> LIGHTRED_EX, Used for the square brackets around character sets, e.g. :regex:`[Hh]ello`
+	* ``REPEAT_COLOUR`` -> LIGHTBLUE_EX, Used for repeats, e.g. :regex:`A?B+C*D{2,4}E{5}`
+	* ``REPEAT_BRACE_COLOUR`` -> YELLOW, Used for the braces around numerical repeats.
+	* ``CATEGORY_COLOUR`` -> LIGHTYELLOW_EX, Used for categories, e.g. :regex:`\d\D\s\D\w\W`
+	* ``BRANCH_COLOUR`` -> YELLOW, Used for branches, e.g. :regex:`(Lovely|Horrible) Weather`
+	* ``LITERAL_COLOUR`` -> GREEN, Used for literal characters.
+	* ``ANY_COLOUR`` -> YELLOW, Used for the "any" dot.
 	"""
 
 	# Colours
-	AT_COLOUR = Fore.YELLOW
-	SUBPATTERN_COLOUR = Fore.LIGHTYELLOW_EX
-	IN_COLOUR = Fore.LIGHTRED_EX
-	REPEAT_COLOUR = Fore.LIGHTBLUE_EX
-	REPEAT_BRACE_COLOUR = Fore.YELLOW
-	CATEGORY_COLOUR = Fore.LIGHTYELLOW_EX
-	BRANCH_COLOUR = Fore.YELLOW
-	LITERAL_COLOUR = Fore.GREEN
-	ANY_COLOUR = Fore.YELLOW
+
+	@staticmethod
+	def AT_COLOUR(s):  # noqa: D102
+		return f"\x1b[33m{s}\x1b[39m"
+
+	@staticmethod
+	def SUBPATTERN_COLOUR(s):  # noqa: D102
+		return f"\x1b[93m{s}\x1b[39m"
+
+	@staticmethod
+	def IN_COLOUR(s):  # noqa: D102
+		return f"\x1b[91m{s}\x1b[39m"
+
+	@staticmethod
+	def REPEAT_COLOUR(s):  # noqa: D102
+		return f"\x1b[94m{s}\x1b[39m"
+
+	@staticmethod
+	def LITERAL_COLOUR(s):  # noqa: D102
+		return f"\x1b[32m{s}\x1b[39m"
+
+	REPEAT_BRACE_COLOUR = BRANCH_COLOUR = ANY_COLOUR = AT_COLOUR
+	CATEGORY_COLOUR = SUBPATTERN_COLOUR
 
 
 class RegexNode(nodes.literal):

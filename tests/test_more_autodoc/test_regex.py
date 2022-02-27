@@ -108,6 +108,41 @@ def test_regex_parser(regex, expected):
 	assert parser.parse_pattern(regex) == expected
 
 
+terminal_parser = regex.TerminalRegexParser()
+
+
+@pytest.mark.parametrize(
+		"regex",
+		[
+				re.compile(r"(?s)(\.\. start installation)(.*?)(\.\. end installation)"),
+				re.compile(r"[A-Za-z_]\w*"),
+				re.compile(r"^:(param|parameter|arg|argument)\s*"),
+				pytest.param(re.compile("^:(default|Default)[ ]"), id="default_square_brackets"),
+				re.compile("^:(default|Default) "),
+				re.compile(r"\A:(default|Default) "),
+				pytest.param(re.compile("^:(default|Default)   "), id="default_spaces"),
+				re.compile(":(default|Default)   $"),
+				re.compile(r":(default|Default)   \Z"),
+				re.compile(" :(default|Default)"),
+				pytest.param(re.compile("   :(default|Default)"), id="default_leading_spaces"),
+				re.compile("[ ]:(default|Default)"),
+				re.compile("hello (world)?"),
+				re.compile("(hello){1,3} (world)?"),
+				re.compile("(hello){3,3} (world)?"),
+				re.compile(r"Issue #\d"),
+				re.compile(r"Hello \w"),
+				re.compile(r"Not a word: \W"),
+				re.compile(r"Not whitespace: \S"),
+				re.compile(r"Not a number: \D"),
+				no_flags,
+				one_flag,
+				two_flags,
+				]
+		)
+def test_terminal_regex_parser(regex, advanced_file_regression: AdvancedFileRegressionFixture):
+	advanced_file_regression.check(terminal_parser.parse_pattern(regex))
+
+
 def test_copy_asset_files(tmp_pathplus, advanced_file_regression: AdvancedFileRegressionFixture):
 	check_asset_copy(
 			regex.copy_asset_files,

@@ -87,7 +87,6 @@ import shutil
 from typing import Dict, List, Sequence, Tuple
 
 # 3rd party
-from consolekit.terminal_colours import Fore
 from docutils import nodes
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
@@ -180,7 +179,10 @@ def visit_asset_node(translator: HTMLTranslator, node: AssetNode):
 		translator._asset_node_seen_files.append(source_file)  # type: ignore
 		shutil.copy2(source_file, assets_out_dir)
 	elif not source_file.is_file():
-		stderr_writer(Fore.RED(f"{translator.builder.current_docname}: Asset file '{source_file}' not found."))
+		stderr_writer(
+				f"\x1b[31m{translator.builder.current_docname}: "
+				f"Asset file '{source_file}' not found.\x1b[39m"
+				)
 		translator.context.append('')
 		return
 
