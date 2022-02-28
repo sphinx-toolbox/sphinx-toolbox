@@ -39,6 +39,7 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install --upgrade "whey-conda" "whey"
           # $CONDA is an environment variable pointing to the root of the miniconda directory
+          $CONDA/bin/conda update -n base conda
           $CONDA/bin/conda config --add channels conda-forge
           $CONDA/bin/conda config --add channels domdfcoding
 
