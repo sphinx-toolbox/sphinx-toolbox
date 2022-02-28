@@ -186,22 +186,46 @@ jobs:
         with:
           python-version: 3.8
 
+      - name: Setup Conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: env
+          conda-build-version: 3.21.0
+
       - name: Install dependencies 🔧
         run: |
+          python -VV
+          python -m site
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install --upgrade "mkrecipe" "whey"
+          # $CONDA is an environment variable pointing to the root of the miniconda directory
+          $CONDA/bin/conda config --set always_yes yes --set changeps1 no
+          $CONDA/bin/conda update -n base conda
+          $CONDA/bin/conda info -a
+          $CONDA/bin/conda config --add channels conda-forge
+          $CONDA/bin/conda config --add channels domdfcoding
 
-          wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.10.3-Linux-x86_64.sh -O miniconda.sh
-          bash miniconda.sh -b -p $HOME/miniconda
+          $CONDA/bin/conda config --remove channels defaults
 
-      - name: Build Conda 📦
+      - name: Build Conda Package 📦
         run: |
-          chmod +x .github/actions_build_conda.sh
-          bash .github/actions_build_conda.sh
+          python -m mkrecipe --type wheel || exit 1
+          $CONDA/bin/conda build conda -c conda-forge -c domdfcoding --output-folder conda/dist
 
-      - name: Deploy Conda 🚀
+      - name: Deploy Conda Package 🚀
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
-          chmod +x .github/actions_deploy_conda.sh
-          bash .github/actions_deploy_conda.sh
+          $CONDA/bin/conda config --set always_yes yes --set changeps1 no
+          $CONDA/bin/conda install anaconda-client
+          $CONDA/bin/conda info -a
+
+          for f in conda/dist/noarch/sphinx-toolbox-*.tar.bz2; do
+            [ -e "$f" ] || continue
+            echo "$f"
+            conda install "$f" || exit 1
+            echo "Deploying to Anaconda.org..."
+            $CONDA/bin/anaconda -t "$ANACONDA_TOKEN" upload "$f" || exit 1
+            echo "Successfully deployed to Anaconda.org."
+          done
         env:
           ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
