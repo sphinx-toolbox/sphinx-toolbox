@@ -3,6 +3,13 @@ Changelog
 ===============
 
 
+2.18.0
+--------------
+
+``consolekit`` is no longer a dependency;
+:class:`~.TerminalRegexParser` now contains the necessary code to create coloured text itself.
+
+
 2.17.0
 --------------
 
