@@ -4,7 +4,7 @@ beautifulsoup4>=4.9.1
 cachecontrol[filecache]>=0.12.6
 deprecation-alias>=0.2.0
 dict2css>=0.2.3
-docutils==0.16
+docutils>=0.16
 domdf-python-tools>=2.9.0
 html5lib>=1.1
 lockfile>=0.12.2
