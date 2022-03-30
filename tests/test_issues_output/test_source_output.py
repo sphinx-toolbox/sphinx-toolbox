@@ -17,6 +17,7 @@ def test_build_github(gh_src_app):
 	gh_src_app.build()
 
 
+@pytest.mark.usefixtures("docutils_17_compat")
 @pytest.mark.parametrize("github_source_page", ["index.html"], indirect=True)
 def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
@@ -51,7 +52,7 @@ def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLR
 			'href="https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/more_autodoc/__init__.py">sphinx_toolbox/more_autodoc/__init__.py</a></p>',
 			]
 
-	html_regression.check(github_source_page)
+	html_regression.check(github_source_page, jinja2=True)
 
 
 # The following is in here because it needs to run with different options to tests/test_output
@@ -76,6 +77,7 @@ pages_to_check: List[Union[str, ParameterSet]] = [
 		]
 
 
+@pytest.mark.usefixtures("docutils_17_compat")
 def test_html_output(gh_src_app, html_regression: HTMLRegressionFixture):
 	"""
 	Parametrize new files here rather than as their own function.

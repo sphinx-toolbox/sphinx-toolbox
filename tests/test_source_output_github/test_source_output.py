@@ -12,6 +12,7 @@ def test_build_github(gh_src_app):
 	gh_src_app.build()
 
 
+@pytest.mark.usefixtures("docutils_17_compat")
 @pytest.mark.parametrize("github_source_page", ["index.html"], indirect=True)
 def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
@@ -35,4 +36,4 @@ def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLR
 
 	assert tag_count == 2
 
-	html_regression.check(github_source_page)
+	html_regression.check(github_source_page, jinja2=True)

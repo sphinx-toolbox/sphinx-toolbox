@@ -1,9 +1,10 @@
 # stdlib
-import re
 import sys
-from typing import List, Union
+from pprint import pformat
+from typing import List
 
 # 3rd party
+import docutils
 import pytest
 import sphinx
 from _pytest.mark import ParameterSet
@@ -32,6 +33,7 @@ def test_build_example(testing_app):
 		testing_app.build()
 
 
+@pytest.mark.usefixtures("docutils_17_compat")
 @pytest.mark.parametrize("page", ["example.html"], indirect=True)
 def test_example_html_output(page: BeautifulSoup):
 	# Make sure the page title is what you expect
@@ -41,7 +43,7 @@ def test_example_html_output(page: BeautifulSoup):
 	selector_string = "div.body div#sphinx-toolbox-demo-rest-example"
 
 	body = list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
-	assert len(body) == 3
+	assert len(body) == 3, pformat(body)
 
 	assert body[0].name == 'p'
 	assert body[0]["id"] == "example-0"
@@ -67,9 +69,9 @@ def test_example_html_output(page: BeautifulSoup):
 
 
 pages_to_check: List[ParameterSet] = [
-		param("assets.html", False, idx=0),
-		param("augment-defaults.html", True, idx=0),
-		param("autodoc-ellipsis.html", True, idx=0),
+		param("assets.html", idx=0),
+		param("augment-defaults.html", idx=0),
+		param("autodoc-ellipsis.html", idx=0),
 		pytest.param(
 				"autonamedtuple.html",
 				True,
@@ -85,34 +87,33 @@ pages_to_check: List[ParameterSet] = [
 				marks=min_version((3, 10), reason="Output differs on Python 3.10"),
 				id="autonamedtuple_3_10",
 				),
-		param("autoprotocol.html", True, idx=0),
-		param("autotypeddict.html", True, idx=0),
-		param("code-block.html", True, idx=0),
-		param("changeset.html", False, idx=0),
-		param("confval.html", True, idx=0),
-		param("decorators.html", True, idx=0),
-		param("example.html", False, idx=0),
-		param("flake8.html", False, idx=0),
-		param("formatting.html", False, idx=0),
-		param("installation.html", False, idx=0),
-		param("no_docstring.html", True, idx=0),
-		param("overloads.html", True, idx=0),
-		param("pre-commit.html", True, idx=0),
-		param("regex.html", True, idx=0),
-		param("shields.html", False, idx=0),
-		param("sourcelink.html", True, idx=0),
-		param("typevars.html", True, idx=0),
-		param("variables.html", True, idx=0),
-		param("wikipedia.html", False, idx=0),
-		param("documentation-summary.html", False, idx=0),
-		param("documentation-summary-meta.html", False, idx=0),
-		param("github.html", False, idx=0),
-		param("latex.html", False, idx=0),
-		param("collapse.html", False, idx=0),
-		param("footnote_symbols.html", False, idx=0),
+		param("autoprotocol.html", idx=0),
+		param("autotypeddict.html", idx=0),
+		param("code-block.html", idx=0),
+		param("changeset.html", idx=0),
+		param("confval.html", idx=0),
+		param("decorators.html", idx=0),
+		param("example.html", idx=0),
+		param("flake8.html", idx=0),
+		param("formatting.html", idx=0),
+		param("installation.html", idx=0),
+		param("no_docstring.html", idx=0),
+		param("overloads.html", idx=0),
+		param("pre-commit.html", idx=0),
+		param("regex.html", idx=0),
+		param("shields.html", idx=0),
+		param("sourcelink.html", idx=0),
+		param("typevars.html", idx=0),
+		param("variables.html", idx=0),
+		param("wikipedia.html", idx=0),
+		param("documentation-summary.html", idx=0),
+		param("documentation-summary-meta.html", idx=0),
+		param("github.html", idx=0),
+		param("latex.html", idx=0),
+		param("collapse.html", idx=0),
+		param("footnote_symbols.html", idx=0),
 		param(
 				"instancevar.html",
-				True,
 				marks=pytest.mark.skipif(
 						condition=sys.version_info < (3, 7),
 						reason="Output differs on Python 3.6",
@@ -121,31 +122,28 @@ pages_to_check: List[ParameterSet] = [
 				),
 		pytest.param(
 				"generic_bases.html",
-				True,
 				marks=only_version(3.6, reason="Output differs on Python 3.6"),
 				id="generic_bases_36"
 				),
 		pytest.param(
 				"generic_bases.html",
-				True,
 				marks=min_version(3.7, reason="Output differs on Python 3.8+"),
 				id="generic_bases"
 				),
 		pytest.param(
 				"autonamedtuple_pep563.html",
-				True,
 				marks=min_version(3.7, reason="Output differs on Python 3.6, and not as relevant."),
 				id="autonamedtuple_pep563"
 				),
 		pytest.param(
 				"genericalias.html",
-				True,
 				marks=min_version(3.7, reason="Output differs on Python 3.6"),
 				id="genericalias"
 				),
 		]
 
 
+@pytest.mark.usefixtures("docutils_17_compat")
 def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 	"""
 	Parametrize new files here rather than as their own function.
@@ -158,7 +156,6 @@ def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 
 	for page in pages_to_check:
 		pagename: str = page.values[0]  # type: ignore
-		is_template: bool = page.values[1]  # type: ignore
 		page_id: str = page.id or pagename
 
 		for mark in page.marks:
@@ -178,7 +175,7 @@ def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 				html_regression.check(
 						BeautifulSoup(content, "html5lib"),
 						extension=f"_{page_id}_.html",
-						jinja2=is_template,
+						jinja2=True,
 						)
 			except BaseException as e:
 				caught_exceptions.append(e)
@@ -214,6 +211,7 @@ def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFil
 				template.render(
 						sphinx_version=sphinx.version_info,
 						python_version=sys.version_info,
+						docutils_version=docutils.__version_info__,
 						)
 				)
 

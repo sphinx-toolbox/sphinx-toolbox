@@ -2,8 +2,9 @@
 <html>
  <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <meta content="Python -- This is an awesome tool! 🚀 ~ intersphinx_mapping # {{ jinja2 }} 100% 'Quotes'" name="description"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>{% if docutils_version > (0, 17) %}
+  <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>{% endif %}
+  <meta content="Python -- This is an awesome tool! 🚀 ~ intersphinx_mapping #  100% 'Quotes'" name="description"/>
   <title>
    sphinx-toolbox Demo - documentation-summary :meta: — Python  documentation
   </title>
@@ -35,7 +36,7 @@
        </p>
        <p>
         <strong>
-         This is an awesome tool! 🚀 ~ intersphinx_mapping # {{ jinja2 }} 100% ‘Quotes’
+         This is an awesome tool! 🚀 ~ intersphinx_mapping #  100% ‘Quotes’
         </strong>
        </p>
        <p>
