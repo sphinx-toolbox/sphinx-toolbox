@@ -5,8 +5,10 @@ from typing import List
 
 # 3rd party
 import docutils
+import docutils.nodes
 import pytest
 import sphinx
+import sphinx.writers.html5
 from _pytest.mark import ParameterSet
 from bs4 import BeautifulSoup  # type: ignore
 from coincidence.params import param
@@ -188,7 +190,22 @@ def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 		raise exception
 
 
-def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFileRegressionFixture):
+def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFileRegressionFixture, monkeypatch):
+
+	def visit_caption(self, node) -> None:
+		if isinstance(node.parent, docutils.nodes.container) and node.parent.get("literal_block"):
+			self.body.append('<div class="code-block-caption">')
+		else:
+			self.body.append(self.starttag(node, 'p', '', CLASS="caption"))
+		self.add_fignumber(node.parent)
+		self.body.append(self.starttag(node, "span", '', CLASS="caption-text"))
+
+	def depart_caption(self, node):
+		self.body.append('</p>\n')
+
+	monkeypatch.setattr(sphinx.writers.html5.HTML5Translator, "visit_caption", visit_caption)
+	monkeypatch.setattr(sphinx.writers.html5.HTML5Translator, "depart_caption", depart_caption)
+
 	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
 		testing_app.build(force_all=True)
 
