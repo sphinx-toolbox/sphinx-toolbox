@@ -35,6 +35,7 @@ python_versions:
     - 3.3
     - 3.4
     - 3.5
+    - latest
  pypy37:
   matrix_exclude:
    sphinx:
@@ -42,6 +43,7 @@ python_versions:
     - 3.3
     - 3.4
     - 3.5
+    - latest
 
 additional_ignore:
   - wip-shields-block.py
@@ -86,6 +88,7 @@ third_party_version_matrix:
     - 4.2
     - 4.3
     - 4.4
+    - 4.5
     - latest
 
 classifiers:
