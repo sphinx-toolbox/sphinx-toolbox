@@ -611,7 +611,7 @@ class RequiresIOShield(GitHubBackedShield):
 		branch = self.options.pop("branch", "master")
 		base_url = URL("https://requires.io/github/") / username / repository
 
-		self.arguments = [base_url / f"requirements.svg?branch={branch}"]
+		self.arguments = [str(base_url / f"requirements.svg?branch={branch}")]
 		self.options["target"] = str(base_url / f"requirements/?branch={branch}")
 
 		return super().run()
@@ -637,7 +637,8 @@ class CoverallsShield(GitHubBackedShield):
 		username, repository = self.get_repo_details()
 		branch = self.options.pop("branch", "master")
 
-		self.arguments = [SHIELDS_IO / "coveralls" / "github" / username / repository / f"{branch}?logo=coveralls"]
+		url = SHIELDS_IO / "coveralls" / "github" / username / repository / f"{branch}?logo=coveralls"
+		self.arguments = [str(url)]
 		self.options["target"] = f"https://coveralls.io/github/{username}/{repository}?branch={branch}"
 
 		return super().run()
@@ -656,7 +657,7 @@ class CodefactorShield(GitHubBackedShield):
 		username, repository = self.get_repo_details()
 
 		url = SHIELDS_IO / "codefactor" / "grade" / "github" / username / f"{repository}?logo=codefactor"
-		self.arguments = [url]
+		self.arguments = [str(url)]
 		self.options["target"] = f"https://codefactor.io/repository/github/{username}/{repository}"
 
 		return super().run()
@@ -854,7 +855,8 @@ class PreCommitCIShield(GitHubBackedShield):
 		username, repository = self.get_repo_details()
 		branch = self.options.pop("branch", "master")
 
-		self.arguments = [RESULTS_PRE_COMMIT_CI / "badge" / "github" / username / repository / f"{branch}.svg"]
+		url = RESULTS_PRE_COMMIT_CI / "badge" / "github" / username / repository / f"{branch}.svg"
+		self.arguments = [str(url)]
 		self.options["target"] = str(RESULTS_PRE_COMMIT_CI / "latest" / "github" / username / repository / branch)
 
 		return super().run()
