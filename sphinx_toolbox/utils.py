@@ -35,7 +35,22 @@ General utility functions.
 import atexit
 import functools
 import re
-from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Pattern, Set, Tuple, Type, TypeVar, cast
+from typing import (
+		TYPE_CHECKING,
+		Any,
+		Callable,
+		Dict,
+		Iterable,
+		List,
+		Mapping,
+		Optional,
+		Pattern,
+		Set,
+		Tuple,
+		Type,
+		TypeVar,
+		cast
+		)
 
 # 3rd party
 import sphinx.config
@@ -200,7 +215,7 @@ class Purger:
 
 		return list({todo["docname"] for todo in getattr(env, self.attr_name)})
 
-	def add_node(self, env: BuildEnvironment, node: Node, targetnode: Node, lineno: int):
+	def add_node(self, env: BuildEnvironment, node: Node, targetnode: Node, lineno: int) -> None:
 		"""
 		Add a node.
 
@@ -265,7 +280,7 @@ class NoMatchError(ValueError):
 def get_first_matching(
 		condition: Callable[[Any], bool],
 		iterable: Iterable[_T],
-		default: _T = no_default,  # type: ignore
+		default: _T = no_default  # type: ignore[assignment]
 		) -> _T:
 	"""
 	Returns the first value in ``iterable`` that meets ``condition``, or ``default`` if none match.
@@ -424,7 +439,7 @@ def begin_generate(
 	except PycodeError as err:
 		logger.debug("[autodoc] module analyzer failed: %s", err)
 		# no source file -- e.g. for builtin and C modules
-		documenter.analyzer = None  # type: ignore
+		documenter.analyzer = None  # type: ignore[assignment]
 		# at least add the module.__file__ as a dependency
 		if hasattr(documenter.module, "__file__") and documenter.module.__file__:
 			documenter.directive.filename_set.add(documenter.module.__file__)
@@ -666,7 +681,7 @@ def metadata_add_version(func: SetupFunc) -> SetupFunc:
 	return wrapper
 
 
-def add_nbsp_substitution(config: sphinx.config.Config):
+def add_nbsp_substitution(config: sphinx.config.Config) -> None:
 	"""
 	Adds the ``|nbsp|`` substitution directive to the reStructuredText prolog.
 
@@ -678,10 +693,10 @@ def add_nbsp_substitution(config: sphinx.config.Config):
 	nbsp_sub = ".. |nbsp| unicode:: 0xA0\n   :trim:"
 
 	if not config.rst_prolog:
-		config.rst_prolog = ''  # type: ignore
+		config.rst_prolog = ''  # type: ignore[attr-defined]
 
 	if nbsp_sub not in config.rst_prolog:
-		config.rst_prolog = '\n'.join([config.rst_prolog, '', nbsp_sub])  # type: ignore
+		config.rst_prolog = '\n'.join([config.rst_prolog, '', nbsp_sub])  # type: ignore[attr-defined]
 
 
 _OBJTYPES_CSS_FALLBACKS = {
@@ -737,3 +752,125 @@ def add_fallback_css_class(objtypes_css_fallbacks: Dict[str, str]):
 		classes.insert(idx, fallback)
 
 	return func
+
+
+if TYPE_CHECKING:
+
+	class Config(sphinx.config.Config):
+		project: Any
+		author: Any
+		project_copyright: str
+		copyright: str  # noqa: A003  # pylint: disable=redefined-builtin
+		version: Any
+		release: Any
+		today: Any
+		today_fmt: str
+		language: str
+		locale_dirs: Any
+		figure_language_filename: str
+		gettext_allow_fuzzy_translations: Any
+		master_doc: Any
+		root_doc: Any
+		source_suffix: Any
+		source_encoding: Any
+		exclude_patterns: Any
+		default_role: str
+		add_function_parentheses: Any
+		add_module_names: Any
+		trim_footnote_reference_space: Any
+		show_authors: Any
+		pygments_style: Any
+		highlight_language: Any
+		highlight_options: Any
+		templates_path: Any
+		template_bridge: Any
+		keep_warnings: Any
+		suppress_warnings: Any
+		modindex_common_prefix: Any
+		rst_epilog: str
+		rst_prolog: str
+		trim_doctest_flags: Any
+		primary_domain: Any
+		needs_sphinx: str
+		needs_extensions: Any
+		manpages_url: Any
+		nitpicky: Any
+		nitpick_ignore: Any
+		nitpick_ignore_regex: Any
+		numfig: Any
+		numfig_secnum_depth: Any
+		numfig_format: Any
+		math_number_all: Any
+		math_eqref_format: str
+		math_numfig: Any
+		tls_verify: Any
+		tls_cacerts: Any
+		user_agent: str
+		smartquotes: Any
+		smartquotes_action: Any
+		smartquotes_excludes: Any
+		config_values: Dict[str, Tuple]
+		overrides: Dict
+		values: Dict[str, Tuple]
+		setup: Optional[Callable]
+		extensions: List[str]
+		latex_engine: str
+		latex_documents: Any
+		latex_logo: str
+		latex_appendices: Any
+		latex_use_latex_multicolumn: Any
+		latex_use_xindy: bool
+		latex_toplevel_sectioning: str
+		latex_domain_indices: List
+		latex_show_urls: Any
+		latex_show_pagerefs: Any
+		latex_elements: Any
+		latex_additional_files: Any
+		latex_theme: str
+		latex_theme_options: Any
+		latex_theme_path: Any
+		latex_docclass: Any
+		html_theme: Any
+		html_theme_path: Any
+		html_theme_options: Any
+		html_title: str
+		html_short_title: Any
+		html_style: str
+		html_logo: str
+		html_favicon: str
+		html_css_files: Any
+		html_js_files: Any
+		html_static_path: Any
+		html_extra_path: Any
+		html_last_updated_fmt: str
+		html_sidebars: Any
+		html_additional_pages: Any
+		html_domain_indices: List
+		html_add_permalinks: Any
+		html_permalinks: Any
+		html_permalinks_icon: Any
+		html_use_index: Any
+		html_split_index: Any
+		html_copy_source: Any
+		html_show_sourcelink: Any
+		html_sourcelink_suffix: Any
+		html_use_opensearch: Any
+		html_file_suffix: str
+		html_link_suffix: str
+		html_show_copyright: Any
+		html_show_search_summary: Any
+		html_show_sphinx: Any
+		html_context: Any
+		html_output_encoding: Any
+		html_compact_lists: Any
+		html_secnumber_suffix: Any
+		html_search_language: str
+		html_search_options: Any
+		html_search_scorer: Any
+		html_scaled_image_link: Any
+		html_baseurl: Any
+		html_codeblock_linenos_style: str
+		html_math_renderer: Any
+		html4_writer: Any
+else:
+	Config = sphinx.config.Config

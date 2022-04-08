@@ -32,10 +32,9 @@ from typing import List
 # 3rd party
 from apeye.requests_url import RequestsURL
 from sphinx.application import Sphinx
-from sphinx.config import Config
 
 # this package
-from sphinx_toolbox.utils import add_nbsp_substitution
+from sphinx_toolbox.utils import Config, add_nbsp_substitution
 
 __all__ = ["MissingOptionError", "InvalidOptionError", "validate_config", "ToolboxConfig"]
 
@@ -119,7 +118,7 @@ class ToolboxConfig(Config):
 	"""
 
 
-def validate_config(app: Sphinx, config: ToolboxConfig):
+def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
 	"""
 	Validate the provided configuration values.
 

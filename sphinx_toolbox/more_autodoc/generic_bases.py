@@ -91,7 +91,7 @@ if sys.version_info >= (3, 8):  # pragma: no cover (<py38)
 	from typing import get_origin
 else:  # pragma: no cover (py38+)
 	# 3rd party
-	from typing_inspect import get_origin  # type: ignore
+	from typing_inspect import get_origin  # type: ignore[import]
 
 __all__ = ["GenericBasesClassDocumenter", "setup"]
 

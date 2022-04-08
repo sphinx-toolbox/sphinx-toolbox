@@ -33,7 +33,6 @@ from typing import Any, Dict, List, Tuple, Union
 
 # 3rd party
 from apeye.url import URL
-from bs4 import BeautifulSoup  # type: ignore
 from docutils import nodes
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
@@ -192,7 +191,7 @@ def user_role(
 	return [refnode], messages
 
 
-def visit_github_object_link_node(translator: HTMLTranslator, node: GitHubObjectLinkNode):
+def visit_github_object_link_node(translator: HTMLTranslator, node: GitHubObjectLinkNode) -> None:
 	"""
 	Visit a :class:`~.GitHubObjectLinkNode`.
 
@@ -204,7 +203,7 @@ def visit_github_object_link_node(translator: HTMLTranslator, node: GitHubObject
 	translator.visit_reference(node)
 
 
-def depart_github_object_link_node(translator: HTMLTranslator, node: GitHubObjectLinkNode):
+def depart_github_object_link_node(translator: HTMLTranslator, node: GitHubObjectLinkNode) -> None:
 	"""
 	Depart an :class:`~.GitHubObjectLinkNode`.
 
@@ -216,7 +215,7 @@ def depart_github_object_link_node(translator: HTMLTranslator, node: GitHubObjec
 	translator.body.append("</b>")
 
 
-def _visit_github_object_link_node_latex(translator: LaTeXTranslator, node: GitHubObjectLinkNode):
+def _visit_github_object_link_node_latex(translator: LaTeXTranslator, node: GitHubObjectLinkNode) -> None:
 	"""
 	Visit a :class:`~.GitHubObjectLinkNode`.
 
@@ -228,7 +227,7 @@ def _visit_github_object_link_node_latex(translator: LaTeXTranslator, node: GitH
 	translator.visit_reference(node)
 
 
-def _depart_github_object_link_node_latex(translator: LaTeXTranslator, node: GitHubObjectLinkNode):
+def _depart_github_object_link_node_latex(translator: LaTeXTranslator, node: GitHubObjectLinkNode) -> None:
 	"""
 	Depart an :class:`~.GitHubObjectLinkNode`.
 

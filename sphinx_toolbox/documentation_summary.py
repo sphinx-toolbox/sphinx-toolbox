@@ -84,11 +84,10 @@ from docutils.statemachine import StringList
 from docutils.utils.smartquotes import educateQuotes
 from sphinx import addnodes
 from sphinx.application import Sphinx
-from sphinx.config import Config
 from sphinx.util.docutils import SphinxDirective
 
 # this package
-from sphinx_toolbox.utils import Purger, SphinxExtMetadata, flag, metadata_add_version
+from sphinx_toolbox.utils import Config, Purger, SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = ["DocumentationSummaryDirective", "configure", "setup"]
 
@@ -161,7 +160,7 @@ def configure(app: Sphinx, config: Config):
 	"""
 
 	if not hasattr(config, "latex_elements"):  # pragma: no cover
-		config.latex_elements = {}  # type: ignore
+		config.latex_elements = {}
 
 	latex_elements = (config.latex_elements or {})
 

@@ -93,7 +93,7 @@ class Flake8CodesDirective(SphinxDirective):
 	# the fully qualified name of the flake8 plugin module
 	required_arguments: int = 1
 
-	def run(self) -> Sequence[nodes.Node]:  # type: ignore
+	def run(self) -> Sequence[nodes.Node]:  # type: ignore[override]
 		"""
 		Process the content of the directive.
 		"""

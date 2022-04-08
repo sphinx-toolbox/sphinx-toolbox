@@ -98,7 +98,7 @@ class reSTExampleDirective(SphinxDirective):
 	has_content: bool = True
 
 	# Options to pass through to .. code-block::
-	option_spec: OptionSpec = {  # type: ignore
+	option_spec: OptionSpec = {  # type: ignore[assignment]
 		"force": directives.flag,
 		"emphasize-lines": directives.unchanged,
 		"tab-width": int,
@@ -116,12 +116,12 @@ class reSTExampleDirective(SphinxDirective):
 		content = make_rest_example(
 				self.options,
 				self.env,
-				self.content,  # type: ignore
+				self.content,  # type: ignore[arg-type]
 				)
 		view = ViewList(content)
 
-		example_node = nodes.paragraph(rawsource=content)  # type: ignore
-		self.state.nested_parse(view, self.content_offset, example_node)  # type: ignore
+		example_node = nodes.paragraph(rawsource=content)  # type: ignore[arg-type]
+		self.state.nested_parse(view, self.content_offset, example_node)  # type: ignore[arg-type]
 
 		rest_example_purger.add_node(self.env, example_node, targetnode, self.lineno)
 

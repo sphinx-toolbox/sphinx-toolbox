@@ -15,7 +15,7 @@ def test_validate_config():
 			"rst_prolog": '',
 			})
 
-	validate_config(None, config)  # type: ignore
+	validate_config(None, config)  # type: ignore[arg-type]
 
 	assert config == {
 			"source_link_target": "sphinx",
@@ -35,7 +35,7 @@ def test_validate_config():
 			})
 
 	with pytest.raises(MissingOptionError, match="The 'github_username' option is required."):
-		validate_config(None, config)  # type: ignore
+		validate_config(None, config)  # type: ignore[arg-type]
 
 	config = AttrDict({
 			"source_link_target": "Sphinx",
@@ -44,7 +44,7 @@ def test_validate_config():
 			})
 
 	with pytest.raises(MissingOptionError, match="The 'github_repository' option is required."):
-		validate_config(None, config)  # type: ignore
+		validate_config(None, config)  # type: ignore[arg-type]
 
 	config = AttrDict({
 			"source_link_target": "bananas",
@@ -53,7 +53,7 @@ def test_validate_config():
 			})
 
 	with pytest.raises(InvalidOptionError, match="Invalid value for 'source_link_target'."):
-		validate_config(None, config)  # type: ignore
+		validate_config(None, config)  # type: ignore[arg-type]
 
 
 @pytest.mark.parametrize(
@@ -74,6 +74,6 @@ def test_source_link_target(target: str, expects: str):
 			"rst_prolog": '',
 			})
 
-	validate_config(None, config)  # type: ignore
+	validate_config(None, config)  # type: ignore[arg-type]
 
 	assert config.source_link_target == expects

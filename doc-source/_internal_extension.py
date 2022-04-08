@@ -6,12 +6,12 @@ from domdf_python_tools import stringlist
 from domdf_python_tools.paths import PathPlus
 from sphinx import addnodes  # nodep
 from sphinx.application import Sphinx  # nodep
-from sphinx.config import Config
 from sphinx.locale import admonitionlabels  # nodep
 from sphinx.writers.latex import LaTeXTranslator  # nodep
 
 # this package
 from sphinx_toolbox import latex
+from sphinx_toolbox.utils import Config
 
 
 def visit_seealso(translator: LaTeXTranslator, node: addnodes.seealso) -> None:
@@ -93,7 +93,7 @@ def configure(app: Sphinx, config: Config):
 	latex_extrapackages.append(r"\usepackage{needspace}")
 	latex_elements["extrapackages"] = str(latex_extrapackages)
 
-	config.latex_elements = latex_elements  # type: ignore
+	config.latex_elements = latex_elements
 
 
 def setup(app: Sphinx):

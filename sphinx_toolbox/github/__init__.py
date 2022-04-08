@@ -227,7 +227,7 @@ class GitHubDomain(Domain):
 			}
 
 
-def validate_config(app: Sphinx, config: ToolboxConfig):
+def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
 	"""
 	Validate the provided configuration values.
 

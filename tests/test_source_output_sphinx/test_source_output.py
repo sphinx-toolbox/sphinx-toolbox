@@ -1,6 +1,6 @@
 # 3rd party
 import pytest
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup  # type: ignore[import]
 
 # this package
 from sphinx_toolbox.testing import HTMLRegressionFixture

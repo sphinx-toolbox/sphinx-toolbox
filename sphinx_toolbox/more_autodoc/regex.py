@@ -147,7 +147,6 @@ from docutils.nodes import Node, system_message
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
-from sphinx.config import Config
 from sphinx.ext.autodoc import UNINITIALIZED_ATTR, ModuleDocumenter
 from sphinx.util import texescape
 from sphinx.util.docutils import SphinxRole
@@ -156,7 +155,7 @@ from sphinx.writers.html import HTMLTranslator
 # this package
 from sphinx_toolbox import _css
 from sphinx_toolbox.more_autodoc.variables import VariableDocumenter
-from sphinx_toolbox.utils import SphinxExtMetadata, add_nbsp_substitution, flag, metadata_add_version
+from sphinx_toolbox.utils import Config, SphinxExtMetadata, add_nbsp_substitution, flag, metadata_add_version
 
 __all__ = [
 		"RegexDocumenter",
@@ -525,7 +524,7 @@ class RegexParser:
 		trailing_spaces = len(tuple(itertools.takewhile(str.isspace, pattern[::-1])))
 		pattern = pattern.strip(' ')
 
-		tokens: List = list(sre_parse.parse(pattern, regex.flags))  # type: ignore
+		tokens: List = list(sre_parse.parse(pattern, regex.flags))  # type: ignore[call-overload]
 
 		if not leading_spaces:
 			while tokens[0] == (LITERAL, ord(' ')):
@@ -847,7 +846,7 @@ def configure(app: Sphinx, config: Config):
 	latex_preamble.append(r"\definecolor{regex_any}{HTML}{FF4500}")
 
 	latex_elements["preamble"] = str(latex_preamble)
-	app.config.latex_elements = latex_elements  # type: ignore
+	app.config.latex_elements = latex_elements  # type: ignore[attr-defined]
 	add_nbsp_substitution(config)
 
 

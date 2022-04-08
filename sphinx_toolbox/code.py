@@ -162,12 +162,11 @@ from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from domdf_python_tools.utils import convert_indents
 from sphinx.application import Sphinx
-from sphinx.config import Config
 from sphinx.writers.html import HTMLTranslator
 from sphinx.writers.latex import LaTeXTranslator
 
 # this package
-from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, metadata_add_version
+from sphinx_toolbox.utils import Config, OptionSpec, SphinxExtMetadata, metadata_add_version
 
 __all__ = [
 		"CodeBlock",
@@ -192,7 +191,7 @@ class CodeBlock(sphinx.directives.code.CodeBlock):
 		:autosummary-sections: ;;
 	"""
 
-	option_spec: OptionSpec = {  # type: ignore
+	option_spec: OptionSpec = {  # type: ignore[assignment]
 		"force": directives.flag,
 		"linenos": directives.flag,
 		"tab-width": int,
@@ -413,7 +412,7 @@ def configure(app: Sphinx, config: Config):
 	latex_preamble.append(r"\definecolor{nbsphinxout}{HTML}{BF5B3D}")
 
 	latex_elements["preamble"] = str(latex_preamble)
-	config.latex_elements = latex_elements  # type: ignore
+	config.latex_elements = latex_elements
 
 
 @metadata_add_version

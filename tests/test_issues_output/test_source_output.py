@@ -4,7 +4,7 @@ from typing import List, Union
 # 3rd party
 import pytest
 from _pytest.mark import ParameterSet
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup  # type: ignore[import]
 from coincidence.selectors import min_version, only_version
 
 # this package
@@ -91,7 +91,7 @@ def test_html_output(gh_src_app, html_regression: HTMLRegressionFixture):
 		if isinstance(page, str):
 			page = pytest.param(page, id=page)
 
-		pagename: str = page.values[0]  # type: ignore
+		pagename: str = page.values[0]  # type: ignore[assignment]
 		page_id: str = page.id or pagename
 		for mark in page.marks:
 			if mark.kwargs.get("condition", False):

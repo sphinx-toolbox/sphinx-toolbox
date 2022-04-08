@@ -45,11 +45,10 @@ import sphinx.directives.other
 import sphinx.writers.latex
 from docutils import nodes
 from sphinx.application import Sphinx
-from sphinx.config import Config
 
 # this package
 from sphinx_toolbox.latex import use_package
-from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
+from sphinx_toolbox.utils import Config, SphinxExtMetadata, metadata_add_version
 
 __all__ = ["setup", "configure"]
 

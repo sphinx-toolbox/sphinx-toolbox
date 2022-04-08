@@ -31,7 +31,7 @@ from typing import Any, Dict, Sequence, Tuple
 
 # 3rd party
 import pytest
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup  # type: ignore[import]
 from domdf_python_tools.paths import PathPlus
 from sphinx.testing.fixtures import app as testing_app
 from sphinx.testing.fixtures import make_app, shared_result, sphinx_test_tempdir, test_params

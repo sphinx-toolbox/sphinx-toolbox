@@ -14,7 +14,7 @@ def test_make_wikipedia_link(monkeypatch):
 		":wikipedia:`Python (programming language)`",
 		"Python (programming language)",
 		lineno=27,
-		inliner=None,  # type: ignore
+		inliner=None,  # type: ignore[arg-type]
 		)
 
 	assert isinstance(generated_nodes, list)
@@ -34,7 +34,7 @@ def test_make_wikipedia_link_lang(monkeypatch):
 		":wikipedia:`:zh:斯芬克斯`",
 		":zh:斯芬克斯",
 		lineno=27,
-		inliner=None,  # type: ignore
+		inliner=None,  # type: ignore[arg-type]
 		)
 
 	assert isinstance(generated_nodes, list)
@@ -56,7 +56,7 @@ def test_make_wikipedia_link_with_label(monkeypatch):
 		":wikipedia:`Python <Python (programming language)>`",
 		"Python <Python (programming language)>",
 		lineno=27,
-		inliner=None,  # type: ignore
+		inliner=None,  # type: ignore[arg-type]
 		)
 
 	assert isinstance(generated_nodes, list)

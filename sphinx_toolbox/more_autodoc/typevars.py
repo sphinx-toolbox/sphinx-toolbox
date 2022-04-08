@@ -270,7 +270,7 @@ class TypeVarDocumenter(VariableDocumenter):
 
 		super().add_directive_header(sig)
 
-	def get_doc(  # type: ignore
+	def get_doc(  # type: ignore[override]
 			self,
 			encoding: Optional[str] = None,
 			ignore: Optional[int] = None,

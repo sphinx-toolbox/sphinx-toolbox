@@ -10,7 +10,7 @@ from sphinx_toolbox.testing import Sphinx, run_setup
 
 def test_setup():
 	try:
-		Sphinx.extensions = []  # type: ignore
+		Sphinx.extensions = []  # type: ignore[attr-defined]
 
 		setup_ret, directives, roles, additional_nodes, app = run_setup(augment_defaults.setup)
 
@@ -21,12 +21,12 @@ def test_setup():
 		assert additional_nodes == set()
 
 	finally:
-		del Sphinx.extensions  # type: ignore
+		del Sphinx.extensions  # type: ignore[attr-defined]
 
 
 def test_setup_wrong_order():
 	try:
-		Sphinx.extensions = ["sphinx.ext.autodoc"]  # type: ignore
+		Sphinx.extensions = ["sphinx.ext.autodoc"]  # type: ignore[attr-defined]
 
 		with pytest.raises(
 				ExtensionError,
@@ -36,4 +36,4 @@ def test_setup_wrong_order():
 			run_setup(augment_defaults.setup)
 
 	finally:
-		del Sphinx.extensions  # type: ignore
+		del Sphinx.extensions  # type: ignore[attr-defined]

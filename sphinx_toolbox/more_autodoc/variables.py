@@ -436,7 +436,7 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 		else:
 			super().add_directive_header(sig)
 
-	def get_doc(  # type: ignore
+	def get_doc(  # type: ignore[override]
 			self,
 			encoding: Optional[str] = None,
 			ignore: Optional[int] = None,
@@ -453,7 +453,7 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 			# a docstring from the value which descriptor returns unexpectedly.
 			# ref: https://github.com/sphinx-doc/sphinx/issues/7805
 			orig = self.env.config.autodoc_inherit_docstrings
-			self.env.config.autodoc_inherit_docstrings = False  # type: ignore
+			self.env.config.autodoc_inherit_docstrings = False  # type: ignore[attr-defined]
 
 			# Sphinx's signature is wrong wrt Optional
 			if sphinx.version_info >= (4, 0):
@@ -462,9 +462,13 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 				else:
 					return super().get_doc(ignore=cast(int, ignore)) or []
 			else:
-				return super().get_doc(cast(str, encoding), cast(int, ignore)) or []  # type: ignore
+				super_get_doc = super().get_doc(  # type: ignore[call-arg]
+					cast(str, encoding),  # type: ignore[arg-type]
+					cast(int, ignore),
+					)
+				return super_get_doc or []
 		finally:
-			self.env.config.autodoc_inherit_docstrings = orig  # type: ignore
+			self.env.config.autodoc_inherit_docstrings = orig  # type: ignore[attr-defined]
 
 	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
 		"""
@@ -630,7 +634,7 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 					self.env.note_reread()
 					return False
 
-	def get_doc(  # type: ignore
+	def get_doc(  # type: ignore[override]
 			self,
 			encoding: Optional[str] = None,
 			ignore: Optional[int] = None,

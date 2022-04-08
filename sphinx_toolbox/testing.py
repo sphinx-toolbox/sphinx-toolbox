@@ -74,7 +74,7 @@ from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, 
 # 3rd party
 import pytest  # nodep
 import sphinx.application
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup  # type: ignore[import]
 from coincidence.regressions import (  # nodep
 		AdvancedFileRegressionFixture,
 		check_file_output,
@@ -93,7 +93,6 @@ from pygments.lexer import Lexer  # type: ignore  # nodep
 from pytest_regressions.common import check_text_files  # nodep
 from pytest_regressions.file_regression import FileRegressionFixture  # nodep
 from sphinx.builders import Builder
-from sphinx.config import Config
 from sphinx.domains import Domain, Index
 from sphinx.domains.python import PythonDomain
 from sphinx.environment.collectors import EnvironmentCollector
@@ -107,7 +106,7 @@ from sphinx.util import docutils
 from sphinx.util.typing import RoleFunction, TitleGetter
 
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import Config, SphinxExtMetadata
 
 __all__ = [
 		"Sphinx",
@@ -159,7 +158,7 @@ class Sphinx:
 	def __init__(self):  # , buildername: str = "html"
 		self.registry = SphinxComponentRegistry()
 		self.config = Config({}, {})
-		self.events = EventManager(self)  # type: ignore
+		self.events = EventManager(self)  # type: ignore[arg-type]
 		self.html_themes: Dict[str, str] = {}
 		# self.builder = self.registry.create_builder(self, buildername)
 
@@ -257,7 +256,7 @@ class Sphinx:
 		self.registry.add_enumerable_node(
 				node,
 				figtype,
-				title_getter,  # type: ignore
+				title_getter,  # type: ignore[arg-type]
 				override=override,
 				)
 		self.add_node(node, override=override, **kwargs)
@@ -367,8 +366,8 @@ class Sphinx:
 				directivename,
 				rolename,
 				indextemplate,
-				parse_node,  # type: ignore
-				ref_nodeclass,  # type: ignore
+				parse_node,  # type: ignore[arg-type]
+				ref_nodeclass,  # type: ignore[arg-type]
 				objname,
 				doc_field_types,
 				override=override,
@@ -392,7 +391,7 @@ class Sphinx:
 				directivename,
 				rolename,
 				indextemplate,
-				ref_nodeclass,  # type: ignore
+				ref_nodeclass,  # type: ignore[arg-type]
 				objname,
 				override=override,
 				)
@@ -421,7 +420,7 @@ class Sphinx:
 		self.registry.add_js_file(filename, **kwargs)
 
 	# 	if hasattr(self.builder, 'add_js_file'):
-	# 		self.builder.add_js_file(filename, **kwargs)  # type: ignore
+	# 		self.builder.add_js_file(filename, **kwargs)
 	#
 
 	def add_css_file(self, filename: str, **kwargs: str) -> None:
@@ -434,7 +433,7 @@ class Sphinx:
 		self.registry.add_css_files(filename, **kwargs)
 
 	# 	if hasattr(self.builder, 'add_css_file'):
-	# 		self.builder.add_css_file(filename, **kwargs)  # type: ignore
+	# 		self.builder.add_css_file(filename, **kwargs)
 
 	def add_latex_package(
 			self,
@@ -523,7 +522,7 @@ class Sphinx:
 		Register a math renderer for HTML.
 		"""
 
-		self.registry.add_html_math_renderer(name, inline_renderers, block_renderers)  # type: ignore
+		self.registry.add_html_math_renderer(name, inline_renderers, block_renderers)  # type: ignore[arg-type]
 
 	def setup_extension(self, extname: str) -> None:
 		"""
@@ -591,9 +590,9 @@ def run_setup(setup_func: _setup_func_type) -> RunSetupOutput:  # , buildername:
 		sphinx.util.docutils.additional_nodes = set()
 
 		with docutils.docutils_namespace():
-			setup_ret = setup_func(app)  # type: ignore
-			directives = copy.copy(docutils.directives._directives)  # type: ignore
-			roles = copy.copy(docutils.roles._roles)  # type: ignore
+			setup_ret = setup_func(app)  # type: ignore[arg-type]
+			directives = copy.copy(docutils.directives._directives)  # type: ignore[attr-defined]
+			roles = copy.copy(docutils.roles._roles)  # type: ignore[attr-defined]
 			additional_nodes = copy.copy(docutils.additional_nodes)
 	finally:
 		docutils.additional_nodes = _additional_nodes
@@ -681,7 +680,7 @@ class HTMLRegressionFixture(FileRegressionFixture):
 	.. versionadded:: 2.0.0
 	"""
 
-	def check(  # type: ignore
+	def check(  # type: ignore[override]
 		self,
 		page: BeautifulSoup,
 		*,
@@ -809,7 +808,7 @@ def check_asset_copy(
 		fake_app.builder.format = "html"
 		fake_app.outdir = fake_app.builder.outdir = tmp_pathplus
 
-		func(fake_app, None)  # type: ignore
+		func(fake_app, None)  # type: ignore[arg-type]
 
 		for filename in asset_files:
 			filename = tmp_pathplus / filename
@@ -827,7 +826,7 @@ class LaTeXRegressionFixture(AdvancedFileRegressionFixture):
 	.. versionadded:: 2.17.0
 	"""
 
-	def check(  # type: ignore
+	def check(  # type: ignore[override]
 		self,
 		contents: Union[str, StringList],
 		*,

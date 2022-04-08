@@ -31,24 +31,24 @@ class FakeBuildEnvironment(AttrDict):
 def test_make_installation_instructions_errors():
 
 	with pytest.warns(UserWarning) as w:
-		assert make_installation_instructions({}, FakeBuildEnvironment(4)) == []  # type: ignore
+		assert make_installation_instructions({}, FakeBuildEnvironment(4)) == []  # type: ignore[arg-type]
 
 	assert len(w) == 1
-	args: List[str] = w[0].message.args  # type: ignore
+	args: List[str] = w[0].message.args  # type: ignore[union-attr,assignment]
 	assert args[0] == "No installation source specified. No installation instructions will be shown."
 
 	with pytest.raises(ValueError, match="No PyPI project name supplied for the PyPI installation instructions."):
-		make_installation_instructions({"pypi": True}, FakeBuildEnvironment(4))  # type: ignore
+		make_installation_instructions({"pypi": True}, FakeBuildEnvironment(4))  # type: ignore[arg-type]
 
 	with pytest.raises(ValueError, match="No username supplied for the Anaconda installation instructions."):
-		make_installation_instructions({"anaconda": True}, FakeBuildEnvironment(4))  # type: ignore
+		make_installation_instructions({"anaconda": True}, FakeBuildEnvironment(4))  # type: ignore[arg-type]
 
 
 def test_make_installation_instructions():
 
 	assert make_installation_instructions(
 			{"pypi": True, "project_name": "my_project"},
-			FakeBuildEnvironment(4),  # type: ignore
+			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
 					".. tabs::",
 					'',
@@ -61,7 +61,7 @@ def test_make_installation_instructions():
 
 	assert make_installation_instructions(
 			{"pypi": True, "project_name": "my_project", "pypi-name": "my-project"},
-			FakeBuildEnvironment(4),  # type: ignore
+			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
 					".. tabs::",
 					'',
@@ -74,7 +74,7 @@ def test_make_installation_instructions():
 
 	assert make_installation_instructions(
 			{"anaconda": True, "project_name": "my_project"},
-			FakeBuildEnvironment(4),  # type: ignore
+			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
 					".. tabs::",
 					'',
@@ -88,7 +88,7 @@ def test_make_installation_instructions():
 
 	assert make_installation_instructions(
 			{"anaconda": True, "project_name": "my_project", "conda-name": "my-project"},
-			FakeBuildEnvironment(4),  # type: ignore
+			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
 					".. tabs::",
 					'',
@@ -102,7 +102,7 @@ def test_make_installation_instructions():
 
 	assert make_installation_instructions(
 			{"anaconda": True, "project_name": "my_project", "pypi-name": "pypi-project"},
-			FakeBuildEnvironment(4),  # type: ignore
+			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
 					".. tabs::",
 					'',
@@ -116,7 +116,7 @@ def test_make_installation_instructions():
 
 	assert make_installation_instructions(
 			{"github": True, "project_name": "my_project"},
-			FakeBuildEnvironment(4),  # type: ignore
+			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
 					".. tabs::",
 					'',
@@ -133,7 +133,7 @@ def test_make_installation_instructions():
 					"conda-channels": "foo,bar",
 					"project_name": "my_project",
 					},
-			FakeBuildEnvironment(4),  # type: ignore
+			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
 					".. tabs::",
 					'',
@@ -161,7 +161,7 @@ def test_make_installation_instructions():
 					"conda-channels": "  foo ,    bar ",
 					"project_name": "my_project",
 					},
-			FakeBuildEnvironment(4),  # type: ignore
+			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
 					".. tabs::",
 					'',
@@ -212,6 +212,6 @@ def test_setup():
 	assert app.registry.css_files == []
 	assert app.registry.js_files == []
 
-	installation._on_config_inited(app, app.config)  # type: ignore
+	installation._on_config_inited(app, app.config)  # type: ignore[arg-type]
 	assert app.registry.css_files == [("sphinx_toolbox_installation.css", {})]
 	assert app.registry.js_files == [("sphinx_toolbox_installation.js", {})]

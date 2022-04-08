@@ -150,7 +150,7 @@ import re
 from typing import Any, List, Optional, Tuple, Type
 
 # 3rd party
-import autodocsumm  # type: ignore
+import autodocsumm  # type: ignore[import]
 import sphinx
 from docutils import nodes
 from domdf_python_tools.stringlist import StringList
@@ -440,9 +440,9 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 					doc = None
 
 			if sphinx.version_info > (4, 1):
-				doc, metadata = separate_metadata(doc)  # type: ignore
+				doc, metadata = separate_metadata(doc)  # type: ignore[arg-type]
 			else:
-				metadata = extract_metadata(doc)  # type: ignore
+				metadata = extract_metadata(doc)  # type: ignore[arg-type]
 
 			has_doc = bool(doc)
 

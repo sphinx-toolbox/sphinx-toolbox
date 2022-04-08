@@ -1,6 +1,5 @@
 # 3rd party
 from coincidence.regressions import AdvancedFileRegressionFixture
-from sphinx.events import EventListener
 
 # this package
 import sphinx_toolbox

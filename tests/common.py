@@ -4,7 +4,6 @@ from typing import Any, Dict, NamedTuple, Sequence
 
 # 3rd party
 import pytest
-from docutils.nodes import system_message
 
 
 class AttrDict(dict):

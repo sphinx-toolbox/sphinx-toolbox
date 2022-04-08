@@ -167,7 +167,7 @@ def visit_asset_node(translator: HTMLTranslator, node: AssetNode):
 
 	if not hasattr(translator, "_asset_node_seen_files"):
 		# Files that have already been seen
-		translator._asset_node_seen_files = []  # type: ignore
+		translator._asset_node_seen_files = []  # type: ignore[attr-defined]
 
 	assets_out_dir = PathPlus(translator.builder.outdir) / "_assets"
 	assets_out_dir.maybe_make(parents=True)
@@ -176,7 +176,7 @@ def visit_asset_node(translator: HTMLTranslator, node: AssetNode):
 
 	if source_file not in translator._asset_node_seen_files and source_file.is_file():  # type: ignore
 		# Avoid unnecessary copies of potentially large files.
-		translator._asset_node_seen_files.append(source_file)  # type: ignore
+		translator._asset_node_seen_files.append(source_file)  # type: ignore[attr-defined]
 		shutil.copy2(source_file, assets_out_dir)
 	elif not source_file.is_file():
 		stderr_writer(

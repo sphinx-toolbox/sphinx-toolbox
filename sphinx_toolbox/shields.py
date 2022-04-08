@@ -384,15 +384,16 @@ Shields
 #
 
 # stdlib
-from typing import List, Optional
+from typing import List, Optional, Tuple
 from urllib.parse import quote
 
 # 3rd party
 import dict2css
+import docutils
 from apeye.url import URL
 from docutils import nodes
 from docutils.nodes import fully_normalize_name, whitespace_normalize_name
-from docutils.parsers.rst import directives, states
+from docutils.parsers.rst import directives
 from docutils.parsers.rst.roles import set_classes
 from domdf_python_tools.paths import PathPlus
 from sphinx.application import Sphinx
@@ -443,7 +444,7 @@ class Shield(SphinxDirective):
 	required_arguments = 1
 	optional_arguments = 0
 	final_argument_whitespace = True
-	option_spec: OptionSpec = {  # type: ignore
+	option_spec: OptionSpec = {  # type: ignore[assignment]
 		"target": directives.unchanged_required,
 		**shield_default_option_spec,
 		}
@@ -466,10 +467,10 @@ class Shield(SphinxDirective):
 		reference_node = None
 
 		if "target" in self.options:
-			block = states.escape2null(self.options["target"]).splitlines()  # type: ignore
+			block = docutils.utils.escape2null(self.options["target"]).splitlines()
 			block = [line for line in block]
 
-			target_type, data = self.state.parse_target(block, self.block_text, self.lineno)  # type: ignore
+			target_type, data = self.state.parse_target(block, self.block_text, self.lineno)  # type: ignore[attr-defined]
 
 			if target_type == "refuri":
 				reference_node = nodes.reference(refuri=data)
@@ -478,7 +479,7 @@ class Shield(SphinxDirective):
 						refname=fully_normalize_name(data),
 						name=whitespace_normalize_name(data),
 						)
-				reference_node.indirect_reference_name = data  # type: ignore
+				reference_node.indirect_reference_name = data  # type: ignore[attr-defined]
 				self.state.document.note_refname(reference_node)
 			else:  # pragma: no cover
 				# malformed target
@@ -510,7 +511,7 @@ class GitHubBackedShield(Shield):
 			**shield_default_option_spec,
 			}
 
-	def get_repo_details(self):
+	def get_repo_details(self) -> Tuple[str, str]:
 		"""
 		Returns the username and repository name, either parsed from the directive's options or from ``conf.py``.
 		"""

@@ -34,7 +34,7 @@ from types import ModuleType
 from typing import List
 
 # 3rd party
-import autodocsumm  # type: ignore
+import autodocsumm  # type: ignore[import]
 import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 

@@ -70,7 +70,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	class CustomRSTParser(RSTParser):
 
 		def parse(self, inputstring: Union[str, StringList], document: document) -> None:
-			app.config.docutils_tab_width = document.settings.tab_width  # type: ignore
+			app.config.docutils_tab_width = document.settings.tab_width  # type: ignore[attr-defined]
 			super().parse(inputstring, document)
 
 	app.add_source_parser(CustomRSTParser, override=True)

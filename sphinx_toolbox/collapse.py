@@ -100,7 +100,7 @@ class CollapseDirective(SphinxDirective):
 
 	option_spec = {"class": directives.class_option, "name": directives.unchanged}
 
-	def run(self) -> Sequence[nodes.Node]:  # type: ignore
+	def run(self) -> Sequence[nodes.Node]:  # type: ignore[override]
 		"""
 		Process the content of the directive.
 		"""

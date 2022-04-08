@@ -179,13 +179,12 @@ from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from domdf_python_tools.words import word_join
 from sphinx.application import Sphinx
-from sphinx.config import Config
 from sphinx.environment import BuildEnvironment
 from sphinx.util.docutils import SphinxDirective
 
 # this package
 from sphinx_toolbox import _css
-from sphinx_toolbox.utils import OptionSpec, Purger, SphinxExtMetadata, flag, metadata_add_version
+from sphinx_toolbox.utils import Config, OptionSpec, Purger, SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = [
 		"InstallationDirective",
@@ -422,7 +421,7 @@ class InstallationDirective(SphinxDirective):
 	optional_arguments: int = 1  # The name of the project; can be overridden for each source
 
 	# Registered sources
-	option_spec: OptionSpec = {  # type: ignore
+	option_spec: OptionSpec = {  # type: ignore[assignment]
 		source[0].lower(): source[3]
 		for source in sources  # pylint: disable=not-an-iterable
 		}
@@ -430,7 +429,7 @@ class InstallationDirective(SphinxDirective):
 	# Extra options for registered sources
 	for source in sources:  # pylint: disable=not-an-iterable
 		if source[4] is not None:
-			option_spec.update(source[4])  # type: ignore
+			option_spec.update(source[4])  # type: ignore[attr-defined]
 
 	options: Dict[str, Any]
 	"""
@@ -459,8 +458,8 @@ class InstallationDirective(SphinxDirective):
 		content = make_installation_instructions(self.options, self.env)
 		view = ViewList(content)
 
-		installation_node = nodes.paragraph(rawsource=content)  # type: ignore
-		self.state.nested_parse(view, self.content_offset, installation_node)  # type: ignore
+		installation_node = nodes.paragraph(rawsource=content)  # type: ignore[arg-type]
+		self.state.nested_parse(view, self.content_offset, installation_node)  # type: ignore[arg-type]
 		installation_node_purger.add_node(self.env, installation_node, targetnode, self.lineno)
 
 		return [targetnode, installation_node]
@@ -489,8 +488,8 @@ class InstallationDirective(SphinxDirective):
 			installation_node_purger.add_node(self.env, section, targetnode, self.lineno)
 
 			view = ViewList(tab_content)
-			paragraph_node = nodes.paragraph(rawsource=tab_content)  # type: ignore
-			self.state.nested_parse(view, self.content_offset, paragraph_node)  # type: ignore
+			paragraph_node = nodes.paragraph(rawsource=tab_content)  # type: ignore[arg-type]
+			self.state.nested_parse(view, self.content_offset, paragraph_node)  # type: ignore[arg-type]
 			nodes_to_return.append(paragraph_node)
 			installation_node_purger.add_node(self.env, paragraph_node, targetnode, self.lineno)
 
@@ -564,7 +563,7 @@ class ExtensionsDirective(SphinxDirective):
 
 	has_content: bool = True  # Other required extensions, one per line
 	optional_arguments: int = 1  # The name of the project
-	option_spec: OptionSpec = {  # type: ignore
+	option_spec: OptionSpec = {  # type: ignore[assignment]
 		"import-name": directives.unchanged_required,  # If different to project name
 		"no-preamble": flag,
 		"no-postamble": flag,
@@ -627,8 +626,8 @@ class ExtensionsDirective(SphinxDirective):
 		if "no-postamble" not in self.options:
 			content.extend([bottom_text, ''])
 
-		extensions_node = nodes.paragraph(rawsource=content)  # type: ignore
-		self.state.nested_parse(ViewList(content), self.content_offset, extensions_node)  # type: ignore
+		extensions_node = nodes.paragraph(rawsource=content)  # type: ignore[arg-type]
+		self.state.nested_parse(ViewList(content), self.content_offset, extensions_node)  # type: ignore[arg-type]
 		extensions_node_purger.add_node(self.env, extensions_node, targetnode, self.lineno)
 
 		return [targetnode, extensions_node]
@@ -700,7 +699,7 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None):
 			])
 
 
-def _on_config_inited(app: Sphinx, config: Config):
+def _on_config_inited(app: Sphinx, config: Config) -> None:
 	app.add_css_file("sphinx_toolbox_installation.css")
 	app.add_js_file("sphinx_toolbox_installation.js")
 

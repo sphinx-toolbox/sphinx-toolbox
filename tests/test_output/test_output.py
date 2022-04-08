@@ -10,7 +10,7 @@ import pytest
 import sphinx
 import sphinx.writers.html5
 from _pytest.mark import ParameterSet
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup  # type: ignore[import]
 from coincidence.params import param
 from coincidence.regressions import AdvancedFileRegressionFixture
 from coincidence.selectors import min_version, only_version
@@ -157,7 +157,7 @@ def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 	caught_exceptions: List[BaseException] = []
 
 	for page in pages_to_check:
-		pagename: str = page.values[0]  # type: ignore
+		pagename: str = page.values[0]  # type: ignore[assignment]
 		page_id: str = page.id or pagename
 
 		for mark in page.marks:
