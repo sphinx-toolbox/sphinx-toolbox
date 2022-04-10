@@ -69,6 +69,7 @@ known_third_party = [
     "ruamel_yaml",
     "sphinx",
     "sphinx_autodoc_typehints",
+    "sphinx_jinja2_compat",
     "sphinx_prompt",
     "sphinx_tabs",
     "sphobjinv",
