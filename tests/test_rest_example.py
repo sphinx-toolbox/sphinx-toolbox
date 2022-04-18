@@ -19,19 +19,19 @@ def test_make_rest_example():
 
 	assert make_rest_example(
 			{},
-			FakeBuildEnvironment(4),  # type: ignore
+			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			[],
 			) == [".. container:: rest-example", '', "    .. code-block:: rest", '']
 
 	assert make_rest_example(
 			{"hello": "world"},
-			FakeBuildEnvironment(4),  # type: ignore
+			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			[],
 			) == [".. container:: rest-example", '', "    .. code-block:: rest", "        :hello: world", '']
 
 	assert make_rest_example(
 			{"hello": "world", "flag": None},
-			FakeBuildEnvironment(4),  # type: ignore
+			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			[],
 			) == [
 					".. container:: rest-example",
@@ -44,7 +44,7 @@ def test_make_rest_example():
 
 	assert make_rest_example(
 			{"hello": "world", "flag": None},
-			FakeBuildEnvironment(4),  # type: ignore
+			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			["this is some content"],
 			) == [
 					".. container:: rest-example",
@@ -61,13 +61,13 @@ def test_make_rest_example():
 
 	assert make_rest_example(
 			{},
-			FakeBuildEnvironment(8),  # type: ignore
+			FakeBuildEnvironment(8),  # type: ignore[arg-type]
 			[],
 			) == [".. container:: rest-example", '', "        .. code-block:: rest", '']
 
 	assert make_rest_example(
 			{"hello": "world"},
-			FakeBuildEnvironment(8),  # type: ignore
+			FakeBuildEnvironment(8),  # type: ignore[arg-type]
 			[],
 			) == [
 					".. container:: rest-example",
@@ -79,7 +79,7 @@ def test_make_rest_example():
 
 	assert make_rest_example(
 			{"hello": "world", "flag": None},
-			FakeBuildEnvironment(8),  # type: ignore
+			FakeBuildEnvironment(8),  # type: ignore[arg-type]
 			[],
 			) == [
 					".. container:: rest-example",
@@ -92,7 +92,7 @@ def test_make_rest_example():
 
 	assert make_rest_example(
 			{"hello": "world", "flag": None},
-			FakeBuildEnvironment(8),  # type: ignore
+			FakeBuildEnvironment(8),  # type: ignore[arg-type]
 			["this is some content"],
 			) == [
 					".. container:: rest-example",

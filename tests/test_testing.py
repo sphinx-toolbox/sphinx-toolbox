@@ -5,7 +5,7 @@ from typing import Any, Dict
 import pytest
 from docutils.nodes import NodeVisitor
 from docutils.transforms import Transform
-from pygments.lexer import Lexer  # type: ignore
+from pygments.lexer import Lexer  # type: ignore[import]
 from sphinx.builders import Builder
 from sphinx.domains import Domain
 from sphinx.events import EventListener
@@ -84,8 +84,8 @@ def __setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_domain(FakeDomain)
 	app.add_domain(FakeDomain, override=True)
 
-	app.add_role_to_domain("FakeDomain", "source", source_role)  # type: ignore
-	app.add_role_to_domain("FakeDomain", "source", source_role, override=True)  # type: ignore
+	app.add_role_to_domain("FakeDomain", "source", source_role)  # type: ignore[arg-type]
+	app.add_role_to_domain("FakeDomain", "source", source_role, override=True)  # type: ignore[arg-type]
 
 	# TODO: add_directive_to_domain
 	# TODO: add_role_to_domain

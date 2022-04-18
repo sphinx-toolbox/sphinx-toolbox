@@ -71,7 +71,7 @@ API Reference
 #
 
 # stdlib
-from typing import TYPE_CHECKING, Dict, List, Sequence, Tuple, Union
+from typing import TYPE_CHECKING, Dict, List, Sequence, Tuple
 
 # 3rd party
 import sphinx
@@ -88,8 +88,8 @@ from sphinx.util import split_explicit_title
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 if TYPE_CHECKING:
-	# 3rd party
-	from sphinx.config import Config
+	# this package
+	from sphinx_toolbox.utils import Config
 
 __all__ = ["source_role", "setup"]
 
@@ -235,7 +235,7 @@ def _configure(app: Sphinx, config: "Config"):
 	:param config:
 	"""
 
-	config.source_link_target = str(config.source_link_target).lower().strip()  # type: ignore
+	config.source_link_target = str(config.source_link_target).lower().strip()  # type: ignore[attr-defined]
 
 	if config.source_link_target not in {"sphinx", "github"}:
 		# this package

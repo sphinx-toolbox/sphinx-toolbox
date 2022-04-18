@@ -45,7 +45,7 @@ sphinx_tabs_disable_tab_closing = True
 html_codeblock_linenos_style = "table"
 
 overloads_location = "bottom"
-documentation_summary = "   This is an awesome tool! 🚀 ~ intersphinx_mapping # {{ jinja2 }} 100% 'Quotes'"
+documentation_summary = "   This is an awesome tool! 🚀 ~ intersphinx_mapping #  100% 'Quotes'"
 
 intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 

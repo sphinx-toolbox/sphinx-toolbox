@@ -126,9 +126,9 @@ from domdf_python_tools.stringlist import DelimitedList
 
 if sys.version_info < (3, 7, 4):  # pragma: no cover (py37+)
 	# stdlib
-	from typing import _ForwardRef as ForwardRef  # type: ignore
+	from typing import _ForwardRef as ForwardRef  # type: ignore[attr-defined]
 else:  # pragma: no cover (<py37)
-	from typing import ForwardRef  # type: ignore
+	from typing import ForwardRef  # type: ignore[attr-defined]
 
 # 3rd party
 import sphinx_autodoc_typehints
@@ -503,9 +503,10 @@ def preprocess_class_defaults(
 			else:
 				if hasattr(obj, "__attrs_attrs__") and default is attr.NOTHING:
 					# Special casing for attrs classes
-					for value in obj.__attrs_attrs__:  # type: ignore
-						if value.name == argname and isinstance(value.default, attr.Factory):  # type: ignore
-							default = value.default.factory()
+					for value in obj.__attrs_attrs__:  # type: ignore[attr-defined]
+						if value.name == argname:
+							if isinstance(value.default, attr.Factory):  # type: ignore[arg-type]
+								default = value.default.factory()
 
 		parameters.append(param.replace(annotation=inspect.Parameter.empty, default=default))
 

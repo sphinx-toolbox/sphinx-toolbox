@@ -79,7 +79,7 @@ class D(typing_extensions.Protocol):
 	pass
 
 
-class E(typing_extensions.Protocol[T]):  # type: ignore
+class E(typing_extensions.Protocol[T]):  # type: ignore[misc]
 	pass
 
 
@@ -280,5 +280,5 @@ def test_format_annotation_both_libs(inv, library, annotation, params, expected_
 
 def test_process_docstring_slot_wrapper():
 	lines: List[str] = []
-	process_docstring(None, "class", "SlotWrapper", Slotted, None, lines)  # type: ignore
+	process_docstring(None, "class", "SlotWrapper", Slotted, None, lines)  # type: ignore[arg-type]
 	assert not lines

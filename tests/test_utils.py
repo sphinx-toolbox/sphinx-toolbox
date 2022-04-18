@@ -71,13 +71,13 @@ demo_purger = Purger("all_demo_nodes")
 def test_purge_extras_require(nodes, output):
 	env = MockBuildEnvironment()
 
-	demo_purger.purge_nodes('', env, "document")  # type: ignore
+	demo_purger.purge_nodes('', env, "document")  # type: ignore[arg-type]
 	assert not hasattr(env, "all_extras_requires")
 
-	env.all_demo_nodes = nodes  # type: ignore
-	demo_purger.purge_nodes('', env, "document")  # type: ignore
+	env.all_demo_nodes = nodes  # type: ignore[attr-defined]
+	demo_purger.purge_nodes('', env, "document")  # type: ignore[arg-type]
 	assert hasattr(env, "all_demo_nodes")
-	assert env.all_demo_nodes == output  # type: ignore
+	assert env.all_demo_nodes == output  # type: ignore[attr-defined]
 
 
 def test_get_first_matching():
@@ -173,7 +173,7 @@ class NT(NamedTuple):
 				pytest.param(123.456, False, id="float"),
 				pytest.param(("abc", 123), False, id="tuple"),
 				pytest.param(
-						collections.namedtuple("Foo", "str, int")("abc", 123),  # type: ignore
+						collections.namedtuple("Foo", "str, int")("abc", 123),  # type: ignore[call-arg]
 						False,
 						id="namedtuple",
 						),
@@ -196,4 +196,4 @@ def test_metadata_add_version():
 	def setup(app):
 		return {"parallel_read_safe": True}
 
-	assert setup(None) == {"parallel_read_safe": True, "version": __version__}  # type: ignore
+	assert setup(None) == {"parallel_read_safe": True, "version": __version__}  # type: ignore[arg-type]

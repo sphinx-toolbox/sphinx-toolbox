@@ -4,7 +4,7 @@ from typing import List, Union
 # 3rd party
 import pytest
 from _pytest.mark import ParameterSet
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup  # type: ignore[import]
 from coincidence.selectors import min_version, only_version
 
 # this package
@@ -17,6 +17,7 @@ def test_build_github(gh_src_app):
 	gh_src_app.build()
 
 
+@pytest.mark.usefixtures("docutils_17_compat")
 @pytest.mark.parametrize("github_source_page", ["index.html"], indirect=True)
 def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
@@ -61,7 +62,7 @@ def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLR
 			'href="https://github.com/sphinx-toolbox/toctree_plus/issues/56">sphinx-toolbox/toctree_plus#56</a></abbr>.</p>',
 			]
 
-	html_regression.check(github_source_page)
+	html_regression.check(github_source_page, jinja2=True)
 
 
 # The following is in here because it needs to run with different options to tests/test_output
@@ -86,6 +87,7 @@ pages_to_check: List[Union[str, ParameterSet]] = [
 		]
 
 
+@pytest.mark.usefixtures("docutils_17_compat")
 def test_html_output(gh_src_app, html_regression: HTMLRegressionFixture):
 	"""
 	Parametrize new files here rather than as their own function.
@@ -99,7 +101,7 @@ def test_html_output(gh_src_app, html_regression: HTMLRegressionFixture):
 		if isinstance(page, str):
 			page = pytest.param(page, id=page)
 
-		pagename: str = page.values[0]  # type: ignore
+		pagename: str = page.values[0]  # type: ignore[assignment]
 		page_id: str = page.id or pagename
 		for mark in page.marks:
 			if mark.kwargs.get("condition", False):

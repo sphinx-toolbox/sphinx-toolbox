@@ -147,7 +147,7 @@ def test_format_annotation(annotation: Any, expected: str):
 
 def test_setup():
 	try:
-		Sphinx.extensions = []  # type: ignore
+		Sphinx.extensions = []  # type: ignore[attr-defined]
 
 		setup_ret, directives, roles, additional_nodes, app = run_setup(typehints.setup)
 
@@ -160,12 +160,12 @@ def test_setup():
 		assert additional_nodes == set()
 
 	finally:
-		del Sphinx.extensions  # type: ignore
+		del Sphinx.extensions  # type: ignore[attr-defined]
 
 
 def test_setup_wrong_order():
 	try:
-		Sphinx.extensions = ["sphinx_autodoc_typehints"]  # type: ignore
+		Sphinx.extensions = ["sphinx_autodoc_typehints"]  # type: ignore[attr-defined]
 
 		with pytest.raises(
 				ExtensionError,
@@ -176,4 +176,4 @@ def test_setup_wrong_order():
 			run_setup(typehints.setup)
 
 	finally:
-		del Sphinx.extensions  # type: ignore
+		del Sphinx.extensions  # type: ignore[attr-defined]

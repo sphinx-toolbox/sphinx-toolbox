@@ -101,7 +101,7 @@
 \definecolor{regex_repeat}{HTML}{FF4500}
 \definecolor{regex_any}{HTML}{FF4500}
 \usepackage[]{bookmark}
-\newcommand{\thesummary}{This is an awesome tool! 🚀 \textasciitilde\space intersphinx\_mapping \# \{\{ jinja2 \}\} 100\% ‘Quotes’}
+\newcommand{\thesummary}{This is an awesome tool! 🚀 \textasciitilde\space intersphinx\_mapping \#  100\% ‘Quotes’}
 
 \makeatletter
 \renewcommand{\py@release}{
@@ -131,7 +131,10 @@
 \phantomsection\label{\detokenize{index::doc}}
 \part{Documentation}
 
+<% if sphinx_version > (4, 5) -%>
+\sphinxstepscope
 
+<% endif %>
 
 
 \chapter{from PyPI}
@@ -464,14 +467,18 @@ to the \sphinxcode{\sphinxupquote{extensions}} variable in your \sphinxcode{\sph
     \PYG{p}{]}
 \end{sphinxVerbatim}
 
-
+<% if sphinx_version > (4, 5) %>
+\sphinxstepscope
+<% endif %>
 
 \chapter{Collapse}
 \label{\detokenize{collapse:collapse}}\label{\detokenize{collapse::doc}}
 Something small enough to escape casual notice.
 
 Something else that might escape notice.
-
+<% if sphinx_version > (4, 5) %>
+\sphinxstepscope
+<% endif %>
 
 \chapter{Confval}
 \label{\detokenize{confval:confval}}\label{\detokenize{confval::doc}}
@@ -479,7 +486,13 @@ Something else that might escape notice.
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{confval:confval-source_link_target}}\pysigline{\sphinxbfcode{\sphinxupquote{source\_link\_target}}}<< tilde >>
+\phantomsection\label{\detokenize{confval:confval-source_link_target}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxbfcode{\sphinxupquote{source\_link\_target}}}<< tilde >>
+<% if sphinx_version > (4, 5) %>\pysigstopsignatures
+<% endif -%>
 \vspace{-45px}
 
 \begin{DUlineblock}{0em}
@@ -500,7 +513,13 @@ Case insensitive.
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{confval:confval-github_username}}\pysigline{\sphinxbfcode{\sphinxupquote{github\_username}}}<< tilde >>
+\phantomsection\label{\detokenize{confval:confval-github_username}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxbfcode{\sphinxupquote{github\_username}}}<< tilde >>
+<% if sphinx_version > (4, 5) %>\pysigstopsignatures
+<% endif -%>
 \vspace{-45px}
 
 \begin{DUlineblock}{0em}
@@ -515,7 +534,13 @@ Case insensitive.
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{confval:confval-github_repository}}\pysigline{\sphinxbfcode{\sphinxupquote{github\_repository}}}<< tilde >>
+\phantomsection\label{\detokenize{confval:confval-github_repository}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxbfcode{\sphinxupquote{github\_repository}}}<< tilde >>
+<% if sphinx_version > (4, 5) %>\pysigstopsignatures
+<% endif -%>
 \vspace{-45px}
 
 \begin{DUlineblock}{0em}
@@ -534,7 +559,13 @@ The GitHub repository this documentation corresponds to.
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{confval:confval-conda_channels}}\pysigline{\sphinxbfcode{\sphinxupquote{conda\_channels}}}<< tilde >>
+\phantomsection\label{\detokenize{confval:confval-conda_channels}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxbfcode{\sphinxupquote{conda\_channels}}}<< tilde >>
+<% if sphinx_version > (4, 5) %>\pysigstopsignatures
+<% endif -%>
 \vspace{-45px}
 
 \begin{DUlineblock}{0em}
@@ -553,7 +584,12 @@ The GitHub repository this documentation corresponds to.
 \vspace{5px}
 
 \begin{fulllineitems}
+<% if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
 \pysigline{\sphinxbfcode{\sphinxupquote{github\_repository}}}<< tilde >>
+<% if sphinx_version > (4, 5) %>\pysigstopsignatures
+<% endif -%>
 \vspace{-45px}
 
 \begin{DUlineblock}{0em}
@@ -573,14 +609,22 @@ This is an xref to the {\hyperref[\detokenize{confval:confval-github_repository}
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{confval:confval-something}}\pysigline{\sphinxbfcode{\sphinxupquote{something}}}<< tilde >>
+\phantomsection\label{\detokenize{confval:confval-something}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxbfcode{\sphinxupquote{something}}}<< tilde >>
+<% if sphinx_version > (4, 5) %>\pysigstopsignatures
+<% endif -%>
 \vspace{-25px}
 
 A configuration value.
 
 \end{fulllineitems}
 
-
+<% if sphinx_version > (4, 5) %>
+\sphinxstepscope
+<% endif %>
 
 \chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} Code}
 \label{\detokenize{code-block:sphinx-toolbox-demo-code}}\label{\detokenize{code-block::doc}}
@@ -641,6 +685,9 @@ A configuration value.
 \end{sphinxVerbatim}
 <% if sphinx_version >= (4, 1) %>
 \end{sphinxuseclass}<% endif %>
+<%- if sphinx_version > (4, 5) %>
+\sphinxstepscope
+<% endif %>
 
 \chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} Formatting}
 \label{\detokenize{formatting:sphinx-toolbox-demo-formatting}}\label{\detokenize{formatting::doc}}
@@ -651,6 +698,9 @@ A configuration value.
 \vspace{10px}\sphinxstylestrong{Examples:}
 
 \vspace{10px}\sphinxstylestrong{Other Extensions}
+<%- if sphinx_version > (4, 5) %>
+
+\sphinxstepscope<% endif %>
 
 
 \chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} footnotes}
@@ -677,6 +727,9 @@ A footnote with lots of content.
 \end{sphinxVerbatim}
 %
 \end{footnote}\renewcommand\thefootnote{\thenumberfootnote} strange things happen.
+<%- if sphinx_version > (4, 5) %>
+
+\sphinxstepscope<% endif %>
 
 
 \chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} LaTeX}
@@ -852,7 +905,9 @@ Symbol 9
 
 
 \vspace{20px}
+<% if sphinx_version > (4, 5) %>
 
+\sphinxstepscope<% endif %>
 
 
 \chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} Regex}
@@ -863,7 +918,13 @@ General utility functions.
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{regex:sphinx_toolbox.utils.untyped_param_regex}}\pysigline{\sphinxcode{\sphinxupquote{sphinx\_toolbox.utils.}}\sphinxbfcode{\sphinxupquote{untyped\_param\_regex}}}
+\phantomsection\label{\detokenize{regex:sphinx_toolbox.utils.untyped_param_regex}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxcode{\sphinxupquote{sphinx\_toolbox.utils.}}\sphinxbfcode{\sphinxupquote{untyped\_param\_regex}}}
+<% if sphinx_version > (4, 5) %>\pysigstopsignatures
+<% endif -%>
 \sphinxstylestrong{Type:}    \sphinxhref{https://docs.python.org/3/library/typing.html\#typing.Pattern}{\sphinxcode{\sphinxupquote{Pattern}}}{[}\sphinxhref{https://docs.python.org/3/library/stdtypes.html\#str}{\sphinxcode{\sphinxupquote{str}}}{]}
 
 Regex to match \sphinxcode{\sphinxupquote{:param \textless{}name\textgreater{}: \textless{}docstring\textgreater{}}} flags.
@@ -897,7 +958,13 @@ Regex to match \sphinxcode{\sphinxupquote{:param \textless{}name\textgreater{}: 
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{regex:sphinx_toolbox.utils.typed_flag_regex}}\pysigline{\sphinxcode{\sphinxupquote{sphinx\_toolbox.utils.}}\sphinxbfcode{\sphinxupquote{typed\_flag\_regex}}}
+\phantomsection\label{\detokenize{regex:sphinx_toolbox.utils.typed_flag_regex}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxcode{\sphinxupquote{sphinx\_toolbox.utils.}}\sphinxbfcode{\sphinxupquote{typed\_flag\_regex}}}
+<% if sphinx_version > (4, 5) %>\pysigstopsignatures
+<% endif -%>
 \sphinxstylestrong{Type:}    \sphinxhref{https://docs.python.org/3/library/typing.html\#typing.Pattern}{\sphinxcode{\sphinxupquote{Pattern}}}{[}\sphinxhref{https://docs.python.org/3/library/stdtypes.html\#str}{\sphinxcode{\sphinxupquote{str}}}{]}
 
 Regex to match \sphinxcode{\sphinxupquote{:type \textless{}name\textgreater{}: \textless{}type\textgreater{}}} flags.
@@ -933,7 +1000,14 @@ Regex to match \sphinxcode{\sphinxupquote{:type \textless{}name\textgreater{}: \
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{regex:tests.regex_demo.no_flags}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{no\_flags}}}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.no_flags}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{no\_flags}}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstopsignatures
+<%- endif %>
 \sphinxstylestrong{Type:}    \sphinxhref{https://docs.python.org/3/library/typing.html\#typing.Pattern}{\sphinxcode{\sphinxupquote{Pattern}}}
 
 Compiled regular expression object.
@@ -960,7 +1034,14 @@ Compiled regular expression object.
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{regex:tests.regex_demo.one_flag}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{one\_flag}}}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.one_flag}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{one\_flag}}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstopsignatures
+<%- endif %>
 \sphinxstylestrong{Type:}    \sphinxhref{https://docs.python.org/3/library/typing.html\#typing.Pattern}{\sphinxcode{\sphinxupquote{Pattern}}}
 
 Compiled regular expression object.
@@ -992,7 +1073,14 @@ Compiled regular expression object.
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{regex:tests.regex_demo.two_flags}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{two\_flags}}}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.two_flags}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{two\_flags}}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstopsignatures
+<%- endif %>
 \sphinxstylestrong{Type:}    \sphinxhref{https://docs.python.org/3/library/typing.html\#typing.Pattern}{\sphinxcode{\sphinxupquote{Pattern}}}
 
 Compiled regular expression object.
@@ -1024,7 +1112,14 @@ Compiled regular expression object.
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{regex:tests.regex_demo.backticks}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{backticks}}}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.backticks}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{backticks}}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstopsignatures
+<%- endif %>
 \sphinxstylestrong{Type:}    \sphinxhref{https://docs.python.org/3/library/typing.html\#typing.Pattern}{\sphinxcode{\sphinxupquote{Pattern}}}
 
 Compiled regular expression object.
@@ -1051,7 +1146,14 @@ Compiled regular expression object.
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{regex:tests.regex_demo.leading_whitespace}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{leading\_whitespace}}}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.leading_whitespace}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{leading\_whitespace}}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstopsignatures
+<%- endif %>
 \sphinxstylestrong{Type:}    \sphinxhref{https://docs.python.org/3/library/typing.html\#typing.Pattern}{\sphinxcode{\sphinxupquote{Pattern}}}
 
 Compiled regular expression object.
@@ -1078,7 +1180,14 @@ Compiled regular expression object.
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{regex:tests.regex_demo.trailing_whitespace}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{trailing\_whitespace}}}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.trailing_whitespace}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{trailing\_whitespace}}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstopsignatures
+<%- endif %>
 \sphinxstylestrong{Type:}    \sphinxhref{https://docs.python.org/3/library/typing.html\#typing.Pattern}{\sphinxcode{\sphinxupquote{Pattern}}}
 
 Compiled regular expression object.
@@ -1105,7 +1214,14 @@ Compiled regular expression object.
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{regex:tests.regex_demo.single_whitespace}}\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{single\_whitespace}}}
+\phantomsection\label{\detokenize{regex:tests.regex_demo.single_whitespace}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysigline{\sphinxcode{\sphinxupquote{tests.regex\_demo.}}\sphinxbfcode{\sphinxupquote{single\_whitespace}}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstopsignatures
+<%- endif %>
 \sphinxstylestrong{Type:}    \sphinxhref{https://docs.python.org/3/library/typing.html\#typing.Pattern}{\sphinxcode{\sphinxupquote{Pattern}}}
 
 Compiled regular expression object.
@@ -1127,7 +1243,9 @@ Compiled regular expression object.
 
 \end{fulllineitems}
 
-
+<% if sphinx_version > (4, 5) %>
+\sphinxstepscope
+<% endif %>
 
 \chapter{sphinx\sphinxhyphen{}toolbox Demo \sphinxhyphen{} GitHub}
 \label{\detokenize{github:sphinx-toolbox-demo-github}}\label{\detokenize{github::doc}}
@@ -1165,7 +1283,9 @@ See more of my \sphinxhref{https://github.com/domdfcoding}{repositories}.
 \sphinxhref{https://github.com/sphinx-toolbox}{@sphinx\sphinxhyphen{}toolbox}
 
 See more repositories in the \sphinxhref{https://github.com/pytest-dev}{pytest\sphinxhyphen{}dev org}.
-
+<% if sphinx_version > (4, 5) %>
+\sphinxstepscope
+<% endif %>
 
 \chapter{Changeset}
 \label{\detokenize{changeset:changeset}}\label{\detokenize{changeset::doc}}
@@ -1209,7 +1329,15 @@ Added support for \sphinxhref{https://github.com/Chilipp/autodocsumm}{autodocsum
 \vspace{5px}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{index:foo}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{foo}}}{\emph{\DUrole{n}{bar}}, \emph{\DUrole{n}{baz}}}{}<< tilde >>\vspace{10px}\begin{flushleft}\begin{description}
+\phantomsection\label{\detokenize{index:foo}}
+<%- if sphinx_version > (4, 5) %>
+\pysigstartsignatures
+<% endif -%>
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{foo}}}{\emph{\DUrole{n}{bar}}, \emph{\DUrole{n}{baz}}}{}<< tilde >>
+<%- if sphinx_version > (4, 5) %>
+\pysigstopsignatures
+<%- endif -%>
+\vspace{10px}\begin{flushleft}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {}
 \sphinxstyleliteralstrong{\sphinxupquote{bar}} \textendash{} Does something
@@ -1235,7 +1363,15 @@ Added support for \sphinxhref{https://github.com/Chilipp/autodocsumm}{autodocsum
 
 
 
-\begin{savenotes}\sphinxatlongtablestart\begin{longtable}[c]{\X{1}{2}\X{1}{2}}
+\begin{savenotes}
+<%- if sphinx_version > (4, 5) -%>
+\sphinxattablestart
+\centering
+\begin{tabulary}{\linewidth}[t]{\X{1}{2}\X{1}{2}}
+\hline
+
+<%- else -%>
+\sphinxatlongtablestart\begin{longtable}[c]{\X{1}{2}\X{1}{2}}
 \hline
 
 \endfirsthead
@@ -1251,6 +1387,7 @@ Added support for \sphinxhref{https://github.com/Chilipp/autodocsumm}{autodocsum
 \endfoot
 
 \endlastfoot
+<%- endif %>
 
 \sphinxcode{\sphinxupquote{Animal}}(name, voice)
 &
@@ -1267,7 +1404,13 @@ Represents an employee.
 Represents a movie.
 \\
 \hline
+<% if sphinx_version > (4, 5) -%>
+\end{tabulary}
+\par
+\sphinxattableend\end{savenotes}
+<%- else -%>
 \end{longtable}\sphinxatlongtableend\end{savenotes}
+<%- endif %>
 
 
 \bookmarksetupnext{{level=part}}

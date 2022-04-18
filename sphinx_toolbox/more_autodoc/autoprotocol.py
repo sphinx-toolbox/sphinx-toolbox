@@ -165,7 +165,7 @@ from sphinx_toolbox.utils import (
 
 if sys.version_info < (3, 8):  # pragma: no cover (>=py38)
 	# 3rd party
-	from typing_extensions import _ProtocolMeta  # type: ignore
+	from typing_extensions import _ProtocolMeta
 else:  # pragma: no cover (<py38)
 	# stdlib
 	from typing import _ProtocolMeta

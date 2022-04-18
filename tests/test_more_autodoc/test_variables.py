@@ -27,7 +27,7 @@ class Bar:
 	c: float
 	d: "float"
 	e: "List"
-	f: "Set"  # type: ignore
+	f: "Set"  # type: ignore[name-defined]
 
 	def __init__(self):
 		self.g: Secret = Secret('')

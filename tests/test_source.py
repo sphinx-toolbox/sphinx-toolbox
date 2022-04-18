@@ -30,7 +30,7 @@ class FakeSourceInliner:
 
 def test_source_role_github():
 	github_source_url = "https://github.com/python/cpython/blob/master"
-	nodes, messages = source_role('', '', "Lib/typing.py", 0, FakeSourceInliner("github", github_source_url))  # type: ignore
+	nodes, messages = source_role('', '', "Lib/typing.py", 0, FakeSourceInliner("github", github_source_url))  # type: ignore[arg-type]
 
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
@@ -42,7 +42,7 @@ def test_source_role_github():
 
 
 def test_source_role_sphinx():
-	nodes, messages = source_role('', '', "Lib/typing.py", 0, FakeSourceInliner("sphinx", ''))  # type: ignore
+	nodes, messages = source_role('', '', "Lib/typing.py", 0, FakeSourceInliner("sphinx", ''))  # type: ignore[arg-type]
 
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
@@ -67,7 +67,7 @@ def test_source_role_sphinx():
 
 
 def test_source_role_unknown_target(capsys):
-	nodes, messages = source_role('', '', "Lib/typing.py", 0, FakeSourceInliner("gitlab", ''))  # type: ignore
+	nodes, messages = source_role('', '', "Lib/typing.py", 0, FakeSourceInliner("gitlab", ''))  # type: ignore[arg-type]
 	assert capsys.readouterr().err == ":: (ERROR/3) Unsupported source link target 'gitlab'.\n"
 
 	assert isinstance(nodes, list)

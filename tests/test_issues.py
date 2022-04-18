@@ -2,7 +2,7 @@
 import pytest
 from apeye.requests_url import RequestsURL
 from coincidence.params import count
-from deprecation import fail_if_not_removed  # type: ignore
+from deprecation import fail_if_not_removed  # type: ignore[import]
 from docutils.nodes import system_message
 from docutils.utils import Reporter
 
@@ -52,7 +52,13 @@ class FakeIssueInliner:
 @count(100)
 def test_issue_role(count: int, url: str):
 	issue_number = count
-	nodes, messages = issue_role('', '', str(issue_number), 0, FakeIssueInliner(url))  # type: ignore
+	nodes, messages = issue_role(
+		'',
+		'',
+		str(issue_number),
+		0,
+		FakeIssueInliner(url),  # type: ignore[arg-type]
+		)
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages
@@ -89,7 +95,7 @@ pull_repositories = pytest.mark.parametrize(
 @count(100, 0, 10)
 def test_issue_role_with_repository(count: int, url: str, repository: str):
 	issue_number = count
-	nodes, messages = issue_role('', '', f"{issue_number} <{repository}>", 0, "Not a URL")  # type: ignore
+	nodes, messages = issue_role('', '', f"{issue_number} <{repository}>", 0, "Not a URL")  # type: ignore[arg-type]
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages
@@ -139,7 +145,7 @@ def test_pull_role_with_repository(count: int, url: str, repository: str):
 def test_issue_role_invalid_repository(capsys):
 	url = "https://github.com/domdfcoding/sphinx-toolbox"
 
-	nodes, messages = issue_role('', '', f"7 <foo>", 0, FakeIssueInliner(url))  # type: ignore
+	nodes, messages = issue_role('', '', f"7 <foo>", 0, FakeIssueInliner(url))  # type: ignore[arg-type]
 	assert capsys.readouterr().err == ":: (WARNING/2) Invalid repository 'foo' for issue #7.\n"
 
 	issue_number = 7
@@ -159,7 +165,7 @@ def test_issue_role_invalid_repository(capsys):
 def test_pull_role_invalid_repository(capsys):
 	url = "https://github.com/domdfcoding/sphinx-toolbox"
 
-	nodes, messages = pull_role('', '', f"7 <foo>", 0, FakePullInliner(url))  # type: ignore
+	nodes, messages = pull_role('', '', f"7 <foo>", 0, FakePullInliner(url))  # type: ignore[arg-type]
 	assert capsys.readouterr().err == ":: (WARNING/2) Invalid repository 'foo' for pull request #7.\n"
 
 	issue_number = 7

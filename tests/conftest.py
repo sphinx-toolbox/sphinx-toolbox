@@ -29,11 +29,13 @@ import sys
 import types
 
 # 3rd party
+import docutils.nodes
 import pytest
+import sphinx.writers.html5
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.pytest_plugin import Plugin, PluginHTTPServer, get_httpserver_listen_address
 from sphinx.testing.path import path
-from sphobjinv import Inventory  # type: ignore
+from sphobjinv import Inventory  # type: ignore[import]
 
 # this package
 from tests.common import error_codes_list
@@ -113,3 +115,35 @@ def _remove_sphinx_projects(sphinx_test_tempdir):
 @pytest.fixture()
 def rootdir():
 	return path(os.path.dirname(__file__) or '.').abspath() / "roots"
+
+
+@pytest.fixture()
+def docutils_17_compat(monkeypatch):
+
+	def visit_section(self, node: docutils.nodes.section):
+		self.section_level += 1
+		self.body.append(self.starttag(node, "div", CLASS="section"))
+
+	# self.body.append(self.starttag(node, 'section'))
+
+	def depart_section(self, node: docutils.nodes.section):
+		self.section_level -= 1
+		self.body.append('</div>\n')
+
+	def visit_figure(self, node: docutils.nodes.figure):
+		atts = {"class": "figure"}
+
+		if node.get("width"):
+			atts["style"] = f"width: {node['width']}"
+
+		atts["class"] += f" align-{node.get('align', 'default')}"
+
+		self.body.append(self.starttag(node, "div", **atts))
+
+	def depart_figure(self, node: docutils.nodes.figure):
+		self.body.append('</div>\n')
+
+	monkeypatch.setattr(sphinx.writers.html5.HTML5Translator, "visit_section", visit_section)
+	monkeypatch.setattr(sphinx.writers.html5.HTML5Translator, "depart_section", depart_section)
+	monkeypatch.setattr(sphinx.writers.html5.HTML5Translator, "visit_figure", visit_figure)
+	monkeypatch.setattr(sphinx.writers.html5.HTML5Translator, "depart_figure", depart_figure)

@@ -40,7 +40,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 # 3rd party
 import requests  # nodep
 from apeye.url import URL
-from bs4 import BeautifulSoup  # type: ignore
+from bs4 import BeautifulSoup  # type: ignore[import]
 from docutils import nodes
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
@@ -136,7 +136,7 @@ class IssueNodeWithName(IssueNode):
 		nodes.reference.__init__(self, source, source, refuri=self.issue_url)
 
 	@property
-	def _copy_kwargs(self):  # pragma: no cover
+	def _copy_kwargs(self) -> Dict[str, Any]:  # pragma: no cover
 		return {"repo_name": self.repo_name, "issue_number": self.issue_number, "refuri": self.issue_url}
 
 

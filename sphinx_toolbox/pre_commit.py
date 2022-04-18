@@ -168,7 +168,7 @@ class PreCommitDirective(SphinxDirective):
 			"args": parse_hooks,
 			}
 
-	def run(self) -> Sequence[nodes.Node]:  # type: ignore
+	def run(self) -> Sequence[nodes.Node]:  # type: ignore[override]
 		"""
 		Process the content of the directive.
 		"""
@@ -235,7 +235,7 @@ class Flake8PreCommitDirective(SphinxDirective):
 			}
 	required_arguments = 1  # the plugin version
 
-	def run(self) -> Sequence[nodes.Node]:  # type: ignore
+	def run(self) -> Sequence[nodes.Node]:  # type: ignore[override]
 		"""
 		Process the content of the directive.
 		"""
@@ -334,7 +334,7 @@ def revert_8345():
 
 		raise sphinx.util.docutils.ElementLookupError
 
-	sphinx.util.docutils.sphinx_domains.lookup_domain_element = lookup_domain_element  # type: ignore
+	sphinx.util.docutils.sphinx_domains.lookup_domain_element = lookup_domain_element  # type: ignore[assignment]
 
 
 @metadata_add_version

@@ -369,7 +369,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 			# Prefer doc from class docstring
 			if field in params:
-				doc, arg_type = params.pop(field).values()  # type: ignore
+				doc, arg_type = params.pop(field).values()  # type: ignore[assignment]
 
 			# Otherwise use attribute docstring
 			if not ''.join(doc).strip() and field in member_docstrings:

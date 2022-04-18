@@ -76,7 +76,7 @@ tweaks_sphinx_panels_tabs_styles: MutableMapping[str, dict2css.Style] = {
 		}
 
 
-def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None):
+def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None:
 	"""
 	Copy additional stylesheets into the HTML build directory.
 

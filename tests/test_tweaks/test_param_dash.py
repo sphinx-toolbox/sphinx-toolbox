@@ -21,4 +21,4 @@ def test_setup():
 		assert app.registry.translation_handlers == {}
 		assert app.events.listeners == {}
 	finally:
-		sphinx.util.docfields.TypedField.make_field = original_make_field  # type: ignore
+		sphinx.util.docfields.TypedField.make_field = original_make_field  # type: ignore[assignment]

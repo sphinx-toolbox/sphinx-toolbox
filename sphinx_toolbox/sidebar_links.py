@@ -95,7 +95,6 @@ from typing import List
 import docutils
 from docutils import nodes
 from docutils.parsers.rst import directives
-from docutils.statemachine import ViewList
 from domdf_python_tools.stringlist import StringList
 from sphinx import addnodes
 from sphinx.application import Sphinx
@@ -114,7 +113,7 @@ class SidebarLinksDirective(SphinxDirective):
 
 	has_content: bool = True
 
-	option_spec: OptionSpec = {  # type: ignore
+	option_spec: OptionSpec = {  # type: ignore[assignment]
 		"pypi": directives.unchanged_required,
 		"github": flag,
 		"caption": directives.unchanged_required,

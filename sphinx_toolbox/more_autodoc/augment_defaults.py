@@ -69,17 +69,16 @@ This module monkeypatches in that behaviour.
 from typing import Dict, List, Type
 
 # 3rd party
-import autodocsumm  # type: ignore
+import autodocsumm  # type: ignore[import]
 import sphinx.ext.autodoc.directive
 from docutils.utils import assemble_option_dict
 from sphinx.application import Sphinx
-from sphinx.config import Config
 from sphinx.errors import ExtensionError
 from sphinx.ext.autodoc import Documenter, Options
 
 # this package
 import sphinx_toolbox
-from sphinx_toolbox.utils import SphinxExtMetadata
+from sphinx_toolbox.utils import Config, SphinxExtMetadata
 
 __all__ = ["process_documenter_options", "setup"]
 
@@ -129,7 +128,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 				"must be loaded before 'sphinx.ext.autodoc'."
 				)
 
-	sphinx.ext.autodoc.directive.process_documenter_options = process_documenter_options
+	sphinx.ext.autodoc.directive.process_documenter_options = process_documenter_options  # type: ignore[assignment]
 	autodocsumm.process_documenter_options = process_documenter_options
 
 	app.setup_extension("sphinx.ext.autodoc")

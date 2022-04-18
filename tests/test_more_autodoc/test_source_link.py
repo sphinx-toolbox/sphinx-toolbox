@@ -1,5 +1,5 @@
 # 3rd party
-from autodocsumm import AutoSummModuleDocumenter  # type: ignore
+from autodocsumm import AutoSummModuleDocumenter  # type: ignore[import]
 from sphinx.events import EventListener
 from sphinx.ext.autodoc import ModuleDocumenter
 

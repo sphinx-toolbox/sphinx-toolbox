@@ -57,11 +57,10 @@ from docutils import nodes
 from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.builders.latex.nodes import footnotetext
-from sphinx.config import Config
 from sphinx.writers.latex import LaTeXTranslator
 
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
+from sphinx_toolbox.utils import Config, SphinxExtMetadata, metadata_add_version
 
 __all__ = ["setup"]
 
@@ -90,7 +89,7 @@ def configure(app: Sphinx, config: Config):
 	"""
 
 	if not hasattr(config, "latex_elements"):  # pragma: no cover
-		config.latex_elements = {}  # type: ignore
+		config.latex_elements = {}
 
 	latex_elements = (config.latex_elements or {})
 

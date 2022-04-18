@@ -189,7 +189,6 @@ from domdf_python_tools.stringlist import DelimitedList
 from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.builders.latex import LaTeXBuilder
-from sphinx.config import Config
 from sphinx.domains import Domain
 from sphinx.environment import BuildEnvironment
 from sphinx.locale import __
@@ -197,6 +196,9 @@ from sphinx.util import progress_message
 from sphinx.util.docutils import SphinxDirective, SphinxFileOutput
 from sphinx.util.nodes import process_only_nodes
 from sphinx.writers.latex import LaTeXTranslator, LaTeXWriter
+
+# this package
+from sphinx_toolbox.utils import Config
 
 _ = BuildEnvironment
 
@@ -283,7 +285,7 @@ def use_package(package: str, config: Config, *args: str, **kwargs: str) -> None
 	use_string = rf"\usepackage[{options:,}]{{{package}}}"
 
 	if not hasattr(config, "latex_elements") or not config.latex_elements:  # pragma: no cover
-		config.latex_elements = {}  # type: ignore
+		config.latex_elements = {}
 
 	latex_preamble = config.latex_elements.get("preamble", '')
 
@@ -495,7 +497,7 @@ def better_header_layout(
 	"""
 
 	if not hasattr(config, "latex_elements") or not config.latex_elements:  # pragma: no cover
-		config.latex_elements = {}  # type: ignore
+		config.latex_elements = {}
 
 	latex_preamble = config.latex_elements.get("preamble", '')
 
@@ -537,7 +539,7 @@ class PatchedLaTeXBuilder(LaTeXBuilder):
 
 		if sphinx.version_info <= (4, 0):
 			# 3rd party
-			from sphinx.builders.latex import patch_settings  # type: ignore
+			from sphinx.builders.latex import patch_settings  # type: ignore[attr-defined]
 			patch_settings(docsettings)
 
 		self.init_document_data()
@@ -599,7 +601,7 @@ def configure(app: Sphinx, config: Config):
 	"""
 
 	if not hasattr(config, "latex_elements") or not config.latex_elements:  # pragma: no cover
-		config.latex_elements = {}  # type: ignore
+		config.latex_elements = {}
 
 	latex_preamble = config.latex_elements.get("preamble", '')
 

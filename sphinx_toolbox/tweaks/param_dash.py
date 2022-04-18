@@ -148,7 +148,7 @@ def make_field(
 	else:
 		bodynode = self.list_type()
 		for fieldarg, content in items:
-			bodynode += nodes.list_item('', handle_item(fieldarg, content))  # type: ignore
+			bodynode += nodes.list_item('', handle_item(fieldarg, content))  # type: ignore[assignment,operator]
 
 	fieldbody = nodes.field_body('', bodynode)
 
@@ -163,6 +163,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx application.
 	"""
 
-	sphinx.util.docfields.TypedField.make_field = make_field  # type: ignore
+	sphinx.util.docfields.TypedField.make_field = make_field  # type: ignore[assignment]
 
 	return {"parallel_read_safe": True}

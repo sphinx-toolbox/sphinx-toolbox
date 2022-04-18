@@ -145,7 +145,9 @@ class OverloadMixin(_OverloadMixinBase):
 
 		if self.analyzer and '.'.join(self.objpath) in self.analyzer.overloads:
 
-			for overload in self.analyzer.overloads.get('.'.join(self.objpath)):  # type: ignore
+			the_overloads = self.analyzer.overloads.get('.'.join(self.objpath))
+			assert the_overloads is not None
+			for overload in the_overloads:
 				overload = self.process_overload_signature(overload)
 
 				buf = [format_annotation(self.object), r"\("]
@@ -313,12 +315,14 @@ class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):
 
 					documenter = FunctionDocumenter(self.directive, '')
 					documenter.object = func
-					documenter.objpath = [None]  # type: ignore
+					documenter.objpath = [None]  # type: ignore[list-item]
 					sigs.append(documenter.format_signature())
 
 		if overloaded:
 			if self.env.config.overloads_location == "signature":
-				for overload in self.analyzer.overloads.get('.'.join(self.objpath)):  # type: ignore
+				the_overloads = self.analyzer.overloads.get('.'.join(self.objpath))
+				assert the_overloads is not None
+				for overload in the_overloads:
 					sig = stringify_signature(self.process_overload_signature(overload), **kwargs)
 					sigs.append(sig)
 
@@ -390,12 +394,14 @@ class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):
 					documenter = MethodDocumenter(self.directive, '')
 					documenter.parent = self.parent
 					documenter.object = func
-					documenter.objpath = [None]  # type: ignore
+					documenter.objpath = [None]  # type: ignore[list-item]
 					sigs.append(documenter.format_signature())
 
 		if overloaded:
 			if self.env.config.overloads_location == "signature":
-				for overload in self.analyzer.overloads.get('.'.join(self.objpath)):  # type: ignore
+				the_overloads = self.analyzer.overloads.get('.'.join(self.objpath))
+				assert the_overloads is not None
+				for overload in the_overloads:
 					sig = stringify_signature(self.process_overload_signature(overload), **kwargs)
 					sigs.append(sig)
 
