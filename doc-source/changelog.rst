@@ -3,6 +3,15 @@ Changelog
 ===============
 
 
+Unreleased
+--------------
+
+Bugs Fixed
+^^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.github` now correctly parses issue titles containing code and quote characters. Reported by :github:user:`arisp99` in :github:issue:`91`.
+
+
 2.18.0
 --------------
 
