@@ -10,6 +10,7 @@ Bugs Fixed
 ^^^^^^^^^^^
 
 * :mod:`sphinx_toolbox.github` now correctly parses issue titles containing code and quote characters. Reported by :github:user:`arisp99` in :github:issue:`91`.
+* :mod:`sphinx_toolbox.more_autosummary` -- Restore compatibility with latest autodocsumm. For the time being autodocsumm's ``relative_ref_paths`` option is not supported.
 
 
 2.18.0
