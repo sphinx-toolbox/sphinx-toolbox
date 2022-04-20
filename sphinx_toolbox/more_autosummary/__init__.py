@@ -245,10 +245,10 @@ def add_autosummary(self, relative_ref_paths: bool = False):
 			for documenter, _ in self.sort_members(documenters, member_order):
 				obj_ref_path = documenter.fullname
 
-				if relative_ref_paths:
-					modname = self.modname + '.'
-					if documenter.fullname.startswith(modname):
-						obj_ref_path = documenter.fullname[len(modname):]
+				# if relative_ref_paths:
+				# 	modname = self.modname + '.'
+				# 	if documenter.fullname.startswith(modname):
+				# 		obj_ref_path = documenter.fullname[len(modname):]
 
 				content.append(f"~{obj_ref_path}")
 
