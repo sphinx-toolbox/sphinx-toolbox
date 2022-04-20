@@ -24,7 +24,7 @@ def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLR
 	assert "sphinx-toolbox Demo - GitHub Issues" == title
 
 	links = github_source_page.select('p')
-	assert len(links) == 7
+	assert len(links) == 10
 
 	assert links[1] == links[2]
 
@@ -49,6 +49,16 @@ def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLR
 			'href="https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/source.py">sphinx_toolbox/source.py</a></p>',
 			'<p><a class="reference external" '
 			'href="https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/more_autodoc/__init__.py">sphinx_toolbox/more_autodoc/__init__.py</a></p>',
+			'<p>Issue with code in its title: <abbr title="Unable to install latest '
+			'version of flake8 and Sphinx together"><a class="reference external" '
+			'href="https://github.com/sphinx-doc/sphinx/issues/10241">sphinx-doc/sphinx#10241</a></abbr>.</p>',
+			'<p>Issue with code in the beginning of the title: <abbr '
+			'title=\'autodoc_typehints = "description" causes autoclass to put a return '
+			'type\'><a class="reference external" '
+			'href="https://github.com/sphinx-doc/sphinx/issues/9575">sphinx-doc/sphinx#9575</a></abbr>.</p>',
+			'<p>Issue with HTML entities in title: <abbr title="RFE: please provide '
+			'support for jinja2 &gt;= 3.1"><a class="reference external" '
+			'href="https://github.com/sphinx-toolbox/toctree_plus/issues/56">sphinx-toolbox/toctree_plus#56</a></abbr>.</p>',
 			]
 
 	html_regression.check(github_source_page)
