@@ -3,8 +3,8 @@ Changelog
 ===============
 
 
-Unreleased
---------------
+2.18.2 (Unreleased)
+---------------------
 
 Bugs Fixed
 ^^^^^^^^^^^
