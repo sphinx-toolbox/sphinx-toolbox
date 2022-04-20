@@ -193,9 +193,12 @@ __all__ = [
 		]
 
 
-def add_autosummary(self):
+def add_autosummary(self, relative_ref_paths: bool = False):
 	"""
 	Add the :rst:dir:`autosummary` table of this documenter.
+
+	:param relative_ref_paths: Use paths relative to the current module
+		instead of absolute import paths for each object.
 	"""
 
 	if not self.options.get("autosummary", False):
@@ -222,6 +225,10 @@ def add_autosummary(self):
 		# TODO transform to make caption associated with table in LaTeX
 
 		content.append(".. autosummary::")
+
+		if self.options.autosummary_nosignatures:
+			content.append("    :nosignatures:")
+
 		content.blankline(ensure_single=True)
 
 		member_order = get_first_matching(
@@ -236,7 +243,14 @@ def add_autosummary(self):
 
 		with content.with_indent_size(content.indent_size + 1):
 			for documenter, _ in self.sort_members(documenters, member_order):
-				content.append(f"~{documenter.fullname}")
+				obj_ref_path = documenter.fullname
+
+				# if relative_ref_paths:
+				# 	modname = self.modname + '.'
+				# 	if documenter.fullname.startswith(modname):
+				# 		obj_ref_path = documenter.fullname[len(modname):]
+
+				content.append(f"~{obj_ref_path}")
 
 		content.blankline()
 
