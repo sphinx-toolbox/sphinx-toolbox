@@ -650,6 +650,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.setup_extension("sphinx.ext.autosummary")
 	app.setup_extension("autodocsumm")
+	app.setup_extension("sphinx_toolbox.latex")
 
 	app.add_directive("autosummary", PatchedAutosummary, override=True)
 	app.add_directive("autoclasssumm", PatchedAutoDocSummDirective, override=True)
