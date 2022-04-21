@@ -190,7 +190,6 @@ def test_format_annotation(inv, annotation, expected_result):
 			assert m.group("role") == expected_role
 
 
-@pytest.mark.skipif(condition=sys.version_info < (3, 7), reason="Broken on 3.6")
 @pytest.mark.parametrize(
 		"annotation, expected_result",
 		[
