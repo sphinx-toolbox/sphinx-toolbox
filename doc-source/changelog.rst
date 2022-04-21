@@ -8,6 +8,13 @@ Changelog
 
 * Official support for Sphinx 4.5 and docutils 0.17
 
+Removals
+^^^^^^^^
+
+* :mod:`sphinx_toolbox.issues` -- ``IssueNode``, ``visit_issue_node``, ``depart_issue_node``, ``get_issue_title``. Import from :mod:`sphinx_toolbox.github.issues` instead.
+* ``sphinx_toolbox.tweaks.sphinx_panels_tabs.copy_assets`` -- renamed to :func:`~sphinx_toolbox.tweaks.sphinx_panels_tabs.copy_asset_files`.
+* ``sphinx_toolbox.utils.begin_generate``
+
 
 2.18.2
 --------------
@@ -87,7 +94,7 @@ Bugs Fixed
 Deprecations
 ^^^^^^^^^^^^^^
 
-* :func:`sphinx_toolbox.utils.begin_generate` -- Will be removed in v3.0.0.
+* ``sphinx_toolbox.utils.begin_generate`` -- Will be removed in v3.0.0.
   Users of this function should reimplement it in their own code.
 
 2.15.2
