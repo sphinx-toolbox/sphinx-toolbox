@@ -3,7 +3,13 @@ Changelog
 ===============
 
 
-Unreleased
+3.0.0 (Unreleased)
+----------------------
+
+* Official support for Sphinx 4.5 and docutils 0.17
+
+
+2.18.2
 --------------
 
 Bugs Fixed
