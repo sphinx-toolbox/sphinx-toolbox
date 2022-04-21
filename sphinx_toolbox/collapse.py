@@ -41,6 +41,21 @@ Usage
 				print("Not really")
 
 
+	.. rst:directive:option:: open
+		:type: flag
+
+		The ``:open:`` option can be used to have the section open by default.
+
+		.. versionadded:: 3.0.0
+
+		.. rest-example::
+
+			.. collapse:: Open
+				:open:
+
+				This section is open by default.
+
+
 API Reference
 ----------------
 
@@ -80,7 +95,7 @@ from sphinx.util.docutils import SphinxDirective
 from sphinx.writers.html import HTMLTranslator
 
 # this package
-from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
+from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
 
 __all__ = ["CollapseDirective", "CollapseNode", "visit_collapse_node", "depart_collapse_node", "setup"]
 
@@ -98,7 +113,11 @@ class CollapseDirective(SphinxDirective):
 	# The label
 	required_arguments: int = 1
 
-	option_spec = {"class": directives.class_option, "name": directives.unchanged}
+	option_spec = {
+			"class": directives.class_option,
+			"name": directives.unchanged,
+			"open": flag,
+			}
 
 	def run(self) -> Sequence[nodes.Node]:  # type: ignore[override]
 		"""
@@ -152,6 +171,9 @@ def visit_collapse_node(translator: HTMLTranslator, node: CollapseNode):
 	if node.get("classes", None):
 		classes = DelimitedList(node["classes"])
 		tag_parts.append(f'class="{classes: }"')
+
+	if node.attributes.get("open", False):
+		tag_parts.append("open")
 
 	translator.body.append(f"<{tag_parts: }>\n<summary>{node.label}</summary>")
 	translator.context.append("</details>")

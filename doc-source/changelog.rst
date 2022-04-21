@@ -6,8 +6,12 @@ Changelog
 3.0.0 (Unreleased)
 ----------------------
 
-* Official support for Sphinx 4.5 and docutils 0.17
 
+Additions
+^^^^^^^^^^^
+
+* Official support for Sphinx 4.5 and docutils 0.17
+* :mod:`sphinx_toolbox.collapse` -- Added the ``:open:`` option for having the collapsable section open by default. Suggested by :github:user:`tdegeus` in :github:issue:`96`.
 
 2.18.2
 --------------
