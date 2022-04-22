@@ -1,4 +1,4 @@
-from __future__ import annotations  # type: ignore[attr-defined]
+from __future__ import annotations
 
 # stdlib
 from typing import Callable, NamedTuple

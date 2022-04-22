@@ -173,7 +173,7 @@ class TypeVarDocumenter(VariableDocumenter):
 		"""
 
 		if forward_ref.__forward_evaluated__:
-			return forward_ref.__forward_value__
+			return forward_ref.__forward_value__  # type: ignore
 		else:
 			globanls = sys.modules[self.object.__module__].__dict__
 
