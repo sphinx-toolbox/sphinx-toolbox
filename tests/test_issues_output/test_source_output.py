@@ -71,11 +71,6 @@ pages_to_check: List[Union[str, ParameterSet]] = [
 		"autoprotocol.html",
 		pytest.param(
 				"generic_bases.html",
-				marks=only_version(3.6, reason="Output differs on Python 3.6"),
-				id="generic_bases_36"
-				),
-		pytest.param(
-				"generic_bases.html",
 				marks=only_version(3.7, reason="Output differs on Python 3.7"),
 				id="generic_bases_37"
 				),

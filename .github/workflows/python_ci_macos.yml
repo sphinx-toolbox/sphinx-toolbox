@@ -22,13 +22,12 @@ jobs:
     runs-on: "macos-latest"
     continue-on-error: ${{ matrix.config.experimental }}
     env:
-      USING_COVERAGE: '3.6,3.7,3.8,3.9,3.10,3.11.0-alpha.7,pypy-3.7'
+      USING_COVERAGE: '3.7,3.8,3.9,3.10,3.11.0-alpha.7,pypy-3.7'
 
     strategy:
       fail-fast: False
       matrix:
         config:
-          - {python-version: "3.6", testenvs: "py36-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3,4.4,4.5,latest},build", experimental: False}
           - {python-version: "3.7", testenvs: "py37-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3,4.4,4.5,latest},build", experimental: False}
           - {python-version: "3.8", testenvs: "py38-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3,4.4,4.5,latest},build", experimental: False}
           - {python-version: "3.9", testenvs: "py39-sphinx{3.2,3.3,3.4,3.5,4.0,4.1,4.2,4.3,4.4,4.5,latest},build", experimental: False}

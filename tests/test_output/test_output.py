@@ -114,34 +114,14 @@ pages_to_check: List[ParameterSet] = [
 		param("latex.html", idx=0),
 		param("collapse.html", idx=0),
 		param("footnote_symbols.html", idx=0),
-		param(
-				"instancevar.html",
-				marks=pytest.mark.skipif(
-						condition=sys.version_info < (3, 7),
-						reason="Output differs on Python 3.6",
-						),
-				idx=0,
-				),
-		pytest.param(
-				"generic_bases.html",
-				marks=only_version(3.6, reason="Output differs on Python 3.6"),
-				id="generic_bases_36"
-				),
+		param("instancevar.html", idx=0),
 		pytest.param(
 				"generic_bases.html",
 				marks=min_version(3.7, reason="Output differs on Python 3.8+"),
 				id="generic_bases"
 				),
-		pytest.param(
-				"autonamedtuple_pep563.html",
-				marks=min_version(3.7, reason="Output differs on Python 3.6, and not as relevant."),
-				id="autonamedtuple_pep563"
-				),
-		pytest.param(
-				"genericalias.html",
-				marks=min_version(3.7, reason="Output differs on Python 3.6"),
-				id="genericalias"
-				),
+		pytest.param("autonamedtuple_pep563.html", id="autonamedtuple_pep563"),
+		pytest.param("genericalias.html", id="genericalias"),
 		]
 
 
