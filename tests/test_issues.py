@@ -2,7 +2,6 @@
 import pytest
 from apeye.requests_url import RequestsURL
 from coincidence.params import count
-from deprecation import fail_if_not_removed  # type: ignore[import]
 from docutils.nodes import system_message
 from docutils.utils import Reporter
 
@@ -11,7 +10,6 @@ import sphinx_toolbox
 from sphinx_toolbox import issues
 from sphinx_toolbox.github.issues import IssueNode, issue_role, pull_role
 from sphinx_toolbox.testing import run_setup
-from sphinx_toolbox.utils import make_github_url
 from tests.common import AttrDict
 
 
@@ -192,41 +190,6 @@ class FakeTranslator:
 
 	def depart_reference(self, node):
 		pass
-
-
-@fail_if_not_removed
-def test_visit_issue_node():
-	node = IssueNode(7680, make_github_url("pytest-dev", "pytest") / "issues/7680")
-	translator = FakeTranslator()
-
-	assert not node.has_tooltip
-
-	with pytest.warns(DeprecationWarning):
-		issues.visit_issue_node(translator, node)
-
-	assert translator.body == ['<abbr title="Add --log-cli option">']
-	assert node.has_tooltip
-
-
-@fail_if_not_removed
-def test_depart_issue_node():
-	node = IssueNode(7680, make_github_url("pytest-dev", "pytest") / "issues/7680")
-	translator = FakeTranslator()
-	assert not node.has_tooltip
-
-	with pytest.warns(DeprecationWarning):
-		issues.depart_issue_node(translator, node)
-
-	assert translator.body == []
-
-	node = IssueNode(7680, make_github_url("pytest-dev", "pytest") / "issues/7680")
-	translator = FakeTranslator()
-	node.has_tooltip = True
-
-	with pytest.warns(DeprecationWarning):
-		issues.depart_issue_node(translator, node)
-
-	assert translator.body == ["</abbr>"]
 
 
 #

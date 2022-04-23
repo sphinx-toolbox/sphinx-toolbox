@@ -44,7 +44,6 @@ from typing import Optional
 
 # 3rd party
 import dict2css
-from deprecation_alias import deprecated
 from docutils import nodes
 from domdf_python_tools.paths import PathPlus
 from sphinx.application import Sphinx
@@ -82,8 +81,7 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 
 	.. versionchanged:: 2.7.0
 
-		Renamed from ``copy_assets``.
-		The old name is deprecated an will be removed in 3.0.0
+		Renamed from ``copy_assets``. The former name was kept as an alias until version 3.0.0
 	"""
 
 	if exception:  # pragma: no cover
@@ -114,16 +112,6 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 	css_static_dir = PathPlus(app.builder.outdir) / "_static" / "css"
 	css_static_dir.maybe_make(parents=True)
 	dict2css.dump(_css.tweaks_sphinx_panels_tabs_styles, css_static_dir / "tabs_customise.css")
-
-
-copy_assets = deprecated(
-		deprecated_in="2.7.0",
-		removed_in="3.0.0",
-		current_version=__version__,
-		details="Renamed to 'copy_asset_files'",
-		name="copy_assets",
-		func=copy_asset_files,
-		)
 
 
 @metadata_add_version

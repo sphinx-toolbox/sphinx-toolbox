@@ -122,71 +122,17 @@ API Reference
 #
 
 # 3rd party
-from deprecation_alias import deprecated
 from sphinx.application import Sphinx
 
 # this package
-import sphinx_toolbox.github.issues
 from sphinx_toolbox.github.issues import issue_role, pull_role
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = [
-		"IssueNode",
 		"issue_role",
 		"pull_role",
-		"visit_issue_node",
-		"depart_issue_node",
-		"get_issue_title",
 		"setup",
 		]
-
-
-class IssueNode(sphinx_toolbox.github.issues.IssueNode):
-	"""
-	Docutils Node to represent a link to a GitHub *Issue* or *Pull Request*.
-
-	:param issue_number: The number of the issue or pull request.
-	:param refuri: The URL of the issue / pull request on GitHub.
-
-	.. deprecated:: 2.4.0
-
-		This will be removed in 3.0.0. Import from 'sphinx_toolbox.github.issues' instead.
-	"""
-
-	@deprecated(
-			deprecated_in="2.4.0",
-			removed_in="3.0.0",
-			current_version="3.0.0a1",
-			details="Import from 'sphinx_toolbox.github.issues' instead.",
-			name="IssueNode",
-			)
-	def __init__(self, *args, **kwargs):  # pragma: no cover
-		super().__init__(*args, **kwargs)
-
-
-visit_issue_node = deprecated(
-		deprecated_in="2.4.0",
-		removed_in="3.0.0",
-		current_version="3.0.0a1",
-		details="Import from 'sphinx_toolbox.github.issues' instead.",
-		func=sphinx_toolbox.github.issues.visit_issue_node,
-		)
-
-depart_issue_node = deprecated(
-		deprecated_in="2.4.0",
-		removed_in="3.0.0",
-		current_version="3.0.0a1",
-		details="Import from 'sphinx_toolbox.github.issues' instead.",
-		func=sphinx_toolbox.github.issues.depart_issue_node,
-		)
-
-get_issue_title = deprecated(
-		deprecated_in="2.4.0",
-		removed_in="3.0.0",
-		current_version="3.0.0a1",
-		details="Import from 'sphinx_toolbox.github.issues' instead.",
-		func=sphinx_toolbox.github.issues.get_issue_title,
-		)
 
 
 @metadata_add_version
