@@ -3,6 +3,8 @@
 #  column_widths.py
 """
 Sphinx extension to allow customisation of column widths in autosummary tables with the LaTeX builder.
+
+.. versionadded:: 3.0.0
 """
 #  Copyright © 2022 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
@@ -87,7 +89,7 @@ class AutosummaryWidths(PatchedAutosummary):
 		"""
 		Generate a proper list of table nodes for autosummary:: directive.
 
-		:param items: A list produced by :meth:`~.get_items`.
+		:param items: A list produced by ``self.get_items``.
 		"""
 
 		table_spec = addnodes.tabular_col_spec()
@@ -155,6 +157,8 @@ class WidthsDirective(SphinxDirective):
 		"""
 		Parse a width string (as a vulgar fraction) into a list of 2-element ``(numerator, denominator)`` tuples.
 
+		For example, ``'5/10'`` becomes ``(5, 10)``.
+
 		:param raw_widths:
 		"""
 
@@ -179,7 +183,7 @@ class WidthsDirective(SphinxDirective):
 
 def configure(app: Sphinx, config: Config):
 	"""
-	Configure :mod:`sphinx_toolbox_experimental.autosummary_widths`.
+	Configure :mod:`sphinx_toolbox.more_autosummary.column_widths`.
 
 	:param app: The Sphinx application.
 	:param config:

@@ -322,7 +322,7 @@ class PatchedAutosummary(Autosummary):
 		"""
 		Generate a list of table nodes for the :rst:dir:`autosummary` directive.
 
-		:param items: A list  produced by ``self.get_items``.
+		:param items: A list produced by ``self.get_items``.
 		"""
 
 		table_spec, *other_nodes = super().get_table(items)
