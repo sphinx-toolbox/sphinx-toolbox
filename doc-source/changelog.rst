@@ -11,6 +11,7 @@ Changelog
 Removals
 ^^^^^^^^
 
+* Python 3.6 (including CPython 3.6 and PyPy 3.6) are no longer supported. (PR :github:pull:`99`)
 * :mod:`sphinx_toolbox.issues` -- ``IssueNode``, ``visit_issue_node``, ``depart_issue_node``, ``get_issue_title``. Import from :mod:`sphinx_toolbox.github.issues` instead.
 * ``sphinx_toolbox.tweaks.sphinx_panels_tabs.copy_assets`` -- renamed to :func:`~sphinx_toolbox.tweaks.sphinx_panels_tabs.copy_asset_files`.
 * ``sphinx_toolbox.utils.begin_generate``
