@@ -5,6 +5,38 @@
 Sphinx extension to allow customisation of column widths in autosummary tables with the LaTeX builder.
 
 .. versionadded:: 3.0.0
+
+
+Usage
+--------------
+
+This extension provides the :rst:dir:`autosummary-widths` directive.
+This sets the autosummary table's column widths with the LaTeX builder
+until the end of the current reStructuredText document,
+or until the next :rst:dir:`autosummary-widths` directive.
+
+.. rst:directive:: autosummary-widths
+
+	Set the width of the autosummary table's columns with the LaTeX builder.
+
+	The directive takes up to two arguments -- the column widths as vulgar fractions (e.g. ``5/10``).
+	If only one argument is provided, this sets the width of the first column,
+	and the width of the second column is calculated from it.
+	If both arguments are provided, they set the width of the first and second columns respectively.
+
+	:bold-title:`Examples:`
+
+	.. code-block:: rst
+
+		.. autosummary-widths:: 5/10
+		.. autosummary-widths:: 3/10, 7/10
+		.. autosummary-widths:: 35/100
+
+
+API Reference
+----------------
+
+
 """
 #  Copyright © 2022 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
