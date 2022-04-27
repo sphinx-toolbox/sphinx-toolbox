@@ -16,6 +16,11 @@ Removals
 * ``sphinx_toolbox.tweaks.sphinx_panels_tabs.copy_assets`` -- renamed to :func:`~sphinx_toolbox.tweaks.sphinx_panels_tabs.copy_asset_files`.
 * ``sphinx_toolbox.utils.begin_generate``
 
+Additions
+^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.more_autosummary.column_widths` -- Allows for the autosummary table column widths to be customised with the LaTeX builder. (PR :github:pull:`100`)
+
 
 2.18.2
 --------------
