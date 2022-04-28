@@ -32,6 +32,8 @@ or until the next :rst:dir:`autosummary-widths` directive.
 		.. autosummary-widths:: 3/10, 7/10
 		.. autosummary-widths:: 35/100
 
+	.. attention:: This directive ignores the :confval:`autosummary_col_type` configuration option.
+
 
 API Reference
 ----------------
@@ -115,6 +117,8 @@ __all__ = ["AutosummaryWidths", "WidthsDirective", "configure", "setup"]
 class AutosummaryWidths(PatchedAutosummary):
 	"""
 	Customised :rst:dir:`autosummary` directive with customisable width with the LaTeX builder.
+
+	.. attention:: This directive ignores the :confval:`autosummary_col_type` configuration option.
 	"""
 
 	def get_table(self, items: List[Tuple[str, str, str, str]]) -> List[nodes.Node]:
