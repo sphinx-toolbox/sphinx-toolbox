@@ -14,3 +14,9 @@ Collapse
 	:name: summary0
 
 	Something else that might escape notice.
+
+.. collapse:: Open by default
+	:name: summary3
+	:open:
+
+	The text should be visible when the page loads.
