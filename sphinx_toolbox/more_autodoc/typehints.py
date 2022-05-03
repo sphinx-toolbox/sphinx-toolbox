@@ -119,19 +119,24 @@ import types
 from contextlib import suppress
 from tempfile import TemporaryDirectory
 from types import FunctionType, ModuleType
-from typing import Any, AnyStr, Callable, Dict, List, NewType, Optional, Tuple, Type, TypeVar, get_type_hints
-
-# 3rd party
-from domdf_python_tools.stringlist import DelimitedList
-
-if sys.version_info < (3, 7, 4):  # pragma: no cover (py37+)
-	# stdlib
-	from typing import _ForwardRef as ForwardRef  # type: ignore[attr-defined]
-else:  # pragma: no cover (<py37)
-	from typing import ForwardRef  # type: ignore[attr-defined]
+from typing import (
+		Any,
+		AnyStr,
+		Callable,
+		Dict,
+		ForwardRef,
+		List,
+		NewType,
+		Optional,
+		Tuple,
+		Type,
+		TypeVar,
+		get_type_hints
+		)
 
 # 3rd party
 import sphinx_autodoc_typehints
+from domdf_python_tools.stringlist import DelimitedList
 from domdf_python_tools.typing import (
 		ClassMethodDescriptorType,
 		MethodDescriptorType,

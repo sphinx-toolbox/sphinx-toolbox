@@ -882,6 +882,8 @@ class LaTeXRegressionFixture(AdvancedFileRegressionFixture):
 		if jinja2:
 
 			def check_fn(obtained_filename: PathPlus, expected_filename: PathLike):
+				__tracebackhide__ = True
+
 				expected_filename = PathPlus(expected_filename)
 
 				template = Template(

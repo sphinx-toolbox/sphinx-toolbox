@@ -4,7 +4,7 @@ build-backend = "whey"
 
 [project]
 name = "sphinx-toolbox"
-version = "3.0.0a1"
+version = "3.0.0a2"
 description = "Box of handy tools for Sphinx 🧰 📔"
 readme = "README.rst"
 keywords = [ "documentation", "sphinx", "sphinx-extension",]
@@ -40,7 +40,7 @@ base-classifiers = [
     "Topic :: Utilities",
     "Typing :: Typed",
 ]
-python-versions = [ "3.6", "3.7", "3.8", "3.9", "3.10",]
+python-versions = [ "3.7", "3.8", "3.9", "3.10",]
 python-implementations = [ "CPython", "PyPy",]
 platforms = [ "Windows", "macOS", "Linux",]
 license-key = "MIT"
@@ -141,7 +141,7 @@ autodoc_exclude_members = [
 ]
 
 [tool.mypy]
-python_version = "3.6"
+python_version = "3.7"
 namespace_packages = true
 check_untyped_defs = true
 warn_unused_ignores = true

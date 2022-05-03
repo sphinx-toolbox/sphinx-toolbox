@@ -6,12 +6,21 @@ Changelog
 3.0.0 (Unreleased)
 ----------------------
 
-
 Additions
 ^^^^^^^^^^^
 
 * Official support for Sphinx 4.5 and docutils 0.17
 * :mod:`sphinx_toolbox.collapse` -- Added the ``:open:`` option for having the collapsable section open by default. Suggested by :github:user:`tdegeus` in :github:issue:`96`.
+* :mod:`sphinx_toolbox.more_autosummary.column_widths` -- Allows for the autosummary table column widths to be customised with the LaTeX builder. (PR :github:pull:`100`)
+
+Removals
+^^^^^^^^
+
+* Python 3.6 (including CPython 3.6 and PyPy 3.6) are no longer supported. (PR :github:pull:`99`)
+* :mod:`sphinx_toolbox.issues` -- ``IssueNode``, ``visit_issue_node``, ``depart_issue_node``, ``get_issue_title``. Import from :mod:`sphinx_toolbox.github.issues` instead.
+* ``sphinx_toolbox.tweaks.sphinx_panels_tabs.copy_assets`` -- renamed to :func:`~sphinx_toolbox.tweaks.sphinx_panels_tabs.copy_asset_files`.
+* ``sphinx_toolbox.utils.begin_generate``
+
 
 2.18.2
 --------------
@@ -91,7 +100,7 @@ Bugs Fixed
 Deprecations
 ^^^^^^^^^^^^^^
 
-* :func:`sphinx_toolbox.utils.begin_generate` -- Will be removed in v3.0.0.
+* ``sphinx_toolbox.utils.begin_generate`` -- Will be removed in v3.0.0.
   Users of this function should reimplement it in their own code.
 
 2.15.2

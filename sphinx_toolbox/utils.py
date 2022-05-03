@@ -55,7 +55,6 @@ from typing import (
 # 3rd party
 import sphinx.config
 from apeye.requests_url import RequestsURL
-from deprecation_alias import deprecated
 from docutils.nodes import Node
 from domdf_python_tools.doctools import prettify_docstrings
 from sphinx.addnodes import desc_content
@@ -71,7 +70,6 @@ __all__ = [
 		"add_nbsp_substitution",
 		"allow_subclass_add",
 		"baseclass_is_private",
-		"begin_generate",
 		"code_repr",
 		"escape_trailing__",
 		"filter_members_warning",
@@ -380,93 +378,6 @@ Type annotation for Sphinx extensions' ``setup`` functions.
 
 .. versionadded:: 1.9.0
 """
-
-
-@deprecated(
-		deprecated_in="2.16.0",
-		removed_in="3.0.0",
-		current_version="3.0.0a1",
-		details="Users of this function should reimplement it in their own code.",
-		)
-def begin_generate(
-		documenter: Documenter,
-		real_modname: Optional[str] = None,
-		check_module: bool = False,
-		) -> Optional[str]:
-	"""
-	Boilerplate for the top of ``generate`` in :class:`sphinx.ext.autodoc.Documenter` subclasses.
-
-	.. versionadded:: 0.2.0
-
-	:param documenter:
-	:param real_modname:
-	:param check_module:
-
-	:return: The ``sourcename``, or :py:obj:`None` if certain conditions are met,
-		to indicate that the Documenter class should exit early.
-	"""
-
-	# Do not pass real_modname and use the name from the __module__
-	# attribute of the class.
-	# If a class gets imported into the module real_modname
-	# the analyzer won't find the source of the class, if
-	# it looks in real_modname.
-
-	if not documenter.parse_name():
-		# need a module to import
-		unknown_module_warning(documenter)
-		return None
-
-	# now, import the module and get object to document
-	if not documenter.import_object():
-		return None
-
-	# If there is no real module defined, figure out which to use.
-	# The real module is used in the module analyzer to look up the module
-	# where the attribute documentation would actually be found in.
-	# This is used for situations where you have a module that collects the
-	# functions and classes of internal submodules.
-	guess_modname = documenter.get_real_modname()
-	documenter.real_modname = real_modname or guess_modname
-
-	# try to also get a source code analyzer for attribute docs
-	try:
-		documenter.analyzer = ModuleAnalyzer.for_module(documenter.real_modname)
-		# parse right now, to get PycodeErrors on parsing (results will
-		# be cached anyway)
-		documenter.analyzer.find_attr_docs()
-
-	except PycodeError as err:
-		logger.debug("[autodoc] module analyzer failed: %s", err)
-		# no source file -- e.g. for builtin and C modules
-		documenter.analyzer = None  # type: ignore[assignment]
-		# at least add the module.__file__ as a dependency
-		if hasattr(documenter.module, "__file__") and documenter.module.__file__:
-			documenter.directive.filename_set.add(documenter.module.__file__)
-	else:
-		documenter.directive.filename_set.add(documenter.analyzer.srcname)
-
-	if documenter.real_modname != guess_modname:
-		# Add module to dependency list if target object is defined in other module.
-		try:
-			analyzer = ModuleAnalyzer.for_module(guess_modname)
-			documenter.directive.filename_set.add(analyzer.srcname)
-		except PycodeError:
-			pass
-
-	# check __module__ of object (for members not given explicitly)
-	if check_module:
-		if not documenter.check_module():
-			return None
-
-	sourcename = documenter.get_sourcename()
-
-	# make sure that the result starts with an empty line.  This is
-	# necessary for some situations where another directive preprocesses
-	# reST and no starting newline is present
-	documenter.add_line('', sourcename)
-
-	return sourcename
 
 
 def unknown_module_warning(documenter: Documenter) -> None:
