@@ -7,7 +7,7 @@ email: 'dominic@davis-foster.co.uk'
 username: 'sphinx-toolbox'
 assignee: 'domdfcoding'
 primary_conda_channel: 'domdfcoding'
-version: '3.0.0a2'
+version: '3.0.0a3'
 license: 'MIT'
 short_desc: 'Box of handy tools for Sphinx 🧰 📔'
 
