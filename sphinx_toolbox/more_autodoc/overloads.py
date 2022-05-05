@@ -89,7 +89,7 @@ import re
 from contextlib import suppress
 from inspect import Parameter, Signature
 from types import ModuleType
-from typing import TYPE_CHECKING, Any, Dict, ForwardRef, List
+from typing import TYPE_CHECKING, Any, Dict, List
 
 # 3rd party
 from domdf_python_tools.stringlist import StringList
@@ -101,7 +101,12 @@ from sphinx.util import inspect
 from sphinx.util.inspect import evaluate_signature, safe_getattr, stringify_signature
 
 # this package
-from sphinx_toolbox.more_autodoc.typehints import _resolve_forwardref, default_preprocessors, format_annotation
+from sphinx_toolbox.more_autodoc.typehints import (
+		ForwardRef,
+		_resolve_forwardref,
+		default_preprocessors,
+		format_annotation
+		)
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 if TYPE_CHECKING:

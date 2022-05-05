@@ -119,19 +119,25 @@ import types
 from contextlib import suppress
 from tempfile import TemporaryDirectory
 from types import FunctionType, ModuleType
-from typing import Any, AnyStr, Callable, Dict, List, NewType, Optional, Tuple, Type, TypeVar, get_type_hints
+from typing import (
+		Any,
+		AnyStr,
+		Callable,
+		Dict,
+		List,
+		NewType,
+		Optional,
+		Tuple,
+		Type,
+		TypeVar,
+		Union,
+		get_type_hints
+		)
 
 # 3rd party
-from domdf_python_tools.stringlist import DelimitedList
-
-if sys.version_info < (3, 7, 4):  # pragma: no cover (py37+)
-	# stdlib
-	from typing import _ForwardRef as ForwardRef  # type: ignore
-else:  # pragma: no cover (<py37)
-	from typing import ForwardRef  # type: ignore
-
-# 3rd party
+import sphinx.util.typing
 import sphinx_autodoc_typehints
+from domdf_python_tools.stringlist import DelimitedList
 from domdf_python_tools.typing import (
 		ClassMethodDescriptorType,
 		MethodDescriptorType,
@@ -152,6 +158,13 @@ from sphinx_toolbox.utils import (
 		is_namedtuple,
 		metadata_add_version
 		)
+
+if sys.version_info < (3, 7, 4):  # pragma: no cover (py37+)
+	# stdlib
+	from typing import _ForwardRef as ForwardRef  # type: ignore
+else:  # pragma: no cover (<py37)
+	# stdlib
+	from typing import ForwardRef  # type: ignore
 
 try:
 	# 3rd party
@@ -874,7 +887,10 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	return {"parallel_read_safe": True}
 
 
-def _resolve_forwardref(fr: ForwardRef, module: str) -> object:
+def _resolve_forwardref(
+		fr: Union["ForwardRef", sphinx.util.typing.ForwardRef],
+		module: str,
+		) -> object:
 	"""
 	Resolve a forward reference.
 
@@ -887,6 +903,8 @@ def _resolve_forwardref(fr: ForwardRef, module: str) -> object:
 	"""
 
 	module_dict = sys.modules[module].__dict__
+	if sys.version_info < (3, 7, 4) and not hasattr(fr, "_evaluate"):
+		return fr._eval_type(module_dict, module_dict)  # type: ignore[union-attr]
 	if sys.version_info < (3, 9):
 		return fr._evaluate(module_dict, module_dict)
 	else:
