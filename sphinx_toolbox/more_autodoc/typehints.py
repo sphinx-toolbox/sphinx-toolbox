@@ -131,10 +131,12 @@ from typing import (
 		Tuple,
 		Type,
 		TypeVar,
+		Union,
 		get_type_hints
 		)
 
 # 3rd party
+import sphinx.util.typing
 import sphinx_autodoc_typehints
 from domdf_python_tools.stringlist import DelimitedList
 from domdf_python_tools.typing import (
@@ -880,7 +882,10 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	return {"parallel_read_safe": True}
 
 
-def _resolve_forwardref(fr: ForwardRef, module: str) -> object:
+def _resolve_forwardref(
+		fr: Union[ForwardRef, sphinx.util.typing.ForwardRef],
+		module: str,
+		) -> object:
 	"""
 	Resolve a forward reference.
 
