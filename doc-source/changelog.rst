@@ -21,6 +21,11 @@ Removals
 * ``sphinx_toolbox.tweaks.sphinx_panels_tabs.copy_assets`` -- renamed to :func:`~sphinx_toolbox.tweaks.sphinx_panels_tabs.copy_asset_files`.
 * ``sphinx_toolbox.utils.begin_generate``
 
+Bugs Fixed
+^^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.more_autodoc.overloads` -- Now try to resolve forward references in function overloads.
+
 
 2.18.2
 --------------

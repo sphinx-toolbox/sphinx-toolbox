@@ -86,8 +86,10 @@ API Reference
 
 # stdlib
 import re
+from contextlib import suppress
 from inspect import Parameter, Signature
-from typing import TYPE_CHECKING, Any, Dict, List
+from types import ModuleType
+from typing import TYPE_CHECKING, Any, Dict, ForwardRef, List
 
 # 3rd party
 from domdf_python_tools.stringlist import StringList
@@ -99,7 +101,7 @@ from sphinx.util import inspect
 from sphinx.util.inspect import evaluate_signature, safe_getattr, stringify_signature
 
 # this package
-from sphinx_toolbox.more_autodoc.typehints import default_preprocessors, format_annotation
+from sphinx_toolbox.more_autodoc.typehints import _resolve_forwardref, default_preprocessors, format_annotation
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 if TYPE_CHECKING:
@@ -176,8 +178,19 @@ class OverloadMixin(_OverloadMixinBase):
 					buf[-1] = r")"
 
 				if overload.return_annotation is not Parameter.empty:
+					return_annotation = overload.return_annotation
+
+					if isinstance(return_annotation, ForwardRef):
+						with suppress(Exception):
+							if isinstance(self.parent, ModuleType):
+								module_name = self.parent.__name__
+							else:
+								module_name = self.parent.__module__
+
+							return_annotation = _resolve_forwardref(return_annotation, module_name)
+
 					buf.append(" -> ")
-					buf.append(format_annotation(overload.return_annotation))
+					buf.append(format_annotation(return_annotation))
 
 				formatted_overloads.append(''.join(buf))
 

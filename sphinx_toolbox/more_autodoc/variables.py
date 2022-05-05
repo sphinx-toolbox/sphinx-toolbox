@@ -129,7 +129,7 @@ from sphinx.util.inspect import ForwardRef, object_description, safe_getattr
 
 # this package
 from sphinx_toolbox._data_documenter import DataDocumenter
-from sphinx_toolbox.more_autodoc.typehints import format_annotation
+from sphinx_toolbox.more_autodoc.typehints import _resolve_forwardref, format_annotation
 from sphinx_toolbox.utils import SphinxExtMetadata, add_nbsp_substitution, flag, metadata_add_version
 
 __all__ = [
@@ -182,11 +182,7 @@ def get_variable_type(documenter: Documenter) -> str:
 					return format_annotation(module_dict[annotation])
 				else:
 					ref = ForwardRef(annotation)
-					if sys.version_info < (3, 9):
-						evaled = ref._evaluate(module_dict, module_dict)
-					else:
-						evaled = ref._evaluate(module_dict, module_dict, set())
-
+					evaled = _resolve_forwardref(ref, documenter.parent.__module__)
 					return format_annotation(evaled)
 
 			except (NameError, TypeError, ValueError, AttributeError):

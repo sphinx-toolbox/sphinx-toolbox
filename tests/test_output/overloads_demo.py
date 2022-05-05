@@ -9,7 +9,7 @@ def serde(cls: Type[object], from_key: str = ..., to_key: str = ...) -> Type[obj
 
 
 @overload
-def serde(cls: None = None, from_key: str = ..., to_key: str = ...) -> Callable[[Type[object]], Type[object]]: ...  # pragma: no cover
+def serde(cls: None = None, from_key: str = ..., to_key: str = ...) -> "Callable[[Type[object]], Type[object]]": ...  # pragma: no cover
 
 
 def serde(
