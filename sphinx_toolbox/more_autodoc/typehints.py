@@ -872,3 +872,22 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_config_value("hide_none_rtype", False, "env", [bool])
 
 	return {"parallel_read_safe": True}
+
+
+def _resolve_forwardref(fr: ForwardRef, module: str) -> object:
+	"""
+	Resolve a forward reference.
+
+	This is not part of the public API.
+
+	:param fr:
+	:param module: The module the forward reference was defined in.
+
+	:return: The evaluated object.
+	"""
+
+	module_dict = sys.modules[module].__dict__
+	if sys.version_info < (3, 9):
+		return fr._evaluate(module_dict, module_dict)
+	else:
+		return fr._evaluate(module_dict, module_dict, set())

@@ -3,6 +3,15 @@ Changelog
 ===============
 
 
+2.18.3
+----------------------
+
+Bugs Fixed
+^^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.more_autodoc.overloads` -- Now try to resolve forward references in function overloads.
+
+
 2.18.2
 -----------
 
