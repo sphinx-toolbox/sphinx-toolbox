@@ -13,6 +13,7 @@ Additions
 * :mod:`sphinx_toolbox.collapse` -- Added the ``:open:`` option for having the collapsable section open by default. Suggested by :github:user:`tdegeus` in :github:issue:`96`. (PR :github:pull:`101`)
 * :mod:`sphinx_toolbox.more_autosummary.column_widths` -- Allows for the autosummary table column widths to be customised with the LaTeX builder. (PR :github:pull:`100`)
 * :mod:`sphinx_toolbox.tweaks.latex_layout` -- Added the :confval:`needspace_amount` option for configuring the LaTeX ``needspace`` extension.
+* Add :mod:`sphinx_toolbox.latex.succinct_seealso` and make :mod:`sphinx_toolbox.latex` a package.
 
 Removals
 ^^^^^^^^

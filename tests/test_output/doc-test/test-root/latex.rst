@@ -90,3 +90,13 @@ Example Footnotes
 .. [*] Symbol 7
 .. [*] Symbol 8
 .. [*] Symbol 9
+
+.. seealso:: Check this out on GitHub
+
+.. seealso::
+
+	These are helpful resources:
+
+	* Google
+	* StackOverflow
+	* RealPython

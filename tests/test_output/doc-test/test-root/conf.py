@@ -29,6 +29,7 @@ extensions = [
 		"sphinx-prompt",
 		"sphinx.ext.autodoc",
 		"sphinx_toolbox.more_autosummary",
+		"sphinx_toolbox.latex.succinct_seealso",
 		]
 
 github_username = "domdfcoding"
