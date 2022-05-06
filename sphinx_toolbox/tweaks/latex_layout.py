@@ -23,6 +23,29 @@ Makes minor adjustments to the LaTeX layout.
 
   .. versionadded:: 2.14.0
 
+* Optionally, configures the ``needspace`` package.
+
+  The :confval:`needspace_amount` option can be set in ``conf.py`` to add the ``\needspace{}`` command
+  before each ``addnodes.desc`` node (i.e. a function or class description).
+  The amount of space is set by the ``needspace_amount`` option, e.g.:
+
+  .. code-block:: python
+
+      needspace_amount = r"4\baselineskip"
+
+  .. versionadded:: 3.0.0
+
+
+.. confval:: needspace_amount
+	:type: :class:`str`
+	:default: :py:obj:`None`
+
+	Sets the value for the ``\needspace{}`` command.
+
+	Values should be in the form ``r"4\baselineskip"``.
+
+	.. versionadded:: 3.0.0
+
 
 .. versionadded:: 2.10.0
 .. extensions:: sphinx_toolbox.tweaks.latex_layout
@@ -54,20 +77,33 @@ Makes minor adjustments to the LaTeX layout.
 
 # 3rd party
 from docutils import nodes
+from domdf_python_tools.stringlist import StringList
 from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.builders.latex.nodes import footnotetext
+from sphinx.config import Config
 from sphinx.writers.latex import LaTeXTranslator
 
 # this package
-from sphinx_toolbox.utils import Config, SphinxExtMetadata, metadata_add_version
+from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["setup"]
 
 
 def visit_desc(translator: LaTeXTranslator, node: addnodes.desc) -> None:
 	translator.body.append('\n\n\\vspace{5px}')
-	LaTeXTranslator.visit_desc(translator, node)
+
+	needspace_amount = getattr(translator.config, "needspace_amount")
+	if needspace_amount:
+		translator.body.append(f"\\needspace{{{needspace_amount}}}")
+
+	if "sphinxcontrib.toctree_plus" in translator.config.extensions:
+		# 3rd party
+		from sphinxcontrib import toctree_plus  # type: ignore  # nodep
+
+		toctree_plus.visit_desc(translator, node)
+	else:
+		LaTeXTranslator.visit_desc(translator, node)
 
 
 def visit_field_list(translator: LaTeXTranslator, node: nodes.field_list) -> None:
@@ -89,7 +125,7 @@ def configure(app: Sphinx, config: Config):
 	"""
 
 	if not hasattr(config, "latex_elements"):  # pragma: no cover
-		config.latex_elements = {}
+		config.latex_elements = {}  # type: ignore
 
 	latex_elements = (config.latex_elements or {})
 
@@ -124,6 +160,12 @@ def configure(app: Sphinx, config: Config):
 			r"\endgroup"
 			])
 
+	needspace_amount = getattr(config, "needspace_amount")
+	if needspace_amount:
+		latex_extrapackages = StringList(latex_elements.get("extrapackages", ''))
+		latex_extrapackages.append(r"\usepackage{needspace}")
+		latex_elements["extrapackages"] = str(latex_extrapackages)
+
 
 def visit_paragraph(translator: LaTeXTranslator, node: nodes.paragraph) -> None:
 	index = node.parent.index(node)
@@ -156,5 +198,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_node(addnodes.desc, latex=(visit_desc, LaTeXTranslator.depart_desc), override=True)
 	app.add_node(nodes.field_list, latex=(visit_field_list, depart_field_list), override=True)
 	app.add_node(nodes.paragraph, latex=(visit_paragraph, LaTeXTranslator.depart_paragraph), override=True)
+	app.add_config_value("needspace_amount", default=None, rebuild="latex", types=[str])
 
 	return {"parallel_read_safe": True}

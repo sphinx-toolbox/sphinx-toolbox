@@ -239,6 +239,7 @@ def test_latex_output_latex_layout(app, latex_regression: LaTeXRegressionFixture
 	assert app.builder.name.lower() == "latex"
 
 	app.setup_extension("sphinx_toolbox.tweaks.latex_layout")
+	app.config.needspace_amount = r"4\baselineskip"
 	app.events.emit("config-inited", app.config)
 
 	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')") as w:
