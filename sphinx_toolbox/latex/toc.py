@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-#  latex_toc.py
+#  toc.py
 """
 Adjusts the default LaTeX output as follows:
 
@@ -8,12 +8,8 @@ Adjusts the default LaTeX output as follows:
 * The PDF outline has the correct hierarchy, including having the indices as top-level elements.
 
 .. versionadded:: 2.1.0
-.. extensions:: sphinx_toolbox.tweaks.latex_toc
-
-.. versionchanged:: 3.0.0
-
-	The functionality has moved to :mod:`sphinx_toolbox.latex.toc`.
-	Please use that extension instead.
+.. versionchanged:: 3.0.0  Moved from :mod:`sphinx_toolbox.tweaks.latex_toc`.
+.. extensions:: sphinx_toolbox.latex.toc
 
 -----
 
@@ -43,26 +39,94 @@ Adjusts the default LaTeX output as follows:
 #
 
 # stdlib
+from typing import List
 
 # 3rd party
+import sphinx.directives.other
+import sphinx.writers.latex
+from docutils import nodes
 from sphinx.application import Sphinx
 
 # this package
 from sphinx_toolbox.latex import use_package
 from sphinx_toolbox.utils import Config, SphinxExtMetadata, metadata_add_version
 
-__all__ = ["setup", "configure"]
+__all__ = ["setup"]
+
+nest_bookmark_level_part = "\\bookmarksetupnext{{level=part}}\n"
+
+
+class latex_toc(nodes.raw):
+	pass
+
+
+class LaTeXTranslator(sphinx.writers.latex.LaTeXTranslator):
+
+	def generate_indices(self) -> str:
+
+		super_output = super().generate_indices()
+
+		if not super_output:
+			return nest_bookmark_level_part
+
+		return '\n'.join([
+				nest_bookmark_level_part,
+				*super_output.splitlines(),
+				'',
+				nest_bookmark_level_part,
+				])
+
+	def visit_latex_toc(self, node: latex_toc):
+		if not self.is_inline(node):
+			self.body.append('\n')
+		if "latex" in node.get("format", '').split():
+			self.body.append(f"\\{self.sectionnames[self.sectionlevel]}{{{node.astext()}}}")
+		if not self.is_inline(node):
+			self.body.append('\n')
+		raise nodes.SkipNode
+
+	def depart_latex_toc(self, node: latex_toc):  # pragma: no cover
+		pass
+
+
+class LatexTocTreeDirective(sphinx.directives.other.TocTree):
+
+	def run(self) -> List[nodes.Node]:
+		"""
+		Process the content of the directive.
+		"""
+
+		assert self.env.app.builder is not None
+
+		output: List[nodes.Node] = []
+		caption = self.options.get("caption")
+
+		if (
+				caption is not None and "hidden" not in self.options
+				and self.env.app.builder.format.lower() == "latex"
+				and self.env.docname == self.env.config.master_doc
+				):
+
+			output.append(latex_toc(text=caption, format="latex"))
+
+		output.extend(super().run())
+
+		return output
 
 
 def configure(app: Sphinx, config: Config):
 	"""
-	Configure :mod:`sphinx_toolbox.tweaks.latex_toc`.
+	Configure :mod:`sphinx_toolbox.latex.toc`.
 
 	:param app: The Sphinx application.
 	:param config:
 	"""
 
 	use_package("bookmark", config)
+
+
+def purge_outdated(app: Sphinx, env, added, changed, removed):
+	return [env.config.master_doc]
 
 
 @metadata_add_version
@@ -73,6 +137,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx application.
 	"""
 
-	app.setup_extension("sphinx_toolbox.latex.toc")
+	app.connect("env-get-outdated", purge_outdated)
+	app.connect("config-inited", configure)
+	app.add_directive("toctree", LatexTocTreeDirective, override=True)
+	app.set_translator("latex", LaTeXTranslator, override=True)
 
 	return {"parallel_read_safe": True}

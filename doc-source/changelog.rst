@@ -15,6 +15,12 @@ Additions
 * :mod:`sphinx_toolbox.tweaks.latex_layout` -- Added the :confval:`needspace_amount` option for configuring the LaTeX ``needspace`` extension.
 * Add :mod:`sphinx_toolbox.latex.succinct_seealso` and make :mod:`sphinx_toolbox.latex` a package.
 
+Moves
+^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.tweaks.latex_layout` -- Moved to :mod:`sphinx_toolbox.latex.layout`.
+* :mod:`sphinx_toolbox.tweaks.latex_toc` -- Moved to :mod:`sphinx_toolbox.latex.toc`.
+
 Removals
 ^^^^^^^^
 

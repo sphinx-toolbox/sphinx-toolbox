@@ -1,3 +1,8 @@
 ul.bullet-hidden, ul.bullet-hidden li {
     list-style-type: none !important;
 }
+
+
+table.indextable ul li ul, .genindextable li > ul {
+    margin-left: 24px !important;
+}
