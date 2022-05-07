@@ -27,6 +27,7 @@ Bugs Fixed
 ^^^^^^^^^^^
 
 * :mod:`sphinx_toolbox.more_autodoc.overloads` -- Now try to resolve forward references in function overloads.
+* :mod:`sphinx_toolbox.confval` -- :rst:dir:`confval` directives now show up in the index.
 
 
 2.18.2

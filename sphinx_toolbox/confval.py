@@ -128,6 +128,8 @@ class ConfigurationValue(GenericObject):
 		and cross-referencing for this configuration value.
 	"""
 
+	indextemplate: str = "%s (configuration value)"
+
 	option_spec: OptionSpec = {  # type: ignore[assignment]
 		"type": directives.unchanged_required,
 		"required": directives.unchanged_required,

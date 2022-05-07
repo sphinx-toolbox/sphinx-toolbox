@@ -27,7 +27,7 @@ Confval
 	:type: Comma-separated list of strings
 	:required: True
 
-	The GitHub repository this documentation corresponds to.
+	The conda channels required to install the library from Anaconda.
 
 
 .. confval:: github_repository
