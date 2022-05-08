@@ -138,7 +138,7 @@ Shields
 				:downloads: month
 
 
-.. rst:directive:: maintained-shield:
+.. rst:directive:: maintained-shield
 
 	Shield to indicate whether the project is maintained.
 
