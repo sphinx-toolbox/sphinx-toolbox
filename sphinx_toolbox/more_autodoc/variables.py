@@ -444,11 +444,12 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 		:param ignore:
 		"""
 
+		# Disable `autodoc_inherit_docstring` temporarily to avoid to obtain
+		# a docstring from the value which descriptor returns unexpectedly.
+		# ref: https://github.com/sphinx-doc/sphinx/issues/7805
+		orig = self.env.config.autodoc_inherit_docstrings
+
 		try:
-			# Disable `autodoc_inherit_docstring` temporarily to avoid to obtain
-			# a docstring from the value which descriptor returns unexpectedly.
-			# ref: https://github.com/sphinx-doc/sphinx/issues/7805
-			orig = self.env.config.autodoc_inherit_docstrings
 			self.env.config.autodoc_inherit_docstrings = False  # type: ignore[attr-defined]
 
 			# Sphinx's signature is wrong wrt Optional

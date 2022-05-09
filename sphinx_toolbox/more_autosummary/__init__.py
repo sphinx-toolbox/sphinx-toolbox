@@ -429,10 +429,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 		# process members and determine which to skip
 		for (membername, member) in members:
 			# if isattr is True, the member is documented as an attribute
-			if member is INSTANCEATTR or (namespace, membername) in attr_docs:
-				isattr = True
-			else:
-				isattr = False
+			isattr = (member is INSTANCEATTR or (namespace, membername) in attr_docs)
 
 			doc = getdoc(
 					member,
