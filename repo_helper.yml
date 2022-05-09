@@ -83,7 +83,8 @@ third_party_version_matrix:
     - 4.3
     - 4.4
     - 4.5
-    - latest
+    - 5.0.0b1
+#    - latest
 
 classifiers:
  - 'Development Status :: 5 - Production/Stable'
