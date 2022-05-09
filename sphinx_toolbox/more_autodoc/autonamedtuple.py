@@ -407,6 +407,17 @@ class NamedTupleDocumenter(ClassDocumenter):
 		return [d for d in documenters if d[0].name.split('.')[-1] not in fields]
 
 
+class _PyNamedTuplelike(PyClasslike):
+	"""
+	Description of a namedtuple-like object.
+	"""
+
+	def get_index_text(self, modname: str, name_cls: Tuple[str, str]) -> str:
+		if self.objtype == "namedtuple":
+			return _("%s (namedtuple in %s)") % (name_cls[0], modname)
+		else:
+			return super().get_index_text(modname, name_cls)
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -421,7 +432,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("sphinx_toolbox.tweaks.tabsize")
 
 	app.registry.domains["py"].object_types["namedtuple"] = ObjType(_("namedtuple"), "namedtuple", "class", "obj")
-	app.add_directive_to_domain("py", "namedtuple", PyClasslike)
+	app.add_directive_to_domain("py", "namedtuple", _PyNamedTuplelike)
 	app.add_role_to_domain("py", "namedtuple", PyXRefRole())
 
 	app.connect("object-description-transform", add_fallback_css_class({"namedtuple": "class"}))

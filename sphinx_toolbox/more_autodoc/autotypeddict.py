@@ -400,6 +400,18 @@ class TypedDictDocumenter(ClassDocumenter):
 		return ret
 
 
+class _PyTypedDictlike(PyClasslike):
+	"""
+	Description of a typeddict-like object.
+	"""
+
+	def get_index_text(self, modname: str, name_cls: Tuple[str, str]) -> str:
+		if self.objtype == "typeddict":
+			return _("%s (typeddict in %s)") % (name_cls[0], modname)
+		else:
+			return super().get_index_text(modname, name_cls)
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -409,7 +421,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 
 	app.registry.domains["py"].object_types["typeddict"] = ObjType("typeddict", "typeddict", "class", "obj")
-	app.add_directive_to_domain("py", "typeddict", PyClasslike)
+	app.add_directive_to_domain("py", "typeddict", _PyTypedDictlike)
 	app.add_role_to_domain("py", "typeddict", PyXRefRole())
 	app.connect("object-description-transform", add_fallback_css_class({"typeddict": "class"}))
 

@@ -371,6 +371,18 @@ class ProtocolDocumenter(ClassDocumenter):
 		return ret
 
 
+class _PyProtocollike(PyClasslike):
+	"""
+	Description of a Protocol-like object.
+	"""
+
+	def get_index_text(self, modname: str, name_cls: Tuple[str, str]) -> str:
+		if self.objtype == "protocol":
+			return _("%s (protocol in %s)") % (name_cls[0], modname)
+		else:
+			return super().get_index_text(modname, name_cls)
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -380,7 +392,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 
 	app.registry.domains["py"].object_types["protocol"] = ObjType(_("protocol"), "protocol", "class", "obj")
-	app.add_directive_to_domain("py", "protocol", PyClasslike)
+	app.add_directive_to_domain("py", "protocol", _PyProtocollike)
 	app.add_role_to_domain("py", "protocol", PyXRefRole())
 	app.connect("object-description-transform", add_fallback_css_class({"protocol": "class"}))
 
