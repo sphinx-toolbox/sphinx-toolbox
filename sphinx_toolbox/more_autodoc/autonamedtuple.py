@@ -418,6 +418,7 @@ class _PyNamedTuplelike(PyClasslike):
 		else:
 			return super().get_index_text(modname, name_cls)
 
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
