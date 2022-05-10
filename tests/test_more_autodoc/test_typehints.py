@@ -5,13 +5,14 @@ import itertools
 import re
 import sys
 import types
+import typing
 from email.headerregistry import Address
 from tempfile import TemporaryDirectory
 from typing import Any, List
 
 # 3rd party
 import pytest
-from coincidence.selectors import min_version, not_pypy, only_pypy
+from coincidence.selectors import max_version, min_version, not_pypy, only_pypy
 from domdf_python_tools.typing import (
 		ClassMethodDescriptorType,
 		MethodDescriptorType,
@@ -56,6 +57,12 @@ else:
 						ClassMethodDescriptorType,
 						":py:data:`types.ClassMethodDescriptorType`",
 						id="types.ClassMethodDescriptorType"
+						),
+				pytest.param(
+						typing.ContextManager[str],
+						r":py:class:`contextlib.AbstractContextManager`\[:py:class:`str`]",
+						id="typing.ContextManager",
+						marks=max_version("3.9"),
 						),
 				pytest.param(
 						MethodDescriptorType,

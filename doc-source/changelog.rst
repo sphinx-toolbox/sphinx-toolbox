@@ -35,6 +35,8 @@ Bugs Fixed
 * :mod:`sphinx_toolbox.more_autodoc.overloads` -- Now try to resolve forward references in function overloads.
 * :mod:`sphinx_toolbox.confval` -- :rst:dir:`confval` directives now show up in the index.
 * :rst:dir:`autonamedtuple`, :rst:dir:`autoprotocol`, :rst:dir:`autotypeddict` -- Index entries are now created. (PR :github:pull:`103`)
+* Type hints for ``typing.ContextManager`` redirect to :class:`contextlib.AbstractContextManager` on Python 3.7 and 3.8.
+
 
 2.18.2
 --------------

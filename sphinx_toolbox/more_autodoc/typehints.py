@@ -375,6 +375,8 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	# Redirect all typing_extensions types to the stdlib typing module
 	elif module == "typing_extensions":
 		module = "typing"
+	elif module == "typing" and class_name == "AbstractContextManager":
+		module = "contextlib"
 
 	full_name = (f"{module}.{class_name}") if module != "builtins" else class_name
 	prefix = '' if fully_qualified or full_name == class_name else '~'
