@@ -14,7 +14,7 @@ Additions
 * :mod:`sphinx_toolbox.more_autosummary.column_widths` -- Allows for the autosummary table column widths to be customised with the LaTeX builder. (PR :github:pull:`100`)
 * :mod:`sphinx_toolbox.tweaks.latex_layout` -- Added the :confval:`needspace_amount` option for configuring the LaTeX ``needspace`` extension.
 * Add :mod:`sphinx_toolbox.latex.succinct_seealso` and make :mod:`sphinx_toolbox.latex` a package.
-* :rst:role:`namedtuple-field` for cross-references to namedtuple fields.
+* Add :rst:role:`namedtuple-field` role for cross-references to namedtuple fields. (PR :github:pr:`104`)
 
 Moves
 ^^^^^^^^^^
