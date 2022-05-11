@@ -28,6 +28,9 @@ Usage
 		:deco:`Title <my_decorator>`
 
 
+.. latex:clearpage::
+
+
 API Reference
 ----------------
 

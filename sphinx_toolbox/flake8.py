@@ -20,13 +20,7 @@ Usage
 	Codes to document are given in the body of the directive.
 
 
-	.. latex:vspace:: 10px
-
-	**Example**
-
-	.. raw:: latex
-
-		\begin{multicols}{2}
+	:bold-title:`Example`
 
 	.. rest-example::
 
@@ -34,9 +28,9 @@ Usage
 
 			DALL000
 
-	.. raw:: latex
 
-		\end{multicols}
+.. latex:clearpage::
+
 
 API Reference
 ----------------

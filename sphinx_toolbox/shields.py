@@ -9,10 +9,7 @@ Directives for shield/badge images.
 Usage
 ---------
 
-Several shield/badge directives are available, like this one: |demo|
-
-.. |demo| pre-commit-shield::
-
+Several shield/badge directives are available.
 
 They function similarly to the ``.. image::`` directives, although not all options are available.
 As with the image directive, shields can be used as part of substitutions, e.g.
@@ -44,6 +41,8 @@ All shields have the following options:
 	Additional CSS class for the shield.
 	All shields have the ``sphinx_toolbox_shield`` class by default.
 
+
+.. latex:clearpage::
 
 Shields
 ^^^^^^^^^^^^

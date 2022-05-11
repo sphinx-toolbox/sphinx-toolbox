@@ -103,6 +103,8 @@ Usage
 		See more of my :github:user:`repositories <domdfcoding>`.
 
 
+.. latex:clearpage::
+
 .. rst:role:: github:org
 
 	Role which shows a link to the given organization on GitHub.
@@ -156,6 +158,8 @@ This will guarantee that the following values will be available via
 
 If the user has not provided either ``github_username`` or ``github_repository``
 a :exc:`~.MissingOptionError` will be raised.
+
+.. latex:clearpage::
 """
 #
 #  Copyright © 2020-2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>

@@ -77,9 +77,8 @@ Usage
 
 		See :mod:`sphinx_toolbox.github` for more information.
 
-	.. latex:vspace:: 5px
 
-	**Example**
+	:bold-title:`Example`
 
 	.. rest-example::
 
@@ -89,7 +88,6 @@ Usage
 			:conda-channels: domdfcoding,conda-forge
 			:github:
 
-.. latex:clearpage::
 
 
 .. rst:directive:: extensions
@@ -122,9 +120,7 @@ Usage
 		.. versionadded:: 0.4.0
 
 
-	.. latex:vspace:: 10px
-
-	**Example**
+	:bold-title:`Example`
 
 	.. rest-example::
 
@@ -135,8 +131,6 @@ Usage
 			sphinx_tabs.tabs
 			sphinx-prompt
 
-
-.. latex:clearpage::
 
 API Reference
 --------------
@@ -238,6 +232,9 @@ class Sources(List[Tuple[str, str, Callable, Callable, Optional[Dict[str, Callab
 	* ``getter_function`` -- the function that returns the installation instructions,
 	* ``validator_function`` -- a function to validate the option value provided by the user,
 	* ``extra_options`` -- a mapping of additional options for the directive that are used by the getter_function.
+
+	.. autoclasssumm:: Sources
+		:autosummary-sections: ;;
 	"""
 
 	def __init__(self, *args, **kwargs):
@@ -450,6 +447,10 @@ class InstallationDirective(SphinxDirective):
 	def run_html(self) -> List[nodes.Node]:
 		"""
 		Generate output for ``HTML`` builders.
+
+		:rtype:
+
+		.. latex:clearpage::
 		"""
 
 		targetid = f'installation-{self.env.new_serialno("sphinx-toolbox installation"):d}'
@@ -573,6 +574,10 @@ class ExtensionsDirective(SphinxDirective):
 	def run(self) -> List[nodes.Node]:
 		"""
 		Create the extensions node.
+
+		:rtype:
+
+		.. latex:clearpage::
 		"""
 
 		extensions = list(self.content)

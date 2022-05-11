@@ -10,6 +10,8 @@ Add links to GitHub issues and Pull Requests.
 Usage
 ------
 
+.. latex:vspace:: -10px
+
 .. rst:role:: issue
 
 	Role which shows a link to the given issue on GitHub.

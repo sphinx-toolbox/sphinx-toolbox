@@ -2,9 +2,8 @@
 :mod:`~sphinx_toolbox.more_autodoc`
 ===================================
 
-.. py:module:: sphinx_toolbox.more_autodoc
-
 .. html-section::
+.. py:module:: sphinx_toolbox.more_autodoc
 
 .. only:: html
 

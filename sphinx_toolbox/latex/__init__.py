@@ -17,8 +17,12 @@ configures Sphinx and LaTeX to correctly handle symbol footnotes.
 .. extensions:: sphinx_toolbox.latex
 
 
+.. latex:vspace:: -5px
+
 Example Footnotes
 --------------------
+
+.. latex:vspace:: -10px
 
 | Hello [1]_
 | Goodbye [2]_
@@ -49,16 +53,11 @@ Example Footnotes
 .. [*] Symbol 9
 
 
-.. latex:vspace:: -10px
-
 Usage
 -------
 
-.. latex:vspace:: -20px
+.. latex:vspace:: -10px
 
-.. raw:: latex
-
-	\begin{multicols}{2}
 
 .. rst:directive:: latex:samepage
                    samepage
@@ -82,9 +81,6 @@ Usage
 	.. versionadded:: 2.10.0
 	.. seealso:: :rst:dir:`latex:cleardoublepage`
 
-.. raw:: latex
-
-	\columnbreak
 
 .. rst:directive:: latex:cleardoublepage
                    cleardoublepage
@@ -112,12 +108,7 @@ Usage
 	.. versionadded:: 2.11.0
 
 
-.. raw:: latex
-
-	\end{multicols}
-
-
-.. latex:vspace:: -20px
+.. latex:clearpage::
 
 API Reference
 ----------------

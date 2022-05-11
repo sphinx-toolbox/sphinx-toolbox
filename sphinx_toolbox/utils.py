@@ -142,6 +142,8 @@ class Purger:
 
 	:param attr_name: The name of the build environment's attribute that stores the list of nodes,
 		e.g. ``all_installation_nodes``.
+
+	.. autosummary-widths:: 55/100
 	"""
 
 	def __init__(self, attr_name: str):
@@ -474,8 +476,6 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 
 	:return: A mapping of parameter names to their docstrings and types, a list of docstring lines that
 		appeared before the parameters, and the list of docstring lines that appear after the parameters.
-
-	.. clearpage::
 	"""
 
 	a_tab = ' ' * tab_size

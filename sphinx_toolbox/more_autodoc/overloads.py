@@ -11,6 +11,9 @@ Documenters for functions and methods which display overloads differently.
 Configuration
 ----------------
 
+.. latex:vspace:: -20px
+
+
 .. confval:: overloads_location
 	:type: :class:`str`
 	:default: ``'signature'``
@@ -25,10 +28,12 @@ Configuration
 API Reference
 ----------------
 
+.. latex:vspace:: -20px
+
 .. automodulesumm:: sphinx_toolbox.more_autodoc.overloads
 	:autosummary-sections: Classes
 
-.. latex:clearpage::
+.. latex:vspace:: -15px
 
 .. automodulesumm:: sphinx_toolbox.more_autodoc.overloads
 	:autosummary-sections: Functions
@@ -124,8 +129,6 @@ _return_type_re = re.compile("^:(rtype|return(s)?):")
 class OverloadMixin(_OverloadMixinBase):
 	"""
 	Mixin class for function and class documenters that changes the appearance of overloaded functions.
-
-	.. versionadded:: 1.4.0
 	"""
 
 	def create_body_overloads(self) -> StringList:
@@ -296,10 +299,8 @@ class OverloadMixin(_OverloadMixinBase):
 
 class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):
 	"""
-	Custom :class:`sphinx.ext.autodoc.FunctionDocumenter` which
-	renders overloads differently.
-
-	.. versionadded:: 1.4.0
+	Custom :class:`autodoc.FunctionDocumenter <sphinx.ext.autodoc.FunctionDocumenter>`
+	which renders overloads differently.
 	"""  # noqa: D400
 
 	def format_signature(self, **kwargs: Any) -> str:
@@ -371,10 +372,8 @@ class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):
 
 class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):
 	"""
-	Custom :class:`sphinx.ext.autodoc.MethodDocumenter` which
-	renders overloads differently.
-
-	.. versionadded:: 1.4.0
+	Custom :class:`autodoc.MethodDocumenter <sphinx.ext.autodoc.MethodDocumenter>`
+	which renders overloads differently.
 	"""  # noqa: D400
 
 	def format_signature(self, **kwargs: Any) -> str:
@@ -441,10 +440,6 @@ class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):
 		Processes the signature of the given overloaded implementation.
 
 		:param overload:
-
-		:rtype:
-
-		.. latex:clearpage::
 		"""
 
 		__globals__ = safe_getattr(self.object, "__globals__", {})
@@ -460,8 +455,6 @@ class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.more_autodoc.overloads`.
-
-	.. versionadded:: 1.4.0
 
 	:param app: The Sphinx application.
 	"""

@@ -55,6 +55,8 @@ extra_sphinx_extensions:
   - _internal_extension
   - sphinxcontrib.email
   - ignore_missing_xref
+  - sphinx_toolbox.latex.succinct_seealso
+  - sphinx_toolbox.more_autosummary.column_widths
 
 tox_unmanaged:
   - pytest
@@ -65,6 +67,7 @@ sphinx_conf_epilogue:
   - sys.path.append(os.path.abspath(".."))
   - latex_elements["preamble"] = r"\usepackage{multicol}"
   - nitpicky = True
+  - needspace_amount = r"4\baselineskip"
 
 keywords:
   - sphinx

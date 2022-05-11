@@ -49,6 +49,7 @@ Makes minor adjustments to the LaTeX layout.
 
 .. versionadded:: 2.10.0
 .. versionchanged:: 3.0.0  Moved from :mod:`sphinx_toolbox.tweaks.latex_layout`.
+.. latex:clearpage::
 .. extensions:: sphinx_toolbox.latex.layout
 
 -----

@@ -280,7 +280,8 @@ class VariableDocumenter(DataDocumenter):
 
 class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumenter):
 	"""
-	Alternative version of :class:`sphinx.ext.autodoc.AttributeDocumenter`
+	Alternative version of
+	:class:`autodoc.AttributeDocumenter <sphinx.ext.autodoc.AttributeDocumenter>`
 	with better type hint rendering.
 
 	Specialized Documenter subclass for attributes.
@@ -485,7 +486,8 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 
 class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 	"""
-	Alternative version of :class:`sphinx.ext.autodoc.InstanceAttributeDocumenter`
+	Alternative version of
+	:class:`autodoc.InstanceAttributeDocumenter <sphinx.ext.autodoc.InstanceAttributeDocumenter>`
 	with better type hint rendering.
 
 	Specialized Documenter subclass for attributes that cannot be imported
@@ -561,7 +563,8 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 
 class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 	r"""
-	Alternative version of :class:`sphinx.ext.autodoc.InstanceAttributeDocumenter`
+	Alternative version of
+	:class:`autodoc.InstanceAttributeDocumenter <sphinx.ext.autodoc.InstanceAttributeDocumenter>`
 	with better type hint rendering.
 
 	Specialized Documenter subclass for attributes that cannot be imported

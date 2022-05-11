@@ -13,6 +13,8 @@ Role to provide a link to open a file within the web browser, rather than downlo
 Usage
 ------
 
+.. latex:vspace:: -10px
+
 .. rst:role:: asset
 
 	Adds a link to a local file that can be viewed within the web browser.

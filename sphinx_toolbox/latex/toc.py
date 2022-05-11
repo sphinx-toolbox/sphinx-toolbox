@@ -9,11 +9,10 @@ Adjusts the default LaTeX output as follows:
 
 .. versionadded:: 2.1.0
 .. versionchanged:: 3.0.0  Moved from :mod:`sphinx_toolbox.tweaks.latex_toc`.
+.. latex:clearpage::
 .. extensions:: sphinx_toolbox.latex.toc
 
 -----
-
-.. latex:clearpage::
 
 """  # noqa: D400
 #

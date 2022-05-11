@@ -13,17 +13,20 @@ Examples
 
 .. rest-example::
 
-
 	.. versionadded:: 2.4
 	.. versionadded:: 2.5  The *spam* parameter.
 
 	.. versionadded:: 2.6
 		The *parrot* parameter.
 
+.. rest-example::
+
 	.. deprecated:: 3.1
 		Use :func:`spam` instead.
 
 	.. deprecated:: 3.2  Use :func:`lobster` instead.
+
+.. rest-example::
 
 	.. versionremoved:: 1.2.3  Use :func:`foo` instead.
 
@@ -33,9 +36,13 @@ Examples
 		If you desperately need this functionality please write to the mailing list at
 		:email:`python-users@example.org`
 
-	.. versionchanged:: 0.3.0
+.. only:: html
 
-		* Parameters for ``__init__`` can be documented either in the class docstring
-		  or alongside the attribute.
-		  The class docstring has priority.
-		* Added support for `autodocsumm <https://github.com/Chilipp/autodocsumm>`_.
+	.. rest-example::
+
+		.. versionchanged:: 0.3.0
+
+			* Parameters for ``__init__`` can be documented either in the class docstring
+			  or alongside the attribute.
+			  The class docstring has priority.
+			* Added support for `autodocsumm <https://github.com/Chilipp/autodocsumm>`_.

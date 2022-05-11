@@ -24,6 +24,8 @@ or until the next :rst:dir:`autosummary-widths` directive.
 	and the width of the second column is calculated from it.
 	If both arguments are provided, they set the width of the first and second columns respectively.
 
+	.. latex:clearpage::
+
 	:bold-title:`Examples:`
 
 	.. code-block:: rst

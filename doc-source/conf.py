@@ -81,3 +81,4 @@ toctree_plus_types.add("fixture")
 sys.path.append(os.path.abspath(".."))
 latex_elements["preamble"] = r"\usepackage{multicol}"
 nitpicky = True
+needspace_amount = r"4\baselineskip"

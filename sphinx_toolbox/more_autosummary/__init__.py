@@ -33,6 +33,8 @@ and created a broken link.
 Configuration
 --------------
 
+.. latex:vspace:: -20px
+
 .. confval:: autodocsumm_member_order
 	:type: :py:obj:`str`
 	:default: ``'alphabetical'``
@@ -70,8 +72,6 @@ Configuration
 
 	.. versionadded:: 2.13.0
 
-
-.. latex:clearpage::
 
 
 API Reference
@@ -309,10 +309,6 @@ class PatchedAutosummary(Autosummary):
 
 			Now selects the appropriate documenter for attributes rather than
 			falling back to :class:`~sphinx.ext.autodoc.DataDocumenter`.
-
-		:rtype:
-
-		.. clearpage::
 		"""
 
 		doccls = get_documenter(app, obj, parent)
@@ -323,6 +319,10 @@ class PatchedAutosummary(Autosummary):
 		Generate a list of table nodes for the :rst:dir:`autosummary` directive.
 
 		:param items: A list produced by ``self.get_items``.
+
+		:rtype:
+
+		.. latex:clearpage::
 		"""
 
 		table_spec, *other_nodes = super().get_table(items)

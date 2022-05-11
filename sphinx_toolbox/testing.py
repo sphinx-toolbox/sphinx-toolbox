@@ -9,7 +9,7 @@ Functions for testing Sphinx extensions.
 
 .. seealso:: Sphinx's own ``testing`` library: https://github.com/sphinx-doc/sphinx/tree/3.x/sphinx/testing
 
-.. latex:vspace:: 45px
+.. latex:vspace:: 10px
 
 .. _pytest-regressions: https://pypi.org/project/pytest-regressions/
 """
@@ -577,8 +577,6 @@ def run_setup(setup_func: _setup_func_type) -> RunSetupOutput:  # , buildername:
 	:param setup_func: The ``setup()`` function under test.
 
 	:returns: 5-element namedtuple
-
-	.. clearpage::
 	"""
 
 	app = Sphinx()  # buildername
@@ -628,8 +626,6 @@ def remove_html_link_tags(page: BeautifulSoup) -> BeautifulSoup:
 	:param page: The page to remove the link tags from.
 
 	:return: The page without the link tags.
-
-	.. clearpage::
 	"""
 
 	for div in page.select("head link"):
@@ -701,6 +697,8 @@ class HTMLRegressionFixture(FileRegressionFixture):
 
 		.. versionchanged:: 2.14.0  Added the ``jinja2`` keyword argument.
 		.. versionchanged:: 2.17.0  Added the ``jinja2_namespace`` keyword argument.
+
+		.. latex:clearpage::
 
 		When ``jinja2`` is :py:obj:`True`, the reference file will be rendered as a jinja2 template.
 		The template is passed the following variables:

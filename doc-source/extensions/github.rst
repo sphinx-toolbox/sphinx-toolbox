@@ -13,6 +13,9 @@
 	:member-order: bysource
 	:exclude-members: copy
 
+
+.. latex:clearpage::
+
 :mod:`.github.repos_and_users` submodule
 =======================================================
 

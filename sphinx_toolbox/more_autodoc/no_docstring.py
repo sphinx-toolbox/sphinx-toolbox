@@ -5,6 +5,9 @@
 Adds the ``:no-docstring:`` option to automodule directives to exclude the docstring from the output.
 
 .. versionadded:: 1.0.0
+
+	Functions in this module moved from ``sphinx_toolbox.more_autodoc.__init__.py``
+
 .. extensions:: sphinx_toolbox.more_autodoc.no_docstring
 """
 #
@@ -47,13 +50,11 @@ __all__ = ["automodule_add_nodocstring", "no_docstring_process_docstring", "setu
 
 def automodule_add_nodocstring(app) -> None:
 	"""
-	Add the ``:no-docstring:`` option to automodule directives to exclude the docstring from the output.
+	Add the ``:no-docstring:`` option to automodule directives.
+
+	The option is used to exclude the docstring from the output
 
 	:param app: The Sphinx application.
-
-	.. versionchanged:: 1.0.0
-
-		Moved from ``sphinx_toolbox.more_autodoc.__init__.py``
 	"""
 
 	sphinx.ext.autodoc.ModuleDocumenter.option_spec["no-docstring"] = flag
@@ -73,7 +74,7 @@ def no_docstring_process_docstring(
 		lines: List[str],
 		):
 	"""
-	Process the docstring of a module, and remove its docstring of the ``:no-docstring:`` flag was set..
+	Remove module docstrings if the ``:no-docstring:`` flag was set.
 
 	:param app: The Sphinx application.
 	:param what:
@@ -81,10 +82,6 @@ def no_docstring_process_docstring(
 	:param obj: The object being documented.
 	:param options: Mapping of autodoc options to values.
 	:param lines: List of strings representing the current contents of the docstring.
-
-	.. versionchanged:: 1.0.0
-
-		Moved from ``sphinx_toolbox.more_autodoc.__init__.py``
 	"""
 
 	if isinstance(obj, ModuleType):

@@ -11,6 +11,8 @@
 API Reference
 --------------
 
+.. autosummary-widths:: 45/100
+
 .. automodulesumm:: sphinx_toolbox.more_autodoc.regex
 	:member-order: bysource
 

@@ -44,10 +44,14 @@ Usage
 		\end{multicols}
 
 
+.. latex:vspace:: -0px
+
+
 .. rst:role:: confval
 
 	Role which provides a cross-reference to a :rst:dir:`confval` directive.
 
+.. latex:vspace:: 10px
 
 **Examples:**
 
@@ -58,10 +62,14 @@ Usage
 		:default: ``"Hello World"``
 		:required: False
 
+.. latex:vspace:: -20px
+
 .. rest-example::
 
 	To enable this feature set the :confval:`demo` configuration value to "True".
 
+
+.. latex:clearpage::
 
 
 API Reference
@@ -189,10 +197,6 @@ class ConfigurationValue(GenericObject):
 		.. versionadded:: 1.1.0
 
 		:param required:
-
-		:rtype:
-
-		.. clearpage::
 		"""
 
 		return strtobool(required)

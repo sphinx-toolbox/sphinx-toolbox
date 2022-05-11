@@ -35,11 +35,14 @@ option in ``conf.py``, or with the :rst:dir:`:sourcelink: <sourcelink>` option f
 	When passed as an option flag to an :rst:dir:`automodule` directive,
 	show a link to the corresponding source code at the top of the output *for that module only*.
 
+.. latex:vspace:: 5px
 
 .. versionchanged:: 1.1.0
 
 	Added support for the :rst:dir:`:sourcelink: <sourcelink>` option flag to :rst:dir:`automodule`.
 
+
+.. latex:clearpage::
 
 API Reference
 --------------

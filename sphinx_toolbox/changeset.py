@@ -8,7 +8,6 @@ and :rst:dir:`deprecated` directives to correctly handle bullet lists.
 .. versionadded:: 2.11.0
 .. extensions:: sphinx_toolbox.changeset
 
-.. latex:vspace:: -10px
 
 Usage
 ------
@@ -41,7 +40,7 @@ This extension also adds the following directive:
    An explanation can also be given, for example to inform the reader what should be used instead.
 
 
-.. latex:vspace:: -10px
+.. latex:clearpage::
 
 API Reference
 ----------------

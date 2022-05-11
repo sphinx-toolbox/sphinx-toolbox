@@ -46,6 +46,8 @@ The changes are:
           docstring_hooks.append((my_hook, 75))
           return {}
 
+  .. latex:clearpage::
+
   ``my_hook`` is a function that takes the object being documented as its only argument
   and returns that object after modification. The ``75`` is the priority of the hook:
 
@@ -309,6 +311,8 @@ def format_annotation(annotation, fully_qualified: bool = False) -> str:
 	:rtype:
 
 	.. versionchanged:: 2.13.0  Added support for :py:obj:`True` and :py:obj:`False`
+
+	.. latex:clearpage::
 	"""
 
 	prefix = '' if fully_qualified else '~'
@@ -686,8 +690,6 @@ def process_docstring(
 	.. versionchanged:: 1.1.0
 
 		An empty ``:rtype:`` flag can be used to control the position of the return type annotation in the docstring.
-
-	.. clearpage::
 	"""
 
 	if what in {"variable", "regex"}:

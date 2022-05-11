@@ -12,6 +12,8 @@ and at a custom location throughout the document.
 Configuration
 --------------
 
+.. latex:vspace:: -10px
+
 .. confval:: documentation_summary
 	:type: :class:`str`
 
@@ -24,15 +26,19 @@ Configuration
 Usage
 ------
 
+.. latex:vspace:: -10px
+
 .. rst:directive:: documentation-summary
 
 	Adds the documentation summary as configured above.
 
-	**Example**
+	.. only:: html
 
-	.. rest-example::
+		:bold-title:`Example`
 
-		.. documentation-summary::
+		.. rest-example::
+
+			.. documentation-summary::
 
 
 	.. rst:directive:option:: meta
@@ -48,6 +54,9 @@ Usage
 
 		.. _meta: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
 		.. _the sphinx documentation: https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-project
+
+
+.. latex:clearpage::
 
 API Reference
 ----------------

@@ -34,6 +34,7 @@ Usage
 
 		Strip indentation characters from the code block,
 
+	.. latex:clearpage::
 
 	:bold-title:`Example`
 

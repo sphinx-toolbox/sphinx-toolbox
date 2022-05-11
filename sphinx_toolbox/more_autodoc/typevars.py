@@ -29,12 +29,10 @@ Configuration
 	This option has no effect if :confval:`all_typevars` is False.
 
 
-.. latex:vspace:: -15px
+.. latex:clearpage::
 
 Usage
 ----------
-
-.. latex:vspace:: -10px
 
 .. rst:directive:: autotypevar
 
@@ -273,6 +271,10 @@ class TypeVarDocumenter(VariableDocumenter):
 
 		:param encoding:
 		:param ignore:
+
+		:rtype:
+
+		.. latex:clearpage::
 		"""
 
 		if self.object.__doc__ != TypeVar.__doc__:
