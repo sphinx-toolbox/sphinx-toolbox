@@ -5,7 +5,7 @@ exclude: ^$
 
 repos:
  - repo: https://github.com/repo-helper/pyproject-parser
-   rev: v0.4.3
+   rev: v0.5.0
    hooks:
     - id: reformat-pyproject
 
@@ -40,7 +40,7 @@ repos:
     - id: bind-requirements
 
  - repo: https://github.com/domdfcoding/flake8-dunder-all
-   rev: v0.1.8
+   rev: v0.2.0
    hooks:
     - id: ensure-dunder-all
       files: ^sphinx_toolbox/.*\.py$
