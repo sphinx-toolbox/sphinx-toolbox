@@ -23,3 +23,6 @@ sphinx-toolbox Demo - AutoNamedTuple
 	:noindex:
 
 .. autonamedtuple:: autonamedtuple_demo.CustomisedNew
+
+This function takes a single argument, the :namedtuple:`~.Movie` to watch.
+The name of the movie can be accessed with the :namedtuple-field:`~.Movie.name` attribute.
