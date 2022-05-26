@@ -94,7 +94,7 @@ def sourcelinks_process_docstring(
 		obj,
 		options: Mapping[str, Any],
 		lines: List[str],
-		):
+		) -> None:
 	"""
 	Process the docstring of a module and add a link to the source code if given in the configuration.
 

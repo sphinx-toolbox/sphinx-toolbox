@@ -170,7 +170,7 @@ class TypeVarDocumenter(VariableDocumenter):
 		"""
 
 		if forward_ref.__forward_evaluated__:
-			return forward_ref.__forward_value__  # type: ignore
+			return forward_ref.__forward_value__  # type: ignore[return-value]
 		else:
 			globanls = sys.modules[self.object.__module__].__dict__
 
@@ -283,7 +283,7 @@ class TypeVarDocumenter(VariableDocumenter):
 			return []
 
 
-def validate_config(app: Sphinx, config: ToolboxConfig):
+def validate_config(app: Sphinx, config: ToolboxConfig) -> None:
 	r"""
 	Validate the provided configuration values.
 

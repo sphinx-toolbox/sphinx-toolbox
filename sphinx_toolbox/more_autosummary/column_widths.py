@@ -214,12 +214,12 @@ class WidthsDirective(SphinxDirective):
 		Process the directive's arguments.
 		"""
 
-		self.state.document.autosummary_widths = self.parse_widths(self.arguments)  # type: ignore
+		self.state.document.autosummary_widths = self.parse_widths(self.arguments)  # type: ignore[attr-defined]
 
 		return []
 
 
-def configure(app: Sphinx, config: Config):
+def configure(app: Sphinx, config: Config) -> None:
 	"""
 	Configure :mod:`sphinx_toolbox.more_autosummary.column_widths`.
 
@@ -238,7 +238,7 @@ def configure(app: Sphinx, config: Config):
 	latex_preamble.blankline()
 
 	latex_elements["preamble"] = str(latex_preamble)
-	config.latex_elements = latex_elements  # type: ignore
+	config.latex_elements = latex_elements  # type: ignore[attr-defined]
 
 
 @metadata_add_version

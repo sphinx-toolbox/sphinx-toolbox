@@ -101,7 +101,7 @@ def visit_desc(translator: LaTeXTranslator, node: addnodes.desc) -> None:
 
 	if "sphinxcontrib.toctree_plus" in translator.config.extensions:
 		# 3rd party
-		from sphinxcontrib import toctree_plus  # type: ignore  # nodep
+		from sphinxcontrib import toctree_plus  # type: ignore[import]  # nodep
 
 		toctree_plus.visit_desc(translator, node)
 	else:
@@ -127,7 +127,7 @@ def configure(app: Sphinx, config: Config):
 	"""
 
 	if not hasattr(config, "latex_elements"):  # pragma: no cover
-		config.latex_elements = {}  # type: ignore
+		config.latex_elements = {}  # type: ignore[attr-defined]
 
 	latex_elements = (config.latex_elements or {})
 

@@ -13,7 +13,7 @@ from _pytest.mark import ParameterSet
 from bs4 import BeautifulSoup  # type: ignore[import]
 from coincidence.params import param
 from coincidence.regressions import AdvancedFileRegressionFixture
-from coincidence.selectors import min_version, only_version
+from coincidence.selectors import min_version
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from jinja2 import Template

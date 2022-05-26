@@ -50,7 +50,7 @@ from sphinx.application import Sphinx
 from sphinx.writers.html import HTMLTranslator
 
 # this package
-from sphinx_toolbox import __version__, _css
+from sphinx_toolbox import _css
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
 __all__ = ["copy_asset_files", "setup"]

@@ -116,7 +116,12 @@ def test_issue_role_with_repository(count: int, url: str, repository: str):
 @count(100)
 def test_pull_role(count: int, url: str):
 	issue_number = count
-	nodes, messages = pull_role('', '', str(issue_number), 0, FakePullInliner(url))  # type: ignore
+	nodes, messages = pull_role(
+		'',
+		'',
+		str(issue_number), 0,
+		FakePullInliner(url),  # type: ignore[arg-type]
+		)
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages
@@ -130,7 +135,13 @@ def test_pull_role(count: int, url: str):
 @count(100, 0, 10)
 def test_pull_role_with_repository(count: int, url: str, repository: str):
 	issue_number = count
-	nodes, messages = pull_role('', '', f"{issue_number} <{repository}>", 0, "Not a URL")  # type: ignore
+	nodes, messages = pull_role(
+		'',
+		'',
+		f"{issue_number} <{repository}>",
+		0,
+		"Not a URL",  # type: ignore[arg-type]
+		)
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages

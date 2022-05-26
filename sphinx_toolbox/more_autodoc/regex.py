@@ -207,7 +207,7 @@ class RegexDocumenter(VariableDocumenter):
 
 		return isinstance(parent, ModuleDocumenter) and isattr and isinstance(member, Pattern)
 
-	def add_content(self, more_content: Any, no_docstring: bool = False):
+	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
 		"""
 		Add content from docstrings, attribute documentation and the user.
 
@@ -730,7 +730,7 @@ class RegexNode(nodes.literal):
 	Docutils Node to show a highlighted regular expression.
 	"""
 
-	def __init__(self, rawsource='', text='', *children, **attributes):
+	def __init__(self, rawsource='', text='', *children, **attributes) -> None:
 		super().__init__(rawsource, text, *children, **attributes)
 		self.pattern = re.compile(':'.join(rawsource.split(':')[2:])[1:-1])
 
@@ -785,7 +785,7 @@ def visit_regex_node_latex(translator: HTMLTranslator, node: RegexNode):
 	translator.body.append(latex_regex_parser.parse_pattern(node.pattern))
 
 
-def depart_regex_node_latex(translator: HTMLTranslator, node: RegexNode):
+def depart_regex_node_latex(translator: HTMLTranslator, node: RegexNode) -> None:
 	"""
 	Depart an :class:`~.RegexNode` with the LaTeX builder.
 

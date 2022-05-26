@@ -89,7 +89,7 @@ from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from domdf_python_tools.typing import PathLike
 from jinja2 import Template  # nodep
-from pygments.lexer import Lexer  # type: ignore  # nodep
+from pygments.lexer import Lexer  # type: ignore[import]  # nodep
 from pytest_regressions.common import check_text_files  # nodep
 from pytest_regressions.file_regression import FileRegressionFixture  # nodep
 from sphinx.builders import Builder

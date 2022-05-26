@@ -60,10 +60,8 @@ from domdf_python_tools.doctools import prettify_docstrings
 from sphinx.addnodes import desc_content
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
-from sphinx.errors import PycodeError
 from sphinx.ext.autodoc import Documenter, logger
 from sphinx.locale import __
-from sphinx.pycode import ModuleAnalyzer
 from typing_extensions import TypedDict
 
 __all__ = [

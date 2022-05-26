@@ -75,7 +75,7 @@ class LaTeXTranslator(sphinx.writers.latex.LaTeXTranslator):
 				nest_bookmark_level_part,
 				])
 
-	def visit_latex_toc(self, node: latex_toc):
+	def visit_latex_toc(self, node: latex_toc) -> None:
 		if not self.is_inline(node):
 			self.body.append('\n')
 		if "latex" in node.get("format", '').split():
@@ -124,7 +124,7 @@ def configure(app: Sphinx, config: Config):
 	use_package("bookmark", config)
 
 
-def purge_outdated(app: Sphinx, env, added, changed, removed):
+def purge_outdated(app: Sphinx, env, added, changed, removed) -> List[str]:
 	return [env.config.master_doc]
 
 

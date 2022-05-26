@@ -193,7 +193,7 @@ __all__ = [
 		]
 
 
-def add_autosummary(self, relative_ref_paths: bool = False):
+def add_autosummary(self, relative_ref_paths: bool = False) -> None:
 	"""
 	Add the :rst:dir:`autosummary` table of this documenter.
 

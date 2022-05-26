@@ -109,7 +109,7 @@ class PrettyGenericAliasDocumenter(DataDocumenter):  # pragma: no cover (<Py37)
 		self.options["annotation"] = SUPPRESS
 		super().add_directive_header(sig)
 
-	def add_content(self, more_content: Any, no_docstring: bool = False):
+	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
 		"""
 		Add the autodocumenter content.
 

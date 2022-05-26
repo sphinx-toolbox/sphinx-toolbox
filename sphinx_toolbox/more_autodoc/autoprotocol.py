@@ -265,7 +265,7 @@ class ProtocolDocumenter(ClassDocumenter):
 
 		return ''  # pragma: no cover
 
-	def add_content(self, more_content: Any, no_docstring: bool = False):
+	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
 		"""
 		Add the autodocumenter content.
 

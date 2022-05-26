@@ -48,7 +48,7 @@ from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
 __all__ = ["automodule_add_nodocstring", "no_docstring_process_docstring", "setup"]
 
 
-def automodule_add_nodocstring(app) -> None:
+def automodule_add_nodocstring(app: Sphinx) -> None:
 	"""
 	Add the ``:no-docstring:`` option to automodule directives.
 
@@ -72,7 +72,7 @@ def no_docstring_process_docstring(
 		obj,
 		options,
 		lines: List[str],
-		):
+		) -> None:
 	"""
 	Remove module docstrings if the ``:no-docstring:`` flag was set.
 

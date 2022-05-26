@@ -52,7 +52,7 @@ from sphinx_toolbox.utils import Config, SphinxExtMetadata, metadata_add_version
 __all__ = ["setup", "configure"]
 
 
-def configure(app: Sphinx, config: Config):
+def configure(app: Sphinx, config: Config) -> None:
 	"""
 	Configure :mod:`sphinx_toolbox.tweaks.latex_toc`.
 
