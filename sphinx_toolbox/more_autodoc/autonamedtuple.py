@@ -130,7 +130,7 @@ import sys
 import textwrap
 import warnings
 from textwrap import dedent
-from typing import Any, Dict, List, Tuple, Type, cast, get_type_hints
+from typing import Any, Dict, List, Optional, Tuple, Type, cast, get_type_hints
 
 # 3rd party
 from docutils import nodes
@@ -205,7 +205,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 		return is_namedtuple(member)
 
-	def add_content(self, more_content: Any, no_docstring: bool = True):
+	def add_content(self, more_content: Any, no_docstring: bool = True) -> None:
 		r"""
 		Add extra content (from docstrings, attribute docs etc.),
 		but not the :class:`typing.NamedTuple`\'s docstring.

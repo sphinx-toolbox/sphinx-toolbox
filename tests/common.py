@@ -8,13 +8,13 @@ import pytest
 
 class AttrDict(dict):
 
-	def __getattr__(self, item):
+	def __getattr__(self, item):  # noqa: MAN001,MAN002
 		try:
 			return self[item]
 		except KeyError as e:
 			raise AttributeError(str(e))
 
-	def __setattr__(self, item, value):
+	def __setattr__(self, item, value):  # noqa: MAN001,MAN002
 		self[item] = value
 
 

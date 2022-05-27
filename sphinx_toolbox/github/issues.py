@@ -250,7 +250,7 @@ def pull_role(
 	return [refnode], messages
 
 
-def visit_issue_node(translator: HTMLTranslator, node: IssueNode):
+def visit_issue_node(translator: HTMLTranslator, node: IssueNode) -> None:
 	"""
 	Visit an :class:`~.IssueNode`.
 
@@ -271,7 +271,7 @@ def visit_issue_node(translator: HTMLTranslator, node: IssueNode):
 		warnings.warn(f"Issue/Pull Request #{node.issue_number} not found.")
 
 
-def depart_issue_node(translator: HTMLTranslator, node: IssueNode):
+def depart_issue_node(translator: HTMLTranslator, node: IssueNode) -> None:
 	"""
 	Depart an :class:`~.IssueNode`.
 
@@ -284,7 +284,7 @@ def depart_issue_node(translator: HTMLTranslator, node: IssueNode):
 		translator.body.append("</abbr>")
 
 
-def _visit_issue_node_latex(translator: LaTeXTranslator, node: IssueNode):
+def _visit_issue_node_latex(translator: LaTeXTranslator, node: IssueNode) -> None:
 	"""
 	Visit an :class:`~.IssueNode`.
 
@@ -299,7 +299,7 @@ def _visit_issue_node_latex(translator: LaTeXTranslator, node: IssueNode):
 	translator.visit_reference(node)
 
 
-def _depart_issue_node_latex(translator: LaTeXTranslator, node: IssueNode):
+def _depart_issue_node_latex(translator: LaTeXTranslator, node: IssueNode) -> None:
 	"""
 	Depart an :class:`~.IssueNode`.
 

@@ -1,5 +1,6 @@
 # 3rd party
 from coincidence.regressions import AdvancedFileRegressionFixture
+from domdf_python_tools.paths import PathPlus
 
 # this package
 import sphinx_toolbox
@@ -7,7 +8,7 @@ from sphinx_toolbox.testing import check_asset_copy, run_setup
 from sphinx_toolbox.tweaks import sphinx_panels_tabs
 
 
-def test_copy_asset_files(tmp_pathplus, advanced_file_regression: AdvancedFileRegressionFixture):
+def test_copy_asset_files(tmp_pathplus: PathPlus, advanced_file_regression: AdvancedFileRegressionFixture):
 	check_asset_copy(
 			sphinx_panels_tabs.copy_asset_files,
 			"_static/css/tabs_customise.css",

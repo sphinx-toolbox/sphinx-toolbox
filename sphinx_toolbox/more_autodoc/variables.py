@@ -231,7 +231,7 @@ class VariableDocumenter(DataDocumenter):
 		self.options = Options(self.options.copy())
 		add_nbsp_substitution(self.env.app.config)
 
-	def add_directive_header(self, sig: str):
+	def add_directive_header(self, sig: str) -> None:
 		"""
 		Add the directive's header.
 
@@ -386,7 +386,7 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 
 		return self.get_attr(self.parent or self.object, "__module__", None) or self.modname
 
-	def add_directive_header(self, sig: str):
+	def add_directive_header(self, sig: str) -> None:
 		"""
 		Add the directive's header.
 
@@ -556,7 +556,7 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 		self._datadescriptor = False
 		return True
 
-	def add_content(self, more_content: Any, no_docstring: bool = False):
+	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
 		"""
 		Never try to get a docstring from the object.
 		"""

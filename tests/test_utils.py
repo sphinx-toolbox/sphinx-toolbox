@@ -2,7 +2,7 @@
 import collections
 import inspect
 import string
-from typing import NamedTuple
+from typing import List, NamedTuple
 
 # 3rd party
 import pytest
@@ -10,12 +10,14 @@ from apeye.requests_url import RequestsURL
 from domdf_python_tools.utils import strtobool
 from hypothesis import given
 from hypothesis.strategies import text
+from sphinx.application import Sphinx
 
 # this package
 from sphinx_toolbox import __version__
 from sphinx_toolbox.utils import (
 		NoMatchError,
 		Purger,
+		SphinxExtMetadata,
 		code_repr,
 		escape_trailing__,
 		flag,
@@ -68,7 +70,7 @@ demo_purger = Purger("all_demo_nodes")
 				([{"docname": "foo"}, {"docname": "document"}], [{"docname": "foo"}]),
 				]
 		)
-def test_purge_extras_require(nodes, output):
+def test_purge_extras_require(nodes: List[str], output: List[str]):
 	env = MockBuildEnvironment()
 
 	demo_purger.purge_nodes('', env, "document")  # type: ignore[arg-type]
@@ -115,7 +117,7 @@ def test_singleton():
 
 
 @given(text(alphabet=string.ascii_letters + string.digits, min_size=1))
-def test_escape_trailing_underscore(s):
+def test_escape_trailing_underscore(s: str):
 
 	assert escape_trailing__(s) == s
 
@@ -184,14 +186,14 @@ class NT(NamedTuple):
 				pytest.param(NT, True, id="type typing.NamedTuple"),
 				]
 		)
-def test_is_namedtuple(obj, result: bool):
+def test_is_namedtuple(obj: object, result: bool):
 	assert is_namedtuple(obj) is result
 
 
 def test_metadata_add_version():
 
 	@metadata_add_version
-	def setup(app):
+	def setup(app: Sphinx) -> SphinxExtMetadata:
 		return {"parallel_read_safe": True}
 
 	assert setup(None) == {"parallel_read_safe": True, "version": __version__}  # type: ignore[arg-type]

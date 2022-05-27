@@ -2,6 +2,7 @@
 import pytest
 from apeye.requests_url import RequestsURL
 from coincidence.params import count
+from docutils import nodes
 from docutils.nodes import system_message
 from docutils.utils import Reporter
 
@@ -15,7 +16,7 @@ from tests.common import AttrDict
 
 class FakePullInliner:
 
-	def __init__(self, github_issues_url):
+	def __init__(self, github_issues_url: str):
 		config = AttrDict({"github_pull_url": RequestsURL(github_issues_url)})
 		app = AttrDict({"config": config})
 		env = AttrDict({"app": app})
@@ -27,7 +28,7 @@ class FakePullInliner:
 
 class FakeIssueInliner:
 
-	def __init__(self, github_issues_url):
+	def __init__(self, github_issues_url: str):
 		config = AttrDict({"github_issues_url": RequestsURL(github_issues_url)})
 		app = AttrDict({"config": config})
 		env = AttrDict({"app": app})
@@ -196,10 +197,10 @@ class FakeTranslator:
 	def __init__(self):
 		self.body = []
 
-	def visit_reference(self, node):
+	def visit_reference(self, node: nodes.Node) -> None:
 		pass
 
-	def depart_reference(self, node):
+	def depart_reference(self, node: nodes.Node) -> None:
 		pass
 
 

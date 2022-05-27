@@ -33,6 +33,7 @@ from typing import Any, Dict, Sequence, Tuple
 import pytest
 from bs4 import BeautifulSoup  # type: ignore[import]
 from domdf_python_tools.paths import PathPlus
+from sphinx.application import Sphinx
 from sphinx.testing.fixtures import app as sphinx_src_app
 from sphinx.testing.fixtures import make_app, shared_result, sphinx_test_tempdir, test_params
 from sphinx.testing.path import path
@@ -44,7 +45,7 @@ fixtures = [make_app, shared_result, sphinx_test_tempdir, test_params, sphinx_sr
 
 
 @pytest.fixture()
-def rootdir():
+def rootdir() -> path:
 	rdir = PathPlus(__file__).parent.absolute() / "sphinx-doc-test"
 	(rdir / "test-sphinx-root").maybe_make(parents=True)
 	return path(rdir)
@@ -91,7 +92,7 @@ def app_params(
 
 
 @pytest.fixture()
-def sphinx_source_page(sphinx_src_app, request) -> BeautifulSoup:
+def sphinx_source_page(sphinx_src_app: Sphinx, request) -> BeautifulSoup:
 	sphinx_src_app.build(force_all=True)
 
 	pagename = request.param

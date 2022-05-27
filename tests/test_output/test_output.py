@@ -1,7 +1,8 @@
 # stdlib
 import sys
+from pathlib import Path
 from pprint import pformat
-from typing import List
+from typing import List, cast
 
 # 3rd party
 import docutils
@@ -14,10 +15,13 @@ from bs4 import BeautifulSoup  # type: ignore[import]
 from coincidence.params import param
 from coincidence.regressions import AdvancedFileRegressionFixture
 from coincidence.selectors import min_version
+from docutils import nodes
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
+from domdf_python_tools.typing import PathLike
 from jinja2 import Template
 from pytest_regressions.common import check_text_files
+from sphinx.application import Sphinx
 
 # this package
 from sphinx_toolbox.latex import better_header_layout
@@ -27,9 +31,10 @@ from sphinx_toolbox.testing import (
 		remove_html_footer,
 		remove_html_link_tags
 		)
+from sphinx_toolbox.utils import Config
 
 
-def test_build_example(testing_app):
+def test_build_example(testing_app: Sphinx):
 	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
 		testing_app.build()
 		testing_app.build()
@@ -126,7 +131,7 @@ pages_to_check: List[ParameterSet] = [
 
 
 @pytest.mark.usefixtures("docutils_17_compat")
-def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
+def test_html_output(testing_app: Sphinx, html_regression: HTMLRegressionFixture):
 	"""
 	Parametrize new files here rather than as their own function.
 	"""
@@ -152,7 +157,7 @@ def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 		else:
 			print(f"Checking output for {page_id}")
 			page_id = page_id.replace('.', '_').replace('-', '_')
-			content = (testing_app.outdir / pagename).read_text()
+			content = (PathPlus(testing_app.outdir) / pagename).read_text()
 			try:
 				html_regression.check(
 						BeautifulSoup(content, "html5lib"),
@@ -172,7 +177,7 @@ def test_html_output(testing_app, html_regression: HTMLRegressionFixture):
 
 def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFileRegressionFixture, monkeypatch):
 
-	def visit_caption(self, node) -> None:
+	def visit_caption(self, node: nodes.Node) -> None:
 		if isinstance(node.parent, docutils.nodes.container) and node.parent.get("literal_block"):
 			self.body.append('<div class="code-block-caption">')
 		else:
@@ -180,7 +185,7 @@ def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFil
 		self.add_fignumber(node.parent)
 		self.body.append(self.starttag(node, "span", '', CLASS="caption-text"))
 
-	def depart_caption(self, node):
+	def depart_caption(self, node: nodes.Node) -> None:
 		self.body.append('</p>\n')
 
 	monkeypatch.setattr(sphinx.writers.html5.HTML5Translator, "visit_caption", visit_caption)
@@ -189,7 +194,7 @@ def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFil
 	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
 		testing_app.build(force_all=True)
 
-	content = (testing_app.outdir / "index.html").read_text()
+	content = (PathPlus(testing_app.outdir) / "index.html").read_text()
 
 	page = BeautifulSoup(content, "html5lib")
 	page = remove_html_footer(page)
@@ -199,7 +204,7 @@ def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFil
 		if "_static/language_data.js" in str(div):
 			div.extract()
 
-	def check_fn(obtained_filename, expected_filename):
+	def check_fn(obtained_filename: Path, expected_filename: PathLike):  # noqa: MAN002
 		print(obtained_filename, expected_filename)
 		expected_filename = PathPlus(expected_filename)
 		template = Template(expected_filename.read_text())
@@ -222,56 +227,60 @@ def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFil
 
 
 @pytest.mark.sphinx("latex", srcdir="test-root")
-def test_latex_output(app, latex_regression: LaTeXRegressionFixture):
+def test_latex_output(app: Sphinx, latex_regression: LaTeXRegressionFixture):
 
+	assert app.builder is not None
 	assert app.builder.name.lower() == "latex"
 
 	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
 		app.build()
 
-	output_file = PathPlus(app.outdir / "python.tex")
+	output_file = PathPlus(app.outdir) / "python.tex"
 	latex_regression.check(StringList(output_file.read_lines()), jinja2=True)
 
 
 @pytest.mark.sphinx("latex", srcdir="test-root")
-def test_latex_output_latex_layout(app, latex_regression: LaTeXRegressionFixture):
+def test_latex_output_latex_layout(app: Sphinx, latex_regression: LaTeXRegressionFixture):
 
+	assert app.builder is not None
 	assert app.builder.name.lower() == "latex"
 
 	app.setup_extension("sphinx_toolbox.tweaks.latex_layout")
-	app.config.needspace_amount = r"4\baselineskip"
+	app.config.needspace_amount = r"4\baselineskip"  # type: ignore[attr-defined]
 	app.events.emit("config-inited", app.config)
 
 	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')") as w:
 		app.build(force_all=True)
 
-	output_file = PathPlus(app.outdir / "python.tex")
+	output_file = PathPlus(app.outdir) / "python.tex"
 	latex_regression.check(StringList(output_file.read_lines()), jinja2=True)
 
 
 @pytest.mark.sphinx("latex", srcdir="test-root")
-def test_latex_output_better_header_layout(app, latex_regression: LaTeXRegressionFixture):
+def test_latex_output_better_header_layout(app: Sphinx, latex_regression: LaTeXRegressionFixture):
 
+	assert app.builder is not None
 	assert app.builder.name.lower() == "latex"
 
-	better_header_layout(app.config, 9, 19)
-	app.builder.context.update(app.config.latex_elements)
+	better_header_layout(cast(Config, app.config), 9, 19)
+	app.builder.context.update(app.config.latex_elements)  # type: ignore[attr-defined]
 
 	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
 		app.build(force_all=True)
 
-	output_file = PathPlus(app.outdir / "python.tex")
+	output_file = PathPlus(app.outdir) / "python.tex"
 	latex_regression.check(StringList(output_file.read_lines()), jinja2=True)
 
 
 @pytest.mark.sphinx("latex", srcdir="test-root")
-def test_latex_output_autosummary_col_type(app, latex_regression: LaTeXRegressionFixture):
+def test_latex_output_autosummary_col_type(app: Sphinx, latex_regression: LaTeXRegressionFixture):
 
+	assert app.builder is not None
 	assert app.builder.name.lower() == "latex"
-	app.config.autosummary_col_type = r"\Y"
+	app.config.autosummary_col_type = r"\Y"  # type: ignore[attr-defined]
 
 	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
 		app.build()
 
-	output_file = PathPlus(app.outdir / "python.tex")
+	output_file = PathPlus(app.outdir) / "python.tex"
 	latex_regression.check(StringList(output_file.read_lines()), jinja2=True)

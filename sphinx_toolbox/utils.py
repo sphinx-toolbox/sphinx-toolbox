@@ -372,7 +372,7 @@ class SphinxExtMetadata(TypedDict, total=False):
 	"""
 
 
-SetupFunc = Callable[[Sphinx], Optional["SphinxExtMetadata"]]
+SetupFunc = Callable[[Sphinx], Optional[SphinxExtMetadata]]
 """
 Type annotation for Sphinx extensions' ``setup`` functions.
 
@@ -398,7 +398,7 @@ def unknown_module_warning(documenter: Documenter) -> None:
 	logger.warning(msg % documenter.name, type="autodoc")
 
 
-def filter_members_warning(member, exception: Exception) -> None:
+def filter_members_warning(member: Any, exception: Exception) -> None:
 	"""
 	Log a warning when filtering members.
 
@@ -484,7 +484,7 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 	pre_output: List[str] = []
 	post_output: List[str] = []
 
-	def add_empty(param_name: str):
+	def add_empty(param_name: str) -> None:
 		if param_name not in params:
 			params[param_name] = {"doc": [], "type": ''}
 
@@ -537,7 +537,7 @@ def is_namedtuple(obj: Any) -> bool:
 	return isinstance(obj, type) and issubclass(obj, tuple) and hasattr(obj, "_fields")
 
 
-def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]):
+def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]) -> None:
 	"""
 	Add the given autodocumenters, but only if a subclass of it is not already registered.
 
@@ -578,7 +578,7 @@ def metadata_add_version(func: SetupFunc) -> SetupFunc:
 	"""  # noqa: D400
 
 	@functools.wraps(func)
-	def wrapper(app: Sphinx):
+	def wrapper(app: Sphinx) -> SphinxExtMetadata:
 
 		# this package
 		from sphinx_toolbox import __version__
@@ -619,7 +619,9 @@ _OBJTYPES_CSS_FALLBACKS = {
 # Copyright (c) 2021 Franz Wöllert
 
 
-def add_fallback_css_class(objtypes_css_fallbacks: Dict[str, str]):
+def add_fallback_css_class(
+		objtypes_css_fallbacks: Dict[str, str]
+		) -> Callable[[Sphinx, str, str, desc_content], None]:
 	"""
 	Registers a transform which will edit the CSS classes of documented objects based on their ``objtype``.
 
@@ -645,7 +647,7 @@ def add_fallback_css_class(objtypes_css_fallbacks: Dict[str, str]):
 			domain: str,
 			objtype: str,
 			contentnode: desc_content,
-			):
+			) -> None:
 
 		if objtype not in objtypes_css_fallbacks:
 			return

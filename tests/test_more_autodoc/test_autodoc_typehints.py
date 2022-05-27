@@ -25,6 +25,7 @@
 import re
 import sys
 import typing
+from types import ModuleType
 from typing import (
 		IO,
 		Any,
@@ -47,6 +48,7 @@ from typing import (
 import pytest
 import typing_extensions
 from coincidence import min_version
+from sphobjinv import Inventory  # type: ignore[import]
 
 # this package
 from sphinx_toolbox.more_autodoc.typehints import format_annotation, process_docstring
@@ -167,7 +169,7 @@ else:
 						),
 				]
 		)
-def test_format_annotation(inv, annotation, expected_result):
+def test_format_annotation(inv: Inventory, annotation: Any, expected_result: str):
 	result = format_annotation(annotation)
 	assert result == expected_result
 
@@ -234,7 +236,7 @@ def test_format_annotation(inv, annotation, expected_result):
 						),
 				]
 		)
-def test_format_annotation_typevar(inv, annotation, expected_result):
+def test_format_annotation_typevar(inv: Inventory, annotation: Any, expected_result: str):
 	result = format_annotation(annotation)
 	assert result == expected_result
 

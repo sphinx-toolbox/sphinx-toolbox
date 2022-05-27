@@ -160,7 +160,7 @@ class DocumentationSummaryDirective(SphinxDirective):
 		return [onlynode]
 
 
-def configure(app: Sphinx, config: Config):
+def configure(app: Sphinx, config: Config) -> None:
 	"""
 	Configure :mod:`sphinx_toolbox.documentation_summary`.
 

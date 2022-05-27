@@ -15,7 +15,7 @@ from tests.common import AttrDict
 
 class FakeSourceInliner:
 
-	def __init__(self, source_link_target, github_source_url):
+	def __init__(self, source_link_target: str, github_source_url: str):
 		config = AttrDict({
 				"source_link_target": source_link_target,
 				"github_source_url": RequestsURL(github_source_url),

@@ -118,7 +118,7 @@ def depart_field_list(translator: LaTeXTranslator, node: nodes.field_list) -> No
 	translator.body.append('\\end{description}\\end{flushleft}\\vspace{10px}\n')
 
 
-def configure(app: Sphinx, config: Config):
+def configure(app: Sphinx, config: Config) -> None:
 	"""
 	Configure Sphinx Extension.
 

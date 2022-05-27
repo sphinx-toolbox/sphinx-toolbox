@@ -577,7 +577,7 @@ class PatchedAutoSummClassDocumenter(autodocsumm.AutoSummClassDocumenter):
 	.. versionadded:: 0.9.0
 	"""  # noqa: D400
 
-	def add_content(self, *args, **kwargs):
+	def add_content(self, *args, **kwargs) -> None:
 		"""
 		Add content from docstrings, attribute documentation and user.
 		"""
@@ -595,7 +595,7 @@ class PatchedAutoDocSummDirective(autodocsumm.AutoDocSummDirective):
 	.. attention:: This class is not part of the public API.
 	"""
 
-	def run(self):
+	def run(self) -> List[nodes.Node]:
 		reporter = self.state.document.reporter
 
 		if hasattr(reporter, "get_source_and_line"):

@@ -168,7 +168,7 @@ API Reference
 import os
 import re
 from textwrap import dedent
-from typing import Any, Optional, cast
+from typing import Any, List, Optional, cast
 
 # 3rd party
 import sphinx
@@ -189,7 +189,7 @@ from sphinx.util.nodes import process_only_nodes
 from sphinx.writers.latex import LaTeXTranslator, LaTeXWriter
 
 # this package
-from sphinx_toolbox.utils import Config
+from sphinx_toolbox.utils import Config, SphinxExtMetadata, metadata_add_version
 
 _ = BuildEnvironment
 
@@ -297,7 +297,7 @@ class SamepageDirective(SphinxDirective):
 
 	has_content = True
 
-	def run(self):
+	def run(self) -> List[nodes.Node]:
 		"""
 		Process the content of the directive.
 		"""
@@ -324,7 +324,7 @@ class ClearPageDirective(SphinxDirective):
 
 	has_content = True
 
-	def run(self):
+	def run(self) -> List[nodes.Node]:
 		"""
 		Process the content of the directive.
 		"""
@@ -347,7 +347,7 @@ class ClearDoublePageDirective(SphinxDirective):
 
 	has_content = True
 
-	def run(self):
+	def run(self) -> List[nodes.Node]:
 		"""
 		Process the content of the directive.
 		"""
@@ -366,7 +366,7 @@ class VSpaceDirective(SphinxDirective):
 
 	required_arguments = 1  # the space
 
-	def run(self):
+	def run(self) -> List[nodes.Node]:
 		"""
 		Process the content of the directive.
 		"""
@@ -391,7 +391,7 @@ class LaTeXDomain(Domain):
 			}
 
 
-def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None):
+def replace_unknown_unicode(app: Sphinx, exception: Optional[Exception] = None) -> None:
 	r"""
 	Replaces certain unknown unicode characters in the Sphinx LaTeX output with the best equivalents.
 
@@ -583,7 +583,7 @@ class PatchedLaTeXBuilder(LaTeXBuilder):
 				docwriter.write(doctree, destination)
 
 
-def configure(app: Sphinx, config: Config):
+def configure(app: Sphinx, config: Config) -> None:
 	"""
 	Configure :mod:`sphinx_toolbox.latex`.
 
@@ -602,7 +602,8 @@ def configure(app: Sphinx, config: Config):
 		config.latex_elements["preamble"] = f"{latex_preamble}\n{command_string}"
 
 
-def setup(app: Sphinx):
+@metadata_add_version
+def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 	Setup :mod:`sphinx_toolbox.latex`.
 
@@ -622,3 +623,5 @@ def setup(app: Sphinx):
 	app.add_builder(PatchedLaTeXBuilder, override=True)
 
 	app.connect("config-inited", configure)
+
+	return {}

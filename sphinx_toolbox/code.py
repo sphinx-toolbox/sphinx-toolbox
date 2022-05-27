@@ -339,7 +339,7 @@ def visit_prompt_latex(translator: LaTeXTranslator, node: Prompt) -> None:
 	raise docutils.nodes.SkipNode
 
 
-def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None):
+def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None:
 	"""
 	Copy additional stylesheets into the HTML build directory.
 
@@ -394,7 +394,7 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None):
 	dict2css.dump(style, static_dir / "sphinx-toolbox-code.css")
 
 
-def configure(app: Sphinx, config: Config):
+def configure(app: Sphinx, config: Config) -> None:
 	"""
 	Configure :mod:`sphinx_toolbox.code`.
 

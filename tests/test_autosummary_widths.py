@@ -14,7 +14,7 @@ from sphinx_toolbox.testing import LaTeXRegressionFixture
 
 
 @pytest.fixture()
-def doc_root(tmp_pathplus: PathPlus):
+def doc_root(tmp_pathplus: PathPlus) -> None:
 	doc_root = tmp_pathplus.parent / "test-autosummary-widths"
 	doc_root.maybe_make()
 	test_root = PathPlus(__file__).parent / "test-root-aw"

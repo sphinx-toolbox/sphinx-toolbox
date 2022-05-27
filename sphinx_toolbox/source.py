@@ -227,7 +227,7 @@ def source_role(
 	return nodes_, messages
 
 
-def _configure(app: Sphinx, config: "Config"):
+def _configure(app: Sphinx, config: "Config") -> None:
 	"""
 	Validate the provided configuration values.
 

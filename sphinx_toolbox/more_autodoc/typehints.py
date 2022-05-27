@@ -300,7 +300,7 @@ class Class(ObjectAlias):
 	_alias_type = "class"
 
 
-def format_annotation(annotation, fully_qualified: bool = False) -> str:
+def format_annotation(annotation: Any, fully_qualified: bool = False) -> str:
 	"""
 	Format a type annotation.
 
@@ -796,7 +796,7 @@ def _class_get_type_hints(obj, globalns=None, localns=None):
 			localns = {**sys.modules[klasse.__module__].__dict__, **localns}
 
 
-def get_all_type_hints(obj: Any, name: str, original_obj) -> Dict[str, Any]:
+def get_all_type_hints(obj: Any, name: str, original_obj: Any) -> Dict[str, Any]:
 	"""
 	Returns the resolved type hints for the given objects.
 
@@ -805,7 +805,7 @@ def get_all_type_hints(obj: Any, name: str, original_obj) -> Dict[str, Any]:
 	:param original_obj: The original object, before the class if ``obj`` is its ``__init__`` method.
 	"""
 
-	def log(exc):
+	def log(exc: Exception) -> None:
 		sat_logger.warning(
 				'Cannot resolve forward reference in type annotations of "%s": %s',
 				name,

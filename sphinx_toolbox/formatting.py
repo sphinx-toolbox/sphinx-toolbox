@@ -148,7 +148,7 @@ class BoldTitle(SphinxRole):
 		return node_list, []
 
 
-def visit_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode):
+def visit_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode) -> None:
 	"""
 	Visit an :class:`~.ItalicAbbreviationNode`.
 
@@ -165,7 +165,7 @@ def visit_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode):
 	translator.body.append(translator.starttag(node, "abbr", '', **attrs))
 
 
-def depart_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode):
+def depart_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode) -> None:
 	"""
 	Depart an :class:`~.ItalicAbbreviationNode`.
 
@@ -176,7 +176,7 @@ def depart_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode):
 	translator.body.append("</i></abbr>")
 
 
-def latex_visit_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviationNode):
+def latex_visit_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviationNode) -> None:
 	"""
 	Visit an :class:`~.ItalicAbbreviationNode`.
 
@@ -195,7 +195,7 @@ def latex_visit_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviation
 		translator.context.append('}')
 
 
-def latex_depart_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviationNode):
+def latex_depart_iabbr_node(translator: LaTeXTranslator, node: ItalicAbbreviationNode) -> None:
 	"""
 	Depart an :class:`~.ItalicAbbreviationNode`.
 

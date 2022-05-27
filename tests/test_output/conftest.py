@@ -33,6 +33,7 @@ from typing import Any, Dict, Sequence, Tuple
 import pytest
 from bs4 import BeautifulSoup  # type: ignore[import]
 from domdf_python_tools.paths import PathPlus
+from sphinx.application import Sphinx
 from sphinx.testing.fixtures import app as testing_app
 from sphinx.testing.fixtures import make_app, shared_result, sphinx_test_tempdir, test_params
 from sphinx.testing.path import path
@@ -44,7 +45,7 @@ fixtures = [make_app, shared_result, sphinx_test_tempdir, test_params, testing_a
 
 
 @pytest.fixture(scope="session")
-def rootdir():
+def rootdir() -> path:
 	rdir = PathPlus(__file__).parent.absolute() / "doc-test"
 	(rdir / "test-root").maybe_make(parents=True)
 	return path(rdir)
@@ -91,7 +92,7 @@ def app_params(
 
 
 @pytest.fixture()
-def page(testing_app, request) -> BeautifulSoup:
+def page(testing_app: Sphinx, request) -> BeautifulSoup:
 	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
 		testing_app.build(force_all=True)
 

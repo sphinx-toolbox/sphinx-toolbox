@@ -84,7 +84,7 @@ class LaTeXTranslator(sphinx.writers.latex.LaTeXTranslator):
 			self.body.append('\n')
 		raise nodes.SkipNode
 
-	def depart_latex_toc(self, node: latex_toc):  # pragma: no cover
+	def depart_latex_toc(self, node: latex_toc) -> None:  # pragma: no cover
 		pass
 
 
@@ -113,7 +113,7 @@ class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 		return output
 
 
-def configure(app: Sphinx, config: Config):
+def configure(app: Sphinx, config: Config) -> None:
 	"""
 	Configure :mod:`sphinx_toolbox.latex.toc`.
 

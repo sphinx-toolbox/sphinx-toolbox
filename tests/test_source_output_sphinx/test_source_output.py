@@ -1,12 +1,13 @@
 # 3rd party
 import pytest
 from bs4 import BeautifulSoup  # type: ignore[import]
+from sphinx.application import Sphinx
 
 # this package
 from sphinx_toolbox.testing import HTMLRegressionFixture
 
 
-def test_build_sphinx(sphinx_src_app):
+def test_build_sphinx(sphinx_src_app: Sphinx):
 	# app is a Sphinx application object for default sphinx project (`tests/doc-test/sphinx-test-github-root`).
 	sphinx_src_app.build()
 	sphinx_src_app.build()

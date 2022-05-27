@@ -638,7 +638,7 @@ class ExtensionsDirective(SphinxDirective):
 		return [targetnode, extensions_node]
 
 
-def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None):
+def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None:
 	"""
 	Copy additional stylesheets into the HTML build directory.
 

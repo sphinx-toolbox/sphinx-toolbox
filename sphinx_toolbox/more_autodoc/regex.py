@@ -307,7 +307,7 @@ class RegexDocumenter(VariableDocumenter):
 
 			self.add_line('', sourcename)
 
-	def add_directive_header(self, sig: str):
+	def add_directive_header(self, sig: str) -> None:
 		"""
 		Add the directive's header.
 
@@ -702,23 +702,23 @@ class TerminalRegexParser(RegexParser):
 	# Colours
 
 	@staticmethod
-	def AT_COLOUR(s):  # noqa: D102
+	def AT_COLOUR(s: str) -> str:  # noqa: D102
 		return f"\x1b[33m{s}\x1b[39m"
 
 	@staticmethod
-	def SUBPATTERN_COLOUR(s):  # noqa: D102
+	def SUBPATTERN_COLOUR(s: str) -> str:  # noqa: D102
 		return f"\x1b[93m{s}\x1b[39m"
 
 	@staticmethod
-	def IN_COLOUR(s):  # noqa: D102
+	def IN_COLOUR(s: str) -> str:  # noqa: D102
 		return f"\x1b[91m{s}\x1b[39m"
 
 	@staticmethod
-	def REPEAT_COLOUR(s):  # noqa: D102
+	def REPEAT_COLOUR(s: str) -> str:  # noqa: D102
 		return f"\x1b[94m{s}\x1b[39m"
 
 	@staticmethod
-	def LITERAL_COLOUR(s):  # noqa: D102
+	def LITERAL_COLOUR(s: str) -> str:  # noqa: D102
 		return f"\x1b[32m{s}\x1b[39m"
 
 	REPEAT_BRACE_COLOUR = BRANCH_COLOUR = ANY_COLOUR = AT_COLOUR
@@ -730,7 +730,7 @@ class RegexNode(nodes.literal):
 	Docutils Node to show a highlighted regular expression.
 	"""
 
-	def __init__(self, rawsource='', text='', *children, **attributes) -> None:
+	def __init__(self, rawsource: str = '', text: str = '', *children, **attributes) -> None:
 		super().__init__(rawsource, text, *children, **attributes)
 		self.pattern = re.compile(':'.join(rawsource.split(':')[2:])[1:-1])
 
@@ -750,7 +750,7 @@ class Regex(SphinxRole):
 		return [RegexNode(self.rawtext, self.text, **options)], []
 
 
-def visit_regex_node(translator: HTMLTranslator, node: RegexNode):
+def visit_regex_node(translator: HTMLTranslator, node: RegexNode) -> None:
 	"""
 	Visit an :class:`~.RegexNode`.
 
@@ -761,7 +761,7 @@ def visit_regex_node(translator: HTMLTranslator, node: RegexNode):
 	translator.body.append(regex_parser.parse_pattern(node.pattern))
 
 
-def depart_regex_node(translator: HTMLTranslator, node: RegexNode):
+def depart_regex_node(translator: HTMLTranslator, node: RegexNode) -> None:
 	"""
 	Depart an :class:`~.RegexNode`.
 
@@ -772,7 +772,7 @@ def depart_regex_node(translator: HTMLTranslator, node: RegexNode):
 	translator.body.pop(-1)
 
 
-def visit_regex_node_latex(translator: HTMLTranslator, node: RegexNode):
+def visit_regex_node_latex(translator: HTMLTranslator, node: RegexNode) -> None:
 	"""
 	Visit an :class:`~.RegexNode` with the LaTeX builder.
 
@@ -798,7 +798,7 @@ def depart_regex_node_latex(translator: HTMLTranslator, node: RegexNode) -> None
 	translator.body.pop(-1)
 
 
-def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None):
+def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None:
 	"""
 	Copy additional stylesheets into the HTML build directory.
 
@@ -821,7 +821,7 @@ regex_parser = HTMLRegexParser()
 latex_regex_parser = LaTeXRegexParser()
 
 
-def configure(app: Sphinx, config: Config):
+def configure(app: Sphinx, config: Config) -> None:
 	"""
 	Configure :mod:`sphinx_toolbox.code`.
 

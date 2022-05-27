@@ -159,7 +159,7 @@ def asset_role(
 	return [node], []
 
 
-def visit_asset_node(translator: HTMLTranslator, node: AssetNode):
+def visit_asset_node(translator: HTMLTranslator, node: AssetNode) -> None:
 	"""
 	Visit an :class:`~.AssetNode`.
 
@@ -195,7 +195,7 @@ def visit_asset_node(translator: HTMLTranslator, node: AssetNode):
 	translator.context.append("</a>")
 
 
-def depart_asset_node(translator: HTMLTranslator, node: AssetNode):
+def depart_asset_node(translator: HTMLTranslator, node: AssetNode) -> None:
 	"""
 	Depart an :class:`~.AssetNode`.
 

@@ -104,7 +104,7 @@ base_url = "https://%s.wikipedia.org/wiki"
 _wiki_lang_re = re.compile(":(.*?):(.*)")
 
 
-def _get_wikipedia_lang(inliner: Inliner):  # pragma: no cover
+def _get_wikipedia_lang(inliner: Inliner) -> str:  # pragma: no cover
 	return inliner.document.settings.env.config.wikipedia_lang
 
 

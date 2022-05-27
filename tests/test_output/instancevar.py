@@ -16,7 +16,7 @@ class OctoAPI:
 	`online dashboard <https://octopus.energy/dashboard/developer/>`_.
 	"""
 
-	def __init__(self, api_key: str):
+	def __init__(self, api_key: str) -> None:
 
 		#: The API key to access the Octopus Energy API.
 		self.API_KEY: Union[Secret, str, float] = Secret(api_key)

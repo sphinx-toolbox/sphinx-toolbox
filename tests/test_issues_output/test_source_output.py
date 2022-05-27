@@ -6,12 +6,14 @@ import pytest
 from _pytest.mark import ParameterSet
 from bs4 import BeautifulSoup  # type: ignore[import]
 from coincidence.selectors import min_version, only_version
+from domdf_python_tools.paths import PathPlus
+from sphinx.application import Sphinx
 
 # this package
 from sphinx_toolbox.testing import HTMLRegressionFixture
 
 
-def test_build_github(gh_src_app):
+def test_build_github(gh_src_app: Sphinx):
 	# app is a Sphinx application object for default sphinx project (`tests/doc-test/sphinx-test-github-root`).
 	gh_src_app.build()
 	gh_src_app.build()
@@ -83,7 +85,7 @@ pages_to_check: List[Union[str, ParameterSet]] = [
 
 
 @pytest.mark.usefixtures("docutils_17_compat")
-def test_html_output(gh_src_app, html_regression: HTMLRegressionFixture):
+def test_html_output(gh_src_app: Sphinx, html_regression: HTMLRegressionFixture):
 	"""
 	Parametrize new files here rather than as their own function.
 	"""
@@ -110,7 +112,7 @@ def test_html_output(gh_src_app, html_regression: HTMLRegressionFixture):
 		else:
 			print(f"Checking output for {page_id}")
 			page_id = page_id.replace('.', '_').replace('-', '_')
-			content = (gh_src_app.outdir / pagename).read_text()
+			content = (PathPlus(gh_src_app.outdir) / pagename).read_text()
 			try:
 				html_regression.check(
 						BeautifulSoup(content, "html5lib"),

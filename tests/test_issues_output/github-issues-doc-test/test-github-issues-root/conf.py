@@ -29,5 +29,5 @@ def depart_desc_signature(self, node: addnodes.desc_signature) -> None:
 	self.body.append('</dt>\n')
 
 
-def setup(app: Sphinx):
+def setup(app: Sphinx) -> None:
 	app.add_node(addnodes.desc_signature, html=(visit_desc_signature, depart_desc_signature), override=True)

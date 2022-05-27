@@ -1,5 +1,6 @@
 # 3rd party
 from coincidence.regressions import AdvancedFileRegressionFixture
+from domdf_python_tools.paths import PathPlus
 from sphinx.events import EventListener
 
 # this package
@@ -29,7 +30,7 @@ def test_setup():
 			}
 
 
-def test_copy_asset_files(tmp_pathplus, advanced_file_regression: AdvancedFileRegressionFixture):
+def test_copy_asset_files(tmp_pathplus: PathPlus, advanced_file_regression: AdvancedFileRegressionFixture):
 	check_asset_copy(
 			code.copy_asset_files,
 			"_static/sphinx-toolbox-code.css",

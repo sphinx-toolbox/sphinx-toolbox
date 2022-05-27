@@ -219,7 +219,7 @@ class TypedDictDocumenter(ClassDocumenter):
 
 		return ''
 
-	def add_content(self, more_content: Any, no_docstring: bool = False):
+	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
 		"""
 		Add the autodocumenter content.
 
@@ -326,7 +326,12 @@ class TypedDictDocumenter(ClassDocumenter):
 
 		return []
 
-	def document_keys(self, keys: List[str], types: Dict[str, Type], docstrings: Dict[str, List[str]]):
+	def document_keys(
+			self,
+			keys: List[str],
+			types: Dict[str, Type],
+			docstrings: Dict[str, List[str]],
+			) -> None:
 		"""
 		Document keys in a :class:`typing.TypedDict`.
 

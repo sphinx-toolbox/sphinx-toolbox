@@ -27,6 +27,7 @@ import pathlib
 import shutil
 import sys
 import types
+from typing import Iterator, Optional, Tuple
 
 # 3rd party
 import docutils.nodes
@@ -54,12 +55,7 @@ collect_ignore = ["roots"]
 
 
 @pytest.fixture(scope="session")
-def httpserver_listen_address():
-	return get_httpserver_listen_address()
-
-
-@pytest.fixture(scope="session")
-def httpserver(httpserver_listen_address):
+def httpserver(httpserver_listen_address: Tuple[str, int]) -> Iterator[Optional[HTTPServer]]:
 	if Plugin.SERVER:
 		Plugin.SERVER.clear()
 		yield Plugin.SERVER
@@ -77,6 +73,11 @@ def httpserver(httpserver_listen_address):
 
 
 @pytest.fixture(scope="session")
+def httpserver_listen_address() -> Tuple[str, int]:
+	return get_httpserver_listen_address()
+
+
+@pytest.fixture(scope="session")
 def error_server(httpserver: HTTPServer) -> HTTPServer:
 	for status_code in error_codes_list:
 		httpserver.expect_request(f"/{status_code:d}").respond_with_json('', status=status_code)
@@ -85,7 +86,7 @@ def error_server(httpserver: HTTPServer) -> HTTPServer:
 
 
 @pytest.fixture(scope="session")
-def inv(pytestconfig):
+def inv(pytestconfig) -> Inventory:
 	cache_path = "python{v.major}.{v.minor}/objects.inv".format(v=sys.version_info)
 	inv_dict = pytestconfig.cache.get(cache_path, None)
 	if inv_dict is not None:
@@ -99,7 +100,7 @@ def inv(pytestconfig):
 
 
 @pytest.fixture(autouse=True)
-def _remove_sphinx_projects(sphinx_test_tempdir):
+def _remove_sphinx_projects(sphinx_test_tempdir: path) -> None:
 	# Remove any directory which appears to be a Sphinx project from
 	# the temporary directory area.
 	# See https://github.com/sphinx-doc/sphinx/issues/4040
@@ -113,24 +114,24 @@ def _remove_sphinx_projects(sphinx_test_tempdir):
 
 
 @pytest.fixture()
-def rootdir():
+def rootdir() -> path:
 	return path(os.path.dirname(__file__) or '.').abspath() / "roots"
 
 
 @pytest.fixture()
-def docutils_17_compat(monkeypatch):
+def docutils_17_compat(monkeypatch) -> None:
 
-	def visit_section(self, node: docutils.nodes.section):
+	def visit_section(self, node: docutils.nodes.section) -> None:
 		self.section_level += 1
 		self.body.append(self.starttag(node, "div", CLASS="section"))
 
 	# self.body.append(self.starttag(node, 'section'))
 
-	def depart_section(self, node: docutils.nodes.section):
+	def depart_section(self, node: docutils.nodes.section) -> None:
 		self.section_level -= 1
 		self.body.append('</div>\n')
 
-	def visit_figure(self, node: docutils.nodes.figure):
+	def visit_figure(self, node: docutils.nodes.figure) -> None:
 		atts = {"class": "figure"}
 
 		if node.get("width"):
@@ -140,7 +141,7 @@ def docutils_17_compat(monkeypatch):
 
 		self.body.append(self.starttag(node, "div", **atts))
 
-	def depart_figure(self, node: docutils.nodes.figure):
+	def depart_figure(self, node: docutils.nodes.figure) -> None:
 		self.body.append('</div>\n')
 
 	monkeypatch.setattr(sphinx.writers.html5.HTML5Translator, "visit_section", visit_section)

@@ -29,5 +29,5 @@ documentation_summary = "   This is an awesome tool! 🚀 ~ intersphinx_mapping 
 intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 
 
-def setup(app: Sphinx):
+def setup(app: Sphinx) -> None:
 	app.connect("build-finished", latex.replace_unknown_unicode)

@@ -35,7 +35,7 @@ from sphinx_toolbox import cache
 __all__ = ["clear_cache"]
 
 
-def clear_cache():
+def clear_cache() -> int:
 	"""
 	Clear any cached URLs.
 	"""

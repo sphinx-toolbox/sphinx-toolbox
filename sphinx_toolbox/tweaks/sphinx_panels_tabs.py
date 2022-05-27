@@ -56,7 +56,7 @@ from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 __all__ = ["copy_asset_files", "setup"]
 
 
-def visit_container(self: HTMLTranslator, node: nodes.container):
+def visit_container(self: HTMLTranslator, node: nodes.container) -> None:
 	classes = "docutils container"
 	if node.get("is_div", False):
 		# we don't want the CSS for container for these nodes
@@ -68,7 +68,7 @@ def visit_container(self: HTMLTranslator, node: nodes.container):
 	self.body.append(self.starttag(node, "div", CLASS=classes))
 
 
-def depart_container(self: HTMLTranslator, node: nodes.Node):
+def depart_container(self: HTMLTranslator, node: nodes.Node) -> None:
 	self.body.append("</div>\n")
 
 

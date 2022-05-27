@@ -1,4 +1,5 @@
 # stdlib
+from http import HTTPStatus
 from typing import Set, Type
 
 # 3rd party
@@ -8,6 +9,7 @@ from apeye.requests_url import RequestsURL
 from coincidence.params import count
 from docutils import nodes
 from docutils.utils import Reporter
+from pytest_httpserver import HTTPServer
 from sphinx.events import EventListener
 
 # this package
@@ -50,7 +52,7 @@ class FakeGitHubInliner:
 
 class FakePullInliner:
 
-	def __init__(self, github_issues_url):
+	def __init__(self, github_issues_url: str):
 		config = AttrDict({"github_pull_url": RequestsURL(github_issues_url)})
 		app = AttrDict({"config": config})
 		env = AttrDict({"app": app})
@@ -62,7 +64,7 @@ class FakePullInliner:
 
 class FakeIssueInliner:
 
-	def __init__(self, github_issues_url):
+	def __init__(self, github_issues_url: str):
 		config = AttrDict({"github_issues_url": RequestsURL(github_issues_url)})
 		app = AttrDict({"config": config})
 		env = AttrDict({"app": app})
@@ -306,10 +308,10 @@ class FakeTranslator:
 	def __init__(self):
 		self.body = []
 
-	def visit_reference(self, node):
+	def visit_reference(self, node: nodes.Node):  # noqa: MAN002
 		pass
 
-	def depart_reference(self, node):
+	def depart_reference(self, node: nodes.Node):  # noqa: MAN002
 		pass
 
 
@@ -326,7 +328,7 @@ def test_visit_issue_node():
 
 
 @error_codes
-def test_visit_issue_node_errors(error_code, error_server):
+def test_visit_issue_node_errors(error_code: HTTPStatus, error_server: HTTPServer):
 	node = IssueNode(7680, error_server.url_for(f"/{error_code:d}"))
 	translator = FakeTranslator()
 
