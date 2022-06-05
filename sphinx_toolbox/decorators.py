@@ -96,7 +96,7 @@ from sphinx.environment import BuildEnvironment
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["PyDecoXRefRole", "setup"]
+__all__ = ("PyDecoXRefRole", "setup")
 
 
 class PyDecoXRefRole(PyXRefRole):

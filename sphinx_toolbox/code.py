@@ -168,7 +168,7 @@ from sphinx.writers.latex import LaTeXTranslator
 # this package
 from sphinx_toolbox.utils import Config, OptionSpec, SphinxExtMetadata, metadata_add_version
 
-__all__ = [
+__all__ = (
 		"CodeBlock",
 		"CodeCell",
 		"OutputCell",
@@ -178,7 +178,7 @@ __all__ = [
 		"copy_asset_files",
 		"configure",
 		"setup",
-		]
+		)
 
 
 class CodeBlock(sphinx.directives.code.CodeBlock):

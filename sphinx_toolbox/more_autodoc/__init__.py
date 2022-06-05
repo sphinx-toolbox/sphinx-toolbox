@@ -73,7 +73,7 @@ if TYPE_CHECKING:
 else:
 	ObjectMembers = List[Tuple[str, Any]]
 
-__all__ = ["setup"]
+__all__ = ("setup", )
 
 
 @metadata_add_version

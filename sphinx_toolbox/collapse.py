@@ -97,7 +97,7 @@ from sphinx.writers.html import HTMLTranslator
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
 
-__all__ = ["CollapseDirective", "CollapseNode", "visit_collapse_node", "depart_collapse_node", "setup"]
+__all__ = ("CollapseDirective", "CollapseNode", "visit_collapse_node", "depart_collapse_node", "setup")
 
 
 class CollapseDirective(SphinxDirective):

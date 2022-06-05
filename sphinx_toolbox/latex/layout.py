@@ -89,7 +89,7 @@ from sphinx.writers.latex import LaTeXTranslator
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["setup"]
+__all__ = ("setup", )
 
 
 def visit_desc(translator: LaTeXTranslator, node: addnodes.desc) -> None:

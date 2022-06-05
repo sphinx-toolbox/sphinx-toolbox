@@ -152,7 +152,7 @@ from sphinx_toolbox.utils import (
 		metadata_add_version
 		)
 
-__all__ = ["TypedDictDocumenter", "setup"]
+__all__ = ("TypedDictDocumenter", "setup")
 
 
 class TypedDictDocumenter(ClassDocumenter):

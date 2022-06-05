@@ -84,7 +84,7 @@ from sphinx.application import Sphinx
 from sphinx_toolbox.more_autosummary import PatchedAutoSummModuleDocumenter
 from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
 
-__all__ = ["sourcelinks_process_docstring", "setup"]
+__all__ = ("sourcelinks_process_docstring", "setup")
 
 
 def sourcelinks_process_docstring(

@@ -7,7 +7,7 @@
 import collections
 from typing import NamedTuple
 
-__all__ = ["Animal", "Employee", "Movie"]
+__all__ = ("Animal", "Employee", "Movie")
 
 
 class Animal(NamedTuple):

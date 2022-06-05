@@ -50,7 +50,7 @@ from sphinx.application import Sphinx
 from sphinx_toolbox.latex import use_package
 from sphinx_toolbox.utils import Config, SphinxExtMetadata, metadata_add_version
 
-__all__ = ["setup"]
+__all__ = ("setup", )
 
 nest_bookmark_level_part = "\\bookmarksetupnext{{level=part}}\n"
 

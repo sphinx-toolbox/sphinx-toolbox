@@ -200,7 +200,7 @@ except ImportError:
 		return _annotations.compiler_flag == CO_FUTURE_ANNOTATIONS
 
 
-__all__ = [
+__all__ = (
 		"ObjectAlias",
 		"Module",
 		"Function",
@@ -220,7 +220,7 @@ __all__ = [
 		"builder_ready",
 		"default_preprocessors",
 		"Preprocessor",
-		]
+		)
 
 get_annotation_module = sphinx_autodoc_typehints.get_annotation_module
 get_annotation_class_name = sphinx_autodoc_typehints.get_annotation_class_name

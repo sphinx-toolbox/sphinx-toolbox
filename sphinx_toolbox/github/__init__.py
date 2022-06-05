@@ -212,7 +212,7 @@ from sphinx_toolbox.utils import SphinxExtMetadata, make_github_url, metadata_ad
 
 _ = BuildEnvironment
 
-__all__ = ["GitHubDomain", "validate_config", "setup"]
+__all__ = ("GitHubDomain", "validate_config", "setup")
 
 
 class GitHubDomain(Domain):

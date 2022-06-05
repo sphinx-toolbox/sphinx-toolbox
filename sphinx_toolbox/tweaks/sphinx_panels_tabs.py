@@ -53,7 +53,7 @@ from sphinx.writers.html import HTMLTranslator
 from sphinx_toolbox import _css
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["copy_asset_files", "setup"]
+__all__ = ("copy_asset_files", "setup")
 
 
 def visit_container(self: HTMLTranslator, node: nodes.container) -> None:

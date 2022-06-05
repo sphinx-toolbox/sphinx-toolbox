@@ -98,7 +98,7 @@ from sphinx.util.docutils import SphinxDirective
 # this package
 from sphinx_toolbox.utils import Config, Purger, SphinxExtMetadata, flag, metadata_add_version
 
-__all__ = ["DocumentationSummaryDirective", "configure", "setup"]
+__all__ = ("DocumentationSummaryDirective", "configure", "setup")
 
 summary_node_purger = Purger("all_summary_nodes")
 

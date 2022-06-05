@@ -116,12 +116,12 @@ else:
 
 _ = DocumenterBridge
 
-__all__ = [
+__all__ = (
 		"OverloadMixin",
 		"FunctionDocumenter",
 		"MethodDocumenter",
 		"setup",
-		]
+		)
 
 _return_type_re = re.compile("^:(rtype|return(s)?):")
 

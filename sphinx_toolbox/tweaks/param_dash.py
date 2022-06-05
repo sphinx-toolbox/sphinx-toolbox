@@ -89,7 +89,7 @@ from sphinx.environment import BuildEnvironment
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["setup"]
+__all__ = ("setup", )
 
 
 def make_field(

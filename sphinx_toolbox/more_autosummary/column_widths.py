@@ -113,7 +113,7 @@ from sphinx_toolbox import latex
 from sphinx_toolbox.more_autosummary import PatchedAutosummary
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["AutosummaryWidths", "WidthsDirective", "configure", "setup"]
+__all__ = ("AutosummaryWidths", "WidthsDirective", "configure", "setup")
 
 
 class AutosummaryWidths(PatchedAutosummary):

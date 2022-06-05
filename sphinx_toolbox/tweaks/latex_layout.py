@@ -76,7 +76,7 @@ from sphinx.application import Sphinx
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["setup"]
+__all__ = ("setup", )
 
 
 @metadata_add_version

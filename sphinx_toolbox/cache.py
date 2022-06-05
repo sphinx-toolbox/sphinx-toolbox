@@ -32,7 +32,7 @@ from datetime import timedelta
 # 3rd party
 from apeye.rate_limiter import HTTPCache
 
-__all__ = ["cache"]
+__all__ = ("cache", )
 
 #: HTTP Cache that caches requests for up to 4 hours.
 cache = HTTPCache("sphinx-toolbox", expires_after=timedelta(hours=4))

@@ -91,7 +91,7 @@ if TYPE_CHECKING:
 	# this package
 	from sphinx_toolbox.utils import Config
 
-__all__ = ["source_role", "setup"]
+__all__ = ("source_role", "setup")
 
 # TODO: rawstring: Return it as a problematic node linked to a system message if a problem is encountered.
 

@@ -103,7 +103,7 @@ from sphinx.util.docutils import SphinxDirective
 # this package
 from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, flag, metadata_add_version
 
-__all__ = ["SidebarLinksDirective", "setup"]
+__all__ = ("SidebarLinksDirective", "setup")
 
 
 class SidebarLinksDirective(SphinxDirective):

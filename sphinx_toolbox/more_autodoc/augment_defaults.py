@@ -80,7 +80,7 @@ from sphinx.ext.autodoc import Documenter, Options
 import sphinx_toolbox
 from sphinx_toolbox.utils import Config, SphinxExtMetadata
 
-__all__ = ["process_documenter_options", "setup"]
+__all__ = ("process_documenter_options", "setup")
 
 
 def process_documenter_options(

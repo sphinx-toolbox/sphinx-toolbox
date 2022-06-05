@@ -52,7 +52,7 @@ from sphinx.writers.latex import LaTeXTranslator
 from sphinx_toolbox.cache import cache
 from sphinx_toolbox.utils import make_github_url
 
-__all__ = [
+__all__ = (
 		"IssueNode",
 		"IssueNodeWithName",
 		"issue_role",
@@ -60,7 +60,7 @@ __all__ = [
 		"visit_issue_node",
 		"depart_issue_node",
 		"get_issue_title",
-		]
+		)
 
 
 class IssueNode(nodes.reference):

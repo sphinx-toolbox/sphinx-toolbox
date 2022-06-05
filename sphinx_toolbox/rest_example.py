@@ -88,7 +88,7 @@ from sphinx.util.docutils import SphinxDirective
 # this package
 from sphinx_toolbox.utils import OptionSpec, Purger, SphinxExtMetadata, metadata_add_version
 
-__all__ = ["reSTExampleDirective", "make_rest_example", "rest_example_purger", "setup"]
+__all__ = ("reSTExampleDirective", "make_rest_example", "rest_example_purger", "setup")
 
 
 class reSTExampleDirective(SphinxDirective):

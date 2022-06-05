@@ -32,7 +32,7 @@ import sys
 # this package
 from sphinx_toolbox import cache
 
-__all__ = ["clear_cache"]
+__all__ = ("clear_cache", )
 
 
 def clear_cache() -> int:

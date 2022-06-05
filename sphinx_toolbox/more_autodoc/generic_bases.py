@@ -93,7 +93,7 @@ else:  # pragma: no cover (py38+)
 	# 3rd party
 	from typing_inspect import get_origin  # type: ignore[import]
 
-__all__ = ["GenericBasesClassDocumenter", "setup"]
+__all__ = ("GenericBasesClassDocumenter", "setup")
 
 
 class GenericBasesClassDocumenter(PatchedAutoSummClassDocumenter):

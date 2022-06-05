@@ -80,7 +80,7 @@ from sphinx_toolbox._data_documenter import DataDocumenter
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["PrettyGenericAliasDocumenter", "setup"]
+__all__ = ("PrettyGenericAliasDocumenter", "setup")
 
 
 class PrettyGenericAliasDocumenter(DataDocumenter):  # pragma: no cover (<Py37)

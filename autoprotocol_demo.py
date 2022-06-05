@@ -6,7 +6,7 @@ from typing import Any, TypeVar
 from domdf_python_tools.doctools import prettify_docstrings
 from typing_extensions import Protocol, runtime_checkable
 
-__all__ = ["HasLessThan", "HasGreaterThan", "Frobnicater"]
+__all__ = ("HasLessThan", "HasGreaterThan", "Frobnicater")
 
 
 @prettify_docstrings

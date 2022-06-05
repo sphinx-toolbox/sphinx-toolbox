@@ -36,7 +36,7 @@ from sphinx.application import Sphinx
 # this package
 from sphinx_toolbox.utils import Config, add_nbsp_substitution
 
-__all__ = ["MissingOptionError", "InvalidOptionError", "validate_config", "ToolboxConfig"]
+__all__ = ("MissingOptionError", "InvalidOptionError", "validate_config", "ToolboxConfig")
 
 
 class MissingOptionError(ValueError):

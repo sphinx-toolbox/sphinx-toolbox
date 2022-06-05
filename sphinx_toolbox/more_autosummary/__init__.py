@@ -184,13 +184,13 @@ else:
 	# 3rd party
 	from sphinx.util.docstrings import extract_metadata
 
-__all__ = [
+__all__ = (
 		"PatchedAutosummary",
 		"PatchedAutoSummModuleDocumenter",
 		"PatchedAutoSummClassDocumenter",
 		"get_documenter",
 		"setup",
-		]
+		)
 
 
 def add_autosummary(self, relative_ref_paths: bool = False) -> None:

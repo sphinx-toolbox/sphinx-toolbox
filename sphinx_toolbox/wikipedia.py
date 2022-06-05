@@ -98,7 +98,7 @@ from sphinx.util.nodes import split_explicit_title
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["make_wikipedia_link", "setup"]
+__all__ = ("make_wikipedia_link", "setup")
 
 base_url = "https://%s.wikipedia.org/wiki"
 _wiki_lang_re = re.compile(":(.*?):(.*)")

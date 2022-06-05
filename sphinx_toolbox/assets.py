@@ -98,13 +98,13 @@ from sphinx.application import Sphinx
 from sphinx.util import split_explicit_title
 from sphinx.writers.html import HTMLTranslator
 
-__all__ = [
+__all__ = (
 		"asset_role",
 		"AssetNode",
 		"visit_asset_node",
 		"depart_asset_node",
 		"setup",
-		]
+		)
 
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version

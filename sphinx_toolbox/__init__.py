@@ -60,7 +60,7 @@ __license__: str = "MIT License"
 __version__: str = "3.0.0"
 __email__: str = "dominic@davis-foster.co.uk"
 
-__all__ = ["setup"]
+__all__ = ("setup", )
 
 
 def setup(app: Sphinx) -> "utils.SphinxExtMetadata":

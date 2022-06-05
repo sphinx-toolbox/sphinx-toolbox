@@ -43,13 +43,13 @@ from sphinx.writers.latex import LaTeXTranslator
 # this package
 from sphinx_toolbox.utils import GITHUB_COM, make_github_url
 
-__all__ = [
+__all__ = (
 		"GitHubObjectLinkNode",
 		"repository_role",
 		"user_role",
 		"visit_github_object_link_node",
 		"depart_github_object_link_node",
-		]
+		)
 
 
 class GitHubObjectLinkNode(nodes.reference):

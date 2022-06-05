@@ -48,7 +48,7 @@ from sphinx.util import logging
 from sphinx.util.inspect import object_description, safe_getattr
 from sphinx.util.typing import stringify as stringify_typehint
 
-__all__ = ["DataDocumenter"]
+__all__ = ("DataDocumenter", )
 
 logger = logging.getLogger(__name__)
 

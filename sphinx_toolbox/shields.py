@@ -402,7 +402,7 @@ from sphinx.util.docutils import SphinxDirective
 from sphinx_toolbox import _css
 from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, flag, make_github_url, metadata_add_version
 
-__all__ = [
+__all__ = (
 		"SHIELDS_IO",
 		"shield_default_option_spec",
 		"Shield",
@@ -419,7 +419,7 @@ __all__ = [
 		"PreCommitCIShield",
 		"copy_asset_files",
 		"setup",
-		]
+		)
 
 #: Base URL for shields.io
 SHIELDS_IO = URL("https://img.shields.io")

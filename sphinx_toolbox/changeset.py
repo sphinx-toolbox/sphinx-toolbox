@@ -109,7 +109,7 @@ from sphinx.locale import _
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["VersionChange", "setup"]
+__all__ = ("VersionChange", "setup")
 
 versionlabels = {
 		"versionremoved": _("Removed in version %s"),

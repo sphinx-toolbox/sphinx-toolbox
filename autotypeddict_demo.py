@@ -8,7 +8,7 @@ Demo of ``.. autotypeddict::``
 # 3rd party
 from typing_extensions import TypedDict
 
-__all__ = ["Movie", "Animal", "OldStyleAnimal", "Cat", "Bird", "AquaticBird"]
+__all__ = ("Movie", "Animal", "OldStyleAnimal", "Cat", "Bird", "AquaticBird")
 
 
 class Movie(TypedDict):

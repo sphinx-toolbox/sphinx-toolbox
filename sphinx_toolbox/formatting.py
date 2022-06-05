@@ -90,7 +90,7 @@ from sphinx.writers.latex import LaTeXTranslator
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = [
+__all__ = (
 		"ItalicAbbreviationNode",
 		"ItalicAbbreviation",
 		"visit_iabbr_node",
@@ -98,7 +98,7 @@ __all__ = [
 		"latex_visit_iabbr_node",
 		"latex_depart_iabbr_node",
 		"setup"
-		]
+		)
 
 
 class ItalicAbbreviationNode(nodes.abbreviation):

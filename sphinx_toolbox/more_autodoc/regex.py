@@ -157,7 +157,7 @@ from sphinx_toolbox import _css
 from sphinx_toolbox.more_autodoc.variables import VariableDocumenter
 from sphinx_toolbox.utils import Config, SphinxExtMetadata, add_nbsp_substitution, flag, metadata_add_version
 
-__all__ = [
+__all__ = (
 		"RegexDocumenter",
 		"RegexParser",
 		"TerminalRegexParser",
@@ -169,7 +169,7 @@ __all__ = [
 		"latex_textcolor",
 		"copy_asset_files",
 		"setup",
-		]
+		)
 
 
 class RegexDocumenter(VariableDocumenter):

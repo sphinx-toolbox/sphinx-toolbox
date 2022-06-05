@@ -114,14 +114,14 @@ from typing_extensions import TypedDict
 # this package
 from sphinx_toolbox.utils import Purger, SphinxExtMetadata, make_github_url, metadata_add_version
 
-__all__ = [
+__all__ = (
 		"pre_commit_node_purger",
 		"pre_commit_f8_node_purger",
 		"parse_hooks",
 		"PreCommitDirective",
 		"Flake8PreCommitDirective",
 		"setup",
-		]
+		)
 
 pre_commit_node_purger = Purger("all_pre_commit_nodes")
 pre_commit_f8_node_purger = Purger("all_pre_commit_f8_nodes")

@@ -118,7 +118,7 @@ from sphinx.roles import XRefRole
 # this package
 from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, flag, metadata_add_version
 
-__all__ = ["ConfigurationValue", "register_confval", "setup"]
+__all__ = ("ConfigurationValue", "register_confval", "setup")
 
 
 class ConfigurationValue(GenericObject):

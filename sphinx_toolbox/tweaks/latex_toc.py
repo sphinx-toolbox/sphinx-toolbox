@@ -49,7 +49,7 @@ from sphinx.application import Sphinx
 from sphinx_toolbox.latex import use_package
 from sphinx_toolbox.utils import Config, SphinxExtMetadata, metadata_add_version
 
-__all__ = ["setup", "configure"]
+__all__ = ("setup", "configure")
 
 
 def configure(app: Sphinx, config: Config) -> None:

@@ -130,11 +130,11 @@ from sphinx.application import Sphinx
 from sphinx_toolbox.github.issues import issue_role, pull_role
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = [
+__all__ = (
 		"issue_role",
 		"pull_role",
 		"setup",
-		]
+		)
 
 
 @metadata_add_version

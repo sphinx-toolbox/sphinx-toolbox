@@ -64,7 +64,7 @@ from sphinx.ext.autodoc import Documenter, logger
 from sphinx.locale import __
 from typing_extensions import TypedDict
 
-__all__ = [
+__all__ = (
 		"add_nbsp_substitution",
 		"allow_subclass_add",
 		"baseclass_is_private",
@@ -89,7 +89,7 @@ __all__ = [
 		"unknown_module_warning",
 		"untyped_param_regex",
 		"add_fallback_css_class",
-		]
+		)
 
 #: Instance of :class:`apeye.requests_url.RequestsURL` that points to the GitHub website.
 GITHUB_COM: RequestsURL = RequestsURL("https://github.com")

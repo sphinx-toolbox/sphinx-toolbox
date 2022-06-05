@@ -132,7 +132,7 @@ from sphinx_toolbox._data_documenter import DataDocumenter
 from sphinx_toolbox.more_autodoc.typehints import _resolve_forwardref, format_annotation
 from sphinx_toolbox.utils import SphinxExtMetadata, add_nbsp_substitution, flag, metadata_add_version
 
-__all__ = [
+__all__ = (
 		"VariableDocumenter",
 		"TypedAttributeDocumenter",
 		"InstanceAttributeDocumenter",
@@ -140,7 +140,7 @@ __all__ = [
 		"type_template",
 		"get_variable_type",
 		"setup",
-		]
+		)
 
 
 def get_variable_type(documenter: Documenter) -> str:

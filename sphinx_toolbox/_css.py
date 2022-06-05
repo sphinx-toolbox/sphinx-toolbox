@@ -39,7 +39,7 @@ from sphinx.application import Sphinx
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ["copy_asset_files", "setup"]
+__all__ = ("copy_asset_files", "setup")
 
 installation_styles: MutableMapping[str, dict2css.Style] = {
 		'div[id*="installation"] .sphinx-tabs-tab': {"color": "#2980b9"},

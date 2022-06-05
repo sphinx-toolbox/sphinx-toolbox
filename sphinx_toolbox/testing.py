@@ -108,7 +108,7 @@ from sphinx.util.typing import RoleFunction, TitleGetter
 # this package
 from sphinx_toolbox.utils import Config, SphinxExtMetadata
 
-__all__ = [
+__all__ = (
 		"Sphinx",
 		"run_setup",
 		"RunSetupOutput",
@@ -120,7 +120,7 @@ __all__ = [
 		"html_regression",
 		"LaTeXRegressionFixture",
 		"latex_regression",
-		]
+		)
 
 
 class FakeBuilder(Builder):

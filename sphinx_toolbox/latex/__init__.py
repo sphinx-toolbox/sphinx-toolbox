@@ -193,7 +193,7 @@ from sphinx_toolbox.utils import Config, SphinxExtMetadata, metadata_add_version
 
 _ = BuildEnvironment
 
-__all__ = [
+__all__ = (
 		"use_package",
 		"visit_footnote",
 		"depart_footnote",
@@ -206,7 +206,7 @@ __all__ = [
 		"better_header_layout",
 		"configure",
 		"setup",
-		]
+		)
 
 footmisc_symbols = ['0', *Footnotes.symbols]
 # footmisc_symbols = ['0', '*', '†', '‡', '§', '¶', '‖', "**", "††", "‡‡"]

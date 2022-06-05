@@ -180,7 +180,7 @@ from sphinx.util.docutils import SphinxDirective
 from sphinx_toolbox import _css
 from sphinx_toolbox.utils import Config, OptionSpec, Purger, SphinxExtMetadata, flag, metadata_add_version
 
-__all__ = [
+__all__ = (
 		"InstallationDirective",
 		"ExtensionsDirective",
 		"make_installation_instructions",
@@ -193,7 +193,7 @@ __all__ = [
 		"extensions_node_purger",
 		"copy_asset_files",
 		"setup",
-		]
+		)
 
 
 class _Purger(Purger):

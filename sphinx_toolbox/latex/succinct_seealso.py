@@ -36,7 +36,7 @@ from sphinx.application import Sphinx
 from sphinx.locale import admonitionlabels
 from sphinx.writers.latex import LaTeXTranslator
 
-__all__ = ["setup"]
+__all__ = ("setup", )
 
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
