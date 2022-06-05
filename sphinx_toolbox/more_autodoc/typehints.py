@@ -232,7 +232,7 @@ builder_ready = sphinx_autodoc_typehints.builder_ready
 
 
 # Demonstration of module default argument in signature
-def serialise(obj: Any, library=json) -> str:
+def serialise(obj: Any, library=json) -> str:  # noqa: MAN001
 	"""
 	Serialise an object into a JSON string.
 
@@ -530,7 +530,7 @@ def preprocess_class_defaults(
 	return init, signature, parameters
 
 
-def process_signature(
+def process_signature(  # noqa: MAN001
 		app: Sphinx,
 		what: str,
 		name: str,
@@ -771,7 +771,7 @@ def process_docstring(
 					lines.insert(insert_index, f":rtype: {formatted_annotation}")
 
 
-def _class_get_type_hints(obj, globalns=None, localns=None):
+def _class_get_type_hints(obj, globalns=None, localns=None):  # noqa: MAN001,MAN002
 	"""
 	Return type hints for an object.
 

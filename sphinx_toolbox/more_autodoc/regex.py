@@ -399,7 +399,7 @@ class RegexParser:
 
 		buf = []
 
-		def _parse_pattern(pattern):
+		def _parse_pattern(pattern) -> None:  # noqa: MAN001
 
 			for what, content in pattern:
 				# print(what, content)

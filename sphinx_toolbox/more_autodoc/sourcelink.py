@@ -87,7 +87,7 @@ from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
 __all__ = ("sourcelinks_process_docstring", "setup")
 
 
-def sourcelinks_process_docstring(
+def sourcelinks_process_docstring(  # noqa: MAN001
 		app: Sphinx,
 		what,
 		name: str,

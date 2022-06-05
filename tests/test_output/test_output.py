@@ -175,7 +175,11 @@ def test_html_output(testing_app: Sphinx, html_regression: HTMLRegressionFixture
 		raise exception
 
 
-def test_sidebar_links_output(testing_app, advanced_file_regression: AdvancedFileRegressionFixture, monkeypatch):
+def test_sidebar_links_output(
+		testing_app: Sphinx,
+		advanced_file_regression: AdvancedFileRegressionFixture,
+		monkeypatch,
+		):
 
 	def visit_caption(self, node: nodes.Node) -> None:
 		if isinstance(node.parent, docutils.nodes.container) and node.parent.get("literal_block"):

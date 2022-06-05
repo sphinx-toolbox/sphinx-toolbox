@@ -315,7 +315,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		if class_hints and new_hints and class_hints != new_hints:
 			#: __new__ has a different signature or different annotations
 
-			def unskip_new(app, what, name, obj, skip, options):
+			def unskip_new(app, what, name, obj, skip, options) -> Optional[bool]:  # noqa: MAN001
 				if name == "__new__":
 					return False
 				return None

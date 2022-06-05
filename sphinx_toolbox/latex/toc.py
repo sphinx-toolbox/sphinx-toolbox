@@ -124,7 +124,7 @@ def configure(app: Sphinx, config: Config) -> None:
 	use_package("bookmark", config)
 
 
-def purge_outdated(app: Sphinx, env, added, changed, removed) -> List[str]:
+def purge_outdated(app: Sphinx, env, added, changed, removed) -> List[str]:  # noqa: MAN001
 	return [env.config.master_doc]
 
 

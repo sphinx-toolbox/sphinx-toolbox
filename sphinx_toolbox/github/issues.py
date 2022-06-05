@@ -89,7 +89,7 @@ class IssueNode(nodes.reference):
 		super().__init__(source, source, refuri=self.issue_url)
 
 	@property
-	def _copy_kwargs(self):  # pragma: no cover
+	def _copy_kwargs(self):  # pragma: no cover  # noqa: MAN002
 		return {"issue_number": self.issue_number, "refuri": self.issue_url}
 
 	def copy(self) -> "IssueNode":  # pragma: no cover

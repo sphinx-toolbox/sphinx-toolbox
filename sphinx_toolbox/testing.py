@@ -742,7 +742,7 @@ class HTMLRegressionFixture(FileRegressionFixture):
 
 		if jinja2:
 
-			def check_fn(obtained_filename, expected_filename):
+			def check_fn(obtained_filename: PathPlus, expected_filename: PathPlus):  # noqa: MAN002
 				__tracebackhide__ = True
 
 				expected_filename = PathPlus(expected_filename)
@@ -771,7 +771,7 @@ class HTMLRegressionFixture(FileRegressionFixture):
 
 
 @pytest.fixture()
-def html_regression(datadir, original_datadir, request) -> HTMLRegressionFixture:
+def html_regression(datadir, original_datadir, request) -> HTMLRegressionFixture:  # noqa: MAN001
 	"""
 	Returns an :class:`~.HTMLRegressionFixture` scoped to the test function.
 
@@ -824,7 +824,7 @@ class LaTeXRegressionFixture(AdvancedFileRegressionFixture):
 	.. versionadded:: 2.17.0
 	"""
 
-	def check(  # type: ignore[override]
+	def check(  # type: ignore[override]  # noqa: MAN002
 		self,
 		contents: Union[str, StringList],
 		*,
@@ -879,7 +879,7 @@ class LaTeXRegressionFixture(AdvancedFileRegressionFixture):
 
 		if jinja2:
 
-			def check_fn(obtained_filename: PathPlus, expected_filename: PathLike):
+			def check_fn(obtained_filename: PathPlus, expected_filename: PathLike):  # noqa: MAN002
 				__tracebackhide__ = True
 
 				expected_filename = PathPlus(expected_filename)
@@ -922,7 +922,7 @@ class LaTeXRegressionFixture(AdvancedFileRegressionFixture):
 
 
 @pytest.fixture()
-def latex_regression(datadir, original_datadir, request) -> LaTeXRegressionFixture:
+def latex_regression(datadir, original_datadir, request) -> LaTeXRegressionFixture:  # noqa: MAN001
 	"""
 	Returns a :class:`~.LaTeXRegressionFixture` scoped to the test function.
 

@@ -61,7 +61,7 @@ W = NewType('W', str)
 
 class A:
 
-	def get_type(self):
+	def get_type(self):  # noqa: MAN002
 		return type(self)
 
 	class Inner:
@@ -268,7 +268,13 @@ def test_format_annotation_typevar(inv: Inventory, annotation: Any, expected_res
 			("Type", None, ":py:class:`~typing.Type`"),
 			("Type", (A, ), ":py:class:`~typing.Type`\\[:py:class:`~%s.A`]" % __name__)]
 		)
-def test_format_annotation_both_libs(inv, library, annotation, params, expected_result):
+def test_format_annotation_both_libs(
+		inv: Inventory,
+		library: ModuleType,
+		annotation: str,
+		params: Any,
+		expected_result: str,
+		):
 	try:
 		annotation_cls = getattr(library, annotation)
 	except AttributeError:

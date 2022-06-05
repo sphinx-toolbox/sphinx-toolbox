@@ -248,7 +248,7 @@ def singleton(name: str) -> object:
 	class Singleton:
 		_singleton = None
 
-		def __new__(cls):
+		def __new__(cls):  # noqa: MAN002
 			if Singleton._singleton is None:
 				Singleton._singleton = super().__new__(cls)
 			return Singleton._singleton

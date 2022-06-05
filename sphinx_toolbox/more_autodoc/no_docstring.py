@@ -65,7 +65,7 @@ def automodule_add_nodocstring(app: Sphinx) -> None:
 	app.connect("autodoc-process-docstring", no_docstring_process_docstring, priority=1000)
 
 
-def no_docstring_process_docstring(
+def no_docstring_process_docstring(  # noqa: MAN001
 		app: Sphinx,
 		what,
 		name: str,

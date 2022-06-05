@@ -181,7 +181,7 @@ class Example(List[Tuple[str, float, List[str]]]):
 	An example of :mod:`sphinx_toolbox.more_autodoc.generic_bases`.
 	"""
 
-	def __init__(self, iterable=()):  # pragma: no cover
+	def __init__(self, iterable=()):  # pragma: no cover  # noqa: MAN001
 		pass
 
 
