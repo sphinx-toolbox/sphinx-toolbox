@@ -167,29 +167,7 @@ else:  # pragma: no cover (<py38)
 	# stdlib
 	from typing import _ProtocolMeta
 
-__all__ = ["ProtocolDocumenter", "setup"]
-
-globally_excluded_methods = {
-		"__module__",
-		"__new__",
-		"__init__",
-		"__subclasshook__",
-		"__doc__",
-		"__tree_hash__",
-		"__extra__",
-		"__orig_bases__",
-		"__origin__",
-		"__parameters__",
-		"__next_in_mro__",
-		"__slots__",
-		"__args__",
-		"__dict__",
-		"__weakref__",
-		"__annotations__",
-		"__abstractmethods__",
-		"__class_getitem__",
-		"__init_subclass__",
-		}
+__all__ = ("ProtocolDocumenter", "setup")
 
 runtime_message = (
 		"This protocol is `runtime checkable "
@@ -211,6 +189,28 @@ class ProtocolDocumenter(ClassDocumenter):
 			"member-order": member_order_option,
 			"show-inheritance": flag,
 			"exclude-protocol-members": exclude_members_option,
+			}
+
+	globally_excluded_methods = {
+			"__module__",
+			"__new__",
+			"__init__",
+			"__subclasshook__",
+			"__doc__",
+			"__tree_hash__",
+			"__extra__",
+			"__orig_bases__",
+			"__origin__",
+			"__parameters__",
+			"__next_in_mro__",
+			"__slots__",
+			"__args__",
+			"__dict__",
+			"__weakref__",
+			"__annotations__",
+			"__abstractmethods__",
+			"__class_getitem__",
+			"__init_subclass__",
 			}
 
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
@@ -331,7 +331,7 @@ class ProtocolDocumenter(ClassDocumenter):
 			elif membername.startswith('_') and not (membername.startswith("__") and membername.endswith("__")):
 				keep = False
 
-			elif membername not in globally_excluded_methods:
+			elif membername not in self.globally_excluded_methods:
 				# Magic method you wouldn't overload, or private method.
 				if membername in dir(self.object.__base__):
 					keep = member is not getattr(self.object.__base__, membername)
@@ -345,7 +345,7 @@ class ProtocolDocumenter(ClassDocumenter):
 			# should be skipped
 			if self.env.app:
 				# let extensions preprocess docstrings
-				try:
+				try:  # pylint: disable=R8203
 					skip_user = self.env.app.emit_firstresult(
 							"autodoc-skip-member",
 							self.objtype,

@@ -214,6 +214,16 @@ def add_autosummary(self, relative_ref_paths: bool = False) -> None:
 		content.append(".. latex:vspace:: 10px")
 		content.blankline()
 
+	member_order = get_first_matching(
+			lambda x: x != "groupwise",
+			(
+					self.options.get("member-order", ''),
+					self.env.config.autodocsumm_member_order,
+					self.env.config.autodoc_member_order,
+					),
+			default="alphabetical",
+			)
+
 	for section, documenters in grouped_documenters.items():
 		if not self.options.get("autosummary-no-titles", False):
 			content.append(f"**{section}:**")
@@ -230,16 +240,6 @@ def add_autosummary(self, relative_ref_paths: bool = False) -> None:
 			content.append("    :nosignatures:")
 
 		content.blankline(ensure_single=True)
-
-		member_order = get_first_matching(
-				lambda x: x != "groupwise",
-				[
-						self.options.get("member-order", ''),
-						self.env.config.autodocsumm_member_order,
-						self.env.config.autodoc_member_order,
-						],
-				default="alphabetical",
-				)
 
 		with content.with_indent_size(content.indent_size + 1):
 			for documenter, _ in self.sort_members(documenters, member_order):
@@ -425,6 +425,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 			attr_docs = {}
 
 		doc: Optional[str]
+		sphinx_gt_41 = sphinx.version_info > (4, 1)
 
 		# process members and determine which to skip
 		for (membername, member) in members:
@@ -450,7 +451,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 				if cls_doc == doc:
 					doc = None
 
-			if sphinx.version_info > (4, 1):
+			if sphinx_gt_41:
 				doc, metadata = separate_metadata(doc)  # type: ignore[arg-type]
 			else:
 				metadata = extract_metadata(doc)  # type: ignore[arg-type]

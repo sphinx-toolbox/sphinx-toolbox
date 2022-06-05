@@ -165,7 +165,7 @@ API Reference
 #
 
 # stdlib
-import os
+from os.path import join as joinpath
 import re
 from textwrap import dedent
 from typing import Any, List, Optional, cast
@@ -543,7 +543,7 @@ class PatchedLaTeXBuilder(LaTeXBuilder):
 			if len(entry) > 5:
 				toctree_only = entry[5]
 			destination = SphinxFileOutput(
-					destination_path=os.path.join(self.outdir, targetname),
+					destination_path=joinpath(self.outdir, targetname),
 					encoding="utf-8",
 					overwrite_if_changed=True
 					)

@@ -481,8 +481,11 @@ class InstallationDirective(SphinxDirective):
 
 		nodes_to_return: List[nodes.Node] = [targetnode]
 
+		non_word_sub = re.compile(r'\W+')
+
 		for tab_name, tab_content in tabs.items():
-			section_id = re.sub(r'\W+', '_', tab_name)
+			# pylint: disable=loop-global-usage
+			section_id = non_word_sub.sub('_', tab_name)
 			section = nodes.section(ids=[f"{targetid}-{section_id}"])
 			section += nodes.title(tab_name, tab_name)
 			nodes_to_return.append(section)
@@ -493,6 +496,7 @@ class InstallationDirective(SphinxDirective):
 			self.state.nested_parse(view, self.content_offset, paragraph_node)  # type: ignore[arg-type]
 			nodes_to_return.append(paragraph_node)
 			installation_node_purger.add_node(self.env, paragraph_node, targetnode, self.lineno)
+			# pylint: enable=loop-global-usage
 
 		return nodes_to_return
 

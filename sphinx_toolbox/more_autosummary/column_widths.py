@@ -170,10 +170,11 @@ class AutosummaryWidths(PatchedAutosummary):
 
 			body.append(row)
 
+		add_signature = "nosignatures" not in self.options
 		for name, sig, summary, real_name in items:
 			col1 = f":obj:`{name} <{real_name}>`"
 
-			if "nosignatures" not in self.options:
+			if add_signature:
 				col1 += f"\\ {rst.escape(sig)}"
 
 			append_row(col1, summary)

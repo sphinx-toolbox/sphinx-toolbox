@@ -160,9 +160,7 @@ from sphinx_toolbox.utils import (
 		parse_parameters
 		)
 
-__all__ = ["NamedTupleDocumenter", "setup"]
-
-field_alias_re = re.compile("Alias for field number [0-9]+")
+__all__ = ("NamedTupleDocumenter", "setup")
 
 
 class NamedTupleDocumenter(ClassDocumenter):
@@ -181,6 +179,8 @@ class NamedTupleDocumenter(ClassDocumenter):
 	directivetype = "namedtuple"
 	priority = 20
 	object: Type  # noqa: A003  # pylint: disable=redefined-builtin
+
+	field_alias_re = re.compile("Alias for field number [0-9]+")
 
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
 		super().__init__(directive, name, indent)
@@ -409,7 +409,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 			field_entry.append("--")
 			field_entry.extend(doc)
 
-			if field_alias_re.match(getattr(self.object, field).__doc__ or ''):
+			if self.field_alias_re.match(getattr(self.object, field).__doc__ or ''):
 				getattr(self.object, field).__doc__ = ' '.join(doc)
 
 			fields_body.append(' '.join(field_entry))

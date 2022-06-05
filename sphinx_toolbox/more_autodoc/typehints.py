@@ -114,7 +114,7 @@ API Reference
 import inspect
 import itertools
 import json
-import operator
+from operator import itemgetter
 import re
 import sys
 import types
@@ -464,17 +464,20 @@ def preprocess_function_defaults(obj: Callable) -> Tuple[Optional[inspect.Signat
 		return None, []
 
 	parameters = []
+	preprocessor_list = default_preprocessors
 
 	for param in signature.parameters.values():
 		default = param.default
 
+		# pylint: disable=dotted-import-in-loop
 		if default is not inspect.Parameter.empty:
-			for check, preprocessor in default_preprocessors:
+			for check, preprocessor in preprocessor_list:
 				if check(default):
 					default = preprocessor(default)
 					break
 
 		parameters.append(param.replace(annotation=inspect.Parameter.empty, default=default))
+		# pylint: enable=dotted-import-in-loop
 
 	return signature, parameters
 
@@ -503,12 +506,13 @@ def preprocess_class_defaults(
 		return init, None, []
 
 	parameters = []
+	preprocessor_list = default_preprocessors
 
 	for argname, param in signature.parameters.items():
 		default = param.default
 
 		if default is not inspect.Parameter.empty:
-			for check, preprocessor in default_preprocessors:
+			for check, preprocessor in preprocessor_list:
 				if check(default):
 					default = preprocessor(default)
 					break
@@ -698,7 +702,7 @@ def process_docstring(
 
 	original_obj = obj
 
-	for hook, priority in sorted(docstring_hooks, key=operator.itemgetter(1)):
+	for hook, priority in sorted(docstring_hooks, key=itemgetter(1)):
 		obj = hook(obj)
 
 	if callable(obj):
