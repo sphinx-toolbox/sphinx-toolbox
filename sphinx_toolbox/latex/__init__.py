@@ -572,6 +572,7 @@ class PatchedLaTeXBuilder(LaTeXBuilder):
 					self.update_context()
 
 			with progress_message(__("writing")):
+				# pylint: disable=loop-invariant-statement
 				docsettings._author = author
 				docsettings._title = title
 				docsettings._contentsname = doctree["contentsname"]
@@ -581,6 +582,7 @@ class PatchedLaTeXBuilder(LaTeXBuilder):
 				doctree.settings = docsettings
 				docwriter.theme = theme
 				docwriter.write(doctree, destination)
+				# pylint: enable=loop-invariant-statement
 
 
 def configure(app: Sphinx, config: Config) -> None:

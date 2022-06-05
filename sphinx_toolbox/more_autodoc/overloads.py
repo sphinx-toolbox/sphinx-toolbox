@@ -167,8 +167,10 @@ class OverloadMixin(_OverloadMixinBase):
 					if param.default is not Parameter.empty:
 						default = param.default
 
+						# pylint: disable=loop-global-usage
 						if hasattr(inspect, "DefaultValue") and isinstance(default, inspect.DefaultValue):
 							default = default.value
+						# pylint: enable=loop-global-usage
 
 						buf.append(" = ")
 						buf.append(default)
@@ -271,13 +273,13 @@ class OverloadMixin(_OverloadMixinBase):
 						if line[0].isspace():
 							continue
 
-						if _return_type_re.match(line):
+						if _return_type_re.match(line):  # pylint: disable=loop-global-usage
 							seen_return = True
 							continue
 
 						if seen_return and i != n_lines:
 							lines.insert(i, '')
-							for inner_line in reversed(self.create_body_overloads()):
+							for inner_line in reversed(self.create_body_overloads()):  # pylint: disable=W8402
 								lines.insert(i, inner_line)
 							lines.insert(i, '')
 

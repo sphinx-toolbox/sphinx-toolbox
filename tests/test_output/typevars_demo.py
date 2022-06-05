@@ -4,7 +4,7 @@ from typing import TypeVar
 # 3rd party
 import attr
 
-__all__ = [
+__all__ = (
 		"Demo",
 		"SlotsDemo",
 		'T',
@@ -13,7 +13,7 @@ __all__ = [
 		'S',
 		"DS",
 		"FR",
-		]
+		)
 
 FR = TypeVar("FR", bound="SlotsDemo")
 

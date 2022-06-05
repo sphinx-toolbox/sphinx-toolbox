@@ -240,7 +240,7 @@ class Sources(List[Tuple[str, str, Callable, Callable, Optional[Dict[str, Callab
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 
-	_args = ["options", "env"]
+	_args = ["options", "env"]  # pylint: disable=W8301
 	_directive_name = "installation"
 
 	def register(
@@ -358,7 +358,7 @@ def conda_installation(
 		lines.append("First add the required channels\n\n.. prompt:: bash\n")
 
 		with lines.with_indent_size(lines.indent_size + 1):
-			for channel in channels:
+			for channel in channels:  # pylint: disable=use-list-copy
 				lines.append(f"conda config --add channels https://conda.anaconda.org/{channel.strip()}")
 
 		lines.append("\nThen install")
@@ -424,7 +424,7 @@ class InstallationDirective(SphinxDirective):
 		}
 
 	# Extra options for registered sources
-	for source in sources:  # pylint: disable=not-an-iterable
+	for source in sources:  # pylint: disable=not-an-iterable,loop-global-usage
 		if source[4] is not None:
 			option_spec.update(source[4])  # type: ignore[attr-defined]
 
@@ -539,7 +539,7 @@ def make_installation_instructions(options: Dict[str, Any], env: BuildEnvironmen
 			content.blankline(ensure_single=True)
 
 		with content.with_indent_size(2):
-			content.extend([f"{line}" if line else '' for line in tab_content])
+			content.extend([f"{line}" if line else '' for line in tab_content])  # pylint: disable=loop-invariant-statement
 
 	return list(content)
 
@@ -554,7 +554,9 @@ def _get_installation_instructions(options: Dict[str, Any], env: BuildEnvironmen
 
 	tabs: Dict[str, List[str]] = {}
 
+	# pylint: disable=loop-global-usage,use-dict-comprehension
 	for option_name, source_name, getter_function, validator_function, extra_options in sources:
+		# pylint: enable=loop-global-usage,use-dict-comprehension
 		if option_name in options:
 			tabs[f"from {source_name}"] = getter_function(options, env)
 
@@ -599,13 +601,13 @@ class ExtensionsDirective(SphinxDirective):
 		targetid = f'extensions-{self.env.new_serialno("sphinx-toolbox extensions"):d}'
 		targetnode = nodes.target('', '', ids=[targetid])
 
-		top_text = [
+		top_text = (
 				".. latex:vspace:: 10px",
 				".. rst-class:: sphinx-toolbox-extensions",
 				'',
 				f"    Enable ``{self.arguments[0]}`` by adding the following",
 				f"    to the ``extensions`` variable in your ``conf.py``:",
-				]
+				)
 		bottom_text = (
 				"For more information see "
 				"https://www.sphinx-doc.org/en/master/usage/extensions#third-party-extensions ."
@@ -627,7 +629,7 @@ class ExtensionsDirective(SphinxDirective):
 				"        ...",
 				])
 
-		for extension in extensions:
+		for extension in extensions:  # pylint: disable=use-list-copy
 			content.append(f"        {extension!r},")
 
 		content.extend(["        ]", ''])

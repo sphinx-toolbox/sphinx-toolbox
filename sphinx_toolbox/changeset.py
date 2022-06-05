@@ -147,12 +147,12 @@ class VersionChange(sphinx.domains.changeset.VersionChange):
 			self.set_source_info(para)
 			node.append(para)
 		else:
-			messages = []
+			messages = []  # pylint: disable=W8301
 
 		if self.content:
 			self.state.nested_parse(self.content, self.content_offset, node)
 
-		classes = ["versionmodified", versionlabel_classes[self.name]]
+		classes = ["versionmodified", versionlabel_classes[self.name]]  # pylint: disable=W8301
 
 		if len(node):
 			to_add: Optional[nodes.Node] = None
@@ -190,7 +190,7 @@ class VersionChange(sphinx.domains.changeset.VersionChange):
 				)
 		domain.note_changeset(node)
 
-		ret = [node]  # type: List[Node]
+		ret: List[Node] = [node]  # pylint: disable=W8301
 		ret += messages
 		return ret
 

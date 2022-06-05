@@ -120,16 +120,16 @@ def sourcelinks_process_docstring(  # noqa: MAN001
 		else:
 			return
 
-		lines_to_insert = [
+		lines_to_insert = (
 				".. rst-class:: source-link",
 				'',
 				f"    **Source code:** :source:`{source_target}`",
 				'',
 				"--------------------",
 				'',
-				]
+				)
 
-		for line in reversed(lines_to_insert):
+		for line in reversed(lines_to_insert):  # pylint: disable=W8402
 			lines.insert(0, line)
 
 

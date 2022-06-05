@@ -516,7 +516,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 			# should be skipped
 			if self.env.app:
 				# let extensions preprocess docstrings
-				try:
+				try:  # pylint: disable=R8203
 					skip_user = self.env.app.emit_firstresult(
 							"autodoc-skip-member",
 							self.objtype,
@@ -557,11 +557,11 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 			memberlist = self.options.members or []
 		ret = []
 		for mname in memberlist:
-			try:
+			try:  # pylint: disable=R8203
 				ret.append((mname, safe_getattr(self.object, mname)))
 			except AttributeError:
 				logger.warning(
-						operator.mod(
+						operator.mod(  # pylint: disable=dotted-import-in-loop)
 								__("missing attribute mentioned in :members: or __all__: module %s, attribute %s"),
 								(safe_getattr(self.object, "__name__", "???"), mname),
 								),

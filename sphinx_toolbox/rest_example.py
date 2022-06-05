@@ -158,15 +158,10 @@ def make_rest_example(
 					output.append(f":{option}: {value}")
 
 			output.blankline()
-
-			for line in content:
-				output.append(line)
+			output.extend(content)
 
 		output.blankline(ensure_single=True)
-
-		for line in content:
-			output.append(line)
-
+		output.extend(content)
 		output.blankline(ensure_single=True)
 
 	return list(output)

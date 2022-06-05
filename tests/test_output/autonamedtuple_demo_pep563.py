@@ -6,7 +6,7 @@
 # stdlib
 import sys
 
-__all__ = ["Animal"]
+__all__ = ("Animal", )
 
 if sys.version_info < (3, 7):
 

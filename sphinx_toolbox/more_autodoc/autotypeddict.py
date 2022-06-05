@@ -386,7 +386,7 @@ class TypedDictDocumenter(ClassDocumenter):
 			# should be skipped
 			if self.env.app:
 				# let extensions preprocess docstrings
-				try:
+				try:  # pylint: disable=R8203
 					skip_user = self.env.app.emit_firstresult(
 							"autodoc-skip-member",
 							self.objtype,

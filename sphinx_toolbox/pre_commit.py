@@ -182,7 +182,7 @@ class PreCommitDirective(SphinxDirective):
 				hook_file = directory / ".pre-commit-hooks.yaml"
 				if hook_file.is_file():
 					hooks_dict = YAML(typ="safe", pure=True).load(hook_file.read_text())
-					hooks = [h["id"] for h in hooks_dict]
+					hooks = [h["id"] for h in hooks_dict]  # pylint: disable=loop-invariant-statement
 					break
 			else:
 				warnings.warn("No hooks specified and no .pre-commit-hooks.yaml file found.")

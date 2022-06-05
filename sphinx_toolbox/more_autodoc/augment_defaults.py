@@ -103,6 +103,7 @@ def process_documenter_options(
 			negated = options.pop("no-" + name, True) is None
 
 			if name in config.autodoc_default_options and not negated:
+				# pylint: disable=loop-invariant-statement
 				default_value = config.autodoc_default_options[name]
 				existing_value = options.get(name, None)
 				values: List[str] = [v for v in [default_value, existing_value] if v not in {None, True, False}]
@@ -111,6 +112,7 @@ def process_documenter_options(
 					options[name] = ','.join(values)
 				else:
 					options[name] = None  # pragma: no cover
+				# pylint: enable=loop-invariant-statement
 
 	return Options(assemble_option_dict(options.items(), documenter.option_spec))
 

@@ -1,7 +1,7 @@
 # stdlib
 from typing import Callable, List, Optional, Type, Union, overload
 
-__all__ = ["serde", "Foo", "Bar"]
+__all__ = ("serde", "Foo", "Bar")
 
 
 @overload

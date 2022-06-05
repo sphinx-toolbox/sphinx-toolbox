@@ -248,7 +248,7 @@ def singleton(name: str) -> object:
 	class Singleton:
 		_singleton = None
 
-		def __new__(cls):  # noqa: MAN002
+		def __new__(cls):
 			if Singleton._singleton is None:
 				Singleton._singleton = super().__new__(cls)
 			return Singleton._singleton
@@ -294,7 +294,7 @@ def get_first_matching(
 		if not condition(default):
 			raise ValueError("The condition must evaluate to True for the default value.")
 
-		iterable = [*iterable, default]
+		iterable = (*iterable, default)
 
 	for match in iterable:
 		if condition(match):
@@ -494,9 +494,11 @@ def parse_parameters(lines: List[str], tab_size: int = 8) -> Tuple[Dict[str, Par
 			post_output.append(line)
 			continue
 
+		# pylint: disable=loop-global-usage
 		typed_m = typed_param_regex.match(line)
 		untyped_m = untyped_param_regex.match(line)
 		type_only_m = typed_flag_regex.match(line)
+		# pylint: enable=loop-global-usage
 
 		if typed_m:
 			last_arg = typed_m.group(3).strip()

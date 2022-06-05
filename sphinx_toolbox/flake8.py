@@ -103,12 +103,12 @@ class Flake8CodesDirective(SphinxDirective):
 
 		for code in self.content:
 			if code.strip():
-				try:
+				if hasattr(module, code):
 					description = getattr(module, code)
 					if description.startswith(code):
 						description = description[len(code):]
 					codes.append((code, description.strip()))
-				except AttributeError:
+				else:
 					warnings.warn(f"No such code {code!r}")
 
 		if not codes:

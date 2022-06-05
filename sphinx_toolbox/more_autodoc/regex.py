@@ -241,7 +241,7 @@ class RegexDocumenter(VariableDocumenter):
 				docstrings.append([])
 
 			if docstrings == [["Compiled regular expression objects", '']] or docstrings == [[]]:
-				docstrings = [["Compiled regular expression object.", '']]
+				docstrings = [["Compiled regular expression object.", '']]  # pylint: disable=W8301
 
 			for i, line in enumerate(self.process_doc(docstrings)):
 				self.add_line(line, sourcename, i)

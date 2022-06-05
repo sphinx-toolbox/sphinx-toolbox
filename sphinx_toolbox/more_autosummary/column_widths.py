@@ -157,7 +157,7 @@ class AutosummaryWidths(PatchedAutosummary):
 			for text in column_texts:
 				node = nodes.paragraph('')
 				vl = StringList()
-				vl.append(text, f"{source}:{line:d}:<autosummary>")
+				vl.append(text, f"{source}:{line:d}:<autosummary>")  # pylint: disable=loop-invariant-statement
 
 				with switch_source_input(self.state, vl):
 					self.state.nested_parse(vl, 0, node)

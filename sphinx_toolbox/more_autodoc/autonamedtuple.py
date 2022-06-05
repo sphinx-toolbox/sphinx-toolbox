@@ -241,7 +241,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		elif "show-inheritance" not in self.options:
 			docstring = [":class:`typing.NamedTuple`."]
 		else:
-			docstring = ['']
+			docstring = ['']  # pylint: disable=W8301
 
 		docstring = list(self.process_doc([docstring]))
 
@@ -380,7 +380,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		fields_body = []
 
 		for pos, field in enumerate(fields):
-			doc: List[str] = ['']
+			doc: List[str] = ['']  # pylint: disable=W8201
 			arg_type: str = ''
 
 			# Prefer doc from class docstring
@@ -393,7 +393,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 			# Fallback to namedtuple's default docstring
 			if not ''.join(doc).strip():
-				doc = [getattr(self.object, field).__doc__]
+				doc = [getattr(self.object, field).__doc__]  # pylint: disable=W8301
 
 			# Prefer annotations over docstring types
 			type_hints = get_type_hints(self.object)
@@ -473,7 +473,10 @@ class _PyNamedTupleField(PyAttribute):
 
 			if "noindexentry" not in self.options:
 				key = name[0].upper()
-				pair = [_("%s (namedtuple in %s)") % (classname, modname), _("%s (namedtuple field)") % name]
+				pair = [  # pylint: disable=W8301
+						_("%s (namedtuple in %s)") % (classname, modname),
+						_("%s (namedtuple field)") % name,
+						]
 				self.indexnode["entries"].append(("pair", "; ".join(pair), node_id, '', key))
 
 		return [self.indexnode, node]

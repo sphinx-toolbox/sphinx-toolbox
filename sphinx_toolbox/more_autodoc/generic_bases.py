@@ -138,7 +138,7 @@ def _add_generic_bases(documenter: Documenter) -> None:
 	fully_qualified = getattr(documenter.env.config, "generic_bases_fully_qualified", False)
 
 	documenter.add_line('', sourcename)
-	bases = []
+	bases = []  # pylint: disable=W8301
 
 	if (
 			hasattr(documenter.object, "__orig_bases__") and len(documenter.object.__orig_bases__)
@@ -199,5 +199,5 @@ class FinalExample(List[Tuple[str, float, List[str]]]):
 	An example of :mod:`sphinx_toolbox.more_autodoc.generic_bases` decorated with ``@final``.
 	"""
 
-	def __init__(self, iterable=()):  # pragma: no cover
+	def __init__(self, iterable=()):  # pragma: no cover  # noqa: MAN001
 		pass

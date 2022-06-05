@@ -8,7 +8,7 @@ from typing import Callable, NamedTuple
 # https://www.python.org/dev/peps/pep-0589/#totality
 # https://github.com/python/typing/pull/700
 
-__all__ = ["Animal"]
+__all__ = ("Animal", )
 
 
 class Animal(NamedTuple):
