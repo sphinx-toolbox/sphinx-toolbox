@@ -706,10 +706,17 @@ def process_docstring(
 	if callable(obj):
 		obj = inspect.unwrap(obj)
 		type_hints = get_all_type_hints(obj, name, original_obj)
+		signature_params = inspect.signature(obj).parameters
 
 		for argname, annotation in type_hints.items():
 			if argname == "return":
 				continue  # this is handled separately later
+
+			# Ensure *args and **kwargs have *s
+			if signature_params[argname].kind == 2:  # *args
+				argname = f"\\*{argname}"
+			elif signature_params[argname].kind == 4:  # **kwargs
+				argname = f"\\*\\*{argname}"
 
 			argname = escape_trailing__(argname)
 
@@ -787,7 +794,7 @@ def _class_get_type_hints(obj, globalns=None, localns=None):  # noqa: MAN001,MAN
 
 	while True:
 
-		try:
+		try:  # pylint: disable=R8203
 			return get_type_hints(obj.__init__, localns=localns, globalns=globalns)
 		except NameError:
 			if not mro_stack:

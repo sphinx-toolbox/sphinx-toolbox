@@ -265,8 +265,8 @@ def use_package(package: str, config: Config, *args: str, **kwargs: str) -> None
 
 	:param package:
 	:param config:
-	:param \*args:
-	:param \*\*kwargs:
+	:param \*args: Passed as options to the LaTeX package.
+	:param \*\*kwargs: Passed as named options to the LaTeX package.
 	"""
 
 	options: DelimitedList[str] = DelimitedList()

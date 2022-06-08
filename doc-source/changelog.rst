@@ -11,6 +11,12 @@ However, because ``sphinx-toolbox`` customises some of the functions from that p
 configuration options added after version ``1.14.1`` may not work (e.g. ``typehints_defaults`` and ``typehints_formatter``).
 
 
+Bugs Fixed
+^^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.more_autodoc.typehints` -- ``\*args`` and ``\*\*kwargs`` arguments have type hints applied correctly.
+
+
 3.0.0
 ----------------------
 
