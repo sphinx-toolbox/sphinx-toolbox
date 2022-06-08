@@ -474,9 +474,9 @@ class _PyNamedTupleField(PyAttribute):
 			if "noindexentry" not in self.options:
 				key = name[0].upper()
 				pair = [  # pylint: disable=W8301
-						_("%s (namedtuple in %s)") % (classname, modname),
-						_("%s (namedtuple field)") % name,
-						]
+					_("%s (namedtuple in %s)") % (classname, modname),
+					_("%s (namedtuple field)") % name,
+					]
 				self.indexnode["entries"].append(("pair", "; ".join(pair), node_id, '', key))
 
 		return [self.indexnode, node]

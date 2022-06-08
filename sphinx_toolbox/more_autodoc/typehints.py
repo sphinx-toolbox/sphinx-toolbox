@@ -114,11 +114,11 @@ API Reference
 import inspect
 import itertools
 import json
-from operator import itemgetter
 import re
 import sys
 import types
 from contextlib import suppress
+from operator import itemgetter
 from tempfile import TemporaryDirectory
 from types import FunctionType, ModuleType
 from typing import (

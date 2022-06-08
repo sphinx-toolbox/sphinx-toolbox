@@ -165,8 +165,8 @@ API Reference
 #
 
 # stdlib
-from os.path import join as joinpath
 import re
+from os.path import join as joinpath
 from textwrap import dedent
 from typing import Any, List, Optional, cast
 

@@ -72,7 +72,7 @@ from sphinx.util.docutils import SphinxDirective
 # this package
 from sphinx_toolbox.utils import Purger, SphinxExtMetadata, metadata_add_version
 
-__all__ = ("Flake8CodesDirective", "setup", )
+__all__ = ("Flake8CodesDirective", "setup")
 
 table_node_purger = Purger("all_flake8_code_table_nodes")
 

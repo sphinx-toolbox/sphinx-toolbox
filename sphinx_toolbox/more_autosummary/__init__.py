@@ -560,13 +560,15 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 			try:  # pylint: disable=R8203
 				ret.append((mname, safe_getattr(self.object, mname)))
 			except AttributeError:
+				# pylint: disable=dotted-import-in-loop)
 				logger.warning(
-						operator.mod(  # pylint: disable=dotted-import-in-loop)
+						operator.mod(
 								__("missing attribute mentioned in :members: or __all__: module %s, attribute %s"),
 								(safe_getattr(self.object, "__name__", "???"), mname),
 								),
 						type="autodoc"
 						)
+				# pylint: enable=dotted-import-in-loop)
 		return False, ret
 
 
