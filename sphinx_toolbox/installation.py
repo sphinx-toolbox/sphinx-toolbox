@@ -160,6 +160,7 @@ API Reference
 # stdlib
 import inspect
 import re
+import textwrap
 import warnings
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
@@ -608,10 +609,19 @@ class ExtensionsDirective(SphinxDirective):
 				f"    Enable ``{self.arguments[0]}`` by adding the following",
 				f"    to the ``extensions`` variable in your ``conf.py``:",
 				)
-		bottom_text = (
-				"For more information see "
-				"https://www.sphinx-doc.org/en/master/usage/extensions#third-party-extensions ."
-				)
+		bottom_text = textwrap.dedent(
+				r"""
+		.. raw:: latex
+
+			\begin{flushleft}
+
+		For more information see https://www.sphinx-doc.org/en/master/usage/extensions#third-party-extensions .
+
+		.. raw:: latex
+
+			\end{flushleft}
+		"""
+				).expandtabs(4).splitlines()
 
 		if "no-preamble" in self.options:
 			content = []
@@ -635,7 +645,7 @@ class ExtensionsDirective(SphinxDirective):
 		content.extend(["        ]", ''])
 
 		if "no-postamble" not in self.options:
-			content.extend([bottom_text, ''])
+			content.extend(bottom_text)
 
 		extensions_node = nodes.paragraph(rawsource=content)  # type: ignore[arg-type]
 		self.state.nested_parse(ViewList(content), self.content_offset, extensions_node)  # type: ignore[arg-type]

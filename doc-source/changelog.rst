@@ -3,6 +3,11 @@ Changelog
 ===============
 
 
+Unreleased
+----------------------
+
+:rst:dir:`.. extensions:: <extensions>` -- Use flushleft text with the LaTeX builder. (PR :github:pull:`105`)
+
 3.1.0
 ----------------------
 
@@ -14,7 +19,7 @@ configuration options added after version ``1.14.1`` may not work (e.g. ``typehi
 Bugs Fixed
 ^^^^^^^^^^^
 
-* :mod:`sphinx_toolbox.more_autodoc.typehints` -- ``\*args`` and ``\*\*kwargs`` arguments have type hints applied correctly.
+* :mod:`sphinx_toolbox.more_autodoc.typehints` -- ``*args`` and ``**kwargs`` arguments have type hints applied correctly.
 
 
 3.0.0
