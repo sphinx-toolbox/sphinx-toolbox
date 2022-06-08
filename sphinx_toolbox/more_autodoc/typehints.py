@@ -217,7 +217,6 @@ __all__ = (
 		"backfill_type_hints",
 		"load_args",
 		"split_type_comment_args",
-		"builder_ready",
 		"default_preprocessors",
 		"Preprocessor",
 		)
@@ -228,7 +227,6 @@ get_annotation_args = sphinx_autodoc_typehints.get_annotation_args
 backfill_type_hints = sphinx_autodoc_typehints.backfill_type_hints
 load_args = sphinx_autodoc_typehints.load_args
 split_type_comment_args = sphinx_autodoc_typehints.split_type_comment_args
-builder_ready = sphinx_autodoc_typehints.builder_ready
 
 
 # Demonstration of module default argument in signature

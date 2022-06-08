@@ -9,7 +9,7 @@ html5lib>=1.1
 lockfile>=0.12.2
 ruamel.yaml>=0.16.12
 sphinx>=3.2.0
-sphinx-autodoc-typehints<=1.14.1,>=1.11.1
+sphinx-autodoc-typehints>=1.11.1
 sphinx-jinja2-compat>=0.1.0
 sphinx-prompt>=1.1.0
 sphinx-tabs<3.4.0,>=1.2.1

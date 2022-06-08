@@ -3,7 +3,15 @@ Changelog
 ===============
 
 
-3.0.0 (Unreleased)
+3.1.0
+----------------------
+
+Removed cap on acceptable versions for `sphinx-autodoc-typehints <https://github.com/tox-dev/sphinx-autodoc-typehints>`_.
+However, because ``sphinx-toolbox`` customises some of the functions from that package,
+configuration options added after version ``1.14.1`` may not work (e.g. ``typehints_defaults`` and ``typehints_formatter``).
+
+
+3.0.0
 ----------------------
 
 Additions
