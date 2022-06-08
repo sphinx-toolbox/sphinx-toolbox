@@ -37,7 +37,26 @@ python_versions:
     - 4.0
     - 4.1
     - 4.2
-    - latest
+ pypy38:
+  matrix_exclude:
+   sphinx:
+    - 3.2
+    - 3.3
+    - 3.4
+    - 3.5
+    - 4.0
+    - 4.1
+    - 4.2
+ pypy39:
+  matrix_exclude:
+   sphinx:
+    - 3.2
+    - 3.3
+    - 3.4
+    - 3.5
+    - 4.0
+    - 4.1
+    - 4.2
 
 additional_ignore:
   - wip-shields-block.py
