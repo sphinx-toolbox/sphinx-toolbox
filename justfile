@@ -10,8 +10,7 @@ unused-imports:
 	tox -e lint -- --select F401
 
 incomplete-defs:
-	#!/usr/bin/env bash
-	tox -e mypy -- --disallow-incomplete-defs --disallow-untyped-defs | grep "Function is missing a .* annotation" || exit 0
+	tox -e lint -- --select MAN
 
 vdiff:
 	git diff $(repo-helper show version -q)..HEAD

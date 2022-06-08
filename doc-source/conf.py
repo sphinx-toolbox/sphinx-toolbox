@@ -27,7 +27,8 @@ rst_prolog = f""".. |pkgname| replace:: sphinx-toolbox
 slug = re.sub(r'\W+', '-', project.lower())
 release = version = config.version
 
-todo_include_todos = bool(os.environ.get("SHOW_TODOS", 0))
+sphinx_builder = os.environ.get("SPHINX_BUILDER", "html").lower()
+todo_include_todos = int(os.environ.get("SHOW_TODOS", 0)) and sphinx_builder != "latex"
 
 intersphinx_mapping = {
 		"python": ("https://docs.python.org/3/", None),
