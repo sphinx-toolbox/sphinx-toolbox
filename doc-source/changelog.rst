@@ -8,6 +8,13 @@ Unreleased
 
 :rst:dir:`.. extensions:: <extensions>` -- Use flushleft text with the LaTeX builder. (PR :github:pull:`105`)
 
+Bugs Fixed
+^^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.more_autodoc.typehints` -- Fix crash when performing fix for ``*args`` and ``**kwargs``.
+
+
+
 3.1.0
 ----------------------
 

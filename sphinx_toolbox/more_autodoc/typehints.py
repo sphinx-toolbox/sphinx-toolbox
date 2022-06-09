@@ -712,11 +712,12 @@ def process_docstring(
 			if argname == "return":
 				continue  # this is handled separately later
 
-			# Ensure *args and **kwargs have *s
-			if signature_params[argname].kind == 2:  # *args
-				argname = f"\\*{argname}"
-			elif signature_params[argname].kind == 4:  # **kwargs
-				argname = f"\\*\\*{argname}"
+			if argname in signature_params:
+				# Ensure *args and **kwargs have *s
+				if signature_params[argname].kind == 2:  # *args
+					argname = f"\\*{argname}"
+				elif signature_params[argname].kind == 4:  # **kwargs
+					argname = f"\\*\\*{argname}"
 
 			argname = escape_trailing__(argname)
 
