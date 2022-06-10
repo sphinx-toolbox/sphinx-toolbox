@@ -3,7 +3,7 @@ Changelog
 ===============
 
 
-Unreleased
+3.1.1
 ----------------------
 
 :rst:dir:`.. extensions:: <extensions>` -- Use flushleft text with the LaTeX builder. (PR :github:pull:`105`)
