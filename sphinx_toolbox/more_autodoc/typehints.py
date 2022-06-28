@@ -128,6 +128,7 @@ from typing import (
 		Dict,
 		ForwardRef,
 		List,
+		Mapping,
 		NewType,
 		Optional,
 		Tuple,
@@ -706,7 +707,13 @@ def process_docstring(
 	if callable(obj):
 		obj = inspect.unwrap(obj)
 		type_hints = get_all_type_hints(obj, name, original_obj)
-		signature_params = inspect.signature(obj).parameters
+
+		signature_params: Mapping[str, Any]
+		try:
+			signature_params = inspect.signature(obj).parameters
+		except Exception:
+			# Ignore errors. Can be a multitude of things including builtin functions or extension modules.
+			signature_params = {}
 
 		for argname, annotation in type_hints.items():
 			if argname == "return":
