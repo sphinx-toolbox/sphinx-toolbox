@@ -2,6 +2,19 @@
 Changelog
 ===============
 
+3.1.2
+----------------------
+
+Bugs Fixed
+^^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.more_autodoc.typehints` -- Fix crash when performing fix for ``*args`` and ``**kwargs`` on e.g. builtin functions.
+
+Features
+^^^^^^^^^^
+
+* Allow ``sphinx-tabs`` version 3.4.0 in requirements. By :github:user:`jorgepiloto` in :github:pull:`115`.
+
 
 3.1.1
 ----------------------
