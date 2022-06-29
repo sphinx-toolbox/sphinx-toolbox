@@ -167,7 +167,6 @@ from sphinx.ext.autodoc import (
 		special_member_re
 		)
 from sphinx.ext.autodoc.directive import DocumenterBridge, process_documenter_options
-from sphinx.ext.autodoc.importer import get_module_members
 from sphinx.ext.autosummary import Autosummary, FakeDirective
 from sphinx.locale import __
 from sphinx.util.inspect import getdoc, safe_getattr
@@ -552,7 +551,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 			else:
 				# for implicit module members, check __module__ to avoid
 				# documenting imported objects
-				return True, get_module_members(self.object)
+				return True, self.get_module_members(self.object)
 		else:
 			memberlist = self.options.members or []
 		ret = []
