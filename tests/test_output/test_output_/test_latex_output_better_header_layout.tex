@@ -146,7 +146,12 @@
 \makeindex
 \begin{document}
 
-\pagestyle{empty}
+<% if sphinx_version >= (5, 0) %>\ifdefined\shorthandoff
+  \ifnum\catcode`\=\string=\active\shorthandoff{=}\fi
+  \ifnum\catcode`\"=\active\shorthandoff{"}\fi
+\fi
+
+<% endif %>\pagestyle{empty}
 \sphinxmaketitle
 \makeatletter\renewcommand{\py@release}{\releasename\space\version}\makeatother
 \pagestyle{plain}
@@ -929,8 +934,8 @@ Check this out on GitHub
 
 
 \sphinxstrong{See also:}
-\nopagebreak
-
+<% if sphinx_version >= (3, 4) %>\nopagebreak
+<% endif %>
 
 These are helpful resources:
 \begin{itemize}
@@ -1358,7 +1363,7 @@ Added support for \sphinxhref{https://github.com/Chilipp/autodocsumm}{autodocsum
 \pysigstopsignatures
 <%- endif -%>
 \begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem{Parameters}<% else %>\item[{Parameters}] \leavevmode<% endif %>\begin{itemize}
 \item {}
 \sphinxstyleliteralstrong{\sphinxupquote{bar}} \textendash{} Does something
 

@@ -57,10 +57,12 @@ Extensions to :mod:`sphinx.ext.autodoc`.
 #
 
 # stdlib
-from typing import TYPE_CHECKING, Any, List, Tuple
+from typing import TYPE_CHECKING, Any, List, Optional, Tuple
 
 # 3rd party
+from docutils.statemachine import StringList
 from sphinx.application import Sphinx
+from sphinx.ext.autodoc import Documenter
 
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
@@ -74,6 +76,49 @@ else:
 	ObjectMembers = List[Tuple[str, Any]]
 
 __all__ = ("setup", )
+
+
+def _documenter_add_content(
+		self: Documenter, more_content: Optional[StringList], no_docstring: bool = False
+		) -> None:
+	"""
+	Add content from docstrings, attribute documentation and user.
+	"""
+
+	# set sourcename and add content from attribute documentation
+	sourcename = self.get_sourcename()
+	if self.analyzer:
+		attr_docs = self.analyzer.find_attr_docs()
+		if self.objpath:
+			key = ('.'.join(self.objpath[:-1]), self.objpath[-1])
+			if key in attr_docs:
+				no_docstring = True
+				# make a copy of docstring for attributes to avoid cache
+				# the change of autodoc-process-docstring event.
+				docstrings = [list(attr_docs[key])]
+
+				for i, line in enumerate(self.process_doc(docstrings)):
+					self.add_line(line, sourcename, i)
+
+	# add content from docstrings
+	if not no_docstring:
+		docstrings = self.get_doc() or []
+		if docstrings is None:
+			# Do not call autodoc-process-docstring on get_doc() returns None.
+			pass
+		else:
+			if not docstrings:
+				# append at least a dummy docstring, so that the event
+				# autodoc-process-docstring is fired and can add some
+				# content if desired
+				docstrings.append([])
+			for i, line in enumerate(self.process_doc(docstrings)):
+				self.add_line(line, sourcename, i)
+
+	# add additional content (e.g. from document), if present
+	if more_content:
+		for line, src in zip(more_content.data, more_content.items):
+			self.add_line(line, src[0], src[1])
 
 
 @metadata_add_version

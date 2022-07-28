@@ -79,6 +79,7 @@ extra_sphinx_extensions:
 
 tox_unmanaged:
   - pytest
+  - testenv
 
 sphinx_conf_epilogue:
   - html_logo = "../sphinx_toolbox.png"
@@ -106,6 +107,7 @@ third_party_version_matrix:
     - 4.4
     - 4.5
     - 5.0
+    - 5.1
 #    - latest
 
 classifiers:

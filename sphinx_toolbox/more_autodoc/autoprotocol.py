@@ -130,9 +130,10 @@ API Reference
 
 # stdlib
 import sys
-from typing import Any, Callable, Dict, List, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 # 3rd party
+from docutils.statemachine import StringList
 from sphinx.application import Sphinx
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyClasslike, PyXRefRole
@@ -149,7 +150,7 @@ from sphinx.locale import _
 from sphinx.util.inspect import getdoc, safe_getattr
 
 # this package
-from sphinx_toolbox.more_autodoc import ObjectMembers
+from sphinx_toolbox.more_autodoc import ObjectMembers, _documenter_add_content
 from sphinx_toolbox.more_autodoc.generic_bases import _add_generic_bases
 from sphinx_toolbox.utils import (
 		SphinxExtMetadata,
@@ -265,7 +266,7 @@ class ProtocolDocumenter(ClassDocumenter):
 
 		return ''  # pragma: no cover
 
-	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
+	def add_content(self, more_content: Optional[StringList], no_docstring: bool = False) -> None:
 		"""
 		Add the autodocumenter content.
 
@@ -273,7 +274,7 @@ class ProtocolDocumenter(ClassDocumenter):
 		:param no_docstring:
 		"""
 
-		super().add_content(more_content=more_content, no_docstring=no_docstring)
+		_documenter_add_content(self, more_content, no_docstring)
 
 		sourcename = self.get_sourcename()
 

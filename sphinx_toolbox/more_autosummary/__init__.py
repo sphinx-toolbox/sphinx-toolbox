@@ -147,10 +147,11 @@ API Reference
 import inspect
 import operator
 import re
-from typing import Any, List, Optional, Tuple, Type
+from typing import Any, Dict, List, Optional, Tuple, Type
 
 # 3rd party
 import autodocsumm  # type: ignore[import]
+import docutils
 import sphinx
 from docutils import nodes
 from domdf_python_tools.stringlist import StringList
@@ -167,8 +168,7 @@ from sphinx.ext.autodoc import (
 		special_member_re
 		)
 from sphinx.ext.autodoc.directive import DocumenterBridge, process_documenter_options
-from sphinx.ext.autodoc.importer import get_module_members
-from sphinx.ext.autosummary import Autosummary, FakeDirective
+from sphinx.ext.autosummary import Autosummary, FakeDirective, autosummary_table
 from sphinx.locale import __
 from sphinx.util.inspect import getdoc, safe_getattr
 
@@ -191,6 +191,33 @@ __all__ = (
 		"get_documenter",
 		"setup",
 		)
+
+try:
+	# 3rd party
+	from sphinx.ext.autodoc.importer import get_module_members as _get_module_members  # type: ignore[attr-defined]
+except ImportError:
+	# 3rd party
+	from sphinx.util.inspect import getannotations
+
+	def _get_module_members(module: Any) -> List[Tuple[str, Any]]:
+		"""Get members of target module."""
+		# 3rd party
+		from sphinx.ext.autodoc import INSTANCEATTR
+
+		members: Dict[str, Tuple[str, Any]] = {}
+		for name in dir(module):
+			try:
+				value = safe_getattr(module, name, None)
+				members[name] = (name, value)
+			except AttributeError:
+				continue
+
+		# annotation only member (ex. attr: int)
+		for name in getannotations(module):
+			if name not in members:
+				members[name] = (name, INSTANCEATTR)
+
+		return sorted(list(members.values()))
 
 
 def add_autosummary(self, relative_ref_paths: bool = False) -> None:
@@ -325,13 +352,17 @@ class PatchedAutosummary(Autosummary):
 		.. latex:clearpage::
 		"""
 
-		table_spec, *other_nodes = super().get_table(items)
+		table_spec, table, *other_nodes = super().get_table(items)
 		assert isinstance(table_spec, addnodes.tabular_col_spec)
+		assert isinstance(table, autosummary_table)
+
+		if docutils.__version_info__ >= (0, 18):
+			table.children[0]["classes"] += ["colwidths-given"]  # type: ignore[index]
 
 		column_type = getattr(self.env.config, "autosummary_col_type", r"\X")
 		table_spec["spec"] = f'{column_type}{{1}}{{2}}{column_type}{{1}}{{2}}'
 
-		return [table_spec, *other_nodes]
+		return [table_spec, table, *other_nodes]
 
 
 def get_documenter(app: Sphinx, obj: Any, parent: Any) -> Type[Documenter]:
@@ -552,7 +583,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 			else:
 				# for implicit module members, check __module__ to avoid
 				# documenting imported objects
-				return True, get_module_members(self.object)
+				return True, _get_module_members(self.object)
 		else:
 			memberlist = self.options.members or []
 		ret = []
@@ -602,9 +633,9 @@ class PatchedAutoDocSummDirective(autodocsumm.AutoDocSummDirective):
 		reporter = self.state.document.reporter
 
 		if hasattr(reporter, "get_source_and_line"):
-			source, lineno = reporter.get_source_and_line(self.lineno)
+			_, lineno = reporter.get_source_and_line(self.lineno)
 		else:
-			source, lineno = (None, None)
+			_, lineno = (None, None)
 
 		# look up target Documenter
 		objtype = self.name[4:-4]  # strip prefix (auto-) and suffix (-summ).

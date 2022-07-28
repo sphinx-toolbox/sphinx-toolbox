@@ -78,6 +78,7 @@ from sphinx.ext.autodoc import Documenter, Options
 
 # this package
 import sphinx_toolbox
+import sphinx_toolbox.more_autosummary
 from sphinx_toolbox.utils import Config, SphinxExtMetadata
 
 __all__ = ("process_documenter_options", "setup")
@@ -132,6 +133,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	sphinx.ext.autodoc.directive.process_documenter_options = process_documenter_options  # type: ignore[assignment]
 	autodocsumm.process_documenter_options = process_documenter_options
+	sphinx_toolbox.more_autosummary.process_documenter_options = process_documenter_options  # type: ignore[assignment]
 
 	app.setup_extension("sphinx.ext.autodoc")
 

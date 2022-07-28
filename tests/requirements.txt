@@ -1,3 +1,4 @@
+git+https://github.com/Chilipp/autodocsumm
 coincidence>=0.2.0
 coverage>=5.1
 coverage-pyver-pragma>=0.2.1

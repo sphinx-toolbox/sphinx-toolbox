@@ -62,6 +62,7 @@ import warnings
 from typing import List, Sequence, Tuple
 
 # 3rd party
+import docutils
 import tabulate
 from docutils import nodes
 from docutils.statemachine import StringList
@@ -124,6 +125,9 @@ class Flake8CodesDirective(SphinxDirective):
 		view = StringList(content.split('\n'))
 		table_node = nodes.paragraph(rawsource=content)
 		self.state.nested_parse(view, self.content_offset, table_node)
+
+		if docutils.__version_info__ >= (0, 18):
+			table_node.children[0]["classes"] += ["colwidths-given"]  # type: ignore[index]
 
 		table_node_purger.add_node(self.env, table_node, targetnode, self.lineno)
 

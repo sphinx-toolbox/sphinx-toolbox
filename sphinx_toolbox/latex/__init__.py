@@ -550,7 +550,12 @@ class PatchedLaTeXBuilder(LaTeXBuilder):
 			with progress_message(__("processing %s") % targetname):
 				doctree = self.env.get_doctree(docname)
 				process_only_nodes(doctree, self.tags)
-				toctree = next(iter(doctree.traverse(addnodes.toctree)), None)
+
+				if hasattr(doctree, "findall"):
+					toctree = next(doctree.findall(addnodes.toctree), None)  # type: ignore[attr-defined]
+				else:
+					toctree = next(iter(doctree.traverse(addnodes.toctree)), None)
+
 				if toctree and toctree.get("maxdepth") > 0:
 					tocdepth = toctree.get("maxdepth")
 				else:

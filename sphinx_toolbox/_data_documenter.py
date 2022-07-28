@@ -34,9 +34,10 @@ Relevant parts of :mod:`sphinx.ext.autodoc` from Sphinx 3.3.1.
 #
 
 # stdlib
-from typing import Any, get_type_hints
+from typing import Any, Optional, get_type_hints
 
 # 3rd party
+from docutils.statemachine import StringList
 from sphinx.ext.autodoc import (
 		SUPPRESS,
 		UNINITIALIZED_ATTR,
@@ -47,6 +48,9 @@ from sphinx.ext.autodoc import (
 from sphinx.util import logging
 from sphinx.util.inspect import object_description, safe_getattr
 from sphinx.util.typing import stringify as stringify_typehint
+
+# this package
+from sphinx_toolbox.more_autodoc import _documenter_add_content
 
 __all__ = ("DataDocumenter", )
 
@@ -127,3 +131,10 @@ class DataDocumenter(ModuleLevelDocumenter):
 		"""
 
 		return self.get_attr(self.parent or self.object, "__module__", None) or self.modname
+
+	def add_content(self, more_content: Optional[StringList], no_docstring: bool = False) -> None:
+		"""
+		Add content from docstrings, attribute documentation and user.
+		"""
+
+		_documenter_add_content(self, more_content, no_docstring)

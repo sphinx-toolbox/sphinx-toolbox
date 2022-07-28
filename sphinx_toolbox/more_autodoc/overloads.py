@@ -106,6 +106,7 @@ from sphinx.util import inspect
 from sphinx.util.inspect import evaluate_signature, safe_getattr, stringify_signature
 
 # this package
+from sphinx_toolbox.more_autodoc import _documenter_add_content
 from sphinx_toolbox.more_autodoc.typehints import _resolve_forwardref, default_preprocessors, format_annotation
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
@@ -291,12 +292,12 @@ class OverloadMixin(_OverloadMixinBase):
 
 			listener_id = self.env.app.connect("autodoc-process-docstring", process_docstring, priority=600)
 			try:
-				super().add_content(more_content, no_docstring)
+				_documenter_add_content(self, more_content, no_docstring)
 			finally:
 				self.env.app.disconnect(listener_id)
 
 		else:
-			super().add_content(more_content, no_docstring)
+			_documenter_add_content(self, more_content, no_docstring)
 
 
 class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):

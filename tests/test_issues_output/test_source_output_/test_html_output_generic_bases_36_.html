@@ -1,3 +1,4 @@
+{% set heading = ("heading" if sphinx_version >= (5, 0) else 'headline') -%}
 {% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
 {% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
@@ -29,7 +30,7 @@
       <div class="section" id="sphinx-toolbox-demo-generic-bases">
        <h1>
         sphinx-toolbox Demo - Generic Bases
-        <a class="headerlink" href="#sphinx-toolbox-demo-generic-bases" title="Permalink to this headline">
+        <a class="headerlink" href="#sphinx-toolbox-demo-generic-bases" title="Permalink to this {{ heading }}">
          ¶
         </a>
        </h1>

@@ -1,8 +1,10 @@
+{% set heading = ("heading" if sphinx_version >= (5, 0) else 'headline') -%}
 <!DOCTYPE html>
-<html>
+<html{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
  <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>{% if docutils_version > (0, 17) %}
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>{% if docutils_version > (0, 18) %}
+  <meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>{% elif docutils_version > (0, 17) %}
   <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>{% endif %}
   <title>
    Changeset — Python  documentation
@@ -12,7 +14,9 @@
   <script src="_static/jquery.js">
   </script>
   <script src="_static/underscore.js">
-  </script>
+  </script>{% if sphinx_version >= (5, 0) %}
+  <script src="_static/_sphinx_javascript_frameworks_compat.js">
+  </script>{% endif %}
   <script src="_static/doctools.js">
   </script>
   <script src="_static/sphinx_toolbox_installation.js">
@@ -27,14 +31,14 @@
       <div class="section" id="changeset">
        <h1>
         Changeset
-        <a class="headerlink" href="#changeset" title="Permalink to this headline">
+        <a class="headerlink" href="#changeset" title="Permalink to this {{ heading }}">
          ¶
         </a>
        </h1>
        <div class="section" id="removed">
         <h2>
          Removed
-         <a class="headerlink" href="#removed" title="Permalink to this headline">
+         <a class="headerlink" href="#removed" title="Permalink to this {{ heading }}">
           ¶
          </a>
         </h2>
@@ -115,7 +119,7 @@ If you desperately need this functionality please write to the mailing list at
        <div class="section" id="changed">
         <h2>
          Changed
-         <a class="headerlink" href="#changed" title="Permalink to this headline">
+         <a class="headerlink" href="#changed" title="Permalink to this {{ heading }}">
           ¶
          </a>
         </h2>

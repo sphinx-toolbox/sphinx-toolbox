@@ -98,6 +98,7 @@ from itertools import chain
 from typing import Iterable, List, Tuple, cast
 
 # 3rd party
+import docutils
 from docutils import nodes
 from docutils.statemachine import StringList
 from domdf_python_tools import stringlist
@@ -138,7 +139,12 @@ class AutosummaryWidths(PatchedAutosummary):
 		table_spec["spec"] = r'\Xx{%d}{%d}\Xx{%d}{%d}' % widths
 
 		table = autosummary_table('')
-		real_table = nodes.table('', classes=["autosummary", "longtable"])
+		classes = ["autosummary", "longtable"]
+
+		if docutils.__version_info__ >= (0, 18):
+			classes.append("colwidths-given")
+
+		real_table = nodes.table('', classes=classes)
 		table.append(real_table)
 
 		group = nodes.tgroup('', cols=2)
