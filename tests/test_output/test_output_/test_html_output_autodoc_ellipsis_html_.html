@@ -1,8 +1,10 @@
+{% set heading = ("heading" if sphinx_version >= (5, 0) else 'headline') -%}
 <!DOCTYPE html>
-<html>
+<html{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
  <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>{% if docutils_version > (0, 17) %}
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>{% if docutils_version > (0, 18) %}
+  <meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>{% elif docutils_version > (0, 17) %}
   <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>{% endif %}
   <title>
    sphinx-toolbox Demo - Autodoc Ellipsis — Python  documentation
@@ -12,7 +14,9 @@
   <script src="_static/jquery.js">
   </script>
   <script src="_static/underscore.js">
-  </script>
+  </script>{% if sphinx_version >= (5, 0) %}
+  <script src="_static/_sphinx_javascript_frameworks_compat.js">
+  </script>{% endif %}
   <script src="_static/doctools.js">
   </script>
   <script src="_static/sphinx_toolbox_installation.js">
@@ -27,7 +31,7 @@
       <div class="section" id="sphinx-toolbox-demo-autodoc-ellipsis">
        <h1>
         sphinx-toolbox Demo - Autodoc Ellipsis
-        <a class="headerlink" href="#sphinx-toolbox-demo-autodoc-ellipsis" title="Permalink to this headline">
+        <a class="headerlink" href="#sphinx-toolbox-demo-autodoc-ellipsis" title="Permalink to this {{ heading }}">
          ¶
         </a>
        </h1>
@@ -68,7 +72,10 @@
         <dd>
          <dl class="field-list simple">
           <dt class="field-odd">
-           Return type
+           Return type{% if docutils_version >= (0, 18) %}
+           <span class="colon">
+            :
+           </span>{% endif %}
           </dt>
           <dd class="field-odd">
            <p>
@@ -85,13 +92,13 @@
         </dd>
        </dl>
        <dl class="py function">
-        <dt class="sig sig-object py" id="tests.demo.ellipsis_function_2">
-         <span class="sig-prename descclassname">
+        <dt {{ 'class="sig sig-object py" ' if sphinx_version >= (4, 0) else '' }}id="tests.demo.ellipsis_function_2">
+         <{{ "span" if sphinx_version >= (4, 0) else 'code' }} class="sig-prename descclassname">
           tests.demo.
-         </span>
-         <span class="sig-name descname">
+         </{{ "span" if sphinx_version >= (4, 0) else 'code' }}>
+         <{{ "span" if sphinx_version >= (4, 0) else 'code' }} class="sig-name descname">
           ellipsis_function_2
-         </span>
+         </{{ "span" if sphinx_version >= (4, 0) else 'code' }}>
          <span class="sig-paren">
           (
          </span>
@@ -142,7 +149,10 @@
          </p>
          <dl class="field-list simple">
           <dt class="field-odd">
-           Parameters
+           Parameters{% if docutils_version >= (0, 18) %}
+           <span class="colon">
+            :
+           </span>{% endif %}
           </dt>
           <dd class="field-odd">
            <ul class="simple">
@@ -197,7 +207,10 @@
            </ul>
           </dd>
           <dt class="field-even">
-           Return type
+           Return type{% if docutils_version >= (0, 18) %}
+           <span class="colon">
+            :
+           </span>{% endif %}
           </dt>
           <dd class="field-even">
            <p>

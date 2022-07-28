@@ -273,7 +273,7 @@ class Flake8PreCommitDirective(SphinxDirective):
 		return [pre_commit_node]
 
 
-def revert_8345() -> None:
+def revert_8345() -> None:  # pragma: no cover  # Only for Sphinx 4+
 	"""
 	Remove the incorrect warning emitted since https://github.com/sphinx-doc/sphinx/pull/8345.
 	"""

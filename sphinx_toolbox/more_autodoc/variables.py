@@ -103,8 +103,8 @@ from typing import Any, List, Optional, cast, get_type_hints
 
 # 3rd party
 import sphinx
+from docutils.statemachine import StringList
 from sphinx.application import Sphinx
-from sphinx.deprecation import RemovedInSphinx50Warning
 from sphinx.errors import PycodeError
 from sphinx.ext.autodoc import (
 		INSTANCEATTR,
@@ -124,13 +124,20 @@ from sphinx.ext.autodoc import (
 from sphinx.ext.autodoc.directive import DocumenterBridge
 from sphinx.pycode import ModuleAnalyzer
 from sphinx.util import inspect
-from sphinx.util.docstrings import prepare_docstring
-from sphinx.util.inspect import ForwardRef, object_description, safe_getattr
+from sphinx.util.inspect import ForwardRef, getdoc, object_description, safe_getattr
 
 # this package
 from sphinx_toolbox._data_documenter import DataDocumenter
+from sphinx_toolbox.more_autodoc import _documenter_add_content
 from sphinx_toolbox.more_autodoc.typehints import _resolve_forwardref, format_annotation
-from sphinx_toolbox.utils import SphinxExtMetadata, add_nbsp_substitution, flag, metadata_add_version
+from sphinx_toolbox.utils import (
+		RemovedInSphinx50Warning,
+		SphinxExtMetadata,
+		add_nbsp_substitution,
+		flag,
+		metadata_add_version,
+		prepare_docstring
+		)
 
 __all__ = (
 		"VariableDocumenter",
@@ -436,7 +443,7 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 		else:
 			super().add_directive_header(sig)
 
-	def get_doc(  # type: ignore[override]
+	def get_doc(
 			self,
 			encoding: Optional[str] = None,
 			ignore: Optional[int] = None,
@@ -460,31 +467,42 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 			if sphinx.version_info >= (4, 0):
 				if encoding is not None:
 					raise TypeError("The 'encoding' argument to get_doc was removed in Sphinx 4")
-				else:
-					return super().get_doc(ignore=cast(int, ignore)) or []
+
+				if self._new_docstrings is not None:
+					return self._new_docstrings or []
+
+				docstring = getdoc(
+						self.object,
+						self.get_attr,
+						self.config.autodoc_inherit_docstrings,
+						self.parent,
+						self.object_name,
+						)
+
+				if docstring:
+					tab_width = self.directive.state.document.settings.tab_width
+					return [prepare_docstring(docstring, ignore, tab_width)]
+				return []
+
 			else:
-				super_get_doc = super().get_doc(  # type: ignore[call-arg]
-					cast(str, encoding),  # type: ignore[arg-type]
-					cast(int, ignore),
-					)
+				enc = cast(str, encoding)
+				ign = cast(int, ignore)
+				super_get_doc = super().get_doc(enc, ign)  # type: ignore[call-arg]
 				return super_get_doc or []
 		finally:
 			self.env.config.autodoc_inherit_docstrings = orig  # type: ignore[attr-defined]
 
-	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
+	def add_content(self, more_content: Optional[StringList], no_docstring: bool = False) -> None:
 		"""
 		Add content from docstrings, attribute documentation and user.
 		"""
 
-		with warnings.catch_warnings():
-			# TODO: work out what to do about this
-			warnings.simplefilter("ignore", RemovedInSphinx50Warning)
+		if not self._datadescriptor:
+			# if it's not a data descriptor, its docstring is very probably the
+			# wrong thing to display
+			no_docstring = True
 
-			if not self._datadescriptor:
-				# if it's not a data descriptor, its docstring is very probably the
-				# wrong thing to display
-				no_docstring = True
-			super().add_content(more_content, no_docstring)
+		_documenter_add_content(self, more_content, no_docstring)
 
 
 class InstanceAttributeDocumenter(TypedAttributeDocumenter):
@@ -637,7 +655,7 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 					self.env.note_reread()
 					return False
 
-	def get_doc(  # type: ignore[override]
+	def get_doc(
 			self,
 			encoding: Optional[str] = None,
 			ignore: Optional[int] = None,
@@ -649,12 +667,19 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 		:param ignore:
 		"""
 
-		if ignore is not None:  # pragma: no cover
-			warnings.warn(
-					"The 'ignore' argument to autodoc.%s.get_doc() is deprecated." % self.__class__.__name__,
-					RemovedInSphinx50Warning,
-					stacklevel=2
-					)
+		if sphinx.version_info >= (4, 0):
+			if encoding is not None:
+				raise TypeError("The 'encoding' argument to get_doc was removed in Sphinx 4")
+
+		if ignore is not None:
+			if sphinx.version_info >= (5, 0):
+				raise TypeError("The 'ignore' argument to get_doc was removed in Sphinx 5")
+			else:
+				warnings.warn(
+						"The 'ignore' argument to get_doc() is deprecated.",
+						RemovedInSphinx50Warning,  # type: ignore[arg-type]
+						stacklevel=2
+						)
 
 		name = self.objpath[-1]
 		__slots__ = safe_getattr(self.parent, "__slots__", [])

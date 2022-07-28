@@ -108,6 +108,18 @@ from sphinx.util.typing import RoleFunction, TitleGetter
 # this package
 from sphinx_toolbox.utils import Config, SphinxExtMetadata
 
+# _ModuleWrapper unwrapping BS due to
+# https://github.com/sphinx-doc/sphinx/commit/8866adeacfb045c97302cc9c7e3b60dec5ca38fd
+
+try:
+	# 3rd party
+	from sphinx.deprecation import _ModuleWrapper
+	if isinstance(docutils, _ModuleWrapper):
+		docutils = docutils._module
+except ImportError:
+	# Unnecessary if unimportable
+	pass
+
 __all__ = (
 		"Sphinx",
 		"run_setup",
@@ -585,7 +597,7 @@ def run_setup(setup_func: _setup_func_type) -> RunSetupOutput:  # , buildername:
 
 	_additional_nodes = copy.copy(docutils.additional_nodes)
 	try:
-		sphinx.util.docutils.additional_nodes = set()
+		docutils.additional_nodes = set()
 
 		with docutils.docutils_namespace():
 			setup_ret = setup_func(app)  # type: ignore[arg-type]

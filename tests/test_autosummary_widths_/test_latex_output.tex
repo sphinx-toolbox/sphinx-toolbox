@@ -106,7 +106,12 @@
 \makeindex
 \begin{document}
 
-\pagestyle{empty}
+<% if sphinx_version >= (5, 0) %>\ifdefined\shorthandoff
+  \ifnum\catcode`\=\string=\active\shorthandoff{=}\fi
+  \ifnum\catcode`\"=\active\shorthandoff{"}\fi
+\fi
+
+<% endif %>\pagestyle{empty}
 \sphinxmaketitle
 \pagestyle{plain}
 \sphinxtableofcontents
@@ -334,55 +339,55 @@ subclasses to override in order to tweak the default behaviour.
 If you want to completely replace the main wrapping algorithm,
 you’ll probably have to override \_wrap\_chunks().
 \begin{description}
-\item[{Several instance attributes control various aspects of wrapping:}] \leavevmode\begin{description}
-\item[{width (default: 70)}] \leavevmode
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{Several instance attributes control various aspects of wrapping:}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>\begin{description}
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{width (default: 70)}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>
 the maximum width of wrapped lines (unless break\_long\_words
 is false)
 
-\item[{initial\_indent (default: “”)}] \leavevmode
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{initial\_indent (default: “”)}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>
 string that will be prepended to the first line of wrapped
 output.  Counts towards the line’s width.
 
-\item[{subsequent\_indent (default: “”)}] \leavevmode
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{subsequent\_indent (default: “”)}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>
 string that will be prepended to all lines save the first
 of wrapped output; also counts towards each line’s width.
 
-\item[{expand\_tabs (default: true)}] \leavevmode
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{expand\_tabs (default: true)}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>
 Expand tabs in input text to spaces before further processing.
 Each tab will become 0 .. ‘tabsize’ spaces, depending on its position
 in its line.  If false, each tab is treated as a single character.
 
-\item[{tabsize (default: 8)}] \leavevmode
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{tabsize (default: 8)}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>
 Expand tabs in input text to 0 .. ‘tabsize’ spaces, unless
 ‘expand\_tabs’ is false.
 
-\item[{replace\_whitespace (default: true)}] \leavevmode
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{replace\_whitespace (default: true)}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>
 Replace all whitespace characters in the input text by spaces
 after tab expansion.  Note that if expand\_tabs is false and
 replace\_whitespace is true, every tab will be converted to a
 single space!
 
-\item[{fix\_sentence\_endings (default: false)}] \leavevmode
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{fix\_sentence\_endings (default: false)}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>
 Ensure that sentence\sphinxhyphen{}ending punctuation is always followed
 by two spaces.  Off by default because the algorithm is
 (unavoidably) imperfect.
 
-\item[{break\_long\_words (default: true)}] \leavevmode
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{break\_long\_words (default: true)}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>
 Break words longer than ‘width’.  If false, those words will not
 be broken, and some lines might be longer than ‘width’.
 
-\item[{break\_on\_hyphens (default: true)}] \leavevmode
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{break\_on\_hyphens (default: true)}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>
 Allow breaking hyphenated words. If true, wrapping will occur
 preferably on whitespaces and right after hyphens part of
 compound words.
 
-\item[{drop\_whitespace (default: true)}] \leavevmode
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{drop\_whitespace (default: true)}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>
 Drop leading and trailing whitespace from lines.
 
-\item[{max\_lines (default: None)}] \leavevmode
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{max\_lines (default: None)}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>
 Truncate wrapped lines.
 
-\item[{placeholder (default: ‘ {[}…{]}’)}] \leavevmode
+<% if sphinx_version >= (5, 0) %>\sphinxlineitem<% else %>\item[<% endif %>{placeholder (default: ‘ {[}…{]}’)}<% if sphinx_version < (5, 0) %>] \leavevmode<% endif %>
 Append to the last line of truncated text.
 
 \end{description}

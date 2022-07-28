@@ -35,6 +35,7 @@ General utility functions.
 import atexit
 import functools
 import re
+import sys
 from typing import (
 		TYPE_CHECKING,
 		Any,
@@ -787,3 +788,49 @@ if TYPE_CHECKING:
 		html4_writer: Any
 else:
 	Config = sphinx.config.Config
+
+if sphinx.version_info[0] >= 5 or TYPE_CHECKING:
+
+	class RemovedInSphinx50Warning(RuntimeError):
+		pass
+
+	def prepare_docstring(s: str, ignore: Optional[int] = None, tabsize: int = 8) -> List[str]:
+
+		if ignore is None:
+			ignore = 1
+		else:
+			raise TypeError("The 'ignore' argument to prepare_docstring() was removed in Sphinx 5.0")
+
+		lines = s.expandtabs(tabsize).splitlines()
+
+		# Find minimum indentation of any non-blank lines after ignored lines.
+		margin = sys.maxsize
+		for line in lines[ignore:]:
+			content = len(line.lstrip())
+			if content:
+				indent = len(line) - content
+				margin = min(margin, indent)
+
+		# Remove indentation from ignored lines.
+		for i in range(ignore):
+			if i < len(lines):
+				lines[i] = lines[i].lstrip()
+
+		if margin < sys.maxsize:
+			for i in range(ignore, len(lines)):
+				lines[i] = lines[i][margin:]
+
+		# Remove any leading blank lines.
+		while lines and not lines[0]:
+			lines.pop(0)
+
+		# make sure there is an empty line at the end
+		if lines and lines[-1]:
+			lines.append('')
+
+		return lines
+
+else:
+	# 3rd party
+	from sphinx.deprecation import RemovedInSphinx50Warning  # type: ignore[attr-defined,no-redef]  # noqa: F401
+	from sphinx.util.docstrings import prepare_docstring  # noqa: F401

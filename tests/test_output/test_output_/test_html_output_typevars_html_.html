@@ -1,10 +1,12 @@
+{% set heading = ("heading" if sphinx_version >= (5, 0) else 'headline') -%}
 {% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
 {% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
-<html>
+<html{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
  <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>{% if docutils_version > (0, 17) %}
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>{% if docutils_version > (0, 18) %}
+  <meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>{% elif docutils_version > (0, 17) %}
   <meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>{% endif %}
   <title>
    sphinx-toolbox Demo - TypeVars — Python  documentation
@@ -14,7 +16,9 @@
   <script src="_static/jquery.js">
   </script>
   <script src="_static/underscore.js">
-  </script>
+  </script>{% if sphinx_version >= (5, 0) %}
+  <script src="_static/_sphinx_javascript_frameworks_compat.js">
+  </script>{% endif %}
   <script src="_static/doctools.js">
   </script>
   <script src="_static/sphinx_toolbox_installation.js">
@@ -31,7 +35,7 @@
        </span>
        <h1>
         sphinx-toolbox Demo - TypeVars
-        <a class="headerlink" href="#module-tests.test_output.typevars_demo" title="Permalink to this headline">
+        <a class="headerlink" href="#module-tests.test_output.typevars_demo" title="Permalink to this {{ heading }}">
          ¶
         </a>
        </h1>

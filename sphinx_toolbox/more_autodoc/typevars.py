@@ -113,6 +113,7 @@ import sys
 from typing import Any, Dict, ForwardRef, List, Optional, Tuple, Type, TypeVar, Union
 
 # 3rd party
+from docutils.statemachine import StringList
 from domdf_python_tools.words import word_join
 from sphinx.application import Sphinx
 from typing_extensions import Protocol
@@ -120,6 +121,7 @@ from typing_extensions import Protocol
 # this package
 from sphinx_toolbox._data_documenter import DataDocumenter
 from sphinx_toolbox.config import ToolboxConfig
+from sphinx_toolbox.more_autodoc import _documenter_add_content
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.more_autodoc.variables import VariableDocumenter
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
@@ -177,7 +179,7 @@ class TypeVarDocumenter(VariableDocumenter):
 			eval_ = eval
 			return eval_(forward_ref.__forward_code__, globanls, globanls)
 
-	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
+	def add_content(self, more_content: Optional[StringList], no_docstring: bool = False) -> None:
 		"""
 		Add content from docstrings, attribute documentation and user.
 
@@ -224,7 +226,7 @@ class TypeVarDocumenter(VariableDocumenter):
 		self.add_line(' '.join(description).rstrip() + '.', sourcename)  # "   " +
 		self.add_line('', sourcename)
 
-		super().add_content(more_content, no_docstring)
+		_documenter_add_content(self, more_content, no_docstring)
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
@@ -261,7 +263,7 @@ class TypeVarDocumenter(VariableDocumenter):
 
 		super().add_directive_header(sig)
 
-	def get_doc(  # type: ignore[override]
+	def get_doc(
 			self,
 			encoding: Optional[str] = None,
 			ignore: Optional[int] = None,

@@ -30,6 +30,7 @@ extensions = [
 		"sphinx.ext.autodoc",
 		"sphinx_toolbox.more_autosummary",
 		"sphinx_toolbox.latex.succinct_seealso",
+		"sphinx_toolbox.tweaks.revert_footnote_style",
 		]
 
 github_username = "domdfcoding"

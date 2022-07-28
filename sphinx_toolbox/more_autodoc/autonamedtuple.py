@@ -128,15 +128,14 @@ import inspect
 import re
 import sys
 import textwrap
-import warnings
 from textwrap import dedent
 from typing import Any, Dict, List, Optional, Tuple, Type, cast, get_type_hints
 
 # 3rd party
 from docutils import nodes
+from docutils.statemachine import StringList
 from sphinx import addnodes
 from sphinx.application import Sphinx
-from sphinx.deprecation import RemovedInSphinx50Warning
 from sphinx.domains import ObjType
 from sphinx.domains.python import PyAttribute, PyClasslike, PythonDomain, PyXRefRole
 from sphinx.ext.autodoc import ClassDocumenter, Documenter, Options
@@ -146,7 +145,7 @@ from sphinx.pycode import ModuleAnalyzer
 from sphinx.util.nodes import make_id
 
 # this package
-from sphinx_toolbox.more_autodoc import ObjectMembers
+from sphinx_toolbox.more_autodoc import ObjectMembers, _documenter_add_content
 from sphinx_toolbox.more_autodoc.typehints import format_annotation
 from sphinx_toolbox.utils import (
 		Param,
@@ -205,7 +204,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 		return is_namedtuple(member)
 
-	def add_content(self, more_content: Any, no_docstring: bool = True) -> None:
+	def add_content(self, more_content: Optional[StringList], no_docstring: bool = True) -> None:
 		r"""
 		Add extra content (from docstrings, attribute docs etc.),
 		but not the :class:`typing.NamedTuple`\'s docstring.
@@ -214,11 +213,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		:param no_docstring:
 		"""  # noqa: D400
 
-		with warnings.catch_warnings():
-			# TODO: work out what to do about this
-			warnings.simplefilter("ignore", RemovedInSphinx50Warning)
-
-			Documenter.add_content(self, more_content, True)
+		_documenter_add_content(self, more_content, True)
 
 		# set sourcename and add content from attribute documentation
 		sourcename = self.get_sourcename()
