@@ -79,7 +79,9 @@ __all__ = ("setup", )
 
 
 def _documenter_add_content(
-		self: Documenter, more_content: Optional[StringList], no_docstring: bool = False
+		self: Documenter,
+		more_content: Optional[StringList],
+		no_docstring: bool = False,
 		) -> None:
 	"""
 	Add content from docstrings, attribute documentation and user.
