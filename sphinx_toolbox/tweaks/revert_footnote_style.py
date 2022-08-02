@@ -72,7 +72,7 @@ from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 __all__ = ["setup"]
 
 
-def visit_footnote(self: HTMLTranslator, node: docutils.nodes.footnote) -> None:
+def visit_footnote(self: HTMLTranslator, node: docutils.nodes.footnote) -> None:  # pragma: no cover
 	if not self.in_footnote_list:
 		listnode = node.copy()
 		listnode["ids"] = []
@@ -81,25 +81,25 @@ def visit_footnote(self: HTMLTranslator, node: docutils.nodes.footnote) -> None:
 		self.in_footnote_list = True
 
 
-def depart_footnote(self, node: docutils.nodes.footnote) -> None:
+def depart_footnote(self, node: docutils.nodes.footnote) -> None:  # pragma: no cover
 	self.body.append('</dd>\n')
 	if not isinstance(node.next_node(descend=False, siblings=True), docutils.nodes.footnote):
 		self.body.append('</dl>\n')
 		self.in_footnote_list = False
 
 
-def visit_footnote_reference(self, node: docutils.nodes.footnote_reference) -> None:
+def visit_footnote_reference(self, node: docutils.nodes.footnote_reference) -> None:  # pragma: no cover
 	href = '#' + node["refid"]
 	classes = ["footnote-reference", self.settings.footnote_references]
 	self.body.append(self.starttag(node, 'a', suffix='', CLASS=' '.join(classes), href=href))  # role='doc-noteref'
 
 
-def depart_footnote_reference(self, node: docutils.nodes.footnote_reference) -> None:
+def depart_footnote_reference(self, node: docutils.nodes.footnote_reference) -> None:  # pragma: no cover
 	self.body.append("</a>")
 
 
 # footnote and citation labels:
-def visit_label(self, node: docutils.nodes.label) -> None:
+def visit_label(self, node: docutils.nodes.label) -> None:  # pragma: no cover
 	if (isinstance(node.parent, docutils.nodes.footnote)):
 		classes = self.settings.footnote_references
 	else:
@@ -116,14 +116,14 @@ def visit_label(self, node: docutils.nodes.label) -> None:
 			self.body.append('<a class="fn-backref" href="#%s">' % backrefs[0])
 
 
-def depart_label(self, node: docutils.nodes.label) -> None:
+def depart_label(self, node: docutils.nodes.label) -> None:  # pragma: no cover
 	if self.settings.footnote_backlinks:
 		backrefs = node.parent["backrefs"]
 		if len(backrefs) == 1:
 			self.body.append("</a>")
 	self.body.append("</span>")
 	if self.settings.footnote_backlinks and len(backrefs) > 1:
-		backlinks = ['<a href="#%s">%s</a>' % (ref, i) for (i, ref) in enumerate(backrefs, 1)]
+		backlinks = [f'<a href="#{ref}">{i}</a>' for (i, ref) in enumerate(backrefs, 1)]
 		self.body.append('<span class="fn-backref">(%s)</span>' % ','.join(backlinks))
 	self.body.append('</dt>\n<dd>')
 
@@ -136,7 +136,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx application.
 	"""
 
-	if docutils.__version_info__ >= (0, 18):
+	if docutils.__version_info__ >= (0, 18):  # pragma: no cover
 		app.add_node(
 				docutils.nodes.footnote,
 				html=(visit_footnote, depart_footnote),
