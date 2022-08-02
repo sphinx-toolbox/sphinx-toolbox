@@ -16,7 +16,7 @@ from coincidence.params import param
 from coincidence.regressions import AdvancedFileRegressionFixture
 from coincidence.selectors import min_version
 from docutils import nodes
-from domdf_python_tools.paths import PathPlus
+from domdf_python_tools.paths import PathPlus, in_directory
 from domdf_python_tools.stringlist import StringList
 from domdf_python_tools.typing import PathLike
 from jinja2 import Template
@@ -131,12 +131,24 @@ pages_to_check: List[ParameterSet] = [
 
 
 @pytest.mark.usefixtures("docutils_17_compat")
-def test_html_output(testing_app: Sphinx, html_regression: HTMLRegressionFixture):
+def test_html_output(testing_app: Sphinx, html_regression: HTMLRegressionFixture, tmp_pathplus: PathPlus):
 	"""
 	Parametrize new files here rather than as their own function.
 	"""
 
-	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
+	(tmp_pathplus / ".pre-commit-hooks.yaml").write_text(
+			"""
+-   id: flake2lint
+    name: Flake8 -> PyLint
+    description: Augment Flake8 noqa comments with PyLint comments.
+    entry: flake2lint
+    language: python
+    types_or: [python, pyi]
+
+"""
+			)
+
+	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"), in_directory(tmp_pathplus):
 		testing_app.build(force_all=True)
 
 	caught_exceptions: List[BaseException] = []
