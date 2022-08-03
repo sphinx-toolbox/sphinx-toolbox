@@ -2,6 +2,12 @@
 Changelog
 ===============
 
+3.2.0 (Unreleased)
+----------------------
+
+``sphinx-toolbox`` is now compatible with Sphinx 5.x and docutils 0.18.
+
+
 3.1.2
 ----------------------
 
