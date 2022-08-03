@@ -390,10 +390,7 @@ def format_annotation(annotation: Any, fully_qualified: bool = False) -> str:
 	# Type variables are also handled specially
 	with suppress(TypeError):
 		if isinstance(annotation, TypeVar) and annotation is not AnyStr:
-			if sys.version_info < (3, 7):  # pragma: no cover (py37)+
-				typevar_name = annotation.__name__
-			else:  # pragma: no cover (<py37)
-				typevar_name = (annotation.__module__ + '.' + annotation.__name__)
+			typevar_name = (annotation.__module__ + '.' + annotation.__name__)
 			return f":py:data:`{repr(annotation)} <{typevar_name}>`"
 
 	# Some types require special handling

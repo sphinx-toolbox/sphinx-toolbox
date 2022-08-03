@@ -358,13 +358,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 
 class _TypeVar(Protocol):
-	if sys.version_info < (3, 7):  # pragma: no cover (<py37)
-		__constraints__: Tuple[Any, ...]
-		__bound__: Union[Type, Any, None]
-	else:  # pragma: no cover (py37+)
-		__constraints__: Tuple[Union[Type, ForwardRef], ...]
-		__bound__: Union[Type, ForwardRef, None]
-
+	__constraints__: Tuple[Union[Type, ForwardRef], ...]
+	__bound__: Union[Type, ForwardRef, None]
 	__covariant__: bool
 	__contravariant__: bool
 	__name__: str

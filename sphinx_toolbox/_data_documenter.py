@@ -76,7 +76,7 @@ class DataDocumenter(ModuleLevelDocumenter):
 
 		return isinstance(parent, ModuleDocumenter) and isattr
 
-	def add_directive_header(self, sig: str) -> None:  # pragma: no cover (<Py37)
+	def add_directive_header(self, sig: str) -> None:
 		"""
 		Add the directive header and options to the generated content.
 		"""

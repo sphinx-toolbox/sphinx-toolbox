@@ -83,7 +83,7 @@ from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 __all__ = ("PrettyGenericAliasDocumenter", "setup")
 
 
-class PrettyGenericAliasDocumenter(DataDocumenter):  # pragma: no cover (<Py37)
+class PrettyGenericAliasDocumenter(DataDocumenter):
 	"""
 	Specialized Documenter subclass for GenericAliases, with prettier output than Sphinx's one.
 	"""
