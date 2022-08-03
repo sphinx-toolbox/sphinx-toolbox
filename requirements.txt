@@ -1,6 +1,6 @@
 # sphinx-tabs is capped to avoid breakage if they update their js code, which we patch
-# autodocsumm>=0.2.0
 apeye>=0.4.0
+autodocsumm>=0.2.0
 beautifulsoup4>=4.9.1
 cachecontrol[filecache]>=0.12.6
 dict2css>=0.2.3
