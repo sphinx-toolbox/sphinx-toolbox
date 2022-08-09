@@ -69,3 +69,7 @@ def depart_desc_signature(self, node: addnodes.desc_signature) -> None:
 def setup(app: Sphinx) -> None:
 	app.connect("build-finished", latex.replace_unknown_unicode)
 	app.add_node(addnodes.desc_signature, html=(visit_desc_signature, depart_desc_signature), override=True)
+
+
+# TODO: add test matrix with this option enabled
+# autodoc_typehints = "both"
