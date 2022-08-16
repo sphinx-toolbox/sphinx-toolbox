@@ -419,6 +419,9 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 		self.add_line('', sourcename)
 
+		# Stop a duplicate set of parameters being added with `autodoc_typehints = 'both'`
+		self.env.temp_data["annotations"] = {}
+
 		# Remove documenters corresponding to fields and return the rest
 		return [d for d in documenters if d[0].name.split('.')[-1] not in fields]
 
