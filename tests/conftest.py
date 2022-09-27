@@ -150,20 +150,20 @@ def docutils_17_compat(monkeypatch) -> None:
 	monkeypatch.setattr(sphinx.writers.html5.HTML5Translator, "depart_figure", depart_figure)
 
 
-# The following code fixes a bug in 5.2 and 5.2.1
-# Hopefully with be fixed upstream soon
+# # The following code fixes a bug in 5.2 and 5.2.1
+# # Hopefully with be fixed upstream soon
 
-# 3rd party
-from sphinx.domains.python import PyModule
+# # 3rd party
+# from sphinx.domains.python import PyModule
 
-original_run = PyModule.run
-
-
-def patched_run(self) -> List[docutils.nodes.Node]:
-	ret: List[docutils.nodes.Node] = original_run(self)
-	if ret and isinstance(ret[-2], docutils.nodes.target):
-		ret = [ret[-2], ret[-1], *ret[:-2]]
-	return ret
+# original_run = PyModule.run
 
 
-PyModule.run = patched_run
+# def patched_run(self) -> List[docutils.nodes.Node]:
+# 	ret: List[docutils.nodes.Node] = original_run(self)
+# 	if ret and isinstance(ret[-2], docutils.nodes.target):
+# 		ret = [ret[-2], ret[-1], *ret[:-2]]
+# 	return ret
+
+
+# PyModule.run = patched_run
