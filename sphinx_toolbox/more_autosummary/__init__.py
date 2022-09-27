@@ -303,7 +303,7 @@ class PatchedAutosummary(Autosummary):
 		Added support for customising the column type with the :confval:`autosummary_col_type` option.
 	"""
 
-	def import_by_name(self, name: str, prefixes: List[str]) -> Tuple[str, Any, Any, str]:
+	def import_by_name(self, name: str, prefixes: List[Optional[str]]) -> Tuple[str, Any, Any, str]:
 		"""
 		Import the object with the give name.
 

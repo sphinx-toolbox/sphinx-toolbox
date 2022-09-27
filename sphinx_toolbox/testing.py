@@ -268,7 +268,7 @@ class Sphinx:
 		self.registry.add_enumerable_node(
 				node,
 				figtype,
-				title_getter,  # type: ignore[arg-type]
+				title_getter,
 				override=override,
 				)
 		self.add_node(node, override=override, **kwargs)
@@ -378,8 +378,8 @@ class Sphinx:
 				directivename,
 				rolename,
 				indextemplate,
-				parse_node,  # type: ignore[arg-type]
-				ref_nodeclass,  # type: ignore[arg-type]
+				parse_node,
+				ref_nodeclass,
 				objname,
 				doc_field_types,
 				override=override,
@@ -403,7 +403,7 @@ class Sphinx:
 				directivename,
 				rolename,
 				indextemplate,
-				ref_nodeclass,  # type: ignore[arg-type]
+				ref_nodeclass,
 				objname,
 				override=override,
 				)

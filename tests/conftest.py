@@ -27,7 +27,7 @@ import pathlib
 import shutil
 import sys
 import types
-from typing import Iterator, List, Optional, Tuple
+from typing import Iterator, Optional, Tuple
 
 # 3rd party
 import docutils.nodes

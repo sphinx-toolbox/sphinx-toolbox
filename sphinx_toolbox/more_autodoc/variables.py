@@ -498,8 +498,7 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 		"""
 
 		if not self._datadescriptor:
-			# if it's not a data descriptor, its docstring is very probably the
-			# wrong thing to display
+			# if it's not a data descriptor, its docstring is very probably the wrong thing to display
 			no_docstring = True
 
 		_documenter_add_content(self, more_content, no_docstring)
