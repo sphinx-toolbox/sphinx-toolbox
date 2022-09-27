@@ -19,7 +19,9 @@
   <script src="_static/_sphinx_javascript_frameworks_compat.js">
   </script>{% endif %}
   <script src="_static/doctools.js">
-  </script>
+  </script>{% if sphinx_version >= (5, 2) %}
+  <script src="_static/sphinx_highlight.js">
+  </script>{% endif %}
   <script src="_static/sphinx_toolbox_installation.js">
   </script>
   <meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>

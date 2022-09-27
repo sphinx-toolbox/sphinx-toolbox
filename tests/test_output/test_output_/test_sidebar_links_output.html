@@ -19,7 +19,9 @@
   <script src="_static/_sphinx_javascript_frameworks_compat.js">
   </script>{% endif %}
   <script src="_static/doctools.js">
-  </script>
+  </script>{% if sphinx_version >= (5, 2) %}
+  <script src="_static/sphinx_highlight.js">
+  </script>{% endif %}
   <script src="_static/sphinx_toolbox_installation.js">
   </script>
   <meta content="width=device-width, initial-scale=0.9, maximum-scale=0.9" name="viewport"/>
@@ -90,7 +92,90 @@
         <li class="toctree-l1">
          <a class="reference internal" href="regex.html">
           sphinx-toolbox Demo - Regex
-         </a>
+         </a>{% if sphinx_version >= (5, 2) %}
+         <ul>
+          <li class="toctree-l2">
+           <a class="reference internal" href="regex.html#sphinx_toolbox.utils.untyped_param_regex">
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              untyped_param_regex
+             </span>
+            </code>
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="regex.html#sphinx_toolbox.utils.typed_flag_regex">
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              typed_flag_regex
+             </span>
+            </code>
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="regex.html#tests.regex_demo.no_flags">
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              no_flags
+             </span>
+            </code>
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="regex.html#tests.regex_demo.one_flag">
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              one_flag
+             </span>
+            </code>
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="regex.html#tests.regex_demo.two_flags">
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              two_flags
+             </span>
+            </code>
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="regex.html#tests.regex_demo.backticks">
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              backticks
+             </span>
+            </code>
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="regex.html#tests.regex_demo.leading_whitespace">
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              leading_whitespace
+             </span>
+            </code>
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="regex.html#tests.regex_demo.trailing_whitespace">
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              trailing_whitespace
+             </span>
+            </code>
+           </a>
+          </li>
+          <li class="toctree-l2">
+           <a class="reference internal" href="regex.html#tests.regex_demo.single_whitespace">
+            <code class="docutils literal notranslate">
+             <span class="pre">
+              single_whitespace
+             </span>
+            </code>
+           </a>
+          </li>
+         </ul>{% endif %}
         </li>
         <li class="toctree-l1">
          <a class="reference internal" href="github.html">
