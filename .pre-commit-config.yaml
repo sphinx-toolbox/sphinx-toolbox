@@ -3,6 +3,9 @@
 
 exclude: ^$
 
+ci:
+  autoupdate_schedule: quarterly
+
 repos:
  - repo: https://github.com/repo-helper/pyproject-parser
    rev: v0.7.0
