@@ -176,11 +176,14 @@ def visit_asset_node(translator: HTMLTranslator, node: AssetNode) -> None:
 
 	source_file = PathPlus(translator.builder.confdir) / node["source_file"]
 
-	if source_file not in translator._asset_node_seen_files and source_file.is_file():  # type: ignore[attr-defined]
+	source_file_exists = source_file.is_file()
+	source_file_not_seen = source_file not in translator._asset_node_seen_files  # type: ignore[attr-defined]
+
+	if source_file_not_seen and source_file_exists:
 		# Avoid unnecessary copies of potentially large files.
 		translator._asset_node_seen_files.append(source_file)  # type: ignore[attr-defined]
 		shutil.copy2(source_file, assets_out_dir)
-	elif not source_file.is_file():
+	elif not source_file_exists:
 		stderr_writer(
 				f"\x1b[31m{translator.builder.current_docname}: "
 				f"Asset file '{source_file}' not found.\x1b[39m"
