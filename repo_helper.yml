@@ -109,6 +109,7 @@ third_party_version_matrix:
     - 5.0
     - 5.1
     - 5.2
+    - 5.3
 #    - latest
 
 classifiers:
