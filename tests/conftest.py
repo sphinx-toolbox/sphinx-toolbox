@@ -158,12 +158,10 @@ def docutils_17_compat(monkeypatch) -> None:
 
 # original_run = PyModule.run
 
-
 # def patched_run(self) -> List[docutils.nodes.Node]:
 # 	ret: List[docutils.nodes.Node] = original_run(self)
 # 	if ret and isinstance(ret[-2], docutils.nodes.target):
 # 		ret = [ret[-2], ret[-1], *ret[:-2]]
 # 	return ret
-
 
 # PyModule.run = patched_run
