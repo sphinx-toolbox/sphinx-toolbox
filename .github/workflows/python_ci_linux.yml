@@ -65,7 +65,7 @@ jobs:
           python -VV
           python -m site
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install --upgrade tox virtualenv!=20.16.0
+          python -m pip install --upgrade tox~=3.0 virtualenv!=20.16.0
           python -m pip install --upgrade coverage_pyver_pragma
 
       - name: "Run Tests for Python ${{ matrix.config.python-version }}"
@@ -147,7 +147,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install --upgrade tox
+          python -m pip install --upgrade tox~=3.0
 
       - name: Build distributions 📦
         if: startsWith(github.ref, 'refs/tags/')
