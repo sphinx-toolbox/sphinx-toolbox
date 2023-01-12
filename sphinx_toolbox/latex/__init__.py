@@ -183,13 +183,19 @@ from sphinx.builders.latex import LaTeXBuilder
 from sphinx.domains import Domain
 from sphinx.environment import BuildEnvironment
 from sphinx.locale import __
-from sphinx.util import progress_message
 from sphinx.util.docutils import SphinxDirective, SphinxFileOutput
 from sphinx.util.nodes import process_only_nodes
 from sphinx.writers.latex import LaTeXTranslator, LaTeXWriter
 
 # this package
 from sphinx_toolbox.utils import Config, SphinxExtMetadata, metadata_add_version
+
+try:
+	# 3rd party
+	from sphinx.util.display import progress_message  # type: ignore[import]
+except ImportError:
+	# 3rd party
+	from sphinx.util import progress_message
 
 _ = BuildEnvironment
 

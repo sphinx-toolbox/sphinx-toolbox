@@ -66,8 +66,11 @@ def depart_seealso(translator: LaTeXTranslator, node: addnodes.seealso) -> None:
 	:param node:
 	"""
 
-	# translator.body.append("\\end{description}\n\n")
-	translator.body.append("\n\n")
+	if len(node) > 1:
+		LaTeXTranslator.depart_seealso(translator, node)
+	else:
+		# translator.body.append("\\end{description}\n\n")
+		translator.body.append("\n\n")
 
 
 @metadata_add_version

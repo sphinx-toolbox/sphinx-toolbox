@@ -47,7 +47,12 @@ from sphinx.ext.autodoc import (
 		)
 from sphinx.util import logging
 from sphinx.util.inspect import object_description, safe_getattr
-from sphinx.util.typing import stringify as stringify_typehint
+
+try:
+	# 3rd party
+	from sphinx.util.typing import stringify_annotation as stringify_typehint  # type: ignore[attr-defined]
+except ImportError:
+	from sphinx.util.typing import stringify as stringify_typehint
 
 # this package
 from sphinx_toolbox.more_autodoc import _documenter_add_content

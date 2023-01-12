@@ -14,7 +14,9 @@
 \fi
 %% let collapsable pdf bookmarks panel have high depth per default
 \PassOptionsToPackage{bookmarksdepth=5}{hyperref}<% if sphinx_version >= (5, 3) %>
-<% endif %>
+<% endif %><% if sphinx_version >= (6, 0) %>
+\PassOptionsToPackage{booktabs}{sphinx}
+\PassOptionsToPackage{colorrows}{sphinx}<% endif %>
 <% endif %>
 \PassOptionsToPackage{warn}{textcomp}
 \usepackage[utf8]{inputenc}
