@@ -63,7 +63,7 @@ additional_ignore:
 
 extras_require:
   testing:
-    - pygments>=2.7.4
+    - pygments>=2.7.4,<=2.13.0
     - coincidence>=0.4.3
 
 extra_sphinx_extensions:

@@ -4,7 +4,7 @@ domdf-sphinx-theme>=0.3.0
 extras-require>=0.2.0
 flake8-dunder-all>=0.0.4
 html-section>=0.1.0
-pygments>=2.7.4
+pygments<=2.13.0,>=2.7.4
 pytest>=6.0.0
 pytest-regressions>=2.0.2
 seed-intersphinx-mapping>=0.3.1
