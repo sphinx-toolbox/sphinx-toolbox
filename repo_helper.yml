@@ -23,6 +23,10 @@ conda_channels:
 
 python_versions:
  3.7:
+  matrix_exclude:
+   sphinx:
+    - 6.0
+    - 6.1
  3.8:
  3.9:
  "3.10":
@@ -37,6 +41,8 @@ python_versions:
     - 4.0
     - 4.1
     - 4.2
+    - 6.0
+    - 6.1
  pypy38:
   matrix_exclude:
    sphinx:
