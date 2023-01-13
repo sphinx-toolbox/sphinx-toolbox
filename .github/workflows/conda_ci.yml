@@ -55,7 +55,7 @@ jobs:
 
       - name: "Install package"
         run: |
-          $CONDA/bin/conda install -c file://$(pwd)/conda-bld sphinx-toolbox=3.2.0=py_1 -y || exit 1
+          $CONDA/bin/conda install -c file://$(pwd)/conda-bld sphinx-toolbox=3.3.0=py_1 -y || exit 1
 
       - name: "Run Tests"
         run: |

@@ -2,7 +2,17 @@
 Changelog
 ===============
 
-3.2.0 (Unreleased)
+3.3.0
+----------------------
+
+``sphinx-toolbox`` is now compatible with Sphinx 6.x
+
+Bugs Fixed
+^^^^^^^^^^^
+
+* :mod:`sphinx_toolbox.github.issues` -- GitHub made a change to the page structure which broke the issue title parsing.
+
+3.2.0
 ----------------------
 
 ``sphinx-toolbox`` is now compatible with Sphinx 5.x and docutils 0.18.
