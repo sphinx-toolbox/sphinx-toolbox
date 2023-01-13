@@ -325,7 +325,12 @@ def get_issue_title(issue_url: str) -> Optional[str]:
 
 	if r.status_code == 200:
 		soup = BeautifulSoup(r.content, "html5lib")
-		content = soup.find_all("span", attrs={"class": "js-issue-title"})[0].text
+		try:
+			content = soup.find_all("span", attrs={"class": "js-issue-title"})[0].text
+		except IndexError:
+			# As of 13 Jan 2023 GitHub seems to use a bidirectional text tag instead
+			content = soup.find_all("bdi", attrs={"class": "js-issue-title"})[0].text
+
 		content = xml.sax.saxutils.escape(content).replace('"', "&quot;")
 		return content.strip()
 
