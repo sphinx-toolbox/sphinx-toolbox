@@ -145,6 +145,7 @@ __all__ = (
 		"InstanceAttributeDocumenter",
 		"SlotsAttributeDocumenter",
 		"type_template",
+		"old_type_template",
 		"get_variable_type",
 		"setup",
 		)
@@ -198,9 +199,9 @@ def get_variable_type(documenter: Documenter) -> str:
 			return ''
 
 
-type_template = "   **Type:** |nbsp| |nbsp| |nbsp| |nbsp| %s"
+old_type_template = "   **Type:** |nbsp| |nbsp| |nbsp| |nbsp| %s"
 """
-Template for rendering type annotations in :class:`~.VariableDocumenter`,
+Old template for rendering type annotations in :class:`~.VariableDocumenter`,
 :class:`~.TypedAttributeDocumenter` and :class:`~.InstanceAttributeDocumenter`.
 
 Renders like:
@@ -211,6 +212,22 @@ Renders like:
 
 	Be sure to call :func:~.add_nbsp_substitution` in the ``setup`` function
 	of any extensions using this template.
+"""
+
+type_template = "   **Type:**    %s"
+"""
+Template for rendering type annotations in :class:`~.VariableDocumenter`,
+:class:`~.TypedAttributeDocumenter` and :class:`~.InstanceAttributeDocumenter`.
+
+Renders like:
+
+	**Type:** \u00A0\u00A0\u00A0\u00A0 :class:`str`
+
+.. versionchanged:: 3.4.0
+
+	This template now uses the unicode codepoint for a non-breaking space,
+	rather than the ReStructuredText substitution used in 3.3.0 and earlier.
+	The old template is available as ``old_type_template``.
 """
 
 
