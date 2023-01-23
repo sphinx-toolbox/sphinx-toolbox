@@ -398,7 +398,8 @@ class NamedTupleDocumenter(ClassDocumenter):
 
 			self.add_line(f"{a_tab}.. namedtuple-field:: {field}", sourcename)
 			self.add_line('', sourcename)
-			field_entry = [f"{a_tab}{pos})", "|nbsp|", f"**{field}**"]
+			# field_entry = [f"{a_tab}{pos})", "|nbsp|", f"**{field}**"]
+			field_entry = [f"{a_tab}{pos}) \u00A0**{field}**"]
 			if arg_type:
 				field_entry.append(f"({arg_type}\\)")
 			field_entry.append("--")

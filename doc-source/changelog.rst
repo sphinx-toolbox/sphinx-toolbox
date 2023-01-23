@@ -2,6 +2,18 @@
 Changelog
 ===============
 
+3.4.0
+----------------------
+
+
+* Renamed :py:obj:`sphinx_toolbox.more_autodoc.variables.type_template`
+  to :py:obj:`sphinx_toolbox.more_autodoc.variables.old_type_template`
+  and replaced the original with a version using unicode codepoints
+  instead of reST substitutions.
+
+* On non-ReStructuredText parsers :mod:`sphinx_toolbox.more_autodoc.variables`
+  and :mod:`sphinx_toolbox.more_autodoc.autonamedtuple` no longer output spurrious ``|nbsp|``.
+
 3.3.0
 ----------------------
 
