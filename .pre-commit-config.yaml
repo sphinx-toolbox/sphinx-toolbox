@@ -54,7 +54,7 @@ repos:
     - id: flake2lint
 
  - repo: https://github.com/pre-commit/pygrep-hooks
-   rev: v1.9.0
+   rev: v1.10.0
    hooks:
     - id: python-no-eval
     - id: rst-backticks
@@ -70,7 +70,7 @@ repos:
        - --keep-runtime-typing
 
  - repo: https://github.com/Lucas-C/pre-commit-hooks
-   rev: v1.3.1
+   rev: v1.5.1
    hooks:
     - id: remove-crlf
     - id: forbid-crlf
@@ -87,7 +87,7 @@ repos:
       exclude: ^(doc-source/conf|__pkginfo__|setup)\.(_)?py$
 
  - repo: https://github.com/domdfcoding/dep_checker
-   rev: v0.7.0
+   rev: v0.7.1
    hooks:
     - id: dep_checker
       args:
