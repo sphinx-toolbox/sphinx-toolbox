@@ -27,6 +27,8 @@ python_versions:
    sphinx:
     - 6.0
     - 6.1
+    - 6.2
+    - latest
  3.8:
  3.9:
  "3.10":
@@ -43,6 +45,8 @@ python_versions:
     - 4.2
     - 6.0
     - 6.1
+    - 6.2
+    - latest
  pypy38:
   matrix_exclude:
    sphinx:
@@ -118,7 +122,8 @@ third_party_version_matrix:
     - 5.3
     - 6.0
     - 6.1
-#    - latest
+    - 6.2
+    # - latest
 
 classifiers:
  - 'Development Status :: 5 - Production/Stable'
