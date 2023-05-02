@@ -2,7 +2,7 @@
 <%- set hline = "\\sphinxhline" if sphinx_version >= (5, 3) else "\\hline" -%>
 <%- set par = "\\sphinxtableafterendhook\\par" if sphinx_version >= (5, 3) else "\\par" -%>
 <%- set sphinxparam = "sphinxparam" if sphinx_version >= (6, 2) else "emph" -%>
-
+<%- set du_role_2nd_n = ",n" if sphinx_version >= (6, 2) else "" -%>
 <# Latest Sphinx removed vertical rules from csv-table. Inconsequential for us #>
 <%- set regex_columns = "TT" if sphinx_version >= (6, 0) else "|T|T|" -%>
 
@@ -919,7 +919,7 @@ Check this out on GitHub
 
 
 
-<% if sphinx_version >= (6, 1) %>\begin{sphinxseealso}{See also}<% else %>\sphinxstrong{See also:}
+<% if sphinx_version >= (6, 2) %>\begin{sphinxseealso}{See also:}<% elif sphinx_version >= (6, 1) %>\begin{sphinxseealso}{See also}<% else %>\sphinxstrong{See also:}
 <% if sphinx_version >= (3, 4) %>\nopagebreak
 <% endif %><% endif %>
 
@@ -1374,7 +1374,7 @@ Added support for \sphinxhref{https://github.com/Chilipp/autodocsumm}{autodocsum
 <%- if sphinx_version > (4, 5) %>
 \pysigstartsignatures
 <% endif -%>
-\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{foo}}}{\<<sphinxparam>>{\DUrole{n}{bar}}, \<<sphinxparam>>{\DUrole{n}{baz}}}{}<< tilde >>
+\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{foo}}}{\<<sphinxparam>>{\DUrole{n<< du_role_2nd_n >>}{bar}}, \<<sphinxparam>>{\DUrole{n<< du_role_2nd_n >>}{baz}}}{}<< tilde >>
 <%- if sphinx_version > (4, 5) %>
 \pysigstopsignatures
 <%- endif -%>
