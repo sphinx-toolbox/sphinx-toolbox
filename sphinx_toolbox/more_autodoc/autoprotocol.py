@@ -212,6 +212,7 @@ class ProtocolDocumenter(ClassDocumenter):
 			"__abstractmethods__",
 			"__class_getitem__",
 			"__init_subclass__",
+			"__protocol_attrs__",
 			}
 
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:

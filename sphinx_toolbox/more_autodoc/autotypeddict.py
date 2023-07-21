@@ -219,6 +219,38 @@ class TypedDictDocumenter(ClassDocumenter):
 
 		return ''
 
+	def add_directive_header(self, sig: str) -> None:
+		"""
+		Add the directive header.
+
+		:param sig:
+		"""
+
+		sourcename = self.get_sourcename()
+
+		if self.doc_as_attr:
+			self.directivetype = "attribute"
+
+		Documenter.add_directive_header(self, sig)
+
+		if self.analyzer and '.'.join(self.objpath) in self.analyzer.finals:
+			self.add_line("   :final:", sourcename)
+
+		# add inheritance info, if wanted
+		if not self.doc_as_attr and self.options.show_inheritance:
+			self.add_line('', sourcename)
+
+			if hasattr(self.object, "__orig_bases__") and len(self.object.__orig_bases__):
+				# A subclass of generic types
+				# refs: PEP-560 <https://www.python.org/dev/peps/pep-0560/>
+				bases = [format_annotation(cls) for cls in self.object.__orig_bases__]
+				self.add_line("   " + _("Bases: %s") % ", ".join(bases), sourcename)
+			elif hasattr(self.object, "__bases__") and len(self.object.__bases__):
+				# A normal class
+				bases = [format_annotation(cls) for cls in self.object.__bases__]
+				self.add_line("   " + _("Bases: %s") % ", ".join(bases), sourcename)
+			self.add_line('', sourcename)
+
 	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
 		"""
 		Add the autodocumenter content.
