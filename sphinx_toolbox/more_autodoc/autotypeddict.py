@@ -240,15 +240,27 @@ class TypedDictDocumenter(ClassDocumenter):
 		if not self.doc_as_attr and self.options.show_inheritance:
 			self.add_line('', sourcename)
 
-			if hasattr(self.object, "__orig_bases__") and len(self.object.__orig_bases__):
-				# A subclass of generic types
-				# refs: PEP-560 <https://www.python.org/dev/peps/pep-0560/>
-				bases = [format_annotation(cls) for cls in self.object.__orig_bases__]
-				self.add_line("   " + _("Bases: %s") % ", ".join(bases), sourcename)
-			elif hasattr(self.object, "__bases__") and len(self.object.__bases__):
-				# A normal class
-				bases = [format_annotation(cls) for cls in self.object.__bases__]
-				self.add_line("   " + _("Bases: %s") % ", ".join(bases), sourcename)
+			def get_bases(obj: Type) -> List[Type]:
+				bases: Tuple[Type, ...] = ()
+				if hasattr(obj, "__orig_bases__") and len(obj.__orig_bases__):
+					# A subclass of generic types
+					# refs: PEP-560 <https://www.python.org/dev/peps/pep-0560/>
+					bases = obj.__orig_bases__
+				elif hasattr(obj, "__bases__") and len(obj.__bases__):
+					# A normal class
+					bases = obj.__bases__
+
+				output = []
+				for base in bases:
+					if base.__name__.startswith('_'):
+						output.extend(get_bases(base))
+					else:
+						output.append(base)
+
+				return output
+
+			bases = [format_annotation(cls) for cls in get_bases(self.object)]
+			self.add_line("   " + _("Bases: %s") % ", ".join(bases), sourcename)
 			self.add_line('', sourcename)
 
 	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
