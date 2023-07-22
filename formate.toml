@@ -47,6 +47,7 @@ known_third_party = [
     "docutils",
     "docutils_stubs",
     "domdf_python_tools",
+    "filelock",
     "flake8_dunder_all",
     "github",
     "html5lib",
