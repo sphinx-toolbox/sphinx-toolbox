@@ -9,8 +9,14 @@ formats:
  - pdf
  - htmlzip
 python:
-  version: 3.8
   install:
    - requirements: requirements.txt
    - requirements: doc-source/requirements.txt
    - requirements: doc-source/rtd-extra-deps.txt
+build:
+  os: ubuntu-20.04
+  tools:
+    python: '3.9'
+  jobs:
+    post_create_environment:
+     - pip install .[all]
