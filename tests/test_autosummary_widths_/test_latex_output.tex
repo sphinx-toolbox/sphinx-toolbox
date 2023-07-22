@@ -160,7 +160,7 @@ printable \textendash{} a string containing all ASCII characters considered prin
   \LTleft \@totalleftmargin plus1fill
   \LTright\dimexpr\columnwidth-\@totalleftmargin-\linewidth\relax plus1fill
 \makeatother
-\begin{longtable}{\Xx{3}{10}\Xx{7}{10}}<% else %>\begin{longtable}[c]{\Xx{3}{10}\Xx{7}{10}}<% endif %><% if sphinx_version >= (5, 3) %>
+\begin{longtable}{\Xx{3}{10}\Xx{7}{10}}<% elif sphinx_version >= (5, 3) %>\begin{longtable}[c]{\Xx{3}{10}\Xx{7}{10}}<% else %>\sphinxatlongtablestart\begin{longtable}[c]{\Xx{3}{10}\Xx{7}{10}}<% endif %><% if sphinx_version >= (5, 3) %>
 \sphinxtoprule
 <% else %>
 \hline
