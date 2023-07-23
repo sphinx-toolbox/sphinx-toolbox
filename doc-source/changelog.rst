@@ -2,6 +2,13 @@
 Changelog
 ===============
 
+3.5.0
+----------------------
+
+* Increase minimum ``cachecontrol`` version to ``0.13.0``
+* Private base classes are hidden with :rst:dir:`autotypeddict`
+
+
 3.4.0
 ----------------------
 
