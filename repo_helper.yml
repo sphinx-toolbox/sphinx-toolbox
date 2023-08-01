@@ -123,6 +123,7 @@ third_party_version_matrix:
     - 6.0
     - 6.1
     - 6.2
+    - 7.0
     # - latest
 
 classifiers:

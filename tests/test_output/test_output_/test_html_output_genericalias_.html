@@ -11,7 +11,7 @@
   <title>
    sphinx-toolbox Demo - Genericalias — Python  documentation
   </title>
-  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js">
+  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js{% if sphinx_version >= (7, 0) %}?v=b3ba4146{% endif %}">
   </script>{% if sphinx_version < (6, 0) %}
   <script src="_static/jquery.js">
   </script>
@@ -19,9 +19,9 @@
   </script>{% if sphinx_version >= (5, 0) %}
   <script src="_static/_sphinx_javascript_frameworks_compat.js">
   </script>{% endif %}{% endif %}
-  <script src="_static/doctools.js">
+  <script src="_static/doctools.js{% if sphinx_version >= (7, 0) %}?v=888ff710{% endif %}">
   </script>{% if sphinx_version >= (5, 2) %}
-  <script src="_static/sphinx_highlight.js">
+  <script src="_static/sphinx_highlight.js{% if sphinx_version >= (7, 0) %}?v=4825356b{% endif %}">
   </script>{% endif %}
   <script src="_static/sphinx_toolbox_installation.js">
   </script>
