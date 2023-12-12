@@ -11,7 +11,7 @@ The changes are:
   If `intersphinx <https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html>`_
   is used this will now be a link to the Python documentation.
 
-  Since :github:pull:`154 <agronholm/sphinx-autodoc-typehints>` this feature is now available upstream.
+  Since :github:pull:`154 <tox-dev/sphinx-autodoc-typehints>` this feature is now available upstream.
 
 * If the signature of the object cannot be read, the signature provided by Sphinx will be used
   rather than raising an error.
