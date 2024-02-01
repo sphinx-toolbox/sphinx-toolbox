@@ -192,10 +192,10 @@ __all__ = (
 		"setup",
 		)
 
-try:
+if sphinx.version_info < (3, 5):
 	# 3rd party
 	from sphinx.ext.autodoc.importer import get_module_members as _get_module_members  # type: ignore[attr-defined]
-except ImportError:
+else:
 	# 3rd party
 	from sphinx.util.inspect import getannotations
 
