@@ -300,8 +300,8 @@
       </p>
       <table class="{% if sphinx_version > (4, 5) %}autosummary {% endif %}longtable docutils align-default">
        <colgroup>
-        <col style="width: 10%"/>
-        <col style="width: 90%"/>
+        <col style="width: 10{% if docutils_version >= (0, 19) %}.0{% endif %}%"/>
+        <col style="width: 90{% if docutils_version >= (0, 19) %}.0{% endif %}%"/>
        </colgroup>
        <tbody>
         <tr class="row-odd">

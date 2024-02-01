@@ -607,7 +607,7 @@ edge of the display, while still presenting them in the source code
 in indented form.
 
 Note that tabs and spaces are both treated as whitespace, but they
-are not equal: the lines ”  hello” and “thello” are
+are not equal: the lines << '”' if docutils_version < (0, 19) else '“' >>  hello” and “thello” are
 considered to have no common leading whitespace.
 
 Entirely blank lines are normalized to a newline character.
