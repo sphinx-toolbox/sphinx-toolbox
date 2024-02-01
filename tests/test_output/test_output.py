@@ -16,7 +16,7 @@ from coincidence.params import param
 from coincidence.regressions import AdvancedFileRegressionFixture
 from coincidence.selectors import min_version
 from docutils import nodes
-from domdf_python_tools.paths import PathPlus, in_directory
+from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from domdf_python_tools.typing import PathLike
 from jinja2 import Template
@@ -34,13 +34,14 @@ from sphinx_toolbox.testing import (
 from sphinx_toolbox.utils import Config
 
 
-def test_build_example(testing_app: Sphinx):
-	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
+@pytest.mark.usefixtures("pre_commit_hooks")
+def test_build_example(testing_app: Sphinx, tmp_pathplus: PathPlus, pre_commit_flake8_contextmanager):
+	with pre_commit_flake8_contextmanager():
 		testing_app.build()
 		testing_app.build()
 
 
-@pytest.mark.usefixtures("docutils_17_compat")
+@pytest.mark.usefixtures("docutils_17_compat", "pre_commit_hooks")
 @pytest.mark.parametrize("page", ["example.html"], indirect=True)
 def test_example_html_output(page: BeautifulSoup):
 	# Make sure the page title is what you expect
@@ -130,25 +131,18 @@ pages_to_check: List[ParameterSet] = [
 		]
 
 
-@pytest.mark.usefixtures("docutils_17_compat")
-def test_html_output(testing_app: Sphinx, html_regression: HTMLRegressionFixture, tmp_pathplus: PathPlus):
+@pytest.mark.usefixtures("docutils_17_compat", "pre_commit_hooks")
+def test_html_output(
+		testing_app: Sphinx,
+		html_regression: HTMLRegressionFixture,
+		tmp_pathplus: PathPlus,
+		pre_commit_flake8_contextmanager
+		):
 	"""
 	Parametrize new files here rather than as their own function.
 	"""
 
-	(tmp_pathplus / ".pre-commit-hooks.yaml").write_text(
-			"""
--   id: flake2lint
-    name: Flake8 -> PyLint
-    description: Augment Flake8 noqa comments with PyLint comments.
-    entry: flake2lint
-    language: python
-    types_or: [python, pyi]
-
-"""
-			)
-
-	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"), in_directory(tmp_pathplus):
+	with pre_commit_flake8_contextmanager():
 		testing_app.build(force_all=True)
 
 	caught_exceptions: List[BaseException] = []
@@ -187,10 +181,12 @@ def test_html_output(testing_app: Sphinx, html_regression: HTMLRegressionFixture
 		raise exception
 
 
+@pytest.mark.usefixtures("pre_commit_hooks")
 def test_sidebar_links_output(
 		testing_app: Sphinx,
 		advanced_file_regression: AdvancedFileRegressionFixture,
 		monkeypatch,
+		pre_commit_flake8_contextmanager
 		):
 
 	def visit_caption(self, node: nodes.Node) -> None:
@@ -207,7 +203,7 @@ def test_sidebar_links_output(
 	monkeypatch.setattr(sphinx.writers.html5.HTML5Translator, "visit_caption", visit_caption)
 	monkeypatch.setattr(sphinx.writers.html5.HTML5Translator, "depart_caption", depart_caption)
 
-	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
+	with pre_commit_flake8_contextmanager():
 		testing_app.build(force_all=True)
 
 	content = (PathPlus(testing_app.outdir) / "index.html").read_text()
@@ -242,21 +238,31 @@ def test_sidebar_links_output(
 			)
 
 
+@pytest.mark.usefixtures("pre_commit_hooks")
 @pytest.mark.sphinx("latex", srcdir="test-root")
-def test_latex_output(app: Sphinx, latex_regression: LaTeXRegressionFixture):
+def test_latex_output(
+		app: Sphinx,
+		latex_regression: LaTeXRegressionFixture,
+		pre_commit_flake8_contextmanager,
+		):
 
 	assert app.builder is not None
 	assert app.builder.name.lower() == "latex"
 
-	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
+	with pre_commit_flake8_contextmanager():
 		app.build()
 
 	output_file = PathPlus(app.outdir) / "python.tex"
 	latex_regression.check(StringList(output_file.read_lines()), jinja2=True)
 
 
+@pytest.mark.usefixtures("pre_commit_hooks")
 @pytest.mark.sphinx("latex", srcdir="test-root")
-def test_latex_output_latex_layout(app: Sphinx, latex_regression: LaTeXRegressionFixture):
+def test_latex_output_latex_layout(
+		app: Sphinx,
+		latex_regression: LaTeXRegressionFixture,
+		pre_commit_flake8_contextmanager,
+		):
 
 	assert app.builder is not None
 	assert app.builder.name.lower() == "latex"
@@ -265,15 +271,20 @@ def test_latex_output_latex_layout(app: Sphinx, latex_regression: LaTeXRegressio
 	app.config.needspace_amount = r"4\baselineskip"  # type: ignore[attr-defined]
 	app.events.emit("config-inited", app.config)
 
-	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')") as w:
+	with pre_commit_flake8_contextmanager():
 		app.build(force_all=True)
 
 	output_file = PathPlus(app.outdir) / "python.tex"
 	latex_regression.check(StringList(output_file.read_lines()), jinja2=True)
 
 
+@pytest.mark.usefixtures("pre_commit_hooks")
 @pytest.mark.sphinx("latex", srcdir="test-root")
-def test_latex_output_better_header_layout(app: Sphinx, latex_regression: LaTeXRegressionFixture):
+def test_latex_output_better_header_layout(
+		app: Sphinx,
+		latex_regression: LaTeXRegressionFixture,
+		pre_commit_flake8_contextmanager,
+		):
 
 	assert app.builder is not None
 	assert app.builder.name.lower() == "latex"
@@ -281,21 +292,26 @@ def test_latex_output_better_header_layout(app: Sphinx, latex_regression: LaTeXR
 	better_header_layout(cast(Config, app.config), 9, 19)
 	app.builder.context.update(app.config.latex_elements)  # type: ignore[attr-defined]
 
-	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
+	with pre_commit_flake8_contextmanager():
 		app.build(force_all=True)
 
 	output_file = PathPlus(app.outdir) / "python.tex"
 	latex_regression.check(StringList(output_file.read_lines()), jinja2=True)
 
 
+@pytest.mark.usefixtures("pre_commit_hooks")
 @pytest.mark.sphinx("latex", srcdir="test-root")
-def test_latex_output_autosummary_col_type(app: Sphinx, latex_regression: LaTeXRegressionFixture):
+def test_latex_output_autosummary_col_type(
+		app: Sphinx,
+		latex_regression: LaTeXRegressionFixture,
+		pre_commit_flake8_contextmanager,
+		):
 
 	assert app.builder is not None
 	assert app.builder.name.lower() == "latex"
 	app.config.autosummary_col_type = r"\Y"  # type: ignore[attr-defined]
 
-	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
+	with pre_commit_flake8_contextmanager():
 		app.build()
 
 	output_file = PathPlus(app.outdir) / "python.tex"

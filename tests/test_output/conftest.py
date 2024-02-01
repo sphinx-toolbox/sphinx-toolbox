@@ -27,12 +27,13 @@
 #
 
 # stdlib
+from contextlib import contextmanager
 from typing import Any, Dict, Sequence, Tuple
 
 # 3rd party
 import pytest
 from bs4 import BeautifulSoup  # type: ignore[import]
-from domdf_python_tools.paths import PathPlus
+from domdf_python_tools.paths import PathPlus, in_directory
 from sphinx.application import Sphinx
 from sphinx.testing.fixtures import app as testing_app
 from sphinx.testing.fixtures import make_app, shared_result, sphinx_test_tempdir, test_params
@@ -42,6 +43,32 @@ from sphinx.testing.path import path
 from tests.common import AppParams
 
 fixtures = [make_app, shared_result, sphinx_test_tempdir, test_params, testing_app]
+
+
+@pytest.fixture()
+def pre_commit_hooks(tmp_pathplus: PathPlus):
+	(tmp_pathplus / ".pre-commit-hooks.yaml").write_text(
+			"""
+-   id: flake2lint
+    name: Flake8 -> PyLint
+    description: Augment Flake8 noqa comments with PyLint comments.
+    entry: flake2lint
+    language: python
+    types_or: [python, pyi]
+
+"""
+			)
+
+
+@pytest.fixture()
+def pre_commit_flake8_contextmanager(tmp_pathplus, pre_commit_hooks):
+
+	@contextmanager
+	def cm():
+		with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"), in_directory(tmp_pathplus):
+			yield
+
+	return cm
 
 
 @pytest.fixture(scope="session")
@@ -92,8 +119,8 @@ def app_params(
 
 
 @pytest.fixture()
-def page(testing_app: Sphinx, request) -> BeautifulSoup:
-	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"):
+def page(testing_app: Sphinx, request, tmp_pathplus: PathPlus) -> BeautifulSoup:
+	with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"), in_directory(tmp_pathplus):
 		testing_app.build(force_all=True)
 
 	pagename = request.param
