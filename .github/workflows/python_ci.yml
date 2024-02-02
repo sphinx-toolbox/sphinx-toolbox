@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: "actions/checkout@v3"
+        uses: "actions/checkout@v4"
 
       - name: Check for changed files
         if: startsWith(github.ref, 'refs/tags/') != true
@@ -56,7 +56,7 @@ jobs:
       - name: Setup Python 🐍
         id: setup-python
         if: ${{ steps.changes.outputs.code == 'true' || steps.changes.outcome == 'skipped' }}
-        uses: "actions/setup-python@v4"
+        uses: "actions/setup-python@v5"
         with:
           python-version: "${{ matrix.config.python-version }}"
 
