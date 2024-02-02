@@ -98,4 +98,10 @@ def github_source_page(gh_src_app: Sphinx, request) -> BeautifulSoup:
 	pagename = request.param
 	c = (gh_src_app.outdir / pagename).read_text()
 
-	yield BeautifulSoup(c, "html5lib")
+	soup = BeautifulSoup(c, "html5lib")
+
+	for meta in soup.find_all("meta"):
+		if meta.get("content", '') == "width=device-width, initial-scale=0.9, maximum-scale=0.9":
+			meta.extract()
+
+	return soup

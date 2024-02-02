@@ -113,9 +113,16 @@ def test_html_output(gh_src_app: Sphinx, html_regression: HTMLRegressionFixture)
 			print(f"Checking output for {page_id}")
 			page_id = page_id.replace('.', '_').replace('-', '_')
 			content = (PathPlus(gh_src_app.outdir) / pagename).read_text()
+
+			soup = BeautifulSoup(content, "html5lib")
+
+			for meta in soup.find_all("meta"):
+				if meta.get("content", '') == "width=device-width, initial-scale=0.9, maximum-scale=0.9":
+					meta.extract()
+
 			try:
 				html_regression.check(
-						BeautifulSoup(content, "html5lib"),
+						soup,
 						extension=f"_{page_id}_.html",
 						jinja2=True,
 						)

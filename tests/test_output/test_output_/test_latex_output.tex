@@ -2,7 +2,7 @@
 <%- set hline = "\\sphinxhline" if sphinx_version >= (5, 3) else "\\hline" -%>
 <%- set par = "\\sphinxtableafterendhook\\par" if sphinx_version >= (5, 3) else "\\par" -%>
 <%- set sphinxparam = "sphinxparam" if sphinx_version >= (6, 2) else "emph" -%>
-<%- if sphinx_version >= (7, 0) -%>
+<%- if sphinx_version >= (7, 1) -%>
 <%- set sphinxparamcomma = "\\sphinxparamcomma \\sphinxparam" -%>
 <%- elif sphinx_version >= (6, 2) -%>
 <%- set sphinxparamcomma = ", \\sphinxparam" -%>

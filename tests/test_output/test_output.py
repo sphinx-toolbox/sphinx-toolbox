@@ -164,12 +164,15 @@ def test_html_output(
 			print(f"Checking output for {page_id}")
 			page_id = page_id.replace('.', '_').replace('-', '_')
 			content = (PathPlus(testing_app.outdir) / pagename).read_text()
+
+			soup = BeautifulSoup(content, "html5lib")
+
+			for meta in soup.find_all("meta"):
+				if meta.get("content", '') == "width=device-width, initial-scale=0.9, maximum-scale=0.9":
+					meta.extract()
+
 			try:
-				html_regression.check(
-						BeautifulSoup(content, "html5lib"),
-						extension=f"_{page_id}_.html",
-						jinja2=True,
-						)
+				html_regression.check(soup, extension=f"_{page_id}_.html", jinja2=True)
 			except BaseException as e:
 				caught_exceptions.append(e)
 
@@ -209,6 +212,11 @@ def test_sidebar_links_output(
 	content = (PathPlus(testing_app.outdir) / "index.html").read_text()
 
 	page = BeautifulSoup(content, "html5lib")
+
+	for meta in page.find_all("meta"):
+		if meta.get("content", '') == "width=device-width, initial-scale=0.9, maximum-scale=0.9":
+			meta.extract()
+
 	page = remove_html_footer(page)
 	page = remove_html_link_tags(page)
 
