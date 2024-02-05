@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: "actions/checkout@v3"
+        uses: "actions/checkout@v4"
 
       - name: Check for changed files
         if: startsWith(github.ref, 'refs/tags/') != true
@@ -57,7 +57,7 @@ jobs:
       - name: Setup Python 🐍
         id: setup-python
         if: ${{ steps.changes.outputs.code == 'true' || steps.changes.outcome == 'skipped' }}
-        uses: "actions/setup-python@v4"
+        uses: "actions/setup-python@v5"
         with:
           python-version: "${{ matrix.config.python-version }}"
 
@@ -87,10 +87,10 @@ jobs:
     runs-on: "ubuntu-20.04"
     steps:
       - name: Checkout 🛎️
-        uses: "actions/checkout@v3"
+        uses: "actions/checkout@v4"
 
       - name: Setup Python 🐍
-        uses: "actions/setup-python@v4"
+        uses: "actions/setup-python@v5"
         with:
           python-version: 3.8
 
@@ -136,11 +136,11 @@ jobs:
     runs-on: "ubuntu-20.04"
     steps:
       - name: Checkout 🛎️
-        uses: "actions/checkout@v3"
+        uses: "actions/checkout@v4"
         if: startsWith(github.ref, 'refs/tags/')
 
       - name: Setup Python 🐍
-        uses: "actions/setup-python@v4"
+        uses: "actions/setup-python@v5"
         if: startsWith(github.ref, 'refs/tags/')
         with:
           python-version: 3.8
@@ -181,10 +181,10 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/') || (startsWith(github.event.head_commit.message, 'Bump version') != true)
     steps:
       - name: Checkout 🛎️
-        uses: "actions/checkout@v3"
+        uses: "actions/checkout@v4"
 
       - name: Setup Python 🐍
-        uses: "actions/setup-python@v4"
+        uses: "actions/setup-python@v5"
         with:
           python-version: 3.8
 
@@ -192,7 +192,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: env
-          conda-build-version: 3.23.3
+          conda-build-version: 3.28.4
           python-version: "3.8"
           miniforge-variant: Mambaforge
 

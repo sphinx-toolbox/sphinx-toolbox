@@ -8,7 +8,7 @@ ci:
 
 repos:
  - repo: https://github.com/repo-helper/pyproject-parser
-   rev: v0.9.0
+   rev: v0.9.1
    hooks:
     - id: reformat-pyproject
 
@@ -43,13 +43,13 @@ repos:
     - id: bind-requirements
 
  - repo: https://github.com/domdfcoding/flake8-dunder-all
-   rev: v0.3.0
+   rev: v0.3.1
    hooks:
     - id: ensure-dunder-all
       files: ^sphinx_toolbox/.*\.py$
 
  - repo: https://github.com/domdfcoding/flake2lint
-   rev: v0.4.2
+   rev: v0.4.3
    hooks:
     - id: flake2lint
 
@@ -76,18 +76,18 @@ repos:
     - id: forbid-crlf
 
  - repo: https://github.com/python-formate/snippet-fmt
-   rev: v0.1.4
+   rev: v0.1.5
    hooks:
     - id: snippet-fmt
 
  - repo: https://github.com/python-formate/formate
-   rev: v0.5.0
+   rev: v0.7.0
    hooks:
     - id: formate
       exclude: ^(doc-source/conf|__pkginfo__|setup)\.(_)?py$
 
  - repo: https://github.com/domdfcoding/dep_checker
-   rev: v0.7.1
+   rev: v0.8.0
    hooks:
     - id: dep_checker
       args:
