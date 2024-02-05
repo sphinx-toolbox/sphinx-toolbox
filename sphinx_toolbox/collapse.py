@@ -4,7 +4,7 @@
 r"""
 Adds a collapsible section to an HTML page using a details_ element.
 
-.. _details: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details>
+.. _details: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
 
 .. versionadded:: 2.5.0
 .. extensions:: sphinx_toolbox.collapse
@@ -17,7 +17,7 @@ Usage
 
 	Adds a collapsible section to an HTML page using a details_ element.
 
-	.. _details: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details>
+	.. _details: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
 
 	With non-HTML builders, the content will be added as-is.
 
@@ -104,7 +104,7 @@ class CollapseDirective(SphinxDirective):
 	r"""
 	A Sphinx directive to add a collapsible section to an HTML page using a details_ element.
 
-	.. _details: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details>
+	.. _details: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
 	"""
 
 	final_argument_whitespace: bool = True
