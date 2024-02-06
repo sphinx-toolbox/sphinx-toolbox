@@ -213,6 +213,7 @@ class ProtocolDocumenter(ClassDocumenter):
 			"__class_getitem__",
 			"__init_subclass__",
 			"__protocol_attrs__",
+			"__non_callable_proto_members__",  # Python 3.13 and above
 			}
 
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
