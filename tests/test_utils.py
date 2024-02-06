@@ -2,6 +2,7 @@
 import collections
 import inspect
 import string
+import sys
 from typing import List, NamedTuple
 
 # 3rd party
@@ -136,6 +137,10 @@ def test_code_repr(value: str, expected: str):
 	assert code_repr(value) == expected
 
 
+@pytest.mark.xfail(
+		sys.version_info >= (3, 13),
+		reason="Tabs are now converted into 8 spaces unconditionally (see python/cpython#81283)"
+		)
 def test_parse_parameters():
 	docstring = inspect.cleandoc((parse_parameters.__doc__ or '').expandtabs(4))
 
