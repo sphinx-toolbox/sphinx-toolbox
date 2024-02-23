@@ -78,4 +78,4 @@ known_third_party = [
     "typing_extensions",
     "typing_inspect",
 ]
-known_first_party = "sphinx_toolbox"
+known_first_party = [ "sphinx_toolbox",]
