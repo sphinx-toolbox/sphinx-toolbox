@@ -10,13 +10,12 @@ readme = "README.rst"
 keywords = [ "documentation", "sphinx", "sphinx-extension",]
 dynamic = [ "requires-python", "classifiers", "dependencies",]
 
+[project.license]
+file = "LICENSE"
+
 [[project.authors]]
 name = "Dominic Davis-Foster"
 email = "dominic@davis-foster.co.uk"
-
-
-[project.license]
-file = "LICENSE"
 
 [project.urls]
 Homepage = "https://github.com/sphinx-toolbox/sphinx-toolbox"
@@ -49,6 +48,10 @@ package = "sphinx_toolbox"
 [tool.dep_checker]
 allowed_unused = [ "html5lib", "sphinx_prompt", "sphinx_tabs", "filelock", "cachecontrol", "sphinx_jinja2_compat",]
 namespace_packages = [ "ruamel.yaml",]
+
+[tool.dep_checker.name_mapping]
+beautifulsoup4 = "bs4"
+ruamel-yaml = "ruamel.yaml"
 
 [tool.mkrecipe]
 conda-channels = [ "conda-forge", "domdfcoding",]
@@ -153,9 +156,15 @@ show_error_codes = true
 [tool.snippet-fmt]
 directives = [ "code-block",]
 
-[tool.dep_checker.name_mapping]
-beautifulsoup4 = "bs4"
-ruamel-yaml = "ruamel.yaml"
+[tool.snippet-fmt.languages.python]
+reformat = true
+
+[tool.snippet-fmt.languages.TOML]
+reformat = true
+
+[tool.snippet-fmt.languages.ini]
+
+[tool.snippet-fmt.languages.json]
 
 [tool.dependency-dash."requirements.txt"]
 order = 10
@@ -167,13 +176,3 @@ include = false
 [tool.dependency-dash."doc-source/requirements.txt"]
 order = 30
 include = false
-
-[tool.snippet-fmt.languages.python]
-reformat = true
-
-[tool.snippet-fmt.languages.TOML]
-reformat = true
-
-[tool.snippet-fmt.languages.ini]
-
-[tool.snippet-fmt.languages.json]
