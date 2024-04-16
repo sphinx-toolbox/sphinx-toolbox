@@ -73,8 +73,14 @@ latex_elements = {
 def setup(app):
 	# 3rd party
 	from sphinx_toolbox.latex import better_header_layout
+	from sphinxemoji import sphinxemoji
 
 	app.connect("config-inited", lambda app, config: better_header_layout(config))
+	app.connect("build-finished", sphinxemoji.copy_asset_files)
+	app.add_js_file("https://unpkg.com/twemoji@latest/dist/twemoji.min.js")
+	app.add_js_file("twemoji.js")
+	app.add_css_file("twemoji.css")
+	app.add_transform(sphinxemoji.EmojiSubstitutions)
 
 
 html_logo = "../sphinx_toolbox.png"
