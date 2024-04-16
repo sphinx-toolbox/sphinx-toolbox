@@ -6,21 +6,17 @@ noqa-reformat = 60
 ellipsis-reformat = 70
 squish_stubs = 80
 
-[config]
-indent = "\t"
-line_length = 115
-
 [hooks.yapf]
 priority = 30
-
-[hooks.isort]
-priority = 50
 
 [hooks.yapf.kwargs]
 yapf_style = ".style.yapf"
 
+[hooks.isort]
+priority = 50
+
 [hooks.isort.kwargs]
-indent = "\t\t"
+indent = "		"
 multi_line_output = 8
 import_heading_stdlib = "stdlib"
 import_heading_thirdparty = "3rd party"
@@ -79,3 +75,7 @@ known_third_party = [
     "typing_inspect",
 ]
 known_first_party = [ "sphinx_toolbox",]
+
+[config]
+indent = "	"
+line_length = 115
