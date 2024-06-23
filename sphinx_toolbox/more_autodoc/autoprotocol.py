@@ -163,10 +163,10 @@ from sphinx_toolbox.utils import (
 
 if sys.version_info < (3, 8):  # pragma: no cover (>=py38)
 	# 3rd party
-	from typing_extensions import _ProtocolMeta  # type: ignore[attr-defined]
+	from typing_extensions import Protocol, _ProtocolMeta  # type: ignore[attr-defined]
 else:  # pragma: no cover (<py38)
 	# stdlib
-	from typing import _ProtocolMeta
+	from typing import Protocol, _ProtocolMeta
 
 __all__ = ("ProtocolDocumenter", "setup")
 
@@ -237,8 +237,9 @@ class ProtocolDocumenter(ClassDocumenter):
 		:param parent: The parent of the member.
 		"""
 
-		# _is_protocol = True
-		return isinstance(member, _ProtocolMeta)
+		if isinstance(member, _ProtocolMeta):
+			return Protocol in member.__bases__
+		return False
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
