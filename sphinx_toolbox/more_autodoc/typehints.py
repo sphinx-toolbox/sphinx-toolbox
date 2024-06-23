@@ -921,5 +921,7 @@ def _resolve_forwardref(
 	module_dict = sys.modules[module].__dict__
 	if sys.version_info < (3, 9):
 		return fr._evaluate(module_dict, module_dict)
+	elif sys.version_info >= (3, 12):
+		return fr._evaluate(module_dict, module_dict, set(), recursive_guard=set())
 	else:
 		return fr._evaluate(module_dict, module_dict, set())
