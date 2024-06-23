@@ -153,6 +153,7 @@ from sphinx.application import Sphinx
 from sphinx.errors import ExtensionError
 from sphinx.util.inspect import signature as Signature
 from sphinx.util.inspect import stringify_signature
+from typing_extensions import Self
 
 # this package
 from sphinx_toolbox.utils import (
@@ -323,6 +324,8 @@ def format_annotation(annotation: Any, fully_qualified: bool = False) -> str:
 		return f":py:obj:`{annotation}`"
 	elif annotation is Ellipsis:
 		return "..."
+	elif annotation is Self:
+		return f":py:obj:`{prefix}typing.Self`"
 	elif annotation is itertools.cycle:
 		return f":func:`{prefix}itertools.cycle`"
 	elif annotation is types.GetSetDescriptorType:  # noqa: E721
