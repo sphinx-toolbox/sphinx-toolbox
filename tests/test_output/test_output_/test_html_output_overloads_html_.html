@@ -203,7 +203,7 @@
                 </strong>
                 :
                 <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">
-                 <code class="xref py py-class docutils literal notranslate">
+                 <code class="xref py py-{{'obj' if python_version >= (3, 12) else 'class'}} docutils literal notranslate">
                   <span class="pre">
                    int
                   </span>
@@ -211,7 +211,7 @@
                 </a>
                 ) -&gt;
                 <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">
-                 <code class="xref py py-class docutils literal notranslate">
+                 <code class="xref py py-{{'obj' if python_version >= (3, 12) else 'class'}} docutils literal notranslate">
                   <span class="pre">
                    str
                   </span>
@@ -234,13 +234,18 @@
                 </strong>
                 :
                 <a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.12)">
-                 <code class="xref py py-class docutils literal notranslate">
+                 <code class="xref py py-{{'obj' if python_version >= (3, 12) else 'class'}} docutils literal notranslate">
                   <span class="pre">
                    slice
                   </span>
                  </code>
                 </a>
-                ) -&gt;
+                ) -&gt;{% if python_version >= (3, 12) %}
+                <code class="xref py py-obj docutils literal notranslate">
+                 <span class="pre">
+                  List[str]
+                 </span>
+                </code>{% else %}
                 <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)">
                  <code class="xref py py-class docutils literal notranslate">
                   <span class="pre">
@@ -250,13 +255,13 @@
                 </a>
                 [
                 <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">
-                 <code class="xref py py-class docutils literal notranslate">
+                 <code class="xref py py-{{'obj' if python_version >= (3, 12) else 'class'}} docutils literal notranslate">
                   <span class="pre">
                    str
                   </span>
                  </code>
                 </a>
-                ]
+                ]{% endif %}
                </p>
               </li>
              </ul>
@@ -447,7 +452,7 @@
                 </strong>
                 :
                 <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">
-                 <code class="xref py py-class docutils literal notranslate">
+                 <code class="xref py py-{{'obj' if python_version >= (3, 12) else 'class'}} docutils literal notranslate">
                   <span class="pre">
                    int
                   </span>
@@ -455,7 +460,7 @@
                 </a>
                 ) -&gt;
                 <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">
-                 <code class="xref py py-class docutils literal notranslate">
+                 <code class="xref py py-{{'obj' if python_version >= (3, 12) else 'class'}} docutils literal notranslate">
                   <span class="pre">
                    str
                   </span>
@@ -478,13 +483,18 @@
                 </strong>
                 :
                 <a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.12)">
-                 <code class="xref py py-class docutils literal notranslate">
+                 <code class="xref py py-{{'obj' if python_version >= (3, 12) else 'class'}} docutils literal notranslate">
                   <span class="pre">
                    slice
                   </span>
                  </code>
                 </a>
-                ) -&gt;
+                ) -&gt;{% if python_version >= (3, 12) %}
+                <code class="xref py py-obj docutils literal notranslate">
+                 <span class="pre">
+                  List[str]
+                 </span>
+                </code>{% else %}
                 <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)">
                  <code class="xref py py-class docutils literal notranslate">
                   <span class="pre">
@@ -494,13 +504,13 @@
                 </a>
                 [
                 <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">
-                 <code class="xref py py-class docutils literal notranslate">
+                 <code class="xref py py-{{'obj' if python_version >= (3, 12) else 'class'}} docutils literal notranslate">
                   <span class="pre">
                    str
                   </span>
                  </code>
                 </a>
-                ]
+                ]{% endif %}
                </p>
               </li>
              </ul>
@@ -776,7 +786,29 @@
               <strong>
                cls
               </strong>
+              :{% if python_version >= (3, 12) %}
+              <code class="xref py py-obj docutils literal notranslate">
+               <span class="pre">
+                Type[object]
+               </span>
+              </code>
+              ,
+              <strong>
+               from_key
+              </strong>
               :
+              <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">
+               <code class="xref py py-obj docutils literal notranslate">
+                <span class="pre">
+                 str
+                </span>
+               </code>
+              </a>
+              = …,
+              <strong>
+               to_key
+              </strong>
+              :{% else %}
               <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.12)">
                <code class="xref py py-class docutils literal notranslate">
                 <span class="pre">
@@ -799,7 +831,20 @@
               = …,
               <strong>
                to_key
-              </strong>
+              </strong>{% endif %}{% if python_version >= (3, 12) %}
+              <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">
+               <code class="xref py py-obj docutils literal notranslate">
+                <span class="pre">
+                 str
+                </span>
+               </code>
+              </a>
+              = … ) -&gt;
+              <code class="xref py py-obj docutils literal notranslate">
+               <span class="pre">
+                Type[object]
+               </span>
+              </code>{% else %}
               = … ) -&gt;
               <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.12)">
                <code class="xref py py-class docutils literal notranslate">
@@ -816,7 +861,7 @@
                 </span>
                </code>
               </a>
-              ]
+              ]{% endif %}
              </p>
             </li>
             <li>
@@ -843,7 +888,36 @@
               = None,
               <strong>
                from_key
+              </strong>{% if python_version >= (3, 12) %}
+              :
+              <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">
+               <code class="xref py py-obj docutils literal notranslate">
+                <span class="pre">
+                 str
+                </span>
+               </code>
+              </a>
+              = …,
+              <strong>
+               to_key
               </strong>
+              :
+              <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">
+               <code class="xref py py-{{'obj' if python_version >= (3, 12) else 'class'}} docutils literal notranslate">
+                <span class="pre">
+                 str
+                </span>
+               </code>
+              </a>
+              = … ) -&gt;
+              <code class="xref py py-obj docutils literal notranslate">
+               <span class="pre">
+                'Callable[[Type[object]],
+               </span>
+               <span class="pre">
+                Type[object]]'
+               </span>
+              </code>{% else %}
               = …,
               <strong>
                to_key
@@ -888,7 +962,7 @@
                 </span>
                </code>
               </a>
-              ]]
+              ]]{% endif %}
              </p>
             </li>
            </ul>
