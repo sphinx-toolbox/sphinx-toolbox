@@ -214,6 +214,9 @@ class ProtocolDocumenter(ClassDocumenter):
 			"__init_subclass__",
 			"__protocol_attrs__",
 			"__non_callable_proto_members__",  # Python 3.13 and above
+			"__firstlineno__",  # Python 3.13 and above
+			"__replace__",  # Python 3.13 and above
+			"__static_attributes__",  # Python 3.13 and above
 			}
 
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
