@@ -37,9 +37,8 @@ github_username = "domdfcoding"
 github_repository = "sphinx-toolbox"
 source_link_target = "GitHub"
 
-autodoc_default_options = {
-		"exclude-members": "__repr__,__weakref__,__dict__,__annotations__",
-		}
+_exclude_members = "__repr__,__weakref__,__dict__,__annotations__,__firstlineno__,__replace__,__static_attributes__"
+autodoc_default_options = {"exclude-members": _exclude_members}
 
 all_typevars = True
 no_unbound_typevars = False
