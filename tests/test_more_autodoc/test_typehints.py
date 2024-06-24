@@ -146,6 +146,21 @@ else:
 						id="types.UnionType",
 						marks=min_version("3.10", reason="Introduced in 3.10")
 						),
+				pytest.param(
+						re.Pattern,
+						":py:class:`typing.Pattern`",
+						id="re.Pattern",
+						),
+				pytest.param(
+						re.Match,
+						":py:class:`re.Match`",
+						id="re.Match",
+						),
+				pytest.param(
+						typing.ClassVar,
+						":py:data:`typing.ClassVar`",
+						id="typing.ClassVar",
+						),
 				]
 		)
 def test_format_annotation(annotation: Any, expected: str):
@@ -170,16 +185,15 @@ def test_setup():
 		del Sphinx.extensions  # type: ignore[attr-defined]
 
 
+@pytest.mark.filterwarnings("always")
 def test_setup_wrong_order():
 	try:
 		Sphinx.extensions = ["sphinx_autodoc_typehints"]  # type: ignore[attr-defined]
 
-		with pytest.raises(
-				ExtensionError,
-				match="'sphinx_toolbox.more_autodoc.typehints' "
-				"must be loaded before 'sphinx_autodoc_typehints'.",
+		with pytest.warns(
+				UserWarning,
+				match="'sphinx_autodoc_typehints' may conflict with 'sphinx_toolbox.more_autodoc.typehints'."
 				):
-
 			run_setup(typehints.setup)
 
 	finally:

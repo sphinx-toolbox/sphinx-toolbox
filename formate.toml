@@ -52,7 +52,6 @@ known_third_party = [
     "pytest_timeout",
     "ruamel_yaml",
     "sphinx",
-    "sphinx_autodoc_typehints",
     "sphinx_jinja2_compat",
     "sphinx_prompt",
     "sphinx_tabs",

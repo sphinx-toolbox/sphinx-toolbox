@@ -89,6 +89,7 @@ API Reference
 """  # noqa: SXL001
 #
 #  Copyright (c) Alex Grönholm
+#  Copyright (c) 2015-202x The sphinx-autodoc-typehints developers
 #  Changes copyright © 2020-2022 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -114,9 +115,11 @@ API Reference
 import inspect
 import itertools
 import json
+import logging
 import re
 import sys
 import types
+import warnings
 from contextlib import suppress
 from operator import itemgetter
 from tempfile import TemporaryDirectory
@@ -140,7 +143,6 @@ from typing import (
 
 # 3rd party
 import sphinx.util.typing
-import sphinx_autodoc_typehints
 from domdf_python_tools.stringlist import DelimitedList
 from domdf_python_tools.typing import (
 		ClassMethodDescriptorType,
@@ -172,37 +174,27 @@ except ImportError:  # pragma: no cover
 	# where it is available to import, so it is fine to do this.
 	pass
 
-try:
-	# 3rd party
-	from sphinx_autodoc_typehints import logger as sat_logger  # type: ignore[attr-defined]
-	from sphinx_autodoc_typehints import pydata_annotations  # type: ignore[attr-defined]
-except ImportError:
-	# Privatised in 1.14.1
-	# 3rd party
-	from sphinx_autodoc_typehints import _LOGGER as sat_logger
-	from sphinx_autodoc_typehints import _PYDATA_ANNOTATIONS as pydata_annotations
-
-try:
-	# 3rd party
-	from sphinx_autodoc_typehints import _future_annotations_imported
-except ImportError:
-
-	def _future_annotations_imported(obj: Any) -> bool:
-		if sys.version_info < (3, 7):  # pragma: no cover (py37+)
-			# Only Python ≥ 3.7 supports PEP563.
-			return False
-
-		_annotations = getattr(inspect.getmodule(obj), "annotations", None)
-		if _annotations is None:
-			return False
-
-		# Make sure that annotations is imported from __future__ - defined in cpython/Lib/__future__.py
-		# annotations become strings at runtime
-		CO_FUTURE_ANNOTATIONS = 0x100000 if sys.version_info[0:2] == (3, 7) else 0x1000000
-		return _annotations.compiler_flag == CO_FUTURE_ANNOTATIONS
+sat_logger = logging.getLogger(__name__)
+pydata_annotations = {"Any", "AnyStr", "Callable", "ClassVar", "Literal", "NoReturn", "Optional", "Tuple", "Union"}
+_TYPES_DICT = {getattr(types, name): name for name in types.__all__}
 
 
-__all__ = (
+def _future_annotations_imported(obj: Any) -> bool:
+	if sys.version_info < (3, 7):  # pragma: no cover (py37+)
+		# Only Python ≥ 3.7 supports PEP563.
+		return False
+
+	_annotations = getattr(inspect.getmodule(obj), "annotations", None)
+	if _annotations is None:
+		return False
+
+	# Make sure that annotations is imported from __future__ - defined in cpython/Lib/__future__.py
+	# annotations become strings at runtime
+	CO_FUTURE_ANNOTATIONS = 0x100000 if sys.version_info[0:2] == (3, 7) else 0x1000000
+	return _annotations.compiler_flag == CO_FUTURE_ANNOTATIONS
+
+
+__all__ = [
 		"ObjectAlias",
 		"Module",
 		"Function",
@@ -211,24 +203,114 @@ __all__ = (
 		"process_docstring",
 		"format_annotation",
 		"get_all_type_hints",
-		"docstring_hooks",
 		"setup",
 		"get_annotation_module",
 		"get_annotation_class_name",
 		"get_annotation_args",
-		"backfill_type_hints",
-		"load_args",
-		"split_type_comment_args",
-		"default_preprocessors",
-		"Preprocessor",
-		)
+		"preprocess_class_defaults",
+		"preprocess_function_defaults",
+		"serialise",
+		"builder_ready",
+		]
 
-get_annotation_module = sphinx_autodoc_typehints.get_annotation_module
-get_annotation_class_name = sphinx_autodoc_typehints.get_annotation_class_name
-get_annotation_args = sphinx_autodoc_typehints.get_annotation_args
-backfill_type_hints = sphinx_autodoc_typehints.backfill_type_hints
-load_args = sphinx_autodoc_typehints.load_args
-split_type_comment_args = sphinx_autodoc_typehints.split_type_comment_args
+
+def get_annotation_module(annotation: Any) -> str:  # noqa: D103
+	# Special cases
+	if annotation is None:
+		return "builtins"
+
+	if _get_types_type(annotation) is not None:
+		return "types"
+
+	is_new_type = sys.version_info >= (3, 10) and isinstance(annotation, NewType)
+	if (
+			is_new_type or isinstance(annotation, TypeVar)
+			or type(annotation).__name__ in {"ParamSpec", "ParamSpecArgs", "ParamSpecKwargs"}
+			):
+		return "typing"
+
+	if hasattr(annotation, "__module__"):
+		return annotation.__module__
+
+	if hasattr(annotation, "__origin__"):
+		return annotation.__origin__.__module__
+
+	raise ValueError(f'Cannot determine the module of {annotation}')
+
+
+def _get_types_type(obj: Any) -> Optional[str]:
+	try:
+		return _TYPES_DICT.get(obj)
+	except Exception:
+		# e.g. exception: unhashable type
+		return None
+
+
+def _is_newtype(annotation: Any) -> bool:
+	if sys.version_info < (3, 10):
+		return inspect.isfunction(annotation) and hasattr(annotation, "__supertype__")
+	return isinstance(annotation, NewType)
+
+
+def get_annotation_class_name(annotation: Any, module: str) -> str:  # noqa: D103
+	# Special cases
+	if annotation is None:
+		return "None"
+	elif annotation is AnyStr:
+		return "AnyStr"
+
+	val = _get_types_type(annotation)
+	if val is not None:
+		return val
+
+	if _is_newtype(annotation):
+		return "NewType"
+
+	if getattr(annotation, "__qualname__", None):
+		return annotation.__qualname__
+	elif getattr(annotation, "_name", None):  # Required for generic aliases on Python 3.7+
+		return annotation._name
+	elif (module in ("typing", "typing_extensions") and isinstance(getattr(annotation, "name", None), str)):
+		# Required for at least Pattern and Match
+		return annotation.name
+
+	origin = getattr(annotation, "__origin__", None)
+	if origin:
+		if getattr(origin, "__qualname__", None):  # Required for Protocol subclasses
+			return origin.__qualname__
+		elif getattr(origin, "_name", None):  # Required for Union on Python 3.7+
+			return origin._name
+
+	annotation_cls = annotation if inspect.isclass(annotation) else type(annotation)
+	return annotation_cls.__qualname__.lstrip('_')
+
+
+def get_annotation_args(annotation: Any, module: str, class_name: str) -> Tuple[Any, ...]:  # noqa: D103
+
+	try:
+		original = getattr(sys.modules[module], class_name)
+	except (KeyError, AttributeError):
+		pass
+	else:
+		if annotation is original:
+			return ()  # This is the original, unparametrized type
+
+	# Special cases
+	if class_name in ("Pattern", "Match") and hasattr(annotation, "type_var"):  # Python < 3.7
+		return annotation.type_var,
+	elif class_name == "ClassVar" and hasattr(annotation, "__type__"):  # ClassVar on Python < 3.7
+		return annotation.__type__,
+	elif class_name == "TypeVar" and hasattr(annotation, "__constraints__"):
+		return annotation.__constraints__
+	elif class_name == "NewType" and hasattr(annotation, "__supertype__"):
+		return (annotation.__supertype__, )
+	elif class_name == "Literal" and hasattr(annotation, "__values__"):
+		return annotation.__values__
+	elif class_name == "Generic":
+		return annotation.__parameters__
+	result = getattr(annotation, "__args__", ())
+	# 3.10 and earlier Tuple[()] returns ((), ) instead of () the tuple does
+	return () if len(result) == 1 and result[0] == () else result  # type: ignore[misc]
 
 
 # Demonstration of module default argument in signature
@@ -856,7 +938,13 @@ def get_all_type_hints(obj: Any, name: str, original_obj: Any) -> Dict[str, Any]
 	if rv:
 		return rv
 
-	rv = backfill_type_hints(obj, name)
+	try:
+		# 3rd party
+		from sphinx_autodoc_typehints import backfill_type_hints  # type: ignore[import]
+	except ImportError:
+		rv = {}
+	else:
+		rv = backfill_type_hints(obj, name)
 
 	try:
 		if rv != {}:
@@ -878,6 +966,14 @@ def get_all_type_hints(obj: Any, name: str, original_obj: Any) -> Dict[str, Any]
 	return rv
 
 
+def _builder_ready(app):
+	if app.config.set_type_checking_flag:
+
+		# stdlib
+		import typing
+		typing.TYPE_CHECKING = True
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -887,18 +983,20 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 
 	if "sphinx_autodoc_typehints" in app.extensions:
-		raise ExtensionError(
-				"'sphinx_toolbox.more_autodoc.typehints' must be loaded before 'sphinx_autodoc_typehints'."
-				)
-
-	sphinx_autodoc_typehints.format_annotation = format_annotation  # type: ignore[assignment]
-	sphinx_autodoc_typehints.process_signature = process_signature
-	sphinx_autodoc_typehints.process_docstring = process_docstring  # type: ignore[assignment]
+		warnings.warn("'sphinx_autodoc_typehints' may conflict with 'sphinx_toolbox.more_autodoc.typehints'.")
 
 	app.setup_extension("sphinx.ext.autodoc")
-	app.setup_extension("sphinx_autodoc_typehints")
 
 	app.add_config_value("hide_none_rtype", False, "env", [bool])
+
+	app.add_config_value("set_type_checking_flag", False, "html")
+	app.add_config_value("always_document_param_types", False, "html")
+	app.add_config_value("typehints_fully_qualified", False, "env")
+	app.add_config_value("typehints_document_rtype", True, "env")
+	app.add_config_value("simplify_optional_unions", True, "env")
+	app.connect("builder-inited", _builder_ready)
+	app.connect("autodoc-process-signature", process_signature)
+	app.connect("autodoc-process-docstring", process_docstring)
 
 	return {"parallel_read_safe": True}
 
@@ -919,9 +1017,9 @@ def _resolve_forwardref(
 	"""
 
 	module_dict = sys.modules[module].__dict__
-	if sys.version_info < (3, 9):
+	if sys.version_info < (3, 9):  # pragma: no cover (py39+)
 		return fr._evaluate(module_dict, module_dict)
-	elif sys.version_info >= (3, 12):
+	elif sys.version_info >= (3, 12):  # pragma: no cover (<py312)
 		return fr._evaluate(module_dict, module_dict, set(), recursive_guard=set())
 	else:
 		return fr._evaluate(module_dict, module_dict, set())
