@@ -127,7 +127,14 @@ pages_to_check: List[ParameterSet] = [
 				id="generic_bases"
 				),
 		pytest.param("autonamedtuple_pep563.html", id="autonamedtuple_pep563"),
-		pytest.param("genericalias.html", id="genericalias"),
+		pytest.param(
+				"genericalias.html",
+				id="genericalias",
+				marks=pytest.mark.skipif(
+						condition=sys.version_info >= (3, 13),
+						reason="Link not created on 3.13",
+						)
+				),  # Should be xfail
 		]
 
 
