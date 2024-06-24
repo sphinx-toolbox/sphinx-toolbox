@@ -24,14 +24,15 @@ jobs:
       - name: Setup Python 🐍
         uses: "actions/setup-python@v5"
         with:
-          python-version: "3.8"
+          python-version: "3.11"
 
       - name: Setup Conda
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v2.1.1
         with:
           activate-environment: env
           conda-build-version: 3.28.4
-          python-version: "3.8"
+          miniconda-version: py311_24.1.2-0
+          python-version: "3.11"
           miniforge-variant: Mambaforge
 
       - name: Install dependencies 🔧
