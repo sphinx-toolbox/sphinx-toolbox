@@ -8,5 +8,6 @@ sphinx-toolbox Demo - AutoTypedDict
 	:members:
 	:exclude-members: Movie
 	:undoc-members:
+	:show-inheritance:
 
 .. autotypeddict:: autotypeddict_demo.Movie
