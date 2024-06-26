@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 from pprint import pformat
-from typing import List, cast
+from typing import Callable, ContextManager, List, cast
 
 # 3rd party
 import docutils
@@ -35,7 +35,10 @@ from sphinx_toolbox.utils import Config
 
 
 @pytest.mark.usefixtures("pre_commit_hooks")
-def test_build_example(testing_app: Sphinx, tmp_pathplus: PathPlus, pre_commit_flake8_contextmanager):
+def test_build_example(
+		testing_app: Sphinx,
+		pre_commit_flake8_contextmanager: Callable[[], ContextManager],
+		):
 	with pre_commit_flake8_contextmanager():
 		testing_app.build()
 		testing_app.build()
@@ -142,8 +145,7 @@ pages_to_check: List[ParameterSet] = [
 def test_html_output(
 		testing_app: Sphinx,
 		html_regression: HTMLRegressionFixture,
-		tmp_pathplus: PathPlus,
-		pre_commit_flake8_contextmanager
+		pre_commit_flake8_contextmanager: Callable[[], ContextManager]
 		):
 	"""
 	Parametrize new files here rather than as their own function.
@@ -196,7 +198,7 @@ def test_sidebar_links_output(
 		testing_app: Sphinx,
 		advanced_file_regression: AdvancedFileRegressionFixture,
 		monkeypatch,
-		pre_commit_flake8_contextmanager
+		pre_commit_flake8_contextmanager: Callable[[], ContextManager]
 		):
 
 	def visit_caption(self, node: nodes.Node) -> None:
@@ -258,7 +260,7 @@ def test_sidebar_links_output(
 def test_latex_output(
 		app: Sphinx,
 		latex_regression: LaTeXRegressionFixture,
-		pre_commit_flake8_contextmanager,
+		pre_commit_flake8_contextmanager: Callable[[], ContextManager],
 		):
 
 	assert app.builder is not None
@@ -276,7 +278,7 @@ def test_latex_output(
 def test_latex_output_latex_layout(
 		app: Sphinx,
 		latex_regression: LaTeXRegressionFixture,
-		pre_commit_flake8_contextmanager,
+		pre_commit_flake8_contextmanager: Callable[[], ContextManager],
 		):
 
 	assert app.builder is not None
@@ -298,7 +300,7 @@ def test_latex_output_latex_layout(
 def test_latex_output_better_header_layout(
 		app: Sphinx,
 		latex_regression: LaTeXRegressionFixture,
-		pre_commit_flake8_contextmanager,
+		pre_commit_flake8_contextmanager: Callable[[], ContextManager],
 		):
 
 	assert app.builder is not None
@@ -319,7 +321,7 @@ def test_latex_output_better_header_layout(
 def test_latex_output_autosummary_col_type(
 		app: Sphinx,
 		latex_regression: LaTeXRegressionFixture,
-		pre_commit_flake8_contextmanager,
+		pre_commit_flake8_contextmanager: Callable[[], ContextManager],
 		):
 
 	assert app.builder is not None

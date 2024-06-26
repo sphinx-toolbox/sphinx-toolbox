@@ -28,7 +28,7 @@
 
 # stdlib
 from contextlib import contextmanager
-from typing import Any, Dict, Sequence, Tuple
+from typing import Any, Callable, ContextManager, Dict, Iterator, Sequence, Tuple
 
 # 3rd party
 import pytest
@@ -46,7 +46,7 @@ fixtures = [make_app, shared_result, sphinx_test_tempdir, test_params, testing_a
 
 
 @pytest.fixture()
-def pre_commit_hooks(tmp_pathplus: PathPlus):
+def pre_commit_hooks(tmp_pathplus: PathPlus) -> None:
 	(tmp_pathplus / ".pre-commit-hooks.yaml").write_text(
 			"""
 -   id: flake2lint
@@ -61,10 +61,13 @@ def pre_commit_hooks(tmp_pathplus: PathPlus):
 
 
 @pytest.fixture()
-def pre_commit_flake8_contextmanager(tmp_pathplus, pre_commit_hooks):
+def pre_commit_flake8_contextmanager(
+		tmp_pathplus: PathPlus,
+		pre_commit_hooks: None,
+		) -> Callable[[], ContextManager]:
 
 	@contextmanager
-	def cm():
+	def cm() -> Iterator[None]:
 		with pytest.warns(UserWarning, match="(No codes specified|No such code 'F401')"), in_directory(tmp_pathplus):
 			yield
 
