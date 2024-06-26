@@ -13,7 +13,7 @@ short_desc: 'Box of handy tools for Sphinx 🧰 📔'
 
 use_whey: true
 min_coverage: 90
-python_deploy_version: 3.7
+python_deploy_version: 3.8
 tox_testenv_extras: all
 preserve_custom_theme: true
 docs_fail_on_warning: true
