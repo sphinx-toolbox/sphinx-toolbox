@@ -2,6 +2,14 @@
 Changelog
 ===============
 
+3.6.0
+----------------------
+
+* Documentation fixes in :mod:`~.collapse`.
+* Dunder methods added in Python 3.13 are hidden by :mod:`~.autoprotocol` (``__non_callable_proto_members__``, ``__firstlineno__``, ``__replace__``, ``__static_attributes__``)
+* mod:`~.autoprotocol` doesn't document subclasses of protocols, unless :class:`~.Protocol` is one of their direct base classes.
+* Support for Sphinx 7.x
+
 3.5.0
 ----------------------
 
