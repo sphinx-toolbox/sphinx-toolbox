@@ -38,6 +38,7 @@ def handle_missing_xref(app: Sphinx, env, node: nodes.Node, contnode: nodes.Node
 			"sphinx.config.Config.latex_elements",
 			"sphinx.util.docfields.TypedField",
 			"sphinx.writers.html.HTMLTranslator",
+			"sphinx.writers.html5.HTML5Translator",
 			"sphinx.writers.latex.LaTeXTranslator",
 			"sphinx.domains.python.PyXRefRole",
 			"sphinx.domains.std.GenericObject",
