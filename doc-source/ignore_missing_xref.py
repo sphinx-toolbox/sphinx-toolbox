@@ -44,6 +44,7 @@ def handle_missing_xref(app: Sphinx, env, node: nodes.Node, contnode: nodes.Node
 			"sphinx.domains.changeset.VersionChange",
 			"sphinx.directives.code.CodeBlock",
 			"sphinx.roles.Abbreviation",
+			"sphinx.roles.XRefRole",  # New 26 jun 24 with Sphinx 5.x and Python 3.8
 			"autodoc.Documenter",  # TODO: why not sphinx.ext.autodoc.Documenter?
 			}:
 		raise NoUri

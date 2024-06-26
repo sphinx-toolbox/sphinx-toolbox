@@ -164,7 +164,7 @@ class TypeVarDocumenter(VariableDocumenter):
 
 		return isinstance(member, TypeVar)
 
-	def resolve_type(self, forward_ref: ForwardRef) -> Type:
+	def resolve_type(self, forward_ref: "ForwardRef") -> Type:
 		"""
 		Resolve a :class:`typing.ForwardRef` using the module the :class:`~typing.TypeVar` belongs to.
 

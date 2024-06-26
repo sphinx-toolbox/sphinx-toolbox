@@ -89,3 +89,4 @@ sys.path.append(os.path.abspath(".."))
 latex_elements["preamble"] = r"\usepackage{multicol}"
 nitpicky = True
 needspace_amount = r"4\baselineskip"
+autodoc_type_aliases = {"ForwardRef": "ForwardRef"}
