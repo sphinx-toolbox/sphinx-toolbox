@@ -84,7 +84,7 @@ from docutils.parsers.rst import roles
 from sphinx.application import Sphinx
 from sphinx.roles import Abbreviation
 from sphinx.util.docutils import SphinxRole
-from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
 from sphinx.writers.latex import LaTeXTranslator
 
 # this package
@@ -148,7 +148,7 @@ class BoldTitle(SphinxRole):
 		return node_list, []
 
 
-def visit_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode) -> None:
+def visit_iabbr_node(translator: HTML5Translator, node: ItalicAbbreviationNode) -> None:
 	"""
 	Visit an :class:`~.ItalicAbbreviationNode`.
 
@@ -165,7 +165,7 @@ def visit_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode) -
 	translator.body.append(translator.starttag(node, "abbr", '', **attrs))
 
 
-def depart_iabbr_node(translator: HTMLTranslator, node: ItalicAbbreviationNode) -> None:
+def depart_iabbr_node(translator: HTML5Translator, node: ItalicAbbreviationNode) -> None:
 	"""
 	Depart an :class:`~.ItalicAbbreviationNode`.
 

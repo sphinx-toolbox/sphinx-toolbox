@@ -162,7 +162,7 @@ from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from domdf_python_tools.utils import convert_indents
 from sphinx.application import Sphinx
-from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
 from sphinx.writers.latex import LaTeXTranslator
 
 # this package
@@ -295,7 +295,7 @@ class OutputCell(CodeCell):
 	_class: str = "output-cell"
 
 
-def visit_prompt_html(translator: HTMLTranslator, node: Prompt) -> None:
+def visit_prompt_html(translator: HTML5Translator, node: Prompt) -> None:
 	"""
 	Visit a :class:`~.Prompt` node with the HTML translator.
 

@@ -47,7 +47,7 @@ import dict2css
 from docutils import nodes
 from domdf_python_tools.paths import PathPlus
 from sphinx.application import Sphinx
-from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
 
 # this package
 from sphinx_toolbox import _css
@@ -56,7 +56,7 @@ from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 __all__ = ("copy_asset_files", "setup")
 
 
-def visit_container(self: HTMLTranslator, node: nodes.container) -> None:
+def visit_container(self: HTML5Translator, node: nodes.container) -> None:
 	classes = "docutils container"
 	if node.get("is_div", False):
 		# we don't want the CSS for container for these nodes
@@ -68,7 +68,7 @@ def visit_container(self: HTMLTranslator, node: nodes.container) -> None:
 	self.body.append(self.starttag(node, "div", CLASS=classes))
 
 
-def depart_container(self: HTMLTranslator, node: nodes.Node) -> None:
+def depart_container(self: HTML5Translator, node: nodes.Node) -> None:
 	self.body.append("</div>\n")
 
 

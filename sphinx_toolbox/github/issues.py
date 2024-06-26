@@ -45,7 +45,7 @@ from docutils import nodes
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
 from sphinx.util.nodes import split_explicit_title
-from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
 from sphinx.writers.latex import LaTeXTranslator
 
 # this package
@@ -250,7 +250,7 @@ def pull_role(
 	return [refnode], messages
 
 
-def visit_issue_node(translator: HTMLTranslator, node: IssueNode) -> None:
+def visit_issue_node(translator: HTML5Translator, node: IssueNode) -> None:
 	"""
 	Visit an :class:`~.IssueNode`.
 
@@ -271,7 +271,7 @@ def visit_issue_node(translator: HTMLTranslator, node: IssueNode) -> None:
 		warnings.warn(f"Issue/Pull Request #{node.issue_number} not found.")
 
 
-def depart_issue_node(translator: HTMLTranslator, node: IssueNode) -> None:
+def depart_issue_node(translator: HTML5Translator, node: IssueNode) -> None:
 	"""
 	Depart an :class:`~.IssueNode`.
 

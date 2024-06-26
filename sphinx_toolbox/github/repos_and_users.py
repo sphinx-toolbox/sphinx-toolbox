@@ -37,7 +37,7 @@ from docutils import nodes
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner
 from sphinx.util.nodes import split_explicit_title
-from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
 from sphinx.writers.latex import LaTeXTranslator
 
 # this package
@@ -191,7 +191,7 @@ def user_role(
 	return [refnode], messages
 
 
-def visit_github_object_link_node(translator: HTMLTranslator, node: GitHubObjectLinkNode) -> None:
+def visit_github_object_link_node(translator: HTML5Translator, node: GitHubObjectLinkNode) -> None:
 	"""
 	Visit a :class:`~.GitHubObjectLinkNode`.
 
@@ -203,7 +203,7 @@ def visit_github_object_link_node(translator: HTMLTranslator, node: GitHubObject
 	translator.visit_reference(node)
 
 
-def depart_github_object_link_node(translator: HTMLTranslator, node: GitHubObjectLinkNode) -> None:
+def depart_github_object_link_node(translator: HTML5Translator, node: GitHubObjectLinkNode) -> None:
 	"""
 	Depart an :class:`~.GitHubObjectLinkNode`.
 

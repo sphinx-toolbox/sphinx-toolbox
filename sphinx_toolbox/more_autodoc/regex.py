@@ -150,7 +150,7 @@ from sphinx.application import Sphinx
 from sphinx.ext.autodoc import UNINITIALIZED_ATTR, ModuleDocumenter
 from sphinx.util import texescape
 from sphinx.util.docutils import SphinxRole
-from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
 
 # this package
 from sphinx_toolbox import _css
@@ -750,7 +750,7 @@ class Regex(SphinxRole):
 		return [RegexNode(self.rawtext, self.text, **options)], []
 
 
-def visit_regex_node(translator: HTMLTranslator, node: RegexNode) -> None:
+def visit_regex_node(translator: HTML5Translator, node: RegexNode) -> None:
 	"""
 	Visit an :class:`~.RegexNode`.
 
@@ -761,7 +761,7 @@ def visit_regex_node(translator: HTMLTranslator, node: RegexNode) -> None:
 	translator.body.append(regex_parser.parse_pattern(node.pattern))
 
 
-def depart_regex_node(translator: HTMLTranslator, node: RegexNode) -> None:
+def depart_regex_node(translator: HTML5Translator, node: RegexNode) -> None:
 	"""
 	Depart an :class:`~.RegexNode`.
 
@@ -772,7 +772,7 @@ def depart_regex_node(translator: HTMLTranslator, node: RegexNode) -> None:
 	translator.body.pop(-1)
 
 
-def visit_regex_node_latex(translator: HTMLTranslator, node: RegexNode) -> None:
+def visit_regex_node_latex(translator: HTML5Translator, node: RegexNode) -> None:
 	"""
 	Visit an :class:`~.RegexNode` with the LaTeX builder.
 
@@ -785,7 +785,7 @@ def visit_regex_node_latex(translator: HTMLTranslator, node: RegexNode) -> None:
 	translator.body.append(latex_regex_parser.parse_pattern(node.pattern))
 
 
-def depart_regex_node_latex(translator: HTMLTranslator, node: RegexNode) -> None:
+def depart_regex_node_latex(translator: HTML5Translator, node: RegexNode) -> None:
 	"""
 	Depart an :class:`~.RegexNode` with the LaTeX builder.
 

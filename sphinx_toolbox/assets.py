@@ -96,7 +96,7 @@ from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.utils import stderr_writer
 from sphinx.application import Sphinx
 from sphinx.util import split_explicit_title
-from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
 
 __all__ = (
 		"asset_role",
@@ -159,7 +159,7 @@ def asset_role(
 	return [node], []
 
 
-def visit_asset_node(translator: HTMLTranslator, node: AssetNode) -> None:
+def visit_asset_node(translator: HTML5Translator, node: AssetNode) -> None:
 	"""
 	Visit an :class:`~.AssetNode`.
 
@@ -198,7 +198,7 @@ def visit_asset_node(translator: HTMLTranslator, node: AssetNode) -> None:
 	translator.context.append("</a>")
 
 
-def depart_asset_node(translator: HTMLTranslator, node: AssetNode) -> None:
+def depart_asset_node(translator: HTML5Translator, node: AssetNode) -> None:
 	"""
 	Depart an :class:`~.AssetNode`.
 

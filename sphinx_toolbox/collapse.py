@@ -92,7 +92,7 @@ from docutils.parsers.rst.roles import set_classes
 from domdf_python_tools.stringlist import DelimitedList
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
-from sphinx.writers.html import HTMLTranslator
+from sphinx.writers.html5 import HTML5Translator
 
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
@@ -154,7 +154,7 @@ class CollapseNode(nodes.Body, nodes.Element):
 		self.label = label
 
 
-def visit_collapse_node(translator: HTMLTranslator, node: CollapseNode) -> None:
+def visit_collapse_node(translator: HTML5Translator, node: CollapseNode) -> None:
 	"""
 	Visit a :class:`~.CollapseNode`.
 
@@ -179,7 +179,7 @@ def visit_collapse_node(translator: HTMLTranslator, node: CollapseNode) -> None:
 	translator.context.append("</details>")
 
 
-def depart_collapse_node(translator: HTMLTranslator, node: CollapseNode) -> None:
+def depart_collapse_node(translator: HTML5Translator, node: CollapseNode) -> None:
 	"""
 	Depart a :class:`~.CollapseNode`.
 

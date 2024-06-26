@@ -72,7 +72,7 @@ from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 __all__ = ["setup"]
 
 
-def visit_footnote(self: HTMLTranslator, node: docutils.nodes.footnote) -> None:  # pragma: no cover
+def visit_footnote(self: HTML5Translator, node: docutils.nodes.footnote) -> None:  # pragma: no cover
 	if not self.in_footnote_list:
 		listnode = node.copy()
 		listnode["ids"] = []
