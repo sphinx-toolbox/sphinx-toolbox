@@ -50,9 +50,9 @@ from sphinx.util.inspect import object_description, safe_getattr
 
 try:
 	# 3rd party
-	from sphinx.util.typing import stringify_annotation as stringify_typehint  # type: ignore[attr-defined]
+	from sphinx.util.typing import stringify_annotation as stringify_typehint
 except ImportError:
-	from sphinx.util.typing import stringify as stringify_typehint
+	from sphinx.util.typing import stringify as stringify_typehint  # type: ignore[no-redef]
 
 # this package
 from sphinx_toolbox.more_autodoc import _documenter_add_content

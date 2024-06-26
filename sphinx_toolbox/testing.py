@@ -113,7 +113,7 @@ from sphinx_toolbox.utils import Config, SphinxExtMetadata
 
 try:
 	# 3rd party
-	from sphinx.deprecation import _ModuleWrapper
+	from sphinx.deprecation import _ModuleWrapper  # type: ignore[attr-defined]
 	if isinstance(docutils, _ModuleWrapper):
 		docutils = docutils._module
 except ImportError:
@@ -534,7 +534,7 @@ class Sphinx:
 		Register a math renderer for HTML.
 		"""
 
-		self.registry.add_html_math_renderer(name, inline_renderers, block_renderers)  # type: ignore[arg-type]
+		self.registry.add_html_math_renderer(name, inline_renderers, block_renderers)
 
 	def setup_extension(self, extname: str) -> None:
 		"""

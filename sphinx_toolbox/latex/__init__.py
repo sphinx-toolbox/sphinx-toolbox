@@ -192,10 +192,10 @@ from sphinx_toolbox.utils import Config, SphinxExtMetadata, metadata_add_version
 
 try:
 	# 3rd party
-	from sphinx.util.display import progress_message  # type: ignore[import]
+	from sphinx.util.display import progress_message
 except ImportError:
 	# 3rd party
-	from sphinx.util import progress_message
+	from sphinx.util import progress_message  # type: ignore[no-redef]
 
 _ = BuildEnvironment
 

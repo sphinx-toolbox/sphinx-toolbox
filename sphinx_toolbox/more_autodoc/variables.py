@@ -305,7 +305,7 @@ class VariableDocumenter(DataDocumenter):
 			super().add_directive_header(sig)
 
 
-class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumenter):
+class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumenter):  # type: ignore[misc]
 	"""
 	Alternative version of
 	:class:`autodoc.AttributeDocumenter <sphinx.ext.autodoc.AttributeDocumenter>`

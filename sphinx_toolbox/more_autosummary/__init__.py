@@ -182,7 +182,7 @@ if sphinx.version_info > (4, 1):
 	from sphinx.util.docstrings import separate_metadata
 else:
 	# 3rd party
-	from sphinx.util.docstrings import extract_metadata
+	from sphinx.util.docstrings import extract_metadata  # type: ignore[attr-defined]
 
 __all__ = (
 		"PatchedAutosummary",
@@ -485,7 +485,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 			if sphinx_gt_41:
 				doc, metadata = separate_metadata(doc)  # type: ignore[arg-type]
 			else:
-				metadata = extract_metadata(doc)  # type: ignore[arg-type]
+				metadata = extract_metadata(doc)
 
 			has_doc = bool(doc)
 

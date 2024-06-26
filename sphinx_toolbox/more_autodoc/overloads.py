@@ -300,7 +300,7 @@ class OverloadMixin(_OverloadMixinBase):
 			_documenter_add_content(self, more_content, no_docstring)
 
 
-class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):
+class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):  # type: ignore[misc]
 	"""
 	Custom :class:`autodoc.FunctionDocumenter <sphinx.ext.autodoc.FunctionDocumenter>`
 	which renders overloads differently.
@@ -373,7 +373,7 @@ class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):
 		return super().process_overload_signature(overload)
 
 
-class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):
+class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):  # type: ignore[misc]
 	"""
 	Custom :class:`autodoc.MethodDocumenter <sphinx.ext.autodoc.MethodDocumenter>`
 	which renders overloads differently.
