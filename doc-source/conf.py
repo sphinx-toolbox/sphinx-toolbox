@@ -70,13 +70,28 @@ latex_elements = {
 		}
 
 
+# Fix for pathlib issue with sphinxemoji on Python 3.9 and Sphinx 4.x
+def copy_asset_files(app, exc):
+	# 3rd party
+	from domdf_python_tools.compat import importlib_resources
+	from sphinx.util.fileutil import copy_asset
+
+	if exc:
+		return
+
+	asset_files = ["twemoji.js", "twemoji.css"]
+	for path in asset_files:
+		path_str = os.fspath(importlib_resources.files("sphinxemoji") / path)
+		copy_asset(path_str, os.path.join(app.outdir, "_static"))
+
+
 def setup(app):
 	# 3rd party
 	from sphinx_toolbox.latex import better_header_layout
 	from sphinxemoji import sphinxemoji
 
 	app.connect("config-inited", lambda app, config: better_header_layout(config))
-	app.connect("build-finished", sphinxemoji.copy_asset_files)
+	app.connect("build-finished", copy_asset_files)
 	app.add_js_file("https://unpkg.com/twemoji@latest/dist/twemoji.min.js")
 	app.add_js_file("twemoji.js")
 	app.add_css_file("twemoji.css")
