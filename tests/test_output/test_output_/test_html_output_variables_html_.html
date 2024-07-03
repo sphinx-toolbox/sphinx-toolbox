@@ -158,7 +158,7 @@
          </dl>
          <dl class="py {{ 'property' if sphinx_version >= (4, 0) else 'method' }}">
           <dt{{ sig_object_class }}>
-           <em class="property">{% if sphinx_version >= (4, 0) %}
+           <em class="property">{% if sphinx_version >= (4, 3) %}
             abstract
             property{% else %}
             abstract property{% endif %}
@@ -173,7 +173,10 @@
            </p>
            <dl class="field-list simple">
             <dt class="field-odd">
-             Return type
+             Return type{% if docutils_version >= (0, 18) %}
+             <span class="colon">
+              :
+             </span>{% endif %}
             </dt>
             <dd class="field-odd">
              <p>
