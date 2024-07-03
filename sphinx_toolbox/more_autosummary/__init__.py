@@ -195,7 +195,7 @@ __all__ = (
 if sphinx.version_info < (3, 5):
 	# 3rd party
 	from sphinx.ext.autodoc.importer import get_module_members as _get_module_members  # type: ignore[attr-defined]
-else:
+else:  # pragma: no cover
 	# 3rd party
 	from sphinx.util.inspect import getannotations
 

@@ -789,7 +789,7 @@ if TYPE_CHECKING:
 else:
 	Config = sphinx.config.Config
 
-if sphinx.version_info[0] >= 5 or TYPE_CHECKING:
+if sphinx.version_info[0] >= 5 or TYPE_CHECKING:  # pragma no cover
 
 	class RemovedInSphinx50Warning(RuntimeError):
 		pass
