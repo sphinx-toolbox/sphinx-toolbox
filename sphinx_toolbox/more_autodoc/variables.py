@@ -717,10 +717,11 @@ class PropertyDocumenter(TypedAttributeDocumenter):
 	"""
 
 	objtype = "property"
-	# directivetype = 'method'  # needed before sphinx 4
 	member_order = 60
-
 	priority = 11
+
+	if sphinx.version_info[0] < 4:
+		directivetype = "method"
 
 	@classmethod
 	def can_document_member(
@@ -756,7 +757,9 @@ class PropertyDocumenter(TypedAttributeDocumenter):
 		ClassLevelDocumenter.add_directive_header(self, sig)
 		if inspect.isabstractmethod(self.object):
 			self.add_line("   :abstractmethod:", sourcename)
-		# self.add_line('   :property:', self.get_sourcename())  # needed before sphinx 4
+
+		if sphinx.version_info[0] < 4:
+			self.add_line("   :property:", self.get_sourcename())
 
 		if not self.options.get("annotation", ''):
 			# data descriptors do not have useful values

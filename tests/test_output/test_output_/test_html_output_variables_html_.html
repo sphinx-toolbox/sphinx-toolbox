@@ -156,6 +156,39 @@
            </p>
           </dd>
          </dl>
+         <dl class="py {{ 'property' if sphinx_version >= (4, 0) else 'method' }}">
+          <dt{{ sig_object_class }}>
+           <em class="property">{% if sphinx_version >= (4, 0) %}
+            abstract
+            property{% else %}
+            abstract property{% endif %}
+           </em>
+           <{{ sig_prename_tag }} class="sig-name descname">
+            foo
+           </{{ sig_prename_tag }}>
+          </dt>
+          <dd>
+           <p>
+            A property.
+           </p>
+           <dl class="field-list simple">
+            <dt class="field-odd">
+             Return type
+            </dt>
+            <dd class="field-odd">
+             <p>
+              <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)">
+               <code class="xref py py-class docutils literal notranslate">
+                <span class="pre">
+                 str
+                </span>
+               </code>
+              </a>
+             </p>
+            </dd>
+           </dl>
+          </dd>
+         </dl>
         </dd>
        </dl>
        <dl class="py class">

@@ -1,6 +1,7 @@
 # stdlib
 import os
 import pathlib
+from abc import abstractmethod
 from typing import Callable, List, Tuple, Union
 
 # 3rd party
@@ -29,6 +30,15 @@ class Demo:
 
 	#: Another argument
 	arg2: int = attr.ib()
+
+	@property
+	@abstractmethod
+	def foo(self) -> str:
+		"""
+		A property.
+		"""
+
+		raise NotImplementedError
 
 
 @attr.s(slots=True)
