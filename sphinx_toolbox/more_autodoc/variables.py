@@ -9,6 +9,7 @@ with a different appearance and more customisation options.
 .. extensions:: sphinx_toolbox.more_autodoc.variables
 .. versionchanged:: 0.7.0  Added ``*AttributeDocumenter``\s
 .. versionchanged:: 1.1.0  Added :class:`~.SlotsAttributeDocumenter`
+.. versionchanged:: 3.7.0  Added :class:`~.PropertyDocumenter`
 
 
 Usage
@@ -99,7 +100,7 @@ import importlib
 import sys
 import warnings
 from contextlib import suppress
-from typing import Any, List, Optional, cast, get_type_hints
+from typing import Any, List, Optional, Type, cast, get_type_hints
 
 # 3rd party
 import sphinx
@@ -110,6 +111,7 @@ from sphinx.ext.autodoc import (
 		INSTANCEATTR,
 		SLOTSATTR,
 		UNINITIALIZED_ATTR,
+		ClassDocumenter,
 		ClassLevelDocumenter,
 		DocstringStripSignatureMixin,
 		Documenter,
@@ -143,6 +145,7 @@ __all__ = (
 		"VariableDocumenter",
 		"TypedAttributeDocumenter",
 		"InstanceAttributeDocumenter",
+		"PropertyDocumenter",
 		"SlotsAttributeDocumenter",
 		"type_template",
 		"old_type_template",
@@ -706,6 +709,69 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 			return []
 
 
+class PropertyDocumenter(TypedAttributeDocumenter):
+	"""
+	Specialized Documenter subclass for properties.
+
+	.. versionadded:: 3.7.0
+	"""
+
+	objtype = "property"
+	# directivetype = 'method'  # needed before sphinx 4
+	member_order = 60
+
+	priority = 11
+
+	@classmethod
+	def can_document_member(
+			cls: Type[Documenter],
+			member: Any,
+			membername: str,
+			isattr: bool,
+			parent: Any,
+			) -> bool:
+		"""
+		Called to see if a member can be documented by this documenter.
+
+		This documenter only documents SLOTSATTR members.
+
+		:param member: The member being checked.
+		:param membername: The name of the member.
+		:param isattr:
+		:param parent: The parent of the member.
+		"""
+
+		return inspect.isproperty(member) and isinstance(parent, ClassDocumenter)
+
+	def add_directive_header(self, sig: str) -> None:
+		"""
+		Add the directive's header.
+
+		:param sig:
+		"""
+
+		sourcename = self.get_sourcename()
+		no_value = self.options.get("no-value", False)
+
+		ClassLevelDocumenter.add_directive_header(self, sig)
+		if inspect.isabstractmethod(self.object):
+			self.add_line("   :abstractmethod:", sourcename)
+		# self.add_line('   :property:', self.get_sourcename())  # needed before sphinx 4
+
+		if not self.options.get("annotation", ''):
+			# data descriptors do not have useful values
+			if not no_value and not self._datadescriptor:
+				if "value" in self.options:
+					self.add_line("   :value: " + self.options["value"], sourcename)
+				else:
+					with suppress(ValueError):
+						if self.object is not INSTANCEATTR:
+							objrepr = object_description(self.object)
+							self.add_line("   :value: " + objrepr, sourcename)
+
+			self.add_line('', sourcename)
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -721,6 +787,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_autodocumenter(TypedAttributeDocumenter, override=True)
 	app.add_autodocumenter(InstanceAttributeDocumenter, override=True)
 	app.add_autodocumenter(SlotsAttributeDocumenter, override=True)
+	app.add_autodocumenter(PropertyDocumenter, override=True)
 
 	app.connect("config-inited", lambda _, config: add_nbsp_substitution(config))
 

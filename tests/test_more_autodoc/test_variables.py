@@ -97,6 +97,7 @@ def test_setup():
 			"autoattribute": AutodocDirective,
 			"autoinstanceattribute": AutodocDirective,
 			"autoslotsattribute": AutodocDirective,
+			"autoproperty": AutodocDirective,
 			}
 
 	assert roles == {}
@@ -106,3 +107,4 @@ def test_setup():
 	assert app.registry.documenters["attribute"] == variables.TypedAttributeDocumenter
 	assert app.registry.documenters["instanceattribute"] == variables.InstanceAttributeDocumenter
 	assert app.registry.documenters["slotsattribute"] == variables.SlotsAttributeDocumenter
+	assert app.registry.documenters["property"] == variables.PropertyDocumenter
