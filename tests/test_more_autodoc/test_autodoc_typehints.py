@@ -48,7 +48,7 @@ from typing import (
 import pytest
 import typing_extensions
 from coincidence import min_version
-from sphobjinv import Inventory  # type: ignore[import]
+from sphobjinv import Inventory  # type: ignore[import-untyped]
 
 # this package
 from sphinx_toolbox.more_autodoc.typehints import format_annotation, process_docstring
@@ -200,32 +200,32 @@ def test_format_annotation(inv: Inventory, annotation: Any, expected_result: str
 						":py:class:`~typing.Generic`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`]",
 						),
 				(
-						Mapping[T, int],
+						Mapping[T, int],  # type: ignore[valid-type]
 						":py:class:`~typing.Mapping`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`, "
 						":py:class:`int`]"
 						),
 				(
-						Mapping[str, V],
+						Mapping[str, V],  # type: ignore[valid-type]
 						":py:class:`~typing.Mapping`\\[:py:class:`str`, "
 						":py:data:`-V <tests.test_more_autodoc.test_autodoc_typehints.V>`]"
 						),
 				(
-						Mapping[T, U],
+						Mapping[T, U],  # type: ignore[valid-type]
 						":py:class:`~typing.Mapping`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`, "
 						":py:data:`+U <tests.test_more_autodoc.test_autodoc_typehints.U>`]"
 						),
 				(
-						Dict[T, int],
+						Dict[T, int],  # type: ignore[valid-type]
 						":py:class:`~typing.Dict`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`, "
 						":py:class:`int`]"
 						),
 				(
-						Dict[str, V],
+						Dict[str, V],  # type: ignore[valid-type]
 						":py:class:`~typing.Dict`\\[:py:class:`str`, "
 						":py:data:`-V <tests.test_more_autodoc.test_autodoc_typehints.V>`]"
 						),
 				(
-						Dict[T, U],
+						Dict[T, U],  # type: ignore[valid-type]
 						":py:class:`~typing.Dict`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`, "
 						":py:data:`+U <tests.test_more_autodoc.test_autodoc_typehints.U>`]"
 						),

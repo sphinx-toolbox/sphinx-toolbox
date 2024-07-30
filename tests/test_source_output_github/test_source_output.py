@@ -1,6 +1,6 @@
 # 3rd party
 import pytest
-from bs4 import BeautifulSoup  # type: ignore[import]
+from bs4 import BeautifulSoup  # type: ignore[import-untyped]
 from sphinx.application import Sphinx
 
 # this package

@@ -40,7 +40,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 # 3rd party
 import requests  # nodep
 from apeye.url import URL
-from bs4 import BeautifulSoup  # type: ignore[import]
+from bs4 import BeautifulSoup  # type: ignore[import-untyped]
 from docutils import nodes
 from docutils.nodes import system_message
 from docutils.parsers.rst.states import Inliner

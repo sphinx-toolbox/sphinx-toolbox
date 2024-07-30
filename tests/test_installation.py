@@ -34,7 +34,7 @@ def test_make_installation_instructions_errors():
 		assert make_installation_instructions({}, FakeBuildEnvironment(4)) == []  # type: ignore[arg-type]
 
 	assert len(w) == 1
-	args: List[str] = w[0].message.args  # type: ignore[union-attr,assignment]
+	args: List[str] = w[0].message.args  # type: ignore[union-attr, assignment]
 	assert args[0] == "No installation source specified. No installation instructions will be shown."
 
 	with pytest.raises(ValueError, match="No PyPI project name supplied for the PyPI installation instructions."):

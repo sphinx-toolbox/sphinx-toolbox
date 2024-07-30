@@ -558,7 +558,7 @@ class PatchedLaTeXBuilder(LaTeXBuilder):
 				process_only_nodes(doctree, self.tags)
 
 				if hasattr(doctree, "findall"):
-					toctree = next(doctree.findall(addnodes.toctree), None)  # type: ignore[attr-defined]
+					toctree = next(doctree.findall(addnodes.toctree), None)
 				else:
 					toctree = next(iter(doctree.traverse(addnodes.toctree)), None)
 

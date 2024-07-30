@@ -76,7 +76,7 @@ from types import ModuleType
 from typing import Any, List, Mapping
 
 # 3rd party
-import autodocsumm  # type: ignore[import]
+import autodocsumm  # type: ignore[import-untyped]
 import sphinx.ext.autodoc
 from sphinx.application import Sphinx
 

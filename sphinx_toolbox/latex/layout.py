@@ -101,7 +101,7 @@ def visit_desc(translator: LaTeXTranslator, node: addnodes.desc) -> None:
 
 	if "sphinxcontrib.toctree_plus" in translator.config.extensions:
 		# 3rd party
-		from sphinxcontrib import toctree_plus  # type: ignore[import]  # nodep
+		from sphinxcontrib import toctree_plus  # type: ignore[import-untyped]  # nodep
 
 		toctree_plus.visit_desc(translator, node)
 	else:

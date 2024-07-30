@@ -11,7 +11,7 @@ import pytest
 import sphinx
 import sphinx.writers.html5
 from _pytest.mark import ParameterSet
-from bs4 import BeautifulSoup  # type: ignore[import]
+from bs4 import BeautifulSoup  # type: ignore[import-untyped]
 from coincidence.params import param
 from coincidence.regressions import AdvancedFileRegressionFixture
 from coincidence.selectors import min_version

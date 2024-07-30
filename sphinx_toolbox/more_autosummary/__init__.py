@@ -150,7 +150,7 @@ import re
 from typing import Any, Dict, List, Optional, Tuple, Type
 
 # 3rd party
-import autodocsumm  # type: ignore[import]
+import autodocsumm  # type: ignore[import-untyped]
 import docutils
 import sphinx
 from docutils import nodes

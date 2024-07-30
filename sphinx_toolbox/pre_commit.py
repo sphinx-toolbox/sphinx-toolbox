@@ -334,7 +334,7 @@ def revert_8345() -> None:  # pragma: no cover  # Only for Sphinx 4+
 
 		raise sphinx.util.docutils.ElementLookupError
 
-	sphinx.util.docutils.sphinx_domains.lookup_domain_element = lookup_domain_element  # type: ignore[assignment]
+	sphinx.util.docutils.sphinx_domains.lookup_domain_element = lookup_domain_element  # type: ignore[method-assign]
 
 
 @metadata_add_version

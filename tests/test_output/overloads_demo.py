@@ -12,7 +12,7 @@ def serde(cls: Type[object], from_key: str = ..., to_key: str = ...) -> Type[obj
 def serde(cls: None = None, from_key: str = ..., to_key: str = ...) -> "Callable[[Type[object]], Type[object]]": ...  # pragma: no cover
 
 
-def serde(
+def serde(  # type: ignore[empty-body]
 		cls: Optional[Type[object]] = None,
 		from_key: str = "from",
 		to_key: str = "to",
@@ -51,7 +51,7 @@ class Foo:
 	@overload
 	def __getitem__(self, item: slice) -> List[str]: ...
 
-	def __getitem__(self, item: Union[int, slice]) -> Union[str, List[str]]:
+	def __getitem__(self, item: Union[int, slice]) -> Union[str, List[str]]:  # type: ignore[empty-body]
 		"""
 		Return the item with the given index.
 
@@ -71,7 +71,7 @@ class Bar:
 	@overload
 	def __getitem__(self, item: slice) -> List[str]: ...
 
-	def __getitem__(self, item: Union[int, slice]) -> Union[str, List[str]]:
+	def __getitem__(self, item: Union[int, slice]) -> Union[str, List[str]]:  # type: ignore[empty-body]
 		"""
 		Return the item with the given index.
 

@@ -5,7 +5,7 @@ from typing import Any, Dict
 import pytest
 from docutils.nodes import NodeVisitor
 from docutils.transforms import Transform
-from pygments.lexer import Lexer  # type: ignore[import]
+from pygments.lexer import Lexer  # type: ignore[import-untyped]
 from sphinx.builders import Builder
 from sphinx.domains import Domain
 from sphinx.events import EventListener

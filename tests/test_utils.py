@@ -80,7 +80,7 @@ def test_purge_extras_require(nodes: List[str], output: List[str]):
 	env.all_demo_nodes = nodes  # type: ignore[attr-defined]
 	demo_purger.purge_nodes('', env, "document")  # type: ignore[arg-type]
 	assert hasattr(env, "all_demo_nodes")
-	assert env.all_demo_nodes == output  # type: ignore[attr-defined]
+	assert env.all_demo_nodes == output
 
 
 def test_get_first_matching():

@@ -4,7 +4,7 @@ from typing import List, Union
 # 3rd party
 import pytest
 from _pytest.mark import ParameterSet
-from bs4 import BeautifulSoup  # type: ignore[import]
+from bs4 import BeautifulSoup  # type: ignore[import-untyped]
 from coincidence.selectors import min_version, only_version
 from domdf_python_tools.paths import PathPlus
 from sphinx.application import Sphinx
