@@ -36,7 +36,7 @@ import sphinx.writers.html5
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.pytest_plugin import Plugin, PluginHTTPServer, get_httpserver_listen_address
 from sphinx.testing.path import path
-from sphobjinv import Inventory  # type: ignore[import]
+from sphobjinv import Inventory  # type: ignore[import-untyped]
 
 # this package
 from tests.common import error_codes_list
