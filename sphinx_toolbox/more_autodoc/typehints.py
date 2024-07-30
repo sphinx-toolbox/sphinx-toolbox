@@ -232,7 +232,7 @@ split_type_comment_args = sphinx_autodoc_typehints.split_type_comment_args
 
 
 # Demonstration of module default argument in signature
-def serialise(obj: Any, library=json) -> str:# type: ignore[empty-body]  # noqa: MAN001
+def serialise(obj: Any, library=json) -> str:  # type: ignore[empty-body]  # noqa: MAN001
 	"""
 	Serialise an object into a JSON string.
 
@@ -519,7 +519,7 @@ def preprocess_class_defaults(
 			else:
 				if hasattr(obj, "__attrs_attrs__") and default is attr.NOTHING:
 					# Special casing for attrs classes
-					for value in obj.__attrs_attrs__: 
+					for value in obj.__attrs_attrs__:
 						if value.name == argname:
 							if isinstance(value.default, attr.Factory):  # type: ignore[arg-type]
 								default = value.default.factory()
