@@ -5,6 +5,7 @@ from sphinx.ext.autodoc.directive import AutodocDirective
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc import overloads
 from sphinx_toolbox.testing import run_setup
+from tests.common import get_app_config_values
 
 
 def test_setup():
@@ -19,9 +20,9 @@ def test_setup():
 	assert app.registry.documenters["function"] == overloads.FunctionDocumenter
 	assert app.registry.documenters["method"] == overloads.MethodDocumenter
 
-	assert app.config.values["overloads_location"][:2] == ("signature", "env")
+	assert get_app_config_values(app.config.values["overloads_location"])[:2] == ("signature", "env")
 
-	assert app.config.values["overloads_location"][2].candidates == (
+	assert get_app_config_values(app.config.values["overloads_location"])[2].candidates == (
 			"top",
 			"bottom",
 			"signature",

@@ -9,6 +9,7 @@ from sphinx_toolbox.more_autodoc import sourcelink
 from sphinx_toolbox.more_autosummary import PatchedAutoSummModuleDocumenter
 from sphinx_toolbox.testing import run_setup
 from sphinx_toolbox.utils import flag
+from tests.common import get_app_config_values
 
 
 def test_setup():
@@ -30,7 +31,7 @@ def test_setup():
 					EventListener(id=0, handler=sourcelink.sourcelinks_process_docstring, priority=500),
 					],
 			}
-	assert app.config.values["autodoc_show_sourcelink"] == (False, "env", [bool])
+	assert get_app_config_values(app.config.values["autodoc_show_sourcelink"]) == (False, "env", [bool])
 
 	assert directives == {}
 	assert roles == {}

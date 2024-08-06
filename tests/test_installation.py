@@ -9,7 +9,7 @@ from sphinx.events import EventListener
 from sphinx_toolbox import installation
 from sphinx_toolbox.installation import make_installation_instructions
 from sphinx_toolbox.testing import run_setup
-from tests.common import AttrDict
+from tests.common import AttrDict, get_app_config_values
 
 
 class FakeBuildEnvironment(AttrDict):
@@ -201,7 +201,7 @@ def test_setup():
 			"config-inited": [EventListener(id=2, handler=installation._on_config_inited, priority=510)],
 			}
 
-	assert app.config.values["conda_channels"] == ([], "env", [list])
+	assert get_app_config_values(app.config.values["conda_channels"]) == ([], "env", [list])
 
 	assert directives == {
 			"installation": installation.InstallationDirective,

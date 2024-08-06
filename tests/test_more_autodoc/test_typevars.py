@@ -6,6 +6,7 @@ from sphinx.ext.autodoc.directive import AutodocDirective
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc import typevars
 from sphinx_toolbox.testing import run_setup
+from tests.common import get_app_config_values
 
 
 def test_setup():
@@ -23,4 +24,4 @@ def test_setup():
 			"config-inited": [EventListener(id=0, handler=typevars.validate_config, priority=850)],
 			}
 
-	assert app.config.values["no_unbound_typevars"] == (True, "env", [bool])
+	assert get_app_config_values(app.config.values["no_unbound_typevars"]) == (True, "env", [bool])

@@ -5,6 +5,7 @@ from sphinx.ext.autodoc.directive import AutodocDirective
 # this package
 from sphinx_toolbox import __version__, more_autosummary
 from sphinx_toolbox.testing import run_setup
+from tests.common import get_app_config_values
 
 
 def test_setup(advanced_file_regression: AdvancedFileRegressionFixture):
@@ -26,11 +27,10 @@ def test_setup(advanced_file_regression: AdvancedFileRegressionFixture):
 	assert not roles
 	assert not additional_nodes
 
-	assert app.config.values["autodocsumm_member_order"][:2] == (
+	assert get_app_config_values(app.config.values["autodocsumm_member_order"])[:2] == (
 			"alphabetical",
 			"env",
 			)
 
-	assert app.config.values["autodocsumm_member_order"][2].candidates == (
-			"alphabetic", "alphabetical", "bysource"
-			)
+	assert get_app_config_values(app.config.values["autodocsumm_member_order"]
+									)[2].candidates == ("alphabetic", "alphabetical", "bysource")

@@ -1,6 +1,7 @@
 # this package
 from sphinx_toolbox import __version__, assets
 from sphinx_toolbox.testing import run_setup
+from tests.common import get_app_config_values
 
 
 def test_setup():
@@ -16,5 +17,5 @@ def test_setup():
 			"html": {"AssetNode": (assets.visit_asset_node, assets.depart_asset_node)}
 			}
 
-	assert app.config.values["assets_dir"] == ("./assets", "env", [str])
+	assert get_app_config_values(app.config.values["assets_dir"]) == ("./assets", "env", [str])
 	assert app.registry.source_parsers == {}

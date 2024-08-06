@@ -16,6 +16,7 @@ from sphinx_toolbox.config import validate_config
 from sphinx_toolbox.github.issues import IssueNode, depart_issue_node, visit_issue_node
 from sphinx_toolbox.source import source_role
 from sphinx_toolbox.testing import Sphinx, run_setup
+from tests.common import get_app_config_values
 
 
 class FakeBuilder(Builder):
@@ -131,10 +132,10 @@ def test_testing():
 
 	assert app.registry.builders["FakeBuilder"] == FakeBuilder
 
-	assert app.config.values["source_link_target"] == ("Sphinx", "env", [str])
-	assert app.config.values["github_username"] == (None, "env", [str])
-	assert app.config.values["rebuild_true"] == (None, "env", ())
-	assert app.config.values["rebuild_false"] == (None, '', ())
+	assert get_app_config_values(app.config.values["source_link_target"]) == ("Sphinx", "env", [str])
+	assert get_app_config_values(app.config.values["github_username"]) == (None, "env", [str])
+	assert get_app_config_values(app.config.values["rebuild_true"]) == (None, "env", ())
+	assert get_app_config_values(app.config.values["rebuild_false"]) == (None, '', ())
 
 	assert app.events.events["my-event"] == ''
 	assert app.registry.translators["my-translator"] is FakeNodeVisitor

@@ -26,6 +26,7 @@ from typing_extensions import Literal, Protocol
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc import typehints
 from sphinx_toolbox.testing import Sphinx, run_setup
+from tests.common import get_app_config_values
 
 if sys.version_info >= (3, 10):
 	UnionType = types.UnionType
@@ -160,7 +161,7 @@ def test_setup():
 
 		assert setup_ret == {"parallel_read_safe": True, "version": __version__}
 
-		assert app.config.values["hide_none_rtype"] == (False, "env", [bool])
+		assert get_app_config_values(app.config.values["hide_none_rtype"]) == (False, "env", [bool])
 
 		assert directives == {}
 		assert roles == {}

@@ -10,7 +10,7 @@ from sphinx.events import EventListener
 from sphinx_toolbox import source
 from sphinx_toolbox.source import source_role
 from sphinx_toolbox.testing import run_setup
-from tests.common import AttrDict
+from tests.common import AttrDict, get_app_config_values
 
 
 class FakeSourceInliner:
@@ -81,6 +81,6 @@ def test_setup():
 	setup_ret, directives, roles, additional_nodes, app = run_setup(source.setup)
 
 	assert roles == {"source": source.source_role}
-	assert app.config.values["source_link_target"] == ("Sphinx", "env", [str])
+	assert get_app_config_values(app.config.values["source_link_target"]) == ("Sphinx", "env", [str])
 	assert app.registry.source_parsers == {}
 	assert app.events.listeners == {"config-inited": [EventListener(0, source._configure, 500)]}

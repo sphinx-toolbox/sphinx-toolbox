@@ -5,6 +5,7 @@ from sphinx.events import EventListener
 from sphinx_toolbox import __version__
 from sphinx_toolbox.more_autodoc import sourcelink
 from sphinx_toolbox.testing import run_setup
+from tests.common import get_app_config_values
 
 
 def test_setup():
@@ -19,4 +20,4 @@ def test_setup():
 	_listener = [EventListener(id=0, handler=sourcelink.sourcelinks_process_docstring, priority=500)]
 	assert app.events.listeners == {"autodoc-process-docstring": _listener}
 
-	assert app.config.values["autodoc_show_sourcelink"] == (False, "env", [bool])
+	assert get_app_config_values(app.config.values["autodoc_show_sourcelink"]) == (False, "env", [bool])

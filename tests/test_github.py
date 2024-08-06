@@ -36,7 +36,7 @@ from sphinx_toolbox.github.repos_and_users import (
 		)
 from sphinx_toolbox.testing import run_setup
 from sphinx_toolbox.utils import make_github_url
-from tests.common import AttrDict, error_codes
+from tests.common import AttrDict, error_codes, get_app_config_values
 
 
 class FakeGitHubInliner:
@@ -382,8 +382,8 @@ def test_setup():
 			}
 
 	# Moved to own setup function
-	assert app.config.values["github_username"] == (None, "env", [str])
-	assert app.config.values["github_repository"] == (None, "env", [str])
+	assert get_app_config_values(app.config.values["github_username"]) == (None, "env", [str])
+	assert get_app_config_values(app.config.values["github_repository"]) == (None, "env", [str])
 
 	assert app.events.listeners == {
 			"config-inited": [EventListener(id=0, handler=github.validate_config, priority=850)],

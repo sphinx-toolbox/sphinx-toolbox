@@ -22,7 +22,7 @@
   </script>{% if sphinx_version >= (5, 0) %}
   <script src="_static/_sphinx_javascript_frameworks_compat.js">
   </script>{% endif %}{% endif %}
-  <script src="_static/doctools.js{% if sphinx_version >= (7, 1) %}?v=888ff710{% endif %}">
+  <script src="_static/doctools.js{% if sphinx_version >= (7, 3) %}?v=9a2dae69{% elif sphinx_version >= (7, 1) %}?v=888ff710{% endif %}">
   </script>{% if sphinx_version >= (5, 2) %}
   <script src="_static/sphinx_highlight.js{% if sphinx_version >= (7, 2) %}?v=dc90522c{% elif sphinx_version >= (7, 1) %}?v=4825356b{% endif %}">
   </script>{% endif %}
@@ -488,7 +488,7 @@
        </li>
       </ul>
      </div>
-     <div id="searchbox" role="search" style="display: none">
+     <{% if sphinx_version >= (7, 3) %}search{% else %}div{% endif %} id="searchbox" role="search" style="display: none">
       <h3 id="searchlabel">
        Quick search
       </h3>
@@ -498,7 +498,7 @@
         <input type="submit" value="Go"/>
        </form>
       </div>
-     </div>
+     </{% if sphinx_version >= (7, 3) %}search{% else %}div{% endif %}>
      <script>{% if sphinx_version >= (5, 0) %}
       document.getElementById('searchbox').style.display = "block"{% else %}
       $('#searchbox').show(0);{% endif %}
