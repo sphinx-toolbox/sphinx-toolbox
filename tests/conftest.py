@@ -33,9 +33,9 @@ from typing import Iterator, Optional, Tuple
 import docutils.nodes
 import pytest
 import sphinx.writers.html5
+from domdf_python_tools.paths import PathPlus
 from pytest_httpserver import HTTPServer
 from pytest_httpserver.pytest_plugin import Plugin, PluginHTTPServer, get_httpserver_listen_address
-from sphinx.testing.path import path
 from sphobjinv import Inventory  # type: ignore[import-untyped]
 
 # this package
@@ -100,7 +100,7 @@ def inv(pytestconfig) -> Inventory:
 
 
 @pytest.fixture(autouse=True)
-def _remove_sphinx_projects(sphinx_test_tempdir: path) -> None:
+def _remove_sphinx_projects(sphinx_test_tempdir: pathlib.Path) -> None:
 	# Remove any directory which appears to be a Sphinx project from
 	# the temporary directory area.
 	# See https://github.com/sphinx-doc/sphinx/issues/4040
@@ -114,8 +114,8 @@ def _remove_sphinx_projects(sphinx_test_tempdir: path) -> None:
 
 
 @pytest.fixture()
-def rootdir() -> path:
-	return path(os.path.dirname(__file__) or '.').abspath() / "roots"
+def rootdir() -> PathPlus:
+	return PathPlus(os.path.dirname(__file__) or '.').abspath() / "roots"
 
 
 @pytest.fixture()

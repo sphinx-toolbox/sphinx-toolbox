@@ -1,7 +1,8 @@
+{% set permalink = ("Link" if sphinx_version >= (7, 2) else 'Permalink') -%}
 {% set heading = ("heading" if sphinx_version >= (5, 0) else 'headline') -%}{% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
 {% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
-<html{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
+<html{% if sphinx_version >= (7, 2) %} data-content_root="./"{% endif %}{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -11,8 +12,9 @@
   {% elif docutils_version[1] >= 20 %}<meta content="width=device-width, initial-scale=1" name="viewport"/>
   {% endif %}<title>
    sphinx-toolbox Demo - Regex — Python  documentation
-  </title>
-  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js{% if sphinx_version >= (7, 1) %}?v=b3ba4146{% endif %}">
+  </title>{% if sphinx_version >= (7, 2) %}
+  <script src="_static/documentation_options.js?v=5929fcd5">{% else %}
+  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js{% if sphinx_version >= (7, 1) %}?v=b3ba4146{% endif %}">{% endif %}
   </script>{% if sphinx_version < (6, 0) %}
   <script src="_static/jquery.js">
   </script>

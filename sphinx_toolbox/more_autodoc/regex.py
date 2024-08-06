@@ -732,7 +732,10 @@ class RegexNode(nodes.literal):
 
 	def __init__(self, rawsource: str = '', text: str = '', *children, **attributes) -> None:
 		super().__init__(rawsource, text, *children, **attributes)
-		self.pattern = re.compile(':'.join(rawsource.split(':')[2:])[1:-1])
+
+	@property
+	def pattern(self) -> re.Pattern:
+		return re.compile(':'.join(self.rawsource.split(':')[2:])[1:-1])
 
 
 class Regex(SphinxRole):

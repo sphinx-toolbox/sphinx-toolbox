@@ -9,7 +9,7 @@
 <%- else -%>
 <%- set sphinxparamcomma = ", \\emph" -%>
 <%- endif -%>
-<%- set du_role_2nd_n = ",n" if sphinx_version >= (6, 2) else "" -%>
+<%- set du_role_2nd_n = ",n" if (7, 2) > sphinx_version >= (6, 2) else "" -%>
 <# Latest Sphinx removed vertical rules from csv-table. Inconsequential for us #>
 <%- set regex_columns = "TT" if sphinx_version >= (6, 0) else "|T|T|" -%>
 

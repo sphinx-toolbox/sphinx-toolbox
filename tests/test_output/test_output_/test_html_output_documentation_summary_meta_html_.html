@@ -1,6 +1,7 @@
+{% set permalink = ("Link" if sphinx_version >= (7, 2) else 'Permalink') -%}
 {% set heading = ("heading" if sphinx_version >= (5, 0) else 'headline') -%}
 <!DOCTYPE html>
-<html{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
+<html{% if sphinx_version >= (7, 2) %} data-content_root="./"{% endif %}{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -11,8 +12,9 @@
   {% endif %}<meta content="Python -- This is an awesome tool! 🚀 ~ intersphinx_mapping #  100% 'Quotes'" name="description"/>
   <title>
    sphinx-toolbox Demo - documentation-summary :meta: — Python  documentation
-  </title>
-  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js{% if sphinx_version >= (7, 1) %}?v=b3ba4146{% endif %}">
+  </title>{% if sphinx_version >= (7, 2) %}
+  <script src="_static/documentation_options.js?v=5929fcd5">{% else %}
+  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js{% if sphinx_version >= (7, 1) %}?v=b3ba4146{% endif %}">{% endif %}
   </script>{% if sphinx_version < (6, 0) %}
   <script src="_static/jquery.js">
   </script>
@@ -22,7 +24,7 @@
   </script>{% endif %}{% endif %}
   <script src="_static/doctools.js{% if sphinx_version >= (7, 1) %}?v=888ff710{% endif %}">
   </script>{% if sphinx_version >= (5, 2) %}
-  <script src="_static/sphinx_highlight.js{% if sphinx_version >= (7, 1) %}?v=4825356b{% endif %}">
+  <script src="_static/sphinx_highlight.js{% if sphinx_version >= (7, 2) %}?v=dc90522c{% elif sphinx_version >= (7, 1) %}?v=4825356b{% endif %}">
   </script>{% endif %}
   <script src="_static/sphinx_toolbox_installation.js">
   </script>
@@ -35,7 +37,7 @@
       <div class="section" id="sphinx-toolbox-demo-documentation-summary-meta">
        <h1>
         sphinx-toolbox Demo - documentation-summary :meta:
-        <a class="headerlink" href="#sphinx-toolbox-demo-documentation-summary-meta" title="Permalink to this {{ heading }}">
+        <a class="headerlink" href="#sphinx-toolbox-demo-documentation-summary-meta" title="{{ permalink }} to this {{ heading }}">
          ¶
         </a>
        </h1>

@@ -1,8 +1,9 @@
+{% set permalink = ("Link" if sphinx_version >= (7, 2) else 'Permalink') -%}
 {% set heading = ("heading" if sphinx_version >= (5, 0) else 'headline') -%}
 {% set sig_prename_tag=("span" if sphinx_version >= (4, 0) else 'code') -%}
 {% set sig_object_class=(' class="sig sig-object py"' if sphinx_version >= (4, 0) else '') -%}
 <!DOCTYPE html>
-<html{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
+<html{% if sphinx_version >= (7, 2) %} data-content_root="./"{% endif %}{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
  <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -12,8 +13,9 @@
   {% elif docutils_version[1] >= 20 %}<meta content="width=device-width, initial-scale=1" name="viewport"/>
   {% endif %}<title>
    sphinx-toolbox Demo - AutoNamedTuple — Python  documentation
-  </title>
-  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js{% if sphinx_version >= (7, 1) %}?v=b3ba4146{% endif %}">
+  </title>{% if sphinx_version >= (7, 2) %}
+  <script src="_static/documentation_options.js?v=5929fcd5">{% else %}
+  <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js{% if sphinx_version >= (7, 1) %}?v=b3ba4146{% endif %}">{% endif %}
   </script>{% if sphinx_version < (6, 0) %}
   <script src="_static/jquery.js">
   </script>
@@ -23,7 +25,7 @@
   </script>{% endif %}{% endif %}
   <script src="_static/doctools.js{% if sphinx_version >= (7, 1) %}?v=888ff710{% endif %}">
   </script>{% if sphinx_version >= (5, 2) %}
-  <script src="_static/sphinx_highlight.js{% if sphinx_version >= (7, 1) %}?v=4825356b{% endif %}">
+  <script src="_static/sphinx_highlight.js{% if sphinx_version >= (7, 2) %}?v=dc90522c{% elif sphinx_version >= (7, 1) %}?v=4825356b{% endif %}">
   </script>{% endif %}
   <script src="_static/sphinx_toolbox_installation.js">
   </script>
@@ -38,7 +40,7 @@
        </span>
        <h1>
         sphinx-toolbox Demo - AutoNamedTuple
-        <a class="headerlink" href="#module-autonamedtuple_demo" title="Permalink to this {{ heading }}">
+        <a class="headerlink" href="#module-autonamedtuple_demo" title="{{ permalink }} to this {{ heading }}">
          ¶
         </a>
        </h1>
@@ -91,7 +93,7 @@
            </span>{% endif %}
           </dt>
           <dd class="field-odd">
-           <span class="target" id="autonamedtuple_demo.Animal.name">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.Animal.name">
            </span>
            <ol class="arabic simple" id="autonamedtuple_demo.Animal.voice" start="0">
             <li>
@@ -186,7 +188,7 @@
            </span>{% endif %}
           </dt>
           <dd class="field-odd">
-           <span class="target" id="autonamedtuple_demo.Employee.name">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.Employee.name">
            </span>
            <ol class="arabic simple" id="autonamedtuple_demo.Employee.id" start="0">
             <li>
@@ -329,9 +331,9 @@
            </span>{% endif %}
           </dt>
           <dd class="field-odd">
-           <span class="target" id="autonamedtuple_demo.Movie.name">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.Movie.name">
            </span>
-           <span class="target" id="autonamedtuple_demo.Movie.year">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.Movie.year">
            </span>
            <ol class="arabic simple" id="autonamedtuple_demo.Movie.based_on" start="0">
             <li>
@@ -452,9 +454,9 @@
            </span>{% endif %}
           </dt>
           <dd class="field-odd">
-           <span class="target" id="autonamedtuple_demo.Foo.a">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.Foo.a">
            </span>
-           <span class="target" id="autonamedtuple_demo.Foo.b">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.Foo.b">
            </span>
            <ol class="arabic simple" id="autonamedtuple_demo.Foo.c" start="0">
             <li>
@@ -570,9 +572,9 @@
            </span>{% endif %}
           </dt>
           <dd class="field-odd">
-           <span class="target" id="autonamedtuple_demo.Traditional.a">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.Traditional.a">
            </span>
-           <span class="target" id="autonamedtuple_demo.Traditional.b">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.Traditional.b">
            </span>
            <ol class="arabic simple" id="autonamedtuple_demo.Traditional.c" start="0">
             <li>
@@ -669,9 +671,9 @@
            </span>{% endif %}
           </dt>
           <dd class="field-odd">
-           <span class="target" id="autonamedtuple_demo.NoDocstring.a">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.NoDocstring.a">
            </span>
-           <span class="target" id="autonamedtuple_demo.NoDocstring.b">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.NoDocstring.b">
            </span>
            <ol class="arabic simple" id="autonamedtuple_demo.NoDocstring.c" start="0">
             <li>
@@ -779,9 +781,9 @@
            </span>{% endif %}
           </dt>
           <dd class="field-odd">
-           <span class="target" id="autonamedtuple_demo.NoDocstring.a">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.NoDocstring.a">
            </span>
-           <span class="target" id="autonamedtuple_demo.NoDocstring.b">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.NoDocstring.b">
            </span>
            <ol class="arabic simple" id="autonamedtuple_demo.NoDocstring.c" start="0">
             <li>
@@ -887,9 +889,9 @@
            </span>{% endif %}
           </dt>
           <dd class="field-odd">
-           <span class="target" id="autonamedtuple_demo.CustomisedNew.a">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.CustomisedNew.a">
            </span>
-           <span class="target" id="autonamedtuple_demo.CustomisedNew.b">
+           <span{% if sphinx_version < (7, 2) %} class="target"{% endif %} id="autonamedtuple_demo.CustomisedNew.b">
            </span>
            <ol class="arabic simple" id="autonamedtuple_demo.CustomisedNew.c" start="0">
             <li>

@@ -27,6 +27,8 @@
 #
 
 # stdlib
+import pathlib
+import shutil
 from typing import Any, Dict, Sequence, Tuple
 
 # 3rd party
@@ -36,7 +38,6 @@ from domdf_python_tools.paths import PathPlus
 from sphinx.application import Sphinx
 from sphinx.testing.fixtures import app as gh_src_app
 from sphinx.testing.fixtures import make_app, shared_result, sphinx_test_tempdir, test_params
-from sphinx.testing.path import path
 
 # this package
 from tests.common import AppParams
@@ -45,18 +46,18 @@ fixtures = [make_app, shared_result, sphinx_test_tempdir, test_params, gh_src_ap
 
 
 @pytest.fixture(scope="session")
-def rootdir() -> path:
+def rootdir() -> PathPlus:
 	rdir = PathPlus(__file__).parent.absolute() / "github-issues-doc-test"
 	(rdir / "test-github-issues-root").maybe_make(parents=True)
-	return path(rdir)
+	return PathPlus(rdir)
 
 
 @pytest.fixture()
 def app_params(
 		request: Any,
 		test_params: Dict,
-		sphinx_test_tempdir: path,
-		rootdir: path,
+		sphinx_test_tempdir: pathlib.Path,
+		rootdir: pathlib.Path,
 		) -> Tuple[Sequence, Dict]:
 	"""
 	parameters that is specified by 'pytest.mark.sphinx' for
@@ -86,7 +87,7 @@ def app_params(
 	# special support for sphinx/tests
 	if rootdir and not srcdir.exists():
 		testroot_path = rootdir / ("test-" + testroot)
-		testroot_path.copytree(srcdir)
+		shutil.copytree(testroot_path, srcdir)
 
 	return AppParams(args, kwargs)
 

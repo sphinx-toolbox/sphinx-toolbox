@@ -27,6 +27,8 @@
 #
 
 # stdlib
+import pathlib
+import shutil
 from contextlib import contextmanager
 from typing import Any, Callable, ContextManager, Dict, Iterator, Sequence, Tuple
 
@@ -37,7 +39,6 @@ from domdf_python_tools.paths import PathPlus, in_directory
 from sphinx.application import Sphinx
 from sphinx.testing.fixtures import app as testing_app
 from sphinx.testing.fixtures import make_app, shared_result, sphinx_test_tempdir, test_params
-from sphinx.testing.path import path
 
 # this package
 from tests.common import AppParams
@@ -75,18 +76,18 @@ def pre_commit_flake8_contextmanager(
 
 
 @pytest.fixture(scope="session")
-def rootdir() -> path:
+def rootdir() -> PathPlus:
 	rdir = PathPlus(__file__).parent.absolute() / "doc-test"
 	(rdir / "test-root").maybe_make(parents=True)
-	return path(rdir)
+	return PathPlus(rdir)
 
 
 @pytest.fixture()
 def app_params(
 		request: Any,
 		test_params: Dict,
-		sphinx_test_tempdir: path,
-		rootdir: path,
+		sphinx_test_tempdir: pathlib.Path,
+		rootdir: pathlib.Path,
 		) -> Tuple[Sequence, Dict]:
 	"""
 	parameters that is specified by 'pytest.mark.sphinx' for
@@ -116,7 +117,7 @@ def app_params(
 	# special support for sphinx/tests
 	if rootdir and not srcdir.exists():
 		testroot_path = rootdir / ("test-" + testroot)
-		testroot_path.copytree(srcdir)
+		shutil.copytree(testroot_path, srcdir)
 
 	return AppParams(args, kwargs)
 
