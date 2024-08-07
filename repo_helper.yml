@@ -32,11 +32,15 @@ python_versions:
     - 7.0
     - 7.1
     - 7.2
+    - 7.3
+    - 7.4
     - latest
  3.8:
   matrix_exclude:
    sphinx:
     - 7.2
+    - 7.3
+    - 7.4
  3.9:
  "3.10":
  "3.11":
@@ -76,6 +80,8 @@ python_versions:
     - 7.0
     - 7.1
     - 7.2
+    - 7.3
+    - 7.4
     - latest
  pypy38:
   matrix_exclude:
@@ -88,6 +94,8 @@ python_versions:
     - 4.1
     - 4.2
     - 7.2
+    - 7.3
+    - 7.4
  pypy39:
   matrix_exclude:
    sphinx:
@@ -158,6 +166,8 @@ third_party_version_matrix:
     - 7.0
     - 7.1
     - 7.2
+    - 7.3
+    - 7.4
     # - latest
 
 classifiers:
