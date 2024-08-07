@@ -367,7 +367,7 @@
      </div>
     </div>
    </div>
-   <div aria-label="main navigation" class="sphinxsidebar" role="navigation">
+   <div aria-label="{% if sphinx_version >= (7, 4) %}Main{% else %}main navigation{% endif %}" class="sphinxsidebar" role="navigation">
     <div class="sphinxsidebarwrapper">
      <h1 class="logo">
       <a href="#">
