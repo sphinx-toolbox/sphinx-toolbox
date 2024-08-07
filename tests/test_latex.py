@@ -1,4 +1,5 @@
 # 3rd party
+from docutils import nodes
 from sphinx import addnodes
 from sphinx.events import EventListener
 from sphinx.writers.latex import LaTeXTranslator
@@ -71,7 +72,7 @@ def test_setup_layout():
 
 	assert setup_ret == {"version": sphinx_toolbox.__version__, "parallel_read_safe": True}
 
-	assert additional_nodes == {addnodes.desc}
+	assert additional_nodes == {addnodes.desc, nodes.field_list, nodes.paragraph}
 	assert app.registry.translation_handlers == {
 			"latex": {
 					"desc": (layout.visit_desc, LaTeXTranslator.depart_desc),

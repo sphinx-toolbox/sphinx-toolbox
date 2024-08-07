@@ -582,6 +582,10 @@ _fake_metadata_setup = Callable[[Sphinx], Optional["SphinxExtMetadata"]]
 _setup_func_type = Union[_sphinx_dict_setup, _sphinx_metadata_setup, _fake_dict_setup, _fake_metadata_setup]
 
 
+class GenericNodeVisitor(nodes.NodeVisitor):
+	pass
+
+
 def run_setup(setup_func: _setup_func_type) -> RunSetupOutput:  # , buildername: str = "html"
 	"""
 	Function for running an extension's ``setup()`` function for testing.
@@ -596,7 +600,10 @@ def run_setup(setup_func: _setup_func_type) -> RunSetupOutput:  # , buildername:
 	app.add_domain(PythonDomain)
 
 	_additional_nodes = copy.copy(docutils.additional_nodes)
+	orig_gnv = nodes.GenericNodeVisitor
+
 	try:
+		nodes.GenericNodeVisitor = GenericNodeVisitor
 		docutils.additional_nodes = set()
 
 		with docutils.docutils_namespace():
@@ -606,6 +613,7 @@ def run_setup(setup_func: _setup_func_type) -> RunSetupOutput:  # , buildername:
 			additional_nodes = copy.copy(docutils.additional_nodes)
 	finally:
 		docutils.additional_nodes = _additional_nodes
+		nodes.GenericNodeVisitor = orig_gnv
 
 	return RunSetupOutput(setup_ret, directives, roles, additional_nodes, app)
 

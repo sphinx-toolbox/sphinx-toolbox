@@ -1,5 +1,6 @@
 # 3rd party
 from coincidence.regressions import AdvancedFileRegressionFixture
+from docutils import nodes
 from domdf_python_tools.paths import PathPlus
 
 # this package
@@ -22,7 +23,7 @@ def test_setup():
 	assert setup_ret == {"version": sphinx_toolbox.__version__, "parallel_read_safe": True}
 
 	assert directives == {}
-	assert additional_nodes == set()
+	assert additional_nodes == {nodes.container}
 
 	assert app.registry.translation_handlers == {
 			"html": {"container": (sphinx_panels_tabs.visit_container, sphinx_panels_tabs.depart_container)}
