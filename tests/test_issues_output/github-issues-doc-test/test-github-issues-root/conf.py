@@ -15,6 +15,8 @@ github_username = "domdfcoding"
 github_repository = "sphinx-toolbox"
 source_link_target = "GitHub"
 generic_bases_fully_qualified = True
+project = "Python"
+author = "unknown"
 
 
 # These revert https://github.com/sphinx-doc/sphinx/pull/8472

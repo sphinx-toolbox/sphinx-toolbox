@@ -26,6 +26,8 @@ overloads_location = "bottom"
 documentation_summary = "   This is an awesome tool! 🚀 ~ intersphinx_mapping #  100% 'Quotes'"
 
 intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
+project = "Python"
+author = "unknown"
 
 
 def setup(app: Sphinx) -> None:
