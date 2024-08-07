@@ -463,6 +463,7 @@ class _PyNamedTupleField(PyAttribute):
 		node_id = make_id(self.env, self.state.document, '', fullname)
 		node = nodes.target('', '', ids=[node_id])
 		node.document = self.state.document
+		node.attributes["namedtuple_field"] = True
 
 		if "noindex" not in self.options:
 			# only add target and index entry if this is the first
@@ -480,6 +481,23 @@ class _PyNamedTupleField(PyAttribute):
 				self.indexnode["entries"].append(("pair", "; ".join(pair), node_id, '', key))
 
 		return [self.indexnode, node]
+
+
+def _patch_reorder_transform():
+	# Patch ReorderConsecutiveTargetAndIndexNodes on Sphinx 7.2+
+
+	# 3rd party
+	import sphinx.transforms
+	if sphinx.version_info >= (7, 2):
+		orig_reorder_func = sphinx.transforms._reorder_index_target_nodes
+
+		def _reorder_index_target_nodes(start_node: nodes.target) -> None:
+			if start_node.attributes.get("namedtuple_field", False):
+				return
+
+			orig_reorder_func(start_node)
+
+		sphinx.transforms._reorder_index_target_nodes = _reorder_index_target_nodes
 
 
 @metadata_add_version
@@ -513,5 +531,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	allow_subclass_add(app, NamedTupleDocumenter)
 
 	app.connect("config-inited", lambda _, config: add_nbsp_substitution(config))
+
+	_patch_reorder_transform()
 
 	return {"parallel_read_safe": True}
