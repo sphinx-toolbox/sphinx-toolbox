@@ -39,7 +39,7 @@
       <div class="section" id="sphinx-toolbox-demo-sourcelink">
        <h1>
         sphinx-toolbox Demo - :sourcelink:
-        <a class="headerlink" href="#sphinx-toolbox-demo-sourcelink" title="Permalink to this {{ heading }}">
+        <a class="headerlink" href="#sphinx-toolbox-demo-sourcelink" title="{{ permalink }} to this {{ heading }}">
          ¶
         </a>
        </h1>
@@ -408,10 +408,11 @@
           </dd>
          </dl>
         </dd>
-       </dl>
+       </dl>{% if sphinx_version >= (7, 2) %}
+       <p class="source-link" id="module-sphinx_toolbox.more_autosummary">{% else %}
        <span class="target" id="module-sphinx_toolbox.more_autosummary">
        </span>
-       <p class="source-link">
+       <p class="source-link">{% endif %}
         <strong>
          Source code:
         </strong>
