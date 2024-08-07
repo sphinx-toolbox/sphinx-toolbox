@@ -175,7 +175,7 @@ def visit_collapse_node(translator: HTML5Translator, node: CollapseNode) -> None
 	if node.attributes.get("open", False):
 		tag_parts.append("open")
 
-	translator.body.append(f"<{tag_parts: }>\n<summary>{node["label"]}</summary>")
+	translator.body.append(f"<{tag_parts: }>\n<summary>{node['label']}</summary>")
 	translator.context.append("</details>")
 
 
