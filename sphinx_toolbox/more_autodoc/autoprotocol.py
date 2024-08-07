@@ -133,6 +133,7 @@ import sys
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 # 3rd party
+import sphinx
 from docutils.statemachine import StringList
 from sphinx.application import Sphinx
 from sphinx.domains import ObjType
@@ -321,7 +322,11 @@ class ProtocolDocumenter(ClassDocumenter):
 		ret = []
 
 		# process members and determine which to skip
-		for (membername, member) in members:
+		for m in members:
+			if sphinx.version_info >= (7, 0):
+				membername, member = m.__name__, m.object
+			else:
+				membername, member = m
 			# if isattr is True, the member is documented as an attribute
 
 			if safe_getattr(member, "__sphinx_mock__", False):
