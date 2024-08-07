@@ -603,7 +603,7 @@ def run_setup(setup_func: _setup_func_type) -> RunSetupOutput:  # , buildername:
 	orig_gnv = nodes.GenericNodeVisitor
 
 	try:
-		nodes.GenericNodeVisitor = GenericNodeVisitor
+		nodes.GenericNodeVisitor = GenericNodeVisitor  # type: ignore[misc,assignment]
 		docutils.additional_nodes = set()
 
 		with docutils.docutils_namespace():
@@ -613,7 +613,7 @@ def run_setup(setup_func: _setup_func_type) -> RunSetupOutput:  # , buildername:
 			additional_nodes = copy.copy(docutils.additional_nodes)
 	finally:
 		docutils.additional_nodes = _additional_nodes
-		nodes.GenericNodeVisitor = orig_gnv
+		nodes.GenericNodeVisitor = orig_gnv  # type: ignore[misc]
 
 	return RunSetupOutput(setup_ret, directives, roles, additional_nodes, app)
 

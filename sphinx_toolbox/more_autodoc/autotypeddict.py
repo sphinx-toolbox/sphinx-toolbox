@@ -418,7 +418,7 @@ class TypedDictDocumenter(ClassDocumenter):
 		# process members and determine which to skip
 		for m in members:
 			if sphinx.version_info >= (7, 0):
-				membername, member = m.__name__, m.object
+				membername, member = m.__name__, m.object  # type: ignore[union-attr]
 			else:
 				membername, member = m
 			# if isattr is True, the member is documented as an attribute

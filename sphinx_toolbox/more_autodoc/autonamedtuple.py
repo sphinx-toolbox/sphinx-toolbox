@@ -489,7 +489,7 @@ def _patch_reorder_transform():
 	# 3rd party
 	import sphinx.transforms
 	if sphinx.version_info >= (7, 2):
-		orig_reorder_func = sphinx.transforms._reorder_index_target_nodes
+		orig_reorder_func = sphinx.transforms._reorder_index_target_nodes  # type: ignore[attr-defined]
 
 		def _reorder_index_target_nodes(start_node: nodes.target) -> None:
 			if start_node.attributes.get("namedtuple_field", False):
@@ -497,7 +497,7 @@ def _patch_reorder_transform():
 
 			orig_reorder_func(start_node)
 
-		sphinx.transforms._reorder_index_target_nodes = _reorder_index_target_nodes
+		sphinx.transforms._reorder_index_target_nodes = _reorder_index_target_nodes  # type: ignore[attr-defined]
 
 
 @metadata_add_version
