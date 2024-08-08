@@ -34,6 +34,7 @@ python_versions:
     - 7.2
     - 7.3
     - 7.4
+    - 8.0
     - latest
  3.8:
   matrix_exclude:
@@ -41,7 +42,12 @@ python_versions:
     - 7.2
     - 7.3
     - 7.4
+    - 8.0
+    - latest
  3.9:
+  matrix_exclude:
+   sphinx:
+    - 8.0
  "3.10":
  "3.11":
  "3.12":
@@ -82,6 +88,7 @@ python_versions:
     - 7.2
     - 7.3
     - 7.4
+    - 8.0
     - latest
  pypy38:
   matrix_exclude:
@@ -96,6 +103,8 @@ python_versions:
     - 7.2
     - 7.3
     - 7.4
+    - 8.0
+    - latest
  pypy39:
   matrix_exclude:
    sphinx:
@@ -106,6 +115,8 @@ python_versions:
     - 4.0
     - 4.1
     - 4.2
+    - 8.0
+    - latest
 
 additional_ignore:
   - wip-shields-block.py
@@ -168,6 +179,7 @@ third_party_version_matrix:
     - 7.2
     - 7.3
     - 7.4
+    - 8.0
     # - latest
 
 classifiers:
