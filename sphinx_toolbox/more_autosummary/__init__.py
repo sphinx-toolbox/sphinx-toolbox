@@ -589,7 +589,12 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 		ret = []
 		for mname in memberlist:
 			try:  # pylint: disable=R8203
-				ret.append((mname, safe_getattr(self.object, mname)))
+				if sphinx.version_info >= (8, 0):
+					# 3rd party
+					from sphinx.ext.autodoc import ObjectMember
+					ret.append(ObjectMember(mname, safe_getattr(self.object, mname)))
+				else:
+					ret.append((mname, safe_getattr(self.object, mname)))  # type: ignore[arg-type]
 			except AttributeError:
 				# pylint: disable=dotted-import-in-loop)
 				logger.warning(
@@ -671,6 +676,22 @@ class PatchedAutoDocSummDirective(autodocsumm.AutoDocSummDirective):
 		return node.children
 
 
+def _patch_filter_members():
+	# 3rd party
+	from sphinx.ext.autodoc import ObjectMember
+
+	orig_filter_members = Documenter.filter_members
+
+	def _documenter_filter_members(self, members: List[ObjectMember],
+									want_all: bool) -> List[Tuple[str, Any, bool]]:
+		if members and isinstance(members[0], tuple):
+			members = [ObjectMember(*m) for m in members]
+
+		return orig_filter_members(self, members, want_all)
+
+	Documenter.filter_members = _documenter_filter_members  # type: ignore[method-assign, assignment]
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -704,5 +725,13 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 			rebuild="latex",
 			types=[str],
 			)
+
+	if sphinx.version_info >= (8, 0):
+		# 3rd party
+		from sphinx.ext.autodoc import ObjectMember
+
+		# Restore deprecated and removed functionality to fix autodocsumm
+		ObjectMember.__getitem__ = lambda self, idx: (self.__name__, self.object)[idx]  # type: ignore[method-assign]
+		_patch_filter_members()
 
 	return {"parallel_read_safe": True}

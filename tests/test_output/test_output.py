@@ -286,6 +286,7 @@ def test_latex_output_latex_layout(
 
 	app.setup_extension("sphinx_toolbox.tweaks.latex_layout")
 	app.config.needspace_amount = r"4\baselineskip"  # type: ignore[attr-defined]
+	app.config.intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 	app.events.emit("config-inited", app.config)
 
 	with pre_commit_flake8_contextmanager():
