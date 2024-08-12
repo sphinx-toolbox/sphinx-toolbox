@@ -97,7 +97,7 @@ def github_source_page(gh_src_app: Sphinx, request) -> BeautifulSoup:
 	gh_src_app.build(force_all=True)
 
 	pagename = request.param
-	c = (gh_src_app.outdir / pagename).read_text()
+	c = (PathPlus(gh_src_app.outdir) / pagename).read_text()
 
 	soup = BeautifulSoup(c, "html5lib")
 

@@ -97,7 +97,7 @@ def sphinx_source_page(sphinx_src_app: Sphinx, request) -> BeautifulSoup:
 	sphinx_src_app.build(force_all=True)
 
 	pagename = request.param
-	c = (sphinx_src_app.outdir / pagename).read_text()
+	c = (PathPlus(sphinx_src_app.outdir) / pagename).read_text()
 
 	soup = BeautifulSoup(c, "html5lib")
 
