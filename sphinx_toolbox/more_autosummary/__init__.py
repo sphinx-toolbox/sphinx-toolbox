@@ -676,14 +676,17 @@ class PatchedAutoDocSummDirective(autodocsumm.AutoDocSummDirective):
 		return node.children
 
 
-def _patch_filter_members():
+def _patch_filter_members() -> None:
 	# 3rd party
 	from sphinx.ext.autodoc import ObjectMember
 
 	orig_filter_members = Documenter.filter_members
 
-	def _documenter_filter_members(self, members: List[ObjectMember],
-									want_all: bool) -> List[Tuple[str, Any, bool]]:
+	def _documenter_filter_members(
+			self,
+			members: List[ObjectMember],
+			want_all: bool,
+			) -> List[Tuple[str, Any, bool]]:
 		if members and isinstance(members[0], tuple):
 			members = [ObjectMember(*m) for m in members]
 

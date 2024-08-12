@@ -156,10 +156,8 @@ def test_parse_parameters():
 			]
 	post_output = [
 			'',
-			':return: A mapping of parameter names to their docstrings and '
-			'types, a list of docstring lines that',
-			'    appeared before the parameters, and the list of docstring lines that '
-			'appear after the parameters.',
+			":return: A mapping of parameter names to their docstrings and types, a list of docstring lines that",
+			"    appeared before the parameters, and the list of docstring lines that appear after the parameters.",
 			]
 
 	assert parse_parameters(docstring.split('\n'), tab_size=4) == (docstring_dict, pre_output, post_output)
