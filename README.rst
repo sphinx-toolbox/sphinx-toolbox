@@ -101,7 +101,7 @@ sphinx-toolbox
 .. |language| image:: https://img.shields.io/github/languages/top/sphinx-toolbox/sphinx-toolbox
 	:alt: GitHub top language
 
-.. |commits-since| image:: https://img.shields.io/github/commits-since/sphinx-toolbox/sphinx-toolbox/v3.7.0
+.. |commits-since| image:: https://img.shields.io/github/commits-since/sphinx-toolbox/sphinx-toolbox/v3.8.0
 	:target: https://github.com/sphinx-toolbox/sphinx-toolbox/pulse
 	:alt: GitHub commits since tagged version
 
