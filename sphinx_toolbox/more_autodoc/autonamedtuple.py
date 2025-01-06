@@ -351,9 +351,8 @@ class NamedTupleDocumenter(ClassDocumenter):
 			# Mapping of member names to docstrings (as list of strings)
 			member_docstrings = {
 					k[1]: v
-					for k,
-					v in ModuleAnalyzer.for_string(namedtuple_source, self.object.__module__
-													).find_attr_docs().items()
+					for k, v in ModuleAnalyzer.for_string(namedtuple_source, self.object.__module__
+															).find_attr_docs().items()
 					}
 
 		except (TypeError, OSError):

@@ -734,7 +734,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 		from sphinx.ext.autodoc import ObjectMember
 
 		# Restore deprecated and removed functionality to fix autodocsumm
-		ObjectMember.__getitem__ = lambda self, idx: (self.__name__, self.object)[idx]  # type: ignore[method-assign]
+		ObjectMember.__getitem__ = lambda self, idx: (self.__name__, self.object)[idx
+																					]  # type: ignore[method-assign]
 		_patch_filter_members()
 
 	return {"parallel_read_safe": True}
