@@ -328,9 +328,16 @@ def get_issue_title(issue_url: str) -> Optional[str]:
 		try:
 			content = soup.find_all("span", attrs={"class": "js-issue-title"})[0].text
 		except IndexError:
-			# As of 13 Jan 2023 GitHub seems to use a bidirectional text tag instead
-			# content = soup.find_all("bdi", attrs={"class": "js-issue-title"})[0].text
-			content = soup.find_all("bdi", attrs={"data-testid": "issue-title"})[0].text
+			try:
+				# As of 13 Jan 2023 GitHub seems to use a bidirectional text tag instead
+				content = soup.find_all("bdi", attrs={"class": "js-issue-title"})[0].text
+			except IndexError:
+				try:
+					# As of 17 2025, GitHub seems to have changed this again...
+					content = soup.find_all("bdi", attrs={"class": "Box-sc-g0xbh4-0 markdown-title"})[0].text
+				except IndexError:
+					# Give up
+					return None
 
 		content = xml.sax.saxutils.escape(content).replace('"', "&quot;")
 		return content.strip()
