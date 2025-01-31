@@ -1,4 +1,5 @@
 git+https://github.com/sphinx-toolbox/email@translator
+autodocsumm==0.2.13
 default-values>=0.6.0
 domdf-sphinx-theme>=0.3.0
 extras-require>=0.5.0
