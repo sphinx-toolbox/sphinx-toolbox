@@ -321,6 +321,7 @@ def get_issue_title(issue_url: str) -> Optional[str]:
 	try:
 		r = cache.session.get(issue_url, timeout=30)
 	except requests.exceptions.RequestException:
+		print(f"INFO: failed to retrive GitHub issue page at {issue_url}")
 		return None
 
 	if r.status_code == 200:
@@ -333,5 +334,8 @@ def get_issue_title(issue_url: str) -> Optional[str]:
 
 		content = xml.sax.saxutils.escape(content).replace('"', "&quot;")
 		return content.strip()
+	else:
+		print(f"INFO: Unexprected HTTP status code {r.status_code} for GitHub issue page at {issue_url}")
 
+	print(f"INFO: Failed to parse title from GitHub issue page at {issue_url}")
 	return None
