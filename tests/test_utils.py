@@ -32,10 +32,10 @@ from sphinx_toolbox.utils import (
 
 
 def test_make_github_url():
-	url = make_github_url("domdfcoding", "sphinx-toolbox")
+	url = make_github_url("sphinx-toolbox", "sphinx-toolbox")
 	assert isinstance(url, RequestsURL)
 
-	assert url == RequestsURL("https://github.com/domdfcoding/sphinx-toolbox")
+	assert url == RequestsURL("https://github.com/sphinx-toolbox/sphinx-toolbox")
 
 
 def test_flag():

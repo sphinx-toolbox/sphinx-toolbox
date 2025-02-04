@@ -10,7 +10,7 @@ from tests.common import AttrDict
 def test_validate_config():
 	config = AttrDict({
 			"source_link_target": "Sphinx",
-			"github_username": "domdfcoding",
+			"github_username": "sphinx-toolbox",
 			"github_repository": "sphinx-toolbox",
 			"rst_prolog": '',
 			})
@@ -19,12 +19,12 @@ def test_validate_config():
 
 	assert config == {
 			"source_link_target": "sphinx",
-			"github_username": "domdfcoding",
+			"github_username": "sphinx-toolbox",
 			"github_repository": "sphinx-toolbox",
-			"github_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox"),
-			"github_source_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/blob/master"),
-			"github_issues_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/issues"),
-			"github_pull_url": RequestsURL("https://github.com/domdfcoding/sphinx-toolbox/pull"),
+			"github_url": RequestsURL("https://github.com/sphinx-toolbox/sphinx-toolbox"),
+			"github_source_url": RequestsURL("https://github.com/sphinx-toolbox/sphinx-toolbox/blob/master"),
+			"github_issues_url": RequestsURL("https://github.com/sphinx-toolbox/sphinx-toolbox/issues"),
+			"github_pull_url": RequestsURL("https://github.com/sphinx-toolbox/sphinx-toolbox/pull"),
 			"rst_prolog": "\n\n.. |nbsp| unicode:: 0xA0\n   :trim:",
 			}
 
@@ -39,7 +39,7 @@ def test_validate_config():
 
 	config = AttrDict({
 			"source_link_target": "Sphinx",
-			"github_username": "domdfcoding",
+			"github_username": "sphinx-toolbox",
 			"github_repository": None,
 			})
 
@@ -48,7 +48,7 @@ def test_validate_config():
 
 	config = AttrDict({
 			"source_link_target": "bananas",
-			"github_username": "domdfcoding",
+			"github_username": "sphinx-toolbox",
 			"github_repository": "sphinx-toolbox",
 			})
 
@@ -69,7 +69,7 @@ def test_validate_config():
 def test_source_link_target(target: str, expects: str):
 	config = AttrDict({
 			"source_link_target": target,
-			"github_username": "domdfcoding",
+			"github_username": "sphinx-toolbox",
 			"github_repository": "sphinx-toolbox",
 			"rst_prolog": '',
 			})

@@ -10,7 +10,7 @@ extensions = [
 		"sphinx_toolbox.more_autosummary.column_widths",
 		]
 
-github_username = "domdfcoding"
+github_username = "sphinx-toolbox"
 github_repository = "sphinx-toolbox"
 source_link_target = "GitHub"
 

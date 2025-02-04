@@ -33,25 +33,25 @@ def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLR
 
 	assert links[0].abbr["title"] == "Example Issue"  # check the abbr tag
 	assert links[0].abbr.a["class"] == ["reference", "external"]  # check the a tag's class
-	assert links[0].abbr.a["href"
-							] == "https://github.com/domdfcoding/sphinx-toolbox/issues/1"  # check the a tag's href
+	assert links[0].abbr.a[
+			"href"] == "https://github.com/sphinx-toolbox/sphinx-toolbox/issues/1"  # check the a tag's href
 	assert links[0].abbr.a.contents[0] == "#1"  # check the body
 
 	assert [str(x) for x in links] == [
 			'<p><abbr title="Example Issue"><a class="reference external" '
-			'href="https://github.com/domdfcoding/sphinx-toolbox/issues/1">#1</a></abbr></p>',
+			'href="https://github.com/sphinx-toolbox/sphinx-toolbox/issues/1">#1</a></abbr></p>',
 			'<p><abbr title="Example Pull Request"><a class="reference external" '
-			'href="https://github.com/domdfcoding/sphinx-toolbox/pull/2">#2</a></abbr></p>',
+			'href="https://github.com/sphinx-toolbox/sphinx-toolbox/pull/2">#2</a></abbr></p>',
 			'<p><abbr title="Example Pull Request"><a class="reference external" '
-			'href="https://github.com/domdfcoding/sphinx-toolbox/pull/2">#2</a></abbr></p>',
+			'href="https://github.com/sphinx-toolbox/sphinx-toolbox/pull/2">#2</a></abbr></p>',
 			'<p><abbr title="Add --log-cli option"><a class="reference external" '
 			'href="https://github.com/pytest-dev/pytest/issues/7680">pytest-dev/pytest#7680</a></abbr></p>',
 			'<p><abbr title="RFC: python: skip work pytest_pycollect_makeitem work on certain names"><a '
 			'class="reference external" href="https://github.com/pytest-dev/pytest/issues/7671">pytest-dev/pytest#7671</a></abbr></p>',
 			'<p><a class="reference external" '
-			'href="https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/source.py">sphinx_toolbox/source.py</a></p>',
+			'href="https://github.com/sphinx-toolbox/sphinx-toolbox/blob/master/sphinx_toolbox/source.py">sphinx_toolbox/source.py</a></p>',
 			'<p><a class="reference external" '
-			'href="https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/more_autodoc/__init__.py">sphinx_toolbox/more_autodoc/__init__.py</a></p>',
+			'href="https://github.com/sphinx-toolbox/sphinx-toolbox/blob/master/sphinx_toolbox/more_autodoc/__init__.py">sphinx_toolbox/more_autodoc/__init__.py</a></p>',
 			'<p>Issue with code in its title: <abbr title="Unable to install latest '
 			'version of flake8 and Sphinx together"><a class="reference external" '
 			'href="https://github.com/sphinx-doc/sphinx/issues/10241">sphinx-doc/sphinx#10241</a></abbr>.</p>',
