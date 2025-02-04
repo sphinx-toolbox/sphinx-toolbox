@@ -27,12 +27,12 @@ def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLR
 			if a_tag.contents[0] == "sphinx_toolbox/config.py":
 				assert a_tag[
 						"href"
-						] == "https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/config.py"
+						] == "https://github.com/sphinx-toolbox/sphinx-toolbox/blob/master/sphinx_toolbox/config.py"
 		elif tag_count == 1:
 			if a_tag.contents[0] == "source code":
 				assert a_tag[
 						"href"
-						] == "https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/config.py"
+						] == "https://github.com/sphinx-toolbox/sphinx-toolbox/blob/master/sphinx_toolbox/config.py"
 		tag_count += 1
 
 	assert tag_count == 2

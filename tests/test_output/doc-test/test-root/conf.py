@@ -34,7 +34,7 @@ extensions = [
 		"sphinx_toolbox.tweaks.revert_footnote_style",
 		]
 
-github_username = "domdfcoding"
+github_username = "sphinx-toolbox"
 github_repository = "sphinx-toolbox"
 source_link_target = "GitHub"
 

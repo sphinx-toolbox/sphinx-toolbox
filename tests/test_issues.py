@@ -41,7 +41,7 @@ class FakeIssueInliner:
 @pytest.mark.parametrize(
 		"url",
 		[
-				"https://github.com/domdfcoding/sphinx-toolbox/issues",
+				"https://github.com/sphinx-toolbox/sphinx-toolbox/issues",
 				"https://github.com/pytest-dev/pytest/issues",
 				"https://github.com/tox-dev/tox/issues",
 				"https://github.com/python/cpython/issues",
@@ -70,7 +70,7 @@ def test_issue_role(count: int, url: str):
 issues_repositories = pytest.mark.parametrize(
 		"url, repository",
 		[
-				("https://github.com/domdfcoding/sphinx-toolbox/issues", "domdfcoding/sphinx-toolbox"),
+				("https://github.com/sphinx-toolbox/sphinx-toolbox/issues", "sphinx-toolbox/sphinx-toolbox"),
 				("https://github.com/pytest-dev/pytest/issues", "pytest-dev/pytest"),
 				("https://github.com/tox-dev/tox/issues", "tox-dev/tox"),
 				("https://github.com/python/cpython/issues", "python/cpython"),
@@ -81,7 +81,7 @@ issues_repositories = pytest.mark.parametrize(
 pull_repositories = pytest.mark.parametrize(
 		"url, repository",
 		[
-				("https://github.com/domdfcoding/sphinx-toolbox/pull", "domdfcoding/sphinx-toolbox"),
+				("https://github.com/sphinx-toolbox/sphinx-toolbox/pull", "sphinx-toolbox/sphinx-toolbox"),
 				("https://github.com/pytest-dev/pytest/pull", "pytest-dev/pytest"),
 				("https://github.com/tox-dev/tox/pull", "tox-dev/tox"),
 				("https://github.com/python/cpython/pull", "python/cpython"),
@@ -107,7 +107,7 @@ def test_issue_role_with_repository(count: int, url: str, repository: str):
 @pytest.mark.parametrize(
 		"url",
 		[
-				"https://github.com/domdfcoding/sphinx-toolbox/pull",
+				"https://github.com/sphinx-toolbox/sphinx-toolbox/pull",
 				"https://github.com/pytest-dev/pytest/pull",
 				"https://github.com/tox-dev/tox/pull",
 				"https://github.com/python/cpython/pull",
@@ -153,7 +153,7 @@ def test_pull_role_with_repository(count: int, url: str, repository: str):
 
 
 def test_issue_role_invalid_repository(capsys):
-	url = "https://github.com/domdfcoding/sphinx-toolbox"
+	url = "https://github.com/sphinx-toolbox/sphinx-toolbox"
 
 	nodes, messages = issue_role('', '', f"7 <foo>", 0, FakeIssueInliner(url))  # type: ignore[arg-type]
 	assert capsys.readouterr().err == ":: (WARNING/2) Invalid repository 'foo' for issue #7.\n"
@@ -173,7 +173,7 @@ def test_issue_role_invalid_repository(capsys):
 
 
 def test_pull_role_invalid_repository(capsys):
-	url = "https://github.com/domdfcoding/sphinx-toolbox"
+	url = "https://github.com/sphinx-toolbox/sphinx-toolbox"
 
 	nodes, messages = pull_role('', '', f"7 <foo>", 0, FakePullInliner(url))  # type: ignore[arg-type]
 	assert capsys.readouterr().err == ":: (WARNING/2) Invalid repository 'foo' for pull request #7.\n"
@@ -240,7 +240,7 @@ class FakeTranslator:
 # 	tag_count = 0
 #
 # 	for a_tag in issues_page.select("a.reference.external"):
-# 		if a_tag["href"] == "https://github.com/domdfcoding/sphinx-toolbox/blob/master/sphinx_toolbox/config.py":
+# 		if a_tag["href"] == "https://github.com/sphinx-toolbox/sphinx-toolbox/blob/master/sphinx_toolbox/config.py":
 # 			if a_tag.contents[0] == "sphinx_toolbox/config.py":
 # 				tag_count += 1
 #
