@@ -200,3 +200,4 @@ intersphinx_mapping:
 
 exclude_files:
  - contributing
+ - doc_requirements
