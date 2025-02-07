@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 from pprint import pformat
-from typing import Callable, ContextManager, List, cast
+from typing import Callable, ContextManager, Dict, List, Optional, cast
 
 # 3rd party
 import docutils
@@ -11,7 +11,7 @@ import pytest
 import sphinx
 import sphinx.writers.html5
 from _pytest.mark import ParameterSet
-from bs4 import BeautifulSoup  # type: ignore[import-untyped]
+from bs4 import BeautifulSoup, PageElement, Tag
 from coincidence.params import param
 from coincidence.regressions import AdvancedFileRegressionFixture
 from coincidence.selectors import min_version
@@ -48,7 +48,9 @@ def test_build_example(
 @pytest.mark.parametrize("page", ["example.html"], indirect=True)
 def test_example_html_output(page: BeautifulSoup):
 	# Make sure the page title is what you expect
-	title = page.find("h1").contents[0].strip()
+	h1 = cast(Optional[Tag], page.find("h1"))
+	assert h1 is not None
+	title = cast(str, h1.contents[0]).strip()
 	assert "sphinx-toolbox Demo - reST Example" == title
 
 	selector_string = "div.body div#sphinx-toolbox-demo-rest-example"
@@ -56,27 +58,29 @@ def test_example_html_output(page: BeautifulSoup):
 	body = list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
 	assert len(body) == 3, pformat(body)
 
-	assert body[0].name == 'p'
-	assert body[0]["id"] == "example-0"
-	assert body[0].contents == []
+	assert body[0].name == 'p'  # type: ignore[attr-defined]
+	assert body[0]["id"] == "example-0"  # type: ignore[index]
+	assert body[0].contents == []  # type: ignore[attr-defined]
 
-	assert body[1].name == "div"
-	assert body[1]["class"] == ["rest-example", "docutils", "container"]
+	assert body[1].name == "div"  # type: ignore[attr-defined]
+	assert body[1]["class"] == ["rest-example", "docutils", "container"]  # type: ignore[index]
 
-	body_body = list(filter(lambda a: a != '\n', body[1].contents))
+	body_body: List[PageElement] = list(
+			filter(lambda a: a != '\n', body[1].contents)  # type: ignore[arg-type,attr-defined]
+			)
 	assert len(body_body) == 2
 
-	assert body_body[0].name == "div"
-	assert body_body[0]["class"] == ["highlight-rest", "notranslate"]
+	assert body_body[0].name == "div"  # type: ignore[attr-defined]
+	assert body_body[0]["class"] == ["highlight-rest", "notranslate"]  # type: ignore[index]
 
-	assert body_body[0].contents[0].name == "div"
-	assert body_body[0].contents[0]["class"] == ["highlight"]
+	assert body_body[0].contents[0].name == "div"  # type: ignore[attr-defined]
+	assert body_body[0].contents[0]["class"] == ["highlight"]  # type: ignore[attr-defined]
 
-	assert body_body[1].name == "div"
-	assert body_body[1]["class"] == ["highlight-python", "notranslate"]
+	assert body_body[1].name == "div"  # type: ignore[attr-defined]
+	assert body_body[1]["class"] == ["highlight-python", "notranslate"]  # type: ignore[index]
 
-	assert body[2].name == 'p'
-	assert body[2].contents == []
+	assert body[2].name == 'p'  # type: ignore[attr-defined]
+	assert body[2].contents == []  # type: ignore[attr-defined]
 
 
 pages_to_check: List[ParameterSet] = [
@@ -176,9 +180,9 @@ def test_html_output(
 
 			soup = BeautifulSoup(content, "html5lib")
 
-			for meta in soup.find_all("meta"):
+			for meta in cast(List[Dict], soup.find_all("meta")):
 				if meta.get("content", '') == "width=device-width, initial-scale=0.9, maximum-scale=0.9":
-					meta.extract()
+					meta.extract()  # type: ignore[attr-defined]
 
 			try:
 				html_regression.check(soup, extension=f"_{page_id}_.html", jinja2=True)
@@ -222,9 +226,9 @@ def test_sidebar_links_output(
 
 	page = BeautifulSoup(content, "html5lib")
 
-	for meta in page.find_all("meta"):
+	for meta in cast(List[Dict], page.find_all("meta")):
 		if meta.get("content", '') == "width=device-width, initial-scale=0.9, maximum-scale=0.9":
-			meta.extract()
+			meta.extract()  # type: ignore[attr-defined]
 
 	page = remove_html_footer(page)
 	page = remove_html_link_tags(page)

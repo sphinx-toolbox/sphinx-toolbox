@@ -1,10 +1,10 @@
 # stdlib
-from typing import List, Union
+from typing import Dict, List, Optional, Union, cast
 
 # 3rd party
 import pytest
 from _pytest.mark import ParameterSet
-from bs4 import BeautifulSoup  # type: ignore[import-untyped]
+from bs4 import BeautifulSoup, Tag
 from coincidence.selectors import min_version, only_version
 from domdf_python_tools.paths import PathPlus
 from sphinx.application import Sphinx
@@ -23,19 +23,25 @@ def test_build_github(gh_src_app: Sphinx):
 @pytest.mark.parametrize("github_source_page", ["index.html"], indirect=True)
 def test_output_github(github_source_page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
-	title = github_source_page.find("h1").contents[0].strip()
+	h1 = cast(Optional[Tag], github_source_page.find("h1"))
+	assert h1 is not None
+	title = cast(str, h1.contents[0]).strip()
 	assert "sphinx-toolbox Demo - GitHub Issues" == title
 
-	links = github_source_page.select('p')
+	links = cast(List[Tag], github_source_page.select('p'))
 	assert len(links) == 10
 
 	assert links[1] == links[2]
 
-	assert links[0].abbr["title"] == "Example Issue"  # check the abbr tag
-	assert links[0].abbr.a["class"] == ["reference", "external"]  # check the a tag's class
-	assert links[0].abbr.a[
-			"href"] == "https://github.com/sphinx-toolbox/sphinx-toolbox/issues/1"  # check the a tag's href
-	assert links[0].abbr.a.contents[0] == "#1"  # check the body
+	assert links[0].abbr["title"] == "Example Issue"  # type: ignore[index]  # check the abbr tag
+
+	# check the a tag's class
+	expected_classes = ["reference", "external"]
+	assert links[0].abbr.a["class"] == expected_classes  # type: ignore[index,union-attr]
+
+	expected_href = "https://github.com/sphinx-toolbox/sphinx-toolbox/issues/1"
+	assert links[0].abbr.a["href"] == expected_href  # type: ignore[index,union-attr]  # check the a tag's href
+	assert links[0].abbr.a.contents[0] == "#1"  # type: ignore[union-attr]    # check the body
 
 	assert [str(x) for x in links] == [
 			'<p><abbr title="Example Issue"><a class="reference external" '
@@ -116,9 +122,9 @@ def test_html_output(gh_src_app: Sphinx, html_regression: HTMLRegressionFixture)
 
 			soup = BeautifulSoup(content, "html5lib")
 
-			for meta in soup.find_all("meta"):
+			for meta in cast(List[Dict], soup.find_all("meta")):
 				if meta.get("content", '') == "width=device-width, initial-scale=0.9, maximum-scale=0.9":
-					meta.extract()
+					meta.extract()  # type: ignore[attr-defined]
 
 			try:
 				html_regression.check(

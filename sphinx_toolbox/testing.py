@@ -74,7 +74,7 @@ from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, 
 # 3rd party
 import pytest  # nodep
 import sphinx.application
-from bs4 import BeautifulSoup  # type: ignore[import-untyped]
+from bs4 import BeautifulSoup
 from coincidence.regressions import (  # nodep
 		AdvancedFileRegressionFixture,
 		check_file_output,
@@ -754,8 +754,9 @@ class HTMLRegressionFixture(FileRegressionFixture):
 			for div in page.select("span.p"):
 				if div.string == '=':
 					sibling = div.next_sibling
-					div.replace_with('')
-					sibling.replace_with(f"= {sibling.text}")
+					assert sibling is not None
+					div.replace_with('')  # type: ignore[arg-type]
+					sibling.replace_with(f"= {sibling.text}")  # type: ignore[arg-type]
 
 		kwargs.pop("encoding", None)
 		kwargs.pop("extension", None)

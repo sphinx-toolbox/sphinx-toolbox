@@ -1,6 +1,9 @@
+# stdlib
+from typing import Optional, cast
+
 # 3rd party
 import pytest
-from bs4 import BeautifulSoup  # type: ignore[import-untyped]
+from bs4 import BeautifulSoup, Tag
 from sphinx.application import Sphinx
 
 # this package
@@ -17,7 +20,9 @@ def test_build_sphinx(sphinx_src_app: Sphinx):
 @pytest.mark.parametrize("sphinx_source_page", ["index.html"], indirect=True)
 def test_output_sphinx(sphinx_source_page: BeautifulSoup, html_regression: HTMLRegressionFixture):
 	# Make sure the page title is what you expect
-	title = sphinx_source_page.find("h1").contents[0].strip()
+	h1 = cast(Optional[Tag], sphinx_source_page.find("h1"))
+	assert h1 is not None
+	title = cast(str, h1.contents[0]).strip()
 	assert "sphinx-toolbox Demo - Sphinx source" == title
 
 	tag_count = 0

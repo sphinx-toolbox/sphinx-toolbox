@@ -30,11 +30,11 @@
 import pathlib
 import shutil
 from contextlib import contextmanager
-from typing import Any, Callable, ContextManager, Dict, Iterator, Sequence, Tuple
+from typing import Any, Callable, ContextManager, Dict, Iterator, List, Sequence, Tuple, cast
 
 # 3rd party
 import pytest
-from bs4 import BeautifulSoup  # type: ignore[import-untyped]
+from bs4 import BeautifulSoup
 from domdf_python_tools.paths import PathPlus, in_directory
 from sphinx.application import Sphinx
 from sphinx.testing.fixtures import app as testing_app
@@ -132,8 +132,8 @@ def page(testing_app: Sphinx, request, tmp_pathplus: PathPlus) -> BeautifulSoup:
 
 	soup = BeautifulSoup(c, "html5lib")
 
-	for meta in soup.find_all("meta"):
+	for meta in cast(List[Dict], soup.find_all("meta")):
 		if meta.get("content", '') == "width=device-width, initial-scale=0.9, maximum-scale=0.9":
-			meta.extract()
+			meta.extract()  # type: ignore[attr-defined]
 
 	return soup
