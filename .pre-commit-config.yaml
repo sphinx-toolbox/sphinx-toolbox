@@ -81,7 +81,7 @@ repos:
     - id: snippet-fmt
 
  - repo: https://github.com/python-formate/formate
-   rev: v0.7.0
+   rev: v0.8.0
    hooks:
     - id: formate
       exclude: ^(doc-source/conf|__pkginfo__|setup)\.(_)?py$
