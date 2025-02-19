@@ -39,7 +39,7 @@ base-classifiers = [
     "Topic :: Utilities",
     "Typing :: Typed",
 ]
-python-versions = [ "3.7", "3.8", "3.9", "3.10", "3.11", "3.12",]
+python-versions = [ "3.7", "3.8", "3.9", "3.10", "3.11", "3.12", "3.13",]
 python-implementations = [ "CPython", "PyPy",]
 platforms = [ "Windows", "macOS", "Linux",]
 license-key = "MIT"
