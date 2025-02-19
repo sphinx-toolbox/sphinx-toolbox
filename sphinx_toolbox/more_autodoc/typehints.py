@@ -904,7 +904,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 
 def _resolve_forwardref(
-		fr: Union[ForwardRef, sphinx.util.typing.ForwardRef],
+		fr: Union[ForwardRef, "sphinx.util.typing.ForwardRef"],
 		module: str,
 		) -> object:
 	"""
