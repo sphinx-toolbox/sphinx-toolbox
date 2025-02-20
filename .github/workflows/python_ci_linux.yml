@@ -19,8 +19,8 @@ permissions:
 
 jobs:
   tests:
-    name: "ubuntu-20.04 / Python ${{ matrix.config.python-version }}"
-    runs-on: "ubuntu-20.04"
+    name: "ubuntu-22.04 / Python ${{ matrix.config.python-version }}"
+    runs-on: "ubuntu-22.04"
     continue-on-error: ${{ matrix.config.experimental }}
     env:
       USING_COVERAGE: '3.7,3.8,3.9,3.10,3.11,3.12,3.13,pypy-3.7,pypy-3.8,pypy-3.9'
@@ -84,7 +84,7 @@ jobs:
 
   Coverage:
     needs: tests
-    runs-on: "ubuntu-20.04"
+    runs-on: "ubuntu-22.04"
     steps:
       - name: Checkout 🛎️
         uses: "actions/checkout@v4"
@@ -133,7 +133,7 @@ jobs:
   Deploy:
     needs: tests
 
-    runs-on: "ubuntu-20.04"
+    runs-on: "ubuntu-22.04"
     steps:
       - name: Checkout 🛎️
         uses: "actions/checkout@v4"
