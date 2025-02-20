@@ -107,7 +107,7 @@ sphinx-toolbox
 		:alt: GitHub top language
 
 	.. |commits-since| github-shield::
-		:commits-since: v3.8.2
+		:commits-since: v3.8.3
 		:alt: GitHub commits since tagged version
 
 	.. |commits-latest| github-shield::
