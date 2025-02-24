@@ -748,6 +748,10 @@ class HTMLRegressionFixture(FileRegressionFixture):
 		for div in page.select("div.sphinxsidebar"):
 			div.extract()
 
+		for div in page.select("div.related"):
+			if div["aria-label"] == "Related":
+				div.extract()
+
 		if sphinx.version_info >= (4, 3):  # pragma: no cover
 			for div in page.select("span.w"):
 				div.extract()

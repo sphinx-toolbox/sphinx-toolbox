@@ -21,7 +21,7 @@
   </script>{% if sphinx_version >= (5, 0) %}
   <script src="_static/_sphinx_javascript_frameworks_compat.js">
   </script>{% endif %}{% endif %}
-  <script src="_static/doctools.js{% if sphinx_version >= (7, 3) %}?v=9a2dae69{% elif sphinx_version >= (7, 1) %}?v=888ff710{% endif %}">
+  <script src="_static/doctools.js{% if sphinx_version >= (8, 1) %}?v=9bcbadda{% elif sphinx_version >= (7, 3) %}?v=9a2dae69{% elif sphinx_version >= (7, 1) %}?v=888ff710{% endif %}">
   </script>{% if sphinx_version >= (5, 2) %}
   <script src="_static/sphinx_highlight.js{% if sphinx_version >= (7, 2) %}?v=dc90522c{% elif sphinx_version >= (7, 1) %}?v=4825356b{% endif %}">
   </script>{% endif %}
@@ -64,7 +64,9 @@
          Other Extensions
         </strong>
        </p>
-      </div>
+      </div>{% if sphinx_version >= (8, 1) %}
+      <div class="clearer">
+      </div>{% endif %}
      </div>
     </div>
    </div>

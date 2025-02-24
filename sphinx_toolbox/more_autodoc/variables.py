@@ -657,12 +657,17 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 
 		with mock(self.env.config.autodoc_mock_imports):
 			try:
+				if sphinx.version_info >= (8, 1):
+					kwargs = {}
+				else:
+					kwargs = {"warningiserror": self.env.config.autodoc_warningiserror}
+
 				ret = import_object(
 						self.modname,
 						self.objpath[:-1],
 						"class",
 						attrgetter=self.get_attr,
-						warningiserror=self.env.config.autodoc_warningiserror
+						**kwargs,
 						)
 				self.module, _, _, self.parent = ret
 				return True

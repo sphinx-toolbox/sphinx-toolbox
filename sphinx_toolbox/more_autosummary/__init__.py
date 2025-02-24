@@ -317,29 +317,71 @@ class PatchedAutosummary(Autosummary):
 		real_name = re.sub(rf"((?:{modname}\.)+)", f"{modname}.", real_name)
 		return real_name, obj, parent, modname
 
-	def create_documenter(
-			self,
-			app: Sphinx,
-			obj: Any,
-			parent: Any,
-			full_name: str,
-			) -> Documenter:
-		"""
-		Get an :class:`autodoc.Documenter` class suitable for documenting the given object.
+	if sphinx.version_info >= (8, 2):
 
-		:param app: The Sphinx application.
-		:param obj: The object being documented.
-		:param parent: The parent of the object (e.g. a module or a class).
-		:param full_name: The full name of the object.
+		def create_documenter(
+				self,
+				obj: Any,
+				parent: Any,
+				full_name: str,
+				*,
+				registry: Any = None,
+				) -> Documenter:
+			"""
+			Get an :class:`autodoc.Documenter` class suitable for documenting the given object.
 
-		.. versionchanged:: 1.3.0
+			:param app: The Sphinx application.
+			:param obj: The object being documented.
+			:param parent: The parent of the object (e.g. a module or a class).
+			:param full_name: The full name of the object.
+			:param registry:
 
-			Now selects the appropriate documenter for attributes rather than
-			falling back to :class:`~sphinx.ext.autodoc.DataDocumenter`.
-		"""
+			.. versionchanged:: 1.3.0
 
-		doccls = get_documenter(app, obj, parent)
-		return doccls(self.bridge, full_name)
+				Now selects the appropriate documenter for attributes rather than
+				falling back to :class:`~sphinx.ext.autodoc.DataDocumenter`.
+
+			.. versionchanged:: 3.9.0
+
+				Function arguments now mirror those from Sphinx 8.2 or
+				older versions depending on the Sphinx version installed.
+			"""
+
+			# 3rd party
+			from sphinx.ext.autosummary import _get_documenter
+			doccls = _get_documenter(obj, parent, registry=registry)
+			return doccls(self.bridge, full_name)
+
+	else:
+
+		def create_documenter(
+				self,
+				app: Sphinx,
+				obj: Any,
+				parent: Any,
+				full_name: str,
+				) -> Documenter:
+			"""
+			Get an :class:`autodoc.Documenter` class suitable for documenting the given object.
+
+			:param app: The Sphinx application.
+			:param obj: The object being documented.
+			:param parent: The parent of the object (e.g. a module or a class).
+			:param full_name: The full name of the object.
+
+			.. versionchanged:: 1.3.0
+
+				Now selects the appropriate documenter for attributes rather than
+				falling back to :class:`~sphinx.ext.autodoc.DataDocumenter`.
+
+			.. versionchanged:: 3.9.0
+
+				Function arguments now mirror those from Sphinx 8.2 or
+				older versions depending on the Sphinx version installed.
+			"""
+
+			doccls = get_documenter(app, obj, parent)
+			return doccls(self.bridge, full_name)
 
 	def get_table(self, items: List[Tuple[str, str, str, str]]) -> List[nodes.Node]:
 		"""

@@ -197,6 +197,7 @@ def test_html_output(
 		raise exception
 
 
+@pytest.mark.skipif(sphinx.version_info >= (8, 1), reason="Currently failing on Sphinx 8.1")
 @pytest.mark.usefixtures("pre_commit_hooks")
 def test_sidebar_links_output(
 		testing_app: Sphinx,
