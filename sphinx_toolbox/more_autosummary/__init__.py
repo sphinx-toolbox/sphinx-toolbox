@@ -319,14 +319,14 @@ class PatchedAutosummary(Autosummary):
 
 	if sphinx.version_info >= (8, 2):
 
-		def create_documenter(
-				self,
-				obj: Any,
-				parent: Any,
-				full_name: str,
-				*,
-				registry: Any = None,
-				) -> Documenter:
+		def create_documenter(  # type: ignore[override]
+			self,
+			obj: Any,
+			parent: Any,
+			full_name: str,
+			*,
+			registry: Any = None,
+			) -> Documenter:
 			"""
 			Get an :class:`autodoc.Documenter` class suitable for documenting the given object.
 
@@ -348,19 +348,19 @@ class PatchedAutosummary(Autosummary):
 			"""
 
 			# 3rd party
-			from sphinx.ext.autosummary import _get_documenter
+			from sphinx.ext.autosummary import _get_documenter  # type: ignore[attr-defined]
 			doccls = _get_documenter(obj, parent, registry=registry)
 			return doccls(self.bridge, full_name)
 
 	else:
 
-		def create_documenter(
-				self,
-				app: Sphinx,
-				obj: Any,
-				parent: Any,
-				full_name: str,
-				) -> Documenter:
+		def create_documenter(  # type: ignore[misc]
+			self,
+			app: Sphinx,
+			obj: Any,
+			parent: Any,
+			full_name: str,
+			) -> Documenter:
 			"""
 			Get an :class:`autodoc.Documenter` class suitable for documenting the given object.
 
