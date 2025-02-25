@@ -753,6 +753,8 @@ class HTMLRegressionFixture(FileRegressionFixture):
 				div.extract()
 
 		if sphinx.version_info >= (4, 3):  # pragma: no cover
+			for div in page.select("dt.sig em.property span.k"):
+				div.replace_with_children()
 			for div in page.select("span.w"):
 				div.extract()
 			for div in page.select("span.p"):

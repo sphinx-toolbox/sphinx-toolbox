@@ -134,8 +134,8 @@ def test_testing():
 
 	assert get_app_config_values(app.config.values["source_link_target"]) == ("Sphinx", "env", [str])
 	assert get_app_config_values(app.config.values["github_username"]) == (None, "env", [str])
-	assert get_app_config_values(app.config.values["rebuild_true"]) == (None, "env", ())
-	assert get_app_config_values(app.config.values["rebuild_false"]) == (None, '', ())
+	assert get_app_config_values(app.config.values["rebuild_true"]) == (None, "env", [])
+	assert get_app_config_values(app.config.values["rebuild_false"]) == (None, '', [])
 
 	assert app.events.events["my-event"] == ''
 	assert app.registry.translators["my-translator"] is FakeNodeVisitor

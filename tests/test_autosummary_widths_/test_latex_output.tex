@@ -260,7 +260,7 @@ Split the argument into words using split, capitalize each word using capitalize
 \pysigstartsignatures
 <% endif -%>
 \pysiglinewithargsret<% if sphinx_version >= (8, 1) %>
-<% endif %>{\sphinxbfcode{\sphinxupquote{class<% if sphinx_version >= (4, 3) %>\DUrole{w<<sphinx6x_2nd('w')>>}{<% if sphinx_version < (7, 2) %> <% endif %> }<% else %> <% endif %>}}\sphinxcode{\sphinxupquote{string.}}\sphinxbfcode{\sphinxupquote{Template}}}<< sphinx81_linebreak >>{\<< sphinxparam >>{\DUrole{n<<sphinx6x_2nd("n")>>}{template}}}<< sphinx81_linebreak >>{}
+<% endif %>{\sphinxbfcode{\sphinxupquote{<% if sphinx_version >= (8, 2) %>\DUrole{k}{class}<% else %>class<% endif %><% if sphinx_version >= (4, 3) %>\DUrole{w<<sphinx6x_2nd('w')>>}{<% if sphinx_version < (7, 2) %> <% endif %> }<% else %> <% endif %>}}\sphinxcode{\sphinxupquote{string.}}\sphinxbfcode{\sphinxupquote{Template}}}<< sphinx81_linebreak >>{\<< sphinxparam >>{\DUrole{n<<sphinx6x_2nd("n")>>}{template}}}<< sphinx81_linebreak >>{}
 <% if sphinx_version > (4, 5) %>\pysigstopsignatures
 <% endif -%>
 A string class for supporting \$\sphinxhyphen{}substitutions.
@@ -274,8 +274,7 @@ A string class for supporting \$\sphinxhyphen{}substitutions.
 <%- if sphinx_version > (4, 5) %>
 \pysigstartsignatures
 <% endif -%>
-\pysiglinewithargsret<% if sphinx_version >= (8, 1) %>
-<% endif %>{\sphinxcode{\sphinxupquote{string.}}\sphinxbfcode{\sphinxupquote{capwords}}}<< sphinx81_linebreak >>{\<<sphinxparam>>{<% if sphinx_version >= (4, 3)%>\DUrole{n<< sphinx6x_2nd('n') >>}{s}}<% else %>s}<% endif %>\sphinxoptional{<<sphinxparamcomma>>{<% if sphinx_version >= (4, 3)%>\DUrole{n<<sphinx6x_2nd("n")>>}{sep}}<% else %>sep}<% endif %>}}<< sphinx81_linebreak >>{{
+\pysiglinewithargsret<< sphinx81_linebreak >>{\sphinxcode{\sphinxupquote{string.}}\sphinxbfcode{\sphinxupquote{capwords}}}<< sphinx81_linebreak >>{\<<sphinxparam>>{<% if sphinx_version >= (4, 3)%>\DUrole{n<< sphinx6x_2nd('n') >>}{s}}<% else %>s}<% endif %>\sphinxoptional{<<sphinxparamcomma>>{<% if sphinx_version >= (4, 3)%>\DUrole{n<<sphinx6x_2nd("n")>>}{sep}}<% else %>sep}<% endif %>}}<< sphinx81_linebreak >>{{
 <%- if sphinx_version >= (4, 4) %> $\rightarrow$ string}}
 <%- else %> $\rightarrow$ {\hyperref[\detokenize{index:module-string}]{\sphinxcrossref{string}}}}}
 <%- endif -%>
@@ -427,7 +426,10 @@ Wrap a single paragraph of text, returning a list of wrapped lines.
 \pysigstartsignatures
 <% endif -%>
 \pysiglinewithargsret<% if sphinx_version >= (8, 1) %>
-<% endif %>{\sphinxbfcode{\sphinxupquote{class<% if sphinx_version >= (4, 3) %>\DUrole{w<< sphinx6x_2nd('w') >>}{<% if sphinx_version < (7, 2) %> <% endif %> }<% else %> <% endif %>}}\sphinxcode{\sphinxupquote{textwrap.}}\sphinxbfcode{\sphinxupquote{TextWrapper}}}<< sphinx81_linebreak >>{\<< sphinxparam >>{\DUrole{n<< sphinx6x_2nd('n') >>}{width}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{70}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{initial\_indent}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{subsequent\_indent}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{expand\_tabs}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{True}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{replace\_whitespace}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{True}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{fix\_sentence\_endings}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{False}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{break\_long\_words}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{True}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{drop\_whitespace}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{True}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{break\_on\_hyphens}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{True}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{tabsize}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{8}}<<sphinxparamcomma>>{\DUrole{o<< sphinx6x_2nd('o') >>}{*}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{max\_lines}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{None}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{placeholder}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{\textquotesingle{} {[}...{]}\textquotesingle{}}}}<< sphinx81_linebreak >>{}
+<% endif %>{\sphinxbfcode{\sphinxupquote{<% if sphinx_version >= (8, 2) %>\DUrole{k}{class}<% else %>class<% endif %><% if sphinx_version >= (4, 3) %>\DUrole{w<< sphinx6x_2nd('w') >>}{<% if sphinx_version < (7, 2) %> <% endif %> }<% else %> <% endif -%>}}\sphinxcode{\sphinxupquote{textwrap.}}\sphinxbfcode{\sphinxupquote{TextWrapper}}}
+<<- sphinx81_linebreak >>{\<< sphinxparam >>{\DUrole{n<< sphinx6x_2nd('n') >>}{width}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{70}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{initial\_indent}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{subsequent\_indent}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{\textquotesingle{}\textquotesingle{}}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{expand\_tabs}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{True}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{replace\_whitespace}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{True}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{fix\_sentence\_endings}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{False}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{break\_long\_words}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{True}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{drop\_whitespace}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{True}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{break\_on\_hyphens}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{True}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{tabsize}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{8}}<<sphinxparamcomma>>{
+<%- if sphinx_version >= (8, 2) %>\DUrole{keyword-only-separator}<% endif %>
+<%- if sphinx_version >= (8, 2) %>{<% endif %>\DUrole{o<< sphinx6x_2nd('o') >>}{<% if sphinx_version >= (8, 2) %>\sphinxstyleabbreviation{*} (Keyword\sphinxhyphen{}only parameters separator (PEP 3102))}<% else %>*<% endif %>}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{max\_lines}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{None}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{placeholder}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{\textquotesingle{} {[}...{]}\textquotesingle{}}}}<< sphinx81_linebreak >>{}
 <% if sphinx_version > (4, 5) %>\pysigstopsignatures
 <% endif -%>
 Object for wrapping/filling text.  The public interface consists of
@@ -556,8 +558,7 @@ Reformat the single paragraph in <<open_smart_quote_b>>text<<close_smart_quote_b
 <%- if sphinx_version > (4, 5) %>
 \pysigstartsignatures
 <% endif -%>
-\pysiglinewithargsret<% if sphinx_version >= (8, 1) %>
-<% endif %>{\sphinxbfcode{\sphinxupquote{fill}}}<< sphinx81_linebreak >>{\<< sphinxparam >>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}\DUrole{p<< sphinx6x_2nd('p') >>}{:}<% if sphinx_version >= (4, 3) %>\DUrole{w<<sphinx6x_2nd("w")>>}{<% if sphinx_version < (7, 2) %> <% endif %> }<% else %> <% endif %>\DUrole{n<<sphinx6x_2nd("n")>>}{
+\pysiglinewithargsret<< sphinx81_linebreak >>{\sphinxbfcode{\sphinxupquote{fill}}}<< sphinx81_linebreak >>{\<< sphinxparam >>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}\DUrole{p<< sphinx6x_2nd('p') >>}{:}<% if sphinx_version >= (4, 3) %>\DUrole{w<<sphinx6x_2nd("w")>>}{<% if sphinx_version < (7, 2) %> <% endif %> }<% else %> <% endif %>\DUrole{n<<sphinx6x_2nd("n")>>}{
 <%- if sphinx_version >= (4, 4) %>string}}}<< sphinx81_linebreak >>{{ $\rightarrow$ string}}
 <%- else %>{\hyperref[\detokenize{index:module-string}]{\sphinxcrossref{string}}}}}}{{ $\rightarrow$ {\hyperref[\detokenize{index:module-string}]{\sphinxcrossref{string}}}}}
 <%- endif %>
@@ -577,8 +578,7 @@ containing the entire wrapped paragraph.
 <%- if sphinx_version > (4, 5) %>
 \pysigstartsignatures
 <% endif -%>
-\pysiglinewithargsret<% if sphinx_version >= (8, 1) %>
-<% endif %>{\sphinxbfcode{\sphinxupquote{wrap}}}<< sphinx81_linebreak >>{\<< sphinxparam >>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}\DUrole{p<<sphinx6x_2nd("p")>>}{:}<% if sphinx_version >= (4, 3) %>\DUrole{w<<sphinx6x_2nd("w")>>}{<% if sphinx_version < (7, 2) %> <% endif %> }<% else %> <% endif %>\DUrole{n<<sphinx6x_2nd("n")>>}{
+\pysiglinewithargsret<< sphinx81_linebreak >>{\sphinxbfcode{\sphinxupquote{wrap}}}<< sphinx81_linebreak >>{\<< sphinxparam >>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}\DUrole{p<<sphinx6x_2nd("p")>>}{:}<% if sphinx_version >= (4, 3) %>\DUrole{w<<sphinx6x_2nd("w")>>}{<% if sphinx_version < (7, 2) %> <% endif %> }<% else %> <% endif %>\DUrole{n<<sphinx6x_2nd("n")>>}{
 <%- if sphinx_version >= (4, 4) -%>
 string}}}<< sphinx81_linebreak >>{{ $\rightarrow$ \DUrole{p<<sphinx6x_2nd("p")>>}{{[}}string\DUrole{p<<sphinx6x_2nd("p")>>}{{]}}}}
 <%- else -%>
@@ -605,8 +605,7 @@ converted to space.
 <%- if sphinx_version > (4, 5) %>
 \pysigstartsignatures
 <% endif -%>
-\pysiglinewithargsret<% if sphinx_version >= (8, 1) %>
-<% endif %>{\sphinxcode{\sphinxupquote{textwrap.}}\sphinxbfcode{\sphinxupquote{dedent}}}<< sphinx81_linebreak >>{\<<sphinxparam>>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}}}<< sphinx81_linebreak >>{}
+\pysiglinewithargsret<< sphinx81_linebreak >>{\sphinxcode{\sphinxupquote{textwrap.}}\sphinxbfcode{\sphinxupquote{dedent}}}<< sphinx81_linebreak >>{\<<sphinxparam>>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}}}<< sphinx81_linebreak >>{}
 <% if sphinx_version > (4, 5) %>\pysigstopsignatures
 <% endif -%>
 Remove any common leading whitespace from every line in \sphinxtitleref{text}.
@@ -630,8 +629,7 @@ Entirely blank lines are normalized to a newline character.
 <%- if sphinx_version > (4, 5) %>
 \pysigstartsignatures
 <% endif -%>
-\pysiglinewithargsret<% if sphinx_version >= (8, 1) %>
-<% endif %>{\sphinxcode{\sphinxupquote{textwrap.}}\sphinxbfcode{\sphinxupquote{fill}}}<< sphinx81_linebreak >>{\<<sphinxparam>>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{width}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{70}}<<sphinxparamcomma>>{\DUrole{o<< sphinx6x_2nd('o') >>}{**}\DUrole{n<< sphinx6x_2nd('n') >>}{kwargs}}}<< sphinx81_linebreak >>{}
+\pysiglinewithargsret<< sphinx81_linebreak >>{\sphinxcode{\sphinxupquote{textwrap.}}\sphinxbfcode{\sphinxupquote{fill}}}<< sphinx81_linebreak >>{\<<sphinxparam>>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{width}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{70}}<<sphinxparamcomma>>{\DUrole{o<< sphinx6x_2nd('o') >>}{**}\DUrole{n<< sphinx6x_2nd('n') >>}{kwargs}}}<< sphinx81_linebreak >>{}
 <% if sphinx_version > (4, 5) %>\pysigstopsignatures
 <% endif -%>
 Fill a single paragraph of text, returning a new string.
@@ -651,8 +649,7 @@ available keyword args to customize wrapping behaviour.
 <%- if sphinx_version > (4, 5) %>
 \pysigstartsignatures
 <% endif -%>
-\pysiglinewithargsret<% if sphinx_version >= (8, 1) %>
-<% endif %>{\sphinxcode{\sphinxupquote{textwrap.}}\sphinxbfcode{\sphinxupquote{indent}}}<< sphinx81_linebreak >>{\<<sphinxparam>>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{prefix}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{predicate}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{None}}}<< sphinx81_linebreak >>{}
+\pysiglinewithargsret<< sphinx81_linebreak >>{\sphinxcode{\sphinxupquote{textwrap.}}\sphinxbfcode{\sphinxupquote{indent}}}<< sphinx81_linebreak >>{\<<sphinxparam>>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{prefix}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{predicate}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{None}}}<< sphinx81_linebreak >>{}
 <% if sphinx_version > (4, 5) %>\pysigstopsignatures
 <% endif -%>
 Adds <<open_smart_quote>>prefix<<close_smart_quote>> to the beginning of selected lines in ‘text’.
@@ -671,8 +668,7 @@ consist solely of whitespace characters.
 <%- if sphinx_version > (4, 5) %>
 \pysigstartsignatures
 <% endif -%>
-\pysiglinewithargsret<% if sphinx_version >= (8, 1) %>
-<% endif %>{\sphinxcode{\sphinxupquote{textwrap.}}\sphinxbfcode{\sphinxupquote{shorten}}}<< sphinx81_linebreak >>{\<<sphinxparam>>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{width}}<<sphinxparamcomma>>{\DUrole{o<< sphinx6x_2nd('o') >>}{**}\DUrole{n<< sphinx6x_2nd('n') >>}{kwargs}}}<< sphinx81_linebreak >>{}
+\pysiglinewithargsret<< sphinx81_linebreak >>{\sphinxcode{\sphinxupquote{textwrap.}}\sphinxbfcode{\sphinxupquote{shorten}}}<< sphinx81_linebreak >>{\<<sphinxparam>>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{width}}<<sphinxparamcomma>>{\DUrole{o<< sphinx6x_2nd('o') >>}{**}\DUrole{n<< sphinx6x_2nd('n') >>}{kwargs}}}<< sphinx81_linebreak >>{}
 <% if sphinx_version > (4, 5) %>\pysigstopsignatures
 <% endif -%>
 Collapse and truncate the given text to fit in the given width.
@@ -697,8 +693,7 @@ as possible are joined and then the placeholder is appended:
 <%- if sphinx_version > (4, 5) %>
 \pysigstartsignatures
 <% endif -%>
-\pysiglinewithargsret<% if sphinx_version >= (8, 1) %>
-<% endif %>{\sphinxcode{\sphinxupquote{textwrap.}}\sphinxbfcode{\sphinxupquote{wrap}}}<< sphinx81_linebreak >>{\<<sphinxparam>>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{width}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{70}}<<sphinxparamcomma>>{\DUrole{o<< sphinx6x_2nd('o') >>}{**}\DUrole{n<< sphinx6x_2nd('n') >>}{kwargs}}}<< sphinx81_linebreak >>{}
+\pysiglinewithargsret<< sphinx81_linebreak >>{\sphinxcode{\sphinxupquote{textwrap.}}\sphinxbfcode{\sphinxupquote{wrap}}}<< sphinx81_linebreak >>{\<<sphinxparam>>{\DUrole{n<< sphinx6x_2nd('n') >>}{text}}<<sphinxparamcomma>>{\DUrole{n<< sphinx6x_2nd('n') >>}{width}\DUrole{o<< sphinx6x_2nd('o') >>}{=}\DUrole{default_value}{70}}<<sphinxparamcomma>>{\DUrole{o<< sphinx6x_2nd('o') >>}{**}\DUrole{n<< sphinx6x_2nd('n') >>}{kwargs}}}<< sphinx81_linebreak >>{}
 <% if sphinx_version > (4, 5) %>\pysigstopsignatures
 <% endif -%>
 Wrap a single paragraph of text, returning a list of wrapped lines.

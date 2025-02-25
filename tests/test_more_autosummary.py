@@ -27,10 +27,10 @@ def test_setup(advanced_file_regression: AdvancedFileRegressionFixture):
 	assert not roles
 	assert not additional_nodes
 
-	assert get_app_config_values(app.config.values["autodocsumm_member_order"])[:2] == (
+	config_values = get_app_config_values(app.config.values["autodocsumm_member_order"])
+	assert config_values[:2] == (
 			"alphabetical",
 			"env",
 			)
 
-	assert get_app_config_values(app.config.values["autodocsumm_member_order"]
-									)[2].candidates == ("alphabetic", "alphabetical", "bysource")
+	assert sorted(config_values[2].candidates) == ["alphabetic", "alphabetical", "bysource"]

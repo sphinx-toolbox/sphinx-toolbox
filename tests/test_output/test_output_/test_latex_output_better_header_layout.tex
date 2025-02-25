@@ -12,8 +12,7 @@
 <%- set du_role_2nd_n = ",n" if (7, 2) > sphinx_version >= (6, 2) else "" -%>
 <# Latest Sphinx removed vertical rules from csv-table. Inconsequential for us #>
 <%- set regex_columns = "TT" if sphinx_version >= (6, 0) else "|T|T|" -%>
-<%- set sphinx81_linebreak = "
-" if sphinx_version >= (8, 1) else "" -%>
+<%- set sphinx81_linebreak = "\n" if sphinx_version >= (8, 1) else "" -%>
 <%- macro versionadded(v) -%>
 <%- if sphinx_version >= (8, 1) %>\DUrole{versionmodified}{\DUrole{added}{Added in version <<v>>.}}
 <%- else %>\DUrole{versionmodified,added}{<% if sphinx_version >= (7, 3) %>Added<% else %>New<% endif %> in version <<v>>.}<% endif %>
@@ -1448,7 +1447,33 @@ Added support for \sphinxhref{https://github.com/Chilipp/autodocsumm}{autodocsum
 
 
 
-\begin{savenotes}<%- if sphinx_version > (4, 5) -%>
+\begin{savenotes}<%- if sphinx_version > (8, 2) %>
+\sphinxatlongtablestart
+\sphinxthistablewithglobalstyle
+\sphinxthistablewithnovlinesstyle
+\makeatletter
+  \LTleft \@totalleftmargin plus1fill
+  \LTright\dimexpr\columnwidth-\@totalleftmargin-\linewidth\relax plus1fill
+\makeatother
+\begin{longtable}{\X{1}{2}\X{1}{2}}
+\sphinxtoprule
+\endfirsthead
+
+\multicolumn{2}{c}{\sphinxnorowcolor
+    \makebox[0pt]{\sphinxtablecontinued{\tablename\ \thetable{} \textendash{} continued from previous page}}%
+}\\
+\sphinxtoprule
+\endhead
+
+\sphinxbottomrule
+\multicolumn{2}{r}{\sphinxnorowcolor
+    \makebox[0pt][r]{\sphinxtablecontinued{continues on next page}}%
+}\\
+\endfoot
+
+\endlastfoot
+\sphinxtableatstartofbodyhook
+<% elif sphinx_version > (4, 5) -%>
 \sphinxattablestart<% if sphinx_version >= (5, 3) %>
 \sphinxthistablewithglobalstyle
 \sphinxthistablewithnovlinesstyle<% endif %>
@@ -1491,7 +1516,11 @@ Represents an employee.
 Represents a movie.
 \\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
-<% if sphinx_version > (4, 5) -%>
+<% if sphinx_version > (8, 2) -%>
+\end{longtable}
+\sphinxtableafterendhook
+\sphinxatlongtableend
+\end{savenotes}<% elif sphinx_version > (4, 5) -%>
 \end{tabulary}
 << par >>
 \sphinxattableend\end{savenotes}

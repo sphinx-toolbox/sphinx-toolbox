@@ -445,7 +445,7 @@
          <dl class="py method">
           <dt{{ sig_object_class }} id="autoprotocol_demo.SupportsAbs.__abs__">
            <em class="property">
-            abstract
+            abstract{% if sphinx_version >= (8, 2) %}method{% endif %}
            </em>
            <{{ sig_prename_tag }} class="sig-name descname">
             __abs__

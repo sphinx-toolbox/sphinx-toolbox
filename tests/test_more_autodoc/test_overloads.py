@@ -20,10 +20,11 @@ def test_setup():
 	assert app.registry.documenters["function"] == overloads.FunctionDocumenter
 	assert app.registry.documenters["method"] == overloads.MethodDocumenter
 
-	assert get_app_config_values(app.config.values["overloads_location"])[:2] == ("signature", "env")
+	config_values = get_app_config_values(app.config.values["overloads_location"])
+	assert config_values[:2] == ("signature", "env")
 
-	assert get_app_config_values(app.config.values["overloads_location"])[2].candidates == (
-			"top",
+	assert sorted(config_values[2].candidates) == [
 			"bottom",
 			"signature",
-			)
+			"top",
+			]
