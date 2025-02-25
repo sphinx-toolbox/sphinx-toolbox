@@ -320,7 +320,47 @@ class TypedDictDocumenter(ClassDocumenter):
 		Generate reST for member documentation. All members are always documented.
 		"""
 
-		super().document_members(True)
+		if sphinx.version_info >= (8, 2):
+			# set current namespace for finding members
+			self._current_document.autodoc_module = self.modname
+			if self.objpath:
+				self._current_document.autodoc_class = self.objpath[0]
+
+		# find out which members are documentable
+		members_check_module, members = self.get_object_members(True)
+
+		# document non-skipped members
+		member_documenters: list[tuple[Documenter, bool]] = []
+		for mname, member, isattr in self.filter_members(members, True):
+			classes = [
+					cls for cls in self.documenters.values()
+					if cls.can_document_member(member, mname, isattr, self)
+					]
+			if not classes:
+				# don't know how to document this member
+				continue
+			# prefer the documenter with the highest priority
+			classes.sort(key=lambda cls: cls.priority)
+			# give explicitly separated module name, so that members
+			# of inner classes can be documented
+			full_mname = f'{self.modname}::' + '.'.join((*self.objpath, mname))
+			documenter = classes[-1](self.directive, full_mname, self.indent)
+			member_documenters.append((documenter, isattr))
+
+		member_order = self.options.member_order or self.config.autodoc_member_order
+		member_documenters = self.sort_members(member_documenters, member_order)
+
+		for documenter, isattr in member_documenters:
+			documenter.generate(
+					all_members=True,
+					real_modname=self.real_modname,
+					check_module=members_check_module and not isattr,
+					)
+
+		if sphinx.version_info >= (8, 2):
+			# reset current objects
+			self._current_document.autodoc_module = ''
+			self._current_document.autodoc_class = ''
 
 	def sort_members(
 			self,
