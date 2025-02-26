@@ -322,15 +322,15 @@ class TypedDictDocumenter(ClassDocumenter):
 
 		if sphinx.version_info >= (8, 2):
 			# set current namespace for finding members
-			self._current_document.autodoc_module = self.modname
+			self._current_document.autodoc_module = self.modname  # type: ignore[attr-defined]
 			if self.objpath:
-				self._current_document.autodoc_class = self.objpath[0]
+				self._current_document.autodoc_class = self.objpath[0]  # type: ignore[attr-defined]
 
 		# find out which members are documentable
 		members_check_module, members = self.get_object_members(True)
 
 		# document non-skipped members
-		member_documenters: list[tuple[Documenter, bool]] = []
+		member_documenters: List[Tuple[Documenter, bool]] = []
 		for mname, member, isattr in self.filter_members(members, True):
 			classes = [
 					cls for cls in self.documenters.values()
@@ -359,8 +359,8 @@ class TypedDictDocumenter(ClassDocumenter):
 
 		if sphinx.version_info >= (8, 2):
 			# reset current objects
-			self._current_document.autodoc_module = ''
-			self._current_document.autodoc_class = ''
+			self._current_document.autodoc_module = ''  # type: ignore[attr-defined]
+			self._current_document.autodoc_class = ''  # type: ignore[attr-defined]
 
 	def sort_members(
 			self,
