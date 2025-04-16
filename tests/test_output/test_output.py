@@ -234,6 +234,10 @@ def test_sidebar_links_output(
 	page = remove_html_footer(page)
 	page = remove_html_link_tags(page)
 
+	for div in page.select("div.related"):
+		if div["aria-label"] == "Related":
+			div.extract()
+
 	for div in page.select("script"):
 		if "_static/language_data.js" in str(div):
 			div.extract()

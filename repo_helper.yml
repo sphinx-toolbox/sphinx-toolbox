@@ -152,10 +152,6 @@ extra_sphinx_extensions:
   - sphinx_toolbox.latex.succinct_seealso
   - sphinx_toolbox.more_autosummary.column_widths
 
-tox_unmanaged:
-  - pytest
-  - testenv
-
 sphinx_conf_epilogue:
   - html_logo = "../sphinx_toolbox.png"
   - toctree_plus_types.add("fixture")
@@ -218,3 +214,4 @@ intersphinx_mapping:
 exclude_files:
  - contributing
  - doc_requirements
+ - tox
