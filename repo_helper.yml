@@ -60,6 +60,15 @@ python_versions:
     - 8.2
  "3.11":
  "3.12":
+  matrix_exclude:
+   sphinx:
+    - 3.2
+    - 3.3
+    - 3.4
+    - 3.5
+    - 4.0
+    - 4.1
+    - 4.2
  "3.13":
   matrix_exclude:
    sphinx:
