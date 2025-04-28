@@ -377,7 +377,14 @@ def conda_installation(
 	return list(lines)
 
 
-@sources.register("github", "GitHub", flag)
+def _validate_github_branch(branch: Optional[str]) -> str:
+	if isinstance(branch, str):
+		return str(branch)
+	else:
+		return "master"
+
+
+@sources.register("github", "GitHub", _validate_github_branch)
 def github_installation(
 		options: Dict[str, Any],
 		env: sphinx.environment.BuildEnvironment,
@@ -403,10 +410,12 @@ def github_installation(
 	if repository is None:
 		raise ValueError("'github_repository' has not been set in 'conf.py'!")
 
+	branch = options.get("github", "master")
+
 	return [
 			".. prompt:: bash",
 			'',
-			f"    python3 -m pip install git+https://github.com/{username}/{repository}@master --user"
+			f"    python3 -m pip install git+https://github.com/{username}/{repository}@{branch} --user"
 			]
 
 

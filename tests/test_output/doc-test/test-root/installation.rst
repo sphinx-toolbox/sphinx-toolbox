@@ -77,7 +77,7 @@ sphinx-toolbox Demo - Installation
 	:pypi:
 	:pypi-name: my-project
 	:anaconda:
-	:github:
+	:github: stable
 
 .. installation:: my_project
 	:pypi:

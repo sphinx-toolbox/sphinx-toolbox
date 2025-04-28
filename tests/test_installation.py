@@ -125,7 +125,7 @@ def test_make_installation_instructions():
 					]
 
 	assert make_installation_instructions(
-			{"github": True, "project_name": "my_project"},
+			{"github": "stable", "project_name": "my_project"},
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
 					".. container:: st-installation",
@@ -136,7 +136,7 @@ def test_make_installation_instructions():
 					'',
 					"            .. prompt:: bash",
 					'',
-					"                python3 -m pip install git+https://github.com/octocat/hello_world@master --user",
+					"                python3 -m pip install git+https://github.com/octocat/hello_world@stable --user",
 					]
 
 	assert make_installation_instructions(
