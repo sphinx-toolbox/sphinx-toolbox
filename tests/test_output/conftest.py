@@ -27,7 +27,6 @@
 #
 
 # stdlib
-import pathlib
 import shutil
 from contextlib import contextmanager
 from typing import Any, Callable, ContextManager, Dict, Iterator, List, Sequence, Tuple, cast
@@ -86,8 +85,8 @@ def rootdir() -> PathPlus:
 def app_params(
 		request: Any,
 		test_params: Dict,
-		sphinx_test_tempdir: pathlib.Path,
-		rootdir: pathlib.Path,
+		sphinx_test_tempdir: PathPlus,
+		rootdir: PathPlus,
 		) -> Tuple[Sequence, Dict]:
 	"""
 	parameters that is specified by 'pytest.mark.sphinx' for
