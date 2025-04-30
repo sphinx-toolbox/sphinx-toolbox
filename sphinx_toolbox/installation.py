@@ -531,15 +531,20 @@ def make_installation_instructions(options: Dict[str, Any], env: BuildEnvironmen
 		warnings.warn("No installation source specified. No installation instructions will be shown.")
 		return []
 
-	content = StringList([".. tabs::", ''])
+	content = StringList([
+			".. container:: st-installation",
+			'',
+			"    .. tabs::",
+			'',
+			])
 	content.set_indent_type("    ")
 
 	for tab_name, tab_content in tabs.items():
-		with content.with_indent_size(1):
+		with content.with_indent_size(2):
 			content.append(f".. tab:: {tab_name}")
 			content.blankline(ensure_single=True)
 
-		with content.with_indent_size(2):
+		with content.with_indent_size(3):
 			content.extend([f"{line}" if line else '' for line in tab_content])  # pylint: disable=loop-invariant-statement
 
 	return list(content)
@@ -683,7 +688,7 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 			"  const parent = target.parentNode;",
 			"  const grandparent = parent.parentNode;",
 			'',
-			'  if (parent.parentNode.parentNode.getAttribute("id").startsWith("installation")) {',
+			'  if (grandparent.parentNode.classList.contains("st-installation")) {',
 			'',
 			"    // Hide all tabs in current tablist, but not nested",
 			"    Array.from(parent.children).forEach(t => {",
