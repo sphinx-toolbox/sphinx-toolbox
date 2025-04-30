@@ -50,39 +50,45 @@ def test_make_installation_instructions():
 			{"pypi": True, "project_name": "my_project"},
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
-					".. tabs::",
+					".. container:: st-installation",
 					'',
-					"    .. tab:: from PyPI",
+					"    .. tabs::",
 					'',
-					"        .. prompt:: bash",
+					"        .. tab:: from PyPI",
 					'',
-					"            python3 -m pip install my_project --user",
+					"            .. prompt:: bash",
+					'',
+					"                python3 -m pip install my_project --user",
 					]
 
 	assert make_installation_instructions(
 			{"pypi": True, "project_name": "my_project", "pypi-name": "my-project"},
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
-					".. tabs::",
+					".. container:: st-installation",
 					'',
-					"    .. tab:: from PyPI",
+					"    .. tabs::",
 					'',
-					"        .. prompt:: bash",
+					"        .. tab:: from PyPI",
 					'',
-					"            python3 -m pip install my-project --user",
+					"            .. prompt:: bash",
+					'',
+					"                python3 -m pip install my-project --user",
 					]
 
 	assert make_installation_instructions(
 			{"anaconda": True, "project_name": "my_project"},
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
-					".. tabs::",
+					".. container:: st-installation",
 					'',
-					"    .. tab:: from Anaconda",
+					"    .. tabs::",
 					'',
-					"        .. prompt:: bash",
+					"        .. tab:: from Anaconda",
 					'',
-					"            conda install my_project",
+					"            .. prompt:: bash",
+					'',
+					"                conda install my_project",
 					'',
 					]
 
@@ -90,13 +96,15 @@ def test_make_installation_instructions():
 			{"anaconda": True, "project_name": "my_project", "conda-name": "my-project"},
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
-					".. tabs::",
+					".. container:: st-installation",
 					'',
-					"    .. tab:: from Anaconda",
+					"    .. tabs::",
 					'',
-					"        .. prompt:: bash",
+					"        .. tab:: from Anaconda",
 					'',
-					"            conda install my-project",
+					"            .. prompt:: bash",
+					'',
+					"                conda install my-project",
 					'',
 					]
 
@@ -104,13 +112,15 @@ def test_make_installation_instructions():
 			{"anaconda": True, "project_name": "my_project", "pypi-name": "pypi-project"},
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
-					".. tabs::",
+					".. container:: st-installation",
 					'',
-					"    .. tab:: from Anaconda",
+					"    .. tabs::",
 					'',
-					"        .. prompt:: bash",
+					"        .. tab:: from Anaconda",
 					'',
-					"            conda install pypi-project",
+					"            .. prompt:: bash",
+					'',
+					"                conda install pypi-project",
 					'',
 					]
 
@@ -118,13 +128,15 @@ def test_make_installation_instructions():
 			{"github": True, "project_name": "my_project"},
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
-					".. tabs::",
+					".. container:: st-installation",
 					'',
-					"    .. tab:: from GitHub",
+					"    .. tabs::",
 					'',
-					"        .. prompt:: bash",
+					"        .. tab:: from GitHub",
 					'',
-					"            python3 -m pip install git+https://github.com/octocat/hello_world@master --user",
+					"            .. prompt:: bash",
+					'',
+					"                python3 -m pip install git+https://github.com/octocat/hello_world@master --user",
 					]
 
 	assert make_installation_instructions(
@@ -135,22 +147,24 @@ def test_make_installation_instructions():
 					},
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
-					".. tabs::",
+					".. container:: st-installation",
 					'',
-					"    .. tab:: from Anaconda",
+					"    .. tabs::",
 					'',
-					"        First add the required channels",
+					"        .. tab:: from Anaconda",
 					'',
-					"        .. prompt:: bash",
+					"            First add the required channels",
 					'',
-					"            conda config --add channels https://conda.anaconda.org/foo",
-					"            conda config --add channels https://conda.anaconda.org/bar",
+					"            .. prompt:: bash",
 					'',
-					"        Then install",
+					"                conda config --add channels https://conda.anaconda.org/foo",
+					"                conda config --add channels https://conda.anaconda.org/bar",
 					'',
-					"        .. prompt:: bash",
+					"            Then install",
 					'',
-					"            conda install my_project",
+					"            .. prompt:: bash",
+					'',
+					"                conda install my_project",
 					'',
 					]
 
@@ -163,22 +177,24 @@ def test_make_installation_instructions():
 					},
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			) == [
-					".. tabs::",
+					".. container:: st-installation",
 					'',
-					"    .. tab:: from Anaconda",
+					"    .. tabs::",
 					'',
-					"        First add the required channels",
+					"        .. tab:: from Anaconda",
 					'',
-					"        .. prompt:: bash",
+					"            First add the required channels",
 					'',
-					"            conda config --add channels https://conda.anaconda.org/foo",
-					"            conda config --add channels https://conda.anaconda.org/bar",
+					"            .. prompt:: bash",
 					'',
-					"        Then install",
+					"                conda config --add channels https://conda.anaconda.org/foo",
+					"                conda config --add channels https://conda.anaconda.org/bar",
 					'',
-					"        .. prompt:: bash",
+					"            Then install",
 					'',
-					"            conda install my_project",
+					"            .. prompt:: bash",
+					'',
+					"                conda install my_project",
 					'',
 					]
 
