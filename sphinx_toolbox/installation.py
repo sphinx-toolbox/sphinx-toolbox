@@ -62,6 +62,16 @@ Usage
 
 		Flag to indicate the project can be installed from GitHub.
 
+		The branch name defaults to ``master``, but a different branch name or a tag can be specified as follows:
+
+		.. code-block:: rst
+
+			.. installation: foo
+				:github: dev
+
+			.. installation: bar
+				:github: v1.2.3
+
 		To use this option add the following to your ``conf.py``:
 
 		.. code-block:: python
