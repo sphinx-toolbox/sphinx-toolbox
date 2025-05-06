@@ -2,6 +2,12 @@
 Changelog
 ===============
 
+3.10.0
+----------------------
+
+Allow GitHub branch to be specified for :rst:dir:`installation` directive.
+
+
 3.9.0
 ----------------------
 

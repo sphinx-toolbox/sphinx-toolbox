@@ -62,6 +62,18 @@ Usage
 
 		Flag to indicate the project can be installed from GitHub.
 
+		The branch name defaults to ``master``, but a different branch name or a tag can be specified as follows:
+
+		.. code-block:: rst
+
+			.. installation: foo
+				:github: dev
+
+			.. installation: bar
+				:github: v1.2.3
+
+		.. versionchanged:: 3.10.0  Allow branch name to be specified.
+
 		To use this option add the following to your ``conf.py``:
 
 		.. code-block:: python
@@ -377,7 +389,14 @@ def conda_installation(
 	return list(lines)
 
 
-@sources.register("github", "GitHub", flag)
+def _validate_github_branch(branch: Optional[str]) -> str:
+	if isinstance(branch, str):
+		return str(branch)
+	else:
+		return "master"
+
+
+@sources.register("github", "GitHub", _validate_github_branch)
 def github_installation(
 		options: Dict[str, Any],
 		env: sphinx.environment.BuildEnvironment,
@@ -403,10 +422,12 @@ def github_installation(
 	if repository is None:
 		raise ValueError("'github_repository' has not been set in 'conf.py'!")
 
+	branch = options.get("github", "master")
+
 	return [
 			".. prompt:: bash",
 			'',
-			f"    python3 -m pip install git+https://github.com/{username}/{repository}@master --user"
+			f"    python3 -m pip install git+https://github.com/{username}/{repository}@{branch} --user"
 			]
 
 
