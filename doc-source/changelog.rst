@@ -2,6 +2,30 @@
 Changelog
 ===============
 
+3.9.0
+----------------------
+
+Improved support for Sphinx 8.1+
+
+
+3.8.2
+----------------------
+
+(BUG) Fix GitHub issue title parsing.
+
+3.8.0
+----------------------
+
+Improved support for Sphinx 7.3+
+
+
+3.7.0
+----------------------
+
+* Add :class:`sphinx_toolbox.more_autodoc.variables.PropertyDocumenter`.
+* Use sphinx's ``HTML5Translator`` over ``HTMLTranslator``.
+
+
 3.6.0
 ----------------------
 
