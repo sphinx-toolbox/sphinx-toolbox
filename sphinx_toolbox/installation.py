@@ -72,6 +72,8 @@ Usage
 			.. installation: bar
 				:github: v1.2.3
 
+		.. versionchanged:: 3.10.0  Allow branch name to be specified.
+
 		To use this option add the following to your ``conf.py``:
 
 		.. code-block:: python
