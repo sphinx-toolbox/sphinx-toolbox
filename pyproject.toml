@@ -4,7 +4,7 @@ build-backend = "whey"
 
 [project]
 name = "sphinx-toolbox"
-version = "3.9.0"
+version = "3.10.0"
 description = "Box of handy tools for Sphinx 🧰 📔"
 readme = "README.rst"
 keywords = [ "documentation", "sphinx", "sphinx-extension",]
