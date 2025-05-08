@@ -8,7 +8,7 @@ ci:
 
 repos:
  - repo: https://github.com/repo-helper/pyproject-parser
-   rev: v0.11.1
+   rev: v0.13.0
    hooks:
     - id: reformat-pyproject
 
