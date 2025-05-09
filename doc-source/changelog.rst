@@ -2,6 +2,13 @@
 Changelog
 ===============
 
+4.0.0
+----------------------
+
+The :mod:`sphinx_toolbox.source` module no longer enables the :mod:`sphinx_toolbox.github` extension automatically.
+If you have :confval:`source_link_target` set to ``'GitHub'`` you may need to enable the extension manually.
+
+
 3.10.0
 ----------------------
 

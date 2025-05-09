@@ -10,6 +10,12 @@ If you're looking for a ``[source]`` button to go at the end of your class and
 function signatures, checkout :mod:`sphinx.ext.linkcode` and :mod:`sphinx.ext.viewcode`.
 
 
+.. versionchanged:: 4.0.0
+
+	The :mod:`sphinx_toolbox.source` module no longer enables the :mod:`sphinx_toolbox.github` extension automatically.
+	If you have :confval:`source_link_target` set to ``'GitHub'`` you may need to enable the extension manually.
+
+
 Usage
 -------
 
@@ -21,6 +27,11 @@ Usage
 	The target of the source link, either ``'GitHub'`` or ``'Sphinx'``.
 	Case insensitive.
 
+	.. note::
+
+		The ``'GitHub'`` source option requires the :mod:`sphinx_toolbox.github` extension to be enabled in your ``conf.py`` file,
+		and its :confval:`github_username` and :confval:`github_repository` options set.
+		See that extension's documentation for more details.
 
 .. rst:role:: source
 
@@ -259,6 +270,6 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_config_value("source_link_target", "Sphinx", "env", types=[str])
 	app.connect("config-inited", _configure)
 
-	app.setup_extension("sphinx_toolbox.github")
+	# app.setup_extension("sphinx_toolbox.github")
 
 	return {"parallel_read_safe": True}
