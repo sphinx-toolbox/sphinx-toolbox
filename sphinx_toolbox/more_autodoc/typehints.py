@@ -182,6 +182,9 @@ except ImportError:
 	from sphinx_autodoc_typehints import _LOGGER as sat_logger
 	from sphinx_autodoc_typehints import _PYDATA_ANNOTATIONS as pydata_annotations
 
+if isinstance(next(iter(pydata_annotations)), tuple):
+	pydata_annotations = {x[1] for x in pydata_annotations}
+
 try:
 	# 3rd party
 	from sphinx_autodoc_typehints import _future_annotations_imported
