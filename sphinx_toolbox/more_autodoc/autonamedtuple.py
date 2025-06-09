@@ -483,7 +483,7 @@ class _PyNamedTupleField(PyAttribute):
 		return [self.indexnode, node]
 
 
-def _patch_reorder_transform():
+def _patch_reorder_transform() -> None:
 	# Patch ReorderConsecutiveTargetAndIndexNodes on Sphinx 7.2+
 
 	# 3rd party
