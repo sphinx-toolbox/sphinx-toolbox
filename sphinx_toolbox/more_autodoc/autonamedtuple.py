@@ -298,7 +298,7 @@ class NamedTupleDocumenter(ClassDocumenter):
 		new_hints = get_type_hints(
 				self.object.__new__,
 				globalns=sys.modules[self.object.__module__].__dict__,
-				localns=self.object.__dict__,  # type: ignore[arg-type]
+				localns=self.object.__dict__,
 				)
 
 		# Stock NamedTuples don't have these, but customised collections.namedtuple or hand-rolled classes may

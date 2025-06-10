@@ -162,7 +162,7 @@ def test_html_output(
 
 	for page in pages_to_check:
 		pagename: str = page.values[0]  # type: ignore[assignment]
-		page_id: str = page.id or pagename
+		page_id: str = cast(str, page.id or pagename)
 
 		for mark in page.marks:
 			if mark.kwargs.get("condition", False):

@@ -354,7 +354,7 @@ class PatchedAutosummary(Autosummary):
 
 	else:
 
-		def create_documenter(  # type: ignore[misc]
+		def create_documenter(  # type: ignore[misc,override]
 			self,
 			app: Sphinx,
 			obj: Any,

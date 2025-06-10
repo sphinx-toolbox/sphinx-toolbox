@@ -105,7 +105,7 @@ def test_html_output(gh_src_app: Sphinx, html_regression: HTMLRegressionFixture)
 			page = pytest.param(page, id=page)
 
 		pagename: str = page.values[0]  # type: ignore[assignment]
-		page_id: str = page.id or pagename
+		page_id: str = cast(str, page.id or pagename)
 		for mark in page.marks:
 			if mark.kwargs.get("condition", False):
 				if "reason" in mark.kwargs:

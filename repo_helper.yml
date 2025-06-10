@@ -224,4 +224,8 @@ intersphinx_mapping:
 exclude_files:
  - contributing
  - doc_requirements
- - tox
+
+tox_unmanaged:
+ - testenv
+ - fixups
+ - pytest

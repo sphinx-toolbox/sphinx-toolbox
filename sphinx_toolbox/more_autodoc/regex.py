@@ -613,15 +613,15 @@ class HTMLRegexParser(RegexParser):
 	"""
 
 	# Colours
-	AT_COLOUR = span("regex regex_at")
-	SUBPATTERN_COLOUR = span("regex regex_subpattern")
-	IN_COLOUR = span("regex regex_in")
-	REPEAT_COLOUR = span("regex regex_repeat")
-	REPEAT_BRACE_COLOUR = span("regex regex_repeat_brace")
-	CATEGORY_COLOUR = span("regex regex_category")
-	BRANCH_COLOUR = span("regex regex_branch")
-	LITERAL_COLOUR = span("regex regex_literal")
-	ANY_COLOUR = span("regex regex_any")
+	AT_COLOUR: Callable[[Any], str] = span("regex regex_at")
+	SUBPATTERN_COLOUR: Callable[[Any], str] = span("regex regex_subpattern")
+	IN_COLOUR: Callable[[Any], str] = span("regex regex_in")
+	REPEAT_COLOUR: Callable[[Any], str] = span("regex regex_repeat")
+	REPEAT_BRACE_COLOUR: Callable[[Any], str] = span("regex regex_repeat_brace")
+	CATEGORY_COLOUR: Callable[[Any], str] = span("regex regex_category")
+	BRANCH_COLOUR: Callable[[Any], str] = span("regex regex_branch")
+	LITERAL_COLOUR: Callable[[Any], str] = span("regex regex_literal")
+	ANY_COLOUR: Callable[[Any], str] = span("regex regex_any")
 
 	def parse_pattern(self, regex: Pattern) -> str:
 		"""
@@ -660,15 +660,15 @@ class LaTeXRegexParser(RegexParser):
 	"""
 
 	# Colours
-	AT_COLOUR = latex_textcolor("regex_at")
-	SUBPATTERN_COLOUR = latex_textcolor("regex_subpattern")
-	IN_COLOUR = latex_textcolor("regex_in")
-	REPEAT_COLOUR = latex_textcolor("regex_repeat")
-	REPEAT_BRACE_COLOUR = latex_textcolor("regex_repeat_brace")
-	CATEGORY_COLOUR = latex_textcolor("regex_category")
-	BRANCH_COLOUR = latex_textcolor("regex_branch")
-	LITERAL_COLOUR = latex_textcolor("regex_literal")
-	ANY_COLOUR = latex_textcolor("regex_any")
+	AT_COLOUR: Callable[[Any], str] = latex_textcolor("regex_at")
+	SUBPATTERN_COLOUR: Callable[[Any], str] = latex_textcolor("regex_subpattern")
+	IN_COLOUR: Callable[[Any], str] = latex_textcolor("regex_in")
+	REPEAT_COLOUR: Callable[[Any], str] = latex_textcolor("regex_repeat")
+	REPEAT_BRACE_COLOUR: Callable[[Any], str] = latex_textcolor("regex_repeat_brace")
+	CATEGORY_COLOUR: Callable[[Any], str] = latex_textcolor("regex_category")
+	BRANCH_COLOUR: Callable[[Any], str] = latex_textcolor("regex_branch")
+	LITERAL_COLOUR: Callable[[Any], str] = latex_textcolor("regex_literal")
+	ANY_COLOUR: Callable[[Any], str] = latex_textcolor("regex_any")
 
 	def parse_pattern(self, regex: Pattern) -> str:
 		"""
