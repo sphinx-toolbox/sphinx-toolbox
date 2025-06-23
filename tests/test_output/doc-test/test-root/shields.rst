@@ -27,14 +27,6 @@ sphinx-toolbox Demo - Shields
 	:username: octocat
 	:repository: hello_world
 
-.. requires-io-shield::
-	:alt: Requirements Status
-
-.. requires-io-shield::
-	:alt: Requirements Status
-	:username: octocat
-	:repository: hello_world
-
 .. coveralls-shield::
 	:alt: Coverage
 
