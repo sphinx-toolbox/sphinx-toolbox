@@ -585,7 +585,7 @@ class RequiresIOShield(GitHubBackedShield):
 
 		warnings.warn(
 				"RequiresIOShield (.. requires-io-shield::) is deprecated as requires.io has shut down",
-				UnicodeDecodeError
+				DeprecationWarning
 				)
 
 		username, repository = self.get_repo_details()
