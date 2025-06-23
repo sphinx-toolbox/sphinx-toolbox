@@ -168,12 +168,13 @@ API Reference
 import re
 from os.path import join as joinpath
 from textwrap import dedent
-from typing import Any, List, Optional, cast
+from typing import Any, Dict, List, Optional, Type, cast
 
 # 3rd party
 import sphinx
 from docutils import nodes
 from docutils.frontend import OptionParser
+from docutils.parsers.rst import Directive
 from docutils.transforms.references import Footnotes
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import DelimitedList
@@ -389,7 +390,7 @@ class LaTeXDomain(Domain):
 
 	name = "latex"
 	label = "LaTeX"
-	directives = {
+	directives: Dict[str, Type[Directive]] = {
 			"samepage": SamepageDirective,
 			"clearpage": ClearPageDirective,
 			"cleardoublepage": ClearDoublePageDirective,

@@ -105,3 +105,20 @@ latex_elements["preamble"] = r"\usepackage{multicol}"
 nitpicky = True
 needspace_amount = r"4\baselineskip"
 autodoc_type_aliases = {"ForwardRef": "ForwardRef"}
+
+# 3rd party
+from pytest_datadir.plugin import LazyDataDir
+from pytest_regressions import file_regression
+
+file_regression.LazyDataDir = LazyDataDir
+
+# stdlib
+import typing
+
+# 3rd party
+import sphinx.roles
+
+sphinx.roles.Optional = typing.Optional
+sphinx.roles.Type = typing.Type
+sphinx.roles.XRefRole.__init__.__annotations__["nodeclass"] = "Optional[Type[Element]]"
+sphinx.roles.XRefRole.__init__.__annotations__["innernodeclass"] = "Optional[Type[TextElement]]"

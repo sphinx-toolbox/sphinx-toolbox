@@ -375,6 +375,11 @@ def format_annotation(annotation: Any, fully_qualified: bool = False) -> str:
 
 		args = get_annotation_args(annotation, module, class_name)
 	except ValueError:
+		if isinstance(annotation, str) and '|' in annotation and sys.version_info < (3, 10):
+			sat_logger.warning(
+					"Unsupported | character in type annotation '%s' for this version of Python",
+					annotation,
+					)
 		return f":py:obj:`~.{annotation}`"
 
 	if module == "_io":

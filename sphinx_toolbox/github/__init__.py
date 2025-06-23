@@ -183,7 +183,11 @@ a :exc:`~.MissingOptionError` will be raised.
 #  OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+# stdlib
+from typing import Dict, Type
+
 # 3rd party
+from docutils.parsers.rst import Directive
 from sphinx.application import Sphinx
 from sphinx.domains import Domain
 from sphinx.environment import BuildEnvironment
@@ -220,6 +224,7 @@ class GitHubDomain(Domain):
 	Sphinx domain for `GitHub.com <https://github.com>`_.
 	"""
 
+	directives: Dict[str, Type[Directive]]
 	name = "github"
 	label = "GitHub"
 	roles = {

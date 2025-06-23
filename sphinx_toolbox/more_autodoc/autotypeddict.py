@@ -253,7 +253,7 @@ class TypedDictDocumenter(ClassDocumenter):
 
 				output = []
 				for base in bases:
-					if base.__name__.startswith('_'):
+					if hasattr(base, "__name__") and base.__name__.startswith('_'):
 						output.extend(get_bases(base))
 					else:
 						output.append(base)

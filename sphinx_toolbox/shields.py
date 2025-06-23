@@ -237,7 +237,7 @@ Shields
 		.. rest-example::
 
 			.. actions-shield::
-				:workflow: Windows Tests
+				:workflow: Windows
 
 
 .. rst:directive:: coveralls-shield
