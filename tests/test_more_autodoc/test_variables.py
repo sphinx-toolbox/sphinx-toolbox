@@ -76,13 +76,13 @@ def test_get_variable_type():
 			) == ":py:class:`~domdf_python_tools.secrets.Secret`"
 	assert get_variable_type(
 			Documenter(Bar, ["Bar", 'h'], Analyzer({("Bar", 'h'): "Union[str, float, int]"}))
-			) == ":py:data:`~typing.Union`\\[:py:class:`str`, :py:class:`float`, :py:class:`int`]"
+			) == ":py:class:`~typing.Union`\\[:py:class:`str`, :py:class:`float`, :py:class:`int`]"
 	assert get_variable_type(
 			Documenter(Bar, ["Bar", 'h'], Analyzer({("Bar", 'h'): "'Union[str, float, int]'"}))
-			) == ":py:data:`~typing.Union`\\[:py:class:`str`, :py:class:`float`, :py:class:`int`]"
+			) == ":py:class:`~typing.Union`\\[:py:class:`str`, :py:class:`float`, :py:class:`int`]"
 	assert get_variable_type(
 			Documenter(Bar, ["Bar", 'h'], Analyzer({("Bar", 'h'): '"Union[str, float, int]"'}))
-			) == ":py:data:`~typing.Union`\\[:py:class:`str`, :py:class:`float`, :py:class:`int`]"
+			) == ":py:class:`~typing.Union`\\[:py:class:`str`, :py:class:`float`, :py:class:`int`]"
 
 	assert get_variable_type(Documenter("Bar", ["Bar", 'f'], Analyzer({}))) == ''
 

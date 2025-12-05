@@ -412,7 +412,6 @@ def format_annotation(annotation: Any, fully_qualified: bool = False) -> str:
 		full_name = "typing.Optional"
 	elif full_name == "types.UnionType":
 		full_name = "typing.Union"
-		role = "data"
 	elif full_name == "typing.Callable" and args and args[0] is not ...:
 		formatted_args = "\\[\\[" + ", ".join(format_annotation(arg) for arg in args[:-1]) + ']'
 		formatted_args += ", " + format_annotation(args[-1]) + ']'
@@ -426,6 +425,9 @@ def format_annotation(annotation: Any, fully_qualified: bool = False) -> str:
 				formatted_arg_list.append(code_repr(arg))
 
 		formatted_args = f"\\[{formatted_arg_list:, }]"
+
+	if full_name == "typing.Union":
+		role = "class"  # With at least the 3.14 docs.
 
 	if full_name == "typing.Optional":
 		args = tuple(x for x in args if x is not type(None))  # noqa: E721

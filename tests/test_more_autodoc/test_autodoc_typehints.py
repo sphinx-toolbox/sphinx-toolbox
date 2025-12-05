@@ -123,17 +123,17 @@ else:
 						":py:data:`~typing.Tuple`\\[:py:class:`int`, :py:class:`int`, :py:class:`int`]"
 						),
 				(Tuple[str, ...], ":py:data:`~typing.Tuple`\\[:py:class:`str`, ...]"),
-				(Union, ":py:data:`~typing.Union`"),
-				(Union[str, bool], ":py:data:`~typing.Union`\\[:py:class:`str`, :py:class:`bool`]"),
-				(Union[str, Any], ":py:data:`~typing.Union`\\[:py:class:`str`, :py:data:`~typing.Any`]"),
+				(Union, ":py:class:`~typing.Union`"),
+				(Union[str, bool], ":py:class:`~typing.Union`\\[:py:class:`str`, :py:class:`bool`]"),
+				(Union[str, Any], ":py:class:`~typing.Union`\\[:py:class:`str`, :py:data:`~typing.Any`]"),
 				pytest.param(
 						union_str_bool,
-						":py:data:`~typing.Union`\\[:py:class:`str`, :py:class:`bool`]",
+						":py:class:`~typing.Union`\\[:py:class:`str`, :py:class:`bool`]",
 						marks=min_version("3.10", reason="Introduced in 3.10"),
 						),
 				pytest.param(
 						union_str_any,
-						":py:data:`~typing.Union`\\[:py:class:`str`, :py:data:`~typing.Any`]",
+						":py:class:`~typing.Union`\\[:py:class:`str`, :py:data:`~typing.Any`]",
 						marks=min_version("3.10", reason="Introduced in 3.10"),
 						),
 				(Optional[str], ":py:data:`~typing.Optional`\\[:py:class:`str`]"),
@@ -188,6 +188,9 @@ def test_format_annotation(inv: Inventory, annotation: Any, expected_result: str
 		if expected_role:
 			if expected_role == "function":
 				expected_role = "func"
+
+			if name == "typing.Union" and sys.version_info < (3, 14):
+				expected_role = "class"
 
 			assert m.group("role") == expected_role
 
