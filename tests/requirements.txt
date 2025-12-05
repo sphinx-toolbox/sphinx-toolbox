@@ -12,4 +12,5 @@ pytest-cov>=2.8.1
 pytest-httpserver>=0.3.5
 pytest-randomly>=3.7.0
 pytest-timeout>=1.4.2
+setuptools<81
 sphobjinv>=2.0.1
