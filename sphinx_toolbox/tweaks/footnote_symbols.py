@@ -23,7 +23,7 @@ With some themes the superscript asterisk becomes very hard to see.
 
 -----
 
-"""  # noqa: D400
+"""  # noqa: D400,RST299
 #
 #  Copyright © 2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #

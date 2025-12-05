@@ -14,7 +14,7 @@ Adjusts the default LaTeX output as follows:
 
 -----
 
-"""  # noqa: D400
+"""  # noqa: D400,RST299
 #
 #  Copyright © 2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #

@@ -9,7 +9,7 @@ Reverts the docutils footnote behaviour from ``>=0.18`` to that of ``<=0.17``.
 
 -----
 
-"""
+"""  # noqa: RST299
 #
 #  Copyright © 2022 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #

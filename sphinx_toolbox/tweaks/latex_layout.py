@@ -47,7 +47,7 @@ Makes minor adjustments to the LaTeX layout.
 
 -----
 
-"""
+"""  # noqa: RST299
 #
 #  Copyright © 2021 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #

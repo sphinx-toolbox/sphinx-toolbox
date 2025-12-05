@@ -25,7 +25,7 @@ name from its description if a description was given.
 
 -----
 
-"""  # noqa: D400
+"""  # noqa: D400,RST299
 #
 #  Copyright © 2020 Dominic Davis-Foster <dominic@davis-foster.co.uk>
 #
