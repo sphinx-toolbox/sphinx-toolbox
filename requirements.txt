@@ -9,6 +9,7 @@ docutils>=0.16
 domdf-python-tools>=2.9.0
 filelock>=3.8.0
 html5lib>=1.1
+roman>4.0
 ruamel.yaml>=0.16.12
 sphinx>=3.2.0
 sphinx-autodoc-typehints>=1.11.1
