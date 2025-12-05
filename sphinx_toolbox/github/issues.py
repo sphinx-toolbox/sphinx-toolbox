@@ -333,8 +333,8 @@ def get_issue_title(issue_url: str) -> Optional[str]:
 				content = soup.find_all("bdi", attrs={"class": "js-issue-title"})[0].text
 			except IndexError:
 				try:
-					# As of 17 2025, GitHub seems to have changed this again...
-					content = soup.find_all("bdi", attrs={"class": "Box-sc-g0xbh4-0 markdown-title"})[0].text
+					# As of 5 Dec 2025, GitHub seems to have changed this again...
+					content = soup.find_all("bdi", attrs={"data-testid": "issue-title"})[0].text
 				except IndexError:
 					# Give up
 					return None
