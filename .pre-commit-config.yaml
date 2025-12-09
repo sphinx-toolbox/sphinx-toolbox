@@ -43,7 +43,7 @@ repos:
     - id: bind-requirements
 
  - repo: https://github.com/python-formate/flake8-dunder-all
-   rev: v0.4.1
+   rev: v0.5.0
    hooks:
     - id: ensure-dunder-all
       files: ^sphinx_toolbox/.*\.py$
