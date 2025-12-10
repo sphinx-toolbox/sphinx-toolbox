@@ -29,7 +29,7 @@ jobs:
               - '!tests/**'
 
       - name: Install and Build 🔧
-        uses: sphinx-toolbox/sphinx-action@sphinx-3.3.1
+        uses: sphinx-toolbox/sphinx-action@sphinx-3.3.1-py39
         if: steps.changes.outputs.code == 'true'
         with:
           pre-build-command: python -m pip install tox
