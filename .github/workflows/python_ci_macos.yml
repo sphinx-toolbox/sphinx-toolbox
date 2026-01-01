@@ -37,7 +37,7 @@ jobs:
           - {python-version: "3.13", os-ver: "14", testenvs: "py313-sphinx{6.2,7.0,7.1,7.2,7.3,7.4,8.0,8.1,8.2},build", experimental: False}
           - {python-version: "pypy-3.7", os-ver: "15-intel", testenvs: "pypy37-sphinx{4.3,4.4,4.5,5.0,5.1,5.2,5.3},build", experimental: False}
           - {python-version: "pypy-3.8", os-ver: "14", testenvs: "pypy38-sphinx{4.3,4.4,4.5,5.0,5.1,5.2,5.3,6.0,6.1,6.2,7.0,7.1},build", experimental: False}
-          - {python-version: "pypy-3.9", os-ver: "14", testenvs: "pypy39-sphinx{4.3,4.4,4.5,5.0,5.1,5.2,5.3,6.0,6.1,6.2,7.0,7.1,7.2,7.3,7.4},build", experimental: True}
+          - {python-version: "pypy-3.9", os-ver: "14", testenvs: "pypy39-sphinx{4.3,4.4,4.5,5.0,5.1,5.2,5.3,6.0,6.1,6.2,7.0,7.1,7.2,7.3,7.4}", experimental: True}
 
     steps:
       - name: Checkout 🛎️

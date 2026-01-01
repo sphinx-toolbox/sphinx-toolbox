@@ -47,7 +47,6 @@ docs/_build/
 doc/build
 target/
 .ipynb_checkpoints
-.python-version
 celerybeat-schedule
 celerybeat.pid
 *.sage.py
