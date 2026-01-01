@@ -77,13 +77,20 @@ class DataDocumenter(ModuleLevelDocumenter):
 	def can_document_member(cls, member: Any, membername: str, isattr: bool, parent: Any) -> bool:
 		"""
 		Called to see if a member can be documented by this documenter.
+
+		:param member: The member being checked.
+		:param membername: The name of the member.
+		:param isattr:
+		:param parent: The parent of the member.
 		"""
 
 		return isinstance(parent, ModuleDocumenter) and isattr
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive header and options to the generated content.
+		Add the directive's header and options to the generated content.
+
+		:param sig: The function/class signature.
 		"""
 
 		super().add_directive_header(sig)
@@ -140,6 +147,9 @@ class DataDocumenter(ModuleLevelDocumenter):
 	def add_content(self, more_content: Optional[StringList], no_docstring: bool = False) -> None:
 		"""
 		Add content from docstrings, attribute documentation and user.
+
+		:param more_content:
+		:param no_docstring:
 		"""
 
 		_documenter_add_content(self, more_content, no_docstring)

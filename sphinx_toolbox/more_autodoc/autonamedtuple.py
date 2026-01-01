@@ -162,7 +162,7 @@ from sphinx_toolbox.utils import (
 __all__ = ("NamedTupleDocumenter", "setup")
 
 
-class NamedTupleDocumenter(ClassDocumenter):
+class NamedTupleDocumenter(ClassDocumenter):  # noqa: PRM002
 	r"""
 	Sphinx autodoc :class:`~sphinx.ext.autodoc.Documenter`
 	for documenting :class:`typing.NamedTuple`\s.

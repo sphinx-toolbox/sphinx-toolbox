@@ -112,7 +112,7 @@ def test_setup():
 	setup_ret, directives, roles, additional_nodes, app = run_setup(rest_example.setup)
 
 	assert app.events.listeners == {
-			"env-purge-doc": [EventListener(id=0, handler=rest_example_purger.purge_nodes, priority=500), ],
+			"env-purge-doc": [EventListener(id=0, handler=rest_example_purger.purge_nodes, priority=500)],
 			}
 
 	assert directives == {

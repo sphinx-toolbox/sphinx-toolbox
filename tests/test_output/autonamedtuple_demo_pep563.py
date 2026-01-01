@@ -3,9 +3,6 @@
 # https://www.python.org/dev/peps/pep-0589/#totality
 # https://github.com/python/typing/pull/700
 
-# stdlib
-import sys
-
 __all__ = ("Animal", )
 
 # this package

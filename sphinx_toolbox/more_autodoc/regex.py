@@ -309,9 +309,9 @@ class RegexDocumenter(VariableDocumenter):
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive's header.
+		Add the directive's header and options to the generated content.
 
-		:param sig:
+		:param sig: The function/class signature.
 		"""
 
 		user_no_value = self.options.get("no-value", False)
@@ -347,7 +347,7 @@ def parse_regex_flags(flags: int) -> str:
 	return " ``|`` ".join(f":py:data:`re.{x}`" for x in buf)
 
 
-def no_formatting(value: Any) -> str:
+def no_formatting(value: Any) -> str:  # noqa: PRM002
 	"""
 	No-op that returns the value as a string.
 
@@ -725,7 +725,7 @@ class TerminalRegexParser(RegexParser):
 	CATEGORY_COLOUR = SUBPATTERN_COLOUR
 
 
-class RegexNode(nodes.literal):
+class RegexNode(nodes.literal):  # noqa: PRM002
 	"""
 	Docutils Node to show a highlighted regular expression.
 	"""

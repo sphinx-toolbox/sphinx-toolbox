@@ -96,13 +96,20 @@ class PrettyGenericAliasDocumenter(DataDocumenter):
 	def can_document_member(cls, member: Any, membername: str, isattr: bool, parent: Any) -> bool:
 		"""
 		Called to see if a member can be documented by this documenter.
+
+		:param member: The member being checked.
+		:param membername: The name of the member.
+		:param isattr:
+		:param parent: The parent of the member.
 		"""
 
 		return inspect.isgenericalias(member)
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive header and options to the generated content.
+		Add the directive's header and options to the generated content.
+
+		:param sig: The function/class signature.
 		"""
 
 		self.options = Options(self.options)

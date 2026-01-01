@@ -230,7 +230,7 @@ installation_node_purger = _Purger("all_installation_node_nodes")
 extensions_node_purger = Purger("all_extensions_node_nodes")
 
 
-class Sources(List[Tuple[str, str, Callable, Callable, Optional[Dict[str, Callable]]]]):
+class Sources(List[Tuple[str, str, Callable, Callable, Optional[Dict[str, Callable]]]]):  # noqa: PRM002
 	"""
 	Class to store functions that provide installation instructions for different sources.
 
@@ -654,7 +654,7 @@ class ExtensionsDirective(SphinxDirective):
 		else:
 			content = [*top_text, '']
 
-		content.append(".. code-block:: python", )
+		content.append(".. code-block:: python")
 
 		if "no-postamble" not in self.options:
 			content.append("    :class: sphinx-toolbox-extensions")

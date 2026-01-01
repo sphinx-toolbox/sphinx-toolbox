@@ -199,7 +199,7 @@ else:  # pragma: no cover
 	# 3rd party
 	from sphinx.util.inspect import getannotations
 
-	def _get_module_members(module: Any) -> List[Tuple[str, Any]]:
+	def _get_module_members(module: Any) -> List[Tuple[str, Any]]:  # noqa: PRM002
 		"""Get members of target module."""
 		# 3rd party
 		from sphinx.ext.autodoc import INSTANCEATTR
@@ -330,7 +330,6 @@ class PatchedAutosummary(Autosummary):
 			"""
 			Get an :class:`autodoc.Documenter` class suitable for documenting the given object.
 
-			:param app: The Sphinx application.
 			:param obj: The object being documented.
 			:param parent: The parent of the object (e.g. a module or a class).
 			:param full_name: The full name of the object.
@@ -472,6 +471,9 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 		* they are undocumented (except if the ``undoc-members`` option is set)
 
 		The user can override the skipping decision by connecting to the :event:`autodoc-skip-member` event.
+
+		:param members:
+		:param want_all:
 		"""
 
 		def is_filtered_inherited_member(name: str) -> bool:
@@ -615,8 +617,8 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 		Return a tuple of  ``(members_check_module, members)``,
 		where ``members`` is a list of ``(membername, member)`` pairs of the members of ``self.object``.
 
-		If ``want_all`` is :py:obj:`True`, return all members.
-		Otherwise, only return those members given by ``self.options.members`` (which may also be none).
+		:param want_all: If :py:obj:`True`, return all members.
+			Otherwise, only return those members given by ``self.options.members`` (which may also be none).
 		"""  # noqa: D400
 
 		if want_all:
@@ -658,9 +660,12 @@ class PatchedAutoSummClassDocumenter(autodocsumm.AutoSummClassDocumenter):
 	.. versionadded:: 0.9.0
 	"""  # noqa: D400
 
-	def add_content(self, *args, **kwargs) -> None:
+	def add_content(self, *args, **kwargs) -> None:  # noqa: PRM002
 		"""
 		Add content from docstrings, attribute documentation and user.
+
+		:param more_content:
+		:param no_docstring:
 		"""
 
 		ClassDocumenter.add_content(self, *args, **kwargs)

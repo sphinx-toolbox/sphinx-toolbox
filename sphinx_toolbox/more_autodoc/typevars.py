@@ -230,9 +230,9 @@ class TypeVarDocumenter(VariableDocumenter):
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive's header.
+		Add the directive's header and options to the generated content.
 
-		:param sig:
+		:param sig: The function/class signature.
 		"""
 
 		obj: _TypeVar = self.object

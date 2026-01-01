@@ -63,7 +63,7 @@ __all__ = (
 		)
 
 
-class IssueNode(nodes.reference):
+class IssueNode(nodes.reference):  # noqa: PRM002
 	"""
 	Docutils Node to represent a link to a GitHub *Issue* or *Pull Request*.
 
@@ -105,7 +105,7 @@ class IssueNode(nodes.reference):
 		return obj
 
 
-class IssueNodeWithName(IssueNode):
+class IssueNodeWithName(IssueNode):  # noqa: PRM002
 	"""
 	Docutils Node to represent a link to a GitHub *Issue* or *Pull Request*, with the repository name shown.
 

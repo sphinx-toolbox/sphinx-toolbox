@@ -115,7 +115,7 @@ def make_github_url(username: str, repository: str) -> RequestsURL:
 	return GITHUB_COM / username / repository
 
 
-def flag(argument: Any) -> bool:
+def flag(argument: Any) -> bool:  # noqa: PRM002
 	"""
 	Check for a valid flag option (no argument) and return :py:obj:`True`.
 
@@ -541,7 +541,7 @@ def is_namedtuple(obj: Any) -> bool:
 
 
 def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]) -> None:
-	"""
+	r"""
 	Add the given autodocumenters, but only if a subclass of it is not already registered.
 
 	This allows other libraries to extend the autodocumenters.
@@ -549,7 +549,7 @@ def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]) -> None:
 	.. versionadded:: 0.8.0
 
 	:param app: The Sphinx application.
-	:param documenters:
+	:param \*documenters:
 	"""
 
 	for cls in documenters:
@@ -641,8 +641,6 @@ def add_fallback_css_class(
 
 	This will apply the transformation to documented objects with the ``typeddict`` CSS class
 	by adding the ``class`` CSS class.
-
-	:param objtypes_css_fallbacks:
 	"""
 
 	def func(

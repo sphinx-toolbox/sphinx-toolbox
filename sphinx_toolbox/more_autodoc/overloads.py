@@ -306,7 +306,7 @@ class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):  # type: ig
 	which renders overloads differently.
 	"""  # noqa: D400
 
-	def format_signature(self, **kwargs: Any) -> str:
+	def format_signature(self, **kwargs: Any) -> str:  # noqa: PRM002
 		"""
 		Format the function's signature, including those for any overloaded implementations.
 
@@ -350,9 +350,9 @@ class FunctionDocumenter(OverloadMixin, autodoc.FunctionDocumenter):  # type: ig
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive's header.
+		Add the directive's header and options to the generated content.
 
-		:param sig:
+		:param sig: The function/class signature.
 		"""
 
 		super().add_directive_header(sig)
@@ -379,7 +379,7 @@ class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):  # type: ignore
 	which renders overloads differently.
 	"""  # noqa: D400
 
-	def format_signature(self, **kwargs: Any) -> str:
+	def format_signature(self, **kwargs: Any) -> str:  # noqa: PRM002
 		"""
 		Format the method's signature, including those for any overloaded implementations.
 
@@ -427,9 +427,9 @@ class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):  # type: ignore
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive's header.
+		Add the directive's header and options to the generated content.
 
-		:param sig:
+		:param sig: The function/class signature.
 		"""
 
 		super().add_directive_header(sig)

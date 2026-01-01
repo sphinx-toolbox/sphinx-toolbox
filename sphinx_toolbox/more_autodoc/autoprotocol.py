@@ -177,7 +177,7 @@ runtime_message = (
 		)
 
 
-class ProtocolDocumenter(ClassDocumenter):
+class ProtocolDocumenter(ClassDocumenter):  # noqa: PRM002
 	r"""
 	Sphinx autodoc :class:`~sphinx.ext.autodoc.Documenter`
 	for documenting :class:`typing.Protocol`\s.
@@ -247,9 +247,9 @@ class ProtocolDocumenter(ClassDocumenter):
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive header.
+		Add the directive's header and options to the generated content.
 
-		:param sig:
+		:param sig: The function/class signature.
 		"""
 
 		sourcename = self.get_sourcename()
@@ -266,7 +266,7 @@ class ProtocolDocumenter(ClassDocumenter):
 		if not self.doc_as_attr and self.options.show_inheritance:
 			_add_generic_bases(self)
 
-	def format_signature(self, **kwargs: Any) -> str:
+	def format_signature(self, **kwargs: Any) -> str:  # noqa: PRM002
 		"""
 		Protocols do not have a signature.
 		"""
@@ -298,7 +298,7 @@ class ProtocolDocumenter(ClassDocumenter):
 				)
 		self.add_line('', sourcename)
 
-	def document_members(self, all_members: bool = False) -> None:
+	def document_members(self, all_members: bool = False) -> None:  # noqa: PRM002
 		"""
 		Generate reST for member documentation.
 

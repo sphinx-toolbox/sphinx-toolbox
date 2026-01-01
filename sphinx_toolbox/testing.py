@@ -141,7 +141,7 @@ class FakeBuilder(Builder):
 
 class EventManager(BaseEventManager):
 
-	def connect(self, name: str, callback: Callable, priority: int) -> int:
+	def connect(self, name: str, callback: Callable, priority: int) -> int:  # noqa: PRM002
 		"""
 		Connect a handler to specific event.
 		"""
@@ -174,7 +174,7 @@ class Sphinx:
 		self.html_themes: Dict[str, str] = {}
 		# self.builder = self.registry.create_builder(self, buildername)
 
-	def add_builder(self, builder: Type[Builder], override: bool = False) -> None:
+	def add_builder(self, builder: Type[Builder], override: bool = False) -> None:  # noqa: PRM002
 		r"""
 		Register a new builder.
 
@@ -184,13 +184,13 @@ class Sphinx:
 
 		self.registry.add_builder(builder, override=override)
 
-	def add_config_value(
-			self,
-			name: str,
-			default: Any,
-			rebuild: Union[bool, str],
-			types: Any = (),
-			) -> None:
+	def add_config_value(  # noqa: PRM002
+		self,
+		name: str,
+		default: Any,
+		rebuild: Union[bool, str],
+		types: Any = (),
+		) -> None:
 		r"""
 		Register a configuration value.
 
@@ -203,7 +203,7 @@ class Sphinx:
 
 		self.config.add(name, default, rebuild, types)
 
-	def add_event(self, name: str) -> None:
+	def add_event(self, name: str) -> None:  # noqa: PRM002
 		r"""
 		Register an event called ``name``.
 
@@ -213,12 +213,12 @@ class Sphinx:
 
 		self.events.add(name)
 
-	def set_translator(
-			self,
-			name: str,
-			translator_class: Type[nodes.NodeVisitor],
-			override: bool = False,
-			) -> None:
+	def set_translator(  # noqa: PRM002
+		self,
+		name: str,
+		translator_class: Type[nodes.NodeVisitor],
+		override: bool = False,
+		) -> None:
 		r"""
 		Register or override a Docutils translator class.
 
@@ -230,12 +230,12 @@ class Sphinx:
 
 		self.registry.add_translator(name, translator_class, override=override)
 
-	def add_node(
-			self,
-			node: Type[nodes.Element],
-			override: bool = False,
-			**kwargs: Tuple[Callable, Callable],
-			) -> None:
+	def add_node(  # noqa: PRM002
+		self,
+		node: Type[nodes.Element],
+		override: bool = False,
+		**kwargs: Tuple[Callable, Callable],
+		) -> None:
 		r"""
 		Register a Docutils node class.
 
@@ -252,14 +252,14 @@ class Sphinx:
 		docutils.register_node(node)
 		self.registry.add_translation_handlers(node, **kwargs)
 
-	def add_enumerable_node(
-			self,
-			node: Type[nodes.Element],
-			figtype: str,
-			title_getter: Optional[TitleGetter] = None,
-			override: bool = False,
-			**kwargs: Tuple[Callable, Callable],
-			) -> None:
+	def add_enumerable_node(  # noqa: PRM002
+		self,
+		node: Type[nodes.Element],
+		figtype: str,
+		title_getter: Optional[TitleGetter] = None,
+		override: bool = False,
+		**kwargs: Tuple[Callable, Callable],
+		) -> None:
 		"""
 		Register a Docutils node class as a numfig target.
 		"""
@@ -273,7 +273,7 @@ class Sphinx:
 				)
 		self.add_node(node, override=override, **kwargs)
 
-	def add_directive(self, name: str, cls: Type[Directive], override: bool = False) -> None:
+	def add_directive(self, name: str, cls: Type[Directive], override: bool = False) -> None:  # noqa: PRM002
 		"""
 		Register a Docutils directive.
 		"""
@@ -283,7 +283,7 @@ class Sphinx:
 
 		docutils.register_directive(name, cls)
 
-	def add_role(self, name: str, role: Any, override: bool = False) -> None:
+	def add_role(self, name: str, role: Any, override: bool = False) -> None:  # noqa: PRM002
 		r"""
 		Register a Docutils role.
 
@@ -297,7 +297,7 @@ class Sphinx:
 
 		docutils.register_role(name, role)
 
-	def add_generic_role(self, name: str, nodeclass: Any, override: bool = False) -> None:
+	def add_generic_role(self, name: str, nodeclass: Any, override: bool = False) -> None:  # noqa: PRM002
 		"""
 		Register a generic Docutils role.
 		"""
@@ -309,7 +309,7 @@ class Sphinx:
 
 		docutils.register_role(name, role)
 
-	def add_domain(
+	def add_domain(  # noqa: PRM002
 			self,
 			domain: Type[Domain],
 			override: bool = False,
@@ -320,55 +320,55 @@ class Sphinx:
 
 		self.registry.add_domain(domain, override=override)
 
-	def add_directive_to_domain(
-			self,
-			domain: str,
-			name: str,
-			cls: Type[Directive],
-			override: bool = False,
-			) -> None:
+	def add_directive_to_domain(  # noqa: PRM002
+		self,
+		domain: str,
+		name: str,
+		cls: Type[Directive],
+		override: bool = False,
+		) -> None:
 		"""
 		Register a Docutils directive in a domain.
 		"""
 
 		self.registry.add_directive_to_domain(domain, name, cls, override=override)
 
-	def add_role_to_domain(
-			self,
-			domain: str,
-			name: str,
-			role: Union[RoleFunction, XRefRole],
-			override: bool = False,
-			) -> None:
+	def add_role_to_domain(  # noqa: PRM002
+		self,
+		domain: str,
+		name: str,
+		role: Union[RoleFunction, XRefRole],
+		override: bool = False,
+		) -> None:
 		"""
 		Register a Docutils role in a domain.
 		"""
 
 		self.registry.add_role_to_domain(domain, name, role, override=override)
 
-	def add_index_to_domain(
-			self,
-			domain: str,
-			index: Type[Index],
-			override: bool = False,
-			) -> None:
+	def add_index_to_domain(  # noqa: PRM002
+		self,
+		domain: str,
+		index: Type[Index],
+		override: bool = False,
+		) -> None:
 		"""
 		Register a custom index for a domain.
 		"""
 
 		self.registry.add_index_to_domain(domain, index)
 
-	def add_object_type(
-			self,
-			directivename: str,
-			rolename: str,
-			indextemplate: str = '',
-			parse_node: Optional[Callable] = None,
-			ref_nodeclass: Optional[Type[nodes.TextElement]] = None,
-			objname: str = '',
-			doc_field_types: List = [],
-			override: bool = False,
-			) -> None:
+	def add_object_type(  # noqa: PRM002
+		self,
+		directivename: str,
+		rolename: str,
+		indextemplate: str = '',
+		parse_node: Optional[Callable] = None,
+		ref_nodeclass: Optional[Type[nodes.TextElement]] = None,
+		objname: str = '',
+		doc_field_types: List = [],
+		override: bool = False,
+		) -> None:
 		"""
 		Register a new object type.
 		"""
@@ -385,15 +385,15 @@ class Sphinx:
 				override=override,
 				)
 
-	def add_crossref_type(
-			self,
-			directivename: str,
-			rolename: str,
-			indextemplate: str = '',
-			ref_nodeclass: Optional[Type[nodes.TextElement]] = None,
-			objname: str = '',
-			override: bool = False,
-			) -> None:
+	def add_crossref_type(  # noqa: PRM002
+		self,
+		directivename: str,
+		rolename: str,
+		indextemplate: str = '',
+		ref_nodeclass: Optional[Type[nodes.TextElement]] = None,
+		objname: str = '',
+		override: bool = False,
+		) -> None:
 		"""
 		Register a new crossref object type.
 		"""
@@ -408,21 +408,21 @@ class Sphinx:
 				override=override,
 				)
 
-	def add_transform(self, transform: Type[Transform]) -> None:
+	def add_transform(self, transform: Type[Transform]) -> None:  # noqa: PRM002
 		"""
 		Register a Docutils transform to be applied after parsing.
 		"""
 
 		self.registry.add_transform(transform)
 
-	def add_post_transform(self, transform: Type[Transform]) -> None:
+	def add_post_transform(self, transform: Type[Transform]) -> None:  # noqa: PRM002
 		"""
 		Register a Docutils transform to be applied before writing.
 		"""
 
 		self.registry.add_post_transform(transform)
 
-	def add_js_file(self, filename: str, **kwargs: str) -> None:
+	def add_js_file(self, filename: str, **kwargs: str) -> None:  # noqa: PRM002
 		"""
 		Register a JavaScript file to include in the HTML output.
 
@@ -435,7 +435,7 @@ class Sphinx:
 	# 		self.builder.add_js_file(filename, **kwargs)
 	#
 
-	def add_css_file(self, filename: str, **kwargs: str) -> None:
+	def add_css_file(self, filename: str, **kwargs: str) -> None:  # noqa: PRM002
 		"""
 		Register a stylesheet to include in the HTML output.
 
@@ -447,12 +447,12 @@ class Sphinx:
 	# 	if hasattr(self.builder, 'add_css_file'):
 	# 		self.builder.add_css_file(filename, **kwargs)
 
-	def add_latex_package(
-			self,
-			packagename: str,
-			options: Optional[str] = None,
-			after_hyperref: bool = False,
-			) -> None:
+	def add_latex_package(  # noqa: PRM002
+		self,
+		packagename: str,
+		options: Optional[str] = None,
+		after_hyperref: bool = False,
+		) -> None:
 		"""
 		Register a package to include in the LaTeX source code.
 		"""
@@ -460,7 +460,7 @@ class Sphinx:
 		# Sphinx's signature is wrong WRT Optional
 		self.registry.add_latex_package(packagename, cast(str, options), after_hyperref)
 
-	def add_lexer(self, alias: str, lexer: Type[Lexer]) -> None:
+	def add_lexer(self, alias: str, lexer: Type[Lexer]) -> None:  # noqa: PRM002
 		"""
 		Register a new lexer for source code.
 		"""
@@ -470,7 +470,7 @@ class Sphinx:
 		else:
 			lexer_classes[alias] = lexer
 
-	def add_autodocumenter(self, cls: Any, override: bool = False) -> None:
+	def add_autodocumenter(self, cls: Any, override: bool = False) -> None:  # noqa: PRM002
 		"""
 		Register a new documenter class for the autodoc extension.
 		"""
@@ -478,32 +478,32 @@ class Sphinx:
 		self.registry.add_documenter(cls.objtype, cls)
 		self.add_directive("auto" + cls.objtype, AutodocDirective, override=override)
 
-	def add_autodoc_attrgetter(
-			self,
-			typ: Type,
-			getter: Callable[[Any, str, Any], Any],
-			) -> None:
+	def add_autodoc_attrgetter(  # noqa: PRM002
+		self,
+		typ: Type,
+		getter: Callable[[Any, str, Any], Any],
+		) -> None:
 		"""
 		Register a new ``getattr``-like function for the autodoc extension.
 		"""
 
 		self.registry.add_autodoc_attrgetter(typ, getter)
 
-	def add_source_suffix(self, suffix: str, filetype: str, override: bool = False) -> None:
+	def add_source_suffix(self, suffix: str, filetype: str, override: bool = False) -> None:  # noqa: PRM002
 		"""
 		Register a suffix of source files.
 		"""
 
 		self.registry.add_source_suffix(suffix, filetype, override=override)
 
-	def add_source_parser(self, *args: Any, **kwargs: Any) -> None:
+	def add_source_parser(self, *args: Any, **kwargs: Any) -> None:  # noqa: PRM002
 		"""
 		Register a parser class.
 		"""
 
 		self.registry.add_source_parser(*args, **kwargs)
 
-	def add_env_collector(self, collector: Type[EnvironmentCollector]) -> None:
+	def add_env_collector(self, collector: Type[EnvironmentCollector]) -> None:  # noqa: PRM002
 		"""
 		No-op for now.
 
@@ -517,26 +517,26 @@ class Sphinx:
 	#
 	# 	collector().enable(self)
 
-	def add_html_theme(self, name: str, theme_path: str) -> None:
+	def add_html_theme(self, name: str, theme_path: str) -> None:  # noqa: PRM002
 		"""
 		Register an HTML Theme.
 		"""
 
 		self.html_themes[name] = theme_path
 
-	def add_html_math_renderer(
-			self,
-			name: str,
-			inline_renderers: Optional[Tuple[Callable, Callable]] = None,
-			block_renderers: Optional[Tuple[Callable, Callable]] = None,
-			) -> None:
+	def add_html_math_renderer(  # noqa: PRM002
+		self,
+		name: str,
+		inline_renderers: Optional[Tuple[Callable, Callable]] = None,
+		block_renderers: Optional[Tuple[Callable, Callable]] = None,
+		) -> None:
 		"""
 		Register a math renderer for HTML.
 		"""
 
 		self.registry.add_html_math_renderer(name, inline_renderers, block_renderers)
 
-	def setup_extension(self, extname: str) -> None:
+	def setup_extension(self, extname: str) -> None:  # noqa: PRM002
 		"""
 		Import and setup a Sphinx extension module.
 
@@ -545,7 +545,7 @@ class Sphinx:
 
 		# self.registry.load_extension(self, extname)
 
-	def require_sphinx(self, version: str) -> None:
+	def require_sphinx(self, version: str) -> None:  # noqa: PRM002
 		"""
 		Check the Sphinx version if requested.
 
@@ -553,7 +553,7 @@ class Sphinx:
 		"""
 
 	# event interface
-	def connect(self, event: str, callback: Callable, priority: int = 500) -> int:
+	def connect(self, event: str, callback: Callable, priority: int = 500) -> int:  # noqa: PRM002
 		"""
 		Register *callback* to be called when *event* is emitted.
 		"""
@@ -709,6 +709,7 @@ class HTMLRegressionFixture(FileRegressionFixture):
 		Check an HTML page generated by Sphinx for regressions, using `pytest-regressions`_.
 
 		:param page: The page to test.
+		:param extension: File extension to use for the reference file.
 		:param jinja2: Whether to render the reference file as a jinja2 template.
 		:param jinja2_namespace: If ``jinja2`` is :py:obj:`True`,
 			a mapping of variable names to values to make available in the jinja2 template.
@@ -865,6 +866,7 @@ class LaTeXRegressionFixture(AdvancedFileRegressionFixture):
 		using `pytest-regressions <https://pypi.org/project/pytest-regressions/>`__
 
 		:param contents:
+		:param extension: Not used.
 		:param jinja2: Whether to render the reference file as a jinja2 template.
 		:param jinja2_namespace: If ``jinja2`` is :py:obj:`True`,
 			a mapping of variable names to values to make available in the jinja2 template.

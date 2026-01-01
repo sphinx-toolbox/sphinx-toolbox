@@ -52,11 +52,11 @@ __all__ = (
 		)
 
 
-class GitHubObjectLinkNode(nodes.reference):
+class GitHubObjectLinkNode(nodes.reference):  # noqa: PRM002
 	"""
 	Docutils Node to represent a link to a GitHub repository.
 
-	:param repo_name: The full name of the repository, in the form ``owner/name``.
+	:param name: The full name of the repository, in the form ``owner/name``.
 	:param refuri: The URL of the issue / pull request on GitHub.
 
 	.. clearpage::

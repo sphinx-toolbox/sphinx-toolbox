@@ -234,7 +234,7 @@ Renders like:
 """
 
 
-class VariableDocumenter(DataDocumenter):
+class VariableDocumenter(DataDocumenter):  # noqa: PRM002
 	"""
 	Specialized Documenter subclass for data items.
 	"""
@@ -260,9 +260,9 @@ class VariableDocumenter(DataDocumenter):
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive's header.
+		Add the directive's header and options to the generated content.
 
-		:param sig:
+		:param sig: The function/class signature.
 		"""
 
 		sourcename = self.get_sourcename()
@@ -308,7 +308,10 @@ class VariableDocumenter(DataDocumenter):
 			super().add_directive_header(sig)
 
 
-class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumenter):  # type: ignore[misc]
+class TypedAttributeDocumenter(  # type: ignore[misc]  # noqa: PRM002
+		DocstringStripSignatureMixin,
+		ClassLevelDocumenter,
+		):
 	"""
 	Alternative version of
 	:class:`autodoc.AttributeDocumenter <sphinx.ext.autodoc.AttributeDocumenter>`
@@ -342,6 +345,11 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 	def can_document_member(cls, member: Any, membername: str, isattr: bool, parent: Any) -> bool:
 		"""
 		Called to see if a member can be documented by this documenter.
+
+		:param member: The member being checked.
+		:param membername: The name of the member.
+		:param isattr:
+		:param parent: The parent of the member.
 		"""
 
 		if inspect.isattributedescriptor(member):
@@ -374,7 +382,7 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 		except PycodeError:
 			return False
 
-	def import_object(self, raiseerror: bool = False) -> bool:
+	def import_object(self, raiseerror: bool = False) -> bool:  # noqa: PRM002
 		"""
 		Import the object given by *self.modname* and *self.objpath* and set it as ``self.object``.
 
@@ -415,9 +423,9 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive's header.
+		Add the directive's header and options to the generated content.
 
-		:param sig:
+		:param sig: The function/class signature.
 		"""
 
 		sourcename = self.get_sourcename()
@@ -515,6 +523,9 @@ class TypedAttributeDocumenter(DocstringStripSignatureMixin, ClassLevelDocumente
 	def add_content(self, more_content: Optional[StringList], no_docstring: bool = False) -> None:
 		"""
 		Add content from docstrings, attribute documentation and user.
+
+		:param more_content:
+		:param no_docstring:
 		"""
 
 		if not self._datadescriptor:
@@ -593,7 +604,7 @@ class InstanceAttributeDocumenter(TypedAttributeDocumenter):
 		self._datadescriptor = False
 		return True
 
-	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:
+	def add_content(self, more_content: Any, no_docstring: bool = False) -> None:  # noqa: PRM002
 		"""
 		Never try to get a docstring from the object.
 		"""
@@ -751,9 +762,9 @@ class PropertyDocumenter(TypedAttributeDocumenter):
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive's header.
+		Add the directive's header and options to the generated content.
 
-		:param sig:
+		:param sig: The function/class signature.
 		"""
 
 		sourcename = self.get_sourcename()

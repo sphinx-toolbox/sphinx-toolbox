@@ -141,7 +141,7 @@ class CollapseDirective(SphinxDirective):
 		return [collapse_node]
 
 
-class CollapseNode(nodes.Body, nodes.Element):
+class CollapseNode(nodes.Body, nodes.Element):  # noqa: PRM002
 	"""
 	Node that represents a collapsible section.
 

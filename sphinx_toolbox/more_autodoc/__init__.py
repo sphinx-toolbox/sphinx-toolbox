@@ -78,7 +78,7 @@ else:
 __all__ = ("setup", )
 
 
-def _documenter_add_content(
+def _documenter_add_content(  # noqa: PRM002
 		self: Documenter,
 		more_content: Optional[StringList],
 		no_docstring: bool = False,

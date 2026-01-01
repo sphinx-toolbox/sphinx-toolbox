@@ -156,7 +156,7 @@ from sphinx_toolbox.utils import (
 __all__ = ("TypedDictDocumenter", "setup")
 
 
-class TypedDictDocumenter(ClassDocumenter):
+class TypedDictDocumenter(ClassDocumenter):  # noqa: PRM002
 	r"""
 	Sphinx autodoc :class:`~sphinx.ext.autodoc.Documenter`
 	for documenting :class:`typing.TypedDict`\s.
@@ -209,7 +209,7 @@ class TypedDictDocumenter(ClassDocumenter):
 
 		return True
 
-	def format_signature(self, **kwargs: Any) -> str:
+	def format_signature(self, **kwargs: Any) -> str:  # noqa: PRM002
 		"""
 		Typed Dicts do not have a signature.
 
@@ -222,9 +222,9 @@ class TypedDictDocumenter(ClassDocumenter):
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive header.
+		Add the directive's header and options to the generated content.
 
-		:param sig:
+		:param sig: The function/class signature.
 		"""
 
 		sourcename = self.get_sourcename()
@@ -315,7 +315,7 @@ class TypedDictDocumenter(ClassDocumenter):
 			for line, src in zip(more_content.data, more_content.items):
 				self.add_line(line, src[0], src[1])
 
-	def document_members(self, all_members: bool = False) -> None:
+	def document_members(self, all_members: bool = False) -> None:  # noqa: PRM002
 		"""
 		Generate reST for member documentation. All members are always documented.
 		"""

@@ -138,6 +138,7 @@ def make_rest_example(
 	Make the content of a reST Example node.
 
 	:param options:
+	:param env:
 	:param content: The user-provided content of the directive.
 	"""
 

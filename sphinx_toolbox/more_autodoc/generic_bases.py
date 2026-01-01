@@ -103,9 +103,9 @@ class GenericBasesClassDocumenter(PatchedAutoSummClassDocumenter):
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
-		Add the directive header.
+		Add the directive's header and options to the generated content.
 
-		:param sig:
+		:param sig: The function/class signature.
 		"""
 
 		sourcename = self.get_sourcename()
@@ -176,7 +176,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	return {"parallel_read_safe": True}
 
 
-class Example(List[Tuple[str, float, List[str]]]):
+class Example(List[Tuple[str, float, List[str]]]):  # noqa: PRM002
 	"""
 	An example of :mod:`sphinx_toolbox.more_autodoc.generic_bases`.
 	"""
@@ -194,7 +194,7 @@ class Example2(Example):
 
 
 @final
-class FinalExample(List[Tuple[str, float, List[str]]]):
+class FinalExample(List[Tuple[str, float, List[str]]]):  # noqa: PRM002
 	"""
 	An example of :mod:`sphinx_toolbox.more_autodoc.generic_bases` decorated with ``@final``.
 	"""

@@ -796,7 +796,7 @@ def process_docstring(
 					lines.insert(insert_index, f":rtype: {formatted_annotation}")
 
 
-def _class_get_type_hints(obj, globalns=None, localns=None):  # noqa: MAN001,MAN002
+def _class_get_type_hints(obj, globalns=None, localns=None):  # noqa: MAN001,MAN002,PRM002
 	"""
 	Return type hints for an object.
 

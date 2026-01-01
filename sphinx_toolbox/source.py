@@ -109,7 +109,7 @@ __all__ = ("source_role", "setup")
 _sphinx_version = sphinx.version_info[:3]
 
 
-def _make_viewcode_node(
+def _make_viewcode_node(  # noqa: PRM002
 		title: str,
 		pagename: str,
 		env: BuildEnvironment,
