@@ -512,7 +512,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 					self.get_attr,
 					self.env.config.autodoc_inherit_docstrings,
 					self.parent,
-					self.object_name
+					self.object_name,
 					)
 			if not isinstance(doc, str):
 				# Ignore non-string __doc__
@@ -646,7 +646,7 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 								__("missing attribute mentioned in :members: or __all__: module %s, attribute %s"),
 								(safe_getattr(self.object, "__name__", "???"), mname),
 								),
-						type="autodoc"
+						type="autodoc",
 						)
 				# pylint: enable=dotted-import-in-loop)
 		return False, ret

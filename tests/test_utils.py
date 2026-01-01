@@ -139,7 +139,7 @@ def test_code_repr(value: str, expected: str):
 
 @pytest.mark.xfail(
 		sys.version_info >= (3, 13),
-		reason="Tabs are now converted into 8 spaces unconditionally (see python/cpython#81283)"
+		reason="Tabs are now converted into 8 spaces unconditionally (see python/cpython#81283)",
 		)
 def test_parse_parameters():
 	docstring = inspect.cleandoc((parse_parameters.__doc__ or '').expandtabs(4))

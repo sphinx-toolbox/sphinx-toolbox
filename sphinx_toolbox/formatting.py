@@ -97,7 +97,7 @@ __all__ = (
 		"depart_iabbr_node",
 		"latex_visit_iabbr_node",
 		"latex_depart_iabbr_node",
-		"setup"
+		"setup",
 		)
 
 

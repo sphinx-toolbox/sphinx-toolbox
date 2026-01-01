@@ -47,17 +47,17 @@ else:
 				pytest.param(
 						types.GetSetDescriptorType,
 						":py:data:`types.GetSetDescriptorType`",
-						id="types.GetSetDescriptorType"
+						id="types.GetSetDescriptorType",
 						),
 				pytest.param(
 						types.MemberDescriptorType,
 						":py:data:`types.MemberDescriptorType`",
-						id="types.MemberDescriptorType"
+						id="types.MemberDescriptorType",
 						),
 				pytest.param(
 						ClassMethodDescriptorType,
 						":py:data:`types.ClassMethodDescriptorType`",
-						id="types.ClassMethodDescriptorType"
+						id="types.ClassMethodDescriptorType",
 						),
 				pytest.param(
 						typing.ContextManager[str],
@@ -93,18 +93,18 @@ else:
 						WrapperDescriptorType,
 						":py:data:`types.WrapperDescriptorType`",
 						id="types.WrapperDescriptorType",
-						marks=not_pypy("PyPy reuses some types")
+						marks=not_pypy("PyPy reuses some types"),
 						),
 				pytest.param(
 						WrapperDescriptorType,
 						":py:data:`types.FunctionType`",
 						id="types.WrapperDescriptorType",
-						marks=only_pypy("PyPy reuses some types")
+						marks=only_pypy("PyPy reuses some types"),
 						),
 				pytest.param(
 						types.BuiltinFunctionType,
 						":py:data:`types.BuiltinFunctionType`",
-						id="types.BuiltinFunctionType"
+						id="types.BuiltinFunctionType",
 						),
 				pytest.param(types.FunctionType, ":py:data:`types.FunctionType`", id="types.FunctionType"),
 				pytest.param(
@@ -113,39 +113,43 @@ else:
 						id="types.MethodType",
 						),
 				pytest.param(
-						types.MappingProxyType, ":py:class:`types.MappingProxyType`", id="types.MappingProxyType"
+						types.MappingProxyType,
+						":py:class:`types.MappingProxyType`",
+						id="types.MappingProxyType",
 						),
 				pytest.param(types.ModuleType, ":py:class:`types.ModuleType`", id="types.ModuleType"),
 				pytest.param(type(re.compile('')), ":py:class:`typing.Pattern`", id="regex"),
 				pytest.param(List, ":py:class:`typing.List`", id="typing.List"),
 				pytest.param(Protocol, ":py:class:`typing.Protocol`", id="typing_extensions.Protocol"),
 				pytest.param(
-						Address, ":py:class:`email.headerregistry.Address`", id="email.headerregistry.Address"
+						Address,
+						":py:class:`email.headerregistry.Address`",
+						id="email.headerregistry.Address",
 						),
 				pytest.param(io.StringIO, ":py:class:`io.StringIO`", id="io.StringIO"),
 				pytest.param(ast.AST, ":py:class:`ast.AST`", id="ast.AST"),
 				pytest.param(
 						TemporaryDirectory,
 						":py:obj:`tempfile.TemporaryDirectory`",
-						id="tempfile.TemporaryDirectory"
+						id="tempfile.TemporaryDirectory",
 						),
 				pytest.param(Literal[True], r":py:data:`typing.Literal`\[:py:obj:`True`]", id="Literal_True"),
 				pytest.param(Literal[False], r":py:data:`typing.Literal`\[:py:obj:`False`]", id="Literal_False"),
 				pytest.param(
 						Literal[True, "Hello"],
 						r":py:data:`typing.Literal`\[:py:obj:`True`, ``'Hello'``]",
-						id="Literal_True_String"
+						id="Literal_True_String",
 						),
 				pytest.param(
 						Literal[True, 123],
 						r":py:data:`typing.Literal`\[:py:obj:`True`, ``123``]",
-						id="Literal_True_Int"
+						id="Literal_True_Int",
 						),
 				pytest.param(
 						UnionType,
 						":py:data:`types.UnionType`",
 						id="types.UnionType",
-						marks=min_version("3.10", reason="Introduced in 3.10")
+						marks=min_version("3.10", reason="Introduced in 3.10"),
 						),
 				]
 		)

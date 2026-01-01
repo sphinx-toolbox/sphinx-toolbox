@@ -283,12 +283,12 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_node(
 			IssueNode,
 			html=(visit_issue_node, depart_issue_node),
-			latex=(_visit_issue_node_latex, _depart_issue_node_latex)
+			latex=(_visit_issue_node_latex, _depart_issue_node_latex),
 			)
 	app.add_node(
 			GitHubObjectLinkNode,
 			html=(visit_github_object_link_node, depart_github_object_link_node),
-			latex=(_visit_github_object_link_node_latex, _depart_github_object_link_node_latex)
+			latex=(_visit_github_object_link_node_latex, _depart_github_object_link_node_latex),
 			)
 
 	return {"parallel_read_safe": True}

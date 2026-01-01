@@ -872,7 +872,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_node(
 			RegexNode,
 			html=(visit_regex_node, depart_regex_node),
-			latex=(visit_regex_node_latex, depart_regex_node_latex)
+			latex=(visit_regex_node_latex, depart_regex_node_latex),
 			)
 
 	return {"parallel_read_safe": True}

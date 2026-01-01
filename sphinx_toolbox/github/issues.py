@@ -145,7 +145,7 @@ def issue_role(
 		lineno: int,
 		inliner: Inliner,
 		options: Dict[str, Any] = {},
-		content: List[str] = []
+		content: List[str] = [],
 		) -> Tuple[List[IssueNode], List[system_message]]:
 	"""
 	Adds a link to the given issue on GitHub.
@@ -202,7 +202,7 @@ def pull_role(
 		lineno: int,
 		inliner: Inliner,
 		options: Dict[str, Any] = {},
-		content: List[str] = []
+		content: List[str] = [],
 		) -> Tuple[List[IssueNode], List[system_message]]:
 	"""
 	Adds a link to the given pulll request on GitHub.
@@ -231,10 +231,8 @@ def pull_role(
 	if has_t:
 		repository_parts = nodes.unescape(repository).split('/')
 		if len(repository_parts) != 2:
-			warning_message = inliner.document.reporter.warning(
-					f"Invalid repository '{repository}' for pull request #{issue_number}."
-					)
-			messages.append(warning_message)
+			warning_message = f"Invalid repository '{repository}' for pull request #{issue_number}."
+			messages.append(inliner.document.reporter.warning(warning_message))
 
 		else:
 			refnode = IssueNodeWithName(

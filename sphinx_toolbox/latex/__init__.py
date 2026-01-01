@@ -552,7 +552,7 @@ class PatchedLaTeXBuilder(LaTeXBuilder):
 			destination = SphinxFileOutput(
 					destination_path=joinpath(self.outdir, targetname),
 					encoding="utf-8",
-					overwrite_if_changed=True
+					overwrite_if_changed=True,
 					)
 			with progress_message(__("processing %s") % targetname):
 				doctree = self.env.get_doctree(docname)
@@ -571,7 +571,7 @@ class PatchedLaTeXBuilder(LaTeXBuilder):
 				doctree = self.assemble_doctree(
 						docname,
 						toctree_only,
-						appendices=(self.config.latex_appendices if theme.name != "howto" else [])
+						appendices=(self.config.latex_appendices if theme.name != "howto" else []),
 						)
 				doctree["docclass"] = theme.docclass
 				doctree["contentsname"] = self.get_contentsname(docname)

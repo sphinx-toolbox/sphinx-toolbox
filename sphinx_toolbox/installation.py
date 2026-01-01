@@ -427,7 +427,7 @@ def github_installation(
 	return [
 			".. prompt:: bash",
 			'',
-			f"    python3 -m pip install git+https://github.com/{username}/{repository}@{branch} --user"
+			f"    python3 -m pip install git+https://github.com/{username}/{repository}@{branch} --user",
 			]
 
 

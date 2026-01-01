@@ -123,7 +123,7 @@ def asset_role(
 		lineno: int,
 		inliner: Inliner,
 		options: Dict = {},
-		content: List[str] = []
+		content: List[str] = [],
 		) -> Tuple[Sequence[AssetNode], List[system_message]]:
 	"""
 	Adds a link to an asset.
@@ -185,8 +185,7 @@ def visit_asset_node(translator: HTML5Translator, node: AssetNode) -> None:
 		shutil.copy2(source_file, assets_out_dir)
 	elif not source_file_exists:
 		stderr_writer(
-				f"\x1b[31m{translator.builder.current_docname}: "
-				f"Asset file '{source_file}' not found.\x1b[39m"
+				f"\x1b[31m{translator.builder.current_docname}: Asset file '{source_file}' not found.\x1b[39m"
 				)
 		translator.context.append('')
 		return

@@ -96,7 +96,7 @@ def repository_role(
 		lineno: int,
 		inliner: Inliner,
 		options: Dict[str, Any] = {},
-		content: List[str] = []
+		content: List[str] = [],
 		) -> Tuple[List[nodes.reference], List[system_message]]:
 	"""
 	Adds a link to the given repository on GitHub.
@@ -148,7 +148,7 @@ def user_role(
 		lineno: int,
 		inliner: Inliner,
 		options: Dict[str, Any] = {},
-		content: List[str] = []
+		content: List[str] = [],
 		) -> Tuple[List[nodes.reference], List[system_message]]:
 	"""
 	Adds a link to the given user / organization on GitHub.

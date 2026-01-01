@@ -126,10 +126,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 
 	if "sphinx.ext.autodoc" in app.extensions:
-		raise ExtensionError(
-				"'sphinx_toolbox.more_autodoc.augment_defaults' "
-				"must be loaded before 'sphinx.ext.autodoc'."
-				)
+		msg = "'sphinx_toolbox.more_autodoc.augment_defaults' must be loaded before 'sphinx.ext.autodoc'."
+		raise ExtensionError(msg)
 
 	sphinx.ext.autodoc.directive.process_documenter_options = process_documenter_options  # type: ignore[assignment]
 	autodocsumm.process_documenter_options = process_documenter_options

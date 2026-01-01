@@ -115,7 +115,7 @@ def make_wikipedia_link(
 		lineno: int,
 		inliner: Inliner,
 		options: Dict = {},
-		content: List[str] = []
+		content: List[str] = [],
 		) -> Tuple[List[nodes.reference], List[system_message]]:
 	"""
 	Adds a link to the given article on :wikipedia:`Wikipedia`.

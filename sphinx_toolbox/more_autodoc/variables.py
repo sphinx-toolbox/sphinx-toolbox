@@ -713,7 +713,7 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 				warnings.warn(
 						"The 'ignore' argument to get_doc() is deprecated.",
 						RemovedInSphinx50Warning,  # type: ignore[arg-type]
-						stacklevel=2
+						stacklevel=2,
 						)
 
 		name = self.objpath[-1]

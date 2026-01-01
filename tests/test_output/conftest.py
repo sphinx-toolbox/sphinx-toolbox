@@ -47,8 +47,7 @@ fixtures = [make_app, shared_result, sphinx_test_tempdir, test_params, testing_a
 
 @pytest.fixture()
 def pre_commit_hooks(tmp_pathplus: PathPlus) -> None:
-	(tmp_pathplus / ".pre-commit-hooks.yaml").write_text(
-			"""
+	config = """
 -   id: flake2lint
     name: Flake8 -> PyLint
     description: Augment Flake8 noqa comments with PyLint comments.
@@ -57,7 +56,7 @@ def pre_commit_hooks(tmp_pathplus: PathPlus) -> None:
     types_or: [python, pyi]
 
 """
-			)
+	(tmp_pathplus / ".pre-commit-hooks.yaml").write_text(config)
 
 
 @pytest.fixture()

@@ -438,7 +438,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.add_node(
 			Prompt,
 			html=(visit_prompt_html, lambda *args, **kwargs: None),
-			latex=(visit_prompt_latex, lambda *args, **kwargs: None)
+			latex=(visit_prompt_latex, lambda *args, **kwargs: None),
 			)
 
 	app.connect("config-inited", configure)

@@ -94,7 +94,7 @@ pages_to_check: List[ParameterSet] = [
 						condition=sys.version_info >= (3, 10),
 						reason="Output differs on Python 3.10",
 						),
-				id="autonamedtuple.html"
+				id="autonamedtuple.html",
 				),
 		pytest.param(
 				"autonamedtuple.html",
@@ -131,7 +131,7 @@ pages_to_check: List[ParameterSet] = [
 		pytest.param(
 				"generic_bases.html",
 				marks=min_version(3.7, reason="Output differs on Python 3.8+"),
-				id="generic_bases"
+				id="generic_bases",
 				),
 		pytest.param("autonamedtuple_pep563.html", id="autonamedtuple_pep563"),
 		pytest.param(
@@ -140,7 +140,7 @@ pages_to_check: List[ParameterSet] = [
 				marks=pytest.mark.skipif(
 						condition=sys.version_info >= (3, 13),
 						reason="Link not created on 3.13",
-						)
+						),
 				),  # Should be xfail
 		]
 
@@ -149,7 +149,7 @@ pages_to_check: List[ParameterSet] = [
 def test_html_output(
 		testing_app: Sphinx,
 		html_regression: HTMLRegressionFixture,
-		pre_commit_flake8_contextmanager: Callable[[], ContextManager]
+		pre_commit_flake8_contextmanager: Callable[[], ContextManager],
 		):
 	"""
 	Parametrize new files here rather than as their own function.
@@ -203,7 +203,7 @@ def test_sidebar_links_output(
 		testing_app: Sphinx,
 		advanced_file_regression: AdvancedFileRegressionFixture,
 		monkeypatch,
-		pre_commit_flake8_contextmanager: Callable[[], ContextManager]
+		pre_commit_flake8_contextmanager: Callable[[], ContextManager],
 		):
 
 	def visit_caption(self, node: nodes.Node) -> None:

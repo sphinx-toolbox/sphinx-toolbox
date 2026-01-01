@@ -557,9 +557,8 @@ class GitHubActionsShield(GitHubBackedShield):
 		workflow = quote(self.options["workflow"])
 
 		self.arguments = [str(make_github_url(username, repository) / "workflows" / workflow / "badge.svg")]
-		self.options["target"] = str(
-				make_github_url(username, repository) / f"actions?query=workflow%3A%22{workflow}%22"
-				)
+		url = make_github_url(username, repository) / f"actions?query=workflow%3A%22{workflow}%22"
+		self.options["target"] = str(url)
 
 		return super().run()
 
@@ -585,7 +584,7 @@ class RequiresIOShield(GitHubBackedShield):
 
 		warnings.warn(
 				"RequiresIOShield (.. requires-io-shield::) is deprecated as requires.io has shut down",
-				DeprecationWarning
+				DeprecationWarning,
 				)
 
 		username, repository = self.get_repo_details()
@@ -804,9 +803,8 @@ class PreCommitShield(Shield):
 		Process the content of the shield directive.
 		"""
 
-		self.arguments = [
-				"https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white"
-				]
+		url = "https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white"
+		self.arguments = [url]
 		self.options["target"] = "https://github.com/pre-commit/pre-commit"
 		return super().run()
 

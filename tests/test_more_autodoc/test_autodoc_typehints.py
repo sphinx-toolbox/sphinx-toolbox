@@ -120,7 +120,7 @@ else:
 				(Tuple[str, bool], ":py:data:`~typing.Tuple`\\[:py:class:`str`, :py:class:`bool`]"),
 				(
 						Tuple[int, int, int],
-						":py:data:`~typing.Tuple`\\[:py:class:`int`, :py:class:`int`, :py:class:`int`]"
+						":py:data:`~typing.Tuple`\\[:py:class:`int`, :py:class:`int`, :py:class:`int`]",
 						),
 				(Tuple[str, ...], ":py:data:`~typing.Tuple`\\[:py:class:`str`, ...]"),
 				(Union, ":py:class:`~typing.Union`"),
@@ -142,11 +142,11 @@ else:
 				(Callable[[int], int], ":py:data:`~typing.Callable`\\[\\[:py:class:`int`], :py:class:`int`]"),
 				(
 						Callable[[int, str], bool],
-						":py:data:`~typing.Callable`\\[\\[:py:class:`int`, :py:class:`str`], :py:class:`bool`]"
+						":py:data:`~typing.Callable`\\[\\[:py:class:`int`, :py:class:`str`], :py:class:`bool`]",
 						),
 				(
 						Callable[[int, str], None],
-						":py:data:`~typing.Callable`\\[\\[:py:class:`int`, :py:class:`str`], :py:obj:`None`]"
+						":py:data:`~typing.Callable`\\[\\[:py:class:`int`, :py:class:`str`], :py:obj:`None`]",
 						),
 				(Pattern, ":py:class:`~typing.Pattern`"),
 				(Pattern[str], ":py:class:`~typing.Pattern`\\[:py:class:`str`]"),
@@ -205,37 +205,37 @@ def test_format_annotation(inv: Inventory, annotation: Any, expected_result: str
 				(
 						Mapping[T, int],  # type: ignore[valid-type]
 						":py:class:`~typing.Mapping`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`, "
-						":py:class:`int`]"
+						":py:class:`int`]",
 						),
 				(
 						Mapping[str, V],  # type: ignore[valid-type]
 						":py:class:`~typing.Mapping`\\[:py:class:`str`, "
-						":py:data:`-V <tests.test_more_autodoc.test_autodoc_typehints.V>`]"
+						":py:data:`-V <tests.test_more_autodoc.test_autodoc_typehints.V>`]",
 						),
 				(
 						Mapping[T, U],  # type: ignore[valid-type]
 						":py:class:`~typing.Mapping`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`, "
-						":py:data:`+U <tests.test_more_autodoc.test_autodoc_typehints.U>`]"
+						":py:data:`+U <tests.test_more_autodoc.test_autodoc_typehints.U>`]",
 						),
 				(
 						Dict[T, int],  # type: ignore[valid-type]
 						":py:class:`~typing.Dict`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`, "
-						":py:class:`int`]"
+						":py:class:`int`]",
 						),
 				(
 						Dict[str, V],  # type: ignore[valid-type]
 						":py:class:`~typing.Dict`\\[:py:class:`str`, "
-						":py:data:`-V <tests.test_more_autodoc.test_autodoc_typehints.V>`]"
+						":py:data:`-V <tests.test_more_autodoc.test_autodoc_typehints.V>`]",
 						),
 				(
 						Dict[T, U],  # type: ignore[valid-type]
 						":py:class:`~typing.Dict`\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`, "
-						":py:data:`+U <tests.test_more_autodoc.test_autodoc_typehints.U>`]"
+						":py:data:`+U <tests.test_more_autodoc.test_autodoc_typehints.U>`]",
 						),
 				(
 						Callable[[T], T],
 						":py:data:`~typing.Callable`\\[\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`], "
-						":py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`]"
+						":py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`]",
 						),
 				]
 		)
@@ -265,11 +265,13 @@ def test_format_annotation_typevar(inv: Inventory, annotation: Any, expected_res
 @pytest.mark.parametrize("library", [typing, typing_extensions], ids=["typing", "typing_extensions"])
 @pytest.mark.parametrize(
 		"annotation, params, expected_result",
-		[("ClassVar", int, ":py:data:`~typing.ClassVar`\\[:py:class:`int`]"),
-			("NoReturn", None, ":py:data:`~typing.NoReturn`"),
-			("Literal", ('a', 1), ":py:data:`~typing.Literal`\\[``'a'``, ``1``]"),
-			("Type", None, ":py:class:`~typing.Type`"),
-			("Type", (A, ), ":py:class:`~typing.Type`\\[:py:class:`~%s.A`]" % __name__)]
+		[
+				("ClassVar", int, ":py:data:`~typing.ClassVar`\\[:py:class:`int`]"),
+				("NoReturn", None, ":py:data:`~typing.NoReturn`"),
+				("Literal", ('a', 1), ":py:data:`~typing.Literal`\\[``'a'``, ``1``]"),
+				("Type", None, ":py:class:`~typing.Type`"),
+				("Type", (A, ), ":py:class:`~typing.Type`\\[:py:class:`~%s.A`]" % __name__),
+				]
 		)
 def test_format_annotation_both_libs(
 		inv: Inventory,

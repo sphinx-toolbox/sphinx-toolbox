@@ -494,7 +494,7 @@ def preprocess_function_defaults(obj: Callable) -> Tuple[Optional[inspect.Signat
 
 
 def preprocess_class_defaults(
-		obj: Callable
+		obj: Callable,
 		) -> Tuple[Optional[Callable], Optional[inspect.Signature], List[inspect.Parameter]]:
 	"""
 	Pre-processes the default values for the arguments of a class.
@@ -602,7 +602,8 @@ def process_signature(  # noqa: MAN001
 			and not _is_dataclass(name, what, obj.__qualname__)
 			):
 		sat_logger.warning(
-				"Cannot treat a function defined as a local function: '%s'  (use @functools.wraps)", name
+				"Cannot treat a function defined as a local function: '%s'  (use @functools.wraps)",
+				name,
 				)
 		return None
 
@@ -899,9 +900,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
 
 	if "sphinx_autodoc_typehints" in app.extensions:
-		raise ExtensionError(
-				"'sphinx_toolbox.more_autodoc.typehints' must be loaded before 'sphinx_autodoc_typehints'."
-				)
+		msg = "'sphinx_toolbox.more_autodoc.typehints' must be loaded before 'sphinx_autodoc_typehints'."
+		raise ExtensionError(msg)
 
 	sphinx_autodoc_typehints.format_annotation = format_annotation  # type: ignore[assignment]
 	sphinx_autodoc_typehints.process_signature = process_signature

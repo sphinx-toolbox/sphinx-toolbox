@@ -156,7 +156,7 @@ def source_role(
 		lineno: int,
 		inliner: Inliner,
 		options: Dict = {},
-		content: List[str] = []
+		content: List[str] = [],
 		) -> Tuple[Sequence[nodes.Node], List[system_message]]:
 	"""
 	Adds a link to the given Python source file in the documentation or on GitHub.

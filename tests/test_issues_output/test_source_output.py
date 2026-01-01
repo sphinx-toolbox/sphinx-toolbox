@@ -80,12 +80,12 @@ pages_to_check: List[Union[str, ParameterSet]] = [
 		pytest.param(
 				"generic_bases.html",
 				marks=only_version(3.7, reason="Output differs on Python 3.7"),
-				id="generic_bases_37"
+				id="generic_bases_37",
 				),
 		pytest.param(
 				"generic_bases.html",
 				marks=min_version(3.8, reason="Output differs on Python 3.8+"),
-				id="generic_bases"
+				id="generic_bases",
 				),
 		]
 

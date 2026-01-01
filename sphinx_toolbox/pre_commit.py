@@ -246,7 +246,7 @@ class Flake8PreCommitDirective(SphinxDirective):
 		config = {
 				"repo": "https://github.com/pycqa/flake8",
 				"rev": flake8_version,
-				"hooks": [{"id": "flake8", "additional_dependencies": [f"{plugin_name}=={self.arguments[0]}"]}]
+				"hooks": [{"id": "flake8", "additional_dependencies": [f"{plugin_name}=={self.arguments[0]}"]}],
 				}
 
 		targetid = f'pre-commit-{self.env.new_serialno("pre-commit"):d}'

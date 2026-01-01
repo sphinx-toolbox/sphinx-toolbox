@@ -104,7 +104,8 @@ def __setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_lexer("my-lexer", FakeLexer)
 	assert isinstance(FakeLexer(code='', language=''), Lexer)
 	with pytest.raises(
-			TypeError, match=r"app.add_lexer\(\) API changed; Please give lexer class instead instance"
+			TypeError,
+			match=r"app.add_lexer\(\) API changed; Please give lexer class instead instance",
 			):
 		app.add_lexer("my-lexer", FakeLexer(code='', language=''))
 

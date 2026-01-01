@@ -370,7 +370,7 @@ def test_setup():
 	assert app.registry.translation_handlers == {
 			"html": {
 					"IssueNode": (visit_issue_node, depart_issue_node),
-					"GitHubObjectLinkNode": (visit_github_object_link_node, depart_github_object_link_node)
+					"GitHubObjectLinkNode": (visit_github_object_link_node, depart_github_object_link_node),
 					},
 			"latex": {
 					"IssueNode": (_visit_issue_node_latex, _depart_issue_node_latex),

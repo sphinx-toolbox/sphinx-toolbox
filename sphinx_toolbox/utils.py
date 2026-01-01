@@ -279,7 +279,7 @@ class NoMatchError(ValueError):
 def get_first_matching(
 		condition: Callable[[Any], bool],
 		iterable: Iterable[_T],
-		default: _T = no_default  # type: ignore[assignment]
+		default: _T = no_default,  # type: ignore[assignment]
 		) -> _T:
 	"""
 	Returns the first value in ``iterable`` that meets ``condition``, or ``default`` if none match.
@@ -413,7 +413,7 @@ def filter_members_warning(member: Any, exception: Exception) -> None:
 			__("autodoc: failed to determine %r to be documented, the following exception was raised:\n%s"),
 			member,
 			exception,
-			type="autodoc"
+			type="autodoc",
 			)
 
 
@@ -623,7 +623,7 @@ _OBJTYPES_CSS_FALLBACKS = {
 
 
 def add_fallback_css_class(
-		objtypes_css_fallbacks: Dict[str, str]
+		objtypes_css_fallbacks: Dict[str, str],
 		) -> Callable[[Sphinx, str, str, desc_content], None]:
 	"""
 	Registers a transform which will edit the CSS classes of documented objects based on their ``objtype``.

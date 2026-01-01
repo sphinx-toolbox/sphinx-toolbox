@@ -210,7 +210,7 @@ def test_setup():
 					EventListener(
 							id=0,
 							handler=installation.installation_node_purger.get_outdated_docnames,
-							priority=500
+							priority=500,
 							),
 					],
 			"build-finished": [EventListener(id=3, handler=installation.copy_asset_files, priority=500)],

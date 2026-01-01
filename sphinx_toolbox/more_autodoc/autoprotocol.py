@@ -294,7 +294,8 @@ class ProtocolDocumenter(ClassDocumenter):  # noqa: PRM002
 			self.add_line('', sourcename)
 
 		self.add_line(
-				"Classes that implement this protocol must have the following methods / attributes:", sourcename
+				"Classes that implement this protocol must have the following methods / attributes:",
+				sourcename,
 				)
 		self.add_line('', sourcename)
 

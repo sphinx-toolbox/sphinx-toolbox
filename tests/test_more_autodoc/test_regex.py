@@ -165,7 +165,7 @@ def test_copy_asset_files(tmp_pathplus: PathPlus, advanced_file_regression: Adva
 				pytest.param(
 						re.VERBOSE | re.IGNORECASE,
 						":py:data:`re.IGNORECASE` ``|`` :py:data:`re.VERBOSE`",
-						id="re.VERBOSE|re.IGNORECASE"
+						id="re.VERBOSE|re.IGNORECASE",
 						),
 				]
 		)
