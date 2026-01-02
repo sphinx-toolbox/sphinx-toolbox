@@ -37,6 +37,7 @@ python_versions:
     - 8.0
     - 8.1
     - 8.2
+    - 9.0
     - latest
  3.8:
   matrix_exclude:
@@ -47,6 +48,7 @@ python_versions:
     - 8.0
     - 8.1
     - 8.2
+    - 9.0
     - latest
  3.9:
   matrix_exclude:
@@ -54,10 +56,12 @@ python_versions:
     - 8.0
     - 8.1
     - 8.2
+    - 9.0
  "3.10":
   matrix_exclude:
    sphinx:
     - 8.2
+    - 9.0
  "3.11":
  "3.12":
   matrix_exclude:
@@ -110,6 +114,7 @@ python_versions:
     - 8.0
     - 8.1
     - 8.2
+    - 9.0
     - latest
  pypy38:
   matrix_exclude:
@@ -127,6 +132,7 @@ python_versions:
     - 8.0
     - 8.1
     - 8.2
+    - 9.0
     - latest
  pypy39:
   matrix_exclude:
@@ -141,6 +147,7 @@ python_versions:
     - 8.0
     - 8.1
     - 8.2
+    - 9.0
     - latest
 
 additional_ignore:
@@ -213,6 +220,7 @@ third_party_version_matrix:
     - 8.0
     - 8.1
     - 8.2
+    - 9.0
     # - latest
 
 classifiers:
