@@ -13,7 +13,7 @@ extension of your own you can enable it like so:
 .. code-block::
 
 	def setup(app: Sphinx) -> Dict[str, Any]:
-		app.setup_extension('sphinx_toolbox.github')
+		app.setup_extension('sphinx_toolbox.tabsize')
 		return {}
 
 This will guarantee that the following value will be available via
