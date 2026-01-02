@@ -61,8 +61,9 @@ from domdf_python_tools.doctools import prettify_docstrings
 from sphinx.addnodes import desc_content
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
-from sphinx.ext.autodoc import Documenter, logger
+from sphinx.ext.autodoc import Documenter
 from sphinx.locale import __
+from sphinx.util import logging
 from typing_extensions import TypedDict
 
 __all__ = (
@@ -91,6 +92,8 @@ __all__ = (
 		"untyped_param_regex",
 		"add_fallback_css_class",
 		)
+
+logger = logging.getLogger(__name__)
 
 #: Instance of :class:`apeye.requests_url.RequestsURL` that points to the GitHub website.
 GITHUB_COM: RequestsURL = RequestsURL("https://github.com")
