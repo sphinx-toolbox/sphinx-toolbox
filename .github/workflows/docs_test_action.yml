@@ -9,11 +9,10 @@ on:
       - 'imgbot'
   pull_request:
 
-permissions:
-  contents: read
-
 jobs:
   docs:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️

@@ -11,13 +11,11 @@ on:
 
   pull_request:
 
-permissions:
-  actions: write
-  issues: write
-  contents: read
-
 jobs:
   tests:
+    permissions:
+      actions: write
+      contents: read
     name: "windows-2022 / Python ${{ matrix.config.python-version }}"
     runs-on: "windows-2022"
     continue-on-error: ${{ matrix.config.experimental }}

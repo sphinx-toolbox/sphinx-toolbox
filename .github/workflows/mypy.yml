@@ -10,11 +10,10 @@ on:
       - 'imgbot'
   pull_request:
 
-permissions:
-  contents: read
-
 jobs:
   Run:
+    permissions:
+      contents: read
     name: "mypy / ${{ matrix.os }}"
     runs-on: ${{ matrix.os }}
 
