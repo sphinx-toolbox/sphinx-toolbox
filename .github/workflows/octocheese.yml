@@ -6,11 +6,10 @@ on:
   schedule:
     - cron: 0 12 * * *
 
-permissions:
-  contents: write
-
 jobs:
   Run:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: domdfcoding/octocheese@master

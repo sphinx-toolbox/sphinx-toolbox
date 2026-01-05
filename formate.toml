@@ -27,43 +27,6 @@ lines_between_types = 0
 use_parentheses = true
 remove_redundant_aliases = true
 default_section = "THIRDPARTY"
-known_third_party = [
-    "apeye",
-    "autodocsumm",
-    "beautifulsoup4",
-    "cachecontrol",
-    "coincidence",
-    "coverage",
-    "coverage_pyver_pragma",
-    "defusedxml",
-    "dict2css",
-    "docutils",
-    "domdf_python_tools",
-    "filelock",
-    "flake8_dunder_all",
-    "html5lib",
-    "hypothesis",
-    "importlib_metadata",
-    "pprint36",
-    "pygments",
-    "pytest",
-    "pytest_cov",
-    "pytest_httpserver",
-    "pytest_randomly",
-    "pytest_timeout",
-    "roman",
-    "ruamel_yaml",
-    "setuptools",
-    "sphinx",
-    "sphinx_autodoc_typehints",
-    "sphinx_jinja2_compat",
-    "sphinx_prompt",
-    "sphinx_tabs",
-    "sphobjinv",
-    "tabulate",
-    "typing_extensions",
-    "typing_inspect",
-]
 known_first_party = [ "sphinx_toolbox",]
 
 [config]

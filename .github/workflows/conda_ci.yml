@@ -6,12 +6,11 @@ on:
   push:
     branches: ["master"]
 
-permissions:
-  contents: read
-
 jobs:
   tests:
     name: "Conda"
+    permissions:
+      contents: read
     runs-on: ubuntu-22.04
     defaults:
       run:
