@@ -13,7 +13,7 @@ repos:
     - id: reformat-pyproject
 
  - repo: https://github.com/pre-commit/pre-commit-hooks
-   rev: v3.4.0
+   rev: v6.0.0
    hooks:
     - id: check-added-large-files
     - id: check-ast
@@ -62,7 +62,7 @@ repos:
     - id: rst-inline-touching-normal
 
  - repo: https://github.com/asottile/pyupgrade
-   rev: v3.3.0
+   rev: v3.21.2
    hooks:
     - id: pyupgrade
       args:
@@ -70,7 +70,7 @@ repos:
        - --keep-runtime-typing
 
  - repo: https://github.com/Lucas-C/pre-commit-hooks
-   rev: v1.5.1
+   rev: v1.5.5
    hooks:
     - id: remove-crlf
     - id: forbid-crlf
