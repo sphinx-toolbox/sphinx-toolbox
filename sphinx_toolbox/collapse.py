@@ -203,6 +203,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 			CollapseNode,
 			html=(visit_collapse_node, depart_collapse_node),
 			latex=(lambda *args, **kwargs: None, lambda *args, **kwargs: None),
+			man=(lambda *args, **kwargs: None, lambda *args, **kwargs: None),
 			)
 
 	return {
