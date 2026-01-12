@@ -332,7 +332,7 @@ def code_repr(obj: Any) -> str:
 
 class SphinxExtMetadata(TypedDict, total=False):
 	"""
-	:class:`typing.TypedDict` representing the metadata dictionary returned by
+	:data:`typing.TypedDict` representing the metadata dictionary returned by
 	Sphinx extensions' ``setup`` functions.
 
 	This is treated by Sphinx as metadata of the extension.
@@ -419,7 +419,7 @@ def filter_members_warning(member: Any, exception: Exception) -> None:
 
 class Param(TypedDict):
 	"""
-	:class:`~typing.TypedDict` to represent a parameter parsed from a class or function's docstring.
+	:data:`~typing.TypedDict` to represent a parameter parsed from a class or function's docstring.
 
 	.. versionadded:: 0.8.0
 	"""

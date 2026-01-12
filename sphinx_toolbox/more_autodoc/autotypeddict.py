@@ -18,7 +18,7 @@ Usage
 
 .. rst:directive:: autotypeddict
 
-	Directive to automatically document a :class:`typing.TypedDict`.
+	Directive to automatically document a :data:`typing.TypedDict`.
 
 	The output is based on the :rst:dir:`autoclass` directive, but with a few differences:
 
@@ -159,7 +159,7 @@ __all__ = ("TypedDictDocumenter", "setup")
 class TypedDictDocumenter(ClassDocumenter):  # noqa: PRM002
 	r"""
 	Sphinx autodoc :class:`~sphinx.ext.autodoc.Documenter`
-	for documenting :class:`typing.TypedDict`\s.
+	for documenting :data:`typing.TypedDict`\s.
 	"""  # noqa: D400
 
 	objtype = "typeddict"
@@ -306,7 +306,7 @@ class TypedDictDocumenter(ClassDocumenter):  # noqa: PRM002
 				# append at least a dummy docstring, so that the event
 				# autodoc-process-docstring is fired and can add some
 				# content if desired
-				docstrings.append([":class:`typing.TypedDict`.", ''])
+				docstrings.append([":data:`typing.TypedDict`.", ''])
 			for i, line in enumerate(self.process_doc(docstrings)):
 				self.add_line(line, sourcename, i)
 
@@ -418,7 +418,7 @@ class TypedDictDocumenter(ClassDocumenter):  # noqa: PRM002
 			docstrings: Dict[str, List[str]],
 			) -> None:
 		"""
-		Document keys in a :class:`typing.TypedDict`.
+		Document keys in a :data:`typing.TypedDict`.
 
 		:param keys: List of key names to document.
 		:param types: Mapping of key names to types.
