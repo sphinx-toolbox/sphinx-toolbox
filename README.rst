@@ -113,7 +113,7 @@ sphinx-toolbox
 	:alt: Maintenance
 
 .. |pypi-downloads| image:: https://img.shields.io/pypi/dm/sphinx-toolbox
-	:target: https://pypi.org/project/sphinx-toolbox/
+	:target: https://pypistats.org/packages/sphinx-toolbox
 	:alt: PyPI - Downloads
 
 .. end shields
