@@ -564,7 +564,7 @@ class Sphinx:
 @prettify_docstrings
 class RunSetupOutput(NamedTuple):
 	"""
-	:class:`~typing.NamedTuple` representing the output from :func:`~sphinx_toolbox.testing.run_setup`.
+	:data:`~typing.NamedTuple` representing the output from :func:`~sphinx_toolbox.testing.run_setup`.
 	"""
 
 	setup_ret: Union[None, Dict[str, Any], "SphinxExtMetadata"]  #: The output from the ``setup()`` function.

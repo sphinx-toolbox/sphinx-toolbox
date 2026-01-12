@@ -52,7 +52,7 @@ The changes are:
   and returns that object after modification. The ``75`` is the priority of the hook:
 
    * ``< 20`` runs before ``fget`` functions are extracted from properties
-   * ``< 90`` runs before ``__new__`` functions are extracted from :class:`~typing.NamedTuple`\s.
+   * ``< 90`` runs before ``__new__`` functions are extracted from :data:`~typing.NamedTuple`\s.
    * ``< 100`` runs before ``__init__`` functions are extracted from classes.
 
 * Unresolved forward references are handled better.

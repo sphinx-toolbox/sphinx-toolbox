@@ -17,7 +17,7 @@ Usage
 
 .. rst:directive:: autonamedtuple
 
-	Directive to automatically document a :class:`typing.NamedTuple` or :func:`collections.namedtuple`.
+	Directive to automatically document a :data:`typing.NamedTuple` or :func:`collections.namedtuple`.
 
 	The output is based on the :rst:dir:`autoclass` directive.
 	The list of parameters and the attributes are replaced by a list of Fields,
@@ -165,7 +165,7 @@ __all__ = ("NamedTupleDocumenter", "setup")
 class NamedTupleDocumenter(ClassDocumenter):  # noqa: PRM002
 	r"""
 	Sphinx autodoc :class:`~sphinx.ext.autodoc.Documenter`
-	for documenting :class:`typing.NamedTuple`\s.
+	for documenting :data:`typing.NamedTuple`\s.
 
 	.. versionadded:: 0.8.0
 
@@ -207,7 +207,7 @@ class NamedTupleDocumenter(ClassDocumenter):  # noqa: PRM002
 	def add_content(self, more_content: Optional[StringList], no_docstring: bool = True) -> None:
 		r"""
 		Add extra content (from docstrings, attribute docs etc.),
-		but not the :class:`typing.NamedTuple`\'s docstring.
+		but not the :data:`typing.NamedTuple`\'s docstring.
 
 		:param more_content:
 		:param no_docstring:
@@ -234,7 +234,7 @@ class NamedTupleDocumenter(ClassDocumenter):  # noqa: PRM002
 		if self.object.__doc__:
 			docstring = dedent(self.object.__doc__).expandtabs(tab_size).split('\n')
 		elif "show-inheritance" not in self.options:
-			docstring = [":class:`typing.NamedTuple`."]
+			docstring = [":data:`typing.NamedTuple`."]
 		else:
 			docstring = ['']  # pylint: disable=W8301
 
@@ -275,7 +275,7 @@ class NamedTupleDocumenter(ClassDocumenter):  # noqa: PRM002
 				prefix = '~'
 
 			if hasattr(self.object, "__annotations__"):
-				self.directive.result[-1] = f"   Bases: :class:`{prefix}typing.NamedTuple`"
+				self.directive.result[-1] = f"   Bases: :data:`{prefix}typing.NamedTuple`"
 			else:
 				self.directive.result[-1] = f"   Bases: :func:`{prefix}collections.namedtuple`"
 
@@ -329,7 +329,7 @@ class NamedTupleDocumenter(ClassDocumenter):  # noqa: PRM002
 			order: str,
 			) -> List[Tuple[Documenter, bool]]:
 		r"""
-		Sort the :class:`typing.NamedTuple`\'s members.
+		Sort the :data:`typing.NamedTuple`\'s members.
 
 		:param documenters:
 		:param order:
