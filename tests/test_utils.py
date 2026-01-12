@@ -69,7 +69,7 @@ demo_purger = Purger("all_demo_nodes")
 				([{"docname": "document"}], []),
 				([{"docname": "foo"}], [{"docname": "foo"}]),
 				([{"docname": "foo"}, {"docname": "document"}], [{"docname": "foo"}]),
-				]
+				],
 		)
 def test_purge_extras_require(nodes: List[str], output: List[str]):
 	env = MockBuildEnvironment()
@@ -128,10 +128,11 @@ def test_escape_trailing_underscore(s: str):
 
 
 @pytest.mark.parametrize(
-		"value, expected", [
+		"value, expected",
+		[
 				pytest.param("hello", "``'hello'``"),
 				pytest.param("it's me!", "``\"it's me!\"``"),
-				]
+				],
 		)
 def test_code_repr(value: str, expected: str):
 	assert code_repr(value) == expected
@@ -187,7 +188,7 @@ class NT(NamedTuple):
 				pytest.param(tuple, False, id="type tuple"),
 				pytest.param(collections.namedtuple("Foo", "str, int"), True, id="type namedtuple"),
 				pytest.param(NT, True, id="type typing.NamedTuple"),
-				]
+				],
 		)
 def test_is_namedtuple(obj: object, result: bool):
 	assert is_namedtuple(obj) is result

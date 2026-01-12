@@ -165,9 +165,9 @@ else:
 						(
 								f':py:{"class" if sys.version_info >= (3, 10) else "func"}:'
 								f'`~typing.NewType`\\(:py:data:`~W`, :py:class:`str`)'
-								)
+								),
 						),
-				]
+				],
 		)
 def test_format_annotation(inv: Inventory, annotation: Any, expected_result: str):
 	result = format_annotation(annotation)
@@ -237,7 +237,7 @@ def test_format_annotation(inv: Inventory, annotation: Any, expected_result: str
 						":py:data:`~typing.Callable`\\[\\[:py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`], "
 						":py:data:`~T <tests.test_more_autodoc.test_autodoc_typehints.T>`]",
 						),
-				]
+				],
 		)
 def test_format_annotation_typevar(inv: Inventory, annotation: Any, expected_result: str):
 	result = format_annotation(annotation)
@@ -271,7 +271,7 @@ def test_format_annotation_typevar(inv: Inventory, annotation: Any, expected_res
 				("Literal", ('a', 1), ":py:data:`~typing.Literal`\\[``'a'``, ``1``]"),
 				("Type", None, ":py:class:`~typing.Type`"),
 				("Type", (A, ), ":py:class:`~typing.Type`\\[:py:class:`~%s.A`]" % __name__),
-				]
+				],
 		)
 def test_format_annotation_both_libs(
 		inv: Inventory,

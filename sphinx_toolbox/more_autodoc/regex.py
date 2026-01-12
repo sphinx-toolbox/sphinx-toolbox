@@ -635,7 +635,7 @@ class HTMLRegexParser(RegexParser):
 		<code class="docutils literal notranslate regex">
 		{super().parse_pattern(regex)}
 		</code>
-		"""
+		""",
 				)
 
 

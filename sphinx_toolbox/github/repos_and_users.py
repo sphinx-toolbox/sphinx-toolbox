@@ -199,7 +199,7 @@ def visit_github_object_link_node(translator: HTML5Translator, node: GitHubObjec
 	:param node: The node being visited.
 	"""
 
-	translator.body.append(f'<b class="github-object">')
+	translator.body.append('<b class="github-object">')
 	translator.visit_reference(node)
 
 

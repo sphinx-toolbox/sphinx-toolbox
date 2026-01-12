@@ -66,7 +66,7 @@ def test_example_html_output(page: BeautifulSoup):
 	assert body[1]["class"] == ["rest-example", "docutils", "container"]  # type: ignore[index]
 
 	body_body: List[PageElement] = list(
-			filter(lambda a: a != '\n', body[1].contents)  # type: ignore[arg-type,attr-defined]
+			filter(lambda a: a != '\n', body[1].contents),  # type: ignore[arg-type,attr-defined]
 			)
 	assert len(body_body) == 2
 
@@ -252,7 +252,7 @@ def test_sidebar_links_output(
 						sphinx_version=sphinx.version_info,
 						python_version=sys.version_info,
 						docutils_version=docutils.__version_info__,
-						)
+						),
 				)
 
 		return check_text_files(obtained_filename, expected_filename, encoding="UTF-8")

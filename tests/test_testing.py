@@ -64,7 +64,8 @@ def __setup(app: Sphinx) -> Dict[str, Any]:
 	app.add_node(IssueNode, html=(visit_issue_node, depart_issue_node))
 
 	with pytest.raises(
-			ValueError, match="node class 'IssueNode' is already registered, its visitors will be overridden"
+			ValueError,
+			match="node class 'IssueNode' is already registered, its visitors will be overridden",
 			):
 		app.add_node(IssueNode, html=(visit_issue_node, depart_issue_node))
 

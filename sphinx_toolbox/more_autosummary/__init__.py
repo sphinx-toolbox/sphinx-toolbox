@@ -326,7 +326,7 @@ class PatchedAutosummary(Autosummary):
 			full_name: str,
 			*,
 			registry: Any = None,
-			) -> Documenter:
+		) -> Documenter:
 			"""
 			Get an :class:`autodoc.Documenter` class suitable for documenting the given object.
 
@@ -359,7 +359,7 @@ class PatchedAutosummary(Autosummary):
 			obj: Any,
 			parent: Any,
 			full_name: str,
-			) -> Documenter:
+		) -> Documenter:
 			"""
 			Get an :class:`autodoc.Documenter` class suitable for documenting the given object.
 

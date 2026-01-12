@@ -143,7 +143,7 @@ class ConfigurationValue(GenericObject):
 		"required": directives.unchanged_required,
 		"default": directives.unchanged_required,
 		"noindex": flag,
-		}
+	}
 
 	def run(self) -> List[Node]:
 		"""

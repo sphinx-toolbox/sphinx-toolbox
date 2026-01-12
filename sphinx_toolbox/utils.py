@@ -393,7 +393,7 @@ def unknown_module_warning(documenter: Documenter) -> None:
 	msg = __(
 			"don't know which module to import for autodocumenting %r "
 			'(try placing a "module" or "currentmodule" directive in the document, '
-			"or giving an explicit module name)"
+			"or giving an explicit module name)",
 			)
 
 	logger.warning(msg % documenter.name, type="autodoc")

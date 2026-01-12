@@ -117,7 +117,7 @@ class SidebarLinksDirective(SphinxDirective):
 		"pypi": directives.unchanged_required,
 		"github": flag,
 		"caption": directives.unchanged_required,
-		}
+	}
 
 	def process_github_option(self) -> str:
 		"""
@@ -127,7 +127,7 @@ class SidebarLinksDirective(SphinxDirective):
 		if "sphinx_toolbox.github" not in self.env.app.extensions:
 			raise ValueError(
 					"The 'sphinx_toolbox.github' extension is required for the "
-					":github: option but it is not enabled!"
+					":github: option but it is not enabled!",
 					)
 
 		username = getattr(self.env.config, "github_username", None)

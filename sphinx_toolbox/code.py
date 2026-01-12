@@ -201,7 +201,7 @@ class CodeBlock(sphinx.directives.code.CodeBlock):
 		"caption": directives.unchanged_required,
 		"class": directives.class_option,
 		"name": directives.unchanged,
-		}
+	}
 
 	def run(self) -> List[Node]:
 		"""
@@ -323,16 +323,16 @@ def visit_prompt_latex(translator: LaTeXTranslator, node: Prompt) -> None:
 	translator.body.append("\n\n")
 	translator.body.append(r"\vspace{4mm}")
 
-	if f"code-cell-prompt" in node["classes"]:
+	if "code-cell-prompt" in node["classes"]:
 		colour = "nbsphinxin"
-	elif f"output-cell-prompt" in node["classes"]:
+	elif "output-cell-prompt" in node["classes"]:
 		colour = "nbsphinxout"
 	else:  # pragma: no cover
 		colour = "black"
 
 	translator.body.append(
 			rf"\llap{{\color{{{colour}}}\texttt{{{node.rawsource}}}"
-			r"\,\hspace{\fboxrule}\hspace{\fboxrule}\hspace{\fboxsep}}"
+			r"\,\hspace{\fboxrule}\hspace{\fboxrule}\hspace{\fboxsep}}",
 			)
 	translator.body.append(r"\vspace{-7mm}")
 

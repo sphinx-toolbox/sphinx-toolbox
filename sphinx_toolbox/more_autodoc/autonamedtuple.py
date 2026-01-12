@@ -352,8 +352,10 @@ class NamedTupleDocumenter(ClassDocumenter):  # noqa: PRM002
 			member_docstrings = {
 					k[1]: v
 					for k,
-					v in ModuleAnalyzer.for_string(namedtuple_source, self.object.__module__
-													).find_attr_docs().items()
+					v in ModuleAnalyzer.for_string(
+							namedtuple_source,
+							self.object.__module__,
+							).find_attr_docs().items()
 					}
 
 		except (TypeError, OSError):
@@ -477,7 +479,7 @@ class _PyNamedTupleField(PyAttribute):
 				pair = [  # pylint: disable=W8301
 					_("%s (namedtuple in %s)") % (classname, modname),
 					_("%s (namedtuple field)") % name,
-					]
+				]
 				self.indexnode["entries"].append(("pair", "; ".join(pair), node_id, '', key))
 
 		return [self.indexnode, node]

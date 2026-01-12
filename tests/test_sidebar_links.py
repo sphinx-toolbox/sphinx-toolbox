@@ -19,10 +19,12 @@ class FakeBuildEnvironment(AttrDict):
 				"github_repository": "hello_world",
 				"conda_channels": [],
 				})
-		app = AttrDict(extensions=[
-				"sphinx_toolbox.installation",
-				"sphinx_toolbox.github",
-				])
+		app = AttrDict(
+				extensions=[
+						"sphinx_toolbox.installation",
+						"sphinx_toolbox.github",
+						],
+				)
 		super().__init__({"config": config, "app": app})
 
 
@@ -33,7 +35,7 @@ def test_missing_extension():
 
 	with pytest.raises(
 			ValueError,
-			match="The 'sphinx_toolbox.github' extension is required for the :github: option but it is not enabled!"
+			match="The 'sphinx_toolbox.github' extension is required for the :github: option but it is not enabled!",
 			):
 		sidebar_links.SidebarLinksDirective.process_github_option(directive)  # type: ignore[arg-type]
 

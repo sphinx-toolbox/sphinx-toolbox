@@ -103,7 +103,7 @@ parser = regex.RegexParser()
 				(no_flags, no_flags.pattern.replace("\\?", '?')),
 				(one_flag, one_flag.pattern.replace("\\?", '?')),
 				(two_flags, "Hello\\s+[Ww]orld[.,](Lovely|Horrible) weather, isn't it(.*)?"),
-				]
+				],
 		)
 def test_regex_parser(regex: re.Pattern, expected: str):
 	assert parser.parse_pattern(regex) == expected
@@ -138,7 +138,7 @@ terminal_parser = regex.TerminalRegexParser()
 				no_flags,
 				one_flag,
 				two_flags,
-				]
+				],
 		)
 def test_terminal_regex_parser(regex: re.Pattern, advanced_file_regression: AdvancedFileRegressionFixture):
 	advanced_file_regression.check(terminal_parser.parse_pattern(regex))
@@ -167,7 +167,7 @@ def test_copy_asset_files(tmp_pathplus: PathPlus, advanced_file_regression: Adva
 						":py:data:`re.IGNORECASE` ``|`` :py:data:`re.VERBOSE`",
 						id="re.VERBOSE|re.IGNORECASE",
 						),
-				]
+				],
 		)
 def test_parse_regex_flags(flags: int, expected: str):
 	assert regex.parse_regex_flags(flags) == expected

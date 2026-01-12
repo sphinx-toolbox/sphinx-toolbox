@@ -14,7 +14,7 @@ def test_setup():
 	assert additional_nodes == {assets.AssetNode}
 
 	assert app.registry.translation_handlers == {
-			"html": {"AssetNode": (assets.visit_asset_node, assets.depart_asset_node)}
+			"html": {"AssetNode": (assets.visit_asset_node, assets.depart_asset_node)},
 			}
 
 	assert get_app_config_values(app.config.values["assets_dir"]) == ("./assets", "env", [str])

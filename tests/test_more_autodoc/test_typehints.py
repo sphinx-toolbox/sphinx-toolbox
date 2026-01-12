@@ -151,7 +151,7 @@ else:
 						id="types.UnionType",
 						marks=min_version("3.10", reason="Introduced in 3.10"),
 						),
-				]
+				],
 		)
 def test_format_annotation(annotation: Any, expected: str):
 	assert typehints.format_annotation(annotation, True) == expected

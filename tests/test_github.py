@@ -101,7 +101,7 @@ issues_repositories = pytest.mark.parametrize(
 				("https://github.com/tox-dev/tox/issues", "tox-dev/tox"),
 				("https://github.com/python/cpython/issues", "python/cpython"),
 				("https://github.com/psf/requests/issues", "psf/requests"),
-				]
+				],
 		)
 
 pull_repositories = pytest.mark.parametrize(
@@ -112,7 +112,7 @@ pull_repositories = pytest.mark.parametrize(
 				("https://github.com/tox-dev/tox/pull", "tox-dev/tox"),
 				("https://github.com/python/cpython/pull", "python/cpython"),
 				("https://github.com/psf/requests/pull", "psf/requests"),
-				]
+				],
 		)
 
 
@@ -124,7 +124,7 @@ pull_repositories = pytest.mark.parametrize(
 				"https://github.com/tox-dev/tox/issues",
 				"https://github.com/python/cpython/issues",
 				"https://github.com/psf/requests/issues",
-				]
+				],
 		)
 @count(100)
 def test_issue_role(count: int, url: str):
@@ -156,7 +156,7 @@ def test_issue_role_with_repository(count: int, url: str, repository: str):
 def test_issue_role_invalid_repository(capsys):
 	url = "https://github.com/sphinx-toolbox/sphinx-toolbox"
 
-	nodes, messages = issue_role('', '', f"7 <foo>", 0, FakeIssueInliner(url))  # type: ignore[arg-type]
+	nodes, messages = issue_role('', '', "7 <foo>", 0, FakeIssueInliner(url))  # type: ignore[arg-type]
 	assert capsys.readouterr().err == ":: (WARNING/2) Invalid repository 'foo' for issue #7.\n"
 
 	issue_number = 7
@@ -181,7 +181,7 @@ def test_issue_role_invalid_repository(capsys):
 				"https://github.com/tox-dev/tox/pull",
 				"https://github.com/python/cpython/pull",
 				"https://github.com/psf/requests/pull",
-				]
+				],
 		)
 @count(100)
 def test_pull_role(count: int, url: str):
@@ -213,7 +213,7 @@ def test_pull_role_with_repository(count: int, url: str, repository: str):
 def test_pull_role_invalid_repository(capsys):
 	url = "https://github.com/sphinx-toolbox/sphinx-toolbox"
 
-	nodes, messages = pull_role('', '', f"7 <foo>", 0, FakePullInliner(url))  # type: ignore[arg-type]
+	nodes, messages = pull_role('', '', "7 <foo>", 0, FakePullInliner(url))  # type: ignore[arg-type]
 	assert capsys.readouterr().err == ":: (WARNING/2) Invalid repository 'foo' for pull request #7.\n"
 
 	issue_number = 7
@@ -257,7 +257,7 @@ def test_repository_role():
 		"sphinx-toolbox/sphinx-toolbox",
 		0,
 		FakeGitHubInliner(),  # type: ignore[arg-type]
-		)
+	)
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages
@@ -273,7 +273,7 @@ def test_repository_role_with_text():
 		"Checkout my repository <sphinx-toolbox/sphinx-toolbox>",
 		0,
 		FakeGitHubInliner(),  # type: ignore[arg-type]
-		)
+	)
 	assert isinstance(nodes, list)
 	assert isinstance(messages, list)
 	assert not messages
@@ -289,7 +289,7 @@ def test_repository_role_invalid(capsys):
 		"Checkout my repository <sphinx-toolbox/sphinx-toolbox/default-values>",
 		0,
 		FakeGitHubInliner(),  # type: ignore[arg-type]
-		)
+	)
 
 	expected_stderr = ":: (WARNING/2) Invalid repository 'sphinx-toolbox/sphinx-toolbox/default-values'."
 	assert capsys.readouterr().err == f"{expected_stderr}\n"
@@ -377,7 +377,7 @@ def test_setup():
 					"GitHubObjectLinkNode": (
 							_visit_github_object_link_node_latex,
 							_depart_github_object_link_node_latex,
-							)
+							),
 					},
 			}
 

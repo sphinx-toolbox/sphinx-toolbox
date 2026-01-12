@@ -64,7 +64,7 @@ def test_validate_config():
 				("GitHub", "github"),
 				("Github", "github"),
 				("github", "github"),
-				]
+				],
 		)
 def test_source_link_target(target: str, expects: str):
 	config = AttrDict({

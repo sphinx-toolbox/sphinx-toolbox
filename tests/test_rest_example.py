@@ -39,7 +39,7 @@ def test_make_rest_example():
 					"    .. code-block:: rest",
 					"        :hello: world",
 					"        :flag:",
-					''
+					'',
 					]
 
 	assert make_rest_example(

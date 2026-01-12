@@ -104,7 +104,7 @@ class reSTExampleDirective(SphinxDirective):
 		"emphasize-lines": directives.unchanged,
 		"tab-width": int,
 		"dedent": int,
-		}
+	}
 
 	def run(self) -> List[nodes.Node]:
 		"""

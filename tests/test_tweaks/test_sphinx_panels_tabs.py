@@ -26,7 +26,7 @@ def test_setup():
 	assert additional_nodes == {nodes.container}
 
 	assert app.registry.translation_handlers == {
-			"html": {"container": (sphinx_panels_tabs.visit_container, sphinx_panels_tabs.depart_container)}
+			"html": {"container": (sphinx_panels_tabs.visit_container, sphinx_panels_tabs.depart_container)},
 			}
 
 	assert app.events.listeners == {}

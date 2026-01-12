@@ -78,7 +78,7 @@ def test_setup_layout():
 					"desc": (layout.visit_desc, LaTeXTranslator.depart_desc),
 					"field_list": (layout.visit_field_list, layout.depart_field_list),
 					"paragraph": (layout.visit_paragraph, LaTeXTranslator.depart_paragraph),
-					}
+					},
 			}
 
 	assert app.events.listeners == {

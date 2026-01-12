@@ -421,7 +421,7 @@ class Shield(SphinxDirective):
 	option_spec: OptionSpec = {  # type: ignore[assignment]
 		"target": directives.unchanged_required,
 		**shield_default_option_spec,
-		}
+	}
 
 	def run(self) -> List[nodes.Node]:
 		"""

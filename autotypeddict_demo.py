@@ -45,10 +45,12 @@ class Animal(_Animal, total=False):
 
 #: Old style TypedDict for Python 2 and where keys aren't valid Python identifiers.
 OldStyleAnimal = TypedDict(
-		"OldStyleAnimal", {
+		"OldStyleAnimal",
+		{
 				"animal-name": str,
 				"animal-voice": str,
-				}, total=False
+				},
+		total=False,
 		)
 
 

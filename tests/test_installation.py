@@ -21,10 +21,12 @@ class FakeBuildEnvironment(AttrDict):
 				"github_repository": "hello_world",
 				"conda_channels": [],
 				})
-		app = AttrDict(extensions=[
-				"sphinx_toolbox.installation",
-				"sphinx_toolbox.github",
-				])
+		app = AttrDict(
+				extensions=[
+						"sphinx_toolbox.installation",
+						"sphinx_toolbox.github",
+						],
+				)
 		super().__init__({"config": config, "app": app})
 
 
