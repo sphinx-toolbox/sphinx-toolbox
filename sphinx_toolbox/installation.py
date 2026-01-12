@@ -383,7 +383,7 @@ def conda_installation(
 	lines.blankline(ensure_single=True)
 
 	with lines.with_indent_size(lines.indent_size + 1):
-		lines.append("conda install {conda_name}")
+		lines.append(f"conda install {conda_name}")
 		lines.blankline(ensure_single=True)
 
 	return list(lines)

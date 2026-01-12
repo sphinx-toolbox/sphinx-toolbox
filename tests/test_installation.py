@@ -39,7 +39,10 @@ def test_make_installation_instructions_errors():
 	args: List[str] = w[0].message.args  # type: ignore[union-attr, assignment]
 	assert args[0] == "No installation source specified. No installation instructions will be shown."
 
-	with pytest.raises(ValueError, match="No PyPI project name supplied for the PyPI installation instructions."):
+	with pytest.raises(
+			ValueError,
+			match="No PyPI project name supplied for the PyPI installation instructions.",
+			):
 		make_installation_instructions({"pypi": True}, FakeBuildEnvironment(4))  # type: ignore[arg-type]
 
 	with pytest.raises(ValueError, match="No username supplied for the Anaconda installation instructions."):
