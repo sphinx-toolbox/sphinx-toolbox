@@ -5,12 +5,19 @@ reformat-generics = 40
 noqa-reformat = 60
 ellipsis-reformat = 70
 squish_stubs = 80
+newline_after_equals = 90
 
 [hooks.yapf]
 priority = 30
 
 [hooks.yapf.kwargs]
 yapf_style = ".style.yapf"
+
+[hooks.trailing_commas]
+priority = 21
+
+[hooks.trailing_commas.kwargs]
+format_ImportFrom = false
 
 [hooks.isort]
 priority = 50
