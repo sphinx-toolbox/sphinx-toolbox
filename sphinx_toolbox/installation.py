@@ -40,7 +40,7 @@ Usage
 
 		The name of the project on PyPI.
 
-	.. rst:directive:option:: conda
+	.. rst:directive:option:: anaconda
 		:type: flag
 
 		Flag to indicate the project can be installed with Conda.
