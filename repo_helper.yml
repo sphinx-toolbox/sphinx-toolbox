@@ -6,7 +6,6 @@ author: 'Dominic Davis-Foster'
 email: 'dominic@davis-foster.co.uk'
 username: 'sphinx-toolbox'
 assignee: 'domdfcoding'
-primary_conda_channel: 'domdfcoding'
 version: '4.1.2'
 license: 'MIT'
 short_desc: 'Box of handy tools for Sphinx 🧰 📔'
@@ -18,9 +17,8 @@ tox_testenv_extras: all
 preserve_custom_theme: true
 docs_fail_on_warning: true
 mypy_version: 1.16
-
-conda_channels:
-  - conda-forge
+on_conda_forge: true
+enable_conda: false
 
 python_versions:
  3.7:

@@ -90,12 +90,12 @@ sphinx-toolbox
 		:wheel:
 		:alt: PyPI - Wheel
 
-	.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/sphinx-toolbox?logo=anaconda
-		:target: https://anaconda.org/domdfcoding/sphinx-toolbox
+	.. |conda-version| image:: https://img.shields.io/conda/v/conda-forge/sphinx-toolbox?logo=anaconda
+		:target: https://anaconda.org/conda-forge/sphinx-toolbox
 		:alt: Conda - Package Version
 
-	.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/sphinx-toolbox?label=conda%7Cplatform
-		:target: https://anaconda.org/domdfcoding/sphinx-toolbox
+	.. |conda-platform| image:: https://img.shields.io/conda/pn/conda-forge/sphinx-toolbox?label=conda%7Cplatform
+		:target: https://anaconda.org/conda-forge/sphinx-toolbox
 		:alt: Conda - Platform
 
 	.. |license| github-shield::
@@ -133,7 +133,7 @@ Installation
 	:pypi:
 	:github:
 	:anaconda:
-	:conda-channels: conda-forge, domdfcoding
+	:conda-channels: conda-forge
 
 .. end installation
 

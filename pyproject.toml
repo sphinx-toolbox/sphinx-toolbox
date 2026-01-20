@@ -61,10 +61,6 @@ namespace_packages = [ "ruamel.yaml",]
 beautifulsoup4 = "bs4"
 ruamel-yaml = "ruamel.yaml"
 
-[tool.mkrecipe]
-conda-channels = [ "conda-forge", "domdfcoding",]
-extras = "all"
-
 [tool.sphinx-pyproject]
 github_username = "sphinx-toolbox"
 github_repository = "sphinx-toolbox"

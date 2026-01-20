@@ -86,12 +86,12 @@ sphinx-toolbox
 	:target: https://pypi.org/project/sphinx-toolbox/
 	:alt: PyPI - Wheel
 
-.. |conda-version| image:: https://img.shields.io/conda/v/domdfcoding/sphinx-toolbox?logo=anaconda
-	:target: https://anaconda.org/domdfcoding/sphinx-toolbox
+.. |conda-version| image:: https://img.shields.io/conda/v/conda-forge/sphinx-toolbox?logo=anaconda
+	:target: https://anaconda.org/conda-forge/sphinx-toolbox
 	:alt: Conda - Package Version
 
-.. |conda-platform| image:: https://img.shields.io/conda/pn/domdfcoding/sphinx-toolbox?label=conda%7Cplatform
-	:target: https://anaconda.org/domdfcoding/sphinx-toolbox
+.. |conda-platform| image:: https://img.shields.io/conda/pn/conda-forge/sphinx-toolbox?label=conda%7Cplatform
+	:target: https://anaconda.org/conda-forge/sphinx-toolbox
 	:alt: Conda - Platform
 
 .. |license| image:: https://img.shields.io/github/license/sphinx-toolbox/sphinx-toolbox
@@ -135,17 +135,8 @@ To install with ``pip``:
 
 To install with ``conda``:
 
-	* First add the required channels
+.. code-block:: bash
 
-	.. code-block:: bash
-
-		$ conda config --add channels https://conda.anaconda.org/conda-forge
-		$ conda config --add channels https://conda.anaconda.org/domdfcoding
-
-	* Then install
-
-	.. code-block:: bash
-
-		$ conda install sphinx-toolbox
+	$ conda install -c conda-forge sphinx-toolbox
 
 .. end installation
