@@ -119,13 +119,12 @@ from sphinx.ext.autodoc import (
 		ModuleLevelDocumenter,
 		Options,
 		annotation_option,
-		import_object,
-		logger,
-		mock
+		import_object
 		)
 from sphinx.ext.autodoc.directive import DocumenterBridge
+from sphinx.ext.autodoc.mock import mock
 from sphinx.pycode import ModuleAnalyzer
-from sphinx.util import inspect
+from sphinx.util import inspect, logging
 from sphinx.util.inspect import ForwardRef, getdoc, object_description, safe_getattr
 
 # this package
@@ -140,6 +139,8 @@ from sphinx_toolbox.utils import (
 		metadata_add_version,
 		prepare_docstring
 		)
+
+logger = logging.getLogger("sphinx.ext.autodoc")
 
 __all__ = (
 		"VariableDocumenter",
