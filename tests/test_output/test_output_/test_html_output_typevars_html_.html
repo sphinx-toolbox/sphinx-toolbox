@@ -54,9 +54,9 @@
          <{{ sig_prename_tag }} class="sig-name descname">
           DS
          </{{ sig_prename_tag }}>
-         <em class="property">
+         <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
           = TypeVar(DS, SlotsDemo, Demo)
-         </em>
+         </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <a class="headerlink" href="#tests.test_output.typevars_demo.DS" title="Permalink to this definition">
           ¶
          </a>
@@ -105,9 +105,9 @@
        </dl>
        <dl class="py class">
         <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.Demo">
-         <em class="property">
+         <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
           class
-         </em>
+         </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.typevars_demo.
          </{{ sig_prename_tag }}>
@@ -208,9 +208,9 @@
          <{{ sig_prename_tag }} class="sig-name descname">
           FR
          </{{ sig_prename_tag }}>
-         <em class="property">
+         <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
           = TypeVar(FR, bound=SlotsDemo)
-         </em>
+         </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <a class="headerlink" href="#tests.test_output.typevars_demo.FR" title="Permalink to this definition">
           ¶
          </a>
@@ -257,9 +257,9 @@
          <{{ sig_prename_tag }} class="sig-name descname">
           S
          </{{ sig_prename_tag }}>
-         <em class="property">
+         <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
           = TypeVar(S, bound=SlotsDemo)
-         </em>
+         </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <a class="headerlink" href="#tests.test_output.typevars_demo.S" title="Permalink to this definition">
           ¶
          </a>
@@ -300,9 +300,9 @@
        </dl>
        <dl class="py class">
         <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.SlotsDemo">
-         <em class="property">
+         <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
           class
-         </em>
+         </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.typevars_demo.
          </{{ sig_prename_tag }}>
@@ -403,9 +403,9 @@
          <{{ sig_prename_tag }} class="sig-name descname">
           T
          </{{ sig_prename_tag }}>
-         <em class="property">
+         <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
           = TypeVar(T)
-         </em>
+         </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <a class="headerlink" href="#tests.test_output.typevars_demo.T" title="Permalink to this definition">
           ¶
          </a>
@@ -444,9 +444,9 @@
          <{{ sig_prename_tag }} class="sig-name descname">
           T_co
          </{{ sig_prename_tag }}>
-         <em class="property">
+         <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
           = TypeVar(T_co, covariant=True)
-         </em>
+         </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <a class="headerlink" href="#tests.test_output.typevars_demo.T_co" title="Permalink to this definition">
           ¶
          </a>
@@ -485,9 +485,9 @@
          <{{ sig_prename_tag }} class="sig-name descname">
           T_contra
          </{{ sig_prename_tag }}>
-         <em class="property">
+         <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
           = TypeVar(T_contra, contravariant=True)
-         </em>
+         </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <a class="headerlink" href="#tests.test_output.typevars_demo.T_contra" title="Permalink to this definition">
           ¶
          </a>

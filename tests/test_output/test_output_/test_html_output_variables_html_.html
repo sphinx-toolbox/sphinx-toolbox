@@ -52,9 +52,9 @@
          <{{ sig_prename_tag }} class="sig-name descname">
           CONSTANT
          </{{ sig_prename_tag }}>
-         <em class="property">
+         <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
           = 42
-         </em>
+         </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
         </dt>
         <dd>
          <p>
@@ -76,9 +76,11 @@
        </dl>
        <dl class="py class">
         <dt{{ sig_object_class }}>
-         <em class="property">
-          class
-         </em>
+         <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
+          {% if sphinx_version >= (9, 0) %}<span class="k">
+           class
+          </span>{% else %}class{% endif %}
+         </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.variables_genericalias_demo.
          </{{ sig_prename_tag }}>
@@ -162,11 +164,18 @@
          </dl>
          <dl class="py {{ 'property' if sphinx_version >= (4, 0) else 'method' }}">
           <dt{{ sig_object_class }}>
-           <em class="property">{% if sphinx_version >= (4, 3) %}
+           {% if sphinx_version >= (9, 0) %}<span class="property">
+            <span class="k">
+             abstract
+            </span>
+            <span class="k">
+             property
+            </span>
+           </span>{% else %}<em class="property">{% if sphinx_version >= (4, 3) %}
             abstract
             property{% else %}
             abstract property{% endif %}
-           </em>
+           </em>{% endif %}
            <{{ sig_prename_tag }} class="sig-name descname">
             foo
            </{{ sig_prename_tag }}>
@@ -200,9 +209,11 @@
        </dl>
        <dl class="py class">
         <dt{{ sig_object_class }}>
-         <em class="property">
-          class
-         </em>
+         <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
+          {% if sphinx_version >= (9, 0) %}<span class="k">
+           class
+          </span>{% else %}class{% endif %}
+         </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.variables_genericalias_demo.
          </{{ sig_prename_tag }}>
@@ -294,9 +305,9 @@
          <{{ sig_prename_tag }} class="sig-name descname">
           variable
          </{{ sig_prename_tag }}>
-         <em class="property">
+         <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
           = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
-         </em>
+         </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
         </dt>
         <dd>
          <p>
