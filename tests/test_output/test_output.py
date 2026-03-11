@@ -191,7 +191,7 @@ def test_html_output(
 
 		continue
 
-	print(caught_exceptions)
+	print('\n'.join(' '.join(e.args[0].splitlines()[:2]) for e in caught_exceptions))
 
 	for exception in caught_exceptions:
 		raise exception
