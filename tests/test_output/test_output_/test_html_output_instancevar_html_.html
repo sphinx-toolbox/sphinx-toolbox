@@ -28,9 +28,9 @@
   <script src="_static/sphinx_highlight.js{% if sphinx_version >= (7, 2) %}?v=dc90522c{% elif sphinx_version >= (7, 1) %}?v=4825356b{% endif %}">
   </script>{% endif %}
   <script src="_static/sphinx_toolbox_installation.js">
-  </script>
+  </script>{% if sphinx_version < (3, 5) %}
   <script src="_static/tabs.js">
-  </script>
+  </script>{% endif %}
  </head>
  <body>
   <div class="document">
