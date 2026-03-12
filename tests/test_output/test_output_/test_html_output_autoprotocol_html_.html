@@ -47,7 +47,9 @@
        <dl class="py class protocol">
         <dt{{ sig_object_class }} id="autoprotocol_demo.Frobnicater">
          <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-          protocol
+          {% if sphinx_version >= (9, 0) %}<span class="k">
+           protocol
+          </span>{% else %}protocol{% endif %}
          </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           autoprotocol_demo.
@@ -137,7 +139,9 @@
        <dl class="py class protocol">
         <dt{{ sig_object_class }} id="autoprotocol_demo.HasLessThan">
          <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-          protocol
+          {% if sphinx_version >= (9, 0) %}<span class="k">
+           protocol
+          </span>{% else %}protocol{% endif %}
          </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           autoprotocol_demo.
@@ -241,7 +245,9 @@
        <dl class="py class protocol">
         <dt{{ sig_object_class }} id="autoprotocol_demo.HasGreaterThan">
          <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-          protocol
+          {% if sphinx_version >= (9, 0) %}<span class="k">
+           protocol
+          </span>{% else %}protocol{% endif %}
          </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           autoprotocol_demo.
@@ -339,7 +345,9 @@
        <dl class="py class protocol">
         <dt{{ sig_object_class }}>
          <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-          protocol
+          {% if sphinx_version >= (9, 0) %}<span class="k">
+           protocol
+          </span>{% else %}protocol{% endif %}
          </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           autoprotocol_demo.
@@ -431,7 +439,9 @@
        <dl class="py class protocol">
         <dt{{ sig_object_class }} id="autoprotocol_demo.SupportsAbs">
          <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-          protocol
+          {% if sphinx_version >= (9, 0) %}<span class="k">
+           protocol
+          </span>{% else %}protocol{% endif %}
          </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           autoprotocol_demo.
@@ -482,7 +492,9 @@
          <dl class="py method">
           <dt{{ sig_object_class }} id="autoprotocol_demo.SupportsAbs.__abs__">
            <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-            abstract{% if sphinx_version >= (8, 2) %}method{% endif %}
+            {% if sphinx_version >= (9, 0) %}<span class="k">
+             abstractmethod
+            </span>{% else %}abstract{% if sphinx_version >= (8, 2) %}method{% endif %}{% endif %}
            </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
            <{{ sig_prename_tag }} class="sig-name descname">
             __abs__

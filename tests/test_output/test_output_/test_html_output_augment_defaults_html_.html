@@ -47,7 +47,9 @@
        <dl class="py class">
         <dt {{ 'class="sig sig-object py" ' if sphinx_version >= (4, 0) else '' }}id="tests.augment_defaults_demo.Foo">
          <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-          class
+          {% if sphinx_version >= (9, 0) %}<span class="k">
+           class
+          </span>{% else %}class{% endif %}
          </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.augment_defaults_demo.

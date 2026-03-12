@@ -106,7 +106,9 @@
        <dl class="py class">
         <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.Demo">
          <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-          class
+          {% if sphinx_version >= (9, 0) %}<span class="k">
+           class
+          </span>{% else %}class{% endif %}
          </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.typevars_demo.
@@ -301,7 +303,9 @@
        <dl class="py class">
         <dt{{ sig_object_class }} id="tests.test_output.typevars_demo.SlotsDemo">
          <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-          class
+          {% if sphinx_version >= (9, 0) %}<span class="k">
+           class
+          </span>{% else %}class{% endif %}
          </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           tests.test_output.typevars_demo.

@@ -45,7 +45,9 @@
        <dl class="py class">
         <dt{{ sig_object_class }} id="sphinx_toolbox.more_autodoc.generic_bases.Example">
          <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-          class
+          {% if sphinx_version >= (9, 0) %}<span class="k">
+           class
+          </span>{% else %}class{% endif %}
          </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           sphinx_toolbox.more_autodoc.generic_bases.
@@ -133,7 +135,9 @@
        <dl class="py class">
         <dt{{ sig_object_class }} id="sphinx_toolbox.more_autodoc.generic_bases.Example2">
          <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-          class
+          {% if sphinx_version >= (9, 0) %}<span class="k">
+           class
+          </span>{% else %}class{% endif %}
          </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
          <{{ sig_prename_tag }} class="sig-prename descclassname">
           sphinx_toolbox.more_autodoc.generic_bases.
