@@ -157,6 +157,10 @@ incremental = false
 exclude = "^tests/.*?/[^/]*doc-test/.*"
 show_error_codes = true
 
+[[tool.mypy.overrides]]
+module = [ "sphinx_autodoc_typehints._annotations", "sphinx_autodoc_typehints._resolver.*",]
+ignore_missing_imports = true
+
 [tool.snippet-fmt]
 directives = [ "code-block",]
 
