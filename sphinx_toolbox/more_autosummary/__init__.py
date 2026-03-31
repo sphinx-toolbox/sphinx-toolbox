@@ -158,18 +158,11 @@ from domdf_python_tools.stringlist import StringList
 from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.config import ENUM
-from sphinx.ext.autodoc import (
-		ALL,
-		INSTANCEATTR,
-		ClassDocumenter,
-		Documenter,
-		ModuleDocumenter,
-		logger,
-		special_member_re
-		)
+from sphinx.ext.autodoc import ALL, INSTANCEATTR, ClassDocumenter, Documenter, ModuleDocumenter, special_member_re
 from sphinx.ext.autodoc.directive import DocumenterBridge, process_documenter_options
 from sphinx.ext.autosummary import Autosummary, FakeDirective, autosummary_table
 from sphinx.locale import __
+from sphinx.util import logging
 from sphinx.util.inspect import getdoc, safe_getattr
 
 # this package
@@ -191,6 +184,8 @@ __all__ = (
 		"get_documenter",
 		"setup",
 		)
+
+logger = logging.getLogger("sphinx.ext.autodoc")
 
 if sphinx.version_info < (3, 5):
 	# 3rd party
