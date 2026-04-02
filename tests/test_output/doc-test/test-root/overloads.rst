@@ -8,3 +8,4 @@ sphinx-toolbox Demo - Overloads
 	:members:
 	:undoc-members:
 	:special-members:
+	:exclude-members: __module__
