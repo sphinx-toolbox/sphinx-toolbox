@@ -9,7 +9,7 @@ from tests.common import get_app_config_values
 
 
 def test_setup(advanced_file_regression: AdvancedFileRegressionFixture):
-	setup_ret, directives, roles, additional_nodes, app = run_setup(more_autosummary.setup)
+	setup_ret, directives, roles, additional_nodes, app = run_setup(more_autosummary.setup, call_config_events=True)
 
 	assert setup_ret == {"parallel_read_safe": True, "version": __version__}
 

@@ -123,7 +123,7 @@ def test_get_variable_type(documenter: Documenter, expected: str):
 
 
 def test_setup():
-	setup_ret, directives, roles, additional_nodes, app = run_setup(variables.setup)
+	setup_ret, directives, roles, additional_nodes, app = run_setup(variables.setup, call_config_events=True)
 
 	assert setup_ret == {"parallel_read_safe": True, "version": __version__}
 

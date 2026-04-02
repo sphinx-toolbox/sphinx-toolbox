@@ -68,6 +68,7 @@ import re
 import sys
 import tempfile
 from functools import partial
+from operator import attrgetter
 from types import SimpleNamespace
 from typing import Any, Callable, Dict, List, NamedTuple, Optional, Set, Tuple, Type, Union, cast
 
@@ -585,13 +586,19 @@ class GenericNodeVisitor(nodes.NodeVisitor):
 	pass
 
 
-def run_setup(setup_func: _setup_func_type) -> RunSetupOutput:  # , buildername: str = "html"
+def run_setup(
+		setup_func: _setup_func_type,
+		call_config_events: bool = False,  # buildername: str = "html",
+		) -> RunSetupOutput:
 	"""
 	Function for running an extension's ``setup()`` function for testing.
 
 	:param setup_func: The ``setup()`` function under test.
+	:param call_config_events: Call event handlers for the ``config-inited`` event.
 
 	:returns: 5-element namedtuple
+
+	.. versionchanged:: 4.2.0  Added ``call_config_events`` option.
 	"""
 
 	app = Sphinx()  # buildername
@@ -607,6 +614,11 @@ def run_setup(setup_func: _setup_func_type) -> RunSetupOutput:  # , buildername:
 
 		with docutils.docutils_namespace():
 			setup_ret = setup_func(app)  # type: ignore[arg-type]
+
+			if call_config_events:
+				for listener in sorted(app.events.listeners["config-inited"], key=attrgetter("priority")):
+					listener.handler(app, app.config)
+
 			directives = copy.copy(docutils.directives._directives)  # type: ignore[attr-defined]
 			roles = copy.copy(docutils.roles._roles)  # type: ignore[attr-defined]
 			additional_nodes = copy.copy(docutils.additional_nodes)

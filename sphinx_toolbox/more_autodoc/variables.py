@@ -792,6 +792,14 @@ class PropertyDocumenter(TypedAttributeDocumenter):
 			self.add_line('', sourcename)
 
 
+def _after_config_inited(app: Sphinx, config: Any) -> None:
+	app.add_autodocumenter(VariableDocumenter)
+	app.add_autodocumenter(TypedAttributeDocumenter, override=True)
+	app.add_autodocumenter(InstanceAttributeDocumenter, override=True)
+	app.add_autodocumenter(SlotsAttributeDocumenter, override=True)
+	app.add_autodocumenter(PropertyDocumenter, override=True)
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -803,11 +811,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("sphinx.ext.autodoc")
 	app.setup_extension("sphinx_toolbox.more_autosummary")
 
-	app.add_autodocumenter(VariableDocumenter)
-	app.add_autodocumenter(TypedAttributeDocumenter, override=True)
-	app.add_autodocumenter(InstanceAttributeDocumenter, override=True)
-	app.add_autodocumenter(SlotsAttributeDocumenter, override=True)
-	app.add_autodocumenter(PropertyDocumenter, override=True)
+	# Run after autodocsumm's and more_autosummary's.
+	app.connect("config-inited", _after_config_inited, priority=620)  # more_autosummary is 600
 
 	app.connect("config-inited", lambda _, config: add_nbsp_substitution(config))
 

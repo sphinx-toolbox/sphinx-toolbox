@@ -737,6 +737,16 @@ def _patch_filter_members() -> None:
 	Documenter.filter_members = _documenter_filter_members  # type: ignore[method-assign, assignment]
 
 
+def _after_config_inited(app: Sphinx, config: Any) -> None:
+	app.add_directive("autosummary", PatchedAutosummary, override=True)
+	app.add_directive("autoclasssumm", PatchedAutoDocSummDirective, override=True)
+	app.add_directive("automodulesumm", PatchedAutoDocSummDirective, override=True)
+
+	autodocsumm.AutosummaryDocumenter.add_autosummary = add_autosummary
+	allow_subclass_add(app, PatchedAutoSummModuleDocumenter)
+	allow_subclass_add(app, PatchedAutoSummClassDocumenter)
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -749,13 +759,8 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	app.setup_extension("autodocsumm")
 	app.setup_extension("sphinx_toolbox.latex")
 
-	app.add_directive("autosummary", PatchedAutosummary, override=True)
-	app.add_directive("autoclasssumm", PatchedAutoDocSummDirective, override=True)
-	app.add_directive("automodulesumm", PatchedAutoDocSummDirective, override=True)
-
-	autodocsumm.AutosummaryDocumenter.add_autosummary = add_autosummary
-	allow_subclass_add(app, PatchedAutoSummModuleDocumenter)
-	allow_subclass_add(app, PatchedAutoSummClassDocumenter)
+	# Run after sphinx.ext.autodoc._register_directives() and autodocsumm._after_config_inited().
+	app.connect("config-inited", _after_config_inited, priority=610)  # autodocsumm is 600
 
 	app.add_config_value(
 			"autodocsumm_member_order",

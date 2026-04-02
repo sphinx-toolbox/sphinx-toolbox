@@ -234,6 +234,9 @@ def configure(app: Sphinx, config: Config) -> None:
 	:param config:
 	"""
 
+	app.add_directive("autosummary", AutosummaryWidths, override=True)
+	app.add_directive("autosummary-widths", WidthsDirective)
+
 	latex_elements = getattr(config, "latex_elements", {})
 
 	latex_preamble = stringlist.StringList(latex_elements.get("preamble", ''))
@@ -258,10 +261,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.setup_extension("sphinx_toolbox.more_autosummary")
 
-	app.add_directive("autosummary", AutosummaryWidths, override=True)
-	app.add_directive("autosummary-widths", WidthsDirective)
+	# Run after autodocsumm and more_autosummary.
+	app.connect("config-inited", configure, priority=620)  # more_autosummary is 610
 
-	app.connect("config-inited", configure)
 	app.connect("build-finished", latex.replace_unknown_unicode)
 
 	return {"parallel_read_safe": True}
