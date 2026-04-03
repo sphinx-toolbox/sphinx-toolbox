@@ -1,4 +1,5 @@
 # sphinx-tabs is capped to avoid breakage if they update their js code, which we patch
+# sphinx-autodoc-typehints 3.6.0 erases overloads. See https://github.com/tox-dev/sphinx-autodoc-typehints/compare/3.5.2...3.6.0 . Not sure how to fix
 apeye>=0.4.0
 autodocsumm>=0.2.0
 beautifulsoup4>=4.9.1
