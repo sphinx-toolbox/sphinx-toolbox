@@ -169,6 +169,7 @@ class Sphinx:
 	# builder: Builder  #: Instance of :class:`sphinx.builder.Builder`
 
 	def __init__(self):  # , buildername: str = "html"
+		self.pdb = False
 		self.registry = SphinxComponentRegistry()
 		self.config = Config({}, {})
 		self.events = EventManager(self)  # type: ignore[arg-type]
