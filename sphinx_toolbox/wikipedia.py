@@ -105,7 +105,7 @@ _wiki_lang_re = re.compile(":(.*?):(.*)")
 
 
 def _get_wikipedia_lang(inliner: Inliner) -> str:  # pragma: no cover
-	return inliner.document.settings.env.config.wikipedia_lang
+	return inliner.document.settings.env.app.config.wikipedia_lang
 
 
 def make_wikipedia_link(

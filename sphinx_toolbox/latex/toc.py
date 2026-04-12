@@ -95,14 +95,14 @@ class LatexTocTreeDirective(sphinx.directives.other.TocTree):
 		Process the content of the directive.
 		"""
 
-		assert self.env.app.builder is not None
+		builder = self.env.app.builder
+		assert builder is not None
 
 		output: List[nodes.Node] = []
 		caption = self.options.get("caption")
 
 		if (
-				caption is not None and "hidden" not in self.options
-				and self.env.app.builder.format.lower() == "latex"
+				caption is not None and "hidden" not in self.options and builder.format.lower() == "latex"
 				and self.env.docname == self.env.config.master_doc
 				):
 

@@ -133,9 +133,6 @@ class DocumentationSummaryDirective(SphinxDirective):
 		if not summary:
 			return []  # pragma: no cover
 
-		# if self.env.app.builder.format.lower() == "latex" or not summary:
-		# 	return []
-
 		targetid = f'documentation-summary-{self.env.new_serialno("documentation-summary"):d}'
 
 		onlynode = addnodes.only(expr="html")

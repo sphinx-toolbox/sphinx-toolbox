@@ -135,11 +135,12 @@ def _make_viewcode_node(  # noqa: PRM002
 		# 3rd party
 		from sphinx.util.nodes import make_refnode
 
-		assert env.app.builder is not None
+		builder = env.app.builder
+		assert builder is not None
 
 		try:
 			return make_refnode(
-					env.app.builder,
+					builder,
 					fromdocname=env.docname,
 					todocname=pagename,
 					targetid=title,

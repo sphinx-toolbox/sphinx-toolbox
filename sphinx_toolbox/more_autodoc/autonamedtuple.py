@@ -229,7 +229,7 @@ class NamedTupleDocumenter(ClassDocumenter):  # noqa: PRM002
 		"""
 
 		# Size varies depending on docutils config
-		tab_size = self.env.app.config.docutils_tab_width
+		tab_size = self.env.config.docutils_tab_width
 
 		if self.object.__doc__:
 			docstring = dedent(self.object.__doc__).expandtabs(tab_size).split('\n')
@@ -315,9 +315,10 @@ class NamedTupleDocumenter(ClassDocumenter):  # noqa: PRM002
 					return False
 				return None
 
-			listener_id = self.env.app.connect("autodoc-skip-member", unskip_new)
+			app = self.env.app
+			listener_id = app.connect("autodoc-skip-member", unskip_new)
 			members_ = super().filter_members(members, want_all)
-			self.env.app.disconnect(listener_id)
+			app.disconnect(listener_id)
 			return members_
 
 		else:
@@ -340,7 +341,7 @@ class NamedTupleDocumenter(ClassDocumenter):  # noqa: PRM002
 		documenters = super().sort_members(documenters, order)
 
 		# Size varies depending on docutils config
-		a_tab = ' ' * self.env.app.config.docutils_tab_width
+		a_tab = ' ' * self.env.config.docutils_tab_width
 
 		# Mapping of member names to docstrings (as list of strings)
 		member_docstrings: Dict[str, List[str]]

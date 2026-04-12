@@ -584,10 +584,11 @@ class PatchedAutoSummModuleDocumenter(autodocsumm.AutoSummModuleDocumenter):
 
 			# give the user a chance to decide whether this member
 			# should be skipped
-			if self.env.app:
+			app = self.env.app
+			if app:
 				# let extensions preprocess docstrings
 				try:  # pylint: disable=R8203
-					skip_user = self.env.app.emit_firstresult(
+					skip_user = app.emit_firstresult(
 							"autodoc-skip-member",
 							self.objtype,
 							membername,

@@ -527,12 +527,13 @@ class InstallationDirective(SphinxDirective):
 		Create the installation node.
 		"""
 
-		assert self.env.app.builder is not None
+		builder = self.env.app.builder
+		assert builder is not None
 
 		if self.arguments:
 			self.options["project_name"] = self.arguments[0]
 
-		if self.env.app.builder.format.lower() == "html":
+		if builder.format.lower() == "html":
 			return self.run_html()
 		else:
 			return self.run_generic()

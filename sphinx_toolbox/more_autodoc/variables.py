@@ -257,7 +257,7 @@ class VariableDocumenter(DataDocumenter):  # noqa: PRM002
 	def __init__(self, directive: DocumenterBridge, name: str, indent: str = '') -> None:
 		super().__init__(directive=directive, name=name, indent=indent)
 		self.options = Options(self.options.copy())
-		add_nbsp_substitution(self.env.app.config)
+		add_nbsp_substitution(self.env.config)
 
 	def add_directive_header(self, sig: str) -> None:
 		"""
