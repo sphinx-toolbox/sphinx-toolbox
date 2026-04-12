@@ -158,9 +158,10 @@ from domdf_python_tools.stringlist import StringList
 from sphinx import addnodes
 from sphinx.application import Sphinx
 from sphinx.config import ENUM
+from sphinx.environment import BuildEnvironment
 from sphinx.ext.autodoc import ALL, INSTANCEATTR, ClassDocumenter, Documenter, ModuleDocumenter, special_member_re
 from sphinx.ext.autodoc.directive import DocumenterBridge, process_documenter_options
-from sphinx.ext.autosummary import Autosummary, FakeDirective, autosummary_table
+from sphinx.ext.autosummary import Autosummary, autosummary_table
 from sphinx.locale import __
 from sphinx.util import logging
 from sphinx.util.inspect import getdoc, safe_getattr
@@ -213,6 +214,50 @@ else:  # pragma: no cover
 				members[name] = (name, INSTANCEATTR)
 
 		return sorted(list(members.values()))
+
+
+if sphinx.version_info < (9, 0):
+	# 3rd party
+	from sphinx.ext.autosummary import FakeDirective
+else:
+	# stdlib
+	from pathlib import Path
+
+	# 3rd party
+	from docutils.parsers.rst.states import Struct
+	from sphinx.config import Config
+	from sphinx.ext.autodoc._directive_options import _AutoDocumenterOptions  # type: ignore[import-not-found]
+	from sphinx.project import Project
+	from sphinx.registry import SphinxComponentRegistry
+
+	class FakeApplication:
+
+		verbosity = 0
+
+		def __init__(self) -> None:
+			self.doctreedir = Path()
+			self.events = None
+			self.extensions = {}  # type: ignore[var-annotated]
+			self.srcdir = Path()
+			self.config = Config()
+			self.project = Project('', {})
+			self.registry = SphinxComponentRegistry()
+
+	class FakeDirective(DocumenterBridge):  # type: ignore[no-redef]  # false positive
+
+		def __init__(self) -> None:
+			settings = Struct(tab_width=8)
+			document = Struct(settings=settings)
+
+			app = FakeApplication()
+			app.config.add("autodoc_class_signature", "mixed", "env", ())
+
+			env = BuildEnvironment(app)  # type: ignore[arg-type]
+			opts = _AutoDocumenterOptions()
+
+			state = Struct(document=document)
+
+			super().__init__(env, None, opts, 0, state)
 
 
 def add_autosummary(self, relative_ref_paths: bool = False) -> None:
@@ -422,6 +467,7 @@ def get_documenter(app: Sphinx, obj: Any, parent: Any) -> Type[Documenter]:
 	else:
 		parent_doc_cls = ModuleDocumenter
 
+	# For new implementation see: https://github.com/sphinx-doc/sphinx/commit/3dec8620aea3592cf032106f8f95c4a426c34632
 	if hasattr(parent, "__name__"):
 		parent_doc = parent_doc_cls(FakeDirective(), parent.__name__)
 	else:
