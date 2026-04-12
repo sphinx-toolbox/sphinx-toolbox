@@ -368,7 +368,6 @@ from apeye.url import URL
 from docutils import nodes
 from docutils.nodes import fully_normalize_name, whitespace_normalize_name
 from docutils.parsers.rst import directives
-from docutils.parsers.rst.roles import set_classes
 from domdf_python_tools.paths import PathPlus
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
@@ -376,6 +375,13 @@ from sphinx.util.docutils import SphinxDirective
 # this package
 from sphinx_toolbox import _css
 from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, flag, make_github_url, metadata_add_version
+
+try:
+	# 3rd party
+	from docutils.parsers.rst.roles import normalized_role_options as set_classes  # type: ignore[attr-defined]
+except ImportError:
+	# 3rd party
+	from docutils.parsers.rst.roles import set_classes
 
 __all__ = (
 		"SHIELDS_IO",

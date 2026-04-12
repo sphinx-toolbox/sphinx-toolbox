@@ -88,7 +88,6 @@ from typing import Optional, Sequence
 # 3rd party
 from docutils import nodes
 from docutils.parsers.rst import directives
-from docutils.parsers.rst.roles import set_classes
 from domdf_python_tools.stringlist import DelimitedList
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
@@ -96,6 +95,13 @@ from sphinx.writers.html5 import HTML5Translator
 
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, flag, metadata_add_version
+
+try:
+	# 3rd party
+	from docutils.parsers.rst.roles import normalize_options as set_classes  # type: ignore[attr-defined]
+except ImportError:
+	# 3rd party
+	from docutils.parsers.rst.roles import set_classes
 
 __all__ = ("CollapseDirective", "CollapseNode", "visit_collapse_node", "depart_collapse_node", "setup")
 
