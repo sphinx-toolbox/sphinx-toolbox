@@ -384,7 +384,8 @@ Type annotation for Sphinx extensions' ``setup`` functions.
 """
 
 
-def unknown_module_warning(documenter: Documenter) -> None:
+# TODO: not used here; deprecate, fix callers and remove
+def unknown_module_warning(documenter: Documenter) -> None:  # pragma: no cover
 	"""
 	Log a warning that the module to import the object from is unknown.
 
