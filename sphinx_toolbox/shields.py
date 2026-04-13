@@ -374,7 +374,14 @@ from sphinx.util.docutils import SphinxDirective
 
 # this package
 from sphinx_toolbox import _css
-from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, _set_classes, flag, make_github_url, metadata_add_version
+from sphinx_toolbox.utils import (
+		OptionSpec,
+		SphinxExtMetadata,
+		_set_classes,
+		flag,
+		make_github_url,
+		metadata_add_version
+		)
 
 __all__ = (
 		"SHIELDS_IO",
