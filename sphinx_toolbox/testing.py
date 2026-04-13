@@ -253,7 +253,7 @@ class Sphinx:
 		docutils.register_node(node)
 		self.registry.add_translation_handlers(node, **kwargs)
 
-	def add_enumerable_node(  # noqa: PRM002
+	def add_enumerable_node(  # noqa: PRM002  # pragma: no cover
 		self,
 		node: Type[nodes.Element],
 		figtype: str,
@@ -347,7 +347,7 @@ class Sphinx:
 
 		self.registry.add_role_to_domain(domain, name, role, override=override)
 
-	def add_index_to_domain(  # noqa: PRM002
+	def add_index_to_domain(  # noqa: PRM002  # pragma: no cover
 		self,
 		domain: str,
 		index: Type[Index],
@@ -359,7 +359,7 @@ class Sphinx:
 
 		self.registry.add_index_to_domain(domain, index)
 
-	def add_object_type(  # noqa: PRM002
+	def add_object_type(  # noqa: PRM002  # pragma: no cover
 		self,
 		directivename: str,
 		rolename: str,
@@ -386,7 +386,7 @@ class Sphinx:
 				override=override,
 				)
 
-	def add_crossref_type(  # noqa: PRM002
+	def add_crossref_type(  # noqa: PRM002  # pragma: no cover
 		self,
 		directivename: str,
 		rolename: str,
