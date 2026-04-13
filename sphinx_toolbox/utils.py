@@ -669,6 +669,15 @@ def add_fallback_css_class(
 	return func
 
 
+def _set_classes(options):
+	# Our version of the old docutils function
+
+    if options and 'class' in options:
+        assert 'classes' not in options
+        options['classes'] = options['class']
+        del options['class']
+
+
 if TYPE_CHECKING:
 
 	class Config(sphinx.config.Config):

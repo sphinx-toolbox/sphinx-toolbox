@@ -374,14 +374,7 @@ from sphinx.util.docutils import SphinxDirective
 
 # this package
 from sphinx_toolbox import _css
-from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, flag, make_github_url, metadata_add_version
-
-try:
-	# 3rd party
-	from docutils.parsers.rst.roles import normalized_role_options as set_classes  # type: ignore[attr-defined]
-except ImportError:
-	# 3rd party
-	from docutils.parsers.rst.roles import set_classes
+from sphinx_toolbox.utils import OptionSpec, SphinxExtMetadata, _set_classes, flag, make_github_url, metadata_add_version
 
 __all__ = (
 		"SHIELDS_IO",
@@ -468,7 +461,7 @@ class Shield(SphinxDirective):
 
 			del self.options["target"]
 
-		set_classes(self.options)
+		_set_classes(self.options)
 		image_node = nodes.image(self.block_text, **self.options)
 		self.add_name(image_node)
 
