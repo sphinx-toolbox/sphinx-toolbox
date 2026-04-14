@@ -24,6 +24,7 @@
 <% if sphinx_version >= (4, 0) %>\ifdefined\pdfimageresolution
     \pdfimageresolution= \numexpr \dimexpr1in\relax/\sphinxpxdimen\relax
 \fi
+<% if sphinx_version >= (9, 0) %>\newdimen\sphinxremdimen\sphinxremdimen = 10pt<% endif %>
 %% let collapsable pdf bookmarks panel have high depth per default
 \PassOptionsToPackage{bookmarksdepth=5}{hyperref}<% if sphinx_version >= (5, 3) %>
 <% endif %><% if sphinx_version >= (6, 0) %>
@@ -191,11 +192,17 @@ printable \textendash{} a string containing all ASCII characters considered prin
 \endfoot
 
 \endlastfoot<% if sphinx_version >= (5, 3) %>
-\sphinxtableatstartofbodyhook<% endif%>
+\sphinxtableatstartofbodyhook<% endif%><% if sphinx_version >= (9, 0) %><# Not sure what this does but the output looks unchanged despite the scary "varwidth" you'd think would muck it up #>
+\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+<% else %>
 
-{\hyperref[\detokenize{index:string.Template}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{Template}}}}}(template)
-&
-A string class for supporting \$\sphinxhyphen{}substitutions.
+<% endif %>{\hyperref[\detokenize{index:string.Template}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{Template}}}}}(template)
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
+A string class for supporting \$\sphinxhyphen{}substitutions.<% if sphinx_version >= (9, 0) %>
+\sphinxbeforeendvarwidth
+\end{varwidth}%<% endif %>
 \\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{longtable}<% if sphinx_version >= (5, 3) %>
@@ -241,11 +248,17 @@ A string class for supporting \$\sphinxhyphen{}substitutions.
 \endfoot
 
 \endlastfoot<% if sphinx_version >= (5, 3) %>
-\sphinxtableatstartofbodyhook<% endif%>
+\sphinxtableatstartofbodyhook<% endif%><% if sphinx_version >= (9, 0) %><# Not sure what this does but the output looks unchanged despite the scary "varwidth" you'd think would muck it up #>
+\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+<% else %>
 
-{\hyperref[\detokenize{index:string.capwords}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{capwords}}}}}(s {[},sep{]})
-&
-Split the argument into words using split, capitalize each word using capitalize, and join the capitalized words using join.
+<% endif %>{\hyperref[\detokenize{index:string.capwords}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{capwords}}}}}(s {[},sep{]})
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
+Split the argument into words using split, capitalize each word using capitalize, and join the capitalized words using join.<% if sphinx_version >= (9, 0) %>
+\sphinxbeforeendvarwidth
+\end{varwidth}%<% endif %>
 \\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{longtable}<% if sphinx_version >= (5, 3) %>
@@ -337,11 +350,17 @@ Text wrapping and filling.
 \endfoot
 
 \endlastfoot<% if sphinx_version >= (5, 3) %>
-\sphinxtableatstartofbodyhook<% endif%>
+\sphinxtableatstartofbodyhook<% endif%><% if sphinx_version >= (9, 0) %><# Not sure what this does but the output looks unchanged despite the scary "varwidth" you'd think would muck it up #>
+\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+<% else %>
 
-{\hyperref[\detokenize{index:textwrap.TextWrapper}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{TextWrapper}}}}}({[}width, initial\_indent, <% if sphinx_version >= (4, 2) %>...<% else %>…<% endif %>{]})
-&
-Object for wrapping/filling text.
+<% endif %>{\hyperref[\detokenize{index:textwrap.TextWrapper}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{TextWrapper}}}}}({[}width, initial\_indent, <% if sphinx_version >= (4, 2) %>...<% else %>…<% endif %>{]})
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
+Object for wrapping/filling text.<% if sphinx_version >= (9, 0) %>
+\sphinxbeforeendvarwidth
+\end{varwidth}%<% endif %>
 \\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{longtable}<% if sphinx_version >= (5, 3) %>
@@ -387,31 +406,53 @@ Object for wrapping/filling text.
 \endfoot
 
 \endlastfoot<% if sphinx_version >= (5, 3) %>
-\sphinxtableatstartofbodyhook<% endif%>
+\sphinxtableatstartofbodyhook<% endif%><% if sphinx_version >= (9, 0) %><# Not sure what this does but the output looks unchanged despite the scary "varwidth" you'd think would muck it up #>
+\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+<% else %>
 
-{\hyperref[\detokenize{index:textwrap.dedent}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{dedent}}}}}(text)
-&
-Remove any common leading whitespace from every line in \sphinxtitleref{text}.
+<% endif %>{\hyperref[\detokenize{index:textwrap.dedent}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{dedent}}}}}(text)
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
+Remove any common leading whitespace from every line in \sphinxtitleref{text}.<% if sphinx_version >= (9, 0) %>
+\sphinxbeforeendvarwidth
+\end{varwidth}%<% endif %>
 \\
-<< hline >>
+<< hline >><% if sphinx_version >= (9, 0) %>\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% endif %>
 {\hyperref[\detokenize{index:textwrap.fill}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{fill}}}}}(text{[}, width{]})
-&
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
 Fill a single paragraph of text, returning a new string.
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%<% endif %>
 \\
-<< hline >>
+<< hline >><% if sphinx_version >= (9, 0) %>\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% endif %>
 {\hyperref[\detokenize{index:textwrap.indent}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{indent}}}}}(text, prefix{[}, predicate{]})
-&
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
 Adds <<open_smart_quote_b>>prefix<<close_smart_quote_b>> to the beginning of selected lines in <<open_smart_quote_b>>text<<close_smart_quote_b>>.
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%<% endif %>
 \\
-<< hline >>
+<< hline >><% if sphinx_version >= (9, 0) %>\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% endif %>
 {\hyperref[\detokenize{index:textwrap.shorten}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{shorten}}}}}(text, width, **kwargs)
-&
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
 Collapse and truncate the given text to fit in the given width.
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%<% endif %>
 \\
-<< hline >>
+<< hline >><% if sphinx_version >= (9, 0) %>\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% endif %>
 {\hyperref[\detokenize{index:textwrap.wrap}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{wrap}}}}}(text{[}, width{]})
-&
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
 Wrap a single paragraph of text, returning a list of wrapped lines.
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%<% endif %>
 \\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{longtable}<% if sphinx_version >= (5, 3) %>
@@ -535,16 +576,26 @@ Append to the last line of truncated text.
 \endfoot
 
 \endlastfoot<% if sphinx_version >= (5, 3) %>
-\sphinxtableatstartofbodyhook<% endif%>
+\sphinxtableatstartofbodyhook<% endif%><% if sphinx_version >= (9, 0) %><# Not sure what this does but the output looks unchanged despite the scary "varwidth" you'd think would muck it up #>
+\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+<% else %>
 
-{\hyperref[\detokenize{index:textwrap.TextWrapper.fill}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{fill}}}}}(text)
-&
+<% endif %>{\hyperref[\detokenize{index:textwrap.TextWrapper.fill}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{fill}}}}}(text)
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
 Reformat the single paragraph in <<open_smart_quote_b>>text<<close_smart_quote_b>> to fit in lines of no more than <<open_smart_quote_b>>self.width<<close_smart_quote_b>> columns, and return a new string containing the entire wrapped paragraph.
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%<% endif %>
 \\
-<< hline >>
+<< hline >><% if sphinx_version >= (9, 0) %>\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% endif %>
 {\hyperref[\detokenize{index:textwrap.TextWrapper.wrap}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{wrap}}}}}(text)
-&
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
 Reformat the single paragraph in <<open_smart_quote_b>>text<<close_smart_quote_b>> so it fits in lines of no more than <<open_smart_quote_b>>self.width<<close_smart_quote_b>> columns, and return a list of wrapped lines.
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%<% endif %>
 \\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{longtable}<% if sphinx_version >= (5, 3) %>

@@ -24,7 +24,6 @@ def doc_root(tmp_pathplus: PathPlus) -> None:
 	shutil.copy2(test_root / "index.rst", doc_root / "index.rst")
 
 
-@pytest.mark.skipif(sphinx.version_info[0] == 9, reason="TODO: Sphinx9 blocker")
 @pytest.mark.usefixtures("doc_root")
 @pytest.mark.sphinx("latex", testroot="test-autosummary-widths")
 def test_latex_output(
