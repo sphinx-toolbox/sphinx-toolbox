@@ -9,7 +9,7 @@ from docutils.utils import Reporter
 # this package
 import sphinx_toolbox
 from sphinx_toolbox import issues
-from sphinx_toolbox.github.issues import IssueNode, issue_role, pull_role
+from sphinx_toolbox.github.issues import IssueNode, get_issue_title, issue_role, pull_role
 from sphinx_toolbox.testing import run_setup
 from tests.common import AttrDict
 
@@ -259,3 +259,13 @@ def test_setup():
 
 	assert additional_nodes == set()
 	assert app.registry.translation_handlers == {}
+
+
+def test_get_issue_title():
+	good_url = "https://github.com/pytest-dev/pytest/issues/7680"
+	bad_url1 = "https://github.com/"  # Not an issue page
+	bad_url2 = "htps://github.com/pytest-dev/pytest/issues/7680"  # bad protocol
+
+	assert get_issue_title(good_url) == "Add --log-cli option"
+	assert get_issue_title(bad_url1) is None
+	assert get_issue_title(bad_url2) is None
