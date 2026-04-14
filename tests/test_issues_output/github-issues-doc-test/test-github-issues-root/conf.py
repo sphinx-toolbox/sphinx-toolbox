@@ -33,3 +33,6 @@ def depart_desc_signature(self, node: addnodes.desc_signature) -> None:
 
 def setup(app: Sphinx) -> None:
 	app.add_node(addnodes.desc_signature, html=(visit_desc_signature, depart_desc_signature), override=True)
+
+
+autodoc_use_legacy_class_based = True

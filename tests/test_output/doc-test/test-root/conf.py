@@ -75,3 +75,5 @@ def setup(app: Sphinx) -> None:
 
 # TODO: add test matrix with this option enabled
 # autodoc_typehints = "both"
+
+autodoc_use_legacy_class_based = True

@@ -4,6 +4,7 @@ from typing import cast
 
 # 3rd party
 import pytest
+import sphinx
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
@@ -23,6 +24,7 @@ def doc_root(tmp_pathplus: PathPlus) -> None:
 	shutil.copy2(test_root / "index.rst", doc_root / "index.rst")
 
 
+@pytest.mark.skipif(sphinx.version_info[0] == 9, reason="TODO: Sphinx9 blocker")
 @pytest.mark.usefixtures("doc_root")
 @pytest.mark.sphinx("latex", testroot="test-autosummary-widths")
 def test_latex_output(

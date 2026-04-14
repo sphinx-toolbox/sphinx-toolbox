@@ -934,7 +934,9 @@
          <dl class="py method">
           <dt{{ sig_object_class }} id="tests.test_output.overloads_demo.from_dict">
            <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-            classmethod
+            {% if sphinx_version >= (9, 0) %}<span class="k">
+             classmethod
+            </span>{% else %}classmethod{% endif %}
            </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>
            <{{ sig_prename_tag }} class="sig-prename descclassname">
             tests.test_output.overloads_demo.
