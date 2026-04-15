@@ -33,7 +33,8 @@
 \fi \sphinxpxdimen=.75bp\relax
 <% if sphinx_version >= (4, 0) %>\ifdefined\pdfimageresolution
     \pdfimageresolution= \numexpr \dimexpr1in\relax/\sphinxpxdimen\relax
-\fi
+\fi<% if sphinx_version >= (9, 0) %>
+\newdimen\sphinxremdimen\sphinxremdimen = 10pt<% endif %>
 %% let collapsable pdf bookmarks panel have high depth per default
 \PassOptionsToPackage{bookmarksdepth=5}{hyperref}<% if sphinx_version >= (5, 3) %>
 <% endif %><% if sphinx_version >= (6, 0) %>
@@ -985,20 +986,37 @@ Regex to match \sphinxcode{\sphinxupquote{:param \textless{}name\textgreater{}: 
 \begin{savenotes}\sphinxattablestart<% if sphinx_version >= (5, 3) %>
 \sphinxthistablewithglobalstyle<% endif %>
 \centering
-\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (5, 3) %>
+\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (9, 0) %>
 \sphinxtoprule
-\sphinxtableatstartofbodyhook\sphinxstyletheadfamily<% else %>
-\hline
-\sphinxstyletheadfamily<% endif %>
+\sphinxtableatstartofbodyhook\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Pattern}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% elif sphinx_version >= (5, 3) %>
+\sphinxtoprule
+\sphinxtableatstartofbodyhook\sphinxstyletheadfamily
 \sphinxstylestrong{Pattern}
-&
+&<% else %>
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&<% endif %>
 \sphinxcode{\sphinxupquote{\textcolor{regex_at}{\textasciicircum{}}\textcolor{regex_literal}{:}\textcolor{regex_subpattern}{(}\textcolor{regex_literal}{p}\textcolor{regex_literal}{a}\textcolor{regex_literal}{r}\textcolor{regex_literal}{a}\textcolor{regex_literal}{m}\textcolor{regex_branch}{|}\textcolor{regex_literal}{p}\textcolor{regex_literal}{a}\textcolor{regex_literal}{r}\textcolor{regex_literal}{a}\textcolor{regex_literal}{m}\textcolor{regex_literal}{e}\textcolor{regex_literal}{t}\textcolor{regex_literal}{e}\textcolor{regex_literal}{r}\textcolor{regex_branch}{|}\textcolor{regex_literal}{a}\textcolor{regex_literal}{r}\textcolor{regex_literal}{g}\textcolor{regex_branch}{|}\textcolor{regex_literal}{a}\textcolor{regex_literal}{r}\textcolor{regex_literal}{g}\textcolor{regex_literal}{u}\textcolor{regex_literal}{m}\textcolor{regex_literal}{e}\textcolor{regex_literal}{n}\textcolor{regex_literal}{t}\textcolor{regex_subpattern}{)}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{(}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_category}{\textbackslash{}w}\textcolor{regex_repeat}{*}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{:}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{(}\textcolor{regex_any}{.}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}}}
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
 \\
+<< hline >>\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Flags}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>\\
 << hline >>\sphinxstyletheadfamily
 \sphinxstylestrong{Flags}
-&
+&<% endif %>
 \sphinxhref{https://docs.python.org/3/library/re.html\#re.ASCII}{\sphinxcode{\sphinxupquote{re.ASCII}}}
-\\
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+<% endif %>\\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{tabulary}
 << par >>
@@ -1026,20 +1044,37 @@ Regex to match \sphinxcode{\sphinxupquote{:type \textless{}name\textgreater{}: \
 \begin{savenotes}\sphinxattablestart<% if sphinx_version >= (5, 3) %>
 \sphinxthistablewithglobalstyle<% endif %>
 \centering
-\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (5, 3) %>
+\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (9, 0) %>
 \sphinxtoprule
-\sphinxtableatstartofbodyhook\sphinxstyletheadfamily<% else %>
-\hline
-\sphinxstyletheadfamily<% endif %>
+\sphinxtableatstartofbodyhook\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Pattern}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% elif sphinx_version >= (5, 3) %>
+\sphinxtoprule
+\sphinxtableatstartofbodyhook\sphinxstyletheadfamily
 \sphinxstylestrong{Pattern}
-&
+&<% else %>
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&<% endif %>
 \sphinxcode{\sphinxupquote{\textcolor{regex_at}{\textasciicircum{}}\textcolor{regex_literal}{:}\textcolor{regex_subpattern}{(}\textcolor{regex_literal}{p}\textcolor{regex_literal}{a}\textcolor{regex_literal}{r}\textcolor{regex_literal}{a}\textcolor{regex_literal}{m}\textcolor{regex_literal}{t}\textcolor{regex_literal}{y}\textcolor{regex_literal}{p}\textcolor{regex_literal}{e}\textcolor{regex_branch}{|}\textcolor{regex_literal}{t}\textcolor{regex_literal}{y}\textcolor{regex_literal}{p}\textcolor{regex_literal}{e}\textcolor{regex_subpattern}{)}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{(}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_category}{\textbackslash{}w}\textcolor{regex_repeat}{*}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{:}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{(}\textcolor{regex_any}{.}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}}}
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
 \\
+<< hline >>\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Flags}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>\\
 << hline >>\sphinxstyletheadfamily
 \sphinxstylestrong{Flags}
-&
+&<% endif %>
 \sphinxhref{https://docs.python.org/3/library/re.html\#re.ASCII}{\sphinxcode{\sphinxupquote{re.ASCII}}}
-\\
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+<% endif %>\\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{tabulary}
 << par >>
@@ -1068,15 +1103,25 @@ Compiled regular expression object.
 \begin{savenotes}\sphinxattablestart<% if sphinx_version >= (5, 3) %>
 \sphinxthistablewithglobalstyle<% endif %>
 \centering
-\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (5, 3) %>
+\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (9, 0) %>
 \sphinxtoprule
-\sphinxtableatstartofbodyhook\sphinxstyletheadfamily<% else %>
-\hline
-\sphinxstyletheadfamily<% endif %>
+\sphinxtableatstartofbodyhook\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Pattern}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% elif sphinx_version >= (5, 3) %>
+\sphinxtoprule
+\sphinxtableatstartofbodyhook\sphinxstyletheadfamily
 \sphinxstylestrong{Pattern}
-&
+&<% else %>
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&<% endif %>
 \sphinxcode{\sphinxupquote{\textcolor{regex_literal}{H}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{l}\textcolor{regex_literal}{o}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{+}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{W}\textcolor{regex_literal}{w}\textcolor{regex_in}{{]}}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{l}\textcolor{regex_literal}{d}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{.}\textcolor{regex_literal}{,}\textcolor{regex_in}{{]}}\textcolor{regex_subpattern}{(}\textcolor{regex_literal}{L}\textcolor{regex_literal}{o}\textcolor{regex_literal}{v}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{y}\textcolor{regex_branch}{|}\textcolor{regex_literal}{H}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{r}\textcolor{regex_literal}{i}\textcolor{regex_literal}{b}\textcolor{regex_literal}{l}\textcolor{regex_literal}{e}\textcolor{regex_subpattern}{)}\enspace\textcolor{regex_literal}{w}\textcolor{regex_literal}{e}\textcolor{regex_literal}{a}\textcolor{regex_literal}{t}\textcolor{regex_literal}{h}\textcolor{regex_literal}{e}\textcolor{regex_literal}{r}\textcolor{regex_literal}{,}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{s}\textcolor{regex_literal}{n}\textcolor{regex_literal}{\textquotesingle{}}\textcolor{regex_literal}{t}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{t}\enspace\textcolor{regex_subpattern}{(}\textcolor{regex_any}{.}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{?}}}
-\\
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+<% endif %>\\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{tabulary}
 << par >>
@@ -1103,21 +1148,38 @@ Compiled regular expression object.
 \begin{savenotes}\sphinxattablestart<% if sphinx_version >= (5, 3) %>
 \sphinxthistablewithglobalstyle<% endif %>
 \centering
-\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (5, 3) %>
+\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (9, 0) %>
 \sphinxtoprule
-\sphinxtableatstartofbodyhook\sphinxstyletheadfamily<% else %>
-\hline
-\sphinxstyletheadfamily<% endif %>
+\sphinxtableatstartofbodyhook\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Pattern}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% elif sphinx_version >= (5, 3) %>
+\sphinxtoprule
+\sphinxtableatstartofbodyhook\sphinxstyletheadfamily
 \sphinxstylestrong{Pattern}
-&
+&<% else %>
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&<% endif %>
 \sphinxcode{\sphinxupquote{\textcolor{regex_literal}{H}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{l}\textcolor{regex_literal}{o}\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{+}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{W}\textcolor{regex_literal}{w}\textcolor{regex_in}{{]}}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{l}\textcolor{regex_literal}{d}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{.}\textcolor{regex_literal}{,}\textcolor{regex_in}{{]}}\textcolor{regex_subpattern}{(}\textcolor{regex_literal}{L}\textcolor{regex_literal}{o}\textcolor{regex_literal}{v}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{y}\textcolor{regex_branch}{|}\textcolor{regex_literal}{H}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{r}\textcolor{regex_literal}{i}\textcolor{regex_literal}{b}\textcolor{regex_literal}{l}\textcolor{regex_literal}{e}\textcolor{regex_subpattern}{)}\enspace\textcolor{regex_literal}{w}\textcolor{regex_literal}{e}\textcolor{regex_literal}{a}\textcolor{regex_literal}{t}\textcolor{regex_literal}{h}\textcolor{regex_literal}{e}\textcolor{regex_literal}{r}\textcolor{regex_literal}{,}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{s}\textcolor{regex_literal}{n}\textcolor{regex_literal}{\textquotesingle{}}\textcolor{regex_literal}{t}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{t}\enspace\textcolor{regex_subpattern}{(}\textcolor{regex_any}{.}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{?}}}
-\\<% if sphinx_version >= (5, 3) %>
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+\\
+<< hline >>\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Flags}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>\\<% if sphinx_version >= (5, 3) %>
 \sphinxhline\sphinxstyletheadfamily<% else %>
 \hline\sphinxstyletheadfamily<% endif %>
 \sphinxstylestrong{Flags}
-&
+&<% endif %>
 \sphinxhref{https://docs.python.org/3/library/re.html\#re.IGNORECASE}{\sphinxcode{\sphinxupquote{re.IGNORECASE}}}
-\\
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+<% endif %>\\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{tabulary}
 << par >>
@@ -1144,20 +1206,37 @@ Compiled regular expression object.
 \begin{savenotes}\sphinxattablestart<% if sphinx_version >= (5, 3) %>
 \sphinxthistablewithglobalstyle<% endif %>
 \centering
-\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (5, 3) %>
+\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (9, 0) %>
 \sphinxtoprule
-\sphinxtableatstartofbodyhook\sphinxstyletheadfamily<% else %>
-\hline
-\sphinxstyletheadfamily<% endif %>
+\sphinxtableatstartofbodyhook\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Pattern}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% elif sphinx_version >= (5, 3) %>
+\sphinxtoprule
+\sphinxtableatstartofbodyhook\sphinxstyletheadfamily
 \sphinxstylestrong{Pattern}
-&
+&<% else %>
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&<% endif %>
 \sphinxcode{\sphinxupquote{\textcolor{regex_literal}{H}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{l}\textcolor{regex_literal}{o}\enspace\textcolor{regex_category}{\textbackslash{}s}\textcolor{regex_repeat}{+}\enspace\textcolor{regex_in}{{[}}\textcolor{regex_literal}{W}\textcolor{regex_literal}{w}\textcolor{regex_in}{{]}}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{l}\textcolor{regex_literal}{d}\enspace\textcolor{regex_in}{{[}}\textcolor{regex_literal}{.}\textcolor{regex_literal}{,}\textcolor{regex_in}{{]}}\enspace\textcolor{regex_subpattern}{(}\textcolor{regex_literal}{L}\textcolor{regex_literal}{o}\textcolor{regex_literal}{v}\textcolor{regex_literal}{e}\textcolor{regex_literal}{l}\textcolor{regex_literal}{y}\textcolor{regex_branch}{|}\textcolor{regex_literal}{H}\textcolor{regex_literal}{o}\textcolor{regex_literal}{r}\textcolor{regex_literal}{r}\textcolor{regex_literal}{i}\textcolor{regex_literal}{b}\textcolor{regex_literal}{l}\textcolor{regex_literal}{e}\textcolor{regex_subpattern}{)}\enspace\textcolor{regex_literal}{w}\textcolor{regex_literal}{e}\textcolor{regex_literal}{a}\textcolor{regex_literal}{t}\textcolor{regex_literal}{h}\textcolor{regex_literal}{e}\textcolor{regex_literal}{r}\textcolor{regex_literal}{,}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{s}\textcolor{regex_literal}{n}\textcolor{regex_literal}{\textquotesingle{}}\textcolor{regex_literal}{t}\enspace\textcolor{regex_literal}{i}\textcolor{regex_literal}{t}\enspace\textcolor{regex_subpattern}{(}\textcolor{regex_any}{.}\textcolor{regex_repeat}{*}\textcolor{regex_subpattern}{)}\enspace\textcolor{regex_literal}{?}}}
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
 \\
+<< hline >>\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Flags}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>\\
 << hline >>\sphinxstyletheadfamily
 \sphinxstylestrong{Flags}
-&
+&<% endif %>
 \sphinxhref{https://docs.python.org/3/library/re.html\#re.ASCII}{\sphinxcode{\sphinxupquote{re.ASCII}}}
-\\
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+<% endif %>\\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{tabulary}
 << par >>
@@ -1184,15 +1263,25 @@ Compiled regular expression object.
 \begin{savenotes}\sphinxattablestart<% if sphinx_version >= (5, 3) %>
 \sphinxthistablewithglobalstyle<% endif %>
 \centering
-\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (5, 3) %>
+\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (9, 0) %>
 \sphinxtoprule
-\sphinxtableatstartofbodyhook\sphinxstyletheadfamily<% else %>
-\hline
-\sphinxstyletheadfamily<% endif %>
+\sphinxtableatstartofbodyhook\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Pattern}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% elif sphinx_version >= (5, 3) %>
+\sphinxtoprule
+\sphinxtableatstartofbodyhook\sphinxstyletheadfamily
 \sphinxstylestrong{Pattern}
-&
+&<% else %>
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&<% endif %>
 \sphinxcode{\sphinxupquote{\textcolor{regex_literal}{:}\textcolor{regex_literal}{p}\textcolor{regex_literal}{y}\textcolor{regex_literal}{:}\textcolor{regex_literal}{c}\textcolor{regex_literal}{l}\textcolor{regex_literal}{a}\textcolor{regex_literal}{s}\textcolor{regex_literal}{s}\textcolor{regex_literal}{:}\textcolor{regex_literal}{\textasciigrave{}}\textcolor{regex_subpattern}{(}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{0}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{9}\textcolor{regex_literal}{.}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_repeat}{+}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{\textasciigrave{}}}}
-\\
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+<% endif %>\\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{tabulary}
 << par >>
@@ -1219,15 +1308,25 @@ Compiled regular expression object.
 \begin{savenotes}\sphinxattablestart<% if sphinx_version >= (5, 3) %>
 \sphinxthistablewithglobalstyle<% endif %>
 \centering
-\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (5, 3) %>
+\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (9, 0) %>
 \sphinxtoprule
-\sphinxtableatstartofbodyhook\sphinxstyletheadfamily<% else %>
-\hline
-\sphinxstyletheadfamily<% endif %>
+\sphinxtableatstartofbodyhook\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Pattern}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% elif sphinx_version >= (5, 3) %>
+\sphinxtoprule
+\sphinxtableatstartofbodyhook\sphinxstyletheadfamily
 \sphinxstylestrong{Pattern}
-&
+&<% else %>
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&<% endif %>
 \sphinxcode{\sphinxupquote{\textcolor{regex_in}{{[}}\enspace\textcolor{regex_in}{{]}}\textcolor{regex_literal}{3}\textcolor{regex_literal}{:}\textcolor{regex_literal}{p}\textcolor{regex_literal}{y}\textcolor{regex_literal}{:}\textcolor{regex_literal}{c}\textcolor{regex_literal}{l}\textcolor{regex_literal}{a}\textcolor{regex_literal}{s}\textcolor{regex_literal}{s}\textcolor{regex_literal}{:}\textcolor{regex_literal}{\textasciigrave{}}\textcolor{regex_subpattern}{(}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{0}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{9}\textcolor{regex_literal}{.}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_repeat}{+}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{\textasciigrave{}}}}
-\\
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+<% endif %>\\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{tabulary}
 << par >>
@@ -1254,15 +1353,25 @@ Compiled regular expression object.
 \begin{savenotes}\sphinxattablestart<% if sphinx_version >= (5, 3) %>
 \sphinxthistablewithglobalstyle<% endif %>
 \centering
-\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (5, 3) %>
+\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (9, 0) %>
 \sphinxtoprule
-\sphinxtableatstartofbodyhook\sphinxstyletheadfamily<% else %>
-\hline
-\sphinxstyletheadfamily<% endif %>
+\sphinxtableatstartofbodyhook\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Pattern}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% elif sphinx_version >= (5, 3) %>
+\sphinxtoprule
+\sphinxtableatstartofbodyhook\sphinxstyletheadfamily
 \sphinxstylestrong{Pattern}
-&
+&<% else %>
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&<% endif %>
 \sphinxcode{\sphinxupquote{\textcolor{regex_literal}{:}\textcolor{regex_literal}{p}\textcolor{regex_literal}{y}\textcolor{regex_literal}{:}\textcolor{regex_literal}{c}\textcolor{regex_literal}{l}\textcolor{regex_literal}{a}\textcolor{regex_literal}{s}\textcolor{regex_literal}{s}\textcolor{regex_literal}{:}\textcolor{regex_literal}{\textasciigrave{}}\textcolor{regex_subpattern}{(}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{0}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{9}\textcolor{regex_literal}{.}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_repeat}{+}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{\textasciigrave{}}\enspace\textcolor{regex_literal}{3}}}
-\\
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+<% endif %>\\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{tabulary}
 << par >>
@@ -1289,15 +1398,25 @@ Compiled regular expression object.
 \begin{savenotes}\sphinxattablestart<% if sphinx_version >= (5, 3) %>
 \sphinxthistablewithglobalstyle<% endif %>
 \centering
-\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (5, 3) %>
+\begin{tabulary}{\linewidth}[t]{<<regex_columns>>}<% if sphinx_version >= (9, 0) %>
 \sphinxtoprule
-\sphinxtableatstartofbodyhook\sphinxstyletheadfamily<% else %>
-\hline
-\sphinxstyletheadfamily<% endif %>
+\sphinxtableatstartofbodyhook\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+\sphinxstyletheadfamily \sphinxstylestrong{Pattern}
+\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% elif sphinx_version >= (5, 3) %>
+\sphinxtoprule
+\sphinxtableatstartofbodyhook\sphinxstyletheadfamily
 \sphinxstylestrong{Pattern}
-&
+&<% else %>
+\hline
+\sphinxstyletheadfamily
+\sphinxstylestrong{Pattern}
+&<% endif %>
 \sphinxcode{\sphinxupquote{\textcolor{regex_in}{{[}}\enspace\textcolor{regex_in}{{]}}\textcolor{regex_literal}{:}\textcolor{regex_literal}{p}\textcolor{regex_literal}{y}\textcolor{regex_literal}{:}\textcolor{regex_literal}{c}\textcolor{regex_literal}{l}\textcolor{regex_literal}{a}\textcolor{regex_literal}{s}\textcolor{regex_literal}{s}\textcolor{regex_literal}{:}\textcolor{regex_literal}{\textasciigrave{}}\textcolor{regex_subpattern}{(}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_in}{{[}}\textcolor{regex_literal}{A}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{Z}\textcolor{regex_literal}{a}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{z}\textcolor{regex_literal}{0}\textcolor{regex_at}{\sphinxhyphen{}}\textcolor{regex_literal}{9}\textcolor{regex_literal}{.}\textcolor{regex_literal}{\_}\textcolor{regex_in}{{]}}\textcolor{regex_repeat}{+}\textcolor{regex_subpattern}{)}\textcolor{regex_literal}{\textasciigrave{}}\textcolor{regex_in}{{[}}\enspace\textcolor{regex_in}{{]}}}}
-\\
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+<% endif %>\\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 \end{tabulary}
 << par >>
@@ -1354,14 +1473,14 @@ See more repositories in the \sphinxhref{https://github.com/pytest-dev}{pytest\s
 
 \section{Removed}
 \label{\detokenize{changeset:removed}}
-<< versionremoved("1.2.3")>>Use {\hyperref[\detokenize{index:foo}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{foo()}}}}} instead.
+<< versionremoved("1.2.3") >>Use {\hyperref[\detokenize{index:foo}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{foo()}}}}} instead.
 
-<< versionremoved("1.2.3")>>Due to an unfixable bug this function has been removed.
+<< versionremoved("1.2.3") >>Due to an unfixable bug this function has been removed.
 If you desperately need this functionality please write to the mailing list at
 \sphinxhref{mailto:python-users@example.org}{python\sphinxhyphen{}users@example.org}
 
 
-<< versionremoved("1.2.3")>>\begin{itemize}
+<< versionremoved("1.2.3") >>\begin{itemize}
 \item {}
 Removed \sphinxcode{\sphinxupquote{mozarella}}
 
@@ -1475,22 +1594,35 @@ Added support for \sphinxhref{https://github.com/Chilipp/autodocsumm}{autodocsum
 \endfoot
 
 \endlastfoot
-<%- endif %>
+<%- endif %><% if sphinx_version >= (9, 0) %>\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}
+<% elif sphinx_version < (9, 0) %>
 <% if sphinx_version < (5, 3) %>
-<% endif %>\sphinxcode{\sphinxupquote{Animal}}(name, voice)
-&
+<% endif %><% endif %>\sphinxcode{\sphinxupquote{Animal}}(name, voice)
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
 An animal.
-\\
-<< hline >>
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+<% endif %>\\
+<< hline >><% if sphinx_version >= (9, 0) %>\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% endif %>
 \sphinxcode{\sphinxupquote{Employee}}(name{[}, id{]})
-&
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
 Represents an employee.
-\\
-<< hline >>
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+<% endif %>\\
+<< hline >><% if sphinx_version >= (9, 0) %>\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% endif %>
 \sphinxcode{\sphinxupquote{Movie}}(name, year, based\_on)
-&
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+&\begin{varwidth}[t]{\sphinxcolwidth{1}{2}}<% else %>&<% endif %>
 Represents a movie.
-\\
+<% if sphinx_version >= (9, 0) %>\sphinxbeforeendvarwidth
+\end{varwidth}%
+<% endif %>\\
 <% if sphinx_version >= (5, 3) %>\sphinxbottomrule<% else %>\hline<% endif %>
 <% if sphinx_version > (8, 2) -%>
 \end{longtable}
