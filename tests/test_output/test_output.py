@@ -268,7 +268,6 @@ def test_sidebar_links_output(
 			)
 
 
-@pytest.mark.skipif(sphinx.version_info[0] == 9, reason="TODO: Sphinx9 blocker")
 @pytest.mark.usefixtures("pre_commit_hooks")
 @pytest.mark.sphinx("latex", srcdir="test-root")
 def test_latex_output(
@@ -287,7 +286,6 @@ def test_latex_output(
 	latex_regression.check(StringList(output_file.read_lines()), jinja2=True)
 
 
-@pytest.mark.skipif(sphinx.version_info[0] == 9, reason="TODO: Sphinx9 blocker")
 @pytest.mark.usefixtures("pre_commit_hooks")
 @pytest.mark.sphinx("latex", srcdir="test-root")
 def test_latex_output_latex_layout(
@@ -311,7 +309,6 @@ def test_latex_output_latex_layout(
 	latex_regression.check(StringList(output_file.read_lines()), jinja2=True)
 
 
-@pytest.mark.skipif(sphinx.version_info[0] == 9, reason="TODO: Sphinx9 blocker")
 @pytest.mark.usefixtures("pre_commit_hooks")
 @pytest.mark.sphinx("latex", srcdir="test-root")
 def test_latex_output_better_header_layout(
@@ -333,7 +330,6 @@ def test_latex_output_better_header_layout(
 	latex_regression.check(StringList(output_file.read_lines()), jinja2=True)
 
 
-@pytest.mark.skipif(sphinx.version_info[0] == 9, reason="TODO: Sphinx9 blocker")
 @pytest.mark.usefixtures("pre_commit_hooks")
 @pytest.mark.sphinx("latex", srcdir="test-root")
 def test_latex_output_autosummary_col_type(
