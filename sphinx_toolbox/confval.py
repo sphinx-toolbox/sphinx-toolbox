@@ -153,7 +153,7 @@ class ConfigurationValue(GenericObject):
 		content: List[str] = []
 
 		if self.options and set(self.options.keys()) != {"noindex"}:
-			content.extend(('', ".. raw:: latex", '', r"    \vspace{-45px}", ''))
+			content.extend(('', ".. raw:: latex", '', r"    \vspace{-30px}", ''))
 
 		if "type" in self.options:
 			content.append(f"| **Type:** {self.format_type(self.options['type'])}")
