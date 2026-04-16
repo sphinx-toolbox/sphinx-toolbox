@@ -455,6 +455,11 @@ class MethodDocumenter(OverloadMixin, autodoc.MethodDocumenter):  # type: ignore
 		return super().process_overload_signature(overload)
 
 
+def _after_config_inited(app: Sphinx, config: Any) -> None:
+	app.add_autodocumenter(FunctionDocumenter, override=True)
+	app.add_autodocumenter(MethodDocumenter, override=True)
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -463,8 +468,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx application.
 	"""
 
-	app.add_autodocumenter(FunctionDocumenter, override=True)
-	app.add_autodocumenter(MethodDocumenter, override=True)
+	# Run after sphinx.ext.autodoc._register_directives()
+	app.connect("config-inited", _after_config_inited, priority=650)
+
 	app.add_config_value(
 			"overloads_location",
 			"signature",
