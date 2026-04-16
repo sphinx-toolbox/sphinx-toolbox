@@ -211,7 +211,10 @@
        <dl class="py class">
         <dt{{ sig_object_class }} id="sphinx_toolbox.more_autodoc.generic_bases.FinalExample">
          <{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %} class="property">
-          {% if sphinx_version >= (9, 0) %}<span class="k">
+          {% if sphinx_version >= (9, 0) %}<span class="k">{# TODO: is final supposed to appear (or why didn't it until now)? #}
+           final
+          </span>
+          <span class="k">
            class
           </span>{% else %}class{% endif %}
          </{% if sphinx_version >= (9, 0) %}span{% else %}em{% endif %}>

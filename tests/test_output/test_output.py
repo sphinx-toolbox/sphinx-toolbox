@@ -132,7 +132,6 @@ pages_to_check: List[ParameterSet] = [
 				"generic_bases.html",
 				marks=[
 						min_version(3.7, reason="Output differs on Python 3.8+"),
-						pytest.mark.skipif(sphinx.version_info[0] == 9, reason="TODO: Sphinx9 blocker"),
 						],
 				id="generic_bases",
 				),

@@ -8,7 +8,7 @@ from sphinx_toolbox.testing import run_setup
 
 
 def test_setup():
-	setup_ret, directives, roles, additional_nodes, app = run_setup(generic_bases.setup)
+	setup_ret, directives, roles, additional_nodes, app = run_setup(generic_bases.setup, call_config_events=True)
 
 	assert setup_ret == {"parallel_read_safe": True, "version": __version__}
 

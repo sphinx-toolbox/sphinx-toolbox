@@ -552,6 +552,11 @@ def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]) -> None:
 
 	.. versionadded:: 0.8.0
 
+	.. note::
+		
+		With Sphinx 9.0 and later you may need to call this function in a handler for the ``config-inited`` event
+		rather than in ``setup()`` directly, to ensure the class is actualy registered as a documenter.
+
 	:param app: The Sphinx application.
 	:param \*documenters:
 	"""
@@ -560,6 +565,7 @@ def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]) -> None:
 		existing_documenter = app.registry.documenters.get(cls.objtype)
 		if existing_documenter is None or not issubclass(existing_documenter, cls):
 			app.add_autodocumenter(cls, override=True)
+			assert app.registry.documenters[cls.objtype] is cls
 
 
 def baseclass_is_private(obj: Type) -> bool:

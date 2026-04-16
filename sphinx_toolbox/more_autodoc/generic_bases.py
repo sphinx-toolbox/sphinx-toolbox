@@ -73,7 +73,7 @@ API Reference
 
 # stdlib
 import sys
-from typing import List, Tuple
+from typing import Any, List, Tuple
 
 # 3rd party
 from sphinx.application import Sphinx
@@ -155,6 +155,10 @@ def _add_generic_bases(documenter: Documenter) -> None:
 		documenter.add_line("   " + _("Bases: %s") % bases_string, sourcename)
 
 
+def _after_config_inited(app: Sphinx, config: Any) -> None:
+	allow_subclass_add(app, GenericBasesClassDocumenter)
+
+
 @metadata_add_version
 def setup(app: Sphinx) -> SphinxExtMetadata:
 	"""
@@ -165,7 +169,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx application.
 	"""
 
-	allow_subclass_add(app, GenericBasesClassDocumenter)
+	# Run after sphinx.ext.autodoc._register_directives()
+	app.connect("config-inited", _after_config_inited, priority=650)
+
 	app.add_config_value(
 			"generic_bases_fully_qualified",
 			default=False,
