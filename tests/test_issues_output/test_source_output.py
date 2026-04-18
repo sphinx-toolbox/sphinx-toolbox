@@ -3,7 +3,6 @@ from typing import Dict, List, Optional, Union, cast
 
 # 3rd party
 import pytest
-import sphinx
 from _pytest.mark import ParameterSet
 from bs4 import BeautifulSoup, Tag
 from coincidence.selectors import min_version, only_version

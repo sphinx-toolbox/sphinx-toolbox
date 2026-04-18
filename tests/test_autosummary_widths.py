@@ -4,7 +4,6 @@ from typing import cast
 
 # 3rd party
 import pytest
-import sphinx
 from domdf_python_tools.paths import PathPlus
 from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx

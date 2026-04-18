@@ -1,5 +1,4 @@
 # 3rd party
-from coincidence.regressions import AdvancedFileRegressionFixture
 from sphinx.ext.autodoc.directive import AutodocDirective
 
 # this package
@@ -8,7 +7,7 @@ from sphinx_toolbox.testing import run_setup
 from tests.common import get_app_config_values
 
 
-def test_setup(advanced_file_regression: AdvancedFileRegressionFixture):
+def test_setup():
 	setup_ret, directives, roles, additional_nodes, app = run_setup(more_autosummary.setup, call_config_events=True)
 
 	assert setup_ret == {"parallel_read_safe": True, "version": __version__}

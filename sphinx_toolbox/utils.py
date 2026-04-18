@@ -553,7 +553,7 @@ def allow_subclass_add(app: Sphinx, *documenters: Type[Documenter]) -> None:
 	.. versionadded:: 0.8.0
 
 	.. note::
-		
+
 		With Sphinx 9.0 and later you may need to call this function in a handler for the ``config-inited`` event
 		rather than in ``setup()`` directly, to ensure the class is actualy registered as a documenter.
 
@@ -676,7 +676,7 @@ def add_fallback_css_class(
 	return func
 
 
-def _set_classes(options):
+def _set_classes(options: Dict[str, Any]) -> None:
 	# Our version of the old docutils function
 
 	if options and "class" in options:
