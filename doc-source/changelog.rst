@@ -2,6 +2,19 @@
 Changelog
 ===============
 
+4.2.0
+----------------------
+
+* Remove cap on ``ruamel.yaml`` (:pr:`214`)
+* Updates to ``more_autodoc`` for Sphinx 9 compatibility.
+
+
+4.1.0
+----------------------
+
+General compatibility updates
+
+
 4.0.0
 ----------------------
 
