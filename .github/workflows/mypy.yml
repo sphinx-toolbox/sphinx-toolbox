@@ -24,10 +24,10 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
 
       - name: Check for changed files
-        uses: dorny/paths-filter@v2
+        uses: dorny/paths-filter@v4
         id: changes
         with:
           list-files: "json"
@@ -37,7 +37,7 @@ jobs:
 
       - name: Setup Python 🐍
         if: steps.changes.outputs.code == 'true'
-        uses: "actions/setup-python@v5"
+        uses: "actions/setup-python@v6"
         with:
           python-version: "3.9"
 

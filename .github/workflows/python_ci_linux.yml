@@ -40,11 +40,11 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
 
       - name: Check for changed files
         if: startsWith(github.ref, 'refs/tags/') != true
-        uses: dorny/paths-filter@v2
+        uses: dorny/paths-filter@v4
         id: changes
         with:
           list-files: "json"
@@ -55,7 +55,7 @@ jobs:
       - name: Setup Python 🐍
         id: setup-python
         if: ${{ steps.changes.outputs.code == 'true' || steps.changes.outcome == 'skipped' }}
-        uses: "actions/setup-python@v5"
+        uses: "actions/setup-python@v6"
         with:
           python-version: "${{ matrix.config.python-version }}"
 
@@ -89,10 +89,10 @@ jobs:
     runs-on: "ubuntu-22.04"
     steps:
       - name: Checkout 🛎️
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
 
       - name: Setup Python 🐍
-        uses: "actions/setup-python@v5"
+        uses: "actions/setup-python@v6"
         with:
           python-version: 3.8
 
@@ -142,11 +142,11 @@ jobs:
     runs-on: "ubuntu-22.04"
     steps:
       - name: Checkout 🛎️
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
         if: startsWith(github.ref, 'refs/tags/')
 
       - name: Setup Python 🐍
-        uses: "actions/setup-python@v5"
+        uses: "actions/setup-python@v6"
         if: startsWith(github.ref, 'refs/tags/')
         with:
           python-version: 3.8

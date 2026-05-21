@@ -5,6 +5,7 @@ exclude: ^$
 
 ci:
   autoupdate_schedule: quarterly
+  skip: [taplo-lint]
 
 repos:
  - repo: https://github.com/repo-helper/pyproject-parser
@@ -21,7 +22,6 @@ repos:
     - id: check-case-conflict
     - id: check-executables-have-shebangs
     - id: check-json
-    - id: check-toml
     - id: check-yaml
     - id: check-merge-conflict
     - id: check-symlinks
@@ -30,6 +30,12 @@ repos:
     - id: trailing-whitespace
     - id: mixed-line-ending
     - id: end-of-file-fixer
+
+ - repo: https://github.com/domdfcoding/taplo-pre-commit
+   rev: v0.10.0
+   hooks:
+    - id: taplo-lint
+      args: []
 
  - repo: https://github.com/domdfcoding/pre-commit-hooks
    rev: v0.7.0
