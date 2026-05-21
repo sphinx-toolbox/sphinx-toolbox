@@ -4,7 +4,6 @@ import re
 # 3rd party
 import pytest
 from coincidence.regressions import AdvancedFileRegressionFixture
-from domdf_python_tools.paths import PathPlus
 from sphinx.events import EventListener
 from sphinx.ext.autodoc.directive import AutodocDirective
 
@@ -144,7 +143,7 @@ def test_terminal_regex_parser(regex: re.Pattern, advanced_file_regression: Adva
 	advanced_file_regression.check(terminal_parser.parse_pattern(regex))
 
 
-def test_copy_asset_files(tmp_pathplus: PathPlus, advanced_file_regression: AdvancedFileRegressionFixture):
+def test_copy_asset_files(advanced_file_regression: AdvancedFileRegressionFixture):
 	check_asset_copy(
 			regex.copy_asset_files,
 			"_static/regex.css",

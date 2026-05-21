@@ -29,7 +29,7 @@ Internal Sphinx extension to provide custom CSS.
 #
 
 # stdlib
-from typing import MutableMapping, Optional
+from typing import Mapping, MutableMapping, Optional, Union
 
 # 3rd party
 import dict2css
@@ -39,11 +39,11 @@ from sphinx.application import Sphinx
 # this package
 from sphinx_toolbox.utils import SphinxExtMetadata, metadata_add_version
 
-__all__ = ("copy_asset_files", "setup")
+__all__ = ("copy_asset_files", "dump_css", "setup")
 
 installation_styles: MutableMapping[str, dict2css.Style] = {
 		'div[id*="installation"] .sphinx-tabs-tab': {"color": "#2980b9"},
-		"button.sphinx-tabs-tab,div.sphinx-tabs-panel": {"outline": (None, dict2css.IMPORTANT)},
+		"button.sphinx-tabs-tab, div.sphinx-tabs-panel": {"outline": (None, dict2css.IMPORTANT)},
 		}
 
 shields_styles: MutableMapping[str, dict2css.Style] = {
@@ -115,7 +115,21 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 
 	css_static_dir = PathPlus(app.outdir) / "_static" / "css"
 	css_static_dir.maybe_make(parents=True)
-	dict2css.dump(style, css_static_dir / "sphinx-toolbox.css")
+	dump_css(style, css_static_dir / "sphinx-toolbox.css")
+
+
+def dump_css(styles: Mapping[str, Union[dict2css.Style, Mapping]], file: PathPlus, **kwargs) -> None:
+	r"""
+	Wrapper around dict2css.
+
+	:param styles:
+	:param file:
+	:param \*\*kwargs:
+	"""
+
+	as_css = dict2css.dumps(styles, **kwargs)
+	as_css = as_css.replace(": None", ": none")
+	file.write_clean(as_css)
 
 
 @metadata_add_version

@@ -43,7 +43,6 @@ Fix for :github:issue:`51 <executablebooks/sphinx-panels>`.
 from typing import Optional
 
 # 3rd party
-import dict2css
 from docutils import nodes
 from domdf_python_tools.paths import PathPlus
 from sphinx.application import Sphinx
@@ -111,7 +110,7 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 
 	css_static_dir = PathPlus(app.builder.outdir) / "_static" / "css"
 	css_static_dir.maybe_make(parents=True)
-	dict2css.dump(_css.tweaks_sphinx_panels_tabs_styles, css_static_dir / "tabs_customise.css")
+	_css.dump_css(_css.tweaks_sphinx_panels_tabs_styles, css_static_dir / "tabs_customise.css")
 
 
 @metadata_add_version

@@ -166,6 +166,7 @@ from sphinx.writers.html5 import HTML5Translator
 from sphinx.writers.latex import LaTeXTranslator
 
 # this package
+from sphinx_toolbox._css import dump_css
 from sphinx_toolbox.utils import Config, OptionSpec, SphinxExtMetadata, metadata_add_version
 
 __all__ = (
@@ -391,7 +392,7 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 
 	static_dir = PathPlus(app.outdir) / "_static"
 	static_dir.maybe_make(parents=True)
-	dict2css.dump(style, static_dir / "sphinx-toolbox-code.css")
+	dump_css(style, static_dir / "sphinx-toolbox-code.css")
 
 
 def configure(app: Sphinx, config: Config) -> None:

@@ -22,7 +22,7 @@ div[id*="installation"] .sphinx-tabs-tab {
 }
 
 button.sphinx-tabs-tab, div.sphinx-tabs-panel {
-	outline: None !important
+	outline: none !important
 }
 
 .table-wrapper td p img.sphinx_toolbox_shield {

@@ -141,7 +141,6 @@ from textwrap import dedent
 from typing import Any, Callable, List, Optional, Pattern, Tuple
 
 # 3rd party
-import dict2css
 from docutils import nodes
 from docutils.nodes import Node, system_message
 from domdf_python_tools.paths import PathPlus
@@ -817,7 +816,7 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 
 	static_dir = PathPlus(app.outdir) / "_static"
 	static_dir.maybe_make(parents=True)
-	dict2css.dump(_css.regex_styles, static_dir / "regex.css", minify=True)
+	_css.dump_css(_css.regex_styles, static_dir / "regex.css", minify=True)
 
 
 regex_parser = HTMLRegexParser()

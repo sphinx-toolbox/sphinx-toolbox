@@ -362,7 +362,6 @@ from typing import List, Optional, Tuple
 from urllib.parse import quote
 
 # 3rd party
-import dict2css
 import docutils
 from apeye.url import URL
 from docutils import nodes
@@ -865,7 +864,7 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 
 	static_dir = PathPlus(app.outdir) / "_static"
 	static_dir.maybe_make(parents=True)
-	dict2css.dump(_css.shields_styles, static_dir / "toolbox-shields.css", minify=True)
+	_css.dump_css(_css.shields_styles, static_dir / "toolbox-shields.css", minify=True)
 
 
 @metadata_add_version

@@ -177,7 +177,6 @@ import warnings
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 # 3rd party
-import dict2css
 import sphinx.environment
 from docutils import nodes
 from docutils.parsers.rst import directives
@@ -699,7 +698,7 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 
 	static_dir = PathPlus(app.outdir) / "_static"
 	static_dir.maybe_make(parents=True)
-	dict2css.dump(_css.installation_styles, static_dir / "sphinx_toolbox_installation.css", minify=True)
+	_css.dump_css(_css.installation_styles, static_dir / "sphinx_toolbox_installation.css", minify=True)
 
 	(static_dir / "sphinx_toolbox_installation.js").write_lines([
 			"// Based on https://github.com/executablebooks/sphinx-tabs/blob/master/sphinx_tabs/static/tabs.js",
