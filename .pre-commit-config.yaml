@@ -14,7 +14,7 @@ repos:
     - id: reformat-pyproject
 
  - repo: https://github.com/pre-commit/pre-commit-hooks
-   rev: v3.4.0
+   rev: v6.0.0
    hooks:
     - id: check-added-large-files
     - id: check-ast
@@ -70,7 +70,7 @@ repos:
     - id: rst-inline-touching-normal
 
  - repo: https://github.com/python-formate/pyupgrade
-   rev: bbe3007
+   rev: v3.3.0
    hooks:
     - id: pyupgrade
       args:
@@ -78,13 +78,13 @@ repos:
        - --keep-runtime-typing
 
  - repo: https://github.com/Lucas-C/pre-commit-hooks
-   rev: v1.5.1
+   rev: v1.5.6
    hooks:
     - id: remove-crlf
     - id: forbid-crlf
 
  - repo: https://github.com/python-formate/snippet-fmt
-   rev: v0.1.5
+   rev: v0.2.0
    hooks:
     - id: snippet-fmt
 
