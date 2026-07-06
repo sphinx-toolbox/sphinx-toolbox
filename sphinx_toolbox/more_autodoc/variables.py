@@ -625,7 +625,6 @@ class SlotsAttributeDocumenter(TypedAttributeDocumenter):
 	.. versionadded:: 1.1.0
 
 	.. latex:vspace:: 10px
-
 	"""  # noqa: D400
 
 	objtype = "slotsattribute"

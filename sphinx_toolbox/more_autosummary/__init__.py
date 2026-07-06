@@ -196,7 +196,8 @@ else:  # pragma: no cover
 	from sphinx.util.inspect import getannotations
 
 	def _get_module_members(module: Any) -> List[Tuple[str, Any]]:  # noqa: PRM002
-		"""Get members of target module."""
+		"""Get members of target module.
+"""
 		# 3rd party
 		from sphinx.ext.autodoc import INSTANCEATTR
 

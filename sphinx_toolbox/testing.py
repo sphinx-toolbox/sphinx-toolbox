@@ -913,7 +913,6 @@ class LaTeXRegressionFixture(AdvancedFileRegressionFixture):
 				app.build()
 				output_file = app.outdir / "python.tex"
 				latex_regression.check(output_file.read_text())
-
 		"""  # noqa: D400
 
 		__tracebackhide__ = True

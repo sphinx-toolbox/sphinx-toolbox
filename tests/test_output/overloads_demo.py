@@ -39,7 +39,6 @@ def serde(  # type: ignore[empty-body]
 		Returns a dictionary containing the contents of the class.
 
 		:rtype: :class:`~typing.MutableMapping`\[:class:`str`, :py:obj:`~typing.Any`\]
-
 	"""
 
 
