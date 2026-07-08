@@ -270,9 +270,9 @@ class Sources(List[Tuple[str, str, Callable, Callable, Optional[Dict[str, Callab
 		.. code-block:: python
 
 			def function(
-				options: Dict[str, Any],  # Mapping of option names to values.
-				env: sphinx.environment.BuildEnvironment,  # The Sphinx build environment.
-				) -> List[str]: ...
+					options: Dict[str, Any],  # Mapping of option names to values.
+					env: sphinx.environment.BuildEnvironment,  # The Sphinx build environment.
+					) -> List[str]: ...
 
 		:param option_name: A string to use in the directive to specify the source to use.
 		:param source_name: A string to use in tabbed installation instructions to represent this source.
