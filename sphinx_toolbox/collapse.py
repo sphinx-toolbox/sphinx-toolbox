@@ -152,6 +152,7 @@ class CollapseSummaryNode(nodes.TextElement, nodes.General):
 	Node that represents the summary of a collapsible section.
 	"""
 
+
 def visit_collapse_summary_node(translator: HTML5Translator, node: CollapseSummaryNode) -> None:
 	"""
 	Visit a :class:`~.CollapseSummaryNode`.
@@ -178,6 +179,7 @@ def visit_collapse_summary_node_non_html(*args, **kwargs) -> None:
 	"""Skip the collapse summary for non-HTML builders."""
 
 	raise nodes.SkipNode
+
 
 class CollapseNode(nodes.Body, nodes.Element):  # noqa: PRM002
 	"""
