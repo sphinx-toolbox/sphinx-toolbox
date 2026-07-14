@@ -175,8 +175,13 @@ def depart_collapse_summary_node(translator: HTML5Translator, node: CollapseSumm
 	translator.body.append("</summary>")
 
 
-def visit_collapse_summary_node_non_html(*args, **kwargs) -> None:
-	"""Skip the collapse summary for non-HTML builders."""
+def visit_collapse_summary_node_non_html(*_, **__) -> None:
+	r"""
+	Skip the collapse summary for non-HTML builders.
+
+	:param \*_: Positional arguments; ignored.
+	:param \*\*__: Keyword arguments; ignored.
+	"""
 
 	raise nodes.SkipNode
 
