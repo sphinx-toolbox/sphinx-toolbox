@@ -34,6 +34,8 @@
     <div class="bodywrapper">
      <div class="body" role="main">
       <div class="section" id="collapse">
+       <span id="collapse-heading">
+       </span>
        <h1>
         Collapse
         <a class="headerlink" href="#collapse" title="{{ permalink }} to this {{ heading }}">
@@ -62,6 +64,32 @@
         </summary>
         <p>
          The text should be visible when the page loads.
+        </p>
+       </details>
+       <details class="summary-strong-and-emphasis-literal-hello-and-a-reference">
+        <summary>
+         <strong>
+          Strong
+         </strong>
+         and
+         <em>
+          emphasis
+         </em>
+         ,
+         <code class="docutils literal notranslate">
+          <span class="pre">
+           literal
+          </span>
+         </code>
+         , world, and
+         <a class="reference internal" href="#collapse-heading">
+          <span class="std std-ref">
+           a reference
+          </span>
+         </a>
+        </summary>
+        <p>
+         The label supports inline markup.
         </p>
        </details>
       </div>{% if sphinx_version >= (8, 1) %}

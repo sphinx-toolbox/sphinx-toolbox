@@ -507,12 +507,14 @@ to the \sphinxcode{\sphinxupquote{extensions}} variable in your \sphinxcode{\sph
 <% endif %>
 
 \chapter{Collapse}
-\label{\detokenize{collapse:collapse}}\label{\detokenize{collapse::doc}}
+\label{\detokenize{collapse:collapse}}\label{\detokenize{collapse:collapse-heading}}\label{\detokenize{collapse::doc}}
 Something small enough to escape casual notice.
 
 Something else that might escape notice.
 
 The text should be visible when the page loads.
+
+The label supports inline markup.
 <% if sphinx_version > (4, 5) %>
 \sphinxstepscope
 <% endif %>

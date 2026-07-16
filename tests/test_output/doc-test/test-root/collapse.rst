@@ -1,5 +1,7 @@
 :orphan:
 
+.. _collapse-heading:
+
 =========
 Collapse
 =========
@@ -20,3 +22,7 @@ Collapse
 	:open:
 
 	The text should be visible when the page loads.
+
+.. collapse:: **Strong** and *emphasis*, ``literal``, |hello|, and :ref:`a reference <collapse-heading>`
+
+	The label supports inline markup.

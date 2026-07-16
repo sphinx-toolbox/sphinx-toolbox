@@ -19,6 +19,8 @@ Usage
 
 	.. _details: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
 
+	The label supports the complete inline markup syntax of the active source parser.
+
 	With non-HTML builders, the content will be added as-is.
 
 	.. rest-example::
@@ -39,6 +41,10 @@ Usage
 			.. code-block:: python
 
 				print("Not really")
+
+		.. collapse:: The **label** also supports *inline* ``markup``!
+
+			Markdown is also supported if using MyST.
 
 
 	.. rst:directive:option:: open
@@ -83,6 +89,7 @@ API Reference
 #
 
 # stdlib
+from html import escape
 from typing import Optional, Sequence
 
 # 3rd party
@@ -128,16 +135,59 @@ class CollapseDirective(SphinxDirective):
 
 		text = '\n'.join(self.content)
 		label = self.arguments[0]
+		inline_nodes, messages = self.state.inline_text(label, self.lineno)
+		summary_node = CollapseSummaryNode(label, '', *inline_nodes)
+		self.set_source_info(summary_node)
 
 		collapse_node = CollapseNode(text, label, **self.options)
 
 		self.add_name(collapse_node)
 
-		collapse_node["classes"].append(f"summary-{nodes.make_id(label)}")
+		collapse_node["classes"].append(f"summary-{nodes.make_id(summary_node.astext())}")
 
+		collapse_node.append(summary_node)
 		self.state.nested_parse(self.content, self.content_offset, collapse_node)
 
-		return [collapse_node]
+		return [collapse_node, *messages]
+
+
+class CollapseSummaryNode(nodes.TextElement, nodes.General):
+	"""
+	Node that represents the summary of a collapsible section.
+	"""
+
+
+def visit_collapse_summary_node(translator: HTML5Translator, node: CollapseSummaryNode) -> None:
+	"""
+	Visit a :class:`~.CollapseSummaryNode`.
+
+	:param translator:
+	:param node: The node being visited.
+	"""
+
+	translator.body.append("<summary>")
+
+
+def depart_collapse_summary_node(translator: HTML5Translator, node: CollapseSummaryNode) -> None:
+	"""
+	Depart a :class:`~.CollapseSummaryNode`.
+
+	:param translator:
+	:param node: The node being visited.
+	"""
+
+	translator.body.append("</summary>")
+
+
+def visit_collapse_summary_node_non_html(*_, **__) -> None:
+	r"""
+	Skip the collapse summary for non-HTML builders.
+
+	:param \*_: Positional arguments; ignored.
+	:param \*\*__: Keyword arguments; ignored.
+	"""
+
+	raise nodes.SkipNode
 
 
 class CollapseNode(nodes.Body, nodes.Element):  # noqa: PRM002
@@ -174,7 +224,9 @@ def visit_collapse_node(translator: HTML5Translator, node: CollapseNode) -> None
 	if node.attributes.get("open", False):
 		tag_parts.append("open")
 
-	translator.body.append(f"<{tag_parts: }>\n<summary>{node['label']}</summary>")
+	translator.body.append(f"<{tag_parts: }>\n")
+	if not any(isinstance(child, CollapseSummaryNode) for child in node.children):
+		translator.body.append(f"<summary>{escape(node.get('label') or '')}</summary>")
 	translator.context.append("</details>")
 
 
@@ -203,6 +255,12 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 			html=(visit_collapse_node, depart_collapse_node),
 			latex=(lambda *args, **kwargs: None, lambda *args, **kwargs: None),
 			man=(lambda *args, **kwargs: None, lambda *args, **kwargs: None),
+			)
+	app.add_node(
+			CollapseSummaryNode,
+			html=(visit_collapse_summary_node, depart_collapse_summary_node),
+			latex=(visit_collapse_summary_node_non_html, lambda *args, **kwargs: None),
+			man=(visit_collapse_summary_node_non_html, lambda *args, **kwargs: None),
 			)
 
 	return {
