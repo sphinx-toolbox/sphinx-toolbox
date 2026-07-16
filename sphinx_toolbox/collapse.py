@@ -42,6 +42,10 @@ Usage
 
 				print("Not really")
 
+		.. collapse:: The **label** also supports *inline* ``markup``!
+
+			Markdown is also supported if using MyST.
+
 
 	.. rst:directive:option:: open
 		:type: flag
