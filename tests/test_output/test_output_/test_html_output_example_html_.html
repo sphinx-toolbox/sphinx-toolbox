@@ -1,5 +1,6 @@
 {% set permalink = ("Link" if sphinx_version >= (7, 2) else 'Permalink') -%}
 {% set heading = ("heading" if sphinx_version >= (5, 0) else 'headline') -%}
+{% set aside = ("aside" if sphinx_version >= (5, 0) else 'div') -%}
 <!DOCTYPE html>
 <html{% if sphinx_version >= (7, 2) %} data-content_root="./"{% endif %}{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
  <head>
@@ -69,7 +70,7 @@
 </pre>
          </div>
         </div>
-        <aside class="topic">
+        <{{ aside }} class="topic">
          <p class="topic-title">
           Topic Title
          </p>
@@ -78,7 +79,7 @@
 the body of the topic, and are
 interpreted as body elements.
          </p>
-        </aside>
+        </{{ aside }}>
        </div>
       </div>{% if sphinx_version >= (8, 1) %}
       <div class="clearer">

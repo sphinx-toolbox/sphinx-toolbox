@@ -91,7 +91,7 @@ def test_example_html_output(page: BeautifulSoup):
 	assert body_body[0].contents[0].name == "div"  # type: ignore[attr-defined]
 	assert body_body[0].contents[0]["class"] == ["highlight"]  # type: ignore[attr-defined]
 
-	assert body_body[1].name == "aside"  # type: ignore[attr-defined]
+	assert body_body[1].name in {"div", "aside"}  # type: ignore[attr-defined]
 	assert body_body[1]["class"] == ["topic"]  # type: ignore[index]
 
 	# TODO: body[1]
