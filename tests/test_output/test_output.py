@@ -80,7 +80,7 @@ def test_example_html_output(page: BeautifulSoup):
 	assert body[1]["id"] == "example-1"  # type: ignore[index]
 	assert body[1]["class"] == ["rest-example", "docutils", "container"]  # type: ignore[index]
 
-	body_body: List[PageElement] = list(
+	body_body = list(
 			filter(lambda a: a != '\n', body[1].contents),  # type: ignore[arg-type,attr-defined]
 			)
 	assert len(body_body) == 2
