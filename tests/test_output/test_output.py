@@ -56,7 +56,7 @@ def test_example_html_output(page: BeautifulSoup):
 	selector_string = "div.body div#sphinx-toolbox-demo-rest-example"
 
 	body = list(filter(lambda a: a != '\n', page.select(selector_string)[0].contents))[1:]
-	assert len(body) == 1, pformat(body)
+	assert len(body) == 2, pformat(body)
 
 	assert body[0].name == "div"  # type: ignore[attr-defined]
 	assert body[0]["id"] == "example-0"  # type: ignore[index]
@@ -75,6 +75,26 @@ def test_example_html_output(page: BeautifulSoup):
 
 	assert body_body[1].name == "div"  # type: ignore[attr-defined]
 	assert body_body[1]["class"] == ["highlight-python", "notranslate"]  # type: ignore[index]
+
+	assert body[1].name == "div"  # type: ignore[attr-defined]
+	assert body[1]["id"] == "example-1"  # type: ignore[index]
+	assert body[1]["class"] == ["rest-example", "docutils", "container"]  # type: ignore[index]
+
+	body_body: List[PageElement] = list(
+			filter(lambda a: a != '\n', body[1].contents),  # type: ignore[arg-type,attr-defined]
+			)
+	assert len(body_body) == 2
+
+	assert body_body[0].name == "div"  # type: ignore[attr-defined]
+	assert body_body[0]["class"] == ["highlight-rest", "notranslate"]  # type: ignore[index]
+
+	assert body_body[0].contents[0].name == "div"  # type: ignore[attr-defined]
+	assert body_body[0].contents[0]["class"] == ["highlight"]  # type: ignore[attr-defined]
+
+	assert body_body[1].name == "aside"  # type: ignore[attr-defined]
+	assert body_body[1]["class"] == ["topic"]  # type: ignore[index]
+
+	# TODO: body[1]
 
 
 pages_to_check: List[ParameterSet] = [

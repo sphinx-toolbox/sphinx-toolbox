@@ -98,6 +98,7 @@ def copy_asset_files(app: Sphinx, exception: Optional[Exception] = None) -> None
 
 	rest_example_style = {
 			"padding-left": "5px",
+			"margin-bottom": "10px",
 			"border-style": "dotted",
 			"border-width": "1px",
 			"border-color": "darkgray",

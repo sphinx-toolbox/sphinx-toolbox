@@ -36,7 +36,7 @@ Usage
 
 	.. latex:clearpage::
 
-	:bold-title:`Example`
+	:bold-title:`Examples`
 
 	.. rest-example::
 
@@ -45,6 +45,15 @@ Usage
 			:source:`sphinx_toolbox/config.py`
 
 			Here is the :source:`source code <sphinx_toolbox/config.py>`
+
+
+	.. rest-example::
+
+		.. topic:: Topic Title
+
+			Subsequent indented lines comprise
+			the body of the topic, and are
+			interpreted as body elements.
 
 
 API Reference
@@ -92,7 +101,7 @@ from sphinx_toolbox.utils import OptionSpec, Purger, SphinxExtMetadata, metadata
 __all__ = ("reSTExampleDirective", "make_rest_example", "rest_example_purger", "setup")
 
 
-class reSTExample(nodes.Structural, nodes.Element):
+class reSTExample(nodes.sidebar):
 	pass
 
 
