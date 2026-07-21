@@ -94,8 +94,6 @@ def test_example_html_output(page: BeautifulSoup):
 	assert body_body[1].name in {"div", "aside"}  # type: ignore[attr-defined]
 	assert body_body[1]["class"] == ["topic"]  # type: ignore[index]
 
-	# TODO: body[1]
-
 
 pages_to_check: List[ParameterSet] = [
 		param("assets.html", idx=0),
