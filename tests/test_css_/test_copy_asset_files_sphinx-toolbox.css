@@ -12,6 +12,7 @@ p.sphinx-toolbox-extensions, div.sphinx-toolbox-extensions.highlight-python, div
 
 div.rest-example.docutils.container {
 	padding-left: 5px;
+	margin-bottom: 10px;
 	border-style: dotted;
 	border-width: 1px;
 	border-color: darkgray
