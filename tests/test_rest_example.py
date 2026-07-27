@@ -21,24 +21,23 @@ def test_make_rest_example():
 			{},
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			[],
-			) == [".. container:: rest-example", '', "    .. code-block:: rest", '']
+			) == ['', ".. code-block:: rest", '']
 
 	assert make_rest_example(
 			{"hello": "world"},
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			[],
-			) == [".. container:: rest-example", '', "    .. code-block:: rest", "        :hello: world", '']
+			) == ['', ".. code-block:: rest", "    :hello: world", '']
 
 	assert make_rest_example(
 			{"hello": "world", "flag": None},
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			[],
 			) == [
-					".. container:: rest-example",
 					'',
-					"    .. code-block:: rest",
-					"        :hello: world",
-					"        :flag:",
+					".. code-block:: rest",
+					"    :hello: world",
+					"    :flag:",
 					'',
 					]
 
@@ -47,15 +46,14 @@ def test_make_rest_example():
 			FakeBuildEnvironment(4),  # type: ignore[arg-type]
 			["this is some content"],
 			) == [
-					".. container:: rest-example",
 					'',
-					"    .. code-block:: rest",
-					"        :hello: world",
-					"        :flag:",
-					'',
-					"        this is some content",
+					".. code-block:: rest",
+					"    :hello: world",
+					"    :flag:",
 					'',
 					"    this is some content",
+					'',
+					"this is some content",
 					'',
 					]
 
@@ -63,17 +61,16 @@ def test_make_rest_example():
 			{},
 			FakeBuildEnvironment(8),  # type: ignore[arg-type]
 			[],
-			) == [".. container:: rest-example", '', "        .. code-block:: rest", '']
+			) == ['', ".. code-block:: rest", '']
 
 	assert make_rest_example(
 			{"hello": "world"},
 			FakeBuildEnvironment(8),  # type: ignore[arg-type]
 			[],
 			) == [
-					".. container:: rest-example",
 					'',
-					"        .. code-block:: rest",
-					"                :hello: world",
+					".. code-block:: rest",
+					"        :hello: world",
 					'',
 					]
 
@@ -82,11 +79,10 @@ def test_make_rest_example():
 			FakeBuildEnvironment(8),  # type: ignore[arg-type]
 			[],
 			) == [
-					".. container:: rest-example",
 					'',
-					"        .. code-block:: rest",
-					"                :hello: world",
-					"                :flag:",
+					".. code-block:: rest",
+					"        :hello: world",
+					"        :flag:",
 					'',
 					]
 
@@ -95,15 +91,14 @@ def test_make_rest_example():
 			FakeBuildEnvironment(8),  # type: ignore[arg-type]
 			["this is some content"],
 			) == [
-					".. container:: rest-example",
 					'',
-					"        .. code-block:: rest",
-					"                :hello: world",
-					"                :flag:",
-					'',
-					"                this is some content",
+					".. code-block:: rest",
+					"        :hello: world",
+					"        :flag:",
 					'',
 					"        this is some content",
+					'',
+					"this is some content",
 					'',
 					]
 

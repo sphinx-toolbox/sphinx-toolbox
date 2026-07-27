@@ -36,7 +36,7 @@ Usage
 
 	.. latex:clearpage::
 
-	:bold-title:`Example`
+	:bold-title:`Examples`
 
 	.. rest-example::
 
@@ -45,6 +45,15 @@ Usage
 			:source:`sphinx_toolbox/config.py`
 
 			Here is the :source:`source code <sphinx_toolbox/config.py>`
+
+
+	.. rest-example::
+
+		.. topic:: Topic Title
+
+			Subsequent indented lines comprise
+			the body of the topic, and are
+			interpreted as body elements.
 
 
 API Reference
@@ -84,11 +93,16 @@ from docutils.statemachine import ViewList
 from domdf_python_tools.stringlist import StringList
 from sphinx.application import Sphinx
 from sphinx.util.docutils import SphinxDirective
+from sphinx.writers.html5 import HTML5Translator
 
 # this package
 from sphinx_toolbox.utils import OptionSpec, Purger, SphinxExtMetadata, metadata_add_version
 
 __all__ = ("reSTExampleDirective", "make_rest_example", "rest_example_purger", "setup")
+
+
+class reSTExample(nodes.sidebar):
+	pass
 
 
 class reSTExampleDirective(SphinxDirective):
@@ -121,7 +135,7 @@ class reSTExampleDirective(SphinxDirective):
 				)
 		view = ViewList(content)
 
-		example_node = nodes.paragraph(rawsource=content)  # type: ignore[arg-type]
+		example_node = reSTExample(rawsource=content)  # type: ignore[arg-type]
 		self.state.nested_parse(view, self.content_offset, example_node)  # type: ignore[arg-type]
 
 		rest_example_purger.add_node(self.env, example_node, targetnode, self.lineno)
@@ -142,34 +156,54 @@ def make_rest_example(
 	:param content: The user-provided content of the directive.
 	"""
 
-	output = StringList(".. container:: rest-example")
+	output = StringList()
 	output.indent_type = ' ' * env.config.docutils_tab_width
 
 	output.blankline()
+	output.append(".. code-block:: rest")
 
 	with output.with_indent_size(1):
+		for option, value in options.items():
+			if value is None:
+				output.append(f":{option}:")
+			else:
+				output.append(f":{option}: {value}")
 
-		output.append(".. code-block:: rest")
-
-		with output.with_indent_size(2):
-			for option, value in options.items():
-				if value is None:
-					output.append(f":{option}:")
-				else:
-					output.append(f":{option}: {value}")
-
-			output.blankline()
-			output.extend(content)
-
-		output.blankline(ensure_single=True)
+		output.blankline()
 		output.extend(content)
-		output.blankline(ensure_single=True)
+
+	output.blankline(ensure_single=True)
+	output.extend(content)
+	output.blankline(ensure_single=True)
 
 	return list(output)
 
 
 #: Purger to track rest-example nodes, and remove redundant ones.
 rest_example_purger = Purger("all_rest_example_nodes")
+
+
+def visit_rest_example(translator: HTML5Translator, node: reSTExample) -> None:
+	"""
+	Visit a :class:`~.reSTExample`.
+
+	:param translator:
+	:param node: The node being visited.
+	"""
+
+	translator.body.append(translator.starttag(node, "div", CLASS="rest-example docutils container"))
+	translator.context.append("</div>\n")
+
+
+def depart_rest_example(translator: HTML5Translator, node: reSTExample) -> None:
+	"""
+	Depart an :class:`~.reSTExample`.
+
+	:param translator:
+	:param node: The node being visited.
+	"""
+
+	translator.body.append(translator.context.pop())
 
 
 @metadata_add_version
@@ -188,5 +222,7 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 
 	app.add_directive("rest-example", reSTExampleDirective)
 	app.connect("env-purge-doc", rest_example_purger.purge_nodes)
+
+	app.add_node(reSTExample, html=(visit_rest_example, depart_rest_example))
 
 	return {"parallel_read_safe": True}

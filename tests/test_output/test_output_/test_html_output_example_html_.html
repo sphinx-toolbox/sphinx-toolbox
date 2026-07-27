@@ -1,5 +1,6 @@
 {% set permalink = ("Link" if sphinx_version >= (7, 2) else 'Permalink') -%}
 {% set heading = ("heading" if sphinx_version >= (5, 0) else 'headline') -%}
+{% set aside = ("aside" if sphinx_version >= (5, 0) else 'div') -%}
 <!DOCTYPE html>
 <html{% if sphinx_version >= (7, 2) %} data-content_root="./"{% endif %}{% if sphinx_version >= (5, 0) %} lang="en"{% endif %}>
  <head>
@@ -40,9 +41,7 @@
          ¶
         </a>
        </h1>
-       <p id="example-0">
-       </p>
-       <div class="rest-example docutils container">
+       <div class="rest-example docutils container" id="example-0">
         <div class="highlight-rest notranslate">
          <div class="highlight">
           <pre><span></span><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">python</span>
@@ -60,8 +59,28 @@
          </div>
         </div>
        </div>
-       <p>
-       </p>
+       <div class="rest-example docutils container" id="example-1">
+        <div class="highlight-rest notranslate">
+         <div class="highlight">
+          <pre><span></span><span class="p">..</span> <span class="ow">topic</span><span class="p">::</span> Topic Title
+
+    Subsequent indented lines comprise
+    the body of the topic, and are
+    interpreted as body elements.
+</pre>
+         </div>
+        </div>
+        <{{ aside }} class="topic">
+         <p class="topic-title">
+          Topic Title
+         </p>
+         <p>
+          Subsequent indented lines comprise
+the body of the topic, and are
+interpreted as body elements.
+         </p>
+        </{{ aside }}>
+       </div>
       </div>{% if sphinx_version >= (8, 1) %}
       <div class="clearer">
       </div>{% endif %}
