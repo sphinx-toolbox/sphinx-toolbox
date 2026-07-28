@@ -172,23 +172,30 @@ except ImportError:  # pragma: no cover
 	# where it is available to import, so it is fine to do this.
 	pass
 
-try:
+if sphinx_autodoc_typehints.version.version_tuple >= (3, 8):
 	# 3rd party
-	from sphinx_autodoc_typehints import logger as sat_logger  # type: ignore[attr-defined]
-	from sphinx_autodoc_typehints import pydata_annotations  # type: ignore[attr-defined]
-except ImportError:
+	from sphinx_autodoc_typehints import _LOGGER as sat_logger
+	from sphinx_autodoc_typehints._annotations import _PYDATA_ANNOTATIONS as pydata_annotations
+elif sphinx_autodoc_typehints.version.version_tuple >= (1, 14, 1):
 	# Privatised in 1.14.1
 	# 3rd party
 	from sphinx_autodoc_typehints import _LOGGER as sat_logger
 	from sphinx_autodoc_typehints import _PYDATA_ANNOTATIONS as pydata_annotations
+else:
+	# 3rd party
+	from sphinx_autodoc_typehints import logger as sat_logger  # type: ignore[attr-defined,no-redef]
+	from sphinx_autodoc_typehints import pydata_annotations  # type: ignore[attr-defined]
 
 if isinstance(next(iter(pydata_annotations)), tuple):
 	pydata_annotations = {x[1] for x in pydata_annotations}
 
-try:
+if sphinx_autodoc_typehints.version.version_tuple >= (3, 8):
+	# 3rd party
+	from sphinx_autodoc_typehints._resolver._type_hints import _future_annotations_imported
+elif sphinx_autodoc_typehints.version.version_tuple >= (1, 14, 0):
 	# 3rd party
 	from sphinx_autodoc_typehints import _future_annotations_imported
-except ImportError:
+else:
 
 	def _future_annotations_imported(obj: Any) -> bool:
 		if sys.version_info < (3, 7):  # pragma: no cover (py37+)
@@ -230,8 +237,13 @@ get_annotation_module = sphinx_autodoc_typehints.get_annotation_module
 get_annotation_class_name = sphinx_autodoc_typehints.get_annotation_class_name
 get_annotation_args = sphinx_autodoc_typehints.get_annotation_args
 backfill_type_hints = sphinx_autodoc_typehints.backfill_type_hints
-load_args = sphinx_autodoc_typehints.load_args
-split_type_comment_args = sphinx_autodoc_typehints.split_type_comment_args
+if sphinx_autodoc_typehints.version.version_tuple >= (3, 8):
+	# 3rd party
+	from sphinx_autodoc_typehints._resolver._type_comments import _load_args as load_args
+	from sphinx_autodoc_typehints._resolver._type_comments import _split_type_comment_args as split_type_comment_args
+else:
+	load_args = sphinx_autodoc_typehints.load_args
+	split_type_comment_args = sphinx_autodoc_typehints.split_type_comment_args
 
 
 # Demonstration of module default argument in signature
