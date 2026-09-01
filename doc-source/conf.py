@@ -92,7 +92,7 @@ def setup(app):
 
 	app.connect("config-inited", lambda app, config: better_header_layout(config))
 	app.connect("build-finished", copy_asset_files)
-	app.add_js_file("https://unpkg.com/twemoji@latest/dist/twemoji.min.js")
+	app.add_js_file("https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js")
 	app.add_js_file("twemoji.js")
 	app.add_css_file("twemoji.css")
 	app.add_transform(sphinxemoji.EmojiSubstitutions)
