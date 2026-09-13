@@ -332,27 +332,27 @@ def format_annotation(annotation: Any, fully_qualified: bool = False) -> str:
 	elif annotation is itertools.cycle:
 		return f":func:`{prefix}itertools.cycle`"
 	elif annotation is types.GetSetDescriptorType:  # noqa: E721
-		return f":py:data:`{prefix}types.GetSetDescriptorType`"
+		return f":py:class:`{prefix}types.GetSetDescriptorType`"
 	elif annotation is types.MemberDescriptorType:  # noqa: E721
-		return f":py:data:`{prefix}types.MemberDescriptorType`"
+		return f":py:class:`{prefix}types.MemberDescriptorType`"
 	elif annotation is types.MappingProxyType:  # noqa: E721
 		return f":py:class:`{prefix}types.MappingProxyType`"
 	elif annotation is types.ModuleType:  # noqa: E721
 		return f":py:class:`{prefix}types.ModuleType`"
 	elif annotation is types.FunctionType:  # noqa: E721
-		return f":py:data:`{prefix}types.FunctionType`"
+		return f":py:class:`{prefix}types.FunctionType`"
 	elif annotation is types.BuiltinFunctionType:  # noqa: E721
-		return f":py:data:`{prefix}types.BuiltinFunctionType`"
+		return f":py:class:`{prefix}types.BuiltinFunctionType`"
 	elif annotation is types.MethodType:  # noqa: E721
-		return f":py:data:`{prefix}types.MethodType`"
+		return f":py:class:`{prefix}types.MethodType`"
 	elif annotation is MethodDescriptorType:
-		return f":py:data:`{prefix}types.MethodDescriptorType`"
+		return f":py:class:`{prefix}types.MethodDescriptorType`"
 	elif annotation is ClassMethodDescriptorType:
-		return f":py:data:`{prefix}types.ClassMethodDescriptorType`"
+		return f":py:class:`{prefix}types.ClassMethodDescriptorType`"
 	elif annotation is MethodWrapperType:
-		return f":py:data:`{prefix}types.MethodWrapperType`"
+		return f":py:class:`{prefix}types.MethodWrapperType`"
 	elif annotation is WrapperDescriptorType:
-		return f":py:data:`{prefix}types.WrapperDescriptorType`"
+		return f":py:class:`{prefix}types.WrapperDescriptorType`"
 	elif isinstance(annotation, ForwardRef):
 		# Unresolved forward ref
 		return f":py:obj:`{prefix}.{annotation.__forward_arg__}`"

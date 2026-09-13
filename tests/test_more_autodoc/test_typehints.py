@@ -46,17 +46,17 @@ else:
 				pytest.param(itertools.cycle, ":func:`itertools.cycle`", id="itertools.cycle"),
 				pytest.param(
 						types.GetSetDescriptorType,
-						":py:data:`types.GetSetDescriptorType`",
+						":py:class:`types.GetSetDescriptorType`",
 						id="types.GetSetDescriptorType",
 						),
 				pytest.param(
 						types.MemberDescriptorType,
-						":py:data:`types.MemberDescriptorType`",
+						":py:class:`types.MemberDescriptorType`",
 						id="types.MemberDescriptorType",
 						),
 				pytest.param(
 						ClassMethodDescriptorType,
-						":py:data:`types.ClassMethodDescriptorType`",
+						":py:class:`types.ClassMethodDescriptorType`",
 						id="types.ClassMethodDescriptorType",
 						),
 				pytest.param(
@@ -67,49 +67,49 @@ else:
 						),
 				pytest.param(
 						MethodDescriptorType,
-						":py:data:`types.MethodDescriptorType`",
+						":py:class:`types.MethodDescriptorType`",
 						id="types.MethodDescriptorType",
 						marks=not_pypy("PyPy reuses some types"),
 						),
 				pytest.param(
 						MethodDescriptorType,
-						":py:data:`types.FunctionType`",
+						":py:class:`types.FunctionType`",
 						id="types.MethodDescriptorType",
 						marks=only_pypy("PyPy reuses some types"),
 						),
 				pytest.param(
 						MethodWrapperType,
-						":py:data:`types.MethodWrapperType`",
+						":py:class:`types.MethodWrapperType`",
 						id="types.MethodWrapperType",
 						marks=not_pypy("PyPy reuses some types"),
 						),
 				pytest.param(
 						MethodWrapperType,
-						":py:data:`types.MethodType`",
+						":py:class:`types.MethodType`",
 						id="types.MethodWrapperType",
 						marks=only_pypy("PyPy reuses some types"),
 						),
 				pytest.param(
 						WrapperDescriptorType,
-						":py:data:`types.WrapperDescriptorType`",
+						":py:class:`types.WrapperDescriptorType`",
 						id="types.WrapperDescriptorType",
 						marks=not_pypy("PyPy reuses some types"),
 						),
 				pytest.param(
 						WrapperDescriptorType,
-						":py:data:`types.FunctionType`",
+						":py:class:`types.FunctionType`",
 						id="types.WrapperDescriptorType",
 						marks=only_pypy("PyPy reuses some types"),
 						),
 				pytest.param(
 						types.BuiltinFunctionType,
-						":py:data:`types.BuiltinFunctionType`",
+						":py:class:`types.BuiltinFunctionType`",
 						id="types.BuiltinFunctionType",
 						),
-				pytest.param(types.FunctionType, ":py:data:`types.FunctionType`", id="types.FunctionType"),
+				pytest.param(types.FunctionType, ":py:class:`types.FunctionType`", id="types.FunctionType"),
 				pytest.param(
 						types.MethodType,
-						":py:data:`types.MethodType`",
+						":py:class:`types.MethodType`",
 						id="types.MethodType",
 						),
 				pytest.param(
@@ -147,7 +147,7 @@ else:
 						),
 				pytest.param(
 						UnionType,
-						":py:data:`types.UnionType`",
+						":py:class:`types.UnionType`",
 						id="types.UnionType",
 						marks=min_version("3.10", reason="Introduced in 3.10"),
 						),
