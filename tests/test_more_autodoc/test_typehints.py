@@ -147,7 +147,7 @@ else:
 						),
 				pytest.param(
 						UnionType,
-						":py:class:`types.UnionType`",
+						":py:data:`types.UnionType`",
 						id="types.UnionType",
 						marks=min_version("3.10", reason="Introduced in 3.10"),
 						),
