@@ -52,7 +52,6 @@ allowed_unused = [
     "sphinx_tabs",
     "filelock",
     "cachecontrol",
-    "sphinx_jinja2_compat",
     "roman",
 ]
 namespace_packages = [ "ruamel.yaml",]
