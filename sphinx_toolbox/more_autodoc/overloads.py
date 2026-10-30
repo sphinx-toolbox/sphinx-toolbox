@@ -468,6 +468,9 @@ def setup(app: Sphinx) -> SphinxExtMetadata:
 	:param app: The Sphinx application.
 	"""
 
+	# Hack to get the docutils tab size, as there doesn't appear to be any other way
+	app.setup_extension("sphinx_toolbox.tweaks.tabsize")
+
 	# Run after sphinx.ext.autodoc._register_directives()
 	app.connect("config-inited", _after_config_inited, priority=650)
 
