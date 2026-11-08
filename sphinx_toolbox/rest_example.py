@@ -133,7 +133,12 @@ class reSTExampleDirective(SphinxDirective):
 				self.env,
 				self.content,  # type: ignore[arg-type]
 				)
-		view = ViewList(content)
+
+		# Attribute the generated lines to the directive itself.
+		# Without source information, directives which copy lines with their source
+		# (such as ``glossary``) fail with "extending a ViewList with a non-ViewList".
+		source, lineno = self.get_source_info()
+		view = ViewList(content, items=[(source or '', (lineno or 1) - 1)] * len(content))
 
 		example_node = reSTExample(rawsource=content)  # type: ignore[arg-type]
 		self.state.nested_parse(view, self.content_offset, example_node)  # type: ignore[arg-type]
