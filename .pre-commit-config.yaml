@@ -84,7 +84,7 @@ repos:
     - id: forbid-crlf
 
  - repo: https://github.com/python-formate/snippet-fmt
-   rev: v0.3.1
+   rev: v0.3.2
    hooks:
     - id: snippet-fmt
       additional_dependencies:
