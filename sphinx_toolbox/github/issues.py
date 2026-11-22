@@ -327,8 +327,15 @@ def get_issue_title(issue_url: str) -> Optional[str]:
 			# As of 10th March 2026, GitHub seems to have changed this again...
 			content = soup.find_all(("span", "bdi"), attrs={"class": "markdown-title"})[0].text
 		except IndexError:
-			# Give up
-			return None
+			# Changed again as of 20 Nov 2026, but only for PRs
+			# Try those with some sort of "markdownTitle" class
+			for tag in soup.find_all(("span", "bdi")):
+				if any(c.startswith("markdownTitle") for c in tag.get("class", [])):
+					content = tag.text
+					break
+			else:
+				# Give up
+				return None
 
 		content = xml.sax.saxutils.escape(content).replace('"', "&quot;")
 		return content.strip()
